@@ -1,0 +1,1624 @@
+\documentclass{article}
+
+\usepackage{../header-colourful}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Ehresmann, Kozul, and Cartan connections}
+\author{Linden Disney-Hogg}
+\date{November 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+These are typset notes based on a small graduate lecture course given by Professor Jos\'e Figueroa-O'Farrill at the University of Edinburgh in Autumn 2019.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fibre bundles}
+\begin{definition}[Fibre Bundle]
+A \bam{fibre bundle} consists of a smooth surjection $\pi : E \to M$ between manifolds $E$ (the \bam{total space}) and $M$ (the \bam{base space}) and such that $\forall a \in M$ there exists a neighbourhood $U \ni a$ and a diffeomorphism $\varphi : \pi^{-1} \to U \times F$ (a \bam{local trivialisation}) for some manifold $F$ (the \bam{typical fibre}) such that the following triangle commutes 
+\begin{center}
+    \begin{tikzcd}
+    \pi^{-1}(U) \arrow[r,"\varphi"] \arrow[d,"\pi"] & U \times F \arrow[dl,"pr_2"] \\ U 
+    \end{tikzcd}
+\end{center}
+\end{definition}
+
+We often write $F \to E \overset{\pi}{\to} M$. If we can take $U = M$ we say that $E$ is a \bam{trivial bundle}. Now suppose that $(U,\varphi), (V,\psi)$ are local trivialisations with $U \cap V \neq \emptyset$. Then we have two ways to view $\pi^{-1}(U \cap V)$ as a product. 
+\begin{tkz}
+(U\cap V) \times F \arrow[dr,"pr_2"] & \pi^{-1}(U \cap V) \arrow[l,"\psi"] \arrow[d,"\pi"] \arrow[r,"\varphi"] & (U \cap V) \times F \arrow[dl,"pr_2"] \\ & U\cap V & 
+\end{tkz}
+and hence 
+\eq{
+\psi \circ \varphi^{-1} : (U \cap V) \times F &\to (U\cap V) \times F \\
+(a,p) &\mapsto (a,\Phi(a,p)) 
+}
+where $\Phi(a,\cdot) : F \to F$ is a diffeomorphism, and hence it defines a \bam{transition function} $g : U \cap V \to Diff(F)$. 
+
+\begin{definition}
+Let $F \to E \overset{\pi}{\to} M$. A collection $\pbrace{(U_\alpha,\varphi_\alpha)}$ of local trivialisations where $M = \cup_{\alpha} U_\alpha$ is called a \bam{trivialising atlas} for $E \overset{\pi}{\to} M$. 
+\end{definition}
+
+Let us introduce the notation $U_{\alpha\beta} = U_\alpha \cap U_\beta$, etc. and $g_{\alpha\beta}$ the transition function defined by $\varphi_\alpha \circ \varphi_\beta^{-1}$. 
+
+\begin{fact}
+The transition functions satisfy the \bam{cocycle conditions}
+\begin{itemize}
+    \item $\forall a \in U_\alpha, \, g_{\alpha\alpha}(a) = \id_F$
+    \item $\forall a \in U_{\alpha\beta}, \, g_{\alpha\beta}(a)g_{\beta\alpha}(a) = \id_F$
+    \item $\forall a \in U_{\alpha\beta\gamma}, \, g_{\alpha\beta}(a)g_{\beta\gamma}(a)=g_{\alpha\gamma}(a)$.
+\end{itemize}
+\end{fact}
+
+\begin{definition}
+Let $E \overset{\pi}{\to} M$, $E^\prime \overset{\pi^\prime}{\to} N$ be fibre bundles. A bundle map is a pair $(\Phi,\phi)$ of smooth maps $\Phi:E \to E^\prime$, $\phi:M \to N$ such that the following commutes
+\begin{tkz}
+E \arrow[r,"\Phi"] \arrow[d,"\pi"'] & E^\prime \arrow[d,"\pi^\prime"] \\ M \arrow[r,"\phi"] & N
+\end{tkz}
+Since $\pi$ is surjective, $\phi$ is uniquely determined by $\Phi$, which is said to \bam{cover} $\phi$. Notice that $\Phi$ is \bam{fibre preserving}. 
+\end{definition}
+
+\begin{definition}
+Let $f:M \to  N$ be smooth and $E \overset{\pi_E}{\to} N$ a fibre bundle. Then we can define the \bam{pullback bundle} $f^\ast E \to M$ as the categorical pullback, i.e. 
+\eq{
+f^\ast E \equiv \pbrace{(a,e) \in M \times E \, | \, \pi_E(e) = f(a)}
+}
+\end{definition}
+Restricting the canonical projections from $M \times E$ we get maps $\pi : f^\ast E \to M$, $\Phi:f^\ast E \to E$ making the following commute 
+\begin{tkz}
+f^\ast E \arrow[r,"\Phi"] \arrow[d,"\pi"'] & E \arrow[d,"\pi_E"] \\ M \arrow[r,"f"] & N
+\end{tkz}
+Taking $ a \in M$, and $(V, \psi)$ a local trivialisation for $E \to N$ with $f(a) \in V$, then $(f^{-1}(V),\varphi)$ with $\varphi: \pi^{-1}(f^{-1}(V)) \to f^{-1}(V) \times F$ defined by $\varphi(b,e) = (b,pr_2(\psi(e))$ is a local trivialisation for $f^\ast E \to M$. This shows that $f^\ast E \to M$ is a fibre bundle, and it has fibres $(f^\ast E)_a = E_{f(a)}$. 
+
+\begin{definition}
+A \bam{section} of a fibre bundle $F \to E \overset{\pi}{\to} M$ is a smooth map $s:M \to E$ such that $\pi\circ s = \id_M$. 
+\end{definition}
+
+Sections \emph{may not exist}, but if the fibre bundle is trivial, then any smooth map $\sigma : M \to F$ defines a sections by $s(a) = (a,\sigma(a))$. Since fibres are locally trivial, they admit local sections $s_\alpha : U_\alpha \to \pi^{-1}(U_\alpha)$ via local smooth maps $\sigma_\alpha : U_\alpha \to F$. A section $s:N \to E$ can be pulled back via $f:M \to N$ to give a section $f^\ast s : M \to f^\ast E$ via $(f^\ast s)(a) = (a,s(f(a)))$. 
+
+\begin{definition}
+Consider $F \to E \overset{\pi}{\to} M$. Then the fibres $E_a = \pi^{-1}(a) \subset E$ are submanifolds of $E$. The tangent space at $e \in E_a$ is $\vartheta_e = \ker((\pi_\ast)_e : T_e E \to T_e M)$ and is called the \bam{vertical subspace} of $T_eE$
+\end{definition}
+In the absence of any additional structure, there is no preferred complementary subspace of $T_eE$.
+
+\begin{definition}
+A \bam{connection} on $E \to M$ is a smooth choice of complementary subspace $\ms{H}_e \subset T_e E$ i.e. $T_eE = \vartheta_e \oplus \ms{H}_e$. That is, a connection is a distribution $\ms{H}\subset TE$
+\end{definition}
+
+Note $\ev{(\pi_\ast)_e}{\ms{H}_e} : \ms{H}_e \overset{\cong}{\to} T_{\pi(e)}M$, so $\ms{H}$ gives a choice of how to lift tangent vectors, and so curves, from $M$ to $E$. \\
+Given a distribution one can ask whether it is integrable (in the sense of Frobenius), i.e. is $E$ foliated by submanifolds whose tangent spaces are $\ms{H}$. We shall see that the obstruction to the integrability of $\ms{H}$ can be interpreted as the 'curvature' of the connection. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Principal fibre bundles}
+We now specialise to principal fibre bundles, so called because the typical fibre is a principally homogeneous space for a lie group. 
+
+\begin{definition}
+A \bam{Lie group} consists of a manifold $G$ which is also a group such that group multiplication $G \times G \to G$, $(g,h)\mapsto gh$, and group inversion $G \to G$, $g \mapsto g^{-1}$, are smooth maps
+\end{definition}
+
+For $g \in G$ a Lie group, we define diffeomorphisms $L_g : G \to G$, $L_g(h) = gh$, and $R_g : G \to G$, $R_g(h) = hg$, call \bam{left} \& \bam{right} multiplication. 
+
+\begin{definition}
+Recall that given a diffeomorphism $F:M \to N$ we define the \bam{pushforward} $F_\ast : \mf{X}(M) \to \mf{X}(N)$ by, for $\xi \in \mf{X}(M), \, f \in C^\infty(N), \, (F_\ast \xi)(f) = \xi(f \circ F)$.
+\end{definition}
+
+\begin{remark}
+Note that given any smooth map of manifolds $F:M \to N$, the derivative $dF:TM \to TN$ gives a map $\forall a \in M, \, dF_a : T_a M \to T_{F(a)}N$ which for $\xi \in T_a M, \, f \in C^\infty(N)$ acts as $(dF_a(\xi))(f) = \xi(f \circ F)$. This is often written as $F_\ast$, but the two concepts are subtly different.
+\end{remark}
+
+\begin{definition}
+A vector field $\xi\in \mf{X}(G)$ is \bam{left invariant} if $\forall g \in G, \, (L_g)_\ast \xi = \xi$. Similarly we define right invariant.
+\end{definition}
+
+\begin{lemma}
+If $\xi$ is a LIVF, $\xi_g = (L_g)_\ast \xi_e$, where $e\in G$ is the identity.
+\end{lemma}
+\begin{proof}
+Let $f \in C^\infty(G)$. Then
+\eq{
+(L_g)_\ast \xi = \xi \Rightarrow \xi(f \circ L_g) = \xi(f)
+}
+Now evaluating at $g \in G$, $\xi_g \in T_gG$ so $\xi_g(f \circ L_g)= ((L_g)_\ast \xi_e)(f)$. Result follows. 
+\end{proof}
+
+It can be shown that the lie bracket of two left invariant vector fields is also left invariant. 
+\begin{definition}
+The vector space of left invariant vector fields is the \bam{Lie algebra} $\mf{g}$ of $G$. 
+\end{definition}
+Since a LIVF is uniquely determined by its value at the identity, we have that $\mf{g} \cong T_e G$ as a vector space, but we can also transport the Lie bracket from $\mf{g}$ to $T_e G$ so they are isomorphic as algebras. 
+\begin{definition}
+The maps $(L_{g^{-1}})_\ast : T_g G \to T_e G \cong \mf{g}$ define a $\mf{g}$-valued one form $\theta$ called the \bam{left invariant Maurer-Cartan one-form}. If $\xi$ is a LIVF, $\theta(\xi) = \xi_e$. 
+\end{definition}
+By definition, $\theta$ is left invariant. 
+\begin{theorem}
+The MC one form satisfies the \bam{structure equation} 
+\eq{
+d\theta = - \frac{1}{2}\comm[\theta]{\theta}
+}
+i.e. for $\xi,\eta \in \mf{X}(G)$, $d\theta(\xi,\eta) = -\comm[\theta(\xi)]{\theta(\eta)}$
+\end{theorem}
+\begin{proof}
+We will need the following result:
+\begin{claim}
+For $\theta \in \Omega^1(M)$, $X,Y \in \mf{X}(M)$
+\eq{
+d\theta(X,Y) = X(\theta(Y)) - Y(\theta(X)) - \theta(\comm[X]{Y})
+}
+\end{claim}
+To show this take coordinates such that $\theta = \theta_a dx^a, X = X^a \del_a, Y=Y^a \del_a$. Then 
+\eq{
+d\theta(X,Y) &= (\del_b \theta_a X^c Y^d) (dx^b \wedge dx^a)(\del_c,\del_d) \\
+&= \del_b \theta_a (X^b Y^a - X^a Y^b) \\
+&= X^b \del_b (\theta_a Y^a) - Y^b \del_b (\theta_a X^a) - \theta_a (X^b \del_b Y^a - Y^b \del_b X^a) \\
+&= X(\theta(Y)) - Y(\theta(X)) - \theta(\comm[X]{Y})
+}
+Now if $X,Y$ are LIVFs, $\theta(X), \theta(Y)$ are constant, so on these 
+\eq{
+d\theta(X,Y) +\theta(\comm[X]{Y}) = 0
+}
+Moreover for LIVFs $\theta(\comm[X]{Y}) = \comm[\theta(X)]{\theta(Y)}$. Now LIVFs span the space of vector fields, and all the operations are linear, so we are done. 
+\end{proof}
+
+\begin{prop}
+If $G$ is a matrix Lie group, $\theta_g = g^{-1}dg$. 
+\end{prop}
+\begin{proof}
+In a matrix group, we have the correspondence $X \in \mf{g} \Leftrightarrow \exp(tX) \in G$. Take a basis $\pbrace{T_a}$ of $T_eG$ and give $g\in G$ coordinates $x^a$ if $g = \exp(\sum_a x^a T_a)$. Then let $g$ be constant and take a curve through $g$, $\gamma:\mbb{R}\to G$, $\gamma(t) = \exp\psquare{\sum_a (x^a + t\xi^a)T_a}$ with tangent vector $g\pround{\sum_a \xi^a T_a} \in T_gG$. Under $L_{g^{-1}}$, this is a curve through $e$ with tangent vector $\pround{\sum_a \xi^a T_a} \in T_eG$. Hence if we write $\xi = \sum_a \xi^a \pd{x^a}$ for the the vector generating $\gamma$ we get 
+\eq{
+\theta_g = \sum_a T_a dx^a = g^{-1} dg
+}
+\end{proof}
+
+
+
+Every $g \in G$ defines a diffeomorphism $L_g R_{g^{-1}} : G \to G$, $h \mapsto ghg^{-1}$. Since $e = geg^{-1}$ its derivative belongs to $GL(T_e G) = GL(\mf{g})$. 
+\begin{definition}
+The \bam{adjoint representation} of $G$ on $\mf{g}$ is given by $\Ad_g = (L_g)_\ast (R_g^{-1})_\ast$
+\end{definition}
+
+\begin{lemma}
+$R_g^\ast \theta = \Ad_{g^{-1}} \theta$
+\end{lemma}
+\begin{proof}
+\eq{
+R_g^\ast \theta_{hg} &= \theta_{hg}(R_g)_\ast \\
+&= (L_{(hg)^{-1}})_\ast (R_g)_\ast \\
+&= (L_{g^{-1}})_\ast (L_{h^{-1}})_\ast (R_g)_\ast \\
+&= (L_{g^{-1}})_\ast  (R_g)_\ast (L_{h^{-1}})_\ast \\
+&= \Ad_{g^{-1}} \theta_h
+}
+\end{proof}
+
+\begin{definition}
+The \bam{left action} of a Lie group $G$ on a manifold $M$ is a smooth map $G \times M \to M$, $(g,a) \mapsto ga$ satisfying the axioms $\forall g,h \in G, \, \forall a \in M$
+\begin{itemize}
+    \item $g(ha) = (gh)a$
+    \item $ea = a$
+\end{itemize}
+Right action is defined equivalently. 
+\end{definition}
+
+Left and right actions are equivalent if we take $ga = ag^{-1}$. 
+\begin{definition}
+An action is \bam{transitive} if the $G$-orbit of any point is $M$, equivalently $\forall a,b in M, \, \exists g \in G, \, b = ga$
+\end{definition}
+
+\begin{definition}
+An action is \bam{free} if the only element which fixes any point is the identity. 
+\end{definition}
+
+\begin{definition}
+A \bam{G-torsor} (or principally homogeneous $G$-space) is a manifold $M$ on which $G$ acts freely and transitively
+\end{definition}
+Given a $G$-torsor $M$, any point in $M$ defines a diffeomorphism $g \cong M$, and as such $G$-torsors are said to be like a Lie group where we have 'forgotten' the identity. 
+
+\begin{definition}
+A \bam{principal G-bundle} is a fibre bundle $P\overset{\pi}{\to}M$ together with a smooth rights $G$-action $(p,g)\mapsto r_g(p)$ which preserves fibres ($\pi\circ r_g = \pi$) and acts freely and transitively. 
+\end{definition}
+It follows that fibres are $G$-orbits and hence $M = \faktor{P}{G}$. The condition of local triviality now says that the local trivialisation $\pi^{-1}(U) \overset{\varphi}{\to} U \times G$ are $G$-equivariant, i.e. where $\varphi(p) = (\pi(p),\gamma(p))$, $\gamma:\pi^{-1}(U) \to G$ a $G$-equivariant ($\gamma \circ r_g = R_g \circ \gamma$) fibrewise diffeomorphism
+
+\begin{definition}
+A principal $G$-bundle is \bam{trivial} is $\exists$ a $G$-equivariant diffeomorphism $P\overset{\psi}{\to} M \times G$.
+\end{definition}
+
+\begin{prop}
+A principal $G$-bundle $P\overset{\pi}{\to}M$ admits a section iff it is trivial
+\end{prop}
+\begin{proof}
+If $P\overset{\pi}{\to}M$ is trivial, $\psi : P \to M \times G$ defines a section $s : M \to P$ by $s(a) = \psi^{-1}(a,e)$. \\
+Conversely, is $s$ is a section, define $\psi$ by $\psi(p) = (\pi(p),\chi(p))$ where $\chi(p)$ is uniquely defined by $p = s(\pi(p))\chi(p)$. Notice that since $pg = s(\pi(p))\chi(p)g = s(\pi(pg))\chi(p)g $ so $\chi(pg) = \chi(p)g$. 
+\end{proof}
+
+\begin{example}
+Let $G$ be a Lie group and $H \leq G$ a closed subgroup. Then $G \overset{\pi}{\to}\faktor{G}{H}$ is a principal $H$-bundle. Therefore homogeneous spaces are examples of principal bundles. 
+\end{example}
+
+Since principal fibre bundles are locally trivial, they admit local sections. Let $\pbrace{(U_\alpha, \varphi_\alpha)}$ be a trivialising atlas for $G \to P \overset{\pi}{\to} M$. The canonical local sections $s_\alpha : U_\alpha \to \pi^{-1}(U_\alpha)$ are given by $s_\alpha(a) = \varphi_\alpha^{-1}(a,e)$. On $U_{\alpha\beta}$ we have sections $s_\alpha, \, s_\beta$. Writing $\varphi_\alpha(p) = (\pi(p),g_\alpha(p))$ for $g_\alpha: U_\alpha \to G$ equivariant we have that for $p\in \pi^{-1}(U_{\alpha\beta})$.
+\eq{
+(\pi(p), g_\alpha(p)) = \varphi_\alpha(p) = (\varphi_\alpha \circ \varphi_\beta^{-1} \circ \varphi_\beta)(p) = (\varphi_\alpha \circ \varphi_\beta^{-1})(\pi(p),g_\beta(p)) \\
+\Rightarrow (\pi(p), \underbrace{g_\alpha(p)g_\beta^{-1}(p)}_{\equiv \hat{g}_{\alpha\beta}(p)}g_\beta(p)) = (\varphi_\alpha \circ \varphi_\beta^{-1})(\pi(p),g_\beta(p))
+}
+Note that $\hat{g}_{\alpha\beta}(pg) = g_\alpha(pg) g_\beta^{-1}(pg) = g_\alpha(p)  g g^{-1} g_\beta(p) = \hat{g}_{\alpha\beta}(p)$ and so is constant along the fibres. Hence $\exists g_{\alpha\beta}:U_{\alpha\beta} \to G $ s.t. $\hat{g}_{\alpha\beta} = \pi^\ast g_{\alpha\beta}$ and $(\varphi_\alpha \circ \varphi_\beta^{-1})(a,g) = (a,g_{\alpha\beta}(a)g)$. It follows that the $g_{\alpha\beta}$ obey the cocycle conditions. \\
+Now note $g_\alpha \circ s_\alpha : U_\alpha \to G$ is a constant map taking value $e$, and so letting $p = s_\beta(a)$
+\eq{
+g_\alpha(p) = \hat{g}_{\alpha\beta}(p) g_\beta(p) \Rightarrow g_\alpha(s_\beta(a)) &= g_{\alpha\beta}(a)(g_\beta \circ s_\beta)(a) \\
+&= (g_\alpha \circ s_\alpha)(a)g_{\alpha\beta}(a) \\
+&= g_\alpha(s_\alpha(a) g_{\alpha\beta}(a)) \\
+\Rightarrow s_\beta(a) &= s_\alpha(a) g_{\alpha\beta}(a) \quad \text{ as $g_\alpha$ a diffeomorphism}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ehresmann Connections}
+Let $P \overset{\pi}{\to} M$ be a principal $G$-bundle. Taking $p \in P$, the derivative $(\pi_\ast)_p : T_p P \to T_{\pi(p)}M$ is a surjective map. 
+\begin{definition}
+The kernel $V_p$ is called the \bam{vertical subspace}. A vector field $\xi \in \mf{X}(P)$ is called \bam{vertical} if $\forall p \in P, \, \xi_p \in V_p$. 
+\end{definition}
+
+\begin{lemma}
+The Lie bracket of two vertical vector fields is vertical
+\end{lemma}
+
+\begin{lemma}
+The vertical subspaces span a $G$-invariant integrable distribution
+\end{lemma}
+\begin{proof}
+Note $\pi \circ r_g = \pi \Rightarrow \pi_\ast (r_g)_\ast = \pi_\ast \Rightarrow (r_h)_\ast V_p = V_{pg}$ so $G$-invariant. Integrable by the previous lemma.
+\end{proof}
+
+\begin{definition}
+An \bam{Ehresmann connection} on $P$ is a smooth choice of horizontal subspaces $H_p \subset T_p P$ s.t. $T_p P = V_p \oplus H_p$ and $(r_g)_\ast H_p = H_{pg}$. Equivalently an Ehresmann connection is a $G$-invariant distribution $H \subset TP$ complementary to $V$. 
+\end{definition}
+
+\begin{example}
+A $G$-invariant Riemannian metric on $P$ defines an Ehresmann connection by $H_p = V_p^\perp$. 
+\end{example}
+
+The $G$ action on P defines a smooth map $\mf{g} \to \mf{X}(P)$ assigning to every $X\in \mf{g}$ the \bam{fundamental vector field}  $\xi_X$ defined at $p \in P$ by  
+\eq{
+(\xi_X)_p = \ev{\frac{d}{dt} \pround{p e^{tX}}}{t=0}
+}
+
+\begin{lemma}
+$\xi_X$ is vertical
+\end{lemma}
+\begin{proof}
+\eq{
+\pi_\ast \ev{\xi_X}{p} = \ev{\frac{d}{dt} \pi\pround{p e^{tX}}}{t=0} = \ev{\frac{d}{dt} \pi\pround{p}}{t=0} = 0
+}
+\end{proof}
+As the $G$ action is free, $\forall p \in P$ the map $X \mapsto (\xi_X)_p$ is an isomorphism $\mf{g} \overset{\cong}{\to} V_p$. 
+
+\begin{lemma}
+$(r_g)_\ast \xi_X = \xi_{\Ad_{g^{-1}}(X)}$
+\end{lemma}
+\begin{proof}
+\eq{
+(r_g)_\ast (\xi_X)_p = \ev{\frac{d}{dt} r_g \pround{p e^{tX}}}{t=0} = \ev{\frac{d}{dt} \pround{p e^{tX}g}}{t=0} = \ev{\frac{d}{dt} \pround{pgg^{-1} e^{tX}g}}{t=0} = \pround{ \xi_{\Ad_{g^{-1}}(X)}}_{pg}
+}
+\end{proof}
+
+\begin{definition}
+The \bam{connection one form} of a connection $H \subset TP$ is the $\mf{g}$-valued one form $\omega \in \Omega^1(P;\mf{g})$ defined by 
+\eq{
+\omega(\xi) = \left \lbrace \begin{array}{cc} X & \xi = \xi_X \\ 0 & \xi \in H \end{array} \right.
+}
+\end{definition}
+
+\begin{prop}
+The connection one form obeys $r_g^\ast \omega = \Ad_{g^{-1}} \circ \omega$
+\end{prop}
+\begin{proof}
+Let $\xi$ be horizontal. Then $(r_g)_\ast \xi$ is also horizontal as $H$ $G$-invariant. Then $(r_g^\ast \omega)(\xi) = \omega((r_g)_\ast \xi) = 0$. Note in this case $(\Ad_{g^{-1}} \circ \omega)(\xi) = 0$ too. \\
+Now if $\xi = \xi_X$, $(\Ad_{g^{-1}} \circ \omega)(\xi) = \Ad_{g^{-1}}(X) = \omega(\xi_{\Ad_{g^{-1}}(X)}) = \omega((r_g)_\ast \xi_X) = (r_g^\ast \omega)(\xi)$
+\end{proof}
+It turn out we also have a converse:
+\begin{prop}
+If $\omega \in \Omega^1(P;\mf{g})$ satisfies $r_g^\ast \omega = \Ad_{g^{-1}} \circ \omega$ and $\omega(\xi_X) = X$, then $H\equiv \ker \omega$ is a connection on $P$. 
+\end{prop}
+
+Now define the pullback of $\omega$ along local sections to be $A_\alpha \equiv s_\alpha^\ast \omega \in \Omega^1(U_\alpha;\mf{g})$. 
+\begin{prop}
+Let $\omega_\alpha \equiv \Ad_{g_\alpha^{-1}} \circ \pi^\ast A_\alpha + g_\alpha^\ast \theta $ where $\theta$ is the LI Maurer-Cartan one form on $G$. Then $\omega_\alpha = \ev{\omega}{\pi^{-1}U_\alpha}$
+\end{prop}
+\begin{proof}
+The proof will have two steps:
+\begin{claim}
+$\omega$ and $\omega_\alpha$ agree on the image of $s_\alpha$
+\end{claim}
+Since $\pi\circ s_\alpha = \ev{\id}{U_\alpha}$, $T_pP = \image(s_\alpha \circ \pi)_\ast \oplus V_p$ for $p = s_\alpha(a)$. Hence $\forall \xi \in T_pP, \, \exists! \, \xi^v \in V_p $ s.t. $\xi = (s_\alpha)_\ast \pi_\ast \xi + \xi^v$. Then using $g_\alpha(p) = (g_\alpha \circ s_\alpha)(a) = e$
+\eq{
+\omega_\alpha(\xi) &= (\pi^\ast s_\alpha^\ast \omega)(\xi) + (g_\alpha^\ast \theta_e)(\xi) \; (\text{at } p, \, \Ad_{g_\alpha^{-1}}=\id) \\
+&= \omega((s_\alpha)_\ast \pi_\ast \xi) + \theta_e ((g_\alpha)_\ast \xi) \\
+&= \omega((s_\alpha)_\ast \pi_\ast \xi) + \theta_e((g_\alpha)_\ast \xi^v) \; \text{as }(g_\alpha)_\ast (s_\alpha)_\ast = (g_\alpha \circ s_\alpha)_\ast = 0  \\
+&= \omega((s_\alpha)_\ast \pi_\ast \xi) + \omega(\xi^v) \\
+&= \omega(\xi)
+}
+\begin{claim}
+$\omega$ and $\omega_\alpha$ transform in the same way under the right $G$ action. 
+\end{claim}
+\eq{
+r_g^\ast (\omega_\alpha)_{pg} &= \Ad_{g_\alpha(pg)^{-1}} \circ r_g^\ast \pi^\ast s_\alpha^\ast \omega + r_g^\ast g_\alpha^\ast \theta \\
+&= \Ad_{(g_\alpha(p)g)^{-1}}\circ r_g^\ast \pi^\ast s_\alpha^\ast \omega + g_\alpha^\ast R_g^\ast \theta \\
+&= \Ad_{g^{-1}g_\alpha(p)^{-1}} \circ \pi^\ast s_\alpha^\ast \omega + g_\alpha^\ast (\Ad_{g^{-1}}\circ\theta) \\
+&= \Ad_{g^{-1}} \pround{\Ad_{g_\alpha(p)^{-1}} \circ \pi^\ast s_\alpha^\ast \omega + g_\alpha^\ast\theta} \\
+&= \Ad_{g^{-1}} \circ (\omega_\alpha)_p
+}
+Hence we are done. 
+\end{proof}
+
+Now as $\omega$ is a global one form, $\omega_\alpha$ and $\omega_\beta$ must agree on $U_{\alpha\beta}$, allowing us to relate $A_\alpha$ and $A_\beta$, namely on $U_{\alpha\beta}$
+\eq{
+A_\alpha = s_\alpha^\ast \omega_\alpha = s_\alpha^\ast \omega_\beta &= s_\alpha^\ast \pround{\Ad_{g_\beta(s_\alpha)^{-1}}\circ \pi^\ast A_\beta + g_\beta^\ast \theta} \\
+&=\Ad_{g_{\alpha\beta}}\circ A_\beta + g_{\beta\alpha}^\ast \theta
+}
+
+\begin{example}
+For matrix Lie groups, $g_{\beta\alpha}^\ast \theta = g_{\beta\alpha^{-1}}dg_{\alpha\beta} = -dg_{\alpha\beta}g_{\alpha\beta}^{-1}$, so 
+\eq{
+A_\alpha = g_{\alpha\beta} A_\beta g_{\alpha\beta}^{-1} -dg_{\alpha\beta}g_{\alpha\beta}^{-1}
+}
+\end{example}
+
+Similarly, one can ask how $\pbrace{A_\alpha}$ depends on the choice of local section. 
+\begin{fact}
+If $s_\alpha^\prime$ is another local section for $U_\alpha$, $\exists h_\alpha : U_\alpha \to G$ s.t. $s_\alpha^\prime(a) = s_\alpha(a) h_\alpha(a)$ and then 
+\eq{
+A_\alpha^\prime = \Ad_{h_\alpha^{-1}} \circ A_\alpha + h_\alpha^\ast \theta
+}
+\end{fact}
+
+\begin{idea}
+We now have three different ways to understand connections on a principal $G$-bundle $P\overset{\pi}{\to} M$, namely;
+\begin{enumerate}
+    \item a $G$-invariant horizontal distribution $H\subset TP$ 
+    \item a one form $\omega \in \Omega^1(P;\mf{g})$ satisfying $\omega(\xi_X) = X$ and $r_g^\ast \omega = \Ad_{g^{-1}} \circ \omega$
+    \item a family of one forms $\pbrace{A_\alpha \in \Omega^1(U_\alpha;\mf{g}}$ satisfying $A_\alpha = \Ad_{g_{\alpha\beta}}\circ A_\beta + g_{\beta\alpha}^\ast \theta$ on $U_{\alpha\beta}\neq \emptyset$
+\end{enumerate}
+\end{idea}
+
+If $P \overset{\pi}{\to} M$ is a principal $G$-bundle, $G$-equivariant bundle diffeomorphisms are called \bam{gauge transformations} and one can ask how an Ehresmann connection transforms. Let $H \subset TP$ be a $G$-invariant horizontal distribution. Then let $H^\Phi \equiv \Phi_\ast H$ be the gauge-transformed distribution. 
+
+\begin{lemma}
+$H^\Phi \subset TP$ is an Ehresmann connection
+\end{lemma}
+\begin{proof}
+\eq{
+(r_g)_\ast H^\Phi_{\Phi(p)} = (r_g)_\ast \Phi_\ast H_p = \Phi_\ast (r_g)_\ast H_p = \Phi_\ast H_{pg} = H_{(\Phi(pg)}^\Phi = H_{\Phi(p)g}^\Phi
+}
+and $H^\Phi$ is complementary to $V$ because $\Phi_\ast T_pP \overset{\cong}{\to} T_{\Phi(p)}P$ and $\Phi_\ast$ preserves $V = \ker \pi_\ast$ because $\pi\circ\Phi=\pi$
+\end{proof}
+
+\begin{ex}
+Let $\Phi$ be a gauge transformation in a principal $G$-bundle $P\overset{\pi}{\to}M$. Let $\xi_X$ denote a fundamental vector fields for the $G$-action on $P$. Show that $\xi_X$ is gauge invariant, i.e. $\Phi_\ast \xi_X = \xi_X$. Further, show that if $\omega$ is the connection one form for an Ehresmann connection $H$ then $(\Phi^{-1})^\ast \omega$ is the connection one form for $H^\Phi$. 
+\end{ex}
+
+Let $\pbrace{A_\alpha}, \, \pbrace{A_\alpha^\Phi}$ be the gauge fields corresponding to the Ehresmann connections $H, \, H^\Phi$. Since $\Phi$ preserves fibres it makes sense to restrict to $\pi^{-1}U_\alpha$. Applying the trivialisation $\varphi_\alpha(\Phi(p)) = (\pi(p),g_\alpha(\Phi(p)))$ which defines $\bar{\phi}_\alpha : \pi^{-1} U_\alpha \to G$ by $\bar{\phi}_\alpha(p)=g_\alpha(\Phi(p))g_\alpha(p)^{-1}$. \\
+
+\begin{lemma}
+$\bar{\phi}_\alpha$ is constant on the fibres
+\end{lemma}
+\begin{proof}
+\eq{
+\bar{\phi}_\alpha(pg) &= g_\alpha(\Phi(pg))g_\alpha(pg)^{-1} \\
+&= g_\alpha(\Phi(p)g)g_\alpha(pg)^{-1} \\
+&= g_\alpha(\Phi(p))g(g_\alpha(p)g)^{-1} \\
+&= g_\alpha(\Phi(p))g_\alpha(p)^{-1} \\
+&= \bar{\phi}_\alpha(p)
+}
+\end{proof}
+Hence $\bar{\phi}_\alpha$ defines a smooth map $\phi_\alpha:U_\alpha \to G$. On overlaps $U_{\alpha\beta}\neq \phi$ we have that $\forall a \in U_{\alpha\beta}, \, p \in \pi^{-1}(a)$, hence 
+\eq{
+\phi_\alpha(a) &= g_\alpha(\Phi(p)) g_\alpha(p)^{-1} \\
+&= g_\alpha(\Phi(p)) \cdot \underbrace{g_\beta(\Phi(p))^{-1}g_\beta(\Phi(p))}_{e} \underbrace{g_\beta(p)^{-1}g_\beta(p)}_{e} g_\alpha(p)^{-1} \\
+&= g_{\alpha\beta}(a) \phi_\beta(a) g_{\alpha\beta}(a)^{-1} \; \text{since }\pi(p) = \pi(\Phi(p)) = a
+}
+
+\begin{remark}
+We will see later that $\pbrace{\phi_\alpha}$ defines a section of a fibre bundle $\Ad P$ on $M$ associated to the principal bundle $P$. 
+\end{remark}
+
+\begin{ex}
+Show that on $U_\alpha$, $A_\alpha^\Phi = \Ad_{\phi_\alpha} \circ\pround{A_\alpha - \phi_\alpha^\ast \theta} = \phi_\alpha A_\alpha \phi_\alpha^{-1} - d\phi_\alpha \phi_\alpha^{-1}$, which is a gauge transform
+\end{ex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Kozul Connections}
+\begin{definition}
+A real, rank $k$, \bam{vector bundle} $E \overset{\pi}{\to}M$ is a fibre bundle whose fibres are $k$-dimensional real vector spaces and whose local tirivialisations $\psi:\pi^{-1}U \to U \times \mbb{R}^k$ restrict fibrewise to isomorphisms $\psi : E_a \to \pbrace{a} \times \mbb{R}^k$ of real vector spaces. 
+\end{definition}
+
+Let $P\overset{\pi}{\to}M$ be a principal $G$-bundle and let $\rho: G \to GL(V)$ be a Lie group homomorphism (i.e. a representation of $G$), where $V$ is a f.d. vector space. Since $G$ acts freely on $P$, it also acts freely on $P\times V$ via the right action 
+\eq{
+(p,v)g = (pg,\rho(g^{-1})v)
+}
+We let $E \equiv P \times_G V$ denote the quotient $\faktor{(P\times V)}{G}$ via the above action. It is the total space of a vector bundle $E\overset{\varpi}{\to}M$ where 
+\eq{
+\varpi: P \times_G V &\to M \\
+[(p,v)] &\mapsto \pi(p)
+}
+\begin{definition}
+$E\overset{\varpi}{\to}M$ is called an \bam{associated vector bundle} to the PFB $P \to M$, associated via the representation $\rho$. 
+\end{definition}
+Let $\pbrace{(U_\alpha,\varphi_\alpha)}$ be a trivialising atlas for $P$ with transition function $\pbrace{g_{\alpha\beta}:U_{\alpha\beta} \to G}$ obeying the cocycle conditions. We may then trivialise $P\times_G V$ on each $U_\alpha$, and the transition functions are $\pbrace{\rho \circ g_{\alpha\beta}:U_{\alpha\beta}\to GL(V)}$. More concretely we define $P \times_G V \equiv \sqcup_\alpha \faktor{U_\alpha \times V}{\sim}$ where $(a,v) \sim (a,\rho(g_{\alpha\beta}(a))v)$ \\
+Let $P\overset{\pi}{\to} M$ be a $G$-PFB and $E\equiv P \times_G V \overset{\varpi}{\to} M$ an associated VB with $\rho: G \to GL(V)$. Let $\Gamma(E) = \pbrace{s:M \to E \, | \, \varpi \circ s = \id_M}$ denote the $C^\infty(M)$-module of sections of $E$, and $C^\infty_G(P,V) = \pbrace{\zeta : P \to V \, | \, \forall g \in G, \, r_g^\ast \zeta = \rho(g)^{-1} \circ \zeta }$ the $G$-equivariant functions $P \to V$. We can give $C^\infty_G(P,V)$ the structure of a $C^\infty(M)$-module by declaring that for $f \in C^\infty(M), \, f \zeta = \pi^\ast f \zeta$ 
+\begin{prop}
+There is a $C^\infty(M)$-module isomorphism 
+\eq{
+\Gamma(E) \cong C^\infty_G(P,V)
+}
+\end{prop}
+\begin{proof}
+Let $\sigma \in \Gamma(E)$. Let $\psi_\alpha : \varpi^{-1} U_\alpha \to U_\alpha \times V$ be a local trivialisation and define $\sigma_\alpha : U_\alpha \to V, \, (\psi_\alpha \circ \sigma)(a) = (a,\sigma_\alpha(a))$. On overlaps the local functions $\sigma_\alpha, \sigma_\beta$, are related by $\sigma_\alpha(a) = \rho(g_{\alpha\beta}(a)) \sigma_\beta(a)$, where $g_{\alpha\beta}$ are the transition functions of $P \to M$ . We now define $\zeta_\alpha : \pi^{-1} U_\alpha \to V$ by $\zeta_\alpha((\pi^\ast s_\alpha)(p)) = \sigma_\alpha(\pi(p))$ and extend by $\zeta_\alpha((\pi^\ast s_\alpha)(p)g) = \rho(g)^{-1} \sigma_\alpha(\pi(p))$. \\
+Let $\pi(p) = a \in U_{\alpha\beta}$. Then 
+\eq{
+\zeta_\beta(p) = \zeta(s_\alpha(a) g_\alpha(p)) &= \zeta(s_\beta(a) g_{\beta\alpha}(a) g_\alpha(p)) \\
+&= \rho(g_{\beta\alpha}(a) g_\alpha(p))^{-1}\circ \sigma_\beta(a) \\
+&= \rho(g_\alpha(p))^{-1} \circ \rho(g_{\alpha\beta}(a)) \circ \sigma_\beta(a) \\
+&= \rho(g_\alpha(p))^{-1} \circ \sigma_\alpha(a) \\
+&= \rho(g_\alpha(p))^{-1} \zeta_\alpha(s_\alpha(a)) \\
+&= \zeta_\alpha(s_\alpha(a) g_\alpha(p)) = \zeta_\alpha(p)
+}
+The $\pbrace{\zeta_\alpha}$ are constructed to define a function $\zeta:P \to V$ such that $r_g^\ast \zeta = \rho(g)^{-1} \circ \zeta$. If $f\in C^\infty(M)$, then $f\sigma \in \Gamma(E)$ and $(f\sigma)_\alpha = f\sigma_\alpha$ since $\psi_\alpha$ is fibrewise linear. Then by definition 
+\eq{
+\rho(g_\alpha(p))^{-1} \circ \pi^\ast(f\sigma_\alpha) &= \rho(g_\alpha(p))^{-1} \circ (\pi^\ast f) (\pi^\ast \sigma_\alpha) \\
+&= (\pi^\ast f) \rho(g_\alpha(p))^{-1} \circ (\pi^\ast \sigma_\alpha) \\
+&= (\pi^\ast f)\zeta_\alpha(p)
+}
+so the map $\Gamma(E) \to C^\infty_G(P,V)$, thus defined, is $C^\infty(M)$-linear. \\
+Conversely, given a $G$-equivariant $\zeta:P \to V$, we define $\sigma\in \Gamma(E)$ as follows: let $s_\alpha : U_\alpha \to P$ be the canonical local sections. Then let $\sigma_\alpha = s_\alpha^\ast \zeta$. For $a \in U_{\alpha\beta}$, 
+\eq{
+\sigma_\beta(a) = \zeta(s_\beta(a)) = \zeta(s_\alpha(a) g_{\alpha\beta}(a)) = \rho(g_{\alpha\beta}(a))^{-1} \zeta(s_\alpha(a)) = \rho(g_{\beta\alpha}(a)) \sigma_\alpha(a)
+}
+\end{proof}
+
+\begin{example}
+Let $\omega, \omega^\prime$ be connection one forms for Ehresmann connections $\ms{H}, \ms{H}^\prime$ on $P \to M$. Then $r_g^\ast \omega = \Ad_{g^{-1}} \circ \omega$ and similarly for $\omega^\prime$. Now if $\xi$ is vertical, $\omega(\xi) = \omega^\prime(\xi)$, and hence $\tau \equiv \omega - \omega^\prime \in \Omega^1(P;\mf{g})$ is \bam{horizontal} (i.e. $\tau(\xi) = 0$ if $\xi$ vertical). \\
+Now let $\tau_\alpha = s_\alpha^\ast \tau \in \Omega^1(U_\alpha;\mf{g})$. Then $\tau_\alpha = s_\alpha^\ast \omega - s_\alpha^\ast \omega^\prime = A_\alpha - A_\alpha^\prime$. On $U_{\alpha\beta}$, $A_\alpha = \Ad_{g_{\alpha\beta}} \circ A_\beta + g_{\beta\alpha}^\ast \theta$, and likewise for $A_\alpha^\prime$, $\Rightarrow \tau_\alpha = \Ad_{g_{\alpha\beta}}\circ\tau_\beta$. Hence $\pbrace{\tau_\alpha}$ defines $\tau \in \Omega^1(M;\ad P)$ where $\ad P \equiv P \times_G \mf{g}$. 
+\end{example}
+
+\begin{example}
+Take $H \leq G$ closed and $M= \faktor{G}{H}$. Then $G\overset{\pi}{\to}M$ is a principal $H$-bundle. Let $\rho : H \to GL(V)$ be a representation. Then $E\equiv G \times_H V \to M$ is a \bam{homogeneous vector bundle}. Then $\Gamma(E) \cong \pbrace{f:G \to V \, | \, f(ph) = \rho(h)^{-1} f(p)}$ as $C^\infty(M)$-modules. On $\Gamma(E)$ we have a rep of $G$ given by $(g \cdot f)(g_1) = f(g^{-1} g_1)$.
+\end{example}
+
+There is a sort of converse to the associated VB construction. If $E \overset{\pi}{\to}M$ is a real rank $k$ vector bundle, we may associate with it a principal $GL(k,\mbb{R})$-bundle in one of two ways as follows:
+\begin{enumerate}
+    \item Let $\pbrace{(U_\alpha,\psi_\alpha)}$ be a trivialising atlas for $E$, with $\psi_\alpha : \pi^{-1} U_\alpha \to U_\alpha \times \mbb{R}^k$ and transition functions $g_{\alpha\beta}:U_{\alpha\beta} \to GL(k,\mbb{R})$. We can then glue $U_\alpha \times GL(k,\mbb{R})$ and 
+    $U_\beta \times GL(k,\mbb{R})$ along $U_{\alpha\beta}$ by 
+    \eq{
+    (a,A) \sim (a,g_{\alpha\beta}(a) A)
+    }
+    which is equivariant under right multiplication by $GL(k,\mbb{R})$. The resulting principal $GL(k,\mbb{R})$-bundle is denoted $GL(E) \overset{\varpi}{\to} M$ and it follows that $E \to M$ is the vector bundle associated to $GL(E)$ view the identity rep
+    \item The PFB $GL(E) \overset{\varpi}{\to} M $ can understood as the \bam{bundle of frames} of $E \overset{\pi}{\to} M$. Let $GL(E)_a = \pbrace{\text{ordered bases for }E_a}$. Let $u = (u_1, \dots, u_n)$ be a frame for $E_a$. Then $\varpi(u) = a$ defines $\varpi : GL(E) \to M$. If $A \in GL(k,\mbb{R})$, $uA$ defined by $(uA)_i = \sum_j u_j A_{ji}$ is another frame for $E_a$. Given frames $u,u^\prime$ for $E_a$, $\exists ! \, A \in GL(k,\mbb{R})$ s.t. $u^\prime = uA$. Let $(U,\psi)$ be a local trivialisation for $E$. We define a reference frame $\bar{u}(a)$ for each $a \in U$ by $\psi(\bar{u}_i(a)) = (a,e_i)$, where $\pbrace{e_i}$ is the standard bases for $\mbb{R}^k$. This defines a trivialisation $\Psi : \varpi^{-1} U \to U \times GL(k,\mbb{R})$ by $\Psi(u) = (a,A(u))$ where $u$ is a frame for $E_a$ and $A(u)\in GL(k,\mbb{R})$ is the unique element sending $u$ to $\bar{u}(a)$. Now for $B \in GL(k,\mbb{R})$, we have 
+    \eq{
+    \bar{u}(a) A(uB) = uB = (\bar{u}(a)A(u))B \Rightarrow A(uB) = A(u)B
+    }
+    Hence $\Psi$ is $GL(k,\mbb{R})$-equivariant. Let $\pbrace{(U_\alpha,\Psi_\alpha)}$ denote the reslting trivialising atlas. Then if $a \in U_{\alpha\beta}$ and $u$ is a frame for $E_a$, then $\Psi_\alpha(u) = (a,A_\alpha(u))$ where $\bar{u}_\alpha(u) A_\alpha(u) = u$. Now note 
+    \eq{
+    \bar{u}_\beta(a)_i &= \psi^{-1}(a,e_i) \\
+    &= \psi^{-1}_\alpha \circ \psi_\alpha \circ \psi_\beta^{-1}(a,e_i) \\
+    &= \psi^{-1}_\alpha (a,g_{\alpha\beta}(a)e_i) \\
+    &= \psi_\alpha^{-1}(a, \sum_j e_j(g_{\alpha\beta}(a))_{ji}) \\
+    &= \sum_j \psi_\alpha^{-1}(a,e_j) g_{\alpha\beta}(a)_{ji} \\
+    &= \sum_j \bar{u}_\alpha(a)_j g_{\alpha\beta}(a)_{ji} \\
+    \Rightarrow \bar{u}_\beta(a) &= \bar{u}_\alpha(a) g_{\alpha\beta}(a) \\
+    \Rightarrow A_\alpha(u) &= g_{\alpha\beta}(a)A_\beta(u)
+    }
+\end{enumerate}
+
+\begin{definition}
+Let $E \overset{\pi}{\to} M$ be a vector bundle. A \bam{Kozul connection} on $E$ is an $\mbb{R}$-bilinear map
+\eq{
+\nabla : \mf{X}(M) \times \Gamma(E)&\to \Gamma(E) \\
+(X,s)&\mapsto \nabla_X s 
+}
+satisfying that, $\forall f \in C^\infty(M), X \in \mf{X}(M), s \in \Gamma(E)$
+\begin{enumerate}
+    \item $\nabla_{fX}s = f \nabla_X s $
+    \item $\nabla_X(fs) = X(f) s + f \nabla_X s $
+\end{enumerate}
+\end{definition}
+
+Suppose that $E = P \times_G V$ for some $G$-PFB $P \overset{\pi}{\to}M$. Then an Ehresmann connection on $P$ induces a Kozul connection on $E$. For this it is convenient to use the $C^\infty(M)$-module isomorphism $\Gamma(E) \cong C_G^\infty(P,V)$ and we will define $\nabla$ on $C_G^\infty(P,V)$:\\
+Let $\ms{H} \subset TP$ be an Ehresmann connection. We define $h: T_pP \to T_p P $ to be the projector onto $\ms{H}$ along $\ker(\pi_\ast)$. If we write $\xi \in T_pP$ as $\xi^h + \xi^v$ where $\xi^h \in \ms{H}_p$ and $\pi_\ast(\xi^v) = 0$, then $h(\xi) = \xi^h$. Let $h^\ast : T_p^\ast P \to T_p^\ast P$ be the dual (i.e $(h^\ast \alpha)(\xi) = \alpha(h(\xi))$). Let $X \in \mf{X}(M)$. Then given $p \in P_a$ let $\xi \in T_pP$ be s.t. $\pi_\ast \xi = X(a)$. We define $\ev{\nabla_X \psi}{p} = (d\psi)_p(h\xi)$, i.e. $d^\nabla \psi = h^\ast d\psi$. This is well defined because if $\pi_\ast \xi = \pi_\ast \xi^\prime$, $h\xi = h\xi^\prime$. Further, $\nabla_X \psi \in C^\infty_G(P,V)$ because the split $TP = \mc{V} \oplus \ms{H}$ is $G$-invariant, and hence $r_g^\ast h^\ast= h^\ast r_g^\ast $. Hence 
+\eq{
+r_g^\ast d^\nabla \psi &= r_g^\ast h^\ast d\psi \\
+&= h^\ast r_g^\ast d\psi \\
+&= h^\ast d(\rho(g)^{-1} \circ \psi) \\
+&= \rho(g)^{-1} \circ h^\ast d\psi = \rho(g)^{-1} d^\nabla \psi
+}
+
+\begin{prop}
+$\nabla$ defines a Kozul connection on $E$ 
+\end{prop}
+\begin{proof}
+\eq{
+\nabla_{fX} \psi &= d\psi(h(f \xi)) \\
+&= d\psi (h[(\pi^\ast f) \xi]) \\
+&= \pi^\ast f d\psi(h\xi) \\
+&= f \nabla_X \psi \\
+\nabla_X(f\psi) &= \nabla_X[(\pi^\ast f) \psi ] \\
+&= d\psquare{(\pi^\ast f) \psi}(h \xi) \\
+&= (\pi^\ast df)(h\xi) + (\pi^\ast f) \nabla_X \psi \\
+&= \pi^\ast (df(\pi_\ast h\xi)) \psi + f \nabla_X \psi \\
+&= \pi^\ast(df(\pi_\ast \xi)) \psi + f \nabla_X \psi \\
+&= \pi^\ast(Xf) \psi + f \nabla_X \psi \\
+&= X(f) \psi  + f \nabla_X \psi
+}
+\end{proof}
+
+We will now define a more calculationally useful formula for the Kozul connection of $P \times_G V$ induced by the Ehresmann connection on $P$. Let $\psi \in C^\infty_G(P,V)$ and let $\xi \in \mf{X}(P)$. We decompose $\xi = h\xi + \xi^v$ where $\pi_\ast \xi^v = 0$. Then 
+\eq{
+d\psi(h\xi) = d\psi(\xi - \xi^v) = d\psi(\xi) - d\psi(xi^v)
+}
+The derivative $\xi^v \psi$ only depends on the value of $\xi^v$ at a point, so we can take $\xi^v$ to be the fundamental vector field $\xi_{\omega(\xi^v)} = \xi_{\omega(\xi)}$ corresponding to the $G$-action. Therefore 
+\eq{
+\xi^v \psi = \xi_{\omega(\xi)} \psi &= \ev{\frac{d}{dt}\psi \circ r_{\exp(t\omega(\xi))}}{t=0} \\
+&= \ev{\frac{d}{dt} \rho(\exp(-t\omega(\xi))) \circ \psi}{t=0} \\
+&= -\rho(\omega(\xi)) \circ \psi
+}
+Therefore $d\psi(h\xi) = d\psi(\xi) + \rho(\omega(\xi)) \circ \psi$, or abstracting $\xi$, 
+\eq{
+d^\nabla \psi = d\psi + \rho(\omega) \cdot \psi
+}
+Finally, we give a formula for $\nabla_X \sigma$, where $\sigma \in \Gamma(P \times_G V)$, now viewed as a family $\pbrace{\sigma_\alpha : U_\alpha \to V}$ of functions transforming in overlaps as $\sigma_\alpha(A) = \rho(g_{\alpha\beta}(a)) \sigma_\beta(a)$;
+\eq{
+d^\nabla \sigma_\alpha &= d^\nabla s_\alpha^\ast \psi = d^\nabla(\psi \circ s_\alpha) = d(\psi \circ s_\alpha) \circ h \\
+&= d(s_\alpha^\ast \psi) \circ h = s_\alpha^\ast (d\psi) \circ h \\
+&= s_\alpha^\ast d^\nabla \psi = s_\alpha^\ast (d\psi + \rho(\omega) \circ \psi) \\
+&= d s_\alpha^\ast \psi + \rho(s_\alpha^\ast \omega) \circ s_\alpha^\ast \psi \\
+&= d\sigma_\alpha + \rho(A_\alpha) \circ \sigma_\alpha
+}
+Hence, if $X \in \mf{X}(M)$, 
+\eq{
+\nabla_X \sigma_\alpha \equiv X(\sigma_\alpha) + \rho(A_\alpha(X)) \cdot \sigma_\alpha
+}
+
+\begin{ex}
+Show that $\nabla_X \sigma_\alpha$ transforms like $\sigma_ \alpha$ on overlaps, that is 
+\eq{
+\nabla_X \sigma_\alpha = \rho(g_{\alpha\beta}) \circ \nabla_X \sigma_\beta
+}
+Note this justifies the name \bam{covariant derivative}. 
+\end{ex}
+
+In summary, given a $G$-PFB, $P \to M$, and a f.d. rep $\rho : G \to GL(V)$, we construct a VB $P\times_G V \to M$. Every VB is obtained in this way from its frame bundle. We then introduced the notion of a Kozul connection on a VB and showed that an Ehresmann connection on $P$ induces a Kozul connection on $P \times_G V$. The converse is also true: a Kozul connection on $E$ induces an Ehresmann connection on $GL(E)$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Curvature}
+
+Let $P \overset{\pi}{\to} M$ be a principal $G$-bundle and $\rho: G \to GL(V)$ a Lie group homomorphism. Let $E \equiv P \times_G V \overset{\varpi}{\to} M$ be the associated VB. We saw in the last lecture that we have a $C^\infty(M)$-module isomorphism 
+\eq{
+\pbrace{s:M \to E \, | \, \varpi \circ s = \id_M} = \Gamma(E) \cong C_G^\infty(P,V) = \pbrace{\zeta : P \to V \, | \, r_g^\ast \zeta = \rho(g^{-1}) \circ \zeta}
+}
+with module actions $f \cdot \zeta = (\pi^\ast f) \zeta$. \\
+We wish to generalise this from functions to forms. We define $\Omega^k(P,V)$ to be the $k$-forms on $P$ with values in $V$. If $p \in P, \omega \in \Omega^k(P,V)$, then $\omega_p : \Lambda^k T_pP \to V$ is linear. Let $\Omega^k_G(P,V) \subset \Omega^k(P,V)$ denote those $V$-valued $k$-forms $\omega$ which are both 
+\begin{itemize}
+    \item \bam{horizontal}: $\forall \xi$ vertical, $i_\xi \omega = 0$
+    \item \bam{invariant}: $\forall g \in G$, $r_g^\ast \omega = \rho(g^{-1}) \circ \omega$. 
+\end{itemize} 
+Forms $\omega\in \Omega^k(P,V)$ are said to be basic since they come from bundle valued forms on the base. Indeed, we have 
+\begin{prop}
+There is an isomorphism of $C^\infty(M)$-modules 
+\eq{
+\Omega^K_G(P,V) \cong \Omega^k(M,P\times_G V)
+}
+where for $\omega \in \Omega^k_G(P,V), \, f \cdot \omega = (\pi^\ast f) \omega$
+\end{prop}
+\begin{proof}
+Similar to $k=0$ case. Define $\sigma \in \Omega^k(M,P\times_G V)$ locally by $\pbrace{\sigma_\alpha \in \Omega^k(U_\alpha,V)}$ obeying $\sigma_\alpha(a) = \rho(g_{\alpha\beta}(a)) \sigma_\beta(a)$. Then $\zeta_\alpha(p) = \rho(g_\alpha(p))^{-1} \circ \pi^\ast \sigma_\alpha$ is clearly horizontal. It can be shown to be invariant and that $\forall p \in \pi^{-1} U_{\alpha\beta}, \, \zeta_\alpha(p) = \zeta_\beta(p)$. Conversely, if $\zeta \in \Omega^k_G(P,V)$, we define $\sigma_\alpha = s_\alpha^\ast \zeta$ and one can show that $\forall a \in U_{\alpha\beta}, \, \sigma_\alpha(a) = \rho(g_{\alpha\beta}(a)) \sigma_\beta(a)$ 
+\end{proof}
+
+If $\sigma \in \Gamma(P \times_G V)$, $d^\nabla \sigma_\alpha = \rho(g_{\alpha\beta}) d^\nabla \sigma_\beta$, and hence $d^\nabla \sigma \in \Omega^1(M, P\times_G V)$. 
+
+\begin{lemma}
+Let $\alpha \in \Omega^k_G(P,V)$. Then $h^\ast d\alpha \in \Omega^{k+1}_G(P,V)$. 
+\end{lemma}
+\begin{proof}
+$h^\ast d\alpha$ is horizontal by construction, so we check invariance; 
+\eq{
+r_g^\ast h^\ast d\alpha = h^\ast r_g^\ast d\alpha = h^\ast d(r_g^\ast \alpha) = h^\ast d(\rho(g)^{-1} \circ \alpha) = \rho(g)^{-1} \circ h^\ast d\alpha
+}
+\end{proof}
+
+\begin{definition}
+Let $\omega \in \Omega^1(P,\mf{g})$ be the connection one form of an Ehresmann connection $\ms{H} \subset TP$. Its \bam{curvature} is $\Omega \equiv h^\ast d\omega$. 
+\end{definition}
+
+\begin{lemma}
+$\Omega \in \Omega^2_G(P,V)$. 
+\end{lemma}
+\begin{proof}
+Horizontal by construction, and by the same calculation as the lemma above it is invariant because $\omega$ is. 
+\end{proof}
+
+\begin{prop}
+$\Omega=0$ iff $\ms{H} \subset TP$ is (Frobenius) integrable.  
+\end{prop}
+\begin{proof}
+we see
+\eq{
+\Omega(\xi,\eta) &= d\omega(h\xi, h\eta) = h\xi \underbrace{\omega(h\eta)}_{=0} - h\eta \underbrace{\omega (h\xi)}_{=0} - \omega (\comm[h\xi]{h\eta}) \\
+&= \omega(\comm[h\xi]{h\eta}) \\
+}
+Hence 
+\eq{
+\Omega = 0 \Leftrightarrow & \forall \xi, \eta \, \comm[h\xi]{h\eta} \text{ is horizontal } \\
+\Leftrightarrow & \comm[\ms{H}]{\ms{H}} \subset \ms{H} \\
+\Leftrightarrow & \ms{H} \subset TP \text{ is integrable}. 
+}
+\end{proof}
+
+\begin{prop}[Structure equation]
+$\Omega = d\omega + \frac{1}{2}\comm[\omega]{\omega}$
+\end{prop}
+\begin{proof}
+We need to show $\Omega(\xi,\eta) = d\omega(\xi,\eta) + \comm[\omega(\xi)]{\omega(\eta)}$. \\
+Let $\xi, \eta$ be horizontal. Then $h\xi = \xi$ and $h\eta =\eta$, . hence $\Omega(\xi,\eta) = d\omega(\xi,\eta)$ and $\omega(\xi) = 0 = \omega(\eta)$. \\
+Let $\eta$ be horizontal and $\xi = \xi_X$ be vertical. Then $h\xi=0$, $h\eta = \eta$, and $\omega(\eta)$. Hence we need 
+\eq{
+0 = d\omega(\xi_X,\eta) = -\eta \omega(\xi_X) - \omega(\comm[\xi_X]{\eta}) = -\underbrace{\eta X}_{=0} - \omega(\comm[\xi_X]{\eta})
+}
+i.e that $\comm[\xi_X]{\ms{H}} \subset \ms{H}$. This is the case as $\ms{H}$ is invariant. \\
+Let $\xi=\xi_X, \eta = \xi_Y$ vertical. Then $h\xi_X = 0 = h\xi_Y$ and $\omega(\xi_X), \omega(\xi_Y) = Y$. So we must show that 
+\eq{
+0 &= d\omega(\xi_X,\xi_Y) + \comm[\omega(\xi_X)]{\omega(\xi_Y)} \\
+&= \xi_X Y - \xi_Y X - \omega(\comm[\xi_X]{\xi_Y}) + \comm[X]{Y} \\
+&= -\omega(\xi_{\comm[X]{Y}}) + \comm[X]{Y}
+}
+so done. 
+\end{proof}
+
+\begin{corollary}[Bianchi Identity]
+$h^\ast d\Omega = 0$
+\end{corollary}
+\begin{proof}
+\eq{
+h^\ast d\Omega = h^\ast d(d\omega + \frac{1}{2}\comm[\omega]{\omega}) = h^\ast \comm[d\omega]{\omega} = \comm[h^\ast d\omega]{h^\ast \omega} = 0
+}
+since $h^\ast \omega = 0$
+\end{proof}
+Let's define $d^\nabla : \Omega^k_G(P,V) \to \Omega^{k+1}_G(P,V)$ by $d^\nabla = h^\ast d$. Then, unlike $d$, $d^\nabla$ need not be a differential, and the obstruction is the curvature:
+
+\begin{prop}
+$\forall \alpha \in \Omega_G^k(P,V), \, d^\nabla(d^\nabla \alpha) = \rho(\Omega) \wedge \alpha$
+\end{prop}
+\begin{proof}
+\eq{
+d^\nabla \alpha &= d\alpha + \rho(\omega) \wedge \alpha \\
+\Rightarrow d^\nabla(d^\nabla \alpha) &= d(d\alpha + \rho(\omega) \wedge \alpha) + \rho(\omega) \wedge (d\alpha + \rho(\omega) \wedge \alpha) \\
+&= \rho(d\omega) \wedge \alpha - \rho(\omega) \wedge d\alpha + \rho(\omega) \wedge d\alpha + \rho(\omega) \wedge \rho(\omega) \wedge \alpha \\
+&= \rho(d\omega) \wedge \alpha + \frac{1}{2} \comm[\rho(\omega)]{\rho(\omega)} \wedge \alpha\\
+&= \rho(d\omega + \frac{1}{2} \comm[\omega]{\omega}) \wedge \alpha  \\
+&= \rho(\Omega) \wedge \alpha
+}
+\end{proof}
+
+\begin{ex}
+Write $F_\alpha = s_\alpha^\ast \Omega$. Express $F_\alpha$ in terms of $A_\alpha = s_\alpha^\ast \omega$ and relate $F_\alpha, F_\beta$ on $U_{\alpha\beta} \neq \emptyset $
+\end{ex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Homogeneous spaces and Invariant Connections I}
+Let $G$ be a Lie group acting transitively on a manifold $M$. Pick $a \in M$ and let $H \subset G$ be the stabiliser subgroup. It is a closed subgroup, and then $M \cong \faktor{G}{H}$, where the diffeomorphism is $G$-equivariant and $G \lact \faktor{G}{H}$ is induced by left multiplication in $G$. If $g \in G$, we let $\phi_g : M \to M$ denote the corresponding diffeomorphism. If $X \in \mf{g}$, we define a vector field $\xi_X \in \mf{X}(M)$ by 
+\eq{
+(\xi_X f)(m) = \ev{\frac{d}{dt} f \pround{\phi_{\exp(-tX)}(m)}}{t=0}
+}
+Then $\comm[\xi_X]{\xi_Y} = \xi_{\comm[X]{Y}}$. \\
+Since $H$ stabilises $a \in M$, $\forall h \in H, \, (\phi_h)_\ast : T_aM \to T_a M$, and we get a Lie group homomorphism $\lambda : H \to GL(T_aM)$ called the \bam{linear isotropy representation}. We will use the same notation for the induced Lie algebra rep $\lambda: \mf{h} \to \mf{gl}(T_aM)$. Evaluating at $a \in M$, we get a surjective linear map $\mf{g} \to T_aM, \, X \mapsto \ev{\xi_X}{a}$ whose kernel is $\mf{h}$. 
+
+\begin{definition}
+We say that $\faktor{G}{H}$ is \bam{reductive} if the short exact sequence 
+\eq{
+0 \to \mf{h} \to \mf{g} \to T_a M \to 0
+}
+splits as $H$-modules. In other words if $\exists \mf{m} \subset \mf{g}$ such that $\mf{g} \oplus \mf{m}$ and $\forall h \in H, \, \Ad_h : \mf{m} \to \mf{m} $. In that case $T_aM \cong \mf{m}$ as $H$-modules. 
+\end{definition}
+
+If $g \in G$ and $\phi_g \in \Diff(M)$, we define $\phi_g \cdot f = f \circ \phi_{g^{-1}}$ and $\phi_g \cdot \xi = (\phi_g)_\ast \xi$ where 
+\eq{
+((\phi_g)_\ast \xi)_a = ((\phi_g)_\ast)_{\phi_g^{-1}(a)} \xi_{\phi_g^{-1}(a)}
+}
+It follows that 
+\eq{
+\phi_g \cdot (Xf) &= (\phi_g \cdot X) (\phi_g \cdot f) \\
+\phi_g \cdot (fX) &= (\phi_g \cdot f)(\phi_g \cdot X)
+}
+Now let $\nabla $ be an affine connection, (i.e. $\nabla_{fX}Y = f \nabla_XY$, $\nabla_X(fY) = X(f)Y + f\nabla_X Y$) . Let $\phi \in \Diff(M)$. Define $\nabla^\phi$ by 
+\eq{
+\nabla_X^\phi Y = \phi \cdot \nabla_{\phi^{-1}\cdot X} (\phi^{-1} \cdot Y)
+}
+
+\begin{lemma}
+$\nabla^\phi$ is an affine connection
+\end{lemma}
+\begin{proof}
+\eq{
+\nabla_{fX}^\phi Y &= \phi \cdot \nabla_{\phi^{-1}\cdot(fX)}(\phi^{-1}Y) \\
+&= \phi \cdot \nabla_{(\phi^{-1}\cdot f)(\phi^{-1}\cdot X)}(\phi^{-1}Y) \\
+&= \phi \cdot \pround{ \phi^{-1} \cdot f \nabla_{\phi^{-1}\cdot X}(\phi^{-1}\cdot Y} \\
+&= (\phi \cdot \phi^{-1}f) (\phi \cdot \nabla_{\phi^{-1}X}(\phi^{-1}\cdot Y) \\
+&= f \nabla_X^\phi Y \\
+\nabla+X^\phi (fY) &= \phi \cdot \pround{\nabla_{\phi^{-1}\cdot X}\phi^{-1}(fY)} \\
+&= \phi  \cdot \pround{\nabla_{\phi^{-1}\cdot X}(\phi^{-1}f)(\phi^{-1}Y)} \\
+&= \phi \cdot \pround{(\phi^{-1}X)(\phi^{-1}f) (\phi^{-1}Y) + (\phi^{-1}f) \nabla_{\phi^{-1}X}(\phi^{-1}Y)} \\
+&= (\phi \cdot \phi^{-1} \cdot X(f))(\phi \cdot \phi^{-1} \cdot Y) + (\phi \cdot \phi^{-1} \cdot f) \nabla_{\phi^{-1}X}(\phi^{-1}Y) \\
+&= X(f) Y + f \nabla_X^\phi Y
+}
+\end{proof}
+
+\begin{definition}
+An affine connection $\nabla$ on a reductive homogeneous $M=\faktor{G}{H}$ is said to be \bam{G-invariant} if $\forall g \in G, \, \nabla^{\phi_g} = \nabla$. i.e 
+\eq{
+\phi_g \cdot \nabla_X Y = \nabla_{\phi_g X} (\phi_g Y)
+}
+If $H = \pbrace{e}, M=G$, then $\nabla$ is \bam{left invariant} if 
+\eq{
+L_g \cdot \nabla_XY = \nabla_{L_g \cdot X}(L_g \cdot Y)
+}
+\end{definition}
+
+Suppose that $X,Y$ are left invariant , so that $L_g \cdot X = X, L_g \cdot Y = Y$. In that case, the left invariance of $\nabla$ implies that $\nabla_XY$ is also left invariant. Now, on a Lie group we may trivialise the tangent bundle via left translations. That means that we have a global frame $(X_1, \dots, X_n)$ consisting of left invariant vector fields. The connection is therefore uniquely determined by $n^3$ numbers $\Gamma^k_{ij}$ defined by 
+\eq{
+\nabla_{X_i} X_j = \sum_k \Gamma^k_{ij} X_k
+}
+These are the components relative to the basis $\pbrace{X_i}$ of a linear map $\Lambda : \mf{g} \to \mf{gl}(\mf{g})$. The torsion and curvature tensors are also left-invariant and are given in terms of $\Lambda$ by 
+\eq{
+T(X,Y) &= \Lambda_X Y - \Lambda_Y X - \comm[X]{Y} \\
+R(X,Y)Z &= \comm[\Lambda_X]{\Lambda_Y}Z - \Lambda_{\comm[X]{Y}}Z
+}
+for LI $X,Y,Z \in \mf{X}(G)$. We see that curvature measures the failure of $\Lambda$ to be a Lie algebra homomorphism. \\
+In particular, taking $\Lambda = 0$, we see that there exists a flat connection with torsion given by $T(X,Y) = -\comm[X]{Y}$ relative to which LI vf on $G$ are \bam{parallel} (i.e. $\nabla X = 0$). Of course, there exists another flat connection annihilating the right-invariant vector fields. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Invariant Connections} 
+What did we do last time? We were looking at Homogeneous spaces $M \equiv \faktor{G}{H}$, $H\leq G$ a closed subgroup. We had fibre 
+\eq{
+H \to G \overset{\pi}{\to} M
+}
+and for $g \in G$ we have $\phi_g : M \to M$ acting by multiplication, i.e. $\phi_g(a) = g \cdot a$. As a result of the quotient have $eH = o \in M$ s.t 
+\eq{
+\forall h \in H \; \phi_h(o) = o \\
+}
+Then 
+\eq{
+(\phi_h)_\ast : T_oM \to T_o M 
+}
+Hence we may make the following def:
+\begin{definition}
+The \bam{linear isotropy representation}
+\eq{
+\lambda: H \to GL(T_oM)
+}
+is given by $\lambda_h = (\phi_h)_\ast$. 
+\end{definition}
+We also have the map
+\eq{
+\xi : \mf{g} &\to \mf{X}(M) \\
+X &\mapsto \xi_X
+}
+s.t. $\comm[\xi_X]{\xi_Y} = \xi_{\comm[X]{Y}}$. Composing with evaluation yields
+\eq{
+ev_o \circ \xi : \mf{g} \to T_o M 
+}
+where $\ker(ev_o \circ \xi) = \mf{h} \subset \mf{g}$. This is bijective so in fact 
+\eq{
+T_o M \cong \faktor{\mf{g}}{\mf{h}}
+}
+and we get commuting diagram 
+\begin{center}
+    \begin{tikzcd}
+   T_o M  \arrow[r, "\lambda_h"] \arrow[d, "\cong"']
+& T_oM \arrow[d, "\cong"] \\
+ \faktor{\mf{g}}{\mf{h}} \arrow[r, "\Ad(h)"]
+& \faktor{\mf{g}}{\mf{h}}
+    \end{tikzcd}
+\end{center}
+
+\begin{definition}
+An affine connection $\nabla$ on $TM$ is \bam{G-invariant} if 
+\eq{
+\forall g \in G, \, \nabla^{\phi_g} = \nabla \\
+\phi_g \nabla_\xi \eta = \nabla_{\phi_g \xi} (\phi_g \eta)
+}
+\end{definition}
+
+If $H = \pbrace{e}, M=G$, then $\nabla$ is left invariant if for all left invariant vector fields $\xi_X,\xi_Y$ $\nabla_{\xi_X} \xi_Y$ is also LI. This is then uniquely determined by its value at $e$. Hence $\nabla $ defines a bilinear map 
+\eq{
+\mf{g} \times \mf{g} &\overset{\alpha}{\to} \mf{g} \\
+(X,Y) &\mapsto \ev{\nabla_{\xi_X} \xi_Y}{e}
+}
+We can then \bam{curry} a map as given $\alpha : \mf{g} \times \mf{g} \to \mf{g}$ we can get 
+\eq{
+\Lambda : \mf{g} &\to \End(\mf{g}) \\
+X &\mapsto \Lambda_X
+}
+where $\Lambda_X(Y) = \alpha(X,Y)$. 
+
+\begin{ex}
+Show that the torsion $T$ and curvature $R$ of $\Lambda$ are left invariant and given by 
+\eq{
+T(X,Y) &= \Lambda_X Y - \Lambda_Y X - \comm[X]{Y} \\ 
+R(X,Y)Z &= \comm[\Lambda_X]{\Lambda_Y}Z - \Lambda_{\comm[X]{Y}}Z
+}
+Note $R$ is the obstruction to $\Lambda$ being a Lie algebra homomorphism. 
+\end{ex}
+
+\begin{claim}
+$\exists$ a LI connection $\nabla$ corresponding to $\Lambda=0$. 
+\end{claim} 
+Such $\Lambda$ is flat, but has torsion $T(X,Y) = - \comm[X]{Y}$. As such $\nabla$ is characterised by $\forall \text{ LI } \xi , \, \nabla\xi = 0$. Now let $H \neq \pbrace{e}$ be closed and reductive: $\mf{g} = \mf{h} \oplus \mf{m}$ where $\Ad_H(\mf{m}) \subset \mf{m}$. Note $\mf{m}\cong \faktor{\mf{g}}{\mf{h}}$, so in the previous case $\mf{m}\cong T_oM$
+
+\begin{aside}
+There is a "holonomy principle" that 
+\eq{
+\pbrace{G\text{-invariant tensor fields on }\faktor{G}{H}} \overset{ev_o}{\leftrightarrow} \pbrace{\Ad(H)\text{-invariant tensors on }\mf{m}}
+}
+This comes about, as if we take a tensor $T$ at $o$, we can define a tensor field on $\faktor{G}{H}$ by 
+\eq{
+\mc{T}(a) = \phi_g T
+}
+for and $g \in G$ s.t. $\phi_g o = a$. Then if we have another representative $g^\prime$ then 
+\eq{
+g^{-1}g^\prime \in H \Leftrightarrow \phi_{g^{-1}g^\prime} o = o
+}
+so 
+\eq{
+T = \phi_{g^{-1}g^\prime} T
+}
+\end{aside}
+
+\begin{claim}
+An invariant connection $\nabla$ is determined by a bilinear map 
+\eq{
+\alpha : \mf{m} \times \mf{m} \to \mf{m}
+}
+which is $H$ invariant, the \bam{Nomizu map}. 
+\end{claim}
+
+We can take natural coordinates for $M$ in the neighbourhood $V\subset \mf{m}$ of $o$ by exponentiating $\mf{m}$. The projection $\pi$ is a local diffeo on $U = \exp(V)$. \\
+In a basis for $\mf{m}$, $\pbrace{e_i}$,  
+\eq{
+V & \to U \\
+\sum x^i e_i &\mapsto \exp\pround{\sum x^i e_i}
+}
+Now $\forall g \in U$, $\pi(g) = \phi_g \cdot o $, Let $\overline{V} = \pbrace{\phi_g \cdot o | g \in U}$. For $X \in \mf{m}$ define $\xi_X \in \mf{X}(\overline{V})$ by 
+\eq{
+(\xi_X)_{\phi_g o } &\equiv ((\phi_g)_\ast)_o (\pi_\ast)_e X  \\
+&= ((\phi_g \circ \pi)_\ast)_e X \\
+&= ((\pi \circ L_g)_\ast)_e X = (\pi_\ast)_g X^L_g 
+}
+where $X^L$ is the LIVF defined by $\ev{X^L}{e} = X$. Hence $\xi_X$ is $\pi$-related to $X^L$. Then $\comm[\xi_X]{\xi_Y}$ is $\pi$-related to $\comm[X^L]{Y^L} = \comm[X]{Y}^L$. \\  
+Now let $W\subset V$ s.t. $\forall h \in H , \, \Ad_hW \subset V$, and def $\overline{W}$ accordingly. Then for $h\in H$, $\phi_h : \overline{W} \to \overline{V}$. As such 
+\eq{
+\phi_h \phi_g \cdot o &= \phi_h \phi_g \phi_{h^{-1}} \phi_h \cdot o \\
+&= \phi_{hgh^{-1}} \cdot o \in \overline{V}. 
+}
+
+We will now need the following lemma 
+
+\begin{lemma}
+$\forall g \in \exp(W), \, h \in H$, 
+\eq{
+(\phi_h)_\ast \xi_X = \xi_{\Ad_hX}
+}
+at $\phi_g o $, i.e. at all point in $\overline{V}$. 
+\end{lemma}
+\begin{proof}
+\eq{
+\psquare{(\phi_h)_\ast \xi_X}_{\phi_h \phi_g o} &= (\phi_h)_\ast (\xi_X)_{\phi_g o} \\ 
+&= (\phi_h)_\ast (\phi_g)_\ast \pi_\ast X \\
+&= (\phi_{hg})_\ast \pi_\ast X \\
+&= (\phi_{hgh^{-1}})_\ast (\phi_h)_\ast \pi_\ast X \\ 
+&= (\xi_{\Ad(h)X})_{\phi_{hgh^{-1}} o} = (\xi_{\Ad_hX})_{\phi_{h}\phi_g o} 
+}
+recalling the commuting diagram 
+\begin{center}
+    \begin{tikzcd}
+    T_o M  \arrow[r, "(\phi_h)_\ast"] 
+& T_oM  \\
+ \mf{m} \arrow[r, "\Ad(h)"] \arrow[u, "\pi_\ast"]
+& \mf{m} \arrow[u, "\pi_\ast"']
+    \end{tikzcd}
+\end{center}
+\end{proof}
+
+\begin{lemma}
+Let $X,Y \in \mf{m}$, and $\xi_X,\xi_Y \in \mf{X}(\overline{V})$. Then $\ev{\comm[\xi_X]{\xi_Y}}{o} = \pi_\ast \comm[X]{Y}_{\mf{m}}$
+\end{lemma}
+\begin{proof}
+We saw above that $\comm[\xi_X]{\xi_Y}$ is $\pi$-related to $\comm[X^L]{Y^L} = \comm[X]{Y}^L$. Hence $\comm[\xi_X]{\xi_Y} = \xi_{\comm[X]{Y}}$ and evaluating at $o \in M$ gives 
+\eq{
+\ev{\comm[\xi_X]{\xi_Y}}{o} = \ev{\xi_{\comm[X]{Y}_{\mf{h}}}}{o} + \ev{\xi_{\comm[X]{Y}_{\mf{m}}}}{o} = \ev{\xi_{\comm[X]{Y}_{\mf{m}}}}{o} = \pi_\ast \comm[X]{Y}_{\mf{m}}
+}
+\end{proof}
+
+\begin{theorem}[Nomizu]
+There is a bijective correspondence
+\eq{
+\pbrace{G\text{-invariant affine connections on }M} \leftrightarrow \pbrace{\Ad(h)\text{-invariant bilinear maps } \alpha:\mf{m}\times\mf{m}\to\mf{m}}
+}
+given by 
+$\alpha(X,Y) = \ev{\nabla_{\xi_X} \xi_Y}{o}
+$
+\end{theorem}
+Note $\exists !$ $G$-invariant connection $\nabla$ with $\alpha=0$, and this is called the \bam{canonical connection}. If you curry this map again you can show 
+\eq{
+T(X,Y) &= \alpha(X,Y) = \alpha(Y,X) - \comm[X]{Y}_\mf{m} \\
+R(X,Y)Z &= \alpha(X,\alpha(Y,Z)) - \alpha(Y,\alpha(X,Z)) - \alpha(\comm[X]{Y}_{\mf{m}},Z) - \comm[X]{Y}_\mf{h} Z 
+}
+If $\alpha=0$ we get 
+\eq{
+T(X,Y) &= - \comm[X]{Y}_\mf{m} \\
+R(X,Y) &= -\comm[X]{Y}_\mf{h} 
+}
+If $T=0$, $M$ is said to be \bam{symmetric}. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Cartan Connections}
+Again consider homogeneous reductive spaces 
+\begin{center}
+\begin{tikzcd}
+ H \arrow[r] & G \arrow[d,"\pi"] \\ 
+ & M= \faktor{G}{H} 
+\end{tikzcd}
+\end{center}
+With a local section $\sigma : U \to G$ we can pull back the LI MC 1-form $\vartheta_G \in \Omega^1(G;\mf{g})$
+\eq{
+\sigma^\ast \vartheta_G \in \Omega^1(U;\mf{g})
+}
+Recall the MC 1-form satisfies structure equation s
+\eq{
+d\vartheta_G + \frac{1}{2} \comm[\vartheta_G]{\vartheta_G} = 0
+}
+Then given two such sections $\sigma_i$ we have 
+\eq{
+\forall a \in U, \, \sigma_2(a) = \sigma_1(a) h(a)
+}
+for some $h:U \to H$, a uniquely defined function. 
+\begin{lemma}
+\eq{
+\sigma_2^\ast \vartheta_G = \Ad(h^{-1}) \cdot \sigma_1^\ast \vartheta_G + h^\ast \vartheta_H
+}
+\end{lemma}
+\begin{proof}
+We will notationally use the idea of matrix groups but in general the proof works. Then 
+\eq{
+\sigma^\ast \vartheta_g = \sigma^{-1} d\sigma \,.
+}
+Then 
+\eq{
+\sigma_2^\ast \vartheta_G &= \sigma_2^{-1} d\sigma_2 \\
+&= (\sigma_1 h)^{-1} d(\sigma_1 h) \\
+&= h^{-1} \sigma_1^{-1} ( d\sigma_1 h + \sigma_1 dh) \\
+&= h^{-1}(\sigma_1^{-1}d\sigma_1)h + h^{-1}dh 
+}
+so done. 
+\end{proof}
+As we are in the reductive case, $\mf{g} = \mf{h} \oplus \mf{m}$ and we can decompose. Write $\sigma_1^\ast \vartheta_G = \theta_1 + \omega_1 $ for $\theta_1 \in \Omega^1(U,\mf{m}), \, \omega_1 \in \Omega^1(U,\mf{h})$. Then 
+\eq{
+\theta_2 + \omega_2 &= \Ad(h)^{-1}(\theta_1 + \omega_1) + h^\ast \vartheta_H 
+}
+so 
+\eq{
+\theta_2 &= \Ad(h)^{-1} \theta_1 \\
+\omega_2 &= \Ad(h)^{-1} \omega_1 + h^\ast \vartheta_H
+}
+decomposing. Hence $\theta_2$ transforms as a tensor, $\omega_2$ as a gauge field. Now if we let $\sigma = \sigma_1$ and the structure equation becomes 
+\eq{
+d(\theta + \omega) + \frac{1}{2} \comm[\theta+\omega]{\theta + \omega} &= 0 \\
+d\theta + d\omega + \frac{1}{2}\comm[\theta]{\theta} + \frac{1}{2}\comm[\omega]{\omega} + \comm[\omega]{\theta} &= 0 
+}
+As such decomposing 
+\eq{
+d\theta + \frac{1}{2} \comm[\theta]{\theta}_\mf{m} + \comm[\omega]{\theta} &= 0  &\Rightarrow& &\Theta &\equiv d\theta + \comm[\omega]{\theta} = - \frac{1}{2}\comm[\theta]{\theta}_\mf{m}\\
+d\omega + \frac{1}{2} \comm[\theta]{\theta}_\mf{h} + \frac{1}{2} \comm[\omega]{\omega} &= 0  &\Rightarrow& &\Omega &\equiv d\omega + \frac{1}{2}\comm[\omega]{\omega} = -\frac{1}{2} \comm[\theta]{\theta}_\mf{h}
+}
+As such 
+\eq{
+\Theta(\xi_X,\xi_Y) &= -\comm[X]{Y}_\mf{m} \\
+\Omega(\xi_X,\xi_Y) &= -\comm[X]{Y}_\mf{h}
+}
+Gauge fields for the canonical invariant connection on $\faktor{G}{H}$ are $\sigma^\ast \vartheta_G$. \\
+With this motivation with us, the Cartan connections are going to be generalisation of these where in the gauge field descriptions these are local 1-forms on the base. The Cartan viewpoint is to view $TM$ not as a linear rep of $GL(n,\mbb{R})$, but as a homogeneous space of the affine group $\mbb{A}(n,\mbb{R})\cong GL(n,\mbb{R}) \ltimes \mbb{R}^n$ such that $T_a M \cong \faktor{\mbb{A}(n,\mbb{R})}{GL(n,\mbb{R})}$.
+
+\begin{definition}
+A \bam{Cartan gauge} (def from Sharpe, Jose doesn't like) with model $\faktor{G}{H}$ on $M$ is a pair $(U,\theta)$ where $U \subset M$ open and $\theta \in \Omega^1(U,\mf{g})$ satisfying \bam{regularity}
+\eq{
+T_a M \overset{\theta_a}{\to} \mf{g} \overset{pr}{\to} \faktor{\mf{g}}{\mf{h}}
+}
+is an isomorphism $\forall a \in U$. 
+\end{definition}
+This is the analogue of a chart
+\begin{definition}
+A \bam{Cartan atlas} is a collection of Cartan gauges $\pbrace{(U_\alpha,\theta_\alpha)}$ s.t 
+\begin{itemize}
+    \item $\bigcup_{\alpha} U_\alpha = M $
+    \item on $U_{\alpha\beta}$ 
+    \eq{
+    \theta_\beta = \Ad(h_{\alpha\beta}^{-1}) \theta_\alpha + h_{\alpha\beta}^\ast \vartheta_H
+    }
+    for some $h_{\alpha\beta}:U_{\alpha\beta} \to H$. 
+\end{itemize}
+\end{definition}
+This is very analogous to atlases. 
+\begin{definition}
+Two atlases are \bam{equivalent} if their union is an atlas. 
+\end{definition}
+
+\begin{definition}
+A \bam{Cartan structure} on $M$ is an equivalence class (equivalently maximal atlas) of Cartan atlases. A \bam{Cartan geometry} is a manifold $M$ together with a Cartan structure.  
+\end{definition}
+
+\begin{definition}
+The \bam{curvature} of a Cartan gauge $(U,\theta)$ is $\Omega \in \Omega^2(U,\mf{g})$ given by 
+\eq{
+\Omega = d\theta + \frac{1}{2} \comm[\theta]{\theta}
+}
+\end{definition}
+If I have a Cartan atlas, I can ask how respective curvatures $\Omega_\alpha$ change on overlaps. 
+\begin{lemma}
+On $U_{\alpha\beta}$
+\eq{
+\Omega_\beta = \Ad(h_{\alpha\beta}^{-1}) \Omega_\alpha
+}
+\end{lemma}
+\begin{proof}
+\eq{
+\theta_\beta &= \Ad(h_{\alpha\beta}^{-1})\theta_\alpha + h_{\alpha\beta}^\ast \vartheta_H \\ 
+\Rightarrow d\theta_\beta + \frac{1}{2}\comm[\theta_\beta]{\theta_\beta} &= d\pround{\underbrace{\Ad(h_{\alpha\beta}^{-1})\theta_\alpha}_{h_{\alpha\beta}^{-1} \theta_\alpha h_{\alpha\beta}} + h_{\alpha\beta}^\ast \vartheta_H} + \frac{1}{2}\comm[\Ad(h_{\alpha\beta}^{-1})\theta_\alpha + h_{\alpha\beta}^\ast \vartheta_H]{\Ad(h_{\alpha\beta}^{-1})\theta_\alpha + h_{\alpha\beta}^\ast \vartheta_H} \\
+&= \Ad(h_{\alpha\beta}^{-1}) d\theta_\alpha - \comm[\Ad(h_{\alpha\beta}^{-1})\theta_\alpha]{h_{\alpha\beta}^\ast\vartheta_H} - \frac{1}{2} h_{\alpha\beta}^\ast \comm[\vartheta_H]{\vartheta_H} + \frac{1}{2} \Ad(h_{\alpha\beta}^{-1}) \comm[\theta_\alpha]{\theta_\alpha} \\
+& \, +\frac{1}{2} \comm[h_{\alpha\beta}^\ast \vartheta_H]{h_{\alpha\beta}^\ast \vartheta_H} + \comm[\Ad(h_{\alpha\beta}^{-1}) \theta_\alpha]{h_{\alpha\beta}^\ast \vartheta_H} \\
+&= \Ad(h_{\alpha\beta}^{-1}) \pround{d\theta_\alpha + \frac{1}{2} \comm[\theta_\alpha]{\theta_\alpha}}
+}
+\end{proof}
+Hence setting $\Omega_\alpha=0$ is an \emph{extrinsic} statement of an atlas. 
+
+\begin{definition}
+A Cartan structure is \bam{flat} if $\forall \alpha , \, \Omega_\alpha = 0$
+\end{definition}
+
+\begin{example}
+Flat Cartan structures: 
+\begin{itemize}
+    \item $G \to \faktor{G}{H}$ with $(U_\alpha,\sigma_\alpha^\ast \vartheta_G)$
+    \item an open subset $V\subset \faktor{G}{H}$ as above.
+    \item $\Gamma \subset G$ acting by covering transformations, locally like $\faktor{G}{H}$. 
+\end{itemize}
+\end{example}
+
+\begin{definition}
+A Klein geometry $\faktor{G}{H}$ has \bam{kernel} $K$: the largest subgroup of $H$ that is normal in $G$. If $K=1$ we say that $\faktor{G}{H}$ is \bam{effective}. If $K$ is discrete we say the geometry is \bam{locally effective}.
+\end{definition}
+
+\begin{lemma}
+If $K \neq 1$ then $\faktor{{(\faktor{G}{K})}}{{(\faktor{H}{K})}}$ is effective. 
+\end{lemma}
+
+\begin{prop}
+If $\faktor{G}{H}$ is effective, and $\exists k:U \to H$ s.t. $\theta = \Ad(k^{-1})\cdot \theta + k^\ast \vartheta_H$, then $k=1$. 
+\end{prop}
+
+This means that, given a Cartan atlas $\pbrace{(U_\alpha,\theta_\alpha)}$ modelled on an effective $\faktor{G}{H}$, then in overlaps $U_{\alpha\beta}$, $\theta_\beta = \Ad(h_{\alpha\beta}^{-1}) \circ \theta_\alpha + h_{\alpha\beta}^\ast \vartheta_H$ for a unique $h_{\alpha\beta}:U_{\alpha\beta} \to H$. Indeed if $\theta_\beta = \Ad(\tilde{h}_{\alpha\beta}^{-1}) \circ \theta_\alpha + \tilde{h}_{\alpha\beta}^\ast \vartheta_H$, then letting $k = \tilde{h}_{\alpha\beta}^{-1} h_{\alpha\beta}$ we would have
+\eq{
+\theta_\alpha &= \Ad(\tilde{h}_{\beta\alpha}^{-1}) \circ \theta_\beta + \tilde{h}_{\beta\alpha}^\ast \vartheta_H \\
+\Rightarrow \theta_\beta &= \Ad(h_{\alpha\beta}^{-1}) \circ \psquare{\Ad(\tilde{h}_{\beta\alpha}^{-1}) \circ \theta_\beta + \tilde{h}_{\beta\alpha}^\ast \vartheta_H} + h_{\alpha\beta}^\ast \vartheta_H \\
+&= \Ad(k^{-1}) \circ \theta_\beta + \underbrace{\Ad(h_{\alpha\beta}^{-1}) \circ \tilde{h}_{\beta\alpha}^\ast \vartheta_H + h_{\alpha\beta}^\ast \vartheta_H}_{k^\ast \vartheta_H}
+}
+It follows from uniqueness then that $\pbrace{h_{\alpha\beta} : U_{\alpha\beta} \to H}$ defines a (Cech) cocycle. Therefore they are the transition functions of a principle $H$-bundle $P\overset{\pi}{\to} M$, where $P = \sqcup_{\alpha} \faktor{(\pbrace{\alpha}\times U_\alpha \times H)}{\sim}$, $(\alpha,a,h)\sim (\beta,a,h_{\alpha\beta}^{-1}(a)h)$, and $\pi(\alpha,a,h) = a$. The right action is given by $r_h[(\alpha,a,\tilde{h})] = [(\alpha,a,\tilde{h}h)]$. This is well defined since the identification uses left multiplication. 
+
+Let $X \in \mf{h}$. Then $X^L\in\mf{X}(H)$ is the corresponding LIVF. We extend it to $U \times H$ as $(0,X^L) \equiv \xi_X \in\mf{X}(U \times H)$. Since $X^L$ is LI and the identifications involve left multiplication the vector fields $\xi_X$ glue to give a well defined vector field $\xi_X \in \mf{X}(P)$. We then have 
+
+\begin{lemma}
+Let $r_h : P \to  P$ denote the right action of $h \in H$ on $P$. Then $\forall X \in \mf{h}, \, (r_h)_\ast \xi_X = \xi_{\Ad(h)^{-1}X}$. 
+\end{lemma}
+\begin{proof}
+It is sufficient to check locally on $U \times H$. Here $r_h = \id \times R_h$ where $R_h : H \to H$ is right multiplication by $h$. Let $L_h : H \to H$ be left multiplication and then on $U \times H$ we have 
+\eq{
+(r_h)_\ast \xi_X &= (\id \times R_h)_\ast (0,X^L) \\
+&= (0,(R_h)_\ast X^L) \\
+&= (0, (r_h)_\ast (L_{h^{-1}})_\ast X^L) \text{ since $X^L$ is LI} \\
+&= (0, (\Ad(h^{-1}) \cdot X)^L) \\
+&= \xi_{\Ad(h)^{-1}X}
+}
+\end{proof}
+
+The Cartan atlas $(U_\alpha,\theta_\alpha)$ does not first just give $P \overset{\pi}{\to} M$, but also a one-form $\omega \in \Omega^1(P;\mf{g})$ defined locally by 
+\eq{
+\omega : T_{(a,h)}(U_\alpha \times H) &\to T_a U_\alpha \times \mf{h}) \to \mf{g} \\
+(v,y) &\mapsto (v,\vartheta_H(y)) \mapsto \Ad(h^{-1}) \theta_\alpha(v) + \vartheta_H(y) \equiv \omega_\alpha(v,y)
+}
+On overlaps, we also have $\omega_\beta(v,y) = \Ad(h^{-1}) \theta_\beta(v) + \vartheta_H(y)$. The transition function is then $U_{\alpha\beta} \times H \overset{f_{\alpha\beta}}{\to} U_{\alpha\beta} \times H$ sending $(a,h) \mapsto (a,h_{\alpha\beta}(a)^{-1}h)$. 
+
+We will claim that the $\omega_\alpha$ glue together properly to give a consistent $\omega$. To prove this we will need a preparatory lemma: 
+
+\begin{lemma}
+Let $\mu: H \times H \to H$ and $i: H \to H$ denote multiplication and inversion as groups maps on $H$. Letting $\vartheta_H \in \Omega^1(H;\mf{h})$ be the LI MC one-form we have 
+\eq{
+\forall v \in T_{(h_1,h_2)}(H\times H), \, (\mu^\ast \vartheta_H)(v) &= \Ad(h_2^{-1}) \vartheta_H((pr_1)_\ast v) + \vartheta_H((pr_2)_\ast v) \\
+\forall v \in T_hH  , \, (i^\ast \vartheta_H)(v) &= -\Ad(h) \vartheta_H(v)
+}
+\end{lemma}
+\begin{proof}
+It is simpler notationally for matrix groups where $\ev{\vartheta_H}{h} = h^{-1}dh$. Hence 
+\eq{
+\ev{i^\ast \vartheta_H}{h}= h dh^{-1} = -hh^{-1} dh h^{-1} = -\Ad(h) \ev{\vartheta_H}{h}
+}
+Moreover we have 
+\eq{
+\mu^\ast \ev{\vartheta_H}{(h_1,h_2)} = (h_1 h_2)^{-1} d(h_1 h_2) = h_2^{-1} h_1^{-2}
+ dh_1 h_2 + + h_2^{-1} dh_2  = \Ad(h_2^{-1}) \ev{\vartheta_H}{h_1} + \ev{\vartheta_H}{h_2}
+}
+\end{proof}
+
+Now we are ready to state what we want:
+
+\begin{prop}
+The following diagram commutes:
+\begin{center}
+\begin{tikzpicture}[commutative diagrams/every diagram]
+\node (P0) at (30:2.5cm) {$T_a U_{\alpha\beta} \times T_{h_{\alpha\beta}(a)^{-1}h}H$};
+\node (P1) at (30+120:2.5cm) {$T_a U_{\alpha\beta} \times T_{h}H$};
+\node (P2) at (30+240:0.5cm) {$\mf{g}$};
+\path[commutative diagrams/.cd, every arrow, every label]
+(P1) edge node {$(f_{\alpha\beta})_\ast$} (P0)
+(P0) edge node {$\omega_\beta$} (P2)
+(P1) edge node[swap] {$\omega_\alpha$} (P2);
+\end{tikzpicture}
+\end{center}
+\end{prop}
+\begin{proof}
+We notice that $f_{\alpha\beta}(a,h) = (a,h_{\alpha\beta}(a)^{-1}h) = (\id \circ pr_1, \mu \circ (i \circ h_{\alpha\beta} \circ pr_1 \times pr_2))(a,h)$, so that if $(v,y) \in T_a U_{\alpha\beta} \times T_h H$, $(f_{\alpha\beta})_\ast (v,y) = (v,\mu_\ast(i_\ast \circ (h_{\alpha\beta})_\ast v,y)) \in T_a U_{\alpha\beta} \times T_{h_{\alpha\beta}(a)^{-1}h}H$. Hence 
+\eq{
+(\omega_\beta \circ (f_{\alpha\beta})_\ast)(v,y) &= \omega_\beta (v,\mu_\ast(i_\ast \circ (h_{\alpha\beta})_\ast v,y)) \\
+&= \Ad(h_{\alpha\beta}(a)^{-1}h)^{-1} \theta_\beta(v) + \vartheta_H(\mu_\ast (i_\ast \circ (h_{\alpha\beta})_\ast v,y)) 
+}
+Using the lemma we have that 
+\eq{
+\vartheta_H(\mu_\ast (i_\ast \circ (h_{\alpha\beta})_\ast v,y))  &= (\mu^\ast \vartheta_H)(i_\ast (h_{\alpha\beta})_\ast v,y) \\
+&= \Ad(h^{-1}) \vartheta_H (i_\ast (h_{\alpha\beta})_\ast v) + \vartheta_H(y)  \\
+\vartheta_H(i_\ast (h_{\alpha\beta})_\ast v) &= (i^\ast \vartheta_H)(h_{\alpha\beta}^\ast v) \\
+&= -\Ad(h_{\alpha\beta}(a))(h_{\alpha\beta}^\ast \vartheta_H)(v)
+}
+Hence 
+\eq{
+(\omega_\beta \circ (f_{\alpha\beta})_\ast)(v,y) &= \Ad(h)^{-1} \Ad(h_{\alpha\beta}(a)) \theta_\beta(v) - \Ad(h)^{-1}\Ad(h_{\alpha\beta}(a))(h_{\alpha\beta}^\ast \vartheta_H)(v) + \vartheta_H(y) \\
+&= \Ad(h)^{-1} \Ad(h_{\alpha\beta}(a)) \psquare{\theta_\beta(v) -(h_{\alpha\beta}^\ast \vartheta_H)(v)} + \vartheta_H(y) \\
+&= \Ad(h)^{-1} \circ \theta_\alpha(v) + \vartheta_H(y) \\
+&= \omega_\alpha(v,y)
+}
+\end{proof}
+
+
+\begin{definition}
+The one-form $\omega \in \Omega^1(P;\mf{g})$ is called a \bam{Cartan connection}
+\end{definition}
+
+\begin{prop}
+The Cartan connection $\omega \in \Omega^1(P;\mf{g})$ obeys the following:
+\begin{enumerate}
+    \item $\forall p \in P, \, \omega_p : T_pP \to \mf{g}$ is a vector space isomorphism 
+    \item $\forall h \in H, \, r_h^\ast \omega = \Ad(h^{-1})\circ \omega$
+    \item $\forall X \in \mf{h}, \, \omega(\xi_X) = X$
+\end{enumerate}
+\end{prop}
+\begin{proof}
+We may separate the proof:
+\begin{enumerate}
+    \item $\dim P = \dim H + \dim M = \dim \mf{h} + \dim \faktor{\mf{g}}{\mf{h}} = \dim \mf{g}$, so it suffices to show that $\omega_p$ is injective. Now if $(v,y) \in T_a U \times T_h H$ is such that $\omega(v,y) = \Ad(h^{-1})\theta(v) + \vartheta_H(y)=0$, we have $\Ad(h^{-1}) \theta(v) = -\vartheta_H(y) \in \mf{h}$ and hence $\theta(v) \in \Ad(h)\mf{h} = \mf{h} \Rightarrow pr_{\faktor{\mf{g}}{\mf{h}}}\theta(v) = 0$. By the regularity property of $\theta$, $v=0$. Hence $\vartheta_H(y) = 0$, but as $\vartheta_H$ is injective, we have $y=0$ 
+    \item It is sufficient to check in a Cartan gauge $(U,\theta)$. Let $(v,y)\in T_aU \times T_hH$. Then for $k \in H$:
+    \eq{
+    (r_k^\ast \omega)(v,y) = \omega(v,(R_k)_\ast y) = \Ad(hk)^{-1}\circ \theta(v) + \vartheta_H((R_k)_\ast y) 
+    }
+    and using $R_k^\ast \vartheta_H = \Ad(k^{-1})\circ \vartheta_H$
+    \eq{
+    (r_k^\ast \omega)(v,y) &= \Ad(k^{-1}) \Ad(h)^{-1} \theta(v) + \Ad(k^{-1}) \vartheta_H(y) \\
+    &= \Ad(k^{-1}) \psquare{\Ad(h)^{-1}\theta(v) + \vartheta_H(y)} \\
+    &= \Ad(k^{-1}) \omega(v,y)
+    }
+    \item In a Cartan chart $\xi_X = (0,X^L) \in \mf{X}(U \times H)$, hence 
+    \eq{
+    \omega(\xi_X) = \Ad(h)^{-1} \theta(0) + \vartheta_H(X^L) = 0 + X = X
+    }
+\end{enumerate}
+\end{proof}
+
+\begin{remark}
+Properties 2 and 3 are reminiscent of an Ehresmann connection except that $\omega$ takes values in $\mf{g}$ not $\mf{h}$. 
+\end{remark}
+
+Notice that if $\pbrace{(U_\alpha,\theta_\alpha)}$ is a Cartan atlas trivialising $P$, then if $s_\alpha : U_\alpha \to \ev{P}{U_\alpha}$ are the canonical sections, $s_\alpha(a) = [(a,e)]$, $(s_\alpha^\ast \omega)(v) = \omega(v,0) = \theta_\alpha(v)$. So $\theta_\alpha$ are the 'gauge fields' of the Cartan connection. Let $\Omega = d\omega + \frac{1}{2} \comm[\omega]{\omega}\in \Omega^2(p;\mf{g})$ denote the \bam{curvature} of the Cartan connection. Then $s_\alpha^\ast \Omega = d\theta_\alpha + \frac{1}{2} \comm[\theta_\alpha]{\theta_\alpha}$. Hence bundle automorphisms of $P$ (covering the identity) are the \bam{gauge symmetries} of the Cartan geometry. 
+
+\begin{remark}
+$\omega$ parallelises $P$, just like $\vartheta_G$ parallelises $G$ in the Klein model. Given $X \in \mf{g}$ we get a vector field $\xi_X \in \mf{X}(P)$ defined by $\ev{\xi_X}{p} = \omega^{-1}_p(X)$, but unlike the case of $(G,\vartheta_G)$. this is not a Lie algebra morphism. This is despite that for $X \in \mf{h}, Y \in \mf{g}$ we do have $\comm[\xi_X]{\xi_Y} = \xi_{\comm[X]{Y}}$. The curvature $\omega$ is the obstruction to $X \mapsto \xi_X$ defining a Lie algebra morphism $\mf{g} \to \mf{X}(P)$. To see this, calculate
+\eq{
+\omega(\xi_{\comm[X]{Y}} - \omega(\comm[\xi_X]{\xi_Y}) &= \comm[X]{Y} + \pround{d\omega(\xi_X,\xi_Y) - \xi_X \omega(\xi_Y) + \xi_Y \omega(\xi_X)} \\
+&= \comm[X]{Y} + \pround{d\Omega(\xi_X,\xi_Y) - \comm[\omega(\xi_X)]{\omega(\xi_Y)}} + \xi_X Y - \xi_Y X  \\
+&= \comm[X]{Y} + \Omega(\xi_X,\xi_Y) - \comm[X]{Y} \\
+&= \Omega(\xi_X,\xi_Y)
+}
+\end{remark}
+
+We can now give the standard definition of a Cartan geometry modelled on a Klein geometry:
+
+\begin{definition}
+A \bam{Cartan geometry} $(P,\omega)$ on $M$ modelled on $\faktor{G}{H}$ consists of the following:
+\begin{enumerate}
+    \item a principal $H$-bundle $P \to M$
+    \item $\omega \in \Omega^(P;\mf{g})$ satisfying 
+    \begin{enumerate}
+        \item $\forall p \in P\, \omega_p : T_pP \to \mf{g}$ is a vector space isomorphism 
+        \item $\forall h \in H, \, r_h^\ast \omega = \Ad(h^{-1}) \omega$
+        \item $\forall X \in \mf{h}, \, \omega(\xi_X) = X$
+    \end{enumerate}
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+Let $\Omega = d\omega + \frac{1}{2} \comm[\omega]{\omega}\in \Omega^2(P;\mf{g})$ be the curvature of $\omega$. Then projection $pr_{\faktor{\mf{g}}{\mf{h}}}\circ \Omega \in \Omega^2(P;\faktor{\mf{g}}{\mf{h}})$ is the \bam{torsion} of $\omega$. The Cartan geometry is $\bam{torsion free}$ if $\Omega \in \Omega^2(P;\mf{h})$
+\end{definition}
+
+\begin{lemma}
+Let $(P,\omega)$ be a Cartan geometry on $M$ modelled on $\faktor{G}{H}$. Let $\psi : P \to H$ be a smooth and $f : P \to  P $ be such that $f(p) = r_{\psi(p)}(p)$. Then $f^\ast \omega = \Ad(\psi^{-1})\omega + \psi^\ast \vartheta_H$ and $f^\ast \Omega = \Ad(\psi) \circ \Omega$.
+\end{lemma}
+\begin{proof}
+The expression for $f^\ast \Omega$ follows from that of $f^\ast \omega$. To calculate $f^\ast \omega$, we work relative to a Cartan gauge $(U,\theta)$ on $U \times H$. Then $f: U \times H \to U \times H$ by $f(a,h) = (a,h\psi(a,h))$ can be written as $f = (\id \circ pr_1, \mu \circ (pr_2 \times \psi))$. Hence if $(v,y) \in T_aU \times T_hH$
+\eq{
+f_\ast (v,y) &= (v,\mu_\ast(y,\psi_\ast(v,y))) \in T_a U \times T_{h \psi(a,h)} H \\
+\Rightarrow (f^\ast \omega)(v,y) &= \omega(v,\mu_\ast(y,\psi_\ast(v,y))) \\
+&= \Ad(h\psi(a,h))^{-1} \circ \theta(v) + \vartheta_H(\mu_\ast (y,\psi_\ast(v,y))) \\
+&= \Ad(\psi^{-1}) \circ \Ad(h^{-1}) \circ \theta(v) + (\mu^\ast \vartheta_H)(y,\psi_\ast(v,y)) \\
+&= \Ad(\psi^{-1}) \circ \Ad(h^{-1}) \circ \theta(v) + \Ad(\psi^{-1}) \circ \vartheta_H(y) + \vartheta_H(\psi_\ast(v,y)) \\
+&= \Ad(\psi^{-1}) \circ \psquare{\Ad(h^{-1}) \circ \theta(v) + \vartheta_H(y)} + (\psi^\ast \vartheta_H)(v,y) \\
+&= \psquare{\Ad(\psi^{-1}) \circ \omega + \psi^\ast \vartheta_H}(v,y)
+}
+\end{proof}
+
+\begin{corollary}
+$\Omega$ is horizontal, i.e. if either $u,v$ are tangent to the fibre, $\Omega(u,v) = 0$.
+\end{corollary}
+\begin{proof}
+Let $u,v \in T_pP$ and $v$ tangent to the fibre. Let $\psi : P \to H$ be any smooth map sending  $p \mapsto e$ s.t. $(\psi_\ast)_p v = -\omega_p(v) \in \mf{h}$. define $f: P \to P$ by $f(q) = q \cdot \psi(q)$. Then from the previous lemma we have that $p \in P$ 
+\eq{
+f^\ast \omega &= \Ad(\psi^{-1})\omega + \psi^\ast \vartheta_H = \omega + \psi^\ast \vartheta_H \\
+f^\ast \Omega &= \Omega
+}
+Hence 
+\eq{
+\omega_p(f_\ast v) &= \omega_p(v) + \vartheta_H(\psi_\ast v) = \omega_p(v) - \omega_p(v) = 0 \\
+\Rightarrow f_\ast v &= 0 \\
+\Rightarrow \Omega(u,v) &= \Omega(f_\ast u, f_\ast v) = \Omega(f_\ast u,0) &= 0
+}
+\end{proof}
+It follows that $\Omega$ defines a 2-form on $\faktor{TP}{\ker \pi_\ast} \cong \pi^\ast  TM$. \\
+Note that each fibre $F$ of $P$ is identified with $H$ up to left multiplication by some element of $H$. Since $\vartheta_H$ is left-invariant, it defines a "Maurer-Cartan" form $\vartheta_F$ on the fibre. The fact that $\forall X \in \mf{h}, \, \vartheta_F(\xi_X) = X$ shows that $\vartheta_F = \ev{\omega}{F}$. It then follows that $\Omega$ vanishes when restricted to any fibre. As such we can interpret a Cartan geometry $(P,\omega)$ as deforming $(G,\vartheta_G)$ in a way that fibrewise we still have $(H,\vartheta_H)$. \\
+The tangent bundle of $\faktor{G}{H}$ is a vector bundle associated to $G \to \faktor{G}{H}$ via the linear isotropy representation $\Ad_{\faktor{\mf{g}}{\mf{h}}} : H \to GL(\faktor{\mf{g}}{\mf{h}}$ s.t. $T(\faktor{G}{H}) \cong G \times_h \faktor{\mf{g}}{\mf{h}}$. In a similar way, the tangent bundle of a Cartan geometry $(P,\omega)$ modelled on $\faktor{G}{H}$ is isomorphic to an associated vector bundle $P \times_H \faktor{\mf{g}}{\mf{h}}$. 
+
+\begin{prop}
+Let $(P,\omega)$ be a Cartan geometry on $M$ modelled on $\faktor{G}{H}$. There is a canonical bundle isomorphism $\varphi : TM \overset{\cong}{\to} P \times_H \faktor{\mf{g}}{\mf{h}}$ such that $\forall p \in \pi^{-1}(x), \, \exists \varphi_p : T_xM \to \faktor{\mf{g}}{\mf{h}}$ a $H$-equivariant vector space isomorphism s.t. $\forall h \in H, \, \varphi_{p\cdot h} = \Ad(h^{-1})\circ \varphi_p$  
+\end{prop}
+\begin{proof}
+Consider the diagram 
+\begin{tkz}
+0 \arrow[r] & T_p(F_x) \arrow[r] \arrow[d,"\vartheta_H","\cong"'] & T_pP \arrow[r,"(\pi_\ast)_p"] \arrow[d,"\omega","\cong"'] & T_xM \arrow[r] \arrow[d,"\exists ! \varphi_p","\cong"',dashed,red] & 0 \\ 
+0 \arrow[r] & \mf{h} \arrow[r] & \mf{g} \arrow[r,"\rho"] & \faktor{\mf{g}}{\mf{h}} \arrow[r] & 0   
+\end{tkz}
+If $v \in T_x M$, we may write $v = (\pi_\ast)_p(u) = (\pi_\ast)_{ph}((r_h)_\ast u)$ for some $ u \in T_pP$. Thus 
+\eq{
+\varphi_{ph}(v) &= \varphi_{ph}((\pi_\ast)_{ph}((r_h)_\ast u)) \\
+&= \rho(\omega_{ph}((r_h)_\ast u)) \\
+&= \rho(\Ad(h)^{-1} \circ \omega_p(u)) \\
+&= \Ad(h)^{-1}(\varphi_p((\pi_\ast)_p u)) \\
+&= \Ad(h)^{-1} \varphi_p(v)
+}
+This allows us to define a bundle map 
+\eq{
+q : P \times \mf{g} &\to TM \\
+(p,X) &\mapsto (\pi(p),\varphi_p^{-1}(\rho(X))) 
+}
+Then 
+\eq{
+q(ph,\Ad(h)^{-1}X) &= (\pi(ph),\varphi^{-1}_{ph}(\rho(\Ad(h)^{-1}X))) \\
+&= (\pi(p), (\Ad(H) \varphi_{ph})^{-1} \rho(X)) \\
+&= (\pi(p), \varphi_p^{-1}(\rho(X))) \\
+&= q(p,X)
+}
+Hence $q$ induces $\bar{q} : P \times_H \faktor{\mf{g}}{\mf{h}} \to TM$, which covers the identity and is a linear iso on the fibres. 
+\end{proof}
+
+\begin{corollary}
+Let $(P,\omega)$ be a Cartan geometry on $M$ modelled on $\faktor{G}{H}$. Then vector fields $\xi \in \mf{X}(M)$ are in bijective correspondence with functions $\bar{\xi} : P \to \faktor{\mf{g}}{\mf{h}}$ such that $\forall p \in P, h \in H, \, \bar{\xi}(ph) = \Ad(h^{-1}) \circ \bar{\xi}(p)$ by 
+\eq{
+\xi \mapsto \bar{\xi} = \pbrace{p \in P :\mapsto \varphi_p(\xi_{\pi(p)}) \in \faktor{\mf{g}}{\mf{h}}}
+}
+\end{corollary}
+
+\begin{definition}
+The \bam{curvature function} $K : P \to \Hom(\Lambda^2 \faktor{\mf{g}}{\mf{h}},\mf{g})$ of a Cartan connection $\omega$ is defined by 
+\eq{
+\forall p \in P, \, \forall X,Y \in \mf{g}, \, K(p)(X,Y) \equiv \Omega_p(\omega_p^{-1}(X),\omega_p^{-1}(Y))
+}
+\end{definition}
+
+\begin{lemma}
+The curvature function is well defined and is $H$-equivariant, i.e. 
+\eq{
+\forall h \in H, \, K(ph)(X,Y) = \Ad(h^{-1}) K(p)(\Ad(h)X, \Ad(h)Y)
+}
+\end{lemma}
+\begin{proof}
+Fix $p \in P $ and let $\tilde{X} = X + W, \, \tilde{Y} = Y+Z$ for some $W,Z \in \mf{h}$. Then $\Omega_p(\omega_p^{-1}(\tilde{X}),\omega_p^{-1}(\tilde{Y})) = \Omega_p(\omega_p^{-1}(X),\omega_p^{-1}(Y))$ since $\omega_p^{-1}(Z),\omega_p^{-1}(W)$ are tangent to the fibres and $\Omega$ is horizontal. Therefore $K(p) \in \Hom(\Lambda^2 \faktor{\mf{g}}{\mf{h}},\mf{g})$. The equivariance follows from the equivariance of $\omega, \Omega$. 
+\end{proof}
+
+It follows that the curvature of a Cartan connection defines a \bam{curvature section} of the bundle\\
+${P \times_H \Hom(\Lambda^2 \faktor{\mf{g}}{\mf{h}},\mf{g})}$. 
+
+\begin{prop}
+A Cartan connection is torsion free iff the curvature function takes values in \\ $\Hom\pround{\Lambda^2 \faktor{\mf{g}}{\mf{h}},\mf{h}} \subset \Hom\pround{\Lambda^2 \faktor{\mf{g}}{\mf{h}},\mf{g}}$. 
+\end{prop}
+
+\begin{ex}
+Show that $K(p)(X,Y) = \comm[X]{Y} - \omega_p(\comm[\omega_p^{-1}X]{\omega_p^{-1}Y})$
+\end{ex}
+
+\begin{lemma}[Bianchi identity]
+$d\Omega = \comm[\Omega]{\omega}$
+\end{lemma}
+\begin{proof}
+Follows \textit{Mutatis Mutandis} as for Ehresmann connections. 
+\end{proof}
+
+Let $V$ be a vector space and $f: P \to V$ a function. A Cartan connection $\omega \in \Omega^1(P;\mf{g})$ defines a universal covariant derivative as follows: if $X \in \mf{g}$ and if $\xi_X = \omega^{-1}(X)$, then $\tilde{D}_X f \equiv \xi_X f$. Since this is linear in $X \in \mf{g}$, we get 
+\eq{
+\tilde{D} : \Omega^0(P;V) &\to \Omega^0(P;V \otimes \mf{g}^\ast) \\
+f &\mapsto \tilde{D}f
+}
+where we define $\tilde{D}f$ by $(i_X)_\ast \tilde{D}f = \tilde{D}_X f$ for 
+\eq{
+i_X : V \otimes \mf{g}^\ast &\to V \\
+v \otimes \eta &\mapsto \eta(X)v
+}
+
+\begin{definition}
+Let $\rho: H \to GL(V)$ be a representation. We define 
+\eq{
+\Omega^k(P;\rho) \equiv \pbrace{\alpha \in \Omega^k(P;V) \, | \, \forall h \in H, \, r_h^\ast \alpha = \rho(h^{-1}) \circ \alpha}
+}
+the \bam{k-forms on $P$ transforming according to $\rho$}. 
+\end{definition}
+
+\begin{prop}
+$\tilde{D} : \Omega^0(P;\rho) \to \Omega^1(P;\rho) \cong \Omega^0(P;\rho \otimes \Ad^\ast)$
+\end{prop}
+\begin{proof}
+Let $p \in P, \, X \in \mf{g}, \, f \in \Omega^0(P;\mf{g})$. Then 
+\eq{
+(i_X)_\ast (r_h^\ast (\tilde{D}f))(p) &= (i_X)_\ast (\tilde{D}f(ph)) \\
+&= (\tilde{D}_X f)(ph) \\
+&= \omega_{ph}^{-1}(X)f
+}
+Now $r_h^\ast \omega= \Ad(h^{-1}) \circ \omega \Rightarrow \omega_{ph} \circ (r_h)_\ast = \Ad(h^{-1}) \circ \omega_p \Rightarrow (r_{h^{-1}})_\ast \circ \omega_{ph}^{-1} = \omega_p^{-1} \circ \Ad(h)$ so
+\eq{
+(i_X)_\ast (r_h^\ast (\tilde{D}f))(p) &= \psquare{(r_h)_\ast \omega_p^{-1}(\Ad(h)X)}f
+}
+If $Y \in \mf{X}(P)$ we have 
+\eq{
+((r_h)_\ast Y)f = Y(r_h^\ast f) = Y(\rho(h^{-1}) \cdot f) = \rho(h^{-1}) Yf 
+}
+so taking $Y = \omega_p^{-1} (\Ad(h)X)$ yields 
+\eq{
+\psquare{(r_h)_\ast \omega_p^{-1}(\Ad(h)X)}f = \rho(h^{-1}) \omega_p^{-1}(\Ad(h)X) f = \rho(h^{-1}) \tilde{D}_{\Ad(h)X}f
+}
+and so 
+\eq{
+(i_X)_\ast (r_h^\ast \tilde{D}f)(p) = \rho(h^{-1}) \tilde{D}_{\Ad(h)X} f
+}
+\end{proof}
+Even if $(V,\rho)$ is irreducible, $(V \otimes \mf{g}^\ast, \rho \otimes \Ad^\ast)$ need not be. Decomposing $V \otimes \mf{g}^\ast$ into irreducibles decomposes $\tilde{D}$ and in this way we get 'famous' differential operators such as $\del,\bar{\del}, \divergence, \curl$.
+
+\begin{lemma}
+Let $X \in \mf{h} $ and $f \in \Omega^0(P;\mf{g})$. Then $(i_X)_\ast \tilde{D}f = -\rho_\ast(X) f$ where $\rho_\ast : \mf{h} \to \End(V)$ is the LA hom induced by $\rho : H \to GL(V)$
+ \end{lemma}
+\begin{proof}
+\eq{
+(i_X)_\ast (\tilde{D}f)(p) &= \omega_p^{-1}(X) f \\
+&= \ev{\frac{d}{dt} f(pe^{tX})}{t=0} \\
+&= \ev{\frac{d}{dt} \rho(e^{-tX}) f(p)}{t=0} \\
+&= -\rho_\ast(X) f(p)
+}
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Reductive Cartan geometries}
+
+Now assume that $(P,\omega)$ is reductive, s.t. $\mf{g} = \mf{h} \oplus \mf{m}$ with $\Ad(H)\mf{m} \subseteq \mf{m}$. Then the Cartan connection decomposes as $\omega = \omega_{\mf{h}} + \omega_{\mf{m}}$, so does the Cartan gauge $\theta = \theta_{\mf{h}}+ \theta_{\mf{m}}$, and so does $\tilde{D} = \tilde{D}_{\mf{h}} + \tilde{D}_{\mf{m}}$. If for $X \in \mf{h}, \, \tilde{D}_X f = - \rho(X) f$, then $\tilde{D}_{\mf{h}} = -\rho$. As we will see below, $\tilde{D}_{\mf{m}}$ defines a Kozul connection on any associated vector bundle $P \times_H V$. \\
+It follows from the defining properties of a Cartan connection that $\omega_{\mf{h}} \in \Omega^1(P;\mf{h})$ is the connection one-form for an Ehresmann connection on the principal $H$-bundle $P \to M$. In contrast, the component $\omega_{\mf{m}} \in \Omega^1(P;\mf{m})$ satisfies 
+\begin{enumerate}
+    \item It is horizontal, i.e. $\forall X \in \mf{h}, \, \omega_{\mf{m}}(\xi_X) = 0$
+    \item $r_h^\ast \omega_{\mf{m}} = \Ad(h^{-1}) \circ \omega_{\mf{m}}$
+\end{enumerate}
+The above two mean that $\omega_{\mf{m}}$ induces a one-form on $M$ with values in the associated vector bundle $P \times_H \mf{m}$, which is isomorphic to $TM$. Thus $\omega_{\mf{m}}$ is a \bam{soldering form} on $P$. \\
+As $\omega$ splits, so does $\Omega = \Omega_{\mf{h}} + \Omega_{\mf{m}}$ where the structure equation $\Omega = d\omega + \frac{1}{2}\comm[\omega]{\omega}$ gives 
+\eq{
+\Omega_{\mf{h}} &= d\omega_{\mf{h}} + \frac{1}{2} \comm[\omega_{\mf{h}}]{\omega_{\mf{h}}} + \frac{1}{2} \comm[\omega_{\mf{m}}]{\omega_{\mf{m}}}_{\mf{h}} \\
+\Omega_{\mf{m}} &= d\omega_{\mf{m}} +  \comm[\omega_{\mf{h}}]{\omega_{\mf{m}}} + \frac{1}{2} \comm[\omega_{\mf{m}}]{\omega_{\mf{m}}}_{\mf{m}}
+}
+
+Therefore, the $\mf{h}$-component of the curvature of the Cartan connection is not necessarily the curvature of the Ehresmann connection, but receives a correction from the soldering form:
+\eq{
+\Omega^{\text{Cartan}}_{\mf{h}} = \Omega^{\text{Ehresmann}} + \frac{1}{2} \comm[\omega_{\mf{m}}]{\omega_{\mf{m}}}_{\mf{h}}
+}
+whereas the torsion of the Cartan connection is not necessarily the torsion of the affine connection defined by $\omega_{\mf{h}}$:
+\eq{
+\Theta^{\text{Cartan}} = \Omega^{\text{Cartan}}_{\mf{m}}  = \Theta + \frac{1}{2} \comm[\omega_{\mf{m}}]{\omega_{\mf{m}}}_{\mf{m}}
+}
+Let's now consider the universal covariant derivative $\tilde{D} = \tilde{D}_{\mf{h}} + \tilde{D}_{\mf{m}}$. The $\mf{m}$-component defines a Kozul connection on any associated vector bundle $E \equiv P \times_H V$ for $(V, \rho)$ a representation of $H$. Indeed, let $\psi : \Gamma(E) \to \Omega^0(P;\rho)$ be the $C^\infty(M)$-modules isomorphism. We define $\nabla_\zeta : \Gamma(E) \to \Gamma(E)$ by the commutativity of the following square:
+\begin{tkz}
+\Gamma(E) \arrow[r,"\nabla_\zeta"] \arrow[d,"\psi"',"\cong"] & \Gamma(E) \arrow[d,"\cong"',"\psi"] \\ \Omega^0(P;\rho) \arrow[r,"\tilde{\zeta}"'] & \Omega^0(p;\rho)
+\end{tkz}
+i.e. $\psi(\nabla_\zeta s) = \tilde{\zeta}\psi(s)$, where $\tilde{\zeta}$ is the \bam{horizontal lift} of $\zeta$, i.e the  unique\footnote{Is it clear why this vector field is unique} vector field on $P$ s.t. $(\pi_\ast)_p \tilde{\zeta} = \zeta_{\pi(p)}$ and $\omega_{\mf{h}} (\tilde{\zeta})=0$
+
+\begin{prop}
+$\nabla$ defines a Kozul connection on $E$
+\end{prop}
+\begin{proof}
+$\nabla_\zeta$ is $\mbb{R}$-linear and if $f \in C^\infty(M)$, $(\pi^\ast f)\tilde{\zeta}$ is the horizontal lift of $f\zeta$, so we have $\nabla_{f \zeta}s = f\nabla_\zeta s$. Finally, to get that $\nabla$ is a derivation, see 
+\eq{
+\psi(\nabla_\zeta(fs)) &= \tilde{\zeta} \psi(fs) = \tilde{\zeta}(\pi^\ast f \psi(s)) = \tilde{\zeta} (\pi^\ast f) \psi(s) + (\pi^\ast f) \tilde{\zeta} \psi(s) \\
+&= \pi^\ast (\zeta f) \psi(s) + (\pi^\ast f) \psi(\nabla_\zeta s) = \psi((\zeta f)s) + \psi(f \nabla_\zeta s) \\
+&= \psi((\zeta f)s + f \nabla_\zeta s)
+}
+\end{proof}
+
+\begin{prop}
+Let $(U,\theta)$ be a gauge for a reductive Cartan geometry, $\sigma : U \to \ev{P}{U}$ the section such that $\theta = \sigma^\ast \omega$, $\zeta \in \mf{X}(U)$, and $\phi = \sigma^\ast \Phi$ where $\Phi \in \Omega^0(P;\rho)$. Then 
+\eq{
+\nabla_\zeta \phi \equiv \zeta(\phi) -\rho_\ast(\theta_{\mf{h}}(\zeta))\phi
+}
+is the expression of the covariant derivative of $\Phi$ in the gauge $(U,\theta)$. 
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Special geometries}
+
+We may define 'special geometries' via curvature constraints 
+
+\begin{lemma}
+Let $V \subset \mf{g}$ be the vector subspace spanned by the values of the curvature form $\Omega$. Then $V$ is a $H$-submodule
+\end{lemma}
+\begin{proof}
+Let $v = \Omega_p(\xi_p,\eta_p)$. Then 
+\eq{
+\Ad(h^{-1})v &= \Ad(h^{-1})(\Omega_p(\xi_p,\eta_p)) \\
+&= (r_h^\ast \Omega_p)(\xi_p,\eta_p) \\
+&= \Omega_{ph}((r_h)_\ast \xi_p,(r_h)_\ast \eta_p)
+}
+which is a value of $\Omega$
+\end{proof}
+
+In particular if $V \subset \mf{h}$ is s.t. the Cartan geometry is torsion-free, then $V$ is is an ideal. If the geometry is torsion-free and the action of $H$ on $\mf{h}$ is irreducible, there are no special geometries arising from $\mf{g}$-curvature conditions. However, the $H$-modules $\Hom\pround{\Lambda^2 \pround{\faktor{\mf{g}}{\mf{h}}},\mf{h}}$ need not be irreducible and we can define special geometries by damnding that the curvature function $K : P \to \Hom\pround{\Lambda^2 \pround{\faktor{\mf{g}}{\mf{h}}},\mf{h}}$ takes values in a $H$-submodule. \\
+If $H$ is compact, then $\Hom\pround{\Lambda^2 \pround{\faktor{\mf{g}}{\mf{h}}},\mf{h}}$ is fully reducible
+\begin{example}
+$\mf{g} = \mf{so}_n \ltimes \mbb{R}^n$ and $\mf{h} = \mf{so}_n$. Have $\Hom\pround{\Lambda^2 \pround{\faktor{\mf{g}}{\mf{h}}},\mf{h}} = \Hom(\Lambda^2 \mbb{R}^n,\mf{so}_n)$. 
+\end{example}
+The subspace corresponding to those curvature functions obeying the (algebraic) Bianchi identity breaks up into three submodules: scalar, trace-free Ricci, and Weyl. \\
+Cartan connections are special types of Ehresmann connections. Let $P \to M$, $G \to \faktor{G}{H}$, be principal $H$-bundles. There is an associated fibre bundle $Q = P\times_H G$ where $H$ acts on $G$ by left multiplication. This is a (right) principal $G$-bundle and $M$, and we have a natural inclusion $P \subset Q$ sending $p \mapsto (p,e)$. An Ehresmann connection on $Q$ is a $\mf{g}$-valued one-form and its restriction to $P$ gives a candidate for a Cartan connection on $P$.
+
+\begin{theorem}
+Let $\faktor{G}{H}$ be a Klein geometry and let $P,Q$ be principal $H,G$-bundles respectively over a manifold $M$. Assume that $\dim P = \dim G $ and $\varphi : P \to Q$ is a $H$-bundle map. Then there is a bijection of sets 
+\eq{
+\pbrace{\text{Ehresmann connections on $Q$, kernels not $\varphi_\ast(TP)$}} \overset{\varphi^\ast}{\to} \pbrace{\text{Cartan connections on $P$}}
+}
+\end{theorem}
+\begin{proof}
+Let $\varpi \in \Omega^1(Q;\mf{g})$ be an Ehresmann connection s.t. $\varpi_\ast(TP) \cap \ker \varpi = 0$. It follows that $\omega = \varphi^\ast \varpi \in \Omega^1(p;\mf{g})$ with zero kernel. Since $\dim P = \dim \mf{g}$, $\omega_p : T_pP \to \mf{g}$ is injective and so an isomorphism. \\
+Since $\varphi : P \to Q$ is a $H$-bundle map, $\forall X \in \mf{h}$ the vector fields $\xi_X$ on $P$ and $\zeta_X$ on $Q$ are $\varphi$-related : i.e
+\eq{
+\forall p \in P, \, (\varphi_\ast)_p \xi_X(p) = \zeta_X(\varphi(p))
+}
+Also, 
+\eq{
+r_h^\ast \omega &= r_h^\ast \varphi^\ast \varpi = \varphi^\ast r_h^\ast \varpi = \varphi^\ast (\Ad(h^{-1}) \circ \varpi) = \Ad(h^{-1}) \circ \varphi^\ast \varpi = \Ad(h^{-1}) \circ \omega
+}
+so $\omega$ is a Cartan connection. Next we define a correspondence 
+\eq{
+\pbrace{\text{Cartan connections on $P$}} \overset{j}{\to} \pbrace{\parbox{3in}{Ehresmann connections on $Q$, kernels not $\varphi_\ast(TP)$}} 
+}
+Given a Cartan connection $\omega$ on $P$ we extend it to a form $\varpi = j(\omega)$ on $P\times G$ by 
+\eq{
+\varpi_{(p,g)} = \Ad(g^{-1}) \circ  \pi^\ast_P \omega_p + \ev{\pi^\ast_G \vartheta_G}{g} 
+}
+where $\pi_{P/G}:P\times G \to P/G$ are the canonical projections. We notice that $\forall X \in \mf{g}, \, \varpi(0,X^L) = X$. Also, if $i: P \to P\times G$ is the injection $p \mapsto (p,e)$ then $i^\ast \varpi = \omega$. In particular, $\varpi$ does not vanish on $T(P \times \pbrace{e})$. Let $\gamma \in G$ and consider $\id \times R_\gamma: P\times G \to P \times G$:
+\eq{
+(\id \times R_\gamma)^\ast \varpi_{(p,g\gamma)} &= \varpi_{(p,g\gamma)} \circ (\id \times R_\gamma)_\ast \\
+&= \pround{\Ad(g\gamma)^{-1} \circ  \pi^\ast_P \omega_p +\pi^\ast_G \vartheta_G} \circ (\id \times R_\gamma)_\ast \\
+&= \Ad(g \gamma)^{-1} \circ \omega \circ (\pi_P)_\ast \circ (\id \times R_\gamma)_\ast + \vartheta_G \circ (\pi_G)_\ast  \circ (\id \times R_\gamma)_\ast \\
+&= \Ad(g\gamma)^{-1} \circ \omega \circ (\pi_P)_\ast + \vartheta_G \circ (R_\gamma)_\ast \circ (\pi_G)_\ast \\
+&= \Ad(\gamma)^{-1} \pround{\Ad(g)^{-1} \circ \pi_P^\ast \omega + \pi_G^\ast \vartheta_G} \\
+&= \Ad(\gamma)^{-1} \circ \varpi_{(p,g)}
+}
+We now check that $\varpi$ is basic for $P \times G \to P\times_H G$ which means that it is both horizontal and 'invariant'. The latter condition requires that for $\alpha_h : P \times G \to P \times G, \, (p,g) \mapsto (ph h^{-1}g)$, we have $\alpha_h^\ast \varpi = \varpi$. We calculate 
+\eq{
+(\alpha_h^\ast \varpi)_{(p,g)} &= \varpi_{(ph,h^{-1}g)} \circ (\alpha_h)_\ast \\
+&= \Ad(h^{-1}g)^{-1} \pi_P^\ast \omega \circ (\alpha_h)_\ast + \pi_G^\ast \vartheta_G \circ (\alpha_h)_\ast \\
+&= \Ad(h^{-1}g)^{-1} \omega \circ (\pi_P)_\ast \circ (\alpha_h)_\ast + + \vartheta_G \circ (\pi_G)_\ast \circ (\alpha_h)_\ast \\
+&= \Ad(g^{-1}) \circ \Ad(h) \circ \omega \circ (R_h)_\ast \circ (\pi_P)_\ast + \vartheta_G \circ (L_{h^{-1}})_\ast \circ (\pi_G)_\ast \\
+&= \Ad(g^{-1}) \circ \pi_P^\ast \omega + \pi_G^\ast \vartheta_G \quad (\text{as $R_h^\ast \omega = \Ad(h)^{-1}\omega$ and $\vartheta_G$ is LI}) \\
+&= \varpi_{(p,g)}
+}
+To show $\varpi$ is horizontal, let $X \in \mf{h}$ and $\xi_X \in \mf{X}(P \times G)$ corresponding to the right $H$-action on $P \times G$:
+\eq{
+P \times G \times H &\to P \times G \\
+(p,g,h) &\mapsto (ph,h^{-1}g) = \pround{(\mu_P \times \mu_G) \circ (\id \times \id \times \i \times \id) \circ (\id \times \Delta \times \id) \circ \varrho)}(p,g,h)
+}
+where we have 
+\eq{
+\varrho : P \times G \times H &\to P \times H \times G \\
+(p,g,h) &\mapsto (p,h,g) \\
+& \phantom{=} \\
+\id \times \Delta \times \id : P \times G \times H &\to P \times H \times H \times G \\
+(p,h,g) & \mapsto (p,h,h,g) \\
+& \phantom{=} \\
+\id \times \id \times \i \times \id : P \times H \times H \times G &\to P \times H \times H \times G \\
+(p,h,h,g) &\mapsto (p,h,h^{-1},g) \\
+&\phantom{=} \\
+\mu_P \times \mu_G : P \times H \times H \times G &\to P \times G \\
+(p,h,h^{-1},g) &\mapsto (ph,h^{-1}g)
+}
+Then 
+\eq{
+(\xi_X)_{(p,g)} &= \pround{(\mu_P \times \mu_G) \circ (\id \times \id \times \i \times \id) \circ (\id \times \Delta \times \id) \circ \varrho)}_{\ast,(p,g,e)} (0,0,X) \\
+&= (\mu_P \times \mu_G)_\ast \circ (\id \times \id \times \i \times \id)_\ast \circ (\id \times \Delta \times \id)_{\ast,(p,e,g)}(0,X,0) \\
+&= (\mu_P \times \mu_G)_\ast \circ (\id \times \id \times \i \times \id)_{\ast,(p,e,e,g)}(0,X,X,0) \\
+&= (\mu_P \times \mu_G)_{\ast,(p,e,e,g)}(0,X,-X,0) \\
+&= (\mu_P)_{\ast,(p,e)}(0,X),(\mu_G)_{\ast,(e,g)}(-X,0) \\
+&= (\omega_p^{-1}(X),-(\vartheta_G)^{-1}_g(\Ad(g^{-1})X)) \\
+\Rightarrow \varpi_{(p,g)}(\xi_X) &= \varpi_{(p,g)}(\omega_p^{-1}(X),-(\vartheta_G)^{-1}_g(\Ad(g^{-1})X)) \\
+&= (\Ad(g^{-1})\cdot (\pi_P^\ast \circ \omega) + \pi_G^\ast \vartheta_G)(\omega_p^{-1}(X),-(\vartheta_G)^{-1}_g(\Ad(g^{-1})X)) \\
+&= \Ad(g^{-1})X = \Ad(g^{-1})X = 0
+}
+Therefore $\varpi$ descends to $\varpi \in \Omega^1(P\times_H G,\mf{g})$ and satisfies the properties of an Ehresmann connection which in addition obeys $\ker \varpi \cap \varphi_\ast(TP)=0 $. \\
+Finally, we need to show that $\varphi^\ast$ and $j$ are mutual inverses:
+\eq{
+\varphi^\ast (j(\omega_p)) = \varphi^\ast \varpi_{(p,e)} &= \Ad(e)^{-1}\circ \varphi^\ast \pi_P^\ast \omega_p + \varphi^\ast \pi_G^\ast {\vartheta_G}_e \\
+&= (\pi_P \circ \varphi)^\ast \omega_p + 0 \quad (\text{since $\pi_G \circ \varphi$ is constant})
+&= \omega_p
+}
+shows that $\varphi^\ast \circ j = \id$. To do the other direction, it suffices to show $\varphi^\ast$ is injective. Now if $\varphi^\ast \varpi = \varphi^\ast \varpi_2$ then $\varpi_1,\varpi_2$ agree on the image $\varphi_\ast(TP)$ and hence on all the right translations. But $\varpi_1, \varpi_2$ agree on $\xi_X$ and these two kinds of vectors span $TQ$
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{../../bib/custom-bib-style}
+\bibliography{../../library}
+
+\end{document}

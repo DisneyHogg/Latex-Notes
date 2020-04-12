@@ -1,0 +1,167 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Hamiltonian General Relativity Notes}
+\author{Linden Disney-Hogg}
+\date{January 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+These are some notes briefly typed in Hamiltonian General Relativity lectures. They are in no ways coherent, and should no be expected to be so. 
+
+\section{Change in Hamiltonian General Relativity}
+
+We have the de-Broglie Proca lagrangian 
+\eq{
+\mc{L} = -\frac{1}{4} F_{\mu\nu}F^{\mu\nu} - \frac{m^2}{2} A_\mu A^\mu 
+}
+
+and the stuckelberg lagrangian
+\eq{
+\mc{L} = -\frac{1}{4} F_{\mu\nu}F^{\mu\nu}-\frac{m^2}{2}(A_\mu-\psi_\mu)(A6\mu-\psi^\mu)
+}
+and we have the gauge transform 
+\eq{
+A_\mu \to A_\mu - \del_\mu \eps
+}
+making them equivalent. 
+
+We have 
+\eq{
+K_{ij} = \frac{1}{2N} ( h_{ij} - D_i \beta_j - D_j \beta_i) = \frac{1}{2N} (\dots)_{ij}
+}
+Then 
+\eq{
+\pb[\int d^3y\, \eps(y) p(y) ]{D_i K_j^i - D_j K(x)} &= \int d^3 y \, \eps(y) \pb[p(y)]{D_i K_{mj} - D_j K_{mi}(x)} h^{im}(x) \\
+&= \int d^3 y \, \eps(y) \pb[p(y)]{\left[ D_i(\frac{1}{2N}(\dots)_{mj}) - D_j(\frac{1}{2N}(\dots)_{mi}(x))\right]} h^{im}(x) \\
+&= \int d^3 y \, \eps(y) \left[ D_i(x) \pb[p(y)]{\frac{1}{2N(x)}} (\dots)_{mj}(x) - D_j(x) \pb[p(y)]{\frac{1}{2N(x)}} (\dots)_{mi}(x) \right] h^{mi}(x) \\
+&= \int d^3 y \, h^{im}(x)\eps(y) \left[ D_i(x) \frac{\delta(x,y)}{2N^2(x)} (\dots)_{mj} - D_j \frac{\delta(x,y)}{2N^2(x)} (\dots)_{mi} \right] \\
+&= D_i(x) h^{im}(x) \int d^3 y \, \eps(y) \frac{\delta(x,y)}{2N^2(x)}(\dots)_{mj}(x) - D_j(x) h^{im}(x) \int d^3 y \, \eps(y) \frac{\delta(x,y)}{2N^2(x)} (\dots)_{mi}(x) \\
+&= D_i h^{im} \frac{\eps}{2N^2} (\dots)_{mj} - D_j h^{im} \frac{\eps}{2N^2} (\dots)_{mi} \\
+&= D_i ( \frac{\eps}{N} K_j^i) - D_j ( \frac{\eps}{N} K)
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+When working with a tetrad $f_\mu^A$, we may choose the time tetrad so 
+\eq{
+f_\mu^0 \propto n_\mu \\
+n_\mu = -Nt_\mu
+}
+This reduces from 16 independent components to 13. We may also fix the spatial components $f_m^a$ by 
+\eq{
+f_{\comm[m]{a}} = 0
+}
+which reduces to 10 components.\\
+We want to split spinors in to real an imaginary parts $\phi,\chi$ respectively. $f_\mu^A$ gives 16 d.o.f (i.e. 16 qs and 16ps). we also have the spinors $\phi,\chi$ giving 8qs and 8ps. We have 10 primary constraints and 4 secondary, all first class, and 8 secondary, so in total with the constraints we end up with $(48 - 2*14 - 1*8)/2=6$ d.o.f. 
+\\
+Alternatively looking in the time gauge we have $f_\mu^A$ giving 16 ps, 16qs, and the spinors giving 8ps, 8qs. 7 primary and 4 secondary constraints that are FC and 8 seconda lastreturns $(42-2*11-1*8)/2=6$ d.o.f. 
+\\
+Finally looking in the fully restricted case gives 10ps, 10qs from $f$, 8ps, 8qs from spinors, 4 primary and secondary constraints that are FC, 8 second class, so finally get the same $(36-2*8-1*8)/2 = 6$ d.o.f. 
+\\
+Consider the lagrangian 
+\eq{
+\mc{L} = N \sqrt{h} \pround{K_{ij} K^{ij} -K^2} - 2mN \tilde{\chi}^T \gamma_0 \tilde{\phi} - \tilde{\chi}^T_{,0} \tilde{\phi} + \tilde{\chi}^T \tilde{\phi}-{,0} - \frac{1}{2} \tilde{\chi}^T \hat{e}_a^n \hat{f}_{n,0}^b \gamma_{[a}\gamma_{b]} \tilde{\phi}
+}
+where we have set $\pd{x}\pround{\dots} = 0$ for all terms and $\tilde{\chi} = \chi\sqrt{h}$. This gives the qs and the ps the same weight under transfomation. \footnote{Look at "Hamiltonian formulation of theory of interacting gravity and electron fields" by Nelson and Teitelboim} Here the hat respresents the \bam{unimodular part}. Recall for a conformal Killing vector it means 
+\eq{
+\mc{L}_\xi g_{\mu\nu} \propto g_{\mu\nu}
+}
+where
+\eq{
+\hat{g}_{\mu\nu} = g_{\mu\nu} (-g)^{-\frac{1}{4}}
+}
+so 
+\eq{
+\abs{\hat{g}_{\mu\nu}} = \abs{g_{\mu\nu} (-g)^{-\frac{1}{4}}} = g^4 (-g)^{-\frac{4}{4}} = -1 
+}
+and
+\eq{
+\mc{L}_\xi \hat{g}_{\mu\nu} = 0 
+}
+The power of $\frac{1}{4}$ ensures the modulus is 1, and this will need to change therefor depending on the dimension. 
+\\
+To understand the Lagrangian consider the toy model 
+\eq{
+L = \frac{1}{2} \dot{q}^2 + B \dot{q} + C \\
+ p = \dot{q} + B \\
+ \Rightarrow H = \frac{1}{2}(p-B)^2 - C
+}
+This motivates choosing taking $N, h_{ij}$ (as opposed to $\sqrt{h}$) to define coordinates by 
+\eq{
+\pi^{ij} = \pd[\mc{L}]{\dot{h}_{ij}} - \pd{h_{ij}} \frac{\tilde{\chi}^T}{2} \sqrt{\hat{h}^{na}} \pd[\sqrt{\hat{h}_{nb,0}}]{h_{ij,0}} \gamma_{[a}\gamma_{b]} \tilde{\phi} \\
+\pi^{ij} = \pd[\mc{L}]{\dot{h}_{ij}} - \pd{h_{ij}} \frac{\tilde{\chi}^T}{2} \sqrt{h^{na}} \pd[\sqrt{h_{nb}}]{h_{ij}} \gamma_{[a}\gamma_{b]} \tilde{\phi}
+}
+Now we may write 
+\eq{
+h_{ij} = \delta_{ij} + \gamma_{ij} \\ 
+\Rightarrow \sqrt{h_{ij}} = \sum_{k=0}^\infty (\gamma\dots)^k_{ij} \frac{\frac{1}{2}!}{\pround{\frac{1}{2}-k}! k!}
+}
+(assuming the coordinates aren't "terribly far from Cartesian"). Note therefore the term $\pd[\sqrt{h_{nb}}]{h_{ij}}$ will be weird but understandable, and so can be carried along. Hence 
+\eq{
+\pi^{ij} = \frac{\sqrt{h}}{2N} \pround{h^{ia}h^{jb} - h^{ab}h^{ij}} \dot{h}_{ab} = \frac{\tilde{\chi}^T}{2}\sqrt{h^{na}} \pd[\sqrt{h_{nb}}]{h_{ij}} \gamma_{[a}\gamma_{b]} \tilde{\phi} \\
+h_{ij} \pi^{ij} = \text{pure gravity} \\
+K_{ab} = \frac{1}{2N} \dot{h_{ab}}
+}
+We may solve for the velocities 
+\eq{
+\dot{h}_{cd} = \frac{2N}{\sqrt{h}} \psquare{\pi_{cd} - h_{cd} \frac{\pi}{2} + h_{ic}h_{jd} \frac{\tilde{\chi}^T}{2} \sqrt{h^{na}} \pd[\sqrt{h_{nb}}]{h_{ij}} \gamma_{[a}\gamma_{b]} \tilde{\phi}}
+}
+so 
+\eq{
+\mc{H}_C &= N \underbrace{\pi_N}_{=0} + \pi^{ij} \dot{h}_{ij} + \underbrace{\pi_\phi}{=\tilde{\chi}^T} \dot{\tilde{\phi}} + \dot{\tilde{\chi}}^T \underbrace{\pi_\chi}_{-\tilde{\phi}} - \mc{L} \\
+&= \frac{\sqrt{h}}{4N} \dot{h}_{ij} \dot{h}_{ab} h^{ia} h^{jb} - \frac{\sqrt{h}}{4N}(\dot{h}_{ij} h^{ij})^2 + 2mN\tilde{\chi}^T \gamma_0 \tilde{\phi} \\
+&= \frac{N}{\sqrt{h}} \pi^{cd}\pi_{cd} - \frac{N \pi^2}{2\sqrt{h}} + \frac{N}{\sqrt{h}} \pi_{ij} \frac{\tilde{\chi}^T}{2}  \sqrt{h^{na}} \pd[\sqrt{h_{nb}}]{h_{ij}} \gamma_{[a}\gamma_{b]} \tilde{\phi} + 2mN \tilde{\chi}^T \gamma_0 \tilde{\phi} + \frac{N}{\sqrt{h}}  \frac{\tilde{\chi}^T}{2}  \gamma_{[a}\gamma_{b]} \tilde{\phi}  \frac{\tilde{\chi}^T}{2} \gamma_{[e}\gamma_{f]} \tilde{\phi} h_{ic}h_{jd} \sqrt{h^{na}} \pd[\sqrt{h_{nb}}]{h_{ij}}  \sqrt{h^{me}} \pd[\sqrt{h_{mf}}]{h_{cd}} \\
+&= N \mc{H}_0
+}
+as $\pi_\phi - \chi^T = 0, \pi_\chi + \tilde{\phi}=0$. Further 
+\eq{
+\mc{H}_p = N \mc{H}_0 + \dot{N} \underbrace{\pi_N}_{FC} + \dot{\tilde{\phi}}\underbrace{(\pi_\phi - \tilde{\chi}^T)}_{SC} + \tilde{\chi}^T \underbrace{( \pi_\chi + \tilde{\phi})}_{SC}
+}
+Fixing $\pi_N = 0 \Rightarrow \mc{H}_0 = 0$. Now we want a canonical Lgargangian $\mc{L}_C$ s.t its Euler Lagrange equations are Hamiltons equations, so 
+\eq{
+\mc{L}_C &= p \dot{q} - \mc{H}_p \\
+&= \pi^{ij} \dot{h}_{ij} + \pi_N \dot{N} + \pi_\phi \dot{\tilde{\phi}} + \dot{\tilde{\chi}}^T \pi_\chi - \psquare{N \mc{H}_0 + \pi_N \dot{N} + (\pi_\phi-\tilde{\chi}^T) \dot{\tilde{\phi}} + \dot{\tilde{\chi}}^T(\pi_\chi + \tilde{\phi})} \\
+&= \pi^{ij} \dot{h}_{ij} + \tilde{\chi}^T \dot{\phi} - \dot{\tilde{\chi}}^T \phi - N \mc{H}_0
+}
+Now calculating some Poisson brackets 
+\eq{
+\pi_N :& \acomm[\xi \pi_N]{p\dot{q} - \mc{H}_p} = \xi \mc{H}_0 \\ 
+\pi_\phi - \tilde{\chi} :& \acomm[\eps_1 ( \pi_\phi - \chi)]{p\dot{q} - \mc{H}_p} = - \tilde{\chi}^T \eps_{,0} + \eps_1 \dot{\tilde{\chi}}^T + N \eps_1 \pd[\mc{H}_0]{\phi_{,0}} \\
+\pi_\chi + \phi :& \acomm[\eps_2 (\pi_\chi + \phi)]{p \dot{q} - \mc{H}_p} = - \eps_2 \dot{\tilde{\phi}} + \tilde{\phi} \dot{\eps}_2 + \eps_2 N \pd[\mc{H}_0]{\tilde{\chi}^T} \\
+- \mc{H}_0 :& \acomm[\eps \mc{H}_0]{\pi^{ij}\dot{h}_{ij} + \tilde{\chi}^T\dot{\tilde{\phi}} = \dot{\tilde{\chi}}^T - N \mc{H}_0} = \eps \dot{h}^{ij} \pd[\mc{H}_0]{h_{ij}} + \eps \dot{\pi}^{ij} \pd[\mc{H}_0]{\pi^{ij}} -\frac{d}{dt} \pround{\eps \pi^{ij} \pd[\mc{H}_0]{\pi^{ij}}}
+}
+Now in looking for a TEAM transformation we can use insight from vacuum GR so we expect the generator to have a term 
+\eq{
+\dot{\eps} \pi_N + \eps \mc{H}_0
+}
+and it turns out that the final answer is 
+\eq{
+\eps_1 = \frac{\eps \dot{\tilde{\phi}}}{N} \\ 
+\eps_2 = \frac{\eps}{N} \dot{\tilde{\chi}}^T
+}
+and the total gauge generator is 
+\eq{
+G = \dot{\eps} \pi_N + \underbrace{\eps \mc{H}_0 + \eps_1 ( \pi_\phi - \tilde{\chi}^T) + \eps_2(\pi_\chi + \tilde{\phi})}_{\check{\mc{H}}_0}
+}
+Then 
+\eq{
+\acomm[G]{\phi} = - \eps \frac{\dot{\tilde{\phi}}}{N} \\
+\acomm[G]{\chi} = - \eps \frac{\dot{\tilde{\chi}}^T}{N} \\ 
+\acomm[G]{\pi_\phi} \approx - \frac{\eps}{N} \dot{\pi}_\phi \\ 
+\acomm[G]{\pi_\chi} \approx - \frac{\eps}{N} \dot{\pi}_\chi \\ 
+\acomm[G]{h_{ij}} \approx = - \frac{\eps}{N} \dot{h}_{ij} \\ 
+\acomm[G]{\pi^{ij}} \approx = - \frac{\eps}{N} \dot{\pi}^{ij} \\ 
+\acomm[G]{N} = - \dot{\eps} = - \dot{\xi}^0 N - \xi^0 \dot{N} \\
+\acomm[G]{\pi_N} \approx 0
+}
+noting $\xi^0 = \frac{\eps}{N}$. 
+\end{document}

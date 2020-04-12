@@ -1,0 +1,1335 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{General Relativity Revision Notes}
+\author{Linden Disney-Hogg}
+\date{January 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+A brief overview of some key ideas, concepts, and facts that I find useful in revising GR. The notes are broadly split into two parts, the differential geometry tools required for GR, and the application of these tools to GR. Somewhat non-intuitively for anyone learning GR, I have put all the differential geometry required at the beginning.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Preliminaries}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{General}
+
+\begin{definition}[Minkowski Metric]
+In these note the convention will be take that the Minkowski metric is 
+\eq{
+\eta_{ab} = \diag(-1,1,\dots,1)
+}
+\end{definition}
+
+\begin{definition}[Natural Units]
+We will take natural units in which 
+\eq{
+c = 1
+}
+\end{definition}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Green's Function Solution to Sourced Wave Equation}
+Consider the sourced wave equation 
+\eq{
+\del_a \del^a \phi(x) = C(x)
+}
+Taking the Fourier transform with respect to space and time \eq{
+f(x) &= \int e^{ik\cdot x} \hat{f}(k) \frac{d^4k}{(2\pi)^4} \\
+\Rightarrow \hat{f}(k) &= \int e^{-ik\cdot x} f(x) \, d^4x
+}
+in 4-momentum notation. This gives 
+\eq{
+-k_a k^a  \hat{\phi}(k) &= \hat{C}(k) \\
+\Rightarrow \hat{\phi}(k) &= \frac{-\hat{C}(k)}{k^2}
+}
+and so 
+\eq{
+\phi(x) = \int e^{ik \cdot x} \frac{-\hat{C}(k)}{k^2} \frac{d^4 k}{(2\pi)^4 }
+}
+We now define the Greens' function $G(x;x^\prime)$ such that 
+\eq{
+\del_a \del^a G(x;x^\prime) = \delta^{(4)}(x-x^\prime)
+}
+Then 
+\eq{
+\del_a \del^a \int G(x;x^\prime) C(x^\prime) \, d^4x^\prime &= \int \delta^{(4)}(x-x^\prime) C(x^\prime) \, d^4x^\prime) \\
+&= C(x)
+}
+so $\int G(x;x^\prime) C(x^\prime) \, d^4x^\prime$ is a solution for $\phi(x)$. The Fourier transform of the delta function is 
+\eq{
+\hat{\delta}(k) = \int e^{-ik \cdot x} \delta^{(4)}(x-x^\prime) \, d^4x = e^{-ik \cdot x^\prime}
+}
+so 
+\eq{
+G(x;x^\prime) = \int e^{ik \cdot x} \frac{-e^{-ik \cdot x^\prime}}{k^2} \, \frac{d^4k}{(2\pi)^4}
+}
+Writing explicitly in terms of components, let $k = (\omega,\bm{k})$, and let $(\tau,\bm{r}) = x-x^\prime$. Choosing spherical coordinates such that $\bm{r}$ aligns with the vertical, we have 
+\eq{
+G(x;x^\prime) &= -\frac{1}{(2\pi)^4} \int_0^{2\pi} d\phi \int_0^\pi \sin\theta \, d\theta \int_0^\infty k^2 \, dk \int_{-\infty}^\infty d\omega \, \frac{e^{-i\omega \tau + ikr\cos\theta}}{-\omega^2+k^2} \\
+&= \frac{1}{4\pi^3}\int_0^\infty dk \, k^2 \frac{\sin kr}{kr} \int_{-\infty}^\infty \frac{e^{-i\omega\tau}}{(\omega-k)(\omega+k)}
+}
+We may then consider the \bam{retarded Green's function} where we shift the poles at $\omega=\pm k$ down such that when $\tau < 0$, we close in the UHP by Jordan's lemma, and get no contribution from the residues. Contrastingly, when $\tau > 0$, we close in the LHP, and get a contribution 
+\eq{
+-2\pi i \psquare{\frac{e^{-ik\tau}}{2k} + \frac{e^{ik\tau}}{-2k}} = \frac{-2\pi}{k} \sin k\tau
+}
+so 
+\eq{
+G(x;x^\prime) = \frac{-1}{2\pi^2r} \Theta(\tau) \int_0^\infty dk \sin kr \sin k\tau 
+}
+which, after expanding in terms of exponentials, gives 
+\eq{
+G(x;x^\prime) = -\frac{1}{4\pi r} \Theta(t-t^\prime) \delta(t-t^\prime - \abs{\bm{x}-\bm{x}^\prime})
+}
+Note that, as $\abs{\bm{x} - \bm{x}^\prime} > 0$, and the Green's function is only supported on $t-t^\prime > 0$, the functions $t-t^\prime - \abs{\bm{x}-\bm{x}^\prime}$ and $\pround{t-t^\prime - \abs{\bm{x}-\bm{x}^\prime}}\pround{t-t^\prime + \abs{\bm{x}-\bm{x}^\prime}} = -(x-x^\prime)^2 $ have the same zeros. Hence we can write 
+\eq{
+\frac{\delta(t-t^\prime - \abs{\bm{x}-\bm{x}^\prime})}{2\abs{\bm{x}-\bm{x}^\prime}} = \frac{\delta(t-t^\prime - \abs{\bm{x}-\bm{x}^\prime})}{(t-t^\prime + \abs{\bm{x}-\bm{x}^\prime})} = \delta\psquare{(x-x^\prime)^2}
+}
+and restore covariance of the Green's function giving 
+\eq{
+G(x;x^\prime) = -\frac{1}{2\pi}\Theta(t-t^\prime) \delta\psquare{(x-x^\prime)^2}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Differential Geometry}
+In these notes, $\mc{M}$ will denote the spacetime manifold. Attention will not be paid to the strict definition of a manifold, or technicalities about coordinates on this manifold. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Tensors}
+\begin{definition}[Vectors]
+A \bam{vector} $V$ is a linear differential operator that acts on real functions on the manifold. Given coordinates $x^a$, $V$ can be written in components
+\eq{
+V = V^a \pd{x^a}
+}
+\end{definition}
+
+\begin{lemma}
+Given two sets of coordinates on the manifold $x^a$ and $\tilde{x}^a$, the components of a vector in the corresponding basis transform as 
+\eq{
+\tilde{V}^a = \pd[\tilde{x}^a]{x^b} V^b
+}
+\end{lemma}
+
+\begin{definition}[Commutator]
+The \bam{commutator} of two vectors $V,W$ is a vector $\comm[V]{W}$ with components 
+\eq{
+\comm[V]{W}^a = V^b \del_b W^a - W^b \del_b V^a
+}
+\end{definition}
+
+\begin{definition}[One Forms]
+A \bam{one form} $\omega$ is a real linear map that acts on vectors. Given a basis of vectors $E_a$, there is a corresponding dual basis of 1-forms $E^a$ such that 
+\eq{
+E^a(E_b) = \delta^a_b \,.
+}
+Hence a 1 form may be written as 
+\eq{
+\omega = \omega_a E^a \,.
+}
+The action of a one form on a vector can be written as 
+\eq{
+\omega(V) = \omega_a V^b E^a\pround{E_b} = \omega_a V^b \delta^a_b = \omega_a V^a
+}
+\end{definition}
+
+\begin{definition}[Differential]
+Given a real function on the manifold, the \bam{differential} of $f$, $df$, is a 1 form defined by 
+\eq{
+df(V) = Vf
+}
+\end{definition}
+
+\begin{lemma}
+The differentials of the coordinate functions, $dx^a$, for a dual basis to $\pd{x^a}$. 
+\end{lemma}
+
+\begin{lemma}
+Given two sets of coordinates on the manifold $x^a$, $\tilde{x}^a$, the components of a 1 form in the corresponding dual bases transform as 
+\eq{
+\tilde{\omega}_a = \pd[x^b]{\tilde{x^a}} \omega_b
+}
+\end{lemma}
+
+\begin{definition}[Exact]
+A 1 form $\omega$ is \bam{exact} if $\exists f$ such that $\omega = df$. 
+\end{definition}
+
+\begin{definition}[Tensor]
+A \bam{tensor} $T$ of type $(r,s)$ is a multilinear map of $r$ 1 forms and $s$ vectors. Given a basis and corresponding dual basis $E_a$, $E^a$, it will have the component expansion 
+\eq{
+T = T^{a_1 \dots a_r}_{b_1 \dots b_s} E_{a_1} \otimes \dots \otimes E_{a_r} \otimes E^{b_1} \otimes \dots \otimes E^{b_s}
+}
+\end{definition}
+
+\begin{lemma}
+Given two coordinate systems as before, the components of a tensor will transform as 
+\eq{
+\tilde{T}^{a_1 \dots a_r}_{b_1 \dots b_s} = \pd[\tilde{x}^{a_1}]{x^{c_1}} \dots \pd[\tilde{x}^{a_r}]{x^{c_r}} \pd[x^{d_1}]{\tilde{x}^{b_1}} \dots \pd[x^{d_s}]{\tilde{x}^{b_s}} T^{c_1 \dots c_r}_{d_1 \dots d_s}
+}
+\end{lemma}
+
+\begin{definition}[Metric]
+A \bam{metric} $g$ is a tensor of type $(0,2)$ that is 
+\begin{itemize}
+    \item Symmetric
+    \item Non-degenerate
+\end{itemize}
+The \bam{inverse metric} is a tensor of type $(2,0)$ that satisfies
+\eq{
+g^{ab} g_{bc} = \delta^a_c
+}
+It is common\footnote{note that sometimes in cosmology g will not be made to be positive, so beware of this. It should be clear from how it is used hopefully.} notation to let 
+\eq{
+g = \abs{\det(g_{ab})}
+}
+\end{definition}
+
+\begin{lemma}
+The metric tensor gives an isomorphism between vectors and one forms by transforming their components as 
+\eq{
+g_{ab} V^b = V_a
+}
+\end{lemma}
+
+\begin{definition}
+Given a vector $V$, its square is defined as 
+\eq{
+V^2 = g_{ab} V^a V^b = V^a V_a
+}
+\end{definition}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Differential Forms}
+
+\begin{definition}[Symmetrisation]
+Suppose a tensor $T$ has $n$ indices (it may have more, either raised of lowered). Then the \bam{symmetrisation} over these indices is 
+\eq{
+T_{(a_1 \dots a_n)} = \frac{1}{n!} \sum_{\sigma \in S_n} T_{\sigma(a_1 \dots a_n)} \,.
+}
+The \bam{antisymmetrisation} over the indices is 
+\eq{
+T_{[a_1 \dots a_n]} = \frac{1}{n!} \sum_{\sigma \in S_n} \sign(\sigma) T_{\sigma(a_1 \dots a_n)} \,.
+}
+\end{definition}
+
+\begin{definition}[Differential $p$ Form]
+A \bam{differential p-form} is a tensor $T$ of type $(0,p)$ such that $T$ is antisymmetric in each index, i.e. 
+\eq{
+T_{a_1 \dots a_p} = T_{[a_1 \dots a_p]}
+}
+\end{definition}
+
+\begin{definition}[Wedge Product]
+The \bam{wedge product} of a $p$ form $A$ and a $q$ form $B$ is $A \wedge B$ with components 
+\eq{
+(A\wedge B)_{a_1 \dots a_p b_1 \dots b_q} = A_{[a_1 \dots a_p} B_{b_1 \dots b_q]}
+}
+\end{definition}
+
+\begin{lemma}
+\eq{
+(B \wedge A) = (-1)^{pq} (A\wedge B)
+}
+\end{lemma}
+
+\begin{lemma}
+A differential $p$ form $A$ can be written as 
+\eq{
+A = A_{a_1 \dots a_p} E^{a_1} \wedge \dots \wedge E^{a_p}
+}
+\end{lemma}
+
+\begin{definition}[Exterior Derivative]
+The \bam{exterior derivative} of a $p$ form $A$ is a $(p+1)$ form $dA$ with components 
+\eq{
+(dA)_{b a_1 \dots a_p} = \del_{[b}A_{a_1 \dots a_p]}
+}
+\end{definition}
+
+\begin{lemma}
+\eq{
+d(A \wedge B) = dA \wedge B + (-1)^p A \wedge dB
+}
+\end{lemma}
+
+\begin{definition}
+\eq{
+d(dA)  = 0
+}
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Connections}
+
+\begin{definition}[Covariant Derivative]
+Given a vector $V$, a \bam{covariant derivative} is defined by 
+\eq{
+\nabla_b V^a  = \del_b V^a + \Gamma^a_{bc} V^c
+}
+$\Gamma^a_{bc}$ is called a \bam{connection}. The choice of connection defines the covariant derivative. It is also required that, for a scalar function $f$
+\eq{
+\nabla_a f = \del_a f 
+}
+\end{definition}
+
+\begin{definition}[Laplacian]
+The \bam{Laplacian} operator is defined as 
+\eq{
+\Box = \nabla_a \nabla^a
+}
+\end{definition}
+
+\begin{lemma}
+Given a tensor $T$ of type $(r,s)$, its covariant derivative is 
+\eq{
+\nabla_c T^{a_1 \dots a_r}_{b_1 \dots b_s} = \del_c T^{a_1 \dots a_r}_{b_1 \dots b_s} + \Gamma^{a_1}_{cd} T^{d \dots a_r}_{b_1 \dots b_s} + \dots + \Gamma^{a_r}_{cd} T^{a_1 \dots d}_{b_1 \dots b_s} - \Gamma^d_{c b_1} T^{a_1 \dots a_r}_{d \dots b_s} - \dots - \Gamma^d_{c b_s} T^{a_1 \dots a_r}_{b_1 \dots d}
+}
+\end{lemma}
+
+\begin{idea}
+The covariant derivative is defined such that it transforms as a tensor. This means that the connection is \bam{not} a tensor, as the directional derivative is not a tensor. 
+\end{idea}
+
+\begin{definition}[Torsion Tensor]
+Given a connection $\Gamma$, the \bam{torsion tensor} $T$ is 
+\eq{
+T^a_{bc} = \Gamma^a_{bc} - \Gamma^a_{cb} = 2\Gamma^a_{[bc]}
+}
+It is required to be shown that it transforms as a tensor. 
+\end{definition}
+
+\begin{lemma}
+For a scalar $f$,
+\eq{
+(\nabla_b \nabla_a -\nabla_a \nabla_b) f = T^c_{ab} \nabla_c f 
+}
+\end{lemma}
+
+\begin{definition}[Metric Connection]
+Given a metric $g$, a metric connection $\Gamma$ is one such that 
+\eq{
+\nabla_c g_{ab} = 0
+}
+It can be calculated to be 
+\eq{
+\Gamma^a_{bc} = \frac{1}{2}g^{ad}\pround{ \del_c g_{bd} + \del_b g_{cd} - \del_d g_{bc}}
+}
+It is also called the \bam{Christoffel connection}. The connection is torsion free. Note that with the metric connection
+\eq{
+\nabla_c g^{ab} = 0
+}
+too. 
+\end{definition}
+
+\begin{lemma}
+It is a useful result that 
+\eq{
+\Gamma^a_{ac} = \frac{1}{2}g^{-\frac{1}{2}} \del_c g^\frac{1}{2}
+}
+with the Christoffel Connection
+\end{lemma}
+\begin{proof}
+\eq{
+\Gamma^a_{ac} = \frac{1}{2} g^{ad} \pround{ \del_c g_{ad} + \del_a g_{cd} - \del_d g_{ac}}
+}
+The symmetry of the metric gives that the last two terms cancel by relabelling, hence 
+\eq{
+\Gamma^a_{ac} &= \frac{1}{2} g^{ab} \del_c g_{ab} \\
+&= \frac{1}{2}\tr \psquare{(g_{ab})^{-1} \del_c g_{ab}} \\
+&= \frac{1}{2} \tr \psquare{\del_c \log(g_{ab})} \\
+&= \frac{1}{2} \del_c \log\psquare{\det(g_{ab})} \\
+&= \del_c \log g^\frac{1}{2} \\
+&= \frac{1}{2}g^{-\frac{1}{2}} \del_c g^\frac{1}{2}
+}
+\end{proof}
+
+
+\begin{definition}[Vierbein Fields]
+The \bam{veirbein fields} are defined as $e^\mu_a$ such that, given a metric $g_{ab}$,
+\[
+g_{ab} = e^\mu_a e^\nu_b \eta_{\mu\nu}
+\]
+\end{definition}
+
+\begin{definition}[Lorentz and Spacetime indices]
+Let Greek indices represent \bam{Lorentz indices} and Latin indices represent \bam{spacetime indices}. These are converted between via 
+\[
+V^\mu = e^\mu_a V^a \Leftrightarrow V^a = e^a_\mu V^\mu
+\]
+where 
+\[
+e^a_\mu=g^{ab} \eta_{\mu\nu} e^\nu_b
+\]
+\end{definition}
+
+\begin{definition}[Pseudo-orthonormal Basis]
+Define the \bam{pseudo-orthonormal basis} of one forms $\set{E^\mu}$ by 
+\[
+E^\mu = e^\mu_a dx^a
+\]
+In this basis 
+\[
+ds^2 = g_{ab} dx^a dx^b = \eta_{\mu\nu} E^{\mu} E^{\nu}
+\]
+We get the corresponding basis of vectors $\pbrace{ E_\nu}$ defined such that 
+\eq{
+E^\mu(E_\nu) = \delta^\mu_\nu
+}
+Writing $E_\nu = c_\nu^a \del_a$ we find 
+\eq{
+\delta^\mu_\nu = e^\mu_a c^b_\nu \delta^a_b 
+}
+Thus $c^a_\nu = e^a_\nu$. 
+\end{definition} 
+
+
+\begin{definition}[Spin Connection]
+Define the \bam{spin connection} $\omega\indices{_\mu^\nu_\rho}$ with the covariant derivative 
+\[
+\nabla_\mu V^\nu = \del_\mu V^\nu + \omega\indices{_\mu^\nu_\rho} V^\rho
+\]
+subject to the \bam{vierbein constraint}
+\[
+\nabla_a e^b_\nu = 0
+\]
+and the requirement to have a vanishing torsion tensor 
+\[
+\nabla_\mu e^a_\nu - \nabla_\nu e^a_\mu = T\indices{^\rho_\mu_\nu} e^a_\rho
+\]
+\end{definition}
+
+\begin{prop}
+\eq{
+\omega_{\lambda\tau\nu} =e_\lambda^a e_{b\tau}\left(\partial_a e_\nu^b+\Gamma_{ac}^b e_\nu^c \right)
+}
+and 
+\eq{
+\omega_{\mu\rho\sigma} = -\omega_{\mu\sigma\rho}
+}
+\end{prop}
+\begin{proof}
+\eq{
+\nabla V = \pround{ \del_a V^b + \Gamma^b_{ac} V^c} \, dx^a \otimes \del_b
+}
+Similarly 
+\eq{
+\nabla V &= \pround{\del_\mu V^\nu + \omega\indices{_\mu^\nu_\rho} V^\rho} \, E^\mu \otimes E_\nu \\
+&= \pround{ e^a_\mu \del_a \psquare{e^\nu_b V^b} + \omega\indices{_\mu^\nu_\rho} e^\rho_c V^c } \pround{e^\mu_d dx^d} \otimes \pround{e_\nu^f \del_f} \\
+&= \pround{e^a_\mu e^\mu_d e^f_\nu \psquare{e^\nu_b \del_a V^b + V^b \del_a e^\nu_b } + \omega\indices{_\mu^\nu_\rho} e^\rho_c e^\mu_d e^f_\nu V^c } \, dx^d \otimes \del_f \\
+\Rightarrow \del_d V^f + \Gamma^f_{dc}V^c &= \del_d V^f + e^f_\nu V^c \del_d e^\nu_c + \omega\indices{_\mu^\nu_\rho} e^\rho_c e^\mu_d e^f_\nu V^c \\ 
+\Rightarrow \Gamma^f_{dc} + e^\nu_c \del_d e^f_\nu &= \omega\indices{_\mu^\nu_\rho} e^\rho_c e^\mu_d e^f_\nu
+}
+Multiplying through gives the first result. 
+\end{proof}
+
+
+\begin{definition}[Normal Coordinates]
+Given a point $x_0$, \bam{normal coordinates} at $x_0$ are coordinates such that 
+\eq{
+g_{ab} = C_{ab} + \mc{O}(x-x_0)^2
+}
+for some constants $C_{ab}$. This is equivalent to forcing $\Gamma = 0$ at $x_0$. 
+\end{definition}
+
+\begin{lemma}
+It is always possible to choose normal coordinates such that, at $x_0$, 
+\begin{itemize}
+    \item $g_{ab} = \eta_{ab}$.
+    \item $\del_c g_{ab} = 0$.
+\end{itemize}
+\end{lemma}
+
+\begin{idea}
+Any equation written entirely of terms of tensors that holds in one coordinate system will continue to hold in any other coordinate system, as all terms will transform the same. Often choosing normal coordinates s.t $g_{ab} = \eta_{ab}$ at a point will make calculations especially simple. 
+\end{idea}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Riemann Tensor}
+
+\begin{definition}[Riemann Tensor]
+The \bam{Riemann tensor} $R$ in spacetime indices is given by
+\eq{
+& (\nabla_a \nabla_b - \nabla_b \nabla_a) V^c = R\indices{^c_d_a_b} V^d \\
+\Leftrightarrow & R\indices{^c_d_a_b} = \del_a \Gamma^c_{db} - \del_b \Gamma^c_{da} + \Gamma^c_{ae} \Gamma^e_{db} - \Gamma^c_{be} \Gamma^e_{da}
+}
+\end{definition}
+
+\begin{theorem}[Symmetries of the Riemann Tensor]
+The Riemann tensor obeys 
+\begin{itemize}
+    \item $R_{abcd} = -R_{bacd}$
+    \item $R_{abcd} = R_{cdab}$
+    \item $R_{a[bcd]} = 0$ (First Bianchi Identity)
+\end{itemize}
+\end{theorem}
+
+\begin{definition}[Ricci Tensor]
+The \bam{Ricci tensor} is 
+\eq{
+R_{ab} = R\indices{^c_a_c_b}
+}
+\end{definition}
+
+\begin{definition}[Ricci Scalar]
+The \bam{Ricci scalar} is 
+\eq{
+R = R^a_a
+}
+\end{definition}
+
+\begin{definition}[Einstein Tensor]
+The \bam{Einstein tensor} $G_{ab}$ is defined by 
+\eq{
+G_{ab} = R_{ab} - \frac{1}{2} g_{ab} R 
+}
+\end{definition}
+
+\begin{lemma}[Second Bianchi Identity]
+\eq{
+0 = \nabla_a G^{ab}
+}
+\end{lemma}
+
+
+\begin{definition}[Riemann Tensor]
+Define the Riemann tensor in terms of $\omega$ as 
+\[
+(\nabla_\mu \nabla_\nu - \nabla_\nu \nabla_\mu ) V_\rho = R\indices{_\mu_\nu_\rho^\sigma}(\omega) V_\sigma
+\]
+\end{definition}
+
+\begin{definition}[Ricci Rotation Coefficients]
+Define the \bam{Ricci rotation coefficients} $c\indices{^\mu_\rho_\sigma}$ by 
+\[
+dE^\mu = \frac{1}{2} c\indices{^\mu_\rho_\sigma} E^\rho \wedge E^\sigma
+\]
+\end{definition}
+
+\begin{lemma}
+\eq{
+\omega_{\mu\nu\rho} = \frac{1}{2}\pround{c_{\mu\nu\rho} + c_{\rho\mu\nu} - c_{\nu\mu\rho}}
+}
+\end{lemma}
+\begin{proof}
+\eq{
+dE^\mu &= d(e^\mu_a dx^a) \\
+&= de^\mu_a \wedge dx^a \\
+&= \del_b e^\mu_a \,  dx^b \wedge dx^a \\
+&= \pround{e^\mu_f\Gamma^f_{ba} - \omega\indices{_\lambda^\mu_\rho} e^\rho_a e^\lambda_b  } dx^b \wedge dx^a \\
+&= \omega\indices{_\lambda^\mu_\rho} E^\rho \wedge E^\lambda \quad \text{by antisymmetry} \\
+&= \frac{1}{2}\pround{\omega\indices{_\lambda^\mu_\rho} - \omega\indices{_\rho^\mu_\lambda}} E^\rho \wedge E^\lambda
+}
+Hence 
+\eq{
+\omega_{\sigma\mu\rho} - \omega_{\rho\mu\sigma} &= c_{\mu\rho\sigma} \\
+\omega_{\rho\sigma\mu} - \omega_{\mu\sigma\rho} &= c_{\sigma\mu\rho} \\
+\omega_{\sigma\rho\mu} - \omega_{\mu\rho\sigma} &= c_{\rho\mu\sigma}
+}
+so 
+\eq{
+-c_{\mu\rho\sigma} + c_{\sigma\mu\rho} - c_{\rho\mu\sigma} &= -\omega_{\sigma\mu\rho} + \omega_{\rho\mu\sigma} + \omega_{\rho\sigma\mu} - \omega_{\mu\sigma\rho} - \omega_{\sigma\rho\mu} + \omega_{\mu\rho\sigma} \\
+&= 2 \omega_{\mu\rho\sigma}
+}
+\end{proof}
+
+\begin{definition}[Connection 1-form]
+Define the \bam{connection 1-form} by 
+\[
+\omega\indices{^\mu_\nu} = \omega\indices{^\mu_\nu_\rho}E^\rho
+\]
+\end{definition}
+
+\begin{definition}[Torsion 2-form]
+Define the \bam{torsion 2-form} by 
+\[
+\Theta^\mu = \frac{1}{2} T\indices{^\mu_\rho_\sigma} E^\rho \wedge E^\sigma
+\]
+\end{definition}
+
+\begin{definition}[Curvature 2-form]
+Define the \bam{curvature 2-form} by 
+\[
+\Omega\indices{^\mu_\nu} = \frac{1}{2} R\indices{^\mu_\nu_\rho_\sigma}(\omega) E^\rho \wedge E^\sigma
+\]
+\end{definition}
+
+\begin{theorem}[Cartan's Equations of Structure]
+Cartan's first and second equations of structure are 
+\begin{itemize}
+    \item $dE^\mu +  \omega\indices{^\mu_\nu} \wedge E^\nu = \Theta^\mu = 0 $ 
+    \item $\Omega\indices{^\mu_\nu} = d\omega\indices{^\mu_\nu} +  \omega\indices{^\mu_\rho} \wedge  \omega\indices{^\rho_\nu}$
+\end{itemize}
+\end{theorem}
+
+\begin{theorem}
+\[
+R_{abcd}(\Gamma) = e^\mu_a e^\mu_b e^\rho_c e^\sigma_d R_{\mu\nu\rho\sigma}(\omega)
+\]
+\end{theorem}
+\begin{proof}
+$\Omega\indices{^\mu_\nu}$ has components $\Omega\indices{^\mu_\nu_a_b}$ such that 
+\eq{
+\Omega\indices{^\mu_\nu} = \frac{1}{2} \Omega\indices{^\mu_\nu_a_b}  dx^a \wedge dx^b
+}
+By converting to the bases of $E^\rho,E^\sigma$ we see 
+\eq{
+R\indices{^a_b_c_d}(\omega) = \Omega\indices{^\mu_\nu_c_d}e^a_\mu e_b^\nu
+}
+Now 
+\eq{
+\omega\indices{^\mu_\nu} &= \omega\indices{^\mu_\nu_\rho} E^\rho \\
+&= 
+}
+\end{proof}
+
+\begin{idea}
+Cartan's equations provide a more streamlined route to finding the Riemann tensor than computation using the Christoffel symbols. 
+\end{idea}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Geodesics}
+
+\begin{definition}[Timelike, Spacelike, and Null]
+Given a vector $V^a$ it is called 
+\begin{itemize}
+\item \bam{Timelike} if $V^2 < 0$.
+\item \bam{Spacelike} if $V^2 > 0$.
+\item \bam{Null} if $V^2 = 0$.
+\end{itemize}
+A curve $x^a(\lambda)$, $\lambda$, is called timelike/spacelike/null if its tangent vector $u^a = \frac{dx^a}{d\lambda}$ is timelike/spacelike/null
+\end{definition}
+
+\begin{definition}[Proper Distance]
+Given a spacelike coordinate path $x^a(\lambda)$, the \bam{proper distance} along the path is 
+\eq{
+s = \int \sqrt{g_{ab} \frac{dx^a}{d\lambda} \frac{dx^b}{d\lambda}} \, d\lambda
+}
+Hence 
+\eq{
+ds^2 = g_{ab} dx^a dx^b 
+}
+\end{definition}
+
+\begin{definition}[Proper Time]
+Given a timelike coordinate path $x^a(\lambda)$, the \bam{proper time} along the path is 
+\eq{
+\tau = \int \sqrt{-g_{ab} \frac{dx^a}{d\lambda} \frac{dx^b}{d\lambda}} \, d\lambda
+}
+Hence 
+\eq{
+d\tau^2 = -g_{ab} dx^a dx^b 
+}
+\end{definition}
+
+\begin{definition}[Geodesic]
+Given fixed endpoints, a \bam{timelike geodesic} is a timelike path between the endpoints that extremises the proper time functional. Similarly a \bam{spacelike geodesic} is a spacelike path between the endpoints that extremises the proper distance functional.  
+\end{definition}
+
+\begin{definition}[Affine Parametrisation]
+Given a  timelike/spacelike coordinate curve $x^a(\lambda)$, $\lambda$ is an \bam{affine parameter} if 
+\eq{
+\frac{d^2 \lambda}{d\tau^2} &= 0 \Leftrightarrow \lambda = a\tau + b \quad (\text{timelike}) \\
+\frac{d^2 \lambda}{ds^2} &= 0 \Leftrightarrow \lambda = as + b \quad (\text{spacelike})
+}
+\end{definition}
+
+\begin{theorem}
+Extremising the proper distance functional is equivalent to extremising the functional 
+\eq{
+\int g_{ab} \frac{dx^a}{d\lambda} \frac{dx^b}{d\lambda} \, d\lambda \,.
+}
+for affine parameter $\lambda$. The Euler-Lagrange equations for this action then are 
+\be\label{eq:GR:GeodesicEquation}
+\frac{d^2 x^a}{d\lambda^2} + \Gamma^a_{bc} \frac{dx^b}{d\lambda} \frac{dx^c}{d\lambda}
+\ee
+These are often written as 
+\eq{
+u^b \nabla_b u^a = 0
+}
+for $u^b = \frac{dx^b}{d\lambda}$. 
+\end{theorem}
+
+\begin{corollary}
+Along an affinely parametrised geodesic, $u^2$ is constant. i.e.
+\eq{
+u^b \nabla_b (u^a u_a) = 0
+}
+\end{corollary}
+
+\begin{definition}[Null Geodesic]
+A coordinate path $x^a(\lambda)$ that satisfies \eqref{eq:GR:GeodesicEquation} is a \bam{null geodesic}, and $\lambda$ is said to be an affine parameter. 
+\end{definition}
+
+\begin{theorem}[Geodesic Deviation Equation]
+Given a 1-parameter family of geodesics $x^a(t;s)$, where $t$ is the parameter along each geodesic and $s$ is the parameter of each geodesic, define 
+\eq{
+T^a(s) &= \frac{dx^a}{dt} \\
+S^a(t) &= \frac{dx^a}{ds}
+}
+Then 
+\eq{
+S^a \nabla_a T^b - T^a \nabla_a S^b =0
+}
+and 
+\eq{
+\frac{d^2 S^a}{dt^2} = R\indices{^a_b_c_d} T^b T^c S^d 
+}
+$\frac{d^2 S^a}{dt^2}$ is the \bam{relative acceleration of geodesics}. The force exerted in the case of $R \neq 0$ is called the \bam{tidal force}. 
+\end{theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{definition}[Parallel Transport]
+Given a curve $x^a(\lambda)$ and a vector $V^a(\lambda_0)$ defined at $x^a(\lambda_0)$ the \bam{parallel transport} of $V$ along the curve is defined as as the solution $V(\lambda)$ to the ODE
+\eq{
+u^a \nabla_a V^b = 0
+}
+where $u^a = \frac{dx^a}{d\lambda}$. Expanding out this ODE is 
+\eq{
+\frac{dV^a}{d\lambda} + \Gamma^a_{bc} u^b V^c = 0
+}
+which has the general solution 
+\eq{
+V(\lambda) = V(\lambda_0) - \int_{\lambda_0}^\lambda \Gamma^{a}_{bc}(x(\lambda^\prime)) u^b(\lambda^\prime) V^c(\lambda^\prime) \, d\lambda^\prime
+}
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Symmetries}
+
+\begin{definition}[Weyl Tensor]
+Define the \bam{Weyl tensor} $C_{abcd}$ by 
+\eq{
+R_{abcd} = C_{abcd} + \frac{1}{2}(g_{ac}R_{bd} + g_{bd}R_{ac} - g_{ad}R_{bc} - g_{bc}R_{ad}) - \frac{1}{6}R(g_{ac}g_{bd}-g_{ad}g_{bc})
+}
+It is designed to have the same symmetries as the Riemann tensor, but satisfy 
+\eq{
+C\indices{^c_a_c_b} = 0
+}
+\end{definition}
+
+\begin{definition}[Conformal Transformation]
+A \bam{conformal transformation} is one which sends 
+\eq{
+g_{ab} \to \Omega^2 g_{ab}
+}
+for $\Omega(x)$ a real function. Note that the inverse metric transforms as 
+\eq{
+g^{ab} \to \Omega^{-2} g^{ab}
+}
+\end{definition}
+
+\begin{fact}
+As $\Omega^2 > 0$, conformal transformations preserve the causal structure of spacetime. 
+\end{fact}
+
+\begin{lemma}
+Under a conformal transform the metric derivatives transform as 
+\eq{
+\Gamma^a_{bc} &\to \Gamma^a_{bc} + \Omega^{-1}\pround{\delta^a_b \nabla_c \Omega + \delta^a_c \nabla_b \Omega - g_{bc} \nabla^a \Omega} \\
+R\indices{^a^b_c_d}  &\to \Omega^{-2} R\indices{^a^b_c_d}  + \frac{1}{4} \left[ \delta _ { c } ^ { a } \Omega _ { d } ^ { b } - \delta _ { d } ^ { a } \Omega _ { c } ^ { b } - \delta _ { c } ^ { b } \Omega _ { d } ^ { a } + \delta _ { d } ^ { b } \Omega _ { c } ^ { a }\right] \\
+R^a_b &\to \Omega^{-2}R^a_b + \frac{1}{2}\Omega^{-1} \nabla_b\nabla^a \Omega^{-1} - \frac{1}{2} \Omega^{-4} \delta_b^a  \Box \Omega^2 \\
+R &\to \Omega^{-2}R + 6\Omega^{-3} \Box \Omega \\
+C\indices{^a_b_c_d} &\to C\indices{^a_b_c_d}
+}
+where 
+\eq{
+\Omega^a_b = 4\Omega^{-1} \nabla^a \nabla_b \Omega^{-1} - 2\delta^a_b (\nabla_c \Omega^{-1}) (\nabla^c \Omega^{-1})
+}
+\end{lemma}
+
+\begin{definition}[Conformal Invariance]
+A theory has \bam{conformal invariance} if the equations of motion are invariant under a coordinate transformation.
+\end{definition}
+
+\begin{example}[Conformal Invariance of Maxwell's Equations]
+Maxwell's source free equations are 
+\eq{
+\nabla_a F_{bc} + \nabla_b F_{ca} + \nabla_c F_{ab} = 0 \\
+\nabla_a F^{ab} = 0
+}
+In the first equation, note 
+\eq{
+\nabla_a F_{bc} &= \del_a F_{bc} - \Gamma^d_{ab} F_{dc} - \Gamma^d_{ac} F_{bd} \\
+\nabla_b F_{ca} &= \del_b F_{ca} - \Gamma^d_{bc} F_{da} - \Gamma^d_{ba} F_{cd} \\
+\nabla_c F_{ab} &= \del_c F_{ab} - \Gamma^d_{ca} F_{db} - \Gamma^d_{cb} F_{ad}
+}
+so using the antisymmetry of $F_{ab}$ the terms including the connection cancel, so the first equation is equivalent to 
+\eq{
+\del_a F_{bc} + \del_b F_{ca} + \del_c F_{ab} = 0
+}
+This is clearly conformally invariant. Now the second equation gives 
+\eq{
+\del_a F^{ab} + \Gamma^a_{ac} F^{cb} + \Gamma^b_{ac} F^{ac} = 0
+}
+The final term is 0 by the antisymmetry of $F$. As $\Gamma^a_{ac} =\frac{1}{2} g^{-\frac{1}{2}} \del_c g^\frac{1}{2}$, the equation can be rewritten as 
+\eq{
+g^{-\frac{1}{2}} \del_a \pround{ g^\frac{1}{2} F^{ab}} = 0
+}
+Now under a conformal transform 
+\eq{
+F^{ab} = g^{ac} g^{bd} F_{cd} \Rightarrow F^{ab} \to \Omega^{-4} F^{ab}
+}
+and 
+\eq{
+g^\frac{1}{2} \to \pround{\Omega^{2D} g}^\frac{1}{2} = \Omega^D g^\frac{1}{2}
+}
+Hence in 4 dimensions $g^\frac{1}{2}F^{ab}$ is conformally invariant, and so Maxwell's equations are invariant. 
+\end{example}
+
+\begin{definition}[Infinitesimal Symmetry]
+An \bam{infinitesimal symmetry} is a small shift $x^a \to x^a + \zeta^a(x)$ that leaves the line element invariant, i.e
+\eq{
+g_{ab}(x) dx^a dx^b = g_{ab}(x+\zeta) d(x + \zeta)^a d(x+\zeta)^b
+}
+This condition can be expanded out to first order to give 
+\eq{
+\nabla_a \zeta_b + \nabla_b \zeta_a = 2\nabla_{(a}\zeta_{b)} = 0
+}
+This is \bam{Killing's equation} and it's solutions are called \bam{Killing vectors}.
+\end{definition}
+
+\begin{lemma}
+If $k$ is a Killing 
+\eq{
+\nabla_a \nabla_b k_c = R\indices{_a_b_c^d} k_d
+}
+Hence a Killing vector field is uniquely determined by $k$ and $\nabla k$ at a point. There are $D$ independent choices of $k$ and $\frac{1}{2}D(D-1)$ choices for $\nabla k$, so the total number of independent determinations of Killing vectors is $\frac{1}{2}D(D+1)$. 
+\end{lemma}
+
+\begin{lemma}
+Killing vectors form a Lie algebra with the bracket being the commutator, i.e. given $k,l$ Killing vectors
+\eq{
+m^a = k^b \del_b l^a - l^b \del_b k^a
+}
+is a Killing vector. 
+\end{lemma}
+
+\begin{lemma}
+Killing vectors correspond to conserved quantities
+\end{lemma}
+\begin{proof}
+Consider a particle's geodesic worldline with tangent vector $u^a$. Note this means 
+\eq{
+u^a \nabla_a u^b = 0
+}
+Then 
+\eq{
+u^a \nabla_a (u^b k_b) = k_b \psquare{u^a \nabla_a u^b} + u^a u^b \nabla_a k_b = u^a u^b \nabla_{(a}k_{b)} = 0
+}
+so $u^b k_b$ is conserved along the worldline. 
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Integration}
+
+\begin{definition}[Levi-Civita Symbol]
+The \bam{Levi-Civita symbol} with n components is $\eta$ with components 
+\eq{
+\eta_{a_1 \dots a_n} = \sign(\sigma)
+}
+where
+\eq{
+a_1 \dots a_n = \sigma(1 \dots n)
+}
+for $\sigma \in S_n$. 
+\end{definition}
+
+\begin{lemma}
+Given a matrix $M^a_b$, 
+\eq{
+\eta_{a_1 \dots a_n} \det M = \eta_{b_1 \dots b_n} M^{a_1}_{b_1} \dots M^{a_n}_{b_n}
+}
+Applying to the coordinate change matrix $M^a_b = \pd[x^a]{\tilde{x}^b}$ gives 
+\eq{
+\eta_{a_1 \dots a_n} = \det\pround{\pd[\tilde{x}]{x}} \eta_{b_1 \dots b_n} \pd[x^{b_1}]{\tilde{x}^{a_1}} \dots \pd[x^{b_n}]{\tilde{x}^{a_n}}
+}
+so $\eta$ is a tensor density. 
+\end{lemma}
+
+\begin{definition}[Alternating Tensor]
+The \bam{alternating tensor} is 
+\eq{
+\eps_{a_1 \dots a_n} = g^\frac{1}{2} \eta_{a_1 \dots a_n}
+}
+where $g^\frac{1}{2} = \sqrt{\abs{\det g_{ab}}}$
+\end{definition}
+
+\begin{definition}[Invariant Volume Element]
+The \bam{invaraint volume element} in n dimensions is  
+\eq{
+g^\frac{1}{2} d^nx &= g^\frac{1}{2} dx^1 \wedge \dots \wedge dx^n \\
+&= g^\frac{1}{2} \frac{1}{n!} \eta_{a_1 \dots a_n} dx^{a_1} \wedge \dots \wedge dx^{a_n} \\
+&= \frac{1}{n!} \eps_{a_1 \dots a_n} dx^{a_1} \wedge \dots \wedge dx^{a_n}
+}
+\end{definition}
+
+\begin{theorem}[Stokes Theorem]
+Let $\Sigma$ be a volume with boundary $\del \Sigma$ whose normal is $n^a$. Let the invariant volume element on $\Sigma$ and $\del \Sigma$ be $g^\frac{1}{2} d^n x $ and $\gamma^\frac{1}{2} d^{n-1}x$ respectively. Then for $V^a$ a vector field on $\Sigma$ 
+\eq{
+\int_{\Sigma} \nabla_a V^a g^\frac{1}{2} d^n x = \int_{\del \Sigma} n_a V^a \gamma^\frac{1}{2} d^{n-1}x
+}
+\end{theorem}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{General Relativity}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Spacetime Geometry}
+
+\begin{definition}[Geodesic Postulate]
+A photon is a massless particle. The \bam{geodesic postulate} is that 
+\begin{itemize}
+    \item photons travel along null geodesics in spacetime. 
+    \item massive particle travel along timelike geodesics in spacetime.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Chronological/Causal Future/Past]
+The \bam{chronological future} of a point $p$ in the spacetime is $I^+(p)$, the set of points that can be reached from $p$ along future directed timelike curves. It is the interior of the future directed light cone. \\
+The \bam{causal future} of a point $p$ is $J^+(p)$, and is the set of point that can be reached from $p$ along future directed timelike or null curves. It it the union of the interior of the future directed light cone and the cone itself. \\
+Both of these definitions have past directed equivalents, labelled $I^-(p)$ and $J^-(p)$ respectively. 
+\end{definition}
+
+\begin{definition}[Lorentz Group]
+The \bam{Lorentz group} is the group of all transformations that preserve the Minkowski metric, i.e. 
+\eq{
+\eta &= \Lambda^T \eta \Lambda \\
+\Rightarrow \eta_{ab} &= \Lambda\indices{^c_a} \eta_{cd} \Lambda\indices{^d_b}
+}
+Lorentz transforms act on tensors of type $(r,s)$ as 
+\eq{
+T\indices{^{a_1}^\dots^{a_r}_{b_1}_\dots_{b_s}} \to \Lambda\indices{^{a_1}_{c_1}} \dots \Lambda\indices{^{a_r}_{c_r}} \Lambda\indices{^{d_1}_{b_1}} \dots \Lambda\indices{^{d_s}_{b_s}} T\indices{^{c_1}^\dots^{c_r}_{d_1}_\dots_{d_s}} 
+}
+\end{definition}
+
+\begin{definition}[Poincare Group]
+The \bam{Poincare group} consists of Lorentz transformations and translations. It is the group of symmetries of Mikowski spacetime. 
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Einstein Equations}
+
+\begin{definition}[Einstein-Hilbert Action]
+The \bam{Einstein - Hilbert action} is 
+\eq{
+S_{EH} = \frac{1}{16\pi G} \int (R-2\Lambda) g^{\frac{1}{2}} d^4 x
+}
+\end{definition}
+
+
+\begin{definition}[Energy Momentum Tensor]
+The \bam{energy momentum tensor} $T$ is defined such that the variation of the matter action $S_{Matter}$ under $g_{ab} \to g_{ab} + h_{ab}$ is given by 
+\eq{
+\delta S_{Matter} = \int \frac{1}{2} T_{ab} h^{ab} g^\frac{1}{2} \, d^4x
+}
+\end{definition}
+
+\begin{example}
+In the case where 
+\eq{
+L_{Matter} = -\frac{1}{2} \del_a \phi \del^a \phi - V(\phi)
+}
+for some scalar field $\phi$, the energy momentum tensor is 
+\eq{
+T_{ab} = \del_a \phi \del_b \phi +g_{ab} \psquare{-\frac{1}{2}\del_a \phi \del^a \phi -V(\phi)}
+}
+\end{example}
+
+\begin{definition}[Einstein Equations]
+The \bam{Einstein Equations} are a set of 10 non-linear PDEs for the metric in the presence of some energy momentum tensor, and they are 
+\eq{
+( R_{ab} - \frac{1}{2}R g_{ab} + \Lambda g_{ab}) = 8\pi G T_{ab}
+}
+$\Lambda$ is a cosmological constant, and is ignored typically in general relativity. 
+\end{definition}
+
+\begin{theorem}
+The Einstein equations are obtained from finding when the action 
+\eq{
+S = S_{EH} + S_{Matter}
+}
+is stationary, i.e. $\delta S = 0$ with respect to variations in the metric. 
+\end{theorem}
+
+\begin{lemma}
+The energy momentum tensor is a conserved current, i.e. 
+\eq{
+\nabla_a T^{ab} = 0
+}
+\end{lemma}
+\begin{proof}
+This follows immediately from the second Bianchi identity and the Einstein equations. 
+\end{proof}
+
+\begin{prop}[Trace Reversed Einstein Equations]
+In $D>2$ dimensions this can be written as 
+\eq{
+( R - \frac{D}{2}R + D\Lambda) = 8\pi G T
+}
+with $T=T\indices{^a_a}$. Hence 
+\eq{
+R &= \frac{2}{D-2}\left[ D\Lambda - 8 \pi G  T \right] \\
+\Rightarrow R_{ab} &=  \frac{1}{D-2}\left[ D\Lambda - 8 \pi G  T \right] g_{ab} -\Lambda g_{ab} + 8 \pi G T_{ab} \\
+&= \frac{2\Lambda}{D-2}g_{ab} + 8 \pi G \left[ T_{ab} - \frac{1}{D-2} T g_{ab} \right]
+}
+in $D=4$ this becomes 
+\eq{
+R_{ab} = \Lambda g_{ab} + 8 \pi G  \left[ T_{ab} -\frac{1}{2}Tg_{ab} \right] 
+}
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Schwarzschild Metric}
+The Schwarzschild metric will be a very important metric for understanding and testing GR, so we will examine it in some detail. 
+\begin{definition}[Schwarzschild Metric]
+The \bam{Schwarzschild metric} has line element 
+\eq{
+ds^2 = -\pround{1-\frac{2GM}{r}} dt^2 + \pround{1-\frac{2GM}{r}}^{-1} dr^2 + r^2(d\theta^2 + \sin^2 \theta \, d\phi^2)
+}
+Equivalently the Lagrangian for motion in the Schwarzschild metric is 
+\eq{
+L = -\pround{1-\frac{2GM}{r}} \dot{t}^2 + \pround{1-\frac{2GM}{r}}^{-1} \dot{r}^2 + r^2(\dot{\theta}^2 + \sin^2 \theta \, \dot{\phi}^2)
+}
+where $\dot{\phantom{r}} = \frac{d}{d\lambda}$, $\lambda$ an affine parameter of the motion. 
+\end{definition}
+To save on typing, I will suppress the factor of $G$ by letting $G=1$ from now on. 
+\begin{lemma}
+The quantities 
+\eq{
+L &= -\pround{1-\frac{2M}{r}} \dot{t}^2 + \pround{1-\frac{2M}{r}}^{-1} \dot{r}^2 + r^2(\dot{\theta}^2 + \sin^2 \theta \, \dot{\phi}^2) \\
+E &= \pround{1 - \frac{2M}{r}}\dot{t} \\
+J &= r^2 \sin^2\theta \dot{\phi}
+}
+are constants of the motion. As photons travel along null geodesics, $ds^2 = 0 \Rightarrow L=0$. For massive particles, $L = -\pround{\frac{d\tau}{d\lambda}}^2$, so letting $\lambda = \tau$ gives $L=-1$ Thus write $L = -Q$.
+\end{lemma}
+\begin{lemma}
+The $\theta$ equation of motion is 
+\eq{
+\frac{d}{d\lambda}(r^2 \dot{\theta}) - r^2 \sin\theta \cos\theta \dot{\phi}^2 =0
+}
+This is a second order equation of motion, so $\theta(\lambda)$ is uniquely determined by $\theta(0),\dot{\theta}(0)$. 
+\end{lemma}
+
+\begin{corollary}
+If $\theta(0) = \frac{\pi}{2}$ and $\dot{\theta}(0) = 0$, then $\ddot{\theta}(0) = 0$ and $\forall \lambda \,  \theta(\lambda) = \frac{\pi}{2}$. Wlog we may always choose this to be the case by rotating our coordinate system. Restricting to motion in this equatorial plane reduces the Lagrangian to 1d Lagrangian for r 
+\eq{
+-Q &= -\pround{1-\frac{2M}{r}}^{-1} (E^2-r^2)  + \frac{J^2}{r^2} \\
+\Leftrightarrow \frac{1}{2}E^2 &= \frac{1}{2} \dot{r}^2 + \frac{1}{2}\pround{1-\frac{2M}{r}}\pround{\frac{J^2}{r^2}+Q} 
+}
+This is equivalent to motion in the 1d potential 
+\eq{
+V(r) = \frac{1}{2}\pround{1-\frac{2M}{r}}\pround{\frac{J^2}{r^2}+Q}
+}
+\end{corollary}
+
+\begin{lemma}
+Making the substitution $r(\phi) = \frac{1}{u(\phi)}$ turns the 1D equation to 
+\eq{
+J^2 \pround{\frac{du}{d\phi}}^2 - E^2 + (1-2Mu)(Q + J^2 u^2) &= 0 \\
+\Rightarrow \frac{d^2u}{d\phi^2}+u - 3Mu^2 - \frac{MQ}{J^2} &= 0
+}
+\end{lemma}
+
+\begin{definition}[Eddington Finkelstein Coordinates]
+\bam{Eddington Finkelstein coordinates} are 
+\eq{
+u &= t - r - 2M \log \frac{r-2M}{2M}\\
+v &= t +r +  2M \log \frac{r-2M}{2M}
+}
+In these coordinates the Schwarzschild line element is 
+\eq{
+ds^2 &= -\pround{1-\frac{2M}{r}} dv^2 + 2dvdr + r^2(d\theta^2 + \sin^2 \theta d\phi^2 ) \\
+ds^2 &= -\pround{1-\frac{2M}{r}} du^2 - 2dudr + r^2(d\theta^2 + \sin^2 \theta d\phi^2 )
+}
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Tests of General Relativity}
+There are 4 tests of GR that we will discuss. These are 
+\begin{enumerate}
+    \item Deflection of light.
+    \item Determination of orbital shape.
+    \item Gravitational redshift
+    \item Shapiro time delay.
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Deflection of light}
+Consider the path of a photon. As previously noted in the equatorial plane this has the equation 
+\eq{
+\frac{d^2u}{d\phi^2} + u - 3Mu^2 = 0
+}
+\begin{idea}
+In Newtonian physics, the equation would be 
+\eq{
+\frac{d^2u}{d\phi^2} + u = 0
+}
+The solution to this is $u_0(\phi) = \frac{1}{b}\sin\phi$, which is a straight line. We will treat GR as a perturbation to this solutions to get an approximate full solution. 
+\end{idea}
+Let $u = u_0 + u_1$, $u_1$ small. Substituting into the full equation gives to leading order
+\eq{
+\frac{d^2u_1}{d\phi^2} + u_1 = \frac{3M\sin^2 \phi}{b^2}
+}
+This can be solved making the ansatz $u_1(\phi) = f(\phi) \sin\phi$
+which gives the total solution 
+\eq{
+f(\phi) &= \frac { 2 M } { b ^ { 2 } \sin \phi } - \frac { M \sin \phi } { b ^ { 2 } } \\
+\Rightarrow u(\phi) &=  \frac{\sin\phi}{b} + \pround{\frac{2M}{b^2}- \frac{M\sin^2 \phi}{b^2}}
+}
+To calculate the deflection of light, we find the leading order of the angle at which $u=0$, which corresponds to the asymptote of the photon path. This angle is 
+\eq{
+\eps \approx - \frac{2M}{b^2}
+}
+so the total angular deflection is 
+\eq{
+\delta \phi \approx \frac{4M}{b^2}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Determination of orbital shape}
+For a massive particle (e.g a planet) we have 
+\eq{
+ \pround{\frac{du}{d\phi}}^2 =  \frac{E^2-1}{J^2} - u^2 + \frac{2Mu}{J^2}  +  2Mu^3
+}
+The $u^3$ term is the GR correction. The solution to the Newtonian problem is 
+\eq{
+u_0(\phi) = \frac{M}{J^2}(1 + e\cos\phi)
+}
+where $e$ is the constant of integration the eccentricity. Writing $u = u_0 + u_1$ in the full solution and expanding to linear order gives the equation 
+\eq{
+\frac{d}{d\phi} \pround{\frac{u_1(\phi)}{\sin\phi}} = -\frac{M^3}{eJ^2 \sin^2\phi} (1+3e\cos\phi + 3e^2 \cos^2\phi + e^3 \cos^3 \phi)
+}
+Terms that are periodic only give small contribution to the growth, but rewriting the $\cos^2\phi = 1 - \sin^2\phi$ will give a term that is a constant on the RHS that will be the dominant contribution. 
+\eq{
+\Rightarrow \frac{d}{d\phi} \pround{\frac{u_1(\phi)}{\sin\phi}} &\approx \frac{3eM^3}{J^4} \\
+\Rightarrow u_1(\phi) &\approx \frac{3eM^3}{J^4}\phi\sin\phi \\
+\Rightarrow u(\phi) &= \frac{M}{J^2}(1 + e\cos\phi) + \frac{3eM^3}{J^4}\phi\sin\phi \\
+&\approx \frac{M}{J^2}\pround{1 + e\cos\psquare{\pround{1-\frac{3M^2}{J^2}}\phi}}
+}
+using that the perturbative solution is only valid for small $\phi$. This is the equation for a precessing ellipse with the ellipse precessing by an angle 
+\eq{
+\frac{2\pi}{1-\frac{3M^2}{J^2}}-2\pi \approx \frac{6\pi M^2}{J^2}
+}
+each orbit.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Gravitational Redshift}
+Suppose a photon is emitted radially outwards at $r=r_e$ such that the proper time period is $\Delta \tau_e$. Suppose the photon is observed at $r=r_o$, at which point the proper time period is $\Delta \tau_o$. The time for a given point in the photon wave to be observed is 
+\eq{
+\Delta t = \int_{r_e}^{r_o} \frac{dr}{1-\frac{2M}{r}}
+}
+This is the same for two points separated by a proper time period, and so 
+\eq{
+\frac{(\Delta \tau_e)^2}{1- \frac{2M}{r_e}}  = (\Delta t)^2 = \frac{(\Delta \tau_o)^2}{1- \frac{2M}{r_o}} \\
+\Rightarrow \frac{\Delta \tau_o}{\Delta \tau_e} = \sqrt{\frac{1 - \frac{2M}{r_o}}{1-\frac{2M}{r_e}}}
+}
+For $r_o > r_e \gg M$ we find 
+\eq{
+\frac{\Delta \tau_o}{\Delta \tau_e} \approx 1 - \frac{M}{r_o} + \frac{M}{r_e} = 1 + \frac{M}{r_o r_e}(r_o - r_e) > 1
+}
+Thus light climbing out of a gravitational well is redshifted. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Shapiro Time Delay}
+Consider a photon passing by the Sun in Newtonian gravity, such that it moves on a straight line starting at $r=r_1$, moving via point of closest approach $r=b$ to $r=r_2$, and then back. The time of the trip can be calculated to be 
+\eq{
+T = 2\pround{\sqrt{r_1^2 - b^2} + \sqrt{r_2^2 - b^2}}
+}
+In Schwarzschild spacetime, restrict to the equatorial plane so we have 
+\eq{
+\dot{r}^2 &= E^2 - \pround{1-\frac{2M}{r}} \frac{J^2}{r^2} \\
+\dot{t} &= \pround{1-\frac{2M}{r}}^{-1} E \\
+\Rightarrow \pround{\frac{dr}{dt}}^2 = \frac{\dot{r}^2}{\dot{t}^2} &= \pround{1-\frac{2M}{r}}^2 \psquare{1 - \pround{1-\frac{2M}{r}} \frac{J^2}{r^2E^2}}
+}
+Using that, at $r=b$, $\frac{dr}{dt} = 0$, we get 
+\eq{
+\frac{J^2}{E^2} &= \frac{b^2}{1-\frac{2M}{b}} \\
+\Rightarrow \frac{dr}{dt} = \pm f(r) &= \pm  \pround{1-\frac{2M}{r}}\sqrt{1 - \frac{b^2}{r^2}\frac{1 - \frac{2M}{r}}{1 - \frac{2M}{b}}}
+}
+With some work approximating $f$ and then integrating it can be found 
+\eq{
+T \approx & 2\pround{\sqrt{r_1^2 - b^2} + \sqrt{r_2^2 - b^2}} + 4 M \left( \log \frac { r _ { 1 } + \sqrt { r _ { 1 } ^ { 2 } - b ^ { 2 } } } { b } + \log \frac { r _ { 2 } + \sqrt { r _ { 2 } ^ { 2 } - b ^ { 2 } } } { b } \right) \\
+& + 2 M \left( \sqrt { \frac { r _ { 1 } - b } { r _ { 1 } + b } } + \sqrt { \frac { r _ { 2 } - b } { r _ { 2 } + b } } \right)
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cosmology}
+In general relativity of cosmology, the universe is approximated to be homogeneous and isotropic. Hence the spatial part of the metric must be have 6 Killing vectors (corresponding to translation, rotation\footnote{and one more?})
+\begin{definition}[FLRW metric]
+The FLRW metric is 
+\eq{
+ds^2 = -dt^2 + a(t)^2 d\sigma_k^2
+}
+where $a$ is some scale factor function of time and 
+\eq{
+d\sigma_k^2 = dr^2 + f_k(r)^2 \psquare{d\theta^2 + \sin^2\theta d\phi^2}
+}
+and 
+\eq{
+f_0(r) &= r \\
+f_1(r) &= \sin r \\
+f_{-1}(r) &= \sinh r
+}
+These spacetimes have constant curvature.
+\end{definition}
+
+\begin{definition}[Fluid Energy Momentum Tensor]
+In a fluid with density $\rho$, pressure $p$, and 4-velocity $u$, the energy-momentum tensor is 
+\eq{
+T^{ab} = (\rho + p) u^a u^b + p g^{ab}
+}
+\end{definition}
+
+\begin{lemma}
+For a fluid at rest $u^a = (1,0,0,0)$. Hence the conservation of the energy-momentum tensor gives 
+\eq{
+\dot{\rho} = -3(p + \rho) \frac{\dot{a}}{a}
+}
+\end{lemma}
+
+\begin{definition}[Equation of State]
+An \bam{equation of state} is a relation $p = p(\rho)$ for a fluid. Important examples are 
+\begin{itemize}
+    \item Dust: $p = 0$
+    \item Radiation: $p = \frac{1}{3}\rho$
+    \item Dark Energy: $p = - \rho$
+\end{itemize}
+In all these cases $p = \omega \rho$. 
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Gravitational Radiation}
+
+We may consider perturbations $h_{ab}$ around a background metric $g_{ab}^{(0)}$ to get a full metric 
+\eq{
+g_{ab} = g_{ab}^{(0)} + h_{ab}
+}
+where $h_{ab}$ is considered small. We typically take $g_{ab}^{(0)} = \eta_{ab}$. 
+
+\begin{lemma}
+The Einstein equation for the full metric with an energy momentum tensor $T_{ab}$ sourcing the perturbation reduces to 
+\eq{
+\delta R_{ab} -\frac{1}{2}\delta R g_{ab}^{(0)} -\frac{1}{2}R h_{ab} = 8\pi T_{ab}
+}
+Using 
+\eq{
+\delta R_{ab} = -\frac{1}{2} \Box h_{ab} + \frac{1}{2} \nabla_d \nabla_a h\indices{^d_b} + \frac{1}{2} \nabla_d \nabla_b h\indices{^d_a} - \frac{1}{2} \nabla_a \nabla_ b h
+}
+where $h = g_{ab}^{(0)} h^{ab}$ gives 
+\eq{
+-\Box h_{ab} + \del_d \del_a h\indices{^d_b} + \frac{1}{2} \del_d \del_b h\indices{^d_a} - \del_a \del_b h + \eta_{ab}\Box h - \eta_{ab} \del_c \del_d h^{cd} = 16\pi T_{ab} 
+}
+\end{lemma}
+
+\begin{lemma}
+The physical perturbation is invariant under the gauge transform 
+\eq{
+h_{ab} \to h_{ab} + \del_a V_b + \del_b V_a
+}
+for some vector $V$. 
+\end{lemma}
+
+\begin{definition}[Harmonic Gauge]
+The \bam{harmonic gauge} is chosen such that 
+\eq{
+\del_a \pround{h^{ab} - \frac{1}{2}\eta^{ab}h} = 0
+}
+\end{definition}
+
+\begin{prop}
+The harmonic may always be chosen.
+\end{prop}
+\begin{proof}
+Given metric $h_{ab}$ not necessarily in the harmonic gauge, and gauge transformed metric $h^\prime_{ab}$. Then the condition for $h^\prime$ to be in the harmonic gauge is 
+\eq{
+0 &= \del^a \pround{h_{ab}^\prime - \frac{1}{2} \eta_{ab} h^\prime} \\
+&= \del^a \pround{h_{ab} + \del_a V_b + \del_b V_a - \frac{1}{2}\eta_{ab} \psquare{h + 2 \del^c V_c}} \\
+&= \del^a \pround{h_{ab} - \frac{1}{2}\eta_{ab}h} + \del^a \del_a V_b 
+}
+This is equivalent to solving a sourced wave equation, which is always possible. 
+\end{proof}
+
+\begin{definition}[Transverse Tracefree Gauge]
+The \bam{transverse tracefree gauge} is the harmonic gauge with the additional conditions 
+\eq{
+\del_a h^{ab} &= 0 \\
+h &= 0 
+}
+\end{definition}
+
+\begin{definition}[Trace Reversed Perturbation]
+Given a metric perturbation $h_{ab}$, the \bam{trace reversed perturbation} is 
+\eq{
+\bar{h}_{ab} = h_{ab} -\frac{1}{2} \eta_{ab} h
+}
+\end{definition}
+
+\begin{lemma}
+In the harmonic gauge, the linearised Einstein equation reduces to 
+\eq{
+-\Box h_{ab} + \frac{1}{2} \eta_{ab} \Box h = 16\pi T_{ab}
+}
+which after tracing reduces to 
+\eq{
+-\Box h_{ab} = 16\pi \pround{T_{ab} - \frac{1}{2} \eta_{ab} T }
+}
+or equivalently 
+\eq{
+-\Box \bar{h}_{ab} = 16\pi T_{ab}
+}
+\end{lemma}
+
+\begin{lemma}
+The geodesic deviation equation for particles on adjacent geodesics at rest is 
+\eq{
+\frac{d^2 S^a}{dt^2} = \frac{1}{2} \eta^{ab} \pround{\del_0^2 h_{bc}} S^c
+}
+\end{lemma}
+
+\begin{definition}[Effective Energy Momentum Tensor]
+The Einstein equation may be expanded up to second order to have 
+\eq{
+\psquare{R_{ab} - \frac{1}{2}R g_{ab}}^{(1)} + \psquare{R_{ab} - \frac{1}{2}R g_{ab}}^{(2)} = 8\pi T_{ab}
+}
+where the upper index represents the order of $h$ in the term. Hence the \bam{effective energy momentum tensor} is defined as $t_{ab}$ where
+\eq{
+8\pi t_{ab} = - \psquare{R_{ab} - \frac{1}{2}R g_{ab}}^{(2)}
+}
+\end{definition}
+
+
+
+\begin{definition}[Time Average]
+The \bam{time average} of a tensor $X$ with period $T$ is 
+\eq{
+\left\langle X \right\rangle = \frac{1}{T} \int_0^T X(t) \, dt 
+}
+\end{definition}
+
+\begin{lemma}
+The time average obeys 
+\begin{itemize}
+    \item $\braket{\del_a (\dots)} = 0 $
+    \item $\braket{\del_a(\dots)\del_b(\dots)} = -\braket{(\dots)\del_a\del_b (\dots)}$
+\end{itemize}
+\end{lemma}
+
+\begin{lemma}
+In terms of the trace reversed perturbation the effective energy momentum tensor is 
+\eq{
+t_{ab} = \frac { 1 } { 32 \pi } \left\langle \partial _ { a } \overline { h } _ { c d } \partial _ { b } \overline { h } ^ { c d } - \frac { 1 } { 2 } \partial _ { a } \overline { h } \partial _ { b } \overline { h } - 2 \partial _ { c } \overline { h } _ { a } ^ { c } \partial _ { d } \overline { h } _ { b } ^ { d } \right\rangle
+}
+In the transverse tracefree gauge this becomes 
+\eq{
+t_{ab} = \frac { 1 } { 32 \pi } \left\langle \partial _ { a } \overline { h } _ { c d } \partial _ { b } \overline { h } ^ { c d }\right\rangle
+}
+\end{lemma}
+
+\end{document}

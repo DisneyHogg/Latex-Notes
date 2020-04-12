@@ -1,0 +1,173 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Lax Pairs and Spectral Curves}
+\author{Linden Disney-Hogg}
+\date{December 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+These are some notes, based on \cite{BeisertIntroductionNotes}, for me to cement in example my thoughts on Lax pairs and spectral curves. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{'Theory' and discussion}
+
+As usual we will fix a phase space $M$, dimensions $2n$, with some Hamiltonian flow giving some time evolution 
+
+\begin{definition}
+A \bam{Lax pair} is a pair of two $n \times n$ matrices, functions on $M$, obeying 
+\eq{
+\dot{L} = \comm[M]{L}
+}
+\end{definition}
+
+\begin{prop}
+Let $L,M$ be a lax pair. Then 
+\eq{
+I_k \equiv \tr L^k
+}
+are conserved quantities, of which at most $n$ are independent. Equivalently $L$ is isospectral. 
+\end{prop}
+
+Recall for integrability we need not only conserved quantities, but that these quantities be involution. This condition can be encoded in the existence of a \bam{classical r matrix}, which is $r_{12} \in \End(\mbb{C}^n \otimes \mbb{C}^n)$ such that 
+\eq{
+\pbrace{L_1,L_2} = \comm[r_{12}]{L_1} - \comm[r_{21}]{L_2}
+}
+where 
+\eq{
+L_1 &= L \otimes 1 \\
+L_2 &= 1 \otimes L \\
+r_{21} &= (r_{12})^T
+}
+
+We can now extend the Lax pair to include a spectral parameter $u$. Suppose $L(u)$ is holomorphic on $\mbb{C}_\infty$. The eigenvalues of $L$, $\pbrace{\lambda_k(u)}$, are given by the zeros of the equation 
+\eq{
+\det(L(u) - \lambda I) = 0
+}
+This defines a spectral curve $\tilde{\Sigma}=\pbrace{(u,\lambda)}$. We can label the points of degeneracy of these eigenvalues as $\hat{u}_k$, and then we have an $n$-sheeted cover of $\mbb{C}_\infty$ given by the $\lambda_k$, with branch points at the $\hat{u}_k$ where the sheets coincide. We can instead reinterpret this as a single valued function $\lambda(z)$ defined on a Riemann surface $\Sigma$ with the singularities resolved, which projects onto $\tilde{\Sigma}$.
+\begin{center}
+    \begin{tikzcd}
+    \Sigma \arrow[r] & \tilde{\Sigma} \arrow[d,"u"] \\ & \mbb{C}_\infty
+    \end{tikzcd}
+\end{center}
+
+
+\begin{example}
+Consider the case $n=2$ and the matrix 
+\eq{
+L = \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+}
+Then the eigenvalues are given by 
+\eq{
+\lambda_\pm = \frac{1}{2}(a+d) \pm \sqrt{\frac{1}{4}(a-d)^2 + bc}
+}
+These are equal at $\hat{u}$ if there 
+\eq{
+\frac{1}{4}(a-d)^2 + bc = 0
+}
+and this gives that about $\hat{u}$
+\eq{
+\lambda_\pm (u) = \frac{1}{2} \psquare{a(\hat{u}) + d(\hat{u})} \pm \alpha\sqrt{u- \hat{u}} + O(u-\hat{u})
+}
+where 
+\eq{
+\alpha^2 = \ev{\psquare{\frac{1}{2}(a-d)(a^\prime - d^\prime) + bc^\prime + b^\prime c}}{u= \hat{u}}
+}
+\end{example}
+The spectral curve will give information on the conserved quantities of the system - equivalently the action - but does not give any dynamical information. We will need machinery to give us this. \\
+Suppose at a given branch point $\hat{u}$, two eigenvectors coincide, i.e. the geometric multiplicity of the eigenspace drops to 1 even as the algebraic multiplicity remains at two. This can be seen to occur in the $2 \times 2$ case, as if the geometric multiplicity was still 2 we could diagonalise wrt to a basis of eigenvectors and so 
+\eq{
+a(\hat{u}) &= \lambda(\hat{u}) = d(\hat{u}) \\
+b(\hat{u}) &= 0 = c(\hat{u})
+}
+giving $\alpha = 0$ from before, in which case there would be no singularity. Hence we can again consider the eigenvectors to be a single valued function $\psi(z)$ on $\Sigma$. We can fix the scaling of the eigenvectors to remove redundancy, for example with the choice 
+\eq{
+\forall z \in \Sigma , \; v \cdot \psi(z) = 1
+}
+for some constant vector $v$. Note that the poles of $\psi$ are then exactly when $\psi$ is orthogonal to $v$, so the choice of $v$ is important.  
+
+\begin{definition}
+A pole of $\psi$ is $z^\times$ where a component of $\psi$ diverges as $(z-z^\times)^{-1}$. The set of poles $\pbrace{z_k^\times}$ is called the \bam{dynamical divisor}. 
+\end{definition}
+
+\begin{prop}
+The dynamical divisor consists of $n-g+1$ points, where $g$ is the genus of $\Sigma$. 
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{SHO}
+We will now demonstrate all the objects above for the case of the simpe harmonic oscillator with Hamiltonian 
+\eq{
+H = \frac{1}{2} (p^2+ \omega^2 q^2)
+}
+A Lax pair is given by 
+\eq{
+L &= \begin{pmatrix} p & \omega q \\ \omega q & -p \end{pmatrix} \\
+M &= \begin{pmatrix} 0 & -\frac{1}{2} \omega \\ \frac{1}{2} \omega & 0 \end{pmatrix} 
+}
+A suitably classical r-matrix is given by 
+\eq{
+r_{12} = \frac{1}{q} \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix} \otimes \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} - \frac{1}{q} \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} \otimes \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}
+}
+The Lax matrix can be given a spectral parameter by modifying to 
+\eq{
+L(u) = \begin{pmatrix} p + u\omega q & \omega q - up \\ \omega q - up & -p-u\omega q \end{pmatrix} 
+}
+which then gives 
+\eq{
+\lambda_\pm(u) = \pm\sqrt{(p+u\omega q)^2 + (\omega q - up)^2} = \pm\sqrt{2E}\sqrt{1+u^2}
+}
+This gives $\pbrace{\hat{u}} = \pbrace{\pm i, \infty}$. The spectral curve is given by 
+\eq{
+\lambda^2 = 2E(1+u^2)
+}
+Making the coordinate change 
+\eq{
+u(z) = -i \frac{z - \sfrac{1}{z}}{z + \sfrac{1}{z}}
+}
+gives 
+\eq{
+\lambda(z) = \sqrt{2E} \frac{2}{z + \sfrac{1}{z}}
+}
+Moreover the eigenvector function can be found to be 
+\eq{
+\psi_\pm &\sim \begin{pmatrix} up - \omega q \\ u \omega q + p - \lambda_\pm(u) \end{pmatrix} \\
+\Rightarrow \psi(z) &\sim \begin{pmatrix} -iz(p-i\omega q) + i z^{-1}(p+i\omega q) \\z(p-i\omega q) + z^{-1}(p+i\omega q) - 2\sqrt{2E} \end{pmatrix}
+}
+which can be fixed by normalisation to be 
+\eq{
+\psi(z) &\sim \begin{pmatrix} 1 \\-i \frac{p+iq - \sqrt{2E}z}{p+iq + \sqrt{2E}z} \end{pmatrix}
+}
+Hence we have the $n-g+1 =1 $ pole at 
+\eq{
+z^\times = - \frac{p+iq}{\sqrt{2E}}
+}
+Along the Hamiltonian flow, $q,p$ evolve as 
+\eq{
+q(t) &= \sqrt{2E}\sin t \\
+p(t) &= \sqrt{2E}\cos t
+}
+and so 
+\eq{
+z^\times = -e^{it}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{plain}
+\bibliography{references.bib}
+
+
+\end{document}

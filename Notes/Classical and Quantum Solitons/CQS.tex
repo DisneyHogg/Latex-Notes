@@ -1,0 +1,1137 @@
+\documentclass{article}
+
+\usepackage{../../header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Classical and Quantum Solitons Revision Notes}
+\author{Linden Disney-Hogg}
+\date{May 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+A brief overview of some key ideas, concepts, and facts that I find useful in revising CQS. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Preliminaries}
+
+\begin{definition}[Minkowski Metric]
+In these notes the convention for the Minkowski metric will be 
+\eq{
+\eta_{\mu\nu} = \diag(1,-1,\dots,-1)
+}
+i.e. the \bam{mostly minus metric}. 
+\end{definition}
+
+\begin{definition}[Soliton]
+Solitons are stable, spatially localised, smooth, exact solutions of classical field equations in QFT. In relativistic theory they have energy $E$ and momentum $\bm{P}$ satisfying $E^2-\abs{\bm{P}}^2 = M^2$, $M$ the mass. As such they are particles. To get solitons we solve the equation exactly and quantise perturbatively.
+\end{definition}
+
+\begin{definition}[Moduli]
+Solitons often occur in families of solutions described by a finite number of parameters. These are called the \bam{moduli} or \bam{collective coordinates}. The set of parameters corresponding to a family of solitons is called the \bam{moduli space} $\mc{M}$.
+\end{definition}
+
+\begin{definition}[Vacuum]
+In this course we will consider Lagrangian densities with a potential term $U(\Psi)$. Assume that $U$ is bounded below by $0$. Values of $\Psi$ where $U(\Psi) = 0$ are called \bam{vacua}. The set 
+\eq{
+\mc{V} = \pbrace{\Psi_0 : U(\Psi_0) = 0}
+}
+is called the \bam{vacuum manifold}. 
+\end{definition}
+
+\begin{theorem}[Derrick's Theorem]
+Let $\Psi$ be a non-vacuum field configuration defined of $\mbb{R}^n$ and let $E = E[\Psi]$ be the energy functional of the system. Define $\Psi_\lambda$ on $\mbb{R}^n$ for $\lambda\in\mbb{R}_{>0}$ by $\Psi_\lambda(\bm{x}) = \Psi(\lambda\bm{x})$ and $e(\lambda) = E[\Psi_\lambda]$. Then for $\Psi$ to be a static solution to the field equations it is necessary that 
+\eq{
+\frac{d}{d\lambda} e(\lambda) \rvert_{\lambda = 1} = 0
+}
+Hence, if $e(\lambda)$ has no stationary points, there are no soliton solutions. 
+\end{theorem}
+
+\begin{definition}[Bogomolny Equations]
+If the energy can be bounded below using a sum-of-squares argument, the resulting energy bound is the \bam{Bogomolny energy bound}. The equations satisfied when the bound is saturated are called the \bam{Bogomolny equations}.
+\end{definition}
+
+\begin{definition}[Topological Charge]
+Topological solitons come with an associated charge conserved topologically by the system. This gives stability to the solution. 
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Degree of a Map}
+Let $M,N$ be closed, connected, oriented manifolds of the same dimension $d$.
+
+\begin{definition}[Volume Form]
+A d-form $\omega$ on $N$ satisfying $\int_N \omega = 1$ is a \bam{normalised volume form} on $N$.
+\end{definition}
+
+\begin{definition}[Degree]
+Let $\omega$ be a normalised volume form on $N$ and $f:M \to N$. The \bam{degree} of $f$ is 
+\eq{
+\deg f = \int_M f^\ast \omega
+}
+where $f^\ast \omega$ is the pullback of $\omega$ under $f$. 
+\end{definition}
+
+\begin{prop}
+$\deg f$ is independent of the volume form used in the definition. 
+\end{prop}
+\begin{proof}
+Suppose 
+\eq{
+\int_N \omega = 1 = \int_N \tilde{\omega}
+}
+Then 
+\eq{\int_N \omega - \tilde{\omega} = 0 \; \Rightarrow \; \omega - \tilde{\omega} = d\alpha
+}
+As a result 
+\eq{
+f^\ast \omega - f^\ast \tilde{\omega} = d(f^\ast \omega) \; \Rightarrow \int_M f^\ast \omega = \int_M f^\ast \tilde{\omega}
+}
+\end{proof}
+
+\begin{prop}
+$\deg f$ generically counts the preimages of a point $p\in N$
+\end{prop}
+\begin{proof}
+Choose $p\in N$ with an neighbourhood $\Sigma$ such that $\forall x \in f^{-1}(p), \, \exists U_x \subset N$ a neighbourhood of $x$ such that $f\rvert_{U_x} : U_x \to \Sigma$ is a diffeomorphism. Pick $\omega$ a volume form on $N$ with support $\Sigma$. Then 
+\eq{
+\int_{U_x} f^\ast \tilde{\omega} &= \pm \int_\Sigma \omega = \pm 1 \\
+\Rightarrow \deg f &= \sum_{x \in f^{-1}(p)} (\pm1) \in \mbb{Z}
+}
+\end{proof}
+
+\begin{prop}
+$\deg f$ is a topological invariant. 
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Stereographic Projection}
+
+\begin{definition}[Stereographic Projection]
+The \bam{stereographic projection} is a map from the unit sphere $S^2 \to \mbb{C}\cup\pbrace{\infty}$ given by 
+\eq{
+(\theta,\phi) \mapsto z = \tan\frac{1}{2}\theta \, e^{i\phi}
+}
+In Cartesian coordinates this is 
+\eq{
+(x_1,x_2,x_3) \mapsto z = \frac{x_1 + ix_2}{1 + x_3}
+}
+which can be inverted to 
+\eq{
+\hat{\bm{n}}_z = \frac{1}{1+\abs{z}^2}(z+ \bar{z},-i(z-\bar{z}), 1-\abs{z}^2)
+}
+\end{definition}
+
+\begin{definition}[Standard Forms on the Sphere]
+The standard metric and area form on the sphere $S^2$ are 
+\eq{
+ds^2 = d\theta^2 + \sin^2\theta d\phi^2 
+}
+and 
+\eq{
+dA = \sin\theta \, d\theta \wedge d\phi
+}
+\end{definition}
+
+\begin{prop}
+The standard forms on the sphere become, under stereographic projection 
+\eq{
+ds^2 = \frac{4 \, dz d\bar{z}}{\pround{1+\abs{z}^2}^2} \,
+}
+and 
+\eq{
+dA = \frac{2i \, dz \wedge d\bar{z} }{\pround{1+\abs{z}^2}^2} \,
+}
+\end{prop}
+\begin{proof}
+Note $\tan^2 \frac{\theta}{2} = z\bar{z}$. Then 
+\eq{
+\sec^2 \frac{\theta}{2} &= 1+ \tan^2 \frac{\theta}{2} = 1+ \abs{z}^2 \\
+\sin^2\theta &= \pround{2\sin\frac{\theta}{2}\cos\frac{\theta}{2}}^2 = \frac{4 \tan^2\frac{\theta}{2}}{\sec^4 \frac{\theta}{2}} = \frac{4\abs{z}^2}{\pround{1+ \abs{z}^2}^2}
+}
+Further, $e^{2i\phi} = \frac{z}{\bar{z}} \Rightarrow 2i\phi = \log z - \log\bar{z}$ so 
+\eq{
+\tan\frac{\theta}{2} \sec^2\frac{\theta}{2} &= zd\bar{z} + \bar{z} dz \\
+2i d\phi &= \frac{dz}{z} - \frac{d\bar{z}}{\bar{z}}
+}
+This gives 
+\eq{
+ds^2 = \psquare{\frac{zd\bar{z}+\bar{z}dz}{\abs{z}\pround{1+\abs{z}^2}}}^2 + \frac{4\abs{z}^2}{\pround{1+ \abs{z}^2}^2} \pround{\frac{1}{2i}\frac{\bar{z}dz - zd\bar{z}}{\abs{z}^2}}^2 =\frac{4 \, dz d\bar{z}}{\pround{1+\abs{z}^2}^2} 
+}
+and 
+\eq{
+dA = \frac{2\abs{z}}{1+ \abs{z}^2}\psquare{\frac{zd\bar{z}+\bar{z}dz}{\abs{z}\pround{1+\abs{z}^2}}} \wedge \pround{\frac{1}{2i}\frac{\bar{z}dz - zd\bar{z}}{\abs{z}^2}} = \frac{2i \, dz\wedge d\bar{z}}{\pround{1+\abs{z}^2}^2}
+}
+\end{proof}
+
+\begin{fact}
+Rotations $k \in SO(3)$, acting on $S^2$, correspond to elements of $SU(2)$ acting on $\mbb{C} \cup \pbrace{\infty}$ by 
+\eq{
+z \mapsto k(z) = \frac{\gamma z + \delta}{-\bar{\delta}z + \bar{\gamma}}
+}
+where $\abs{\gamma}^2 + \abs{\delta}^2 = 1$. 
+\end{fact}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Rational Maps}
+
+\begin{definition}[Rational Map]
+A \bam{rational map} is 
+\eq{
+R = \frac{p}{q}
+}
+where $p,q$ are complex polynomials with distinct roots and generically the same degree
+\end{definition}
+
+\begin{definition}[Algebraic Degree]
+The \bam{algebraic degree} of a rational map is 
+\eq{
+\deg_{alg} R = \max\pbrace{\deg p , \deg q}
+}
+\end{definition}
+
+\begin{prop}
+The algebraic and topological degree of $R$ are the same. 
+\end{prop}
+\begin{proof}
+Pick $c \in \mbb{C}$. Then 
+\eq{
+R(z) = c \; \Rightarrow p(z) - cq(z) = 0
+}
+This polynomial generically has $\deg_{alg} R$ roots, so by the counting of preimages $\deg_{alg} R = \deg R$. 
+\end{proof}
+
+\begin{definition}[Wronskian]
+The \bam{Wronskian} of two polynomials $p,q$ is 
+\eq{
+W = p^\prime q - p q^\prime
+}
+The \bam{Wronskian points} are the zeros of $W$. 
+\end{definition}
+
+\begin{prop}[Properties of the Wronskian]
+The following are properties of the Wronskian:
+\begin{itemize}
+    \item $R^\prime = 0$ at Wronskian points 
+    \item Generically $\deg W = 2\deg R - 2$. 
+    \item Symmetries of $R \, \Rightarrow$ symmetries of $W$. 
+    \item If $W$ has degree less than $2\deg R - 2$, then $W$ has zeros at $z = \infty$. 
+\end{itemize}
+\end{prop}
+
+\begin{definition}[Symmetries of Rational Maps]
+A rational map has symmetry group $K$ if $\forall \, k \in K, \exists \, M_k$ such that 
+\eq{
+R \circ k = M_k \circ R
+}
+and the map $k \to M_k$
+\end{definition}
+
+
+%%%%%%%%%%%%%%% is a %%%%%%homomorphism. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Kinks}
+
+In 1+1 dimensions with scalar field $\phi:\mbb{R}^{1+1} \to \mbb{R}, \phi=\phi(x,t)$, we take the Lagrangian 
+\eq{
+L = \int_{-\infty}^\infty \psquare{\frac{1}{2} \del_\mu \phi \del^\mu \phi - U(\phi)} \, dx
+}
+for some potential function Split it as $L=T-V$ with 
+\eq{
+T &= \int \frac{1}{2} \dot{\phi}^2 \, dx \\ 
+V &= \int \psquare{\frac{1}{2} {\phi^\prime}^2 + U(\phi)} \, dx 
+}
+where $\dot{\phi} = \pd[\phi]{t}, \phi^\prime = \pd[\phi]{x}$. The Euler-Lagrange equation is 
+\eq{
+\del_\mu \del^\mu \phi + \frac{dU}{d\phi} = 0 \quad \text{(nonlinear Klein Gordon equation)}
+}
+Using Noether's theorem, the energy can be found to be 
+\eq{
+E = T+V = \int \psquare{\frac{1}{2} \dot{\phi}^2 + \frac{1}{2} {\phi^\prime}^2 + U(\phi)} \, dx
+}
+
+\begin{prop}
+Finite energy field configurations must tend to values in the vacuum manifold, i.e. 
+\eq{
+\lim_{x \to \pm\infty} \phi(x,t) \in \mc{V}
+}
+\end{prop}
+
+\begin{definition}[Kinks]
+If the vacuum manifold is discrete, \bam{kinks} are finite energy field configurations that connect different vacua. 
+\end{definition}
+
+\begin{definition}[Winding Number]
+The current $j^\mu = \eps^{\mu\nu}\del_\nu \phi$, where $\eps^{\mu\nu}$ is the 2d alternating tensor, is conserved topologically, as $\del_\mu j^\mu = 0$ independently of the field equations. As such the \bam{winding number}
+\eq{
+Q = \int j^0 \, dx = \int \del_x \phi \, dx
+}
+is a conserved topological charge.
+\end{definition}
+
+\begin{prop}
+When the target space of $\phi$, $\mc{M}$, is taken to be a manifold of finite volume, the winding number is found as the integral of the pullback of the normalised volume form $\omega$ on $\mc{M}$ under $\phi$. i.e the winding number is the degree of the map $\phi$. 
+\end{prop}
+
+\begin{example}
+If $\phi:\mbb{R} \to S^1$, then the normalised volume form on $S^1$, $\frac{1}{2\pi}d\theta$, pulls back to $\frac{1}{2\pi}\frac{d\phi}{dx}dx$. We then have 
+\eq{
+Q = \int \frac{1}{2\pi} \frac{d\phi}{dx} \, dx
+}
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Static Kinks}
+
+For a static solution, the field equations become
+\eq{
+\frac{d^2 \phi}{dx^2} = \frac{dU}{d\phi}
+}
+
+\begin{theorem}[Derrick's Theorem for Kinks]
+For a static kink solutions, 
+\eq{
+\int \frac{1}{2} {\phi^\prime}^2 \, dx = \frac{1}{2}E =  \int U(\phi) \, dx
+}
+\end{theorem}
+
+\begin{prop}[Bogomolny Equations for Kinks]
+Assume we can write $U=\frac{1}{2}\pround{\frac{dW}{d\phi}}^2$. Then for a static field the energy is bounded below by
+\eq{
+E \geq \pm \psquare{W(\phi(\infty)) - W(\phi(-\infty))}
+}
+The bound is saturated when $\phi^\prime = \pm \frac{dW}{d\phi} = \pm\sqrt{2U}$. This is the Bogomolny energy bound, and the corresponding equation the Bogomolny equation
+\end{prop}
+\begin{proof}
+We can write 
+\eq{
+E &= \frac{1}{2} \int \psquare{{\phi^\prime}^2 + \pround{\frac{dW}{d\phi}}^2} \, dx \\
+&= \frac{1}{2} \int \pround{\phi^\prime \mp \frac{dW}{d\phi}}^2 \, dx \pm \int \frac{d\phi}{dx} \frac{dW}{d\phi} \, dx \\
+&= \frac{1}{2} \int \pround{\phi^\prime \mp \frac{dW}{d\phi}}^2 \, dx \pm \psquare{W(\phi(\infty)) - W(\phi(-\infty))}
+}
+$E$ is then minimised when $\phi^\prime = \pm \frac{dW}{d\phi} = \pm\sqrt{2U}$, at which point it takes the value 
+\eq{
+E = \pm \psquare{W(\phi(\infty)) - W(\phi(-\infty))}
+}
+\end{proof}
+
+\begin{remark}
+Note that the Bogomolny equation implies Derrick's theorems for kinks, as $\frac{1}{2}{\phi^\prime}^2 = U(\phi)$ pointwise. 
+\end{remark}
+
+\begin{prop}
+The Bogomolny equation for a static kink are equivalent to the equations of motion. 
+\end{prop}
+
+\begin{prop}
+There are no static kink solutions that connect non-adjacent vacua.
+\end{prop}
+
+\begin{prop}
+The Bogomolny equation is a first order differential equation, and so comes with an associated constant of integration. This corresponds to the location of the kinks, and is the modulus of the family of static solutions. Hence in this case $\mc{M} = \mbb{R}$. 
+\end{prop}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Dynamic Kinks}
+Note that the theory is Lorentz invariant. Solutions for dynamic kinks can thus be obtained by Lorentz boosting a static kink
+\eq{
+\phi(x,t) = \phi_0(\gamma(x-vt))
+}
+where $\gamma = (1-v^2)^{-\frac{1}{2}}$. \\
+Approximations can be obtained through an adiabatic point of view for low velocities $v \ll 1$ of the form 
+\eq{
+\phi(x,t) = \phi_0(x-a(t))
+}
+where $\phi_0$ is the static solution, and $a(t)$ is the time dependent modulus. This gives $\dot{\phi} = -\dot{a}\phi^\prime$, and so a reduced Lagrangian 
+\eq{
+L = \frac{1}{2} M \dot{a}^2 + \text{const}
+}
+The Euler-Lagrange equation for this reduced Lagrangian give
+\eq{
+M \ddot{a} &= 0 \\
+\Rightarrow a(t) &= vt + \text{const}
+}
+Observe that this reproduces the low $v$ limit of the Lorentz boosted solution. \\
+From Noether's theorem, the momentum is 
+\eq{
+P = - \int \dot{\phi} \phi^\prime \, dx 
+}
+which under the moduli space approximation becomes 
+\eq{
+P = M\dot{a}
+}
+This agrees with the definition of momentum as the conjugate to the location given by 
+\eq{
+P = \pd[L]{\dot{a}} - L = \frac{P^2}{2M}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Quantisation}
+
+The classical Hamiltonian corresponding to the reduced Lagrangian is 
+\eq{
+H = P \dot{a}
+}
+To quantise, replace $P$ with $-i\hbar \pd{a}$ so 
+\eq{
+H = - \frac{\hbar^2}{2M}\pds{a}
+}
+Stationary states $\psi = \psi(a)$ satisfy $H\psi = E\psi$. Hence 
+\eq{
+\psi(a) &= e^{ika} \\
+P &= \hbar k \\
+E &= \frac{\hbar^2 k^2}{2M} = \frac{P^2}{2M}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Vortices}
+
+\begin{definition}[Abelian Higgs Model for Vortices]
+The \bam{abelian Higgs model} has Lagrangian density 
+\eq{
+\mc{L} = - \frac{1}{4} f_{\mu\nu}f^{\mu\nu} + \frac{1}{2} (D_\mu \phi)^\ast (D^\mu \phi) - \frac{\lambda}{8} (1 - \phi^\ast \phi)^2
+}
+where 
+\begin{itemize}
+    \item $\phi:\mbb{R}^2 \to \mbb{C}$
+    \item $a_\mu : \mbb{R}^2 \to U(1)$ is a gauge field
+    \item $f_{\mu\nu} = \del_\mu a_\nu - \del_\nu a_\mu$
+    \item $D_\mu = \del_\mu - ia_\mu$
+\end{itemize}
+and the gauge transformation acts as
+\eq{
+\phi &\mapsto e^{i\alpha} \phi \\
+a_\mu &\mapsto a_\mu + \del_\mu \alpha
+}
+for $\alpha : \mbb{R}^2 \to \mbb{R}$. 
+\end{definition}
+
+\begin{prop}
+The Euler-Lagrange field equations for the abelian Higgs model are 
+\eq{
+\del_\mu f^{\mu\nu} &= \frac{i}{2} \psquare{(D^\nu \phi)^\ast \phi - \phi^\ast (D^\nu \phi)} \\
+D_\mu D^\mu \phi &= \frac{\lambda}{2} (1-\phi^\ast \phi) \phi
+}
+\end{prop}
+\begin{proof}
+Note 
+\eq{
+\pd[\mc{L}]{\pround{\del_\mu a_\nu}} &= - f^{\mu\nu} \\
+\pd[\mc{L}]{a_\nu} &= \frac{i}{2} \psquare{\phi^\ast \pround{D^\nu \phi} - \pround{D^\nu \phi}^\ast \phi} \\
+\pd[\mc{L}]{\pround{\del_\mu \phi^\ast}} &= \frac{1}{2} \pround{D^\mu \phi} \\
+\pd[\mc{L}]{\phi^\ast} &= \frac{\lambda}{4}\pround{1 - \phi^\ast \phi} \phi + \frac{i}{2}\pround{D^\mu \phi}
+}
+The result then follows from the Euler-Lagrange equations. 
+\end{proof}
+
+\begin{prop}[Ginzburg Landau Energy]
+The energy functional in the abelian Higgs model is the \bam{Ginzburg Landau energy}
+\eq{
+E = \int d^2x \, \pbrace{\frac{1}{2}B^2 + \frac{1}{2} (D_1 \phi)^\ast(D_1 \phi) + \frac{1}{2} (D_2 \phi)^\ast(D_2 \phi) +\frac{\lambda}{8} (1 - \phi^\ast \phi)^2 }
+}
+where $B = \del_1 a_2 - \del_2 a_1$ is the \bam{magnetic field}. Note that the vacuum manifold is $\mc{V} = \pbrace{\abs{\phi} = 1} = S^1$. Hence a finite energy field configuration requires that as $\abs{\bm{x}}\to\infty$, $B\to 0$, $\abs{\phi}\to 1$, and $D\phi \to 0$. 
+\end{prop}
+
+\begin{definition}[Critical Coupling]
+The behaviour of the system depends on the value of $\lambda$. 
+\begin{itemize}
+    \item $\lambda > 1 \Rightarrow$ Type II behaviour
+    \item $\lambda < 1 \Rightarrow$ Type I behaviour
+    \item $\lambda = 1 \Rightarrow$ \bam{Critical coupling}, get soliton states. 
+\end{itemize}
+\end{definition}
+
+\begin{lemma}
+We can write the spatial part of the gauge field as 
+\eq{
+a = a_1 dx^1 + a_2 dx^2
+}
+which gives 
+\eq{
+f = da = (\del_1 a_2 - \del_2 a_1) dx^1 \wedge dx^2
+}
+but 
+\eq{
+f = f_{12} dx^1 \wedge dx^2
+}
+and so $f_{12} = B$. In polar coordinates we get therefore $f_{r\theta} = r f_{12} = rB$. 
+\end{lemma}
+
+\begin{definition}[Winding Number]
+Fixing the gauge of the solutions, let 
+\eq{
+\phi_\infty(\theta) = \lim_{r\to\infty} \phi(r,\theta) \,,
+}
+which exists. As $\abs{\phi_\infty} = 1$, define $\chi(\theta)$ such that $\phi_\infty(\theta) = e^{\chi(\theta)}$ and $\chi$ is continuous. Then for $\phi_\infty$ to be continuous we require 
+\eq{
+\chi(\theta+2\pi) &= \chi(\theta) \quad \text{(mod $2\pi$)} \\
+\Rightarrow \chi(\theta+2\pi) &= \chi(\theta) + 2\pi N
+}
+for $N\in\mbb{Z}$. $N$ is the \bam{winding number} of $\phi$. 
+\end{definition}
+
+\begin{prop}
+Winding number is gauge invariant. 
+\end{prop}
+
+\begin{prop}
+$N$ is the number of isolated zeros of $\phi$ counted with multiplicity. They correspond to vortex centres. 
+\end{prop}
+
+\begin{prop}
+\eq{
+\int_{\mbb{R}^2} B \, d^2x = 2\pi N
+}
+\end{prop}
+\begin{proof}
+First note that as $D_\theta \phi \to 0$ as $r\to\infty$, 
+\eq{
+\del_\theta \phi_\infty - ia_\theta\rvert_{r=\infty} \phi_\infty &= 0 \\
+\Rightarrow i(\del_\theta \chi - a_\theta \rvert_{r=\infty} )\phi_\infty &= 0 \\
+\Rightarrow a_\theta\rvert_{r=\infty} &= \del_\theta \chi
+}
+Hence
+\eq{
+\int_{\mbb{R}^2} B \, d^2x = \int_{\mbb{R}^2} f &= \int_0^\infty \int_0^{2\pi} f_{r\theta} \, dr \, d\theta \\
+&=  \int_0^\infty \int_0^{2\pi} (\del_r a_\theta - \del_\theta a_r) \, dr \, d\theta \\
+&= \int_0^{2\pi} a_\theta \,d\theta \rvert_{r=\infty} \quad \text{(by Green's theorem)} \\ 
+&= \int_0^{2\pi} \del_\theta \chi \, d\theta = \chi(2\pi) - \chi(0) = 2\pi N
+}
+\end{proof}
+\begin{corollary}
+Each vortex has flux $2\pi$. 
+\end{corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Critical Coupling}
+
+\begin{prop}[Bogomolny Equations for Critically Coupled Vortices]
+At critical coupling the Bogomolny energy bound is $E \geq \pi N$, saturated when the Bogomolny equations
+\eq{
+B - \frac{1}{2}(1- \phi^\ast \phi) &= 0 \\
+D_1 \phi + i D_2 \phi &= 0 
+}
+are satisfied.
+\end{prop}
+\begin{proof}
+\eq{
+E = &  \frac{1}{2} \int_{\mbb{R}^2} \pbrace{B^2 + (D_1 \phi)^\ast (D_1 \phi) + (D_2 \phi)^\ast (D_2 \phi) + \frac{1}{4}(1-\phi^\ast \phi)^2} \, d^2x \\
+= & \frac{1}{2} \int_{\mbb{R}^2} \pbrace{\psquare{B - \frac{1}{2}(1-\phi^\ast \phi)}^2 + (D_1 \phi + i D_2 \phi)^\ast (D_1 \phi + i D_2 \phi)} \, d^2 x \\
+& + \frac{1}{2}\int_{\mbb{R}^2} \pbrace{B(1-\phi^\ast \phi) + i\psquare{(D_2 \phi)^\ast (D_1 \phi) - (D_1 \phi)^\ast (D_2\phi)}} \, d^2 x 
+}
+We will require the following two results 
+\begin{lemma}[Covariant Leibniz Rule]
+\eq{
+\partial _ { i } \left( \phi ^ { * } D _ { j } \phi \right) = \left( D _ { i } \phi \right) ^ { * } D _ { j } \phi + \phi ^ { * } D _ { i } D _ { j } \phi
+}
+\end{lemma}
+\begin{lemma}
+\eq{
+\left[ D _ { i } , D _ { j } \right] \phi = - i f _ { i j } \phi
+}
+\end{lemma}
+The lemmas give that the second integral can be written as 
+\eq{
+\frac{1}{2} \int_{\mbb{R}^2} B \, d^2x + \frac{i}{2} \int_{\mbb{R}^2} \pbrace{ \del_2 (\phi^\ast D_1 \phi) - \del_1 (\phi^\ast D_2 \phi)} = \pi N
+}
+as the first integral is half of the flux, and the second term is 0 by stokes theorem. 
+\end{proof}
+
+\begin{prop}
+Solutions of the Bogomolny equations are solutions to the full field equations at critical coupling
+\end{prop}
+\begin{proof}
+For static field configurations at critical coupling the field equations are 
+\eq{
+-\del_i f_{ij} &= \frac{i}{2} \psquare{(D_j \phi)^\ast \phi - \phi^\ast (D_j \phi)} \\
+-D_i D_i \phi &= \frac{1}{2} (1-\phi^\ast \phi) \phi
+}
+Taking the $\del_1$ derivative of the first Bogomolny equation gives 
+\eq{
+-\del_i f_{i2} = \frac{1}{2}\psquare{\phi^\ast \del_1 \phi + (\del_1 \phi)^\ast \phi}
+}
+From the second Bogomoly equation and its conjugate we have 
+\eq{
+\del_1 \phi &= ia_1 \phi -i\del_2 \phi -a_2 \phi \\
+\del_1 \phi^\ast &= -ia_1 \phi^\ast + i\del_2 \phi^\ast -a_2 \phi^\ast
+}
+so 
+\eq{
+-\del_i f_{i2} &= \frac{1}{2} \psquare{\phi^\ast (ia_1 \phi -i\del_2 \phi -a_2 \phi) + (-ia_1 \phi^\ast + i\del_2 \phi^\ast -a_2 \phi^\ast) \phi} \\
+&= \frac{i}{2}\psquare{(D_2 \phi)^\ast \phi - \phi^\ast (D_2 \phi)}
+}
+By the antisymmetry of $f_{12}$ we can get the other equation for $\del f$ likewise. 
+Applying $D_1$ to the second Bogomoly equation gives 
+\eq{
+D_1 D_1 \phi &= -i D_1 D_2 \phi \\
+&= -i \pround{\comm[D_1]{D_2} + D_2 D_1} \phi \\
+&= -i \pround{-if_{12} \phi - i D_2 D_2 \phi} \\
+\Rightarrow -D_i D_i \phi &= \frac{1}{2}(1 - \phi^\ast \phi) \phi
+}
+\end{proof}
+
+\begin{theorem}[Taubes' Theorem]
+The Bogomolny equation can be reduced to 
+\eq{
+\nabla^2 u - e^u + 1 = 4\pi \sum_{r=1}^N \delta^{(2)}(\bm{x}- \bm{x}_r) \quad \text{(\bam{Taubes' equation})}
+}
+where $\phi = e^{\frac{1}{2}u + i \chi}$, $\chi$ real, which has a unique solution for given $\pbrace{\bm{x}_r}$. 
+\end{theorem}
+
+\begin{prop}[Properties of Bogomolny Vortices]
+Bogomolny vortices satisfy 
+\begin{enumerate}
+    \item Total magnetic flux is $2\pi N$, total energy is $\pi N$
+    \item $B=\frac{1}{2}$, its maximum value at vortex centres. Hence each vortex has approximate area $4\pi$. 
+    \item Far from the vortex centres, $u \to 0$, so Taubes' equation linearises to $\nabla^2 u - u = 0$, giving exponential decay. 
+    \item $u$ is everywhere non-positive
+\end{enumerate}
+\end{prop}
+\begin{proof}
+We will only prove the fourth property. Note that $u$ has a maximum if $\nabla^2 u \leq 0$. At this point,
+\eq{
+e^u - 1 = \nabla^2 u &\leq 0 \\
+\Rightarrow e^u &\leq 1 \\
+\Rightarrow u &\leq 0
+}
+$u \leq 0 $ at maxima $\Rightarrow u \leq 0$ everywhere. 
+\end{proof}
+
+\begin{prop}
+The moduli space of the Bogomolny vortices is $\mc{M} = \mbb{C}^N$.
+\end{prop}
+\begin{proof}
+The moduli of the solution are the $\pbrace{\bm{x}_r}$ under permutation.
+Let $z_r = (\bm{x}_r)_1 + i(\bm{x}_r)_2$, and define the complex polynomial 
+\eq{
+p(z) &= (z-z_1) \cdots (z-z_N) \\
+&= z^N - (z_1 + \dots + z_N)z^{N-1} + (-1)^N(z_1 \cdots z_N)
+}
+The coefficients of the polynomial are invariant under permutation, and they are independent. Hence result. 
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Static Bogomolny Vortices on Curved Surfaces}
+Let $\Sigma$ be a Riemann surface with a metric comptible with the complex structure. We required that, if $\Sigma$ has a boundary $\del \Sigma$, $\abs{\phi}\rvert_{\del\Sigma} = 1$
+
+\begin{definition}
+The energy in the abelian Higgs model on a curved surface $\Sigma$ with metric $g_{ij}$ is 
+\eq{
+E = \int _ { \Sigma } \left\{ \frac { 1 } { 4 } f _ { i j } f _ { k l } g ^ { i k } g ^ { j l } + \frac { 1 } { 2 } \left( D _ { i } \phi \right) ^ { * } D _ { j } \phi g ^ { i j } + \frac { \lambda } { 8 } \left( 1 - \phi ^ { * } \phi \right) ^ { 2 } \right\} \sqrt { \operatorname { det } g } d y ^ { 1 } d y ^ { 2 }
+}
+\end{definition}
+
+\begin{definition}[Isothermal Coordinates]
+Coordinates $y$ in which the metric takes the form 
+\eq{
+ds^2 = \Omega(y^1,y^2) \psquare{(dy^1)^2 + (dy^2)^2}
+}
+are called \bam{isothermal}. Corresponding complex coordinates are $z = y^1 + iy^2$, so 
+\eq{
+ds^2 = \Omega(z,\bar{z}) dz d\bar{z}
+}
+\end{definition}
+
+\begin{prop}
+Isothermal coordinates always exist for a surface. 
+\end{prop}
+
+\begin{prop}
+The area element on $\Sigma$ in isothermal coordinates is 
+\eq{
+dA = \Omega \, d^2 y 
+}
+\end{prop}
+
+\begin{prop}
+The energy in the abelian Higgs model on $\Sigma$ in isothermal coordinates is  
+\eq{
+E = \frac{1}{2} \int_{\Sigma} \pbrace{ \Omega^{-1} B^2 + \abs{D_1 \phi}^2 + \abs{D_2\phi}^2 + \frac{1}{4} \Omega(1-\abs{\phi}^2)^2} \, d^2y
+}
+\end{prop}
+
+\begin{definition}[1\textsuperscript{st} Cern Number]
+The \bam{1\textsuperscript{st} Cern Number} is 
+\eq{
+N = \frac{1}{2\pi} \int_\Sigma f = \frac{1}{2\pi} \int_\Sigma B \, d^2 y 
+}
+\end{definition}
+
+\begin{prop}
+The Bogomolny equations on $\Sigma$ are 
+\eq{
+B - \frac{1}{2}\Omega(1-\abs{\phi}^2) &= 0 \\
+D_1 \phi + i D_2 \phi &= 0 
+}
+and the corresponding Bogomolny energy is $E=\pi N$
+\end{prop}
+\begin{corollary}[Bradlow Bound on N]
+Assume $\Sigma$ is closed with area $A$. Then 
+\eq{
+4\pi N \leq A
+}
+with equality if $\abs{\phi} = 0$ everywhere, and $B = \frac{1}{2}\Omega$. 
+\end{corollary}
+\begin{proof}
+Integrate the first Bogomolny equation to get 
+\eq{
+\underbrace{2\int_\Sigma B \, d^2 y}_{4\pi N} + \underbrace{\int_\Sigma \abs{\phi}^2 \Omega \, d^2 y}_{\geq 0 } = \int_\Sigma \Omega \, d^2y = A
+}
+\end{proof}
+
+\begin{prop}
+Taubes' equation on $\Sigma$ is 
+\eq{
+\nabla^2 u - \Omega e^u + \Omega = 4\pi \sum_{r=1}^N \delta^{(2)}(\bm{y}-\bm{y}_r)
+}
+\end{prop}
+
+\begin{prop}
+Introduce the modified metric on $\Sigma$
+\eq{
+d\tilde{s}^2 = \tilde{\Omega}(y^1,y^2) \psquare{(dy^1)^2 + (dy^2)^2}
+}
+where $\tilde{\Omega} = \Omega \abs{\phi}^2 = \Omega e^u$. Then 
+\eq{
+\pround{\tilde{K} + \frac{1}{2}}e^u = K + \frac{1}{2}
+}
+i.e. 
+\eq{
+\pround{\tilde{K} + \frac{1}{2}} d\tilde{s}^2 = \pround{K + \frac{1}{2}} ds^2 \quad \text{(\bam{Baptista Equation})}
+}
+where $K,\tilde{K}$ are the corresponding Gaussian curvatures of the metrics on $\Sigma$. 
+\end{prop}
+\begin{proof}
+We will need the following lemma.
+\begin{lemma}
+The Gaussian curvature on $\Sigma$ is 
+\eq{
+K = - \frac{1}{2\Omega} \nabla^2 \log \Omega
+}
+where $\nabla^2 = \del_1^2 + \del_2^2$. 
+\end{lemma}
+Then 
+\eq{
+\tilde{K} &= - \frac{1}{2\tilde{\Omega}}\nabla^2 \log \tilde{\Omega} \\
+&= - \frac{1}{2\Omega e^u} \nabla^2(\log \Omega + u) \\
+&= \frac{K}{e^u} - \frac{1}{2\Omega e^u} (\Omega e^u - \Omega) \\
+&= \frac{1}{e^u}\pround{K + \frac{1}{2}} - \frac{1}{2}
+}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{\secmath{K = -\frac{1}{2}} (Hyperbolic Plane)}
+Choosing $K = -\frac{1}{2}$ ensures $\tilde{K}=-\frac{1}{2}$. The Hyperbolic plane in the Poincare disk model with curvature $K = -\frac{1}{2}$ has the metric 
+\eq{
+ds^2 = \frac{8}{\pround{1 - y_1^2 - y_2^2}^2} \psquare{(dy^1)^2 + (dy^2)^2} = \frac{8}{\pround{1-\abs{z}^2}^2} dz \, d\bar{z}
+}
+Using a conformal map $f : \mbb{H}^2 \to \mbb{H}^2$, $f(z) = w$, and pulling back the standard metric on the image, gives 
+\eq{
+d\tilde{s}^2 = \frac{8}{\pround{1-\abs{f(z)}^2}^2} \abs{\frac{df}{dz}}^2 dz \, d\bar{z}
+}
+Hence 
+\eq{
+\Omega &= \frac{8}{\pround{1-\abs{z}^2}^2} \\
+\tilde{\Omega} &= \frac{8}{\pround{1-\abs{f(z)}^2}^2} \abs{\frac{df}{dz}}^2 \\
+\Rightarrow \abs{\phi}^2 = \frac{\tilde{\Omega}}{\Omega} &= \pround{\frac{1-\abs{z}^2}{1-\abs{f(z)}^2}}^2 \abs{\frac{df}{dz}}^2
+}
+By choosing the we can get 
+\eq{
+\phi = \frac{1-\abs{z}^2}{1-\abs{f(z)}^2}\abs{\frac{df}{dz}}
+}
+
+\begin{prop}[Blaschke Product]
+The most general allowed function is a (finite) \bam{Blaschke product}
+\eq{
+f(z) = \prod_{i=1}^n \pround{\frac{z-c_i}{1-\bar{c}_i z}}
+}
+for $\abs{c_i}<1$. This corresponds to an $N=n-1$ vortex solution with vortex centres where $\frac{df}{dz}=0$
+\end{prop}
+
+\begin{definition}[Conic Singularity]
+A conic singularity occurs in a metric of the form 
+\eq{
+ds^2 = dr^2 + r^2 d\theta^2
+}
+at $r=0$. The metric is said to have a cone angle $\Theta$ if the range of $\theta$ is $[0,\Theta)$. 
+\end{definition}
+
+\begin{prop}
+The metric 
+\eq{
+d\tilde{s}^2 = \Omega \abs{\phi}^2 \psquare{(dy^1)^2 + (dy^2)^2}
+}
+generically has $N$ cone singularities with cone angle $4\pi$. 
+\end{prop}
+\begin{proof}
+Near a point where $\frac{df}{dz} = 0$ the metric looks like 
+\eq{
+d\tilde{s}^2 \approx\propto r^2(dr^2 + r^2 \theta^2)
+}
+for $\theta \in [0,2\pi)$. Letting $v = \frac{1}{2}r^2$ and $\beta = 2\theta$ gives 
+\eq{
+d\tilde{s}^2 \approx \propto dv^2 + v^2 d\beta^2
+}
+for $\beta\in[0,4\pi)$. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Popov Vortices}
+By changing the sign of the covariant derivative term we get the modified Bogomolny equations 
+\eq{
+D_1 \phi + i D_2 \phi &= 0 \\
+B + \frac{1}{2} \Omega \pround{1-\abs{\phi}^2} &= 0 
+}
+This gives a corresponding variant of the Baptista equation 
+\eq{
+\pround{\tilde{K} - \frac{1}{2}} d\tilde{s}^2 = \pround{K - \frac{1}{2}} ds^2 \quad 
+}
+We thus construct solutions on the sphere radius $\sqrt{2}$, so $K = \frac{1}{2}$ where the metric is 
+\eq{
+ds^2 = \frac{8}{\pround{1+\abs{z}^2}^2} dz \, d\bar{z}
+}. Then 
+\eq{
+\phi = \frac{1+\abs{z}^2}{1+\abs{f(z)}^2}\abs{\frac{df}{dz}}
+}
+for $f : S^2 \to S^2$. 
+
+\begin{prop}
+The most general allowed function is a rational map .
+\end{prop}
+
+\begin{prop}
+Vortex centres correspond to Wronskian points of the rational map.
+\end{prop}
+
+\begin{prop}
+The degree of the Wronksian is the \bam{Popov vortex number}. 
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Skyrmions}
+
+\begin{definition}[Skyrme Field]
+The \bam{Skyrme field} is a map $U : \mbb{R}^{3+1} \to S^3$. Using $S^3 \equiv SU(2)$ we can write 
+\eq{
+U = \sigma I + i \bm{\pi} \cdot \bm{\tau}
+}
+where $\bm{\tau}$ are the Pauli matrices, and we have the constraint 
+\eq{
+\sigma^2 + \abs{\bm{\pi}}^2 = 1
+}. 
+\end{definition}
+
+\begin{fact}
+$\bm{\pi}$ represents the pion field from quantum field theory. 
+\end{fact}
+
+\begin{idea}
+Skyrme though that a non-linear theory of pions can have soliton solutions representing baryons, where the baryon number $B$ is the topological degree. 
+\end{idea}
+
+\begin{definition}[Skyrme Lagrangian]
+The Lagrangian for the Skyrme field is 
+\eq{
+L = \int d^3 x \, \pbrace{ - \frac{F_\pi^2}{16}\tr\pround{R_\mu R^\mu} + \frac{1}{32e^2} \tr\pround{\comm[R_\mu]{R_\nu}\comm[R^\mu]{R^\nu}} - \frac{1}{8}F_\pi^2 m_\pi^2 \tr(I-U)
+}
+}
+where $R_\mu = \pround{\del_\mu U} U^{-1}$. Removing dimensions this becomes 
+\eq{
+L = \int d^3 x \, \pbrace{ - \frac{1}{2}\tr\pround{R_\mu R^\mu} + \frac{1}{16} \tr\pround{\comm[R_\mu]{R_\nu}\comm[R^\mu]{R^\nu}} -m^2 \tr(I-U)}
+}
+\end{definition}
+
+The first two terms of $L$ are invariant under the global $SO(4)$ symmetry\footnote{Note that this symmetry is $SO(4)$ not $SU(2) \times SU(2)$ as the centre contains $O_1 = -I = O_2$. } $U \mapsto O_1 U O_2$ for $O_1, O_2 \in SU(2)$. The third term corresponds to picking the vacuum to be $U=I$, and then imposing $U\to I$ as $\abs{\bm{x}} \to \infty$. This \emph{breaks} the symmetry down to the $SO(3)$ symmetry $U \mapsto O U O^{-1}$ for $O \in SU(2)$\footnote{Again note this symmetry is $SO(3)$ not $SU(2)$ due to the non-trivial element of the centre $O = -I$.}.
+
+\begin{definition}[Baryon Number]
+The \bam{Baryon number} $B$ of the field is the degree of the map $U$. 
+\end{definition}
+
+\begin{prop}
+The energy of a static field configuration is 
+\eq{
+E = \int d^3x \, \pbrace{ - \frac{1}{2}\tr\pround{R_i R_i} - \frac{1}{16} \tr\pround{\comm[R_i]{R_j}\comm[R_i]{R_j}} + m^2 \tr(I-U)}
+}
+\end{prop}
+
+\begin{prop}[Derrick's Theorem for Skyrmions]
+For a static Skyrme field configuration
+\eq{
+\int \frac{1}{2} \tr(R_i R_i) \, d^3x - \int \frac{1}{16} \tr\pround{\comm[R_i]{R_j}\comm[R_i]{R_j}} \, d^3x + 3 \int m^2 \tr(I-U) \, d^3x = 0
+}
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Massless Pion Approximation}
+In the subsequent section assume that we have taken the $m=0$ limit. 
+
+\begin{prop}
+The field equation for the massless Lagrangian is 
+\eq{
+\del_\mu \pround{R^\mu + \frac{1}{4} \comm[R_\nu]{\comm[R^\nu]{R^\mu}}} = 0
+}
+or, linearising about the vacuum $U = I$, 
+\eq{
+\del_\mu \del^\mu \bm{\pi} = 0
+}
+\end{prop}
+
+\begin{definition}[Strain Eigenvalues]
+The \bam{strain eigenvalues} of a map correspond to the local stretching of the principal axes of the derivative of the map. They satisfy the property that $\prod \lambda_i > 0$ if the map is locally orientation preserving, and $\prod \lambda_i < 0$ if the map is locally orientation reversing. 
+\end{definition}
+
+\begin{prop}[Geometric Interpretation of Energy]\label{prop:CQS:GeometricInterpretationOfEnergy}
+Let $\lambda_i$ be the strain eigenvalues of static $U$. Then 
+\eq{
+E = \int \pround{\lambda_1^2 + \lambda_2^2 + \lambda_3^3 + \lambda_1^2\lambda_2^2 + \lambda_2^2 \lambda_3^2 + \lambda_3^2 \lambda_1^2} \, d^3x
+}
+\end{prop}
+\begin{proof}
+As we may arbitrarily rotate the $U$ field, assume that $U(\bm{0}) = I$. Then 
+\eq{
+U  = \sqrt{1-\pi^2}I + i \bm{\pi} \cdot \bm{\tau}
+}
+where $\bm{\pi}(\bm{0}) = \bm{0}$. Then 
+\eq{
+\del_i U \rvert_{\bm{x} = \bm{0}} = i \pround{\del_i \bm{\pi}\rvert_{\bm{x} = \bm{0}}} \cdot \bm{\tau}
+}
+We can thus say $R_j = i (\del_j \pi_k) \tau_k$ (implicitly evaluating at $\bm{0}$). Then 
+\eq{
+-\frac{1}{2} \tr (R_i R_i) &= \frac{1}{2} \tr\psquare{\pround{\del_i \pi_j} \pround{\del_i \pi_k}(\tau_j \tau_k)} \\
+&= \frac{1}{2} \tr\psquare{\pround{\del_i \pi_j} \pround{\del_i \pi_k} (\delta_{jk}I + i \eps_{jkl}\tau_l)} \\
+&= \pround{\del_i \pi_j} \pround{\del_i \pi_j}
+}
+as Pauli matrices are traceless and $\tr I = 2$. Then letting 
+\eq{
+\bm{\nabla}\bm{\pi} = \begin{pmatrix} \lambda_1 & 0 & 0 \\ 0 & \lambda_2 & 0 \\ 0 & 0 & \lambda_3 \end{pmatrix}
+}
+we can see 
+\eq{
+-\frac{1}{2} \tr (R_i R_i) = \lambda_1^2 + \lambda_2^2 + \lambda_3^3
+}
+Now note 
+\eq{
+\comm[R_i]{R_j} &= - (\del_i \pi_k)(\del_j \pi_l) \comm[\tau_k]{\tau_l} \\
+&= -2i(\del_i \pi_k)(\del_j \pi_l) \eps_{klm} \tau_m \\
+\Rightarrow \comm[R_i]{R_j}\comm[R_i]{R_j} &= -4(\del_i \pi_k)(\del_j \pi_l) \eps_{klm} \tau_m (\del_i \pi_a)(\del_j \pi_b) \eps_{abc} \tau_c \\
+&= -4(\del_i \pi_k)(\del_j \pi_l) \eps_{klm}\eps_{abc} (\delta_{mc}I + i \eps_{mcd} \tau_d)
+}
+so similarly 
+\eq{
+-\frac{1}{16} \tr\pround{\comm[R_i]{R_j}\comm[R_i]{R_j}} &= \frac{1}{2} (\del_i \pi_k)(\del_j \pi_l)(\del_i \pi_a)(\del_j \pi_b) \eps_{klm}\eps_{abm} \\
+&= \frac{1}{2} (\del_i \pi_k)(\del_j \pi_l)(\del_i \pi_a)(\del_j \pi_b) (\delta_{ka}\delta_{lb} - \delta_{kb}\delta_{la}) \\
+&= \frac{1}{2} \psquare{(\del_i \pi_a)(\del_j \pi_b)(\del_i \pi_a)(\del_j \pi_b) - (\del_i \pi_b)(\del_j \pi_a)(\del_i \pi_a)(\del_j \pi_b)}
+}
+Explicitly expanding 
+\eq{
+(\del_i \pi_a)(\del_i \pi_b) &= \lambda_1^2 \delta_{a1}\delta_{b1} + \lambda_2^2 \delta_{a2}\delta_{b2} + \lambda_3^2 \delta_{a3}\delta_{b3} \\
+\Rightarrow (\del_i \pi_a)(\del_i \pi_b)(\del_j \pi_a)(\del_j \pi_b) &= \lambda_1^4 + \lambda_2^4 + \lambda_3^4
+}
+so 
+\eq{
+-\frac{1}{16} \tr\pround{\comm[R_i]{R_j}\comm[R_i]{R_j}} &= \frac{1}{2} \psquare{\pround{\lambda_1^2 + \lambda_2^2 + \lambda_3^3}^2 + \pround{\lambda_1^4 + \lambda_2^4 + \lambda_3^4}} \\
+&= \lambda_1^2\lambda_2^2 + \lambda_2^2 \lambda_3^2 + \lambda_3^2 \lambda_1^2
+}
+Hence we are done. 
+\end{proof}
+
+\begin{prop}[Faddeev-Bogomolny Energy Bound]
+For any Skyrmion, $E > 12\pi^2 B$.
+\end{prop}
+\begin{proof}
+Complete the square on the energy to write 
+\eq{
+E = \int \psquare{(\lambda_1 - \lambda_2 \lambda_3)^2 + (\lambda_2 - \lambda_3\lambda_1)^2 + (\lambda_3 - \lambda_1 \lambda_2)^2} \, d^3x + 6 \int \lambda_1 \lambda_2 \lambda_3 \, d^3x
+}
+We now need the following lemma:
+\begin{lemma}
+\eq{
+\int \lambda_1 \lambda_2 \lambda_2 \, d^3x = 2 \pi^2 B
+}
+\end{lemma}
+\begin{proof}
+$\lambda_1 \lambda_2 \lambda_2 \, d^3x$ is the pullback under $U$ of the standard volume on $S^3$. Hence 
+\eq{
+\int \lambda_1 \lambda_2 \lambda_2 \, d^3x = B \cdot (\text{Volume of $S^3$}) = 2\pi^2 B
+}
+\end{proof}
+Thus we have the energy bound $E \geq 12\pi^2 B$ with equality if 
+\eq{
+\left\lbrace \begin{array}{c} \lambda_1 = \lambda_2 \lambda_3 \\ \lambda_2 = \lambda_3 \lambda_1 \\ \lambda_3 = \lambda_1 \lambda_2 \end{array} \right.
+}
+There are two possible solutions. $\lambda_1 = \lambda_2 = \lambda_3 = 0$ (vacuum) or $\lambda_1 = \lambda_2 = \lambda_3 = 1$ (no strain). It is impossible to have a solution with no strain everywhere as $\mbb{R}^3$ and $S^3$ are note isometric. Hence for any Skyrmion $E > 12\pi^2 B$. \\
+\newline
+There is also an alternate rearrangement that comes from the following lemma 
+\begin{lemma}
+\eq{
+B = \frac{-1}{24\pi^2} \int \eps_{ijk} \tr(R_i R_j R_k) \, d^3x
+}
+\end{lemma}
+\begin{proof}
+Using the conventions from \ref{prop:CQS:GeometricInterpretationOfEnergy} we see 
+\eq{
+R_i R_j R_k &= -i (\del_i \pi_a) (\del_j \pi_b)(\del_k \pi_c)(\tau_a\tau_b\tau_c) \\
+&= -i (\del_i \pi_a) (\del_j \pi_b)(\del_k \pi_c) \tau_a (\delta_{bc} I + i\eps_{bcd} \tau_d) \\
+&= (\del_i \pi_a) (\del_j \pi_b)(\del_k \pi_c)\psquare{\eps_{bcd}(\delta_{ad}I + i\eps_{ade}\tau_e) -i \delta_{bc}\tau_a} \\
+\Rightarrow -\frac{1}{24\pi^2} \eps_{ijk} \tr(R_i R_j R_k) &= -\frac{1}{12\pi^2} \eps_{ijk} \eps_{abc} (\del_i \pi_a) (\del_j \pi_b)(\del_k \pi_c) \\
+&= -\frac{1}{2\pi^2} \lambda_1 \lambda_2 \lambda_3
+}
+Results follows \hl{up to a minus sign error}
+\end{proof}
+Now note 
+\eq{
+-\frac{1}{2} \tr\psquare{\pround{R_i \pm \frac{1}{4} \eps_{ijk} \comm[R_j]{R_k}}^2} &= -\frac{1}{2} \tr\psquare{R_i R_i \pm \eps_{ijk}R_i R_j R_k + \frac{1}{8} \comm[R_j]{R_k}\comm[R_j]{R_k}}
+}
+so 
+\eq{
+E = \int -\frac{1}{2} \tr\psquare{\pround{R_i \pm \frac{1}{4} \eps_{ijk} \comm[R_j]{R_k}}^2} \,d^3 x \mp \frac{1}{2}\int \eps_{ijk} \tr(R_i R_j R_k) \, d^3x 
+}
+i.e $E \geq 12 \pi^2 B$ (for $B>0$) with equality when 
+\eq{
+R_i + \frac{1}{4} \eps_{ijk} \comm[R_j]{R_k} = 0
+}
+This equation turns out to have no non-trivial solutions. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Rational Map Approximation}
+
+\begin{definition}[Rational Map Approximation]
+The \bam{rational map approximation} looks for solutions for $U$ of the form 
+\eq{
+U(r,\theta,\phi) = \cos f(r)  + i\sin f(r) \,  \hat{\bm{n}}_{R(z)} \cdot \bm{\tau}
+}
+where $R$ is a rational map, $z=z(\theta,\phi)$ under the stereographic projection.
+\end{definition}
+
+Note that the boundary conditions required on $f$ are 
+\begin{itemize}
+    \item $\lim_{r \to \infty} f(r) = 0$
+    \item $f(0) = \pi$
+\end{itemize}
+The first condition ensure that $U\to I$ as is necessary for finite energy, while the second condition means that $\sin(f(0)) = 0$, so the field is single valued at the origin\footnote{This could also be ensured by having $f(0) = 0$, but this condition would impose the vacuum as the only solution, see the calculation of the baryon number}. 
+\begin{prop}
+The energy in the rational map approximation is 
+\eq{
+E = \int_0^\infty \pbrace{f^\prime(r)^2 + 2B \frac{\sin^2 f(r)}{r}\psquare{1+f^\prime(r)^2} + \mc{I} \frac{\sin^4 f(r)}{r}} \, 4\pi r^2 dr
+}
+where $B$ is the baryon number and 
+\eq{
+\mathcal { I } = \frac { 1 } { 4 \pi } \int \frac { 2 i d z d \overline { z } } { \left( 1 + | z | ^ { 2 } \right) ^ { 2 } } \left( \frac { 1 + | z | ^ { 2 } } { 1 + | R | ^ { 2 } } \left| \frac { d R } { d z } \right| \right) ^ { 4 }
+}
+\end{prop}
+\begin{proof}
+We will need the following lemma:
+\begin{lemma}
+In the rational map approximation, in coordinates $(r,z,\bar{z})$, the strain eigenvalues are 
+\eq{
+\lambda_r^2 &= \psquare{f^\prime}^2 \\
+\lambda_z^2 &= \psquare{\frac{\sin f}{r} \frac{1+\abs{z}^2}{1+\abs{R}^2} \abs{\frac{dR}{dz}}}^2 = \lambda_{\bar{z}}^2
+}
+\end{lemma}
+\begin{proof}
+The metric on the image is 
+\eq{
+ds^2 &= df^2 + \sin^2 f(r) \frac{4 \, dR \, d\bar{R}}{\pround{1 + \abs{R}^2}^2} \\
+&= \psquare{f^\prime \, dr}^2 + \psquare{\frac{\sin f}{r} \frac{1+\abs{z}^2}{1+\abs{R}^2} \abs{\frac{dR}{dz}}}^2 \cdot r^2 \frac{4 \, dz d\bar{z}}{\pround{1+ \abs{z}^2}^2}
+}
+\end{proof}
+Then we have, noting that the area form on the target space is $dA = \frac{2i r^2 dr \wedge dz \wedge d\bar{z}}{\pround{1+\abs{z}^2}^2}$,
+\eq{
+E = \int \pbrace{ f^\prime(r)^2 + 2\frac{\sin^2 f}{r^2} \psquare{\frac{1+\abs{z}^2}{1+\abs{R}^2} \abs{\frac{dR}{dz}}}^2 \psquare{1+ f^\prime(r)^2} + \frac{\sin^4 f}{r^4 } \psquare{\frac{1+\abs{z}^2}{1+\abs{R}^2} \abs{\frac{dR}{dz}}}^4} \frac{2i r^2 dr dz  d\bar{z}}{\pround{1+\abs{z}^2}^2} 
+}
+We see we can separate out the integrals over $z,\bar{z}$ and $r$. Noting that $U$ is locally orientation preserving, we may choose $\lambda_z,\lambda_{\bar{z}}$ to have the same sign, and then as $f^\prime < 0, \lambda_r = -f^\prime$. Thus evaluating 
+\eq{
+B &= \frac{1}{2\pi^2} \int -f^\prime(r)  \psquare{\frac{\sin f}{r} \frac{1+\abs{z}^2}{1+\abs{R}^2} \abs{\frac{dR}{dz}}}^2 \frac{2i r^2 dr dz  d\bar{z}}{\pround{1+\abs{z}^2}^2} \\
+&= \frac{1}{2\pi^2} \psquare{\int_0^\infty -f^\prime(r) \sin^2 f(r) \, dr } \int \psquare{\frac{1+\abs{z}^2}{1+\abs{R}^2} \abs{\frac{dR}{dz}}}^2 \frac{2i dz  d\bar{z}}{\pround{1+\abs{z}^2}^2} \\
+&= \frac{1}{2\pi} \psquare{\int_0^\pi \sin^2 f \, df} \int \psquare{\frac{1+\abs{z}^2}{1+\abs{R}^2} \abs{\frac{dR}{dz}}}^2 \frac{2i dz  d\bar{z}}{\pround{1+\abs{z}^2}^2} \\
+&= \frac{1}{4\pi} \int \psquare{\frac{1+\abs{z}^2}{1+\abs{R}^2} \abs{\frac{dR}{dz}}}^2 \frac{2i dz  d\bar{z}}{\pround{1+\abs{z}^2}^2}
+}
+Thus we have 
+\eq{
+E = \int_0^\infty \pbrace{{f^\prime}^2 + 2B \frac{\sin^2 f}{r^2} + \mc{I} \frac{\sin^4f}{r^4}}\psquare{1 + {f^\prime}^2} 4\pi r^2 dr
+}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Symmetries of Skyrmions}
+
+Skyrmions has point symmetry groups 
+\eq{
+K \leq SO(3) \times SO(3)
+}
+corresponding to rotations in the domain and rotations in the target (isorotations). In the rational map approximation these are realised by symmetries of the rational map $R$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Quantisation}
+
+The field configuration space of fixed baryon number maps is \eq{
+\mc{C}_B = \Maps_B(\mbb{R}^3 \to SU(2))
+}
+where $\Maps_B$ is the space of maps degree $B$. We may compactify $\mbb{R}^3$ as $U$ is well defined at $\abs{\bm{x}} = \infty$, and as such write 
+\eq{
+\mc{C}_B = \Maps_B(S_\infty^3 \to S_1^3)
+}
+Because of the group structure of $S^3$, we can combine maps, and so we get an isomorphism 
+\eq{
+\mc{C}_B \cong \Maps_0 ( S_\infty^3 \to S_1^3)
+}
+We then have the property that 
+\eq{
+\pi_1\pround{\Maps_0 ( S_\infty^3 \to S_1^3)} = \pi_4(S^1) = \mbb{Z}_2
+}
+Hence we know $\mc{C}_B$ is connected, but not simply connected. We note that it is a good principle of quantisation that the wavefunction $\Psi$ is single valued on the universal cover of $\mc{C}_B$, in this case the double cover. 
+
+\begin{idea}
+Skyrme proposed that $\Psi$ changes sign going round a non-contractible loop in $\mc{C}_B$. 
+\end{idea}
+
+This has two consequences for the $B=1$ skyrmion:
+\begin{itemize}
+    \item $\Psi$ changes sign when the Skyrmion is rotated by $2\pi$, so spin is half integer. 
+    \item $\Psi$ changes sign when two $B=1$ Skyrmions are exchanged in space. 
+\end{itemize}
+This imposes that $B=1$ Skyrmions are fermions. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Rigid Body Quantisation}
+
+\begin{definition}[Rigid Body Quantisation]
+In \bam{rigid body quantisation} of Skyrmions, the Skyrmion is taken to have collective coordinates of translation, rotation, and isorotation. 
+\end{definition}
+Quantising translation gives momentum eigenstates, which will turn out to be uninteresting, as there are no constraints gained from symmetry. \\
+Quantising rotations and isorotations gives angular momentum and isospin. States are thus 
+\eq{
+\ket{\Psi} = \ket{J, L_3, J_3} \otimes \ket{I, K_3, I_3}
+}
+where the respective quantum numbers are 
+\begin{itemize}
+    \item $J$: total angular momentum 
+    \item $L_3$: 3\textsuperscript{rd} component of angular momentum in the body fixed axis
+    \item $J_3$: 3\textsuperscript{rd} component of angular momentum in the space fixed axis 
+    \item $I$: total isospin 
+    \item $K_3$: 3\textsuperscript{rd} component of isospin in the body fixed axis
+    \item $I_3$: 3\textsuperscript{rd} component of isospin in the space fixed axis 
+\end{itemize}
+$L_3, K_3$ get restricted by symmetry of Skyrmions, which in turn limit $J,I$. $J_3,I_3$ remain unconstrained, and so the labels are ignored. 
+
+\begin{prop}
+Suppose a symmetry of a Skyrmion gives a constraint 
+\eq{
+e^{i\theta_2 \hat{\bm{n}}_2 \cdot \bm{L}} e^{i\theta_1 \hat{\bm{n}}_1 \cdot \bm{K}} \ket{\Psi} = \chi_{FR} \ket{\Psi}
+}
+Then 
+\eq{
+\chi_{FR} = (-1)^{\frac{B}{2\pi}(B\theta_2 - \theta_1)}
+}
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{../../bib/custom-bib-style}
+\bibliography{../../bib/library,;../../bib/manual}
+
+
+\end{document}

@@ -1,0 +1,2030 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{String Theory Notes}
+\author{Linden Disney-Hogg}
+\date{January 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{Book Keeping}
+Suggested books on the material are the "easier" books 
+\begin{itemize}
+    \item Schomerus (CUP) 'Primer in string theory'
+    \item Becker, Becker, and Schwarz (CUP) 'String theory and M theory'
+\end{itemize}
+and the "harder" books 
+\begin{itemize}
+    \item Polchinski, Vol 1 (CUP) 
+    \item Lust and Thiesen (Springer) 
+    \item Green, Schwarz, and Witten (CUP)
+\end{itemize}
+
+\section{Introduction}
+\subsection{Material}
+The course will follow 
+\begin{itemize}
+    \item Classical theory + canonical quantisation 
+    \item Path integral quantisation
+    \item Conformal Field Theory (CFT) + BRST quantisation
+    \item Scattering amplitudes 
+    \item Advanced topics...
+\end{itemize}
+
+\subsection{Expectation Management}
+The need for a new theory can be explained by 
+\begin{itemize}
+    \item What sets the parameters for the standard model? 
+    \item What fixed the cosmological constant? 
+    \item Failure of perturbative General Relativity (GR).
+    \item Black Hole (BH) information paradox. 
+    \item How do you quantise a theory in the absence of an existing causal structure? 
+\end{itemize}
+
+\subsection{What is String Theory}
+ST "seems" to be perturbation theory around classical solutions to a unique quantum theory. We imagine replacing particles with strings. Harmonics of the strings the correspond to different particles, including the graviton. We assume we are close to some well understood solution with metric $\eta^{\mu\nu}$ and take \[
+g_{\mu\nu}(x) = \eta_{\mu\nu}+h_{\mu\nu}(x)+\dots
+\]
+\subsection{Interactions}
+We will consider 
+\begin{itemize}
+    \item Propagators 
+    \item Interactions vertices
+\end{itemize}
+which can be combined in analogue to Feynmann diagrams. Consider the Lagrangian density 
+\[
+\mc{L} = -\frac{1}{4}F^2 - \bar{\psi} (\slashed{D}-m)\psi
+\]
+then in QFT it is known how to convert this into Feynmann diagrams. In string theory it is not known where the "Feynmann diagrams" come from. In a "particle limit" this may look like a field theory. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Classical Theory}
+In quantum mechanics we have the important parameter time $t$ and position $\hat{\bm{X}}$ is an operator. In quantum field theory we take $\hat{\phi}(t,\bm{x})$ as operators where $(t,\bm{x})$ are parameters.  \\
+Alternatively, we could look for a formalism in which $\hat{X}^\mu=(\hat{T},\hat{\bm{X}})$ are operators. 
+
+\begin{example}[Worldline Formalism]
+Imagine we have a massive particle propagating on a flat spacetime with metric $\eta_{\mu\nu}$. A suitable action for this theory is 
+\[
+S[X] = - m\int_{s_1}^{s_2} \, ds
+\]
+Note that working with $\hbar=c=1$ requires that we have a parameter with mass dimensions outside the integral to make the action dimensionless. \\
+We can parametrise the worldline such that 
+\be \label{eq:ST:1}
+S[X] = -m \int_{s_1}^{s_2} d\tau \, \sqrt{-\eta_{\mu\nu} \dot{X}^\mu \dot{X}^\nu}
+\ee
+The conjugate momentum is 
+\[
+P_\mu (\tau) = \frac{-m\dot{X}_\mu}{\sqrt{-\dot{X}^2}} \Rightarrow p^2+m^2 = 0
+\]
+so this is an "on-shell" formalism. We can vary with respect to $X^\mu$ to find the e.o.m. \\
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Alternative Perspective}
+An alternative action for this theory is 
+\[
+S[X,e]=\frac{1}{2} \int d\tau (e^{-1} \eta_{\mu\nu} \dot{X}^\mu \dot{X}^\nu - em^2 )
+\]
+where $e$ is an auxiliary field. The $X^\mu$ e.o.m. is 
+\[
+\frac{d}{d\tau}(e^{-1} \dot{X}^\mu ) = 0 
+\]
+and the $e$ e.o.m is 
+\[
+\dot{X}^2 + e^2m^2=0
+\]
+Note $e(\tau)$ appears only algebraically, and so we can substitute back into the action to recover the previous formulation, equation \ref{eq:ST:1}. \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Symmetries}
+Consider the local symmetry $\tau \to \tau + \xi(\tau)$. Then 
+\begin{align}
+    \delta X^\mu &= \xi \dot{X}^\mu \\
+    \delta e &= \frac{d}{d\tau}(\xi e) 
+\end{align}
+We can use the one arbitrary degree of freedom to gauge fix $e(\tau)$ to a convenient value. 
+
+\begin{definition}[Rigid Symmetry]
+The rigid symmetry map is 
+\[
+X^\mu \to \Lambda^\mu_\nu X^\nu + a^\mu
+\]
+This is Poincare invariance in the background spacetime. \end{definition}
+For a massless particle we can write the action as 
+\[
+S[X,e] = \frac{1}{2} \int_L d\tau \, e^{-1} g_{\mu\nu} \dot{X}^\mu \dot{X}^\nu
+\]
+and then the classical equations of motion reproduce the geodesic equation 
+\[
+\ddot{X}^\mu + \Gamma^{\mu}_{\nu\lambda} \dot{X}^\nu \dot{X}^\lambda = 0
+\]
+and the $e$ equations of motion give constraints. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Strings}
+As a string moves through some spacetime $\mc{M}$ with metric $\eta_{\mu\nu}$ it sweeps out a \bam{worldsheet} $\Sigma$. Assume the string is closed, i.e. $\sigma \sim \sigma+2n\pi$ for $n\in\mbb{Z}$ ($\sigma$ is the 'angle' parameter of the string). The embedding of the worldsheet is given by the specification 
+\[
+X^\mu (\sigma,\tau)
+\]
+We will call the $X^\mu$ "embedding fields. 
+\[
+X : \Sigma \to \mc{M}
+\]
+The area of $\Sigma$ may be given by 
+\[
+A = -\frac{1}{2\pi \cst} \int d\tau d\sigma \sqrt{-\det{\eta_{\mu\nu}\del_a X^\mu \del_b X^\nu}}
+\]
+where $\del_a = \pd{\sigma^a}$, $\sigma^a = (\tau, \sigma)$. , and $\cst$ is a free parameter. \\
+We often refer to the \bam{string length} 
+\[
+l_s = 2 \pi \sqrt{\cst}
+\]
+or the \bam{Tension} 
+\[
+T = \frac{1}{2\pi \cst}
+\]
+The object 
+\[
+G_{ab} = \eta_{\mu\nu}\del_a X^\mu \del_b X^\nu
+\]
+is an induced metric on $\Sigma$. $S[X]$ is called the \bam{Nambu-Goto action}.
+
+\subsection{Polyakov Action}
+Consider instead the action 
+\[
+S[X,h] = -\frac{1}{4\pi \cst} \int_\Sigma d^2\sigma \sqrt{-h} h^{ab} \eta_{\mu\nu} \del_a X^\mu \del_b X^\nu
+\]
+\begin{idea}
+This looks like free Klein Gordon field theory in two dimensions.
+\end{idea}
+This action is classically equivalent to the Nambu-Goto action. The $h_{ab}$ equations of motion are given by
+\[
+-\frac{2\pi}{\sqrt{-h}} \frac{\delta S}{\delta h^{ab}} = 0
+\]
+These e.o.m give the vanishing of the \bam{stress tensor} 
+\[
+T_{ab}= 0 
+\]
+where
+\[
+T_{ab} = -\frac{1}{\cst} \left( \del_a X^\mu \del_b X_\mu - \frac{1}{2}h_{ab} \del_c X^\mu \del_d X_\mu h^{cd} \right) 
+\]
+Note
+\begin{itemize}
+    \item In two dimensions $T_{ab}h^{ab}=0$, i.e. $T$ is traceless.
+    \item The $X^\mu$ e.o.m are $\frac{1}{\sqrt{-h}} ( \del_a \sqrt{-h} h^{ab} \del_b X^\mu ) =0 $, i.e. $\square X^\mu = 0$.
+\end{itemize}
+
+\subsection{Symmetries}
+The Polyakov action has the following symmetries: 
+
+\begin{definition}[Rigid Symmetry]
+\[
+X^\mu \to \Lambda^\mu_\nu X^\nu + a^\mu
+\]
+i.e the actions has Poincare invariance. 
+\end{definition}
+
+The action also has reparametrisation invariance i.e. $\sigma^a \to {\sigma^\prime}^a$. Under such a transform the embedding fields transform 
+\[
+{X^\prime}^\mu(\sigma^\prime,\tau^\prime) = {X}^\mu(\sigma,\tau)
+\]
+\[
+h_{ab}(\sigma,\tau) = \pd[{\sigma^\prime}^c]{\sigma^a} \pd[{\sigma^\prime}^d]{\sigma^b} h^\prime_{cd} (\sigma^\prime, \tau^\prime)
+\]
+So infinitseimally $\sigma^a \to \sigma^a - \xi^a$
+\begin{align*}
+    \delta X^\mu = \xi^a \del_a X^\mu \\
+    \delta h_{ab} = \xi^c \del_c h_{ab} + \del_a \xi^c h_{cb} + \del_b \xi^c h_{ca} = \nabla_a\xi_b + \nabla_b \xi_a \\
+    \delta \sqrt{-h} = \del_a(\xi^a \sqrt{-h})
+\end{align*}
+
+\begin{definition}
+\[
+X^\mu \to X^\mu
+\]
+\[
+h^\prime_{ab}(\sigma,\tau) = e^{2\Lambda(\sigma,\tau)} h_{ab}(\sigma,\tau)
+\]
+i.e. 
+\begin{align*}
+    \delta x^\mu = 0 \\
+    \delta h_{ab} = 2\Lambda h_{ab}
+\end{align*}
+\end{definition}
+
+We now have three arbitrary degrees of freedom in $(\xi^a,\Lambda)$, and we can use them to fix the three d.o.f in $h_{ab}$. 
+
+\subsection{Classical solutions}
+Let us use reparametrisation invariance to fix 
+\begin{align*}
+    h_{ab} = e^{2\phi} \eta_{ab} \\
+    \eta_{ab} = \begin{pmatrix} -1 & 0 \\ 0 & 1 \end{pmatrix}
+\end{align*}
+The action becomes 
+\[
+S[X] = -\frac{1}{4\pi\cst} \int_\Sigma d^2\sigma ( -\dot{X}^2 + {X^\prime}^2 ) 
+\]
+where $\dot{X}^mu = \pd[X^\mu]{\tau}$ and ${X^\prime}^\mu = \pd[X^\mu]{\sigma}$. \\
+The $X^\mu$ e.o.m becomes the wave equation in 2D, so the solutions are of the form 
+\[
+X^\mu(\sigma,\tau) = X^\mu_R(\tau-\sigma) + X^\mu_L(\tau+\sigma)
+\]
+It is useful to introduce modes $\alpha^\mu_n, \bar{\alpha}^\mu_n$. Then 
+\[
+X^\mu_R(\tau-\sigma) = \frac{1}{2} x^\mu + \frac{\cst}{2} p^\mu (\tau-\sigma) + i\sqrt{\frac{\cst}{2}} \sum_{n\neq0} \frac{1}{n} \alpha^\mu_n e^{-in(\tau-\sigma)}
+\]
+\[
+X^\mu_L(\tau+\sigma) = \frac{1}{2} x^\mu + \frac{\cst}{2} p^\mu (\tau+\sigma) + i\sqrt{\frac{\cst}{2}} \sum_{n\neq0} \frac{1}{n} \bar{\alpha}^\mu_n e^{-in(\tau+\sigma)}
+\]
+where $x^\mu, p^\mu$ are constants independent of $\tau$ and $\sigma$. Set 
+\[
+\alpha^\mu_0 = \bar{\alpha}^\mu_0 = \sqrt{\frac{\cst}{2}} p^\mu
+\]
+Let us call 
+\[
+G_{ab} = \del_a X^\mu \del_b X_\mu
+\]
+Then 
+\[
+T_{ab}=0 \Rightarrow G_{ab}=\frac{1}{2} h_{ab} (h^{cd}G_{cd})
+\]
+so 
+\[
+\det G_{ab} = \left(\frac{1}{2}h^{cd}G_{cd} \right)^2 \det h_{ab} = \frac{1}{4}(h^{cd}G_{cd})^2 h
+\]
+so 
+\[
+2\sqrt{-\det G_{ab}} = (h^{cd}G_{cd}) \sqrt{-h} = \sqrt{-h} h^{ab} \del_a X^\mu \del_b X_\mu
+\]\footnote{Here it was pointed out that spacetime indices will be raised and lowered with $h$, whereas Lorentz indices will be raised and lowered with $\eta$}
+Substituting back into the action yields 
+\[
+S[X] = \frac{1}{2\pi\cst}\int d^2\sigma \sqrt{-\det G_{ab}}
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Stress Tensor}
+Recall that the conjugate momentum to $X^\mu$ is 
+\[
+P_\mu = \frac{1}{2\pi\cst} \dot{X}_\mu
+\]
+We can define a Hamiltonian density 
+\[
+H = P_\mu \dot{X}^\mu - L = \frac{1}{4\pi\cst}(\dot{X}^2 + {X^\prime}^2)
+\]
+We shall introduce Poisson brackets $\pb[]{}$. Given $F,G$ defined on the phase space we have 
+\[
+\pb[F]{G} = \int_0^{2\pi} d\sigma \left( \frac{\delta F}{\delta X^\mu(\sigma)} \frac{\delta G}{\delta P_\mu(\sigma)} - \frac{\delta F}{\delta P_\mu(\sigma)}\frac{\delta G}{\delta X^\mu(\sigma)} \right) 
+\]
+In particular $\pb[X^\mu(\tau,\sigma)]{P_\nu(\tau,\sigma^\prime}=\delta^\mu_\nu \delta(\sigma-\sigma^\prime)$.\\
+We introduced a mode expansion 
+\[
+X^\mu(\sigma,\tau) = X^\mu_R(\tau-\sigma) + X^\mu_L(\tau+\sigma)
+\]
+\[
+X^\mu_R(\tau-\sigma) = \frac{1}{2} x^\mu + \frac{\cst}{2} p^\mu (\tau-\sigma) + i\sqrt{\frac{\cst}{2}} \sum_{n\neq0} \frac{1}{n} \alpha^\mu_n e^{-in(\tau-\sigma)}
+\]
+\[
+X^\mu_L(\tau+\sigma) = \frac{1}{2} x^\mu + \frac{\cst}{2} p^\mu (\tau+\sigma) + i\sqrt{\frac{\cst}{2}} \sum_{n\neq0} \frac{1}{n} \bar{\alpha}^\mu_n e^{-in(\tau+\sigma)}
+\]
+The Poisson bracket, acting on the modes $\alpha^\mu_n, \bar{\alpha}^\mu_n$ are 
+\begin{align} \label{eq:ST:2}
+\pb[\alpha^\mu_m]{\alpha^\nu_n} &= -im \delta_{m,-n} \eta^{\mu\nu} = \pb[\bar{\alpha}^\mu_m]{\bar{\alpha}^\nu_n} \\
+\pb[\alpha^\mu_m]{\bar{\alpha}^\nu_n} &= 0
+\end{align}
+for $n,m\neq0$. If we define $\alpha^\mu_0=\bar{\alpha}^\mu_0 = \sqrt{\frac{\cst}{2}}p^\mu$, $\pb[x^\mu]{p_\nu}=\delta^\mu_\nu$
+Let's see why this might be reasonable. Set $\tau=0$ wlog. 
+\begin{align*}
+X^\mu(\sigma) &= x^\mu + i\sqrt{\frac{\cst}{2}} \sum_{n\neq0} \frac{1}{n} \left( \alpha^\mu_n e^{in\sigma} + \bar{\alpha}^\mu_n e^{-in\sigma} \right) \\ 
+P^\mu(\sigma^\prime) &= \frac{p^\mu}{2\pi} + \frac{1}{2\pi}\sqrt{\frac{1}{2\cst}} \sum_{m\neq0} \left( \alpha^\mu_n e^{in\sigma^\prime} + \bar{\alpha}^\mu_n e^{-im\sigma^\prime} \right)
+\end{align*}
+So 
+\[
+\pb[X^\mu(\sigma)]{P_\nu(\sigma^\prime)} = \frac{1}{2\pi} \pb[x^\mu]{p^\nu} - \frac{1}{4\pi} \sum_{n,m\neq0} \frac{1}{m} \left( \pb[\alpha^\mu_m]{\alpha^\nu_n} e^{i(m\sigma+n\sigma^\prime}+\pb[\bar{\alpha}^\mu_m]{\bar{\alpha}^\nu_n}e^{-i(m\sigma+n\sigma^\prime)} \right)
+\]
+using \ref{eq:ST:2} and also the periodic delta function 
+\[
+\delta(\sigma-\sigma^\prime)=\frac{1}{2\pi} \sum_{m=-\infty}^{m=\infty} e^{im(\sigma-\sigma^\prime)} \quad \text{("Dirac Comb")}
+\]
+one can show that 
+\[
+\pb[X^\mu(\sigma)]{P_\nu(\sigma^\prime)} = \eta^{\mu\nu} \delta(\sigma-\sigma^\prime)
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Wit Algebra}
+It will be useful to use light-cone coordinates
+\[
+\sigma^\pm=\tau\pm\sigma
+\]
+so 
+\[
+ds^2=-d\tau^2 + d\sigma^2 = (d\sigma^+, d\sigma^-)\begin{pmatrix} 0 & -\frac{1}{2} \\ -\frac{1}{2} & 0 \end{pmatrix} \begin{pmatrix} d\sigma^+ \\ d\sigma^- \end{pmatrix}
+\]
+Also $\del_\pm=\pd{\sigma^\pm}=\frac{1}{2}\left( \del_\tau \pm \del_\sigma \right)$. The action and e.o.m become 
+\[
+S[X] = -\frac{1}{2\pi\cst} \int_\Sigma d\sigma^+ d\sigma^- \del_+ X^\mu \del_- X_\mu
+\]
+\[
+\del_+ \del_- X^\mu =0
+\]
+The stress tensor becomes 
+\begin{align*}
+T_{++} &= -\frac{1}{\cst} \del_+ X^\mu \del_+ X_\mu \\
+T_{--} &= -\frac{1}{\cst} \del_- X^\mu \del_- X_\mu
+\end{align*} 
+$T_{+-}=0$ as this is nothing more than the trace of $T_{ab}$. We can also introduce modes for the stress tensor $l_m,\bar{l}_m$
+\begin{align*}
+    l_m &= -\frac{1}{2\pi} \in_0^{2\pi} d\sigma T_{--}e^{-im\sigma} \\
+    \bar{l}_m &= -\frac{1}{2\pi} \in_0^{2\pi} d\sigma T_{++}e^{im\sigma}
+\end{align*}
+Using the fact that 
+\[
+\del_- X^\mu = \sqrt{\frac{\cst}{2}} \sum_n \alpha^\mu_n e^{-in\sigma}
+\]
+where $\alpha^\mu_0 = \sqrt{\frac{\cst}{2}} p^\mu$.\\
+We shall see that $l_m, \bar{l}_m$ are conserved particles on the space $T_{ab}=0$. Using 
+\[
+\del_- X^\mu (\sigma) = \sqrt{\frac{\cst}{2}} \sum_n \alpha_n^\mu e^{-in\sigma}
+\]
+where $\alpha_0^\mu = \sqrt{\frac{\cst}{2}} p^\mu$. We fine $l_n$ in terms of the $\alpha)m^\mu$s.
+\begin{example}
+\eq{
+l_n &= \frac{1}{2\pi\cst} \int_0^{2\pi} d\sigma \del_- X \cdot \del_-X e^{in\sigma} \\
+&= \frac{1}{4\pi} \sum_{m,p} \alpha_m \cdot\alpha_p \int_0^{2\pi} d\sigma e^{i(m+p-n)\sigma} \\
+&= \frac{1}{4\pi} \sum_{m,p} \alpha_m \cdot\alpha_p 2\pi \delta_{m+p,n} \\
+&= \frac{1}{2} \sum_m \alpha_{n-m} \cdot \alpha_m 
+}
+Similarly 
+\[
+\bar{l}_n = \frac{1}{2} \sum_m \bar{\alpha}_{n-m} \cdot \bar{\alpha}_m 
+\]
+\end{example}
+Using these expressions and the Possion bracket relations it can be shown 
+\eq{
+\pb[l_m]{l_n} &= (m-n) l_{m+n} \\
+\pb[\bar{l}_m]{\bar{l}_n} &= (m-n) \bar{l}_{m+n} \\
+\pb[l_m]{\bar{l_n}} = 0
+}
+This is often called the \bam{Wit algebra}. Note $l_0, l_{\pm1},\bar{l}_0,\bar{l}_{\pm1}$ generate the algebra $\mf{sl}(2,\mbb{C})$. \\
+The Hamiltonian may be written as  
+\eq{
+H = \frac{1}{2\pi\cst} \int_0^{2\pi} d\sigma \left[ (\del_+ X)^2 + (\del_- X)^2 \right] &= \frac{1}{2} \sum_n (\alpha_{-n}\cdot\alpha_n + \bar{\alpha}_{-n}\cdot\bar{\alpha}_n \\
+&= l_0 + \bar{l_0}
+}
+Call the $l$ \bam{Virasoro generators}. \\
+
+On the contraint surface $l_n=0$, one can show that $\frac{dl_n}{d\tau}=\pb[H]{l_n}=-nl_n = 0$ on this surface.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Canonical Quantisation}
+
+Our classical theory takes the form of a Poisson bracket $\pb[X^\mu]{P_\nu}$ and a constraint $T_{ab}=0$. To quantise we could possibly 
+\begin{itemize}
+    \item Impose the constraint on our functions to get some brackets $\pb[q^\mu]{\pi_\nu}^\prime$ and quantise by $\pb[ ]{ }^\prime \to i\comm[ ]{ }$ giving a light cone Hilbert space $\mc{H}_{l.c.}$
+    \item Directly quantise $\pb[ ]{ } \to i\comm[ ]{ }$, leading to a quantum theory on which we then impose the constraint by $T_{ab}\ket{0}=0$ to get a Hilbert space $\mc{H}_Q$
+\end{itemize}
+The hope is that $\mc{H}_{l.c.} = \mc{H}_Q$ (and in fact is true, though not shown here). \\
+We start by replaicng the \emph{fundamental} Poisson bracket relations with canonical commutation relations 
+\[
+\pb[X^\mu]{P_\nu} \to -i\comm[X^\mu]{P_\nu}
+\]
+and similarly for the modes. We introduce the \bam{Virasoro operators} 
+\[
+L_n = \frac{1}{2} \sum_m \alpha_{n-m} \cdot \alpha_m \quad n\neq 0
+\]
+where we might distinguish the $L_n$ from the classical $l_n$. and we introduce a vacuum state $\ket{0}$
+\[
+\forall m\geq0 \; \alpha^\mu_m \ket{0} = 0 
+\]
+We think of $\alpha^\mu_n$ as annihilation operators for $n>0$ and creation operators for $n<0$. \\
+We notice an ambiguity in the definition of $L_0$ and $\bar{L}_0$. 
+\eq{
+L_0 = \frac{1}{2} \alpha_0^2 + \sum_{n>0} \alpha_{-n} \cdot \alpha_n
+}
+so the order of the $\alpha$ changes $L_0$ up to a constant. We define \bam{normal ordering} $::$ in the usual way and define composite operators using the ordering 
+\begin{example}
+\[
+T_{--}(\sigma^-) = -\frac{1}{\cst} : \del_- X^\mu \del_- X_\mu :
+\]
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Physical State Conditions}
+We define the number operator $N_n$ by 
+\[
+n N_n = \alpha_{-n} \cdot \alpha_n
+\]
+and the total number operators as 
+\eq{
+N &= \sum_n nN_n \\
+\bar{N} &= \sum_n n\bar{N}_n
+}
+The $L_0, \bar{L}_0$ may be written as 
+\eq{
+L_0 &= \frac{\cst}{4} p^2 + N \\
+\bar{L}_0 &= \frac{\cst}{4} p^2 + \bar{N}
+}
+We will impose the conditions 
+\eq{
+L_n \ket{\phi} &= 0 = \bar{L_n} \ket{\phi} & n>0 \\
+(L_0 - a) \ket{\phi} &= 0 = (\bar{L}_0-a)\ket{\phi} & a\in\mbb{R}
+}
+for $\ket{\phi}$ to be a physical state, where $a$ quantises the ambiguity in $L_0$. \\
+We shall see later that the theory is consistent only if $D=26, a=1$. From now on we shall assume $a=1$. \\
+It will be useful to define  
+\eq{
+L_0^\pm = L_0 \pm \bar{L}_0
+}
+and so we have
+\eq{
+(L_0^+-2)\ket{\phi} &= 0 \\
+L_0^- &= 0 \\
+L_n \ket{\phi} &= 0 = \bar{L_n} \ket{\phi}
+}
+Recall 
+\eq{
+L_0 &= \frac{\cst}{4} p^2 + N \\
+\bar{L}_0 &= \frac{\cst}{4} p^2 + \bar{N}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Spectrum}
+We shall look atthe lowest lying modes of the theory. 
+
+\subsubsection*{The Tachyon}
+The simplest state we can write down is the momentum eigenstate 
+\eq{
+\ket{k} = e^{ik\cdot x}\ket{0} \quad k_\mu \text{ some 4-vector}
+}
+and the action of the momentum $p_\mu$ is 
+\eq{
+p_\mu \ket{k} = k_\mu \ket{k}
+}
+We could also define a ket by a weighted sum of such states, 
+\eq{
+\ket{T} = \int d^D k \, T(k) \ket{k} 
+}
+where $T(k)$ is some function of the momentum space. The $L_0^-\ket{\phi} = 0$ condition imposes $N=\bar{N}$\footnote{This is called the "Level Matching" Condition. This is roughly the idea that the number of left and right moving operators must be the same, and this is the only condition that relates the two sides. You can think of this as the left and right sector agreeing on the mass of the state.}. Now 
+\eq{
+(L_0^+ - 2) T(k) \ket{k} = \left(\frac{\cst}{2}p^2 + N +\bar{N} -2 \right)T(k) \ket{k} 
+}
+In this case $N=\bar{N} = 0$
+\eq{
+\Rightarrow & \left( \frac{\cst}{2} k^2 -2 \right) T(k) = 0 \\
+\Rightarrow & (k^2 + m^2) T(k) = 0 
+}
+where 
+\eq{
+m^2 = -\frac{4}{\cst}
+}
+This is just a mass shell condition for the momentu, space field $T(k)$. We notice that the field $T(k)$ is \bam{Tachyonic} as it is \emph{spacelike}. 
+\eq{
+L_n \ket{T} = 0 = \bar{L}_n \ket{T} \quad \forall n>0
+}
+is satisfied trivially. 
+
+\subsubsection*{Massless states}
+Next we consider states ofthe form  
+\eq{
+\ket{\eps} = \eps_{\mu\nu}(k) \alpha_{-1}^\mu \bar{\alpha_{-1}^\nu} \ket{k}
+}
+Level matching is clearly satisfies and the condition $(L_0^+-2) \ket{\eps} = 0$ gives 
+\[
+m^2 = 0
+\]
+Trivially for $n>1$ $L_n\ket{\eps}=0$. However for $L_1$ 
+\eq{
+L_1 \ket{\eps} &= \frac{1}{2} \sum_n \alpha_{1-n} \cdot \alpha_n \eps_{\mu\nu}(k) \alpha_{-1}^\mu \bar{\alpha_{-1}^\nu} \ket{k} \\
+&= \eps_{\mu\nu}(k) \alpha_0 \cdot \alpha_1 \alpha_{-1}^\mu \bar{\alpha_{-1}^\nu} \ket{k} \\
+&= \highlight{\sqrt{\frac{2}{\cst}}} \eps_{\mu\nu}(k) k_\lambda \alpha_1^\lambda alpha_{-1}^\mu \bar{\alpha_{-1}^\nu} \ket{k} \\
+&= \highlight{\sqrt{\frac{2}{\cst}}} \eps_{\mu\nu}(k) k_\lambda \left( \comm[\alpha_1^\lambda]{\alpha_{-1}^\mu} + \alpha_{-1}^\mu \alpha_1^\lambda \right) \bar{\alpha}_{-1}^\nu \ket{k} \\
+&= \highlight{\sqrt{\frac{2}{\cst}}} \eps_{\mu\nu}(k) k_\lambda \eta^{\lambda\mu} \bar{\alpha}_{-1}^\nu \ket{k} =0 \\
+\Rightarrow \eps_{\mu\nu}(k) k^\mu = 0
+}
+Two states related by $\eps_{\mu\nu}(k) \to \eps_{\mu\nu}(k) + k_\mu \xi_
+nu$ are physically equivalent and
+\eq{
+\bar{L}_1 \ket{\eps} = 0 \Rightarrow k^\nu \eps_{\mu\nu}(k) = 0
+}
+It is useful to decompose $\eps_{\mu\nu}(k)$ as 
+\eq{
+\eps_{\mu\nu}(k) &= \tilde{g}_{\mu\nu}(k) + \tilde{B}_{\mu\nu}(k) + \eta_{\mu\nu} \tilde{\phi}(k)
+}
+where $\tilde{g}$ tracless and symmetric, $\tilde{B}$ antisymmetric. We find that $\tilde{g}_{\mu\nu}(\eps)$ is a momentum space metric perturbation 
+\eq{
+\tilde{g}_{\mu\nu}(k) \sim \tilde{g}_{\mu\nu}(k) + k_\mu \xi_\nu + \xi_\mu k_\nu
+}
+This is simply linearised diffeomorphism invariance. \\
+Also, the 'B field', which corresponds to the momentum spacetime field $B_{\mu\nu}=-B_{\nu\mu}$\footnote{"Kinda like a photon with an extra index".} where
+\eq{
+\tilde{B}_{\mu\nu}(k) \sim \tilde{g}_{\mu\nu}(k) + k_\mu \\lambda_\nu - \lambda_\mu k_\nu
+}
+In spacetime, this is a gauge invariance 
+\eq{
+B_{\mu\nu} \sim B_{\mu\nu} + \del_\mu \lambda_\nu - \del_\nu \lambda_\mu \quad \text{(gerbe)}
+}
+
+\subsubsection*{Massless Modes}
+Let 
+\eq{
+\ket{g} &= h_{\mu\nu} \alpha_{-1}^{(\mu} \bar{\alpha}_{-1}^{\nu)}\ket{k} \\
+\ket{B} &= B_{\mu\nu} \alpha_{-1}^{[\mu} \bar{\alpha}_{-1}^{\nu]}\ket{k} \\
+\ket{\phi} = \phi \alpha_{-1}^\mu \bar{\alpha}_{-1 \mu}\ket{k}
+}
+These are a graviton ($g_{\mu\nu} = \eta_{\mu\nu} + h_{\mu\nu}$), B field $B_{\mu\nu} = -B_{\nu\mu}$, and Dilaton respectively. \\
+One can show that these fields arise as a linear approximation to the theory described by the action
+\begin{align} \label{eq:ST:3}
+S = -\frac{1}{2k^2} \int d^D x \sqrt{-g} e^{-2\phi} \left( R - 4\del_\mu \phi \del^\mu \phi + \frac{1}{12} H_{\mu\nu\lambda}H^{\mu\nu\lambda}\right)
+\end{align}
+where $H_{\mu\nu\lambda}=\del_{[\mu}B_{\nu\lambda]}$.
+We could consider the more general starting point 
+\eq{
+S_1[X,h] = -\frac{1}{4\pi\cst} \int_\Sigma d^2\sigma \sqrt{-h} h^{ab} \del_a X^\mu \del_b X^\nu g_{\mu\nu}(X)
+}
+The quantum theory has Weyl symmetry if $g_{\mu\nu}$ satisfies 
+\eq{
+R_{\mu\nu}=0
+}
+to first order in $\cst$. Higher orders give corrections to this result to next order in $\cst$
+\eq{
+R_{\mu\nu} + \frac{\cst}{2} R_{\mu\rho\lambda\sigma}R\indices{_\nu^\rho^\lambda^\sigma}=0
+}
+We can also add another term 
+\eq{
+S_2[X,h] &= -\frac{1}{4\pi\cst} \int_\Sigma d^2\sigma \sqrt{-h} \eps^{ab} \del_a X^\mu \del_b X^\nu B_{\mu\nu} \\
+S_3 &= \frac{1}{4\pi\cst} \int_\Sigma d^2\sigma \sqrt{-h} \phi(x) R_2
+}
+where $R_2$ is the worldsheet Ricci scalar. The condition that the action 
+\eq{
+S = S_1 + S_2 + S_3
+}
+gives a Weyl-invariant quantum theory are what we might call equations of motion in spacetime for $g_{\mu\nu}, B_{\mu\nu}, \phi$. To leasing order in $\cst$ these equation of motion may be derived from the action \ref{eq:ST:3}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Path Integral Quantisation}
+Path integrals give us a conceptually different way to think about calculating transition amplitudes in QM and QFT. 
+\eq{
+\braket{x_f,t_f | x_i, t_i} = \int_{x(t_i)}^{x(t_f)} \mc{D}X e^{-iS[X]}
+}
+for 
+\eq{
+S[X] = \int_{t_i}^{t_f} dt L(X,\dot{X})
+}
+We will be interested in the path integral quantisation of the Polyakov action. 
+Given some initial and final string state $\Psi_{i,f}$ the path integral is  
+\eq{
+\braket{\Psi_f | \Psi_i} = \int_i^f \mc{D}X \mc{D}h e^{iS[X,h]}
+}
+a weighted sum over all possible worldsheets with fixed initial and final states. 
+We need to quotient out by the group of diffeomorphisms and weyl transformations. We would like to split the integral over all $h_{ab}$ into integrals over all physically inequivalent $h_{ab}$ and those related by gauge transform. 
+\eq{
+\mc{D} h = \mc{D} h_{phys} \times \mc{D} h_{Diff \times Weyl}
+}
+For an illustrative toy example, consider 
+\eq{
+\int dxdy e^{-(x^2+y^2)}
+}
+$x^2 + y^2$ is invariant underrotations about $(0,0)$, so we might be interested in the integral "modulo rotations". Then 
+\eq{
+\int dxdy e^{-(x^2+y^2)} = \int r dr d\theta e^{-r^2} = \underbrace{\int d\theta}_{=2\pi \text{ "volume of rotation group"}} \int dr re^{-r^2}
+}
+Here we needed the Jacobian $dxdy = rdrd\theta$. Hence we will take formally 
+\eq{
+\frac{1}{|Diff|\times|Weyl|} \int \mc{D}h \mc{D} X = \int \mc{D}h_{phys} \mc{D}X_{phys} \mc{J}  
+}
+where $\mc{J}$ is a functional determinant. In the same way we could write \eq{
+\sqrt{\frac{\pi}{\det M}} = \int_V dx e^{-(x,Mx)}
+}
+we will write $\mc{J}$ as a functional integral 
+\eq{
+\mc{J} = \int \mc{D}b \mc{D} c e^{-S[b,c]}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Global Properties of the Worldsheet}\footnote{A crash course on Riemann surfaces}
+We need to know more about what type of world sheets appear in the path integral. We have looked at 2-dimensional Riemannian manifolds $(\Sigma,h)$ modulo Weyl transformations $h_{ab}=e^{2w}h_{ab}$. These are called \bam{Riemann surfaces}\footnote{To read books and learn more about these than will be covered in the course, see Farkas + Kra and Donaldson}.
+
+\subsubsection*{Worldsheet Genus}
+For Riemann surfaces without boundary, the topological data is encoded in the \emph{Euler characteristic}
+\eq{
+\chi = \frac{1}{4\pi}\int_{\Sigma} d^2\sigma \sqrt{h} R(h)
+}
+In general there will be obstructions to globally bringing the metric to a required form.
+The genus is $g$ such that 
+\eq{
+\chi = 2-2g
+}
+$g$ is kind of like the number of holes in $\Sigma$. 
+
+\subsubsection*{Moduli space of Riemann surfaces}
+For a given genus $g$,  the space of metrics on $\Sigma_g$, modulo Weyl and Diffeomorphisms, is a finite dimensional space called the \bam{Moduli space} of $\Sigma_g$
+\eq{
+M_g = \faktor{\set{\text{metrics } h_{ab} }}{\set{Diff}\times\set{Weyl}}
+}
+A useful result is 
+\eq{
+s = |M_g| = \left\{ \begin{array}{lc} 0 & g=0 \\ 2 & g=1 \\ 6g-6 & g\geq 2 \end{array} \right.
+}
+$s$ is the real dimension of $\mc{M}_g$. 
+
+\begin{example}[Torus]
+Given a metric $\hat{h}_{ab}$ on a $g=0$ surface, we can bring any metrix to the form $e^{2w}\hat{h}_{ab}$. This is not so for a torus $(g=1)$. We can build a torus by imposing identifications on $\mbb{C}$
+\eq{
+z \sim z + n\lambda_1 + m\lambda_2 = (n,m) \begin{pmatrix} \lambda_1 \\ \lambda_2 \end{pmatrix}
+}
+$n,m \in \mbb{Z}$, $\tau = \frac{\lambda_1}{\lambda_2}\notin \mbb{R}$. One can show $\tau$ is diffeomorphism and Weyl invariant. We can then choose $\lambda_i$ s.t. $\Im \tau \geq 0$. Then 
+\eq{
+ds^2 = |dz^2 + \tau d\bar{z}|^2
+}
+If we change 
+\eq{
+\begin{pmatrix} \lambda_1 \\ \lambda_2 \end{pmatrix} \to U\begin{pmatrix} \lambda_1 \\ \lambda_2 \end{pmatrix} \\
+U = \begin{pmatrix} a & b \\ c & d \end{pmatrix} \quad ad-bc = 1
+}
+We can undo that change by also changing 
+\eq{
+(n,m) \to (n,m) U^{-1}
+}
+so for $(n,m)$ to be integers we require $a,b,c,d \in \mbb{Z}$, i.e $U\in SL(2,\mbb{Z})$. Our moduli space is the 
+\eq{
+M_1 = \faktor{UHP}{SL(2,\mbb{Z})}
+}
+\end{example}
+
+\subsubsection*{Conformal Killing Vectors}
+Conformal Killing Vectors (CKV) generate diffeomorphisms that preserve the metric up to a Weyl transformation. Our gauge tranformations are 
+\eq{
+\delta _v h_{ab} &= \nabla_a v_b + \nabla_b v_a \\
+\delta_w h_{ab} &= 2w h_{ab}
+}
+We are interested in $v^a$ such that 
+\eq{
+\delta_{CK} h_{ab} = \nabla_a v_b + \nabla_b v_a + 2w h_{ab}
+}
+Taking the trace 
+\eq{
+2(\nabla_a v^a) + 2w = 0 \Rightarrow w = -\frac{1}{2}(\nabla_a v^a)
+}
+so we say $v^a$ is Conformal Killing (CK) if 
+\eq{
+\delta h_{ab} = \nabla_a v_b + \nabla_b v_a - h_{ab} (\nabla_c v^c) = 0 
+}
+We define 
+\eq{
+(P(v))_{ab} = \nabla_a v_b + \nabla_b v_a - h_{ab} (\nabla_c v^c)
+}
+so $v^a$ a CKV if $v^a \in \ker P$ \\
+\newline
+For closed Riemann surfaces of genus $g$, the (real) dimension of the Conformal Killing Group (CKG) is 
+\eq{
+\kappa = |CKG| = \left\{ \begin{array}{cc} 6 & g=0 \\ 2 & g=1 \\ 0 & g \geq 2 \end{array} \right. 
+}
+On the sphere (i.e. $\mbb{C}\cup\set{\infty}$) the CKVs generate the transformations 
+\eq{
+z \to \frac{az+b}{cz+d} \quad \text{similarly for $\bar{z}$}
+}
+for $a,b,c,d \in \mbb{C}$, $ad-bc=1$. This a a Mobius map, and recall that these \emph{sharply three transitive}. We shall fix the conformal Killing symmetry by requiring that the $v^a$ vanish at three distinct points $\hat{\sigma}_i^a\in\Sigma$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Modular Groups}
+The diffeomorphism group on the Riemann surface $\Sigma_g$ is not connected. Let us call the conneceted component of diffeomorphisms that includes the identity $Diff_0$. 
+
+\begin{definition}[Modular Group]
+The \bam{modular group} is 
+\eq{
+\mc{M}_g = \faktor{Diff}{Diff_0}
+}
+\end{definition}
+
+\begin{example}
+\eq{
+\mc{M}_1 = SL(2;\mbb{Z})
+}
+\end{example}
+
+The moduli space may be written as 
+
+\eq{
+M_g &= \faktor{\set{\text{metrics } h_{ab} }}{\set{Diff}\times\set{Weyl}} \\
+&= \faktor{\left(\faktor{\set{\text{metrics } h_{ab} }}{\set{Diff_0}\times\set{Weyl}}\right)}{\mc{M}_g}
+}
+We often call the space
+\eq{
+\mc{T}_g = \faktor{\set{\text{metrics } h_{ab} }}{\set{Diff_0}\times\set{Weyl}}
+}
+the \bam{Teichmuller space}. Clearly 
+\eq{
+M_g = \faktor{\mc{T}_g}{\mc{M}_g}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Faddeev - Popov Determinant}
+The idea is to choose a 'gauge slice' through the space of metrics on $\Sigma_g$. We formally defines the \bam{Faddeev-Popov determinant} as 
+\eq{
+1=\Delta_{FP}(\hat{h}) \int_{{Diff}_0 \times Weyl} \mc{D}(\delta h) \underbrace{\delta[h-\hat{h}]}_{\text{delta functional}} \prod_i \delta(v(\hat{\delta}_i))
+}
+Where the $\hat{\sigma}_i^a$ are locations on $\Sigma_g$ where $v^a$ vanishes (to fix the CKG). In more detail, 
+\eq{
+1 = \Delta_{FP}(\hat{h}) = \int_{\mc{T}_g} d^s t \int \mc{D}w \mc{D}v \delta[h_{ab} - \hat{h}_{ab} \prod_i \delta (v(\hat{\delta}_i))
+}
+$t$ coordinates on the Teichmuller space. We will write the delta functions and delta functionals as integrals and functional integrals. Let us introduce numbers $\xi_a^i$ and fields $\beta^{ab}(\sigma,\tau)$ 
+\eq{
+1 = \Delta_{FP}(\hat{h}) \int_{\mc{T}_g} d^s t \int \mc{D}v \, \mc{D}\omega \, d^\kappa \xi_a^i \,  \mc{D}\beta \,  \exp\left[i(\beta|h-\hat{h}) + i \sum_i \xi_a^i v^a (\hat{\sigma}_i) \right] \\
+(\beta| h-\hat{h}) = \int_\Sigma d^2 \sigma \sqrt{|h|} \beta^{ab} (h_{ab} - \hat{h}_{ab})
+}
+we can write $h_{ab} - \hat{h}_{ab} = \delta h_{ab}$ as 
+\eq{
+\delta h_{ab} &= \underbrace{\nabla_a v_b + \nabla_b v_a}_{Diff} + \underbrace{2\omega h_{ab}}_{Weyl} + \underbrace{t^2 \del_I h_{ab}}_{Moduli} \\
+&= (Pv)_{ab} + 2(\omega+ \nabla_c v^c)h_{ab} + t^2 \del_I h_{ab} \\
+&= (Pv)_{ab} + 2\bar{\omega}h_{ab} + t^2 \mu_{I,ab}
+}
+where 
+\begin{itemize}
+    \item $(Pv)_{ab}$ as before 
+    \item $\mu_{I,ab} = \del_I h_{ab} - \text{trace}$
+    \item $\bar{\omega}$ contains the residual trace terms. 
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Grassmann Quantities}
+These are quantities $\theta$ such that 
+\eq{
+\theta_1 \theta_2 = - \theta_2 \theta_1
+}
+Defining the anticommutator we get this as 
+\eq{
+\acomm[\theta_1]{\theta_2} = \theta_1 \theta_2 + \theta_2 \theta_1 = 0
+}
+Objects that obey Fermi statistics are naturally described by Grassmann numbers. This can be seen as 
+\eq{
+\theta^2 = - \theta^2 \Rightarrow \theta^2 = 0 
+}
+and likewise for measures 
+\eq{
+\acomm[d\theta_1]{d\theta_2} = 0 
+}
+One can then show that 
+\eq{
+\int d\theta &= 0 \\
+\int \theta d\theta &= 1
+}
+The Dirac delta function for Grassmann quantities is then  
+\eq{
+\delta(\theta) = \theta
+}
+We find that integration and differentiation of Grassmann quantities is essentially the same thing. Taylor expansions are easy 
+\eq{
+f(x,\theta) = f_0(x) + \theta f_1(x) \\
+\Rightarrow \int d\theta f(x,\theta) = f_1(x) = \pd{\theta} f(x,\theta) 
+}
+
+\begin{example}
+Let 
+\eq{
+\theta^a = \begin{pmatrix} \theta_1 \\ \theta_2 \end{pmatrix} \\
+\bar{\theta}^a = (\bar{\theta}_1, \bar{\theta}_2 ) 
+}
+independent, and consider 
+\eq{
+\int d^2 \theta d^2 \bar{\theta} \exp(-\bar{\theta}^a M_{ab} \theta^b ) 
+}
+where $M$ is a $2\times2$ matrix independent of $\theta,\bar{\theta}$. Then 
+\eq{
+\int d^2 \theta d^2 \bar{\theta} \exp(-\theta^a M_{ab} \theta^b ) &= \frac{\del^4}{\del\theta_1 \del\theta_2 \del\bar{\theta}_1 \del\bar{\theta}_2} \left\lbrace  (\bar{\theta}_1 M_{11}\theta_1)(\bar{\theta}_2 M_{22}\theta_2) + (\bar{\theta}_1 M_{12}\theta_2)(\bar{\theta}_2 M_{21}\theta_1)  \right\rbrace
+ \\
+ &= (M_{11}M_{22}-M_{12}M_{21}) = \det M_{ab}
+}
+\end{example}
+
+This generalises 
+\eq{
+\int d^n \theta d^n \bar{\theta} \exp(-\theta^a M_{ab} \theta^b ) = \det M_{ab}
+}
+compare this to $z, \bar{z}$ real, where 
+\eq{
+\int d^2 z d^2 \bar{z} \exp(-\bar{z} M z ) = \frac{1}{\det M_{ab}}
+}
+The effect of inverting the determinant when we replace commuting with Grassmann variables carries over to the functional case. 
+
+In our expression for $\Delta_{FP}^{-1}$ we replace 
+\eq{
+v^a &\to c^a \\
+\beta^{ab} &\to b^{ab} \\
+t^a &\to \xi^a \\
+\zeta^i_a &\to \eta^i_a
+}
+and so 
+\eq{
+\Delta_{FP}(\hat{h}) = \int d^s \xi \int \mc{D}c \, \mc{D}b \, d^k \eta \exp \left( i(b|Pc + \xi^I\mu_I ) + i \sum_{i=1}^k \eta_a^i c^a(\hat{\sigma}_i) \right) 
+}
+\subsubsection*{Where is w}
+\eq{
+\Delta_{FP}(\hat{h})^{-1} &\sim \int \mc{D}\omega \, \exp \left\lbrace i(\beta|2\bar{\omega}h) \right\rbrace \\
+&= \int \mc{D}\bar{\omega} \exp \left( i\int_\Sigma d^2\sigma \sqrt{h} \beta^{ab} 2\bar{\omega}h_{ab} \right) 
+}
+We can do this integral and it constraints $\beta^{ab} h_{ab} = 0 \Rightarrow \beta$ traceless. 
+
+We can do the $\eta^i_a$ and the $\xi^I$ integrals 
+\eq{
+\Delta_{FP}(\hat{h}) &= \int \mc{D}c \, \mc{D}b \, e^{i(b|Pc)} \prod_{I=1}^s \delta[(b|\mu_I)] \prod_{i=1}^k \delta(c^a(\hat{\sigma}_i)) \\
+&= \int \mc{D}c \, \mc{D}b \, e^{i(b|Pc)}\prod_{I=1}^s (b|\mu_I) \prod_{i=1}^k c^a(\hat{\sigma}_i) 
+}
+as the variables are Grassmann. Finally we have 
+\eq{
+\Delta_{FP}(\hat{h}) &= \int \mc{D}c \, \mc{D}b \, e^{iS[b,c]} \prod_{I=1}^s (b|\mu_I) \prod_{i=1, a=1,2}^k c^a(\hat{\sigma}_i) 
+}
+where 
+\eq{
+S[b,c] = \int_\Sigma \sqrt{\hat{h}} b^{ab}(Pc)_{ab} = 2 \int_\Sigma \sqrt{\hat{h}} b^{ab} \nabla_a c_b 
+}
+\\
+$c^a$ and $b_{ab}$ are Grassmann fields that obey Fermi statistics, but they also have integer spin. They are not observables, and so we call them \bam{Faddeev-Popov ghosts}
+
+Now 
+\eq{
+Z = \frac{1}{|Diff|\times |Weyl|} \int \mc{D}X \, e^{iS[X,\hat{h}]} \int_{\mc{T}_g} d^s t \int \mc{D} \bar{\omega} \, \mc{D}v \, \prod_{i,a} \delta (v^a (\hat{\sigma}_i)) \Delta_{FP}(\hat{h})
+}
+Notice that 
+\eq{
+|Weyl| \times \frac{|Diff_0|}{|CKG|} = \int \mc{D} \bar{\omega} \, \mc{D}v \, \prod_{i,a} \delta (v^a (\hat{\sigma}_i))
+}
+and 
+\eq{
+\frac{1}{|Diff|\times |Weyl|}  |Weyl| \times \frac{|Diff_0|}{|CKG|} = \frac{1}{|\mc{M}_g| \times |CKG|}
+}
+so 
+\eq{
+Z = \frac{1}{|\mc{M}_g| \times |CKG|} \int_{\mc{T}_g} d^s t \int \mc{D}X \, e^{iS[X,\hat{h}]} \Delta_{FP}(\hat{h})
+}
+Now we can take 
+\eq{
+\frac{1}{|\mc{M}_g|} \int_{\mc{T}_g} d^s t = \int_{\faktor{\mc{T}_g}{\mc{M}_g}} d^s t = \int_{M_g} d^s t 
+}
+giving finally 
+\eq{
+Z = \frac{1}{|CKG|}\int_{M_g} d^s t \int \mc{D}X \, \mc{D}b \, \mc{D}c \,  e^{iS[\hat{h},X,b,c]} \prod_{I=1}^s (b | \mu_I) \prod_{i,a} c^a(\hat{\sigma}_i)
+}
+where $(b| \mu_I) = \int_\Sigma d^2 \sigma \, \sqrt{|h|}b^{ab}(\mu_I)_{ab}$ and $(\mu_I)_{ab} = \del_I h_{ab} - \text{trace}$. WE shall choose to define $b,c$ such that 
+\eq{
+S[\hat{h},X,b,c] = -\frac{1}{4\pi \cst} \int_\Sigma d^2\sigma \, \sqrt{|\hat{h}|} \hat{h}^{ab} \del_a X^\mu \del_b X^\nu \eta_{\mu\nu} + \frac{1}{2\pi} \int_\Sigma d^2\sigma \, \sqrt{|\hat{h}|} b^{ab}\nabla_a c_b
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction to Conformal Field Theory (CFT)}
+
+We are interested in theories that are invariant under Weyl transformations. We can ask what the natural generalisation of the Poincare group that preserves a metric $\eta_{\mu\nu}$ up to Weyl transformation is. \\
+In general dimension $d>1$ we are interested in transformations such that 
+\eq{
+\eta_{\rho\sigma} \pd[{x^\prime}^\rho]{x^\mu}\pd[{x^\prime}^\sigma]{x^\nu} = \Lambda(x) \eta_{\mu\nu}
+}
+where, infinitesimally, $x^\mu \to {x^\prime}^\mu = x^\mu + v^\mu(x)+\dots$. We find that, if $\Lambda(x) = e^{\omega(x)}$, then 
+\eq{
+\omega(x) = \frac{2}{d} \del_\mu v^\mu(x)
+}
+so $v(x)$ satisfies 
+\begin{align}\label{eq:ST:4}
+\del_\mu v_\nu + \del_\nu v_\mu = \frac{2}{d} \eta_{\mu\nu} \del_\lambda v^\lambda 
+\end{align}
+$v$ then generates a conformal transform. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{2 dimensions}
+Let us take our metric to be conformally equivalent to 
+\eq{
+h_{ab} = \begin{pmatrix}
+1 & 0 \\ 0 & 1
+\end{pmatrix}
+}
+up to a conformal factor\footnote{Note we have performed a Wick rotation $\tau \to i\tau$ to move to Euclidean space}. We have $x^\mu \to \sigma^a=(\tau,\sigma)$, so  \ref{eq:ST:4} becomes 
+\eq{
+2 \del_\tau v_\tau = \del_\tau v_\tau + \del_\sigma v_\sigma \Rightarrow \del_\tau v_\tau = \del_\sigma v_\sigma
+}
+ands 
+\eq{
+\del_\sigma v_\tau + \del_\sigma v_\tau = 0 
+}
+Hence
+\eq{
+ \pd[v_\tau]{\tau} &= \pd[v_\sigma]{\sigma} \\
+ \pd[v_\tau]{\sigma} &= -\pd[v_\tau]{\sigma}
+}
+These are the Cauchy-Riemann equations for a complex function $v = v^\tau + i v^\sigma$. In $d=2$ the condition on $v$ given by \ref{eq:ST:4} is thus that $v$ is holomorphic i.e 
+\eq{
+\bar{\del} v = \pd[v]{\bar{z}} = 0
+}
+where $z=\tau+i\sigma$, $\bar{z}=\tau-i\sigma$. All holomorphic functions preserve our metricup to Weyl transformations, hence a bettwe choise is 
+\eq{
+z &= e^{\tau+i\sigma} \\
+\bar{z} &= e^{\tau-i\sigma}
+}
+In these new coordinates we find 
+\eq{
+S = - \frac{1}{4\pi \cst} \int_\Sigma d^2\sigma \, \del_a X^\mu \del^a X^\nu \eta_{\mu\nu} = \frac{i}{2\pi \cst} \int_\Sigma d^2z \, \del X^\mu \bar{\del}X6\nu \eta_{\mu\nu}
+}
+The stresss tensor $T_{ab}$ has 2 non trivial components 
+\eq{
+T_{zz} &= T = -\frac{1}{\cst} \del X^\mu \del X^\nu \eta_{\mu\nu} \\
+T_{\bar{z}\bar{z}} = \bar{T} = -\frac{1}{\cst} \bar{\del} X^\mu \bar{\del} X^\nu \eta_{\mu\nu} \\
+T_{z\bar{z}} &= 0 = T_{\bar{z}z}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Conformal Fields}
+
+\begin{definition}[Chiral Fields]
+A \bam{chiral field} is a field $\Phi$ that depends on $z$ only, i.e. $\Phi=\Phi(z)$. An \bam{antichiral fields} is $\Phi = \Phi(\bar{z})$. 
+\end{definition}
+
+\begin{definition}[Conformal Dimension]
+Consider the scaling
+\eq{
+z \to \lambda z \\
+\bar{z} \to \bar{\lambda} \bar{z} \\
+}
+for $\lambda \in \mbb{C}^\ast $. If $\Phi$ transforms as 
+\eq{
+\Phi(z,\bar{z}) \to \Phi^\prime (z^\prime, \bar{z}^\prime) = \lambda^h \bar{\lambda}^{\bar{h}} \Phi(\lambda z, \bar{\lambda}\bar{z})
+}
+then $h$ and $\bar{h}$ are called the \bam{conformal dimension} of $\Phi$.\footnote{Sometime $h+\bar{h}$ is called the dimension and $h-\bar{h}$ the conformal spin.}
+\end{definition}
+
+\begin{definition}[Primary Fields]
+Under the conformal transform $z \to z^\prime = f(z)$, a \bam{primary field} with dimension $(h,\bar{h})$ transforms as 
+\eq{
+\Phi(z,z^\prime) = \left( \pd[f]{z} \right)^h \left( \pd[\bar{f}]{\bar{z}} \right)^{\bar{h}} \Phi(f(z),\bar{f}(\bar{z}))
+}
+\end{definition}
+
+\begin{example}
+Consider an infinitesimal transform 
+\eq{
+z \to z^\prime = z + v(z) + \dots = f(z) 
+}
+so 
+\eq{
+\left( \pd[f]{z} \right)^h &\approx (1 + \del v)^h \\
+\Phi(f(z)) &= \Phi(z) + v(z) \del \Phi(z) + \dots 
+}
+So a field with $(h,\bar{h}) = (h,0)$ has 
+\eq{
+\delta \Phi(z) = (h \del v(z) + v(z) \del ) \Phi(z) 
+}
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Symmetries and the Stress Tensor}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Classical Theory}
+Let us start with the action 
+\eq{
+S[X] = -\frac{1}{4\pi\cst} \int_\Sigma d^2 \tau \, \del_a X^\mu \del^a X^\nu \eta_{\mu\nu} \quad \text{for fixed } h_{ab} = \delta_{ab}
+}
+\eq{
+\left( \Rightarrow e^{iS} \underbrace{\to}_{(z,\bar{z})} e^{-S} \right) 
+}
+Consider the transformation 
+\eq{
+\delta_v X^\mu &= v^a \del_a X^\mu \quad \text{(Conformal transformation)} \\
+\delta_v S[X] &= -\frac{1}{2\pi \cst} \int_\Sigma d^2 z \, \left( (\del_a v^b) \del_b X^\mu \del^a X_\mu + v^b \del_a(\del_b X^\mu) \del^a X_\mu \right) \\ 
+&= \frac{1}{2\pi} \int_\Sigma d^2z \, (\del^a v^b) T_{ab}
+}
+so $\delta S = 0$ requires 
+\eq{
+\delta^a T_{ab} = 0 \quad \text{(Noether's Theorem)}
+}
+We could define a conserved charge 
+\eq{
+Q = Q_+ + Q_- \\
+Q_\pm = \frac{1}{2\pi } \int_0^{2\pi} d\sigma \, T_{\pm\pm}(\sigma) \text{ at } \tau=0
+}
+Classically, they symmetry transformations are generated by Q: 
+\eq{
+\delta X^\mu = \pb[Q]{X^\mu}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Conformal Transformations and Ward Identities}
+We stay in $d=2$, but we shall work with general field $\phi(x,\bar{z})$. We will be interested in the quantum analogue of Noether's theorem. Consider a change 
+\eq{
+\phi \to \phi^\prime = \phi + \delta \phi \\
+S[\phi^\prime ] = S[\phi] + \delta S[\phi]
+}
+Let us consider the correlation function\footnote{Symmetries in quantum theories should preserve the answer to sensible question we can ask, i.e. those involving correlation functions}.
+\eq{
+\braket{\phi_1(z_1) \dots \phi_n(z_n) } \quad \text{(the $\bar{z}_i$ dependence is left explicity )} \\
+=\braket{\phi_1 \dots \phi_n} \quad \text{(notationally)}
+}
+Under the transformation 
+\eq{
+\braket{\phi_1 \dots \phi_n} &\to \braket{\phi_1^\prime \dots \phi_n^\prime} \\
+&= \int \mc{D}\phi^\prime \, e^{-S[\phi^\prime]} \phi_1^\prime \dots \phi_n^\prime
+}
+Assume that $\mc{D} \phi = \mc{D} \phi^\prime$ so 
+\eq{
+ &= \int \mc{D} \phi \, e^{-S[\phi]} (1 - \delta S[\phi] + \dots)(\phi_1 + \delta \phi_1+\dots)\cdots(\phi_n + \delta \phi_n+\dots) \\
+ &= \braket{\phi_1 \dots \phi_n} - \int \mc{D}\phi \, e^{-S[\phi]} \delta S[\phi] \phi_1 \dots \phi_n + \sum_{k=1}^n \int \mc{D} \, e^{-S[\phi]} \phi_1 \dots \delta \phi_k \dots \phi_n
+}
+we require $\braket{\phi_1 \dots \phi_n} = \braket{\phi_1^\prime \dots \phi_n^\prime}$. Then 
+\eq{
+\braket{\delta S[\phi] \phi_1 \dots \phi_n } = \sum_{k=1}^n \braket{\phi_1 \dots \delta \phi_k \dots \phi_n}
+}
+We shall write $\delta S$ as 
+\eq{
+\delta S[\phi] = \frac{1}{2\pi i} \int_\Sigma d^2 z \, (\del_a v(z) ) j^a (z)
+}
+with $v$ the parameter of the transform and $j$ the classical Noether current. Then 
+\eq{
+\frac{1}{2\pi i } \int_\Sigma d^2 z \, \del_a v(z) \braket{j^a(z) \phi_1 \dots \phi_n} = \sum_{k=1}^n \braket{\phi_1 \dots \delta \phi_k \dots \phi_n}
+}
+We choose\footnote{\hl{Why are we able to do this?}} $\Sigma$ and $v(z)$ such that we are able to isolate a particular $\delta \phi_k$. We define $\omega = z_i $, i.e. $\phi_k(z_k) = \phi(\omega)$, and two curves $C_1, C_2$ such that $\del \Sigma = C_1 \cup C_2$. We choose $v(z)$ to be constant within $C_1$, 0 outside of $C_2$, and arbitrary in $\Sigma$. (Assume also sufficient continuity at the boundary and in the regions etc.) We also require that $C_1, C_2$ encircle $\omega=z_k$ only, so they lie in the region $v=0$. Hence 
+\eq{
+\forall j\neq k \; \delta \phi_j &= 0 \\
+\Rightarrow \frac{1}{2\pi i} \int_\Sigma d^2 z \, \del_a v(z) \braket{j^a(z) \phi_1 \dots \phi_n} &= \braket{\phi_1 \dots \delta \phi(\omega) \dots \phi_n}
+}
+so 
+\eq{
+\frac{1}{2\pi} \int_\Sigma d^2 \sigma \, (\del^a v^b) \braket{T_{ab} \phi_1 \dots \phi_n} = \braket{\phi_1 \dots \delta_v \phi(\omega,\bar{\omega}) \dots \phi_n}
+}
+letting 
+\eq{
+v^z(z,\bar{z}) &= v(z) \\
+v^{\bar{z}}(z,\bar{z}) &= \bar{v}(\bar{z})
+}
+Integrate by parts so 
+\eq{
+\frac{1}{2\pi} \int_\Sigma d^2 \sigma \, (\del^a v^b) \braket{T_{ab} \phi_1 \dots \phi_n} = \frac{1}{2\pi} \int_\Sigma d^2 \sigma \, \del^a \left( v^b \braket{T_{ab} \phi_1 \dots \phi_n} \right) - \frac{1}{2\pi} \int_\Sigma d^2 \sigma \, v^b \del^a \braket{T_{ab} \phi_1 \dots \phi_n}
+}
+It is useful to write the surface term in $(z,\bar{z})$ coordinates. 
+\eq{
+&= \frac{1}{2\pi i} \oint_{C_1} dz \, v(z) \braket{T_{zz} \phi_1 \dots \phi_n} - \frac{1}{2\pi i} \oint_{C_1} d\bar{z} \, \bar{v}(z) \braket{T_{\bar{z}\bar{z}} \phi_1 \dots \phi_n} - \frac{1}{2\pi}\int_\Sigma d^2 \sigma \, v^b \del^a \braket{T_{ab} \phi_1 \dots \phi_n} \\
+&= \braket{\phi_1 \dots \delta_v \phi_k \dots \phi_n}
+}
+writing $T(z) = T_{zz}(z,\bar{z})$ and $\bar{T}(\bar{z}) = T_{\bar{z}\bar{z}}(z,\bar{z})$. We see that 
+\eq{
+\del^a \braket{T_{ab} \phi_1 \dots \phi_n } = 0
+}
+leaving 
+\eq{
+\braket{\phi_1 \dots \delta_v \phi(\omega,\bar{\omega})} = \oint_{C_1} \frac{dz}{2\pi i} v(z) \braket{ T(z) \phi_1 \dots \phi(\omega,\bar{\omega}) \dots \phi_n} - \oint_{C_1} \frac{d\bar{z}}{2\pi i} \bar{v}(\bar{z}) \braket{ \bar{T}(\bar{z}) \phi_1 \dots \phi(\omega,\bar{\omega}) \dots \phi_n}
+}
+abstractly 
+\eq{
+\delta_v \phi(\omega,\bar{\omega}) = \oint_{C(\omega)} \frac{dz}{2\pi i} v(z) T(z) \phi(\omega,\bar{\omega}) - \oint_{C(\omega)} \frac{d\bar{z}}{2\pi i} \bar{v}(\bar{z}) \bar{T}(\bar{z}) \phi(\omega,\bar{\omega})
+}
+We will always think of this as being inserted into a correlation function. 
+note \begin{itemize}
+    \item We need to take care to define the ordering of operators in this expression. 
+ \item $T,\bar{T}$ generate holomorphic and antiholomorphic conformal transformations respectively.
+ \item The poles in $T\phi$ govern the conformal transform as it is a contour integral in the $\mbb{C}$ plane 
+\end{itemize}
+If we are interested in $\braket{\delta \phi_1 \dots \delta \phi_k \phi_{k+1} \dots \phi_n }$ we could choose A contour enclosing $k$ poles at $z_1 , \dots, z_k$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Radial Ordering}
+Recall 
+\eq{
+z = e^{\tau + i\sigma} = e^\tau e^{i\sigma}
+}
+Hence $|z| = e^\tau$ and time ordering on the cylinder corresponds to radial ordering on $\mbb{C}$. Hence we are interested in radially ordered correlation functions 
+\begin{definition}[Radial Ordering]
+\eq{
+\mc{R} (A(z)B(\omega)) = \left\{ \begin{array}{cc} A(z)B(\omega) & |z| > |\omega| \\ B(\omega)A(z) & |z| < |\omega| \end{array} \right.
+}
+\end{definition}
+We now ask how we radially order 
+\eq{
+\oint_{C(\omega)} \mc{R} (A(z)B(\omega)) \, dz
+}
+We think of $C(\omega)$ as the sum of a circle with $|z| > |\omega|$ $C_1$ and a circle with $|z| < |\omega|$ $C_2$. Then 
+\eq{
+\oint_{C(\omega)} \mc{R} (A(z)B(\omega)) \, dz  &= \oint_{C_1} \mc{R} (A(z)B(\omega)) \, dz \highlight{-} \oint_{C_2} \mc{R} (A(z)B(\omega)) \, dz \\
+&= \oint_{C_1} A(z)B(\omega) \, dz \highlight{-} \oint_{C_2} B(\omega)A(z)
+}
+So our expression for $\delta_v \phi(\omega,\bar{\omega})$ is 
+\eq{
+\delta_v \phi(\omega) = \oint_{|\omega| < |z|} \frac{dz}{2\pi i} v(zz) T(z) \phi(\omega) - \oint_{|\omega| > |z|} \frac{dz}{2\pi i} \phi(\omega) v(z) T(z) 
+}
+for a chiral field. If we define 
+\eq{
+Q = \oint_{C(\omega)} \frac{dz}{2\pi i} v(z) T(z) 
+}
+Then we could define a bracket $\comm[]{}$ as 
+\eq{
+\delta_v \phi(\omega) = \comm[Q]{\phi(\omega)}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Mode Expansions}
+Recall we havd the exapnsion in $\sigma,\tau$ 
+\eq{
+X^\mu(\sigma^\pm) &= x^\mu +p^\mu \cst \tau +  i\sqrt{\frac{\cst}{2}} \sum_{n\neq0} \frac{1}{n} \left( \alpha^\mu_n e^{in\sigma^-} + \bar{\alpha}^\mu_n e^{-in\sigma^+} \right)
+}
+and 
+\eq{
+\del_- X^\mu(\sigma^-) = \sqrt{\frac{\cst}{2}} \sum_{n}  \alpha^\mu_n e^{-in\sigma^-}
+}
+We could look at the same object for a worldesheet with Euclidean signature $\omega = \tau + i \sigma $
+\eq{
+\del_\omega X^\mu (\omega) = -i \sqrt{\frac{\cst}{2}} \sum_{n}  \alpha^\mu_n e^{-n\omega}
+}
+We want to consider the theory on $\mbb{C}^\ast = \mbb{C} \cup \set{\infty}$ with coordinates $z = e^\omega$. \\
+Consider a chiral primary $\phi_{cyl}(\omega)$ of weighted $(h,\bar{H}) = (h,0)$ defined on the cylinder. We expand 
+\eq{
+\phi_{cyl}(\omega) = \sum_n \phi_n e^{-n\omega}
+}
+On the plane 
+\eq{
+\phi(z) &= \left( \pd[\tau]{\omega} \right)^{-h} \phi_{cyl}(\omega) \\
+&= z^{-h} \phi_{cyl}(\omega) \\
+&= z^{-h} \sum_n \phi_n z^{-n}
+}
+So a natural mode expansion for $\phi(z)$ is 
+\eq{
+\phi(z) = \sum_n \phi_n z^{-n-h}. 
+}
+More generally, for a field of weight $(h,\bar{h})$
+\eq{
+\phi(z,\bar{z}) = \sum_{m,n} \phi_{mn} z^{-m-h} \bar{z}^{-n-\bar{h}}
+}
+
+\begin{example}
+$T(z)$ and $\bar{T}(\bar{z})$ have $(h,\bar{h}) = (2,0), (0,2)$ respectively, so 
+\eq{
+T(z) &= \sum_n L_n z^{-n-2} \\
+\bar{T}(\bar{z}) &= \sum_n \bar{L}_n \bar{z}^{-n-2}
+}
+\end{example}
+
+Also 
+\eq{
+\del X^\mu (z) = -i \sqrt{\frac{\cst}{2}} \sum_n \alpha_n^\mu z^{-n-1}
+}
+where 
+\eq{
+X^\mu(z,\bar{z}) = x^\mu -i\frac{\cst}{2} p^\mu \log |z|^2 + i \sqrt{\frac{\cst}{2}} \sum_{n\neq0} \frac{1}{n} \left( \alpha_n^\mu z^{-n} + \bar{\alpha}_n^\mu \bar{z}^{-n} \right)
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{States and Operators}
+For a given physical operator $\Phi(z)$ there is a physical state $\ket{\Phi}$ given by 
+\eq{
+\ket{\Phi} = \lim_{z\to0}\Phi(z) \ket{0}
+}
+Consider 
+\eq{
+i \sqrt{\frac{2}{\cst}} \del X^\mu(z) \ket{0} = ( \dots + i \alpha_{-2}^mu z + \alpha_{-1}^\mu + \frac{\alpha_0^\mu}{z} + \dots ) \ket{0}
+}
+For this to make sense in the limit, we at least require 
+\eq{
+\forall n \geq 0 \; \alpha_n^\mu \ket{0} = 0 
+}
+and then 
+\eq{
+\lim_{z=0} i \sqrt{\frac{2}{\cst}} \del X^\mu(z) \ket{0} = \alpha_{-1}^\mu \ket{0} 
+}. 
+A more interesting example is 
+\eq{
+\lim_{z\to0, \bar{z}\to0} - \frac{2}{\cst} h_{\mu\nu} \del X^\mu(z) \bar{\del} X^\nu(\bar{z}) e^{ik\cdot X(z,\bar{z})} \ket{0}
+}
+where $k_\mu$ is a momentum vector in spacetime and $h_{\mu\nu}=h_{\nu\mu}$ is a spacetime sector. In the limit we get 
+\eq{
+h_{\mu\nu} \alpha_{-1}^\mu \bar{\alpha}_{-1}^\nu \ket{k} \quad \text{graviton state}
+}
+Note that for a field of weight $(h,\bar{h})$ we require 
+\eq{
+\forall n > -h \; \phi_n \ket{0} = 0 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Normal and Radial Ordering}
+
+We shall focus on the chiral field 
+\eq{
+j^\mu(z) = \del X^\mu(z) = -i \sqrt{\frac{\cst}{2}} \sum_n \alpha_n^\mu z^{-n-1}
+}
+Split $j^\mu$ into creation and annihilation parts 
+\eq{
+j_+^\mu(z) &= -i \sqrt{\frac{\cst}{2}} \sum_{n>0} \alpha_n^\mu z^{-n-1} \\
+j_-^\mu(z) &= -i \sqrt{\frac{\cst}{2}} \sum_{n\geq0} \alpha_{-n}^\mu z^{-n-1} 
+}
+Then $j^\mu = j_+^\mu + J_-^\mu$. Normal ordering 
+\eq{
+: j^\mu(z) j^\nu(w) : &= j_+^\mu(z) j_+^\nu(w) + j_-^\mu(z) j_+^\nu(w) + j_-^\nu(w) j_+^\mu(z) + j_-^\mu(z) j_-^\nu(w) \\
+&= j^\mu(z) j^\nu(w) + \comm[j_-^\nu(w)]{j_+^\mu(z)}
+}
+We may evaluate the commutator to be 
+\eq{
+\comm[j_-^\nu(w)]{j_+^\mu(z)} = -\frac{\cst}{2} \frac{\eta^{\mu\nu}}{(z-w)^2}
+}
+We required $|z| > |w|$ for the series expansions to converge. Hence we find that 
+\eq{
+\mc{R}(j^\mu(z) j^\nu(w) ) = :j^\mu(z) j^\nu(w):  \highlight{-} \frac{\cst}{2} \frac{\eta^{\mu\nu}}{(z-w)^2}
+}
+As in QFT, it is useful to introduce contraction notation 
+\eq{
+\overbracket[0.5pt]{j^\mu(z) j^\nu(w)} = -\frac{\cst}{2} \frac{\eta^{\mu\nu}}{(z-w)^2}
+}
+This is a \emph{Green's function} on $\Sigma$. Up to arbitrary functions of $z$ and $\bar{z}$ we integrate to find 
+\eq{
+\overbracket[0.5pt]{X^\mu(z)X^\nu(w)} = -\frac{\cst}{2} \log(z-w)
+}
+Writing 
+\eq{
+X^\mu(z,\bar{z}) = X^\mu(z) + \bar{Z}^\mu(\bar{z})
+}
+we can also show 
+\eq{
+\overbracket[0.5pt]{\bar{X}^\mu(\bar{z}) \bar{X}^\nu(\bar{w})} &= -\frac{\cst}{2} \log(\bar{z}-\bar{w}) \\
+\overbracket[0.5pt]{X^\mu(z) \bar{X}^\nu(\bar{w})} &= 0 
+}
+so we find 
+\begin{align}
+\overbracket[0.5pt]{X^\mu(z,\bar{z})X^\nu(w,\bar{w})} &= \left( -\frac{\cst}{2} \log(z-w) - \frac{\cst}{2} \log(\bar{z}-\bar{w} ) \right) \eta^{\mu\nu} \\
+&= -\frac{\cst}{2} \eta^{\mu\nu} \log|z-w|^2 \label{eq:ST:5}
+\end{align}
+This tells us the Green's function immediately 
+\eq{
+\braket{\mc{R}\left( X^\mu(z,\bar{z})X^\nu(w,\bar{w}) \right)} = - \frac{\cst}{2} \eta^{\mu\nu} \log|z-w|^2
+}
+We can use \ref{eq:ST:5} to build contractions of more complicated operators via Wick's theorem. 
+
+\subsubsection*{Composite Operators}
+We can use Wick's theorem and our knowledge of contractions to define composite operators: 
+\begin{example}
+We found that 
+\eq{
+\overbracket[0.5pt]{\del X^\mu(z) \del X^\nu(w)} = -\frac{\cst}{2} \frac{\eta^{\mu\nu}}{(z-w)^2}
+}
+This gives a natural definition for our stress tensor 
+\eq{
+T(z) = \lim_{w \to z} - \frac{1}{\cst} \left( \del X^\mu(z) \del X_\mu (w) + \frac{\cst}{2}\frac{\eta^\mu_\mu}{(z-w)^2} \right)
+}
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Operator Product Expansions (OPEs)}
+Operator product expansions encode what happens when we bring two operators close together. Given a set of operators $\mc{O}_i$. 
+\eq{
+\text{As } w\to z, \; \; \mc{O}_i (w) \mc{O}_j (z) \sim \sum_k f_{ij}^k(z-w) \mc{O}_k(z)
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\texorpdfstring{$T(z) X^\mu(w)$}{T} OPE and conformal transformations}
+
+We are interested in 
+\eq{
+T(z) X^\mu(w) \text{ as } w \to z
+}
+Writing 
+\eq{
+T(z) X^\mu(w) = -\frac{1}{\cst} : \del X^\nu (z) \del X_\nu (w) : X^\mu(w)
+}
+we have 
+\eq{
+\upwick{\del X^\mu(z) X^\nu(w)} = - \frac{\cst}{2} \frac{\eta^{\mu\nu}}{z-w} \\
+\Rightarrow \del X^\mu(z) X^\nu(w) = - \frac{\cst}{2} \frac{\eta^{\mu\nu}}{z-w} + \underbrace{\dots}_{\mc{O}(z-w)}
+}
+and so  
+\eq{
+T(z) X^\mu(w)  &=  -\frac{2}{\cst} : \upwick{\del X^\nu(z) \del X_\nu(w) : X^\mu(w)} + \dots \\
+&= - -\frac{2}{\cst} \del X_\nu (z) \left( - \frac{\cst}{2} \frac{\eta^{\mu\nu}}{z-w} \right) + \dots \\
+&= \frac{\del X^\mu(z)}{z-w} + \dots 
+}
+We expand $\del X^\mu (z) $ around $z=w$ 
+\eq{
+\del X^\mu (z) = \del X^\mu(w) + \mc{O}(z-w)
+}
+so 
+\eq{
+T(z) X^\mu(w) = \frac{\del X^\mu(w)}{z-w} + \dots 
+}
+Recall the conformal transformation of $X^\mu(w) $ may be given by 
+\eq{
+\delta_v X^\mu(w) \oint_{|z| = |w|} \frac{dz}{2\pi i} \mc{R} \left( v(z) T(z) X^\mu(w) \right)
+}
+Substituting in out OPE 
+\eq{
+\delta_v X^\mu(w) &= \oint_{|z| = |w|} \frac{dz}{2\pi i} \left( v(z) \left[ \frac{\del X^\mu(w)}{z-w} + \dots  \right]\right) \\
+&= v(w) \del X^\mu(w) 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Transformations of Primary fields}
+Consider a chiral primary $\phi(z)$ where $\bar{h}=0$. We know that 
+\eq{
+\delta_v \phi(z) = \oint_{c(z)} \frac{dw}{2\pi i }\mc{R} \left( v(w) T(w) \phi(z) \right) 
+}
+We want to retain the idea that  primary field transforms as a conformal tensor of weight $(h,\bar{h})$. We will require that, for $\phi$ to be a primary field the OPE with $T$ is such that 
+\eq{
+\delta_v \phi(z) = v(z) \del \phi(z) + h \del v(z) \phi(z) 
+}
+Using the residue theorem 
+\eq{
+\frac{1}{(n-1)!} \del_z^{n-1} f(z) = \oint \frac{dw}{2\pi i} \frac{f(w)}{(w-z)^n}
+}
+so we find 
+\eq{
+\mc{R} \left( T(w) \phi(z) \right) = \frac{h}{(z-w)^2} \phi(w) + \frac{1}{z-w} \del \phi(w) + \dots
+}
+We could take this OPE with the stress tensor to define what we mean by a chiral primary of weight $(h,0)$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\texorpdfstring{$T(z) : e^{ik \cdot X(w)} :$}{T} OPE }
+Here $k \cdot X(w) = k_\mu X^\mu (w)$, where $k_\mu$ is some constant spacetime vector. 
+
+We think of $:e^{ik \cdot X(w)}:$ as the the series expansion
+\eq{
+\sum_{n \geq 0} \frac{i^n}{n!} k_{\mu_1} \dots k_{\mu_n} : X^{\mu_1}(w) \dots X^{\mu_n}(w) : 
+}
+We might wonder what the weight of $e^{ik \cdot X(w)}$ is 
+\eq{
+T(z) :e^{ik \cdot X(w)}: = -\frac{1}{\cst} : \del X^\mu(z) \del X_\mu (z) : \sum_{n \geq 0} \frac{i^n}{n!} k_{\mu_1} \dots k_{\mu_n} : X^{\mu_1}(w) \dots X^{\mu_n}(w) :
+}
+
+Single contractions contribute 
+\eq{
+& \sum_{n > 0} \frac{i^n}{n!} n \left( k \cdot X(w) \right)^{n-1} k_\mu \frac{1}{z-w} \del X^\mu(w) \\
+= & \sum_{m \geq 0} \frac{i^m}{m!}\left( k \cdot X(w) \right)^m   \frac{ i k_\mu \del X^\mu(w)}{z-w}  \\
+= & \frac{1}{z-w} \del_w \left( e^{i k \cdot X(w)} \right)
+}
+Double contractions contribute 
+\eq{
+& - \frac{1}{\cst} : \downwick{\del X^\mu(z) \upwick{\del X_\mu (z) : \sum_{(i,j)} \sum_{n \geq 0} \frac{(i)^n}{n!} k_{\mu_0} \dots k_{\mu_i} \dots k_{\mu_j} \dots  k_{\mu_n}: : X^{\mu_0}(w) \dots X^{\mu_i}(w)} \dots X^{\mu_j}(w)} \dots X^{\mu_n}(w) : \\
+= & - \frac{1}{\cst} \sum_{n \geq 2} k_{\mu_2} \dots k_{\mu_n} \frac{(i)^n}{n!} n(n-1) \left( -\frac{\cst}{2} \right)^2 \frac{k^2}{(z-w)^2} X^{\mu_2} X^{\mu_n} \\
+= & - \frac{\cst}{4} \frac{k^2}{(z-w)^2} \sum_{n\geq 2} : \left( k \cdot X(w) \right)^{n-2} :  i^2 i^{n-2} \frac{n!}{n! (n-2)!} \\
+= & - \frac{\cst}{4} \frac{k^2}{(z-w)^2 } : e^{i k \cdot X(w)} : 
+}
+
+In total we have 
+\eq{
+T(z) : e^{i k \cdot X(w) }: = \left( \frac{\cst}{4} \frac{k^2}{(z-w)^2} + \frac{\del_w}{z-w} \right) : e^{i k \cdot X(w)} : \dots 
+}
+
+We see that $: e^{i k \cdot X(w) }:$ has conformal weight $h = \frac{\cst}{4} k^2$
+
+More generally, $: e^{i k \cdot X(w,\bar{w}) }:$ has weight 
+\eq{
+(h,\bar{h}) = ( \frac{\cst}{4} k^2, \frac{\cst}{4} k^2)
+}
+It is now useful to separate the notion of a primary field from the definitions of $h,\bar{h}$. WE will say a primary field has OPE with $T$ 
+\eq{
+T(z) \phi(w) = \frac{h}{(z-w)^2} \phi(w) + \frac{1}{(z-w)} \del \phi(w)
+}
+Now the $(z-w)^2$ coefficient will be called the \bam{weight}, regardless of the presence of higher order poles. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\secmath{T(z)T(w)} OPE and the Virasoro Algebra}
+Recall 
+\eq{
+T(z) = - \frac{1}{\cst} : \del X^\mu (z) \del X_\mu (z): \\
+\upwick{\del X^\mu (z) \del X_\mu (z)} = - \frac{\cst}{2} \frac{\eta^{\mu\nu}}{(z-w)^2}
+}
+Then 
+\eq{
+T(z)T(w) = & 4 \times \left( - \frac{1}{\cst} \right)^2  : \del X^\mu (z) \upwick{\del X_\mu (z):  : \del X^\mu (w)} \del X_\mu (w):  \\
+& +2 \times \left( - \frac{1}{\cst} \right)^2  \downwick{ : \del X^\mu (z) \upwick{\del X_\mu (z):  : \del X^\mu (w)} \del X_\mu (w):} + \dots
+}
+We thus find 
+\eq{
+T(z)T(w) = - \frac{2}{\cst} \frac{\eta_{\mu\nu}}{(z-w)^2 }  : \del X^\mu (z) \del X^\nu (w): + \frac{1}{2} \frac{\delta^\mu_\nu}{(z-w)^2} \frac{\delta_\mu^\nu}{(z-w)^2} + \dots 
+}
+We expand $\del X^\mu(z)$ about $z=w$. 
+\eq{
+\del X^\mu(z) = \del X^\mu(w) + (z-w) \del^2 X^\mu(w) + \dots
+}
+
+Also, $\delta^\mu_\nu \delta_\mu^\nu = D$ the number of spacetime dimensions. 
+\eq{
+T(z) T(w) &= \frac{\frac{D}{2}}{(z-w)^4} - \frac{2}{\cst} \frac{1}{(z-w)^2} : \del X^\mu (w) \del X^\nu (w): - \frac{2}{\cst} \frac{1}{(z-w)} : \del^2 X^\mu(w) \del X_\mu(w) : + \dots \\
+&= \frac{\frac{D}{2}}{(z-w)^4} + \underbrace{\frac{2}{(z-w)^2}T(w)}_{\Rightarrow h = 2} + \frac{1}{z-w} \del T(w) + \dots 
+}
+So $T(z)$ has weight $(2,0)$, but the field is only primary if $D=0$. 
+
+\subsection{The Virasoro Algebra}
+$T(z)$ has $h=2$ so we expand it in the modes as 
+\eq{
+T(z) &= \sum_n L_n z^{-n-2} \\
+\bar{T}(\bar{z}) &= \sum_n \bar{L}_n \bar{z}^{-n-2}
+}
+We can invert these expressions 
+\eq{
+L_m = \oint_{z=0} \frac{dz}{2\pi i} z^{m+1} T(z)
+}
+Consider the commutator of two $L_n$s , 
+\eq{
+\comm[L_m]{L_n} = \oint_{w=0}  \frac{dw}{2\pi i} w^{n+1} \oint_{z=0}  \frac{dz}{2\pi i} z^{m+1} \comm[T(z)]{T(w)} 
+}
+Now we think
+\eq{
+ \oint_{z=0}  \frac{dz}{2\pi i} z^{m+1} \comm[T(z)]{T(w)}  &=  \oint_{z=0}  \frac{dz}{2\pi i} z^{m+1} T(z)T(w) -  \oint_{|z|<|w|}  \frac{dz}{2\pi i} T(w) T(z)z^{m+1}  \\
+ &= \oint_{z=w}  \frac{dz}{2\pi i} \mc{R} \pround{T(z) T(w)} z^{m+1} \\
+}
+so 
+\eq{
+\comm[L_m]{L_n} &= \oint_{w=0}  \frac{dw}{2\pi i} w^{n+1} \oint_{z=0}  \frac{dz}{2\pi i} z^{m+1} \pround{\frac{\frac{D}{2}}{(z-w)^4} + \frac{2T(w)}{(z-w)^2} + \frac{\del T(w)}{z-w} + \underbrace{\dots}_{\substack{\text{will give 0} \\ \text{when integrated}}}} \\
+&= \oint_{w=0}  \frac{dw}{2\pi i} w^{n+1} \pround{\frac{\frac{D}{2}}{3!} \frac{\del^3}{\del z^3} z^{m+1} + 2T(w) \pd[(z^{m+1})]{z} + z^{m+1} \del T(w)}_{z=w} \\
+&=  \oint_{w=0}  \frac{dw}{2\pi i} \pround{ \frac{D}{12} (m^3 - m) w^{n+m-1} + 2(m+1) w^{m+n+1} T(w) - w^{m+n+2} \del T(w) } \\
+&=  \oint_{w=0}  \frac{dw}{2\pi i} \pround{ \frac{D}{12} (m^3 - m) w^{n+m-1} + (m-n) w^{m+n+1} T(w)} \quad \text{(boundary term is 0)} \\
+&= \frac{D}{12}(m^3 - m) \delta_{m+n,0} + (m-n) L_{m+n}
+}
+If $D=0$, this is the Witt algebra. In general this is the \bam{Virasoro algebra}, where the additional term is called the \bam{central extension}. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The b,c Ghost System}
+To make sense of the path integral over $h_{ab}$ we introduced ghosts $b,c$ via the F-P method. 
+\eq{
+S[b,c] = \frac{1}{2\pi} \int_\Sigma d^2 \sigma \, \sqrt{-\hat{h}} \hat{h}^{ac} b_{ab} \nabla_c c^b
+}
+We could take $\hat{h}_{ab}$ as arbitrary $(h_{ab})$ and reimpose $S[\hat{h}-h]$ on the path integral. The stress tensor for the ghosts is 
+\eq{
+T_{ab}^{gh} = -i \pround{\frac{1}{2} c^c \nabla_{(a} b_{b)c} + (\nabla_{(a}c^c)b_{b)c} - h_{ab}\text{trace}}
+}
+We will now work with a flat euclidean metric and use $(z,\bar{z})$ coordinate on $\mbb{C}$. The action becomes 
+\eq{
+S[b,c] = \frac{1}{2\pi} \int_\Sigma d^2z \, \pround{b_{zz} \del_{\bar{z}} c^z + b_{\bar{z}\bar{z}} \del_z c^{\bar{z}}}
+}
+where $b_{z\bar{z}}=0$ since $b$ traceless. Take the notation $b_{zz} = b, b_{\bar{z}\bar{z}}=\bar{b}, c^z = c, c^{\bar{z}} = \bar{c}$. Then 
+\eq{
+S = \frac{1}{2\pi} \int_\Sigma d^2z \, \pround{b \bar{\del} c + \bar{b} \del \bar{c}} - \frac{1}{2\pi\cst} \int_\Sigma \del X^\mu \bar{\del} X^\nu \eta_{\mu\nu}
+}
+Now the total stress tensor is 
+\eq{
+T(z) = T_X(z) + T_{gh}(z)
+}
+where 
+\eq{
+T_X(z) &= - \frac{1}{\cst} : \del X^\mu \del X_\mu : \\
+T_{gh}(z) &= : \del b(z) c(z) : - 2 \del\pround{: b(z) c(z) :}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Ghost OPEs}
+The ghosts are free, so Wick's theorem gives: 
+\eq{
+\mc{R} \pround{b(z) c(w)} = :b(z) c(w): + \upwick{b(z) c(w)}
+}
+The Green's function for $\bar{\delta}$ gives $\upwick{b(z) c(w)}$ exactly. Using the result 
+\eq{
+\pd{\bar{z}} \pround{\frac{1}{z-w}} = 2\pi \delta^2(z-w)
+}
+we then have 
+\eq{
+\upwick{b(z) c(w)} = \frac{1}{z-w}
+}
+so the OPE is 
+\eq{
+b(z)c(w) = \frac{1}{z-w} + \dots = c(z) b(w)
+}
+We can then use this to remove the poles from composite operators 
+\eq{
+T_{gh}(z) = \lim_{w\to z}\pround{-2b(w) \del c(z) - \del b(w) c(z) + \frac{1}{(z-w)^2}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Conformal Transformations of Ghosts}
+
+Consider 
+\eq{
+T_{gh}(z) b(w) &= :\del_z b(z) \upwick{c(z) b(w)}: - 2: \del_z (b(z) \upwick{c(z)) b(w)}: + \dots \\
+&= \frac{\del b(z)}{z-w} - 2 \del_z \pround{\frac{b(z)}{z-w}} + \dots \\
+&= \frac{2}{(z-w)^2}b(z) - \frac{1}{z-w} \del b(z) + \dots 
+}
+Expand $b(z)$ about $z=w$, $b(z) = b(w) + (z-w) \del b(w) + \dots$
+\eq{
+\Rightarrow T_{gh}(z) b(w) &= \frac{2}{(z-w)^2}b(w) + \frac{2}{z-w} \del b(w) - \frac{1}{z-w} \del b(w) + \dots \\
+&= \frac{1}{(z-w)^2}b(w) + \frac{1}{z-w} \del b(w) +\dots
+}
+so this is a primary field of weight $(2,0)$. Similarly for $c$ 
+\eq{
+T_{gh}(z) c(w) = \frac{-1}{(z-w)^2} c(w) + \frac{1}{z-w} \del b(w) +\dots
+}
+so $c$ has weight $(-1,0)$. 
+We can now compute 
+\eq{
+T_{gh}(z) T_{gh}(w) = -\frac{\frac{26}{2}}{(z-w)^4} + \frac{2}{(z-w)^2} T_{gh}(w) + \frac{1}{z-w} \del T_{gh}(w) + \dots
+}
+which leads to the OPE for the total stress tensor
+\eq{
+T(z) T(w) = \frac{\frac{D-26}{2}}{(z-w)^4} + \frac{2}{(z-w)^2} T(w) + \frac{1}{z-w} \del T(w) + \dots
+}
+Hence, if $D=26$, there is no conformal anomaly, i.e. $T(z)$ transforms as it should. We could introduce modes for $T(z)$, 
+\eq{
+T(z) = \sum_n \mc{L}_n z^{-n-2}
+}
+and then $\mc{L}_n$ would satisfy the Witt algebra in $D=26$ dimensions. 
+\eq{
+\comm[\mc{L}_n]{\mc{L}_m} = (n-m) \mc{L}_{n+m}
+}
+From here on in, we will assume $D=26$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Mode Expansions}
+
+$b$ has weight $(2,0)$ and $c$ has weight $(-1,0)$ so 
+\eq{
+b(z) &= \sum_n b_n z^{-n-2} \\
+c(z) &= \sum_n c_n z^{-n+1}
+}
+what is $\acomm[b_m]{c_n}$? We want to see if we can get this from the OPE. \\
+We can invert the mode expansions to get 
+\eq{
+b_m &= \oint_{z=0} \frac{dz}{2\pi i} z^{m+1} b(z) \, dz \\
+c_n &= \oint_{z=0} \frac{dz}{2\pi i} z^{n-2} c(z) \, dz 
+}
+Thus 
+\eq{
+\acomm[b_m]{c_n} &= \oint_{z=0} \frac{dz}{2\pi i} z^{m+1} \oint_{w=0} \frac{dw}{2\pi i} w^{n-2} \acomm[b(z)]{c(w)} \\
+&= \oint_{w=0} \frac{dw}{2\pi i} \oint_{z=w} \frac{dz}{2\pi i}  \mc{R} \pround{b(z) c(w)}z^{m+1}  w^{n-2}  \\
+&=  \oint_{w=0} \frac{dw}{2\pi i} \oint_{z=w} \frac{dz}{2\pi i}z^{m+1}  w^{n-2} \pround{\frac{1}{z-w}+ \dots} \\
+&= \oint_{w=0} \frac{dw}{2\pi i} w^{m+n-1} = \delta_{m+n,0} 
+}
+so 
+\eq{
+\acomm[b_m]{c_n} = \delta_{m+n,0} 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{BRST symmetry}
+Recall out path integral expansion 
+\eq{
+Z &= \frac{1}{|CKG|}  \int_{\mc{M}_g} d^3 t \, \int \mc{D}x \, \mc{D}b \, \mc{D}c \, e^{iS[X,b,c]} \prod_{I=1}^s (b | \mu_I) \prod_{i,a} c^a(\hat{\sigma}_i) \\
+&= \frac{1}{|CKG|} \int_{\mc{M}_g} d^3 t \, \int \mc{D}x \, \mc{D}b \, \mc{D}c \, \mc{D}h \, \delta[h-\hat{h}] e^{iS[X,b,c]} \prod_{I=1}^s (b | \mu_I) \prod_{i,a} c^a(\hat{\sigma}_i)
+}
+we can write this delta functional as a functional integral over auxiliary field $B_{ab}$ nad add to the action 
+\eq{
+S_{gf}[B,h] = \frac{1}{4\pi} \int_\Sigma d^2\sigma \sqrt{-h} B^{ab} (\hat{h}_{ab} - h_{ab})
+}
+This is the functional analogue of writing a delta function as a Fourier integral. THe full action is now 
+\be\label{eq:ST:6}
+S[X,h,b,c,B] = -\frac{1}{4\pi\cst} \int_\Sigma d^2\sigma \, \sqrt{-h} h^{ab} \del_a X^\mu \del_b X^\nu \eta_{\mu\nu} + \frac{i}{2\pi} \int_\Sigma d^2\sigma \, \sqrt{-h} b_{ab} \nabla^a c^b + \frac{1}{4\pi} \int_\Sigma d^2\sigma \, \sqrt{-h} B^{ab} (\hat{h}_{ab} - h_{ab})
+\ee
+If we do the $B$ integral, we impose $\hat{h}_{ab}=h_{ab}$. We have we done this? Because is is now easier to spot a rigid symmetry of yhis actions 
+\eq{
+\delta_{\mc{Q}_B} X^\mu(z) &= i \eps c(z) \del X^\mu(z)
+}
+This is just a diffeomorphism with $v(z) = \eps c(z)$. Our other fields transform as 
+\eq{
+\delta_{\mc{Q}_B} h_{ab}(z) &= \eps (Pc)_{ab} \\
+\delta_{\mc{Q}_B} c^a(z) &= i \eps c^b \del_b c^a \\
+\delta_{\mc{Q}_B} b_{ab}(z) = i\eps B_{ab} \\
+\delta_{\mc{Q}_B} B_{ab} = 0
+}
+It seems plausible that the first term in \ref{eq:ST:6} will be invariant under this symmetry. To see that the remaining terms are invaiant we introduce the \bam{gauge fixing fermion} $\psi$.
+\eq{
+\psi[b,h] = - \frac{i}{4\pi} \int_\Sigma d^2\sigma \, b^{ab}(\hat{h}_{ab} - h_{ab})
+}
+This is a Grassmann variable. Under the above symmetry transformation, called a \bam{BRST transformation}, $\psi[b,h]$ generates the second and third terms in \ref{eq:ST:6}, i.e. we may write \ref{eq:ST:6} as 
+\eq{
+S[X,b,c,B,h] = - \frac{1}{4\pi \cst} \int_\Sigma d^2\sigma \, \pround{\sqrt{-h} h^{ab} \del_a X^\mu \del_b X^\nu \eta_{\mu\nu} + \delta_{\mc{Q}_B} \psi[b,c]}
+}
+One may show by direct calculation that $\delta_{\mc{Q}_B}^2 = 0$ on any field in the above. Using this we see 
+\eq{
+\delta_{\mc{Q}_B} S[X,b,c,B,h] = 0 + \delta_{\mc{Q}_B}^2 \psi = 0
+}
+so the action is invariant under BRST transformation. We integrate out $B_{ab}$ (i.e. do the functional integral), the effect of which is to impose the constraint $h =\hat{h}$. We then have an action with a gauge fixed $h$ but we still have the residual symmetry of BRST transformations. Explicitly, the action is now 
+\eq{
+S[X,b,c] = -\frac{1}{4\pi \cst} \int_\Sigma d^2\sigma \, \sqrt{-\hat{h}} \hat{h}^{ab} \del_a X^\mu \del_b X^\nu \eta_{\mu\nu} + \frac{i}{2\pi} \int_\Sigma d^2\sigma \, \sqrt{-\hat{h}} b_{ab} \nabla^a c^b
+}
+The symmetry transformation of this action is 
+\eq{
+\delta_{\mc{Q}_B} X^\mu(z) &= i \eps c(z) \del X^\mu(z) \\
+\delta_{\mc{Q}_B} b_{ab} = i\eps T_{ab} \\
+\delta_{\mc{Q}_B} c^a(z) = i\eps c^b \del_b c^a
+}
+where $T=T_X + T_{gh}$ is the \emph{total} stress tensor. We will henceforth refer to \emph{this} as BRST symmetry. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{BRST cohomology and physical states}
+Let us introduce the \bam{BRST charge} $\mc{Q}_B$. We will argue that physical state $\ket{\phi}$ are those states in the kernel of $\mc{Q}_B$ i.e 
+\eq{
+\ker \mc{Q}_B = \set{\ket{\phi} | \mc{Q}_B \ket{\phi} = 0}
+}
+We will also see that physical states are not in the image of $\mc{Q}_B$, i.e. $\not\exists \ket{\Lambda}$ s.t. $\ket{\phi} = \mc{Q}_B \ket{\Lambda}$. We shall call 
+\eq{
+\faktor{\ker \mc{Q}_B}{\image \mc{Q}_B}
+}
+the \bam{cohomology} of $\mc{Q}_B$, written $\cohom \mc{Q}_B$. 
+
+\begin{prop}
+\eq{
+\ket{\phi} \in \ker \mc{Q}_B
+}
+\end{prop}
+\begin{proof}
+Consider the observable 
+\eq{
+\braket{\phi_f | \phi_i} = \int \mc{D}\phi \, T{\phi_i \phi_f} e^{iS[\phi]}
+}
+where $S[\phi]$ is of the form 
+\eq{
+S[\phi] = S_0[\phi] + \delta_{\mc{Q}_B}\psi = S_0[\phi] + \acomm[\mc{Q}_B]{\psi}
+}
+Let's imagine changing our gauge choice by changing 
+\eq{
+\psi \to \psi + \delta \psi
+}
+then 
+\eq{
+\delta (\braket{\phi_f | \phi_i}) = \int \mc{D}\phi \, \phi_i \phi_f e^{iS_0[\phi] + i\acomm[\mc{Q}_B]{\psi}} - \int \mc{D}\phi \, \phi_i \phi_f e^{-S[\phi]}
+}
+where $\delta_{\mc{Q}_B} \psi = \acomm[\mc{Q}_B]{\psi}$. To leading order 
+\eq{
+\delta (\braket{\phi_f | \phi_i}) &= \int \mc{D}\phi \, \phi_i \phi_f i\acomm[\mc{Q}_B]{\psi} e^{iS_0[\phi]} \\
+&= i \braket{\phi_f | {\acomm[\mc{Q}_B]{\psi}} | \phi_i} \\
+&= 0
+}
+For this two be true for any change $\delta \psi$ we require that $\mc{Q}_B\ket{\phi} = 0$
+\end{proof}
+
+\begin{prop}
+\eq{
+\mc{Q}_B^2 = 0
+}
+\end{prop}
+\begin{proof}
+We want $\mc{Q}_B$ to be conserved, so it needs to commute with the Hamiltonian, i.e. $\comm[\mc{Q}_B]{H}=0$. Under a change of gauge $\psi \to \psi + \delta \psi$ we want $\mc{Q}_B$ to still be conserved, and we can ensure this by requiring $\comm[\mc{Q}_B]{\delta_{\mc{Q}_B} (\delta \psi)}=0$
+Hence 
+\eq{
+0 &= \comm[\mc{Q}_B]{\acomm[\mc{Q}_B]{\delta \psi)}} \\
+&= - \comm[\delta\psi]{\acomm[\mc{Q}_B]{\mc{Q}_B}} - \comm[\mc{Q}_B]{\acomm[\delta \psi]{\mc{Q}_B}} 
+}
+Hence we need $\acomm[\mc{Q}_B]{\mc{Q}_B}=0 \Rightarrow \mc{Q}_B^2 = 0$
+\end{proof}
+
+Consider a state $\ket{\zeta} = \mc{Q}_B \ket{\Lambda}$, clearly 
+\eq{
+\mc{Q}_B \ket{\zeta} = \mc{Q}_B^2 \ket{\Lambda} = 0
+}
+Notice 
+\eq{
+\braket{\zeta | \zeta} = \braket{\Lambda | \mc{Q}_B^2 | \Lambda} = 0
+}
+Also if $\ket{\phi}$ is a physical state, then 
+\eq{
+\braket{\phi | \zeta} = \braket{\phi | \mc{Q}_B | \Lambda} = 0
+}
+Such $\mc{Q}_B$ exat states decouple from the theory, i.e. any correlation function with such states included will vansih. \\
+Our physical spectrum seem to be those states in the cohomology of $\mc{Q}_B$
+\eq{
+\ket{\phi} \in \faktor{\ker \mc{Q}_B}{\image \mc{Q}_B} \cong \cohom \mc{Q}_B
+}
+We can also prove that the physical spectrum is in one to one correspondence with $\cohom \mc{Q}_B$ (\bam{no ghost theorem})
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{BRST charge for Bosonic String Theory}
+We will look for an operator $\mc{Q}_B$ s.uch that $\mc{Q}_B^2 = 0$ which generates out BRST transformations. 
+
+Leq 
+\eq{
+\mc{Q}_B = Q_B + \bar{Q}_B
+}
+
+and require that 
+\eq{
+\mc{Q}_B^2 = 0 \\
+\acomm[Q_B]{Q_B} = \acomm[\bar{Q}_B]{\bar{Q}_B} = \acomm[\bar{Q}_B]{Q_B} = 0
+}
+We also require 
+\eq{
+\delta_Q X^\mu(w) &= \eps c(w) \del X^\mu(w) \\
+\comm[Q_B]{X^\mu(w)} = c(w) \del X^\mu (w)
+}
+We can recover this from the charge 
+\eq{
+Q_B = \oint_{z=0} \frac{dz}{2\pi i}c(z) \pround{T_X(z) + \frac{1}{2} T_{gh}(z)}
+}
+Recall that once the $B_{ab}$ fieldss are integrated out, the gauge fixed action was invariant under 
+\eq{
+\comm[Q_B]{X^\mu(w)} &= c(w) \del X^\mu(w) \\
+\acomm[Q_B]{c(w)} &= c(w) \del c(w) \\
+\acomm[Q_B]{b(w)} &= T_{tot}(w) = T_X(w) + T_{gh}(w)
+}
+For example 
+\eq{
+\acomm[Q_B]{b(w)} &= \oint_{z=0} \frac{dz}{2\pi i} \acomm[c(z) \pround{T_X(z) + \frac{1}{2} T_{gh}(z)}]{b(w)} \\
+&= \oint_{z=w}  \frac{dz}{2\pi i}  \psquare{\upwick{c(z) \pround{T_X(z) + \frac{1}{2} T_{gh}(z)} b(w)}+ \frac{1}{2} c(z) \upwick{T_{gh}(z)b(w)}} \\
+&= \oint_{z=w}  \frac{dz}{2\pi i} \psquare{\pround{T_X(z) + \frac{1}{2} T_{gh}(z)} \frac{1}{z-w} + \frac{1}{2} c(z) \pround{\frac{2}{(z-w)^2}b(w) + \frac{1}{z-w} \del b(w)}}
+}
+using $c(z) = c(w) + (z-w) \del c(w) + \dots$ we get 
+\eq{
+\acomm[Q_B]{b(w)} &= \oint_{z=w}  \frac{dz}{2\pi i}  \psquare{\pround{T_X(w) + \frac{1}{2} T_{gh}(w)}\frac{1}{z-w} + \frac{1}{2} \pround{\underbrace{\frac{2c(w)b(w)}{(z-w)^2}}_{0} + \frac{2\del c(w)b(w)}{(z-w)} + \frac{c(w)\del b(w)}{z-w}}}
+}
+The last 2 terms in parentheses give a copy of $T_{gh}(w)$ leaving 
+\eq{
+\acomm[\mc{Q}_B]{b(w)} = \acomm[Q_B]{b(w)} &= \oint_{z=w} \frac{dz}{2\pi i} \pround{T_X(w) + T_{gh}(w)} \frac{1}{z-w} \\
+&= T_{tot}(w)
+}
+With work we can show that 
+\eq{
+\comm[Q_B]{T_{tot}(w)} = \frac{D-26}{12} \del^3 c(w)
+}
+so $Q_B^2 = 0$ if $D=26$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The BRST Current and Anomaly}
+It us useful to define the BRST current 
+\eq{
+\mc{Q}_B = \oint_{z=0} \frac{dz}{2\pi i} j_B(z) -\oint_{\bar{z}=0} \frac{d\bar{z}}{2\pi i} \bar{j}_B(\bar{z})
+}
+we might guess that our BRST current is simply 
+\eq{
+j_B(z) = c(z) \pround{T_X(z) + \frac{1}{2}T_{gh}(z)} + \frac{3}{2}\del^2 c(z)
+}
+The OPE of with $j_B(z)$ itself
+\eq{
+j_B(z)j_B(w) = - \frac{D-18}{2(z-w)^3} c(w) \del c(w) - \frac{D-18}{4(z-w)^2} - \frac{D-26}{12(z-w)} c(w) \del^3 c(w) + \dots 
+}
+we check $Q_B^2 = 0$ 
+\eq{
+\acomm[Q_B]{Q_B} &= \oint_{z=0} \frac{dz}{2\pi i} \oint_{w=0} \frac{dw}{2\pi i } \acomm[j_B(z)]{j_B(w)} \\
+&=\oint_{z=0} \frac{dz}{2\pi i} \oint_{w=z} \frac{dw}{2\pi i } \pround{- \frac{D-18}{2(z-w)^3} c(w) \del c(w) - \frac{D-18}{4(z-w)^2} - \frac{D-26}{12(z-w)} c(w) \del^3 c(w) + \dots } \\
+&= \oint_{z=0} \frac{dz}{2\pi i} \oint_{w=z} \frac{dw}{2\pi i } \pround{ - \frac{D-26}{12(z-w)} c(w) \del^3 c(w) + \dots } \quad \text{(first two terms cancel integrating by parts and using Grassman)} \\
+&=  -\frac{D-26}{12} \oint_{z=0} \frac{dz}{2\pi i}  c(z) \del^3 c(z)
+}
+we again require $D=26$ for $Q_B^2 = 0$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Scattering Amplitudes}
+
+\begin{idea}
+Recall that we found it useful to, instead of describing a single free string as a cylinder, use a conformal transform to map to the Riemann sphere with two punctures, i.e. go from $(\tau, \sigma) \to e^{\tau + i \sigma}$. We can encode the initial and final states in the Riemann sphere picture by inserting operators $V_i, V_f$ at the punctures where 
+\eq{
+\ket{\phi_i} &= \lim_{z\to 0} V_i(z) \ket{0} 
+}
+We could think of interactions between string as describe by worldsheets with many boundaries. We shall assume there is a map to the sphere with many punctures. Worldsheets with non-zero genus will be mapped to punctured tori. 
+\end{idea}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Preliminaries}
+
+\subsubsection*{Ghost Vacua}
+What is required for the limit 
+\eq{
+\ket{\phi_i} &= \lim_{z\to 0} V_i(z) \ket{0} 
+}
+to exist? \\
+Suppose $\phi(z)$ is of weight $(h,0)$ so
+\eq{
+\phi(z) = \sum_n \phi_n z^{-n-h}
+}
+For $-n-h$ the terms go to zero as $z \to 0$. Hence we can get a senseivle limit of 
+\eq{
+\forall n \highlight{>} -h \; \phi_n\ket{0} =0
+}
+and then 
+\eq{
+\ket{\phi} = \phi_{-h}\ket{0} 
+}
+For the ghosts, b has weight $h=2$ and c has weight $h = -1$. This means that $c_0\ket{0} \neq 0$, $c_1 \ket{0} \neq 0$, and $\braket{0 | c_{-1} c_0 c_1 | 0}\neq 0$. We can then choose 
+\eq{
+\braket{0 | c_{-1} c_0 c_1 | 0} = 1
+}
+One can show 
+\eq{
+\braket{0 | c(z_1) c(z_2) c(z_3) | 0} = (z_1 - z_2)(z_2 - z_3)(z_3 - z_1)
+}
+
+
+\subsubsection*{Dilaton and String Coupling}
+We could consider the string in a background of $g_{\mu\nu}(X), B_{\mu\nu}(X), \Phi(X)$. The worldsheet theory would be modified to 
+\eq{
+S = - \frac{1}{4\pi \cst} \int_\Sigma d^2 \sigma \, \sqrt{-h} h^{ab} \del_a X^\mu \del_b X^\nu g_{\mu\nu}(X) - \frac{i}{4\pi \cst} \int_\Sigma d^2\sigma \, \sqrt{-h} \eps^{ab} \del_a X^\mu \del_b X^\nu B_{\mu\nu}(X)
+}
+where $\eps^{ab} = \begin{psmallmatrix} 0 & -1 \\ 1 & 0 \end{psmallmatrix}$. We could also couple to the Dilaton
+\eq{
+S_\Phi = \frac{1}{4\pi} \int_\Sigma d^2\sigma \, \sqrt{-h} \Phi(X) R_\Sigma 
+}
+If $\Phi$ ha some vacuum expectation value $\braket{\Phi(X)} = \Phi_0$ then
+\eq{
+S_\Phi = \frac{1}{4\pi} \Phi_0 \int_\Sigma d^2 \sigma \, \sqrt{-h} R_\Sigma = \Phi_0 \chi
+}
+So in the path integral, the sum over genus is weighted by a factor of $e^{\Phi_0}$
+\eq{
+Z = \sum_{g=0}^\infty e^{\Phi_0(2g-2)}\frac{1}{|CKG|}\int_{M_g} d^s t \int \mc{D}b \, \mc{D}c \, \mc{D}\bar{b} \, \mc{D}\bar{c} \, \mc{D} X \, \prod_{I=1}^s (\mu_I|b) (\bar{\mu}_I|\bar{b}) e^{-S[X,b,c]}
+}
+We will call $g_c = e^{\Phi_0}$ the \bam{closed string coupling constant}. \\
+Given a Riemann surface of genus $g$, weighted by $g_c^{2g-2}$, a closed string state being emitted and then absorbed by $\Sigma_g$, changes $g \to g+1$, which adds another factor of $g_c^2$ to our expression. Hence we associate a factor of $g_c$ with each additional vertex. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Vertex Operators}
+How can we build operators that live in the BRST cohomology? \\
+Suppose we have an operator $\phi(z,\bar{z})$ which satisfies 
+\eq{
+\comm[Q_B]{\phi_{(z,\bar{z})}} &= \del( c\phi) \\
+\comm[\bar{Q}_B]{\phi_{(z,\bar{z})}} &= \bar{\del}( \bar{c}\phi) 
+}
+Then 
+\eq{
+V_\phi = \int_\Sigma d^2z \, \phi(z,\bar{z})
+}
+is BRST closed. Consider also 
+\eq{
+U(z,\bar{z}) = c(z) \bar{c}(\bar{z}) \phi(z,\bar{z})
+}
+Then 
+\eq{
+\comm[Q_B]{U} = \comm[Q_B + \bar{Q}_B]{U} &= c\del c \bar{c} \phi + c\bar{c} \del(c\phi) + \text{"barred expressions"} \\
+&= c \del c  \bar{c} \phi + c\bar{c} \del c \phi \\
+&= 0
+}
+so $U$ is BRST closed. \\
+Assume that $\phi$ has weight $(h, \bar{h})$. Under conformal transformations then we have
+\eq{
+\delta_v \phi = h\del_v \phi + \bar{h} \bar{\del}_{\bar{v}} \phi + \bar{v} \bar{\del} \phi + v\del\phi
+}
+and so 
+\eq{
+\comm[Q_B]{\phi} &= h(\del c)\phi + c\del\phi \\
+&= (h-1) (\del c)\phi + \del(c\phi)
+}
+One way of satisfying this condition is if $h=1$, i.e. $c$ is of weight 1. \\
+We also require $\bar{h}=1$ for the antiholomorphic part to transform in the right way.
+Thus $U,V$ are BRST invariant if $(h,\bar{h}) = (1,1)$. 
+
+
+\begin{example}[Tachyons]
+We'll map the scattering diagram to the 4 punctures Riemann sphere. We might expect the tachyon vertex operator to tell us where the puncture is, i.e. it may contain something of the form 
+\eq{
+\delta^{(26)}[x^\mu = X^\mu(z,\bar{z})]
+}
+In momentum space this just becomes 
+\eq{
+\int d^{26}x\, \delta^{(26)}[x^\mu = X^\mu(z,\bar{z})] e^{ik\cdot x} = e^{ik_\mu X^\mu(z,\bar{z})}
+}
+We propose then $\phi(z,\bar{z})$ for the tachyon may 
+\eq{
+\phi(z,\bar{z}) = e^{ik_\mu X^\mu(z,\bar{z})}
+}
+We have shown that $e^{-ik\cdot X}$ has weight 
+\eq{
+(h,\bar{h}) = \pround{\frac{\cst k^2}{4},\frac{\cst k^2}{4}}
+}
+For the tachyon $k^2 = \frac{4}{\cst}$, which lines up s.t $U,V$ will have weight $(1,1)$. The tachyone vertex operators are then
+\eq{
+U_T(z,\bar{z} = g_c c(z) \bar{c}(z) : e^{ik \cdot X(z,\bar{z})}: \\ 
+V_T(z,\bar{z}) = g_c \int_\Sigma d^2z \, : e^{ik \cdot X(z,\bar{z})}:
+}
+\end{example}
+
+\begin{example}[Massless states]
+Imagine a worldsheet embedding into a spacetime with metric 
+\eq{
+g_{\mu\nu}(X) = \eta_{\mu\nu} + \eps_{\mu\nu} e^{ik \cdot X(z,\bar{z})}
+}
+The action is 
+\eq{
+S = - \frac{1}{4\pi\cst} \int_\Sigma d^2z \, \eta_{\mu\nu} + \eps_{\mu\nu} e^{ik \cdot X(z,\bar{z})} \del X^\mu \bar{\del}X^\nu
+}
+Then 
+\eq{
+\int \mc{D}X \, e^{-S[X]} \approx \int \mc{D}X \, e^{-S_0[X]}\pround{1 + \frac{1}{4\pi\cst}\int_\Sigma d^2z \, \eps_{\mu\nu} \del X^\mu \bar{\del} X^\nu e^{i k\cdot X}}
+}
+where $S_0[X]$ is the action with $g_{\mu\nu} = \eta_{\mu\nu}$. This insertion of an operator 
+\eq{
+\int_\Sigma d^2z \, \eps_{\mu\nu} \del X^\mu \bar{\del} X^\nu e^{i k\cdot X}
+}
+results in an infinitesimal perturbation in the background metric \\
+This seems to suggest that $\phi(z,\bar{z}) = \eps_{\mu\nu} \del X^\mu \bar{\del} X^\nu e^{ik \cdot X}$ might be a good thing to plug into $U$ and $V$ to get the vertex operators which derive \emph{gravitons}. We see using the state-operator correspondence that this operator indeed corresponds to the graviton which we defined previously provided $k \cdot K$. The weight of $\phi(z,\bar{z})$ is 
+\eq{
+\pround{1+\frac{\cst k^2}{4},1+\frac{\cst k^2}{4}} = (1,1)
+}
+if $k^2=0$, this is good since we expect our gravitons to be massless. \\
+For the graviton $k^2 - 0$, so $U,V$ will have weight $(1,1)$. The graviton vertex operaotrs are 
+\eq{
+U_G &= g_c c \bar{c} \eps_{\mu\nu} \del X^\mu \bar{\del}^\nu e^{ik\cdot X} \\
+V_G &= g_c \eps_{\mu\nu} \int_\Sigma d^2z \, :\del X^\mu \bar{\del}^\nu e^{ik\cdot X}: 
+}
+\end{example}
+
+\begin{example}[Massive Modes]
+We need more technology in this case, since we may need to renormalise the mass. We won't discuss this in this course. 
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The S-Matrix}
+The S-matrix describing the scattering of n states using the vertex operators $V_1, \dots, V_n$ is 
+\eq{
+A_n = \sum_{g=0}^\infty g_c^{2g-2} \cdot \frac{1}{|CKG|} \int_{M_g} d^2t \, \int \mc{D}b \, \mc{D}c \, \mc{D}\bar{b} \, \mc{D}\bar{c} \, \mc{D}X \, \prod_{I=1}^s (\mu_I | b)(\bar{\mu}_I | \bar{b}) \cdot e^{-S[X,b,c,\bar{b},\bar{c}]} \cdot \prod_{i,a} c^a(\hat{\sigma}_i V_1 \dots V_n
+}
+We will focus mainly on tree level ($g=0$) terms. These contribution are from puncture Riemann spheres. In the case $g=0$, $CKG = SL(2;\mbb{C})$; the moduli space is $M_0 = \set{pt}$, a single point, therefore anything to do with moduli we just forget about. (ignore the $\mu_I$).\\
+We choose for simplicity $\hat{\sigma}^a_i$ to coincide with the first three punctures of our Riemann sphere. Our amplitude becomes 
+\eq{
+A_n^{g=0} &= g_c^{-2} \frac{1}{|CKG|} \psquare{\int \mc{D}b \, \mc{D}c \, \mc{D}\bar{b} \, \mc{D}\bar{c} \, e^{-S_{gh}[b,c]} \prod_{i=1} c(z_i) \bar{c}(\bar{z}_i)} \cdot \psquare{\int \mc{D}X \, e^{-S[X]} V_1 \dots V_n} \\
+&= \frac{g_c^{n-2}}{|CKG|} \int d^2z_1 \dots d^2z_n  \braket{\prod_{i=1}^3 c(z_i) \bar{c}({\bar{z}}_{i})}_{\text{gh}} \braket{\phi_1(z,\bar{z}_1) \dots \phi_n(z_n, \bar{z}_n)} \\
+&= \frac{g_c^{n-2}}{|CKG|} \int d^2z_1 \, d^2z_2 \, d^2z_3 \braket{U_1(z_1,\bar{z}_1) U_2(z_2,\bar{z}_2) U_3(z_3, \bar{z}_3) \cdot V_4 \dots V_n}
+}
+\subsubsection*{On \secmath{SL(2,\mbb{C})}}
+Under an infinitesimal $SL(2,\mbb{C})$ transformation 
+\eq{
+z_i \to a_1 + a_2 z_i + a_3 z_3^2
+}
+We can relate an integral over the $a_i$ to an integral over the locations of 3 punctures $z_i$ as 
+%\eq{
+%\abs{\mc{J}}^2 d^2a_1 \, s^2a_2 \, s_^2 a_3 = d^2z_1 \, d^2 z_2 \, d^2z_3
+%}
+where the Jacobian is 
+%\eq{
+%\mc{J} = \det \abs{\pd[z_i]{a_j}} = \begin{bmatrix} 1 & z_1 & z_1^2 \\ 1 & z_2 & z_2^2 \\ 1 & z_3 & z_3^2 \end{bmatrix} = (z_1 - z_2)(z_2 - z_3)(z_3 - z_1)
+%}
+So we interpret the $\frac{1}{\abs{SL(2;\mbb{C})}$ factor as 
+\eq{
+A_n = g_c^{n-2} \iny d^2z_4 \dots d^2z_n \braket{\prod_{i=1}^3 c(z_i) \bar{c}(\bar{z}_i)}_{bc} \braket{\phi_1(z_1,\bar{z}_1) \dots \phi_n(z_n,\bar{z}_n)}
+}
+i.e. we integrate over $n-3$ of the punctures. 
+\begin{remark}
+If $g=1$ ($\Sigma$ is a torus), we integrate over $n-1$ punctures, and if $g>1$ we integrate over all the punctures. 
+\end{remark}
+We can then compactly write the expression in terms of the $U,V$ as 
+\eq{
+A_n = g_c^{-2} \braket{\prod_{i=1}^3 U_i(z_i,\bar{z}_i) \prod_{j=4}^n V_j}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Tree level scattering using path integrals}
+Consider 
+\eq{
+\braket{\phi_1(z_1) \dot \phi_n(z_n)}_X = \int \mc{D}X \, e^{-S[X]} \phi_1(z_1) \dots \phi_n(z_n)
+}
+Introduce a source term 
+\eq{
+S_J[X] = \int_\Sigma d^2z \, J_\mu X^\mu
+}
+then 
+\eq{
+S[X]+S_J[X] &= \frac{1}{2\pi\cst} \int_\Sigma d^2z \, X^\mu \box X_\mu + \int_\Sigma d^2z \, J_\mu X^\mu  \\
+&= \frac{1}{2\pi\cst} \int_\Sigma d^2z \, \tilde{X}^\mu \box \tilde{X}_\mu + \int_\Sigma d^2z \, J_\mu \tilde{X}^\mu +\int_\Sigma d^2z \, x^\mu J_\mu(z) \quad \tilde{X} = X-x \\
+&= \frac{1}{2\pi\cst} \int_\Sigma d^2z \, Y^\mu \box Y_\mu + \frac{1}{2} \int_{\Sigma \times \Sigma} d^2z \, d^2w J^\mu(z) G(z,w) J_\mu(w) + x^\mu \int_\Sigma d62z \, J_\mu(z)
+}
+where 
+\eq{
+G(z,w) = -\frac{\cst}{2} \log \abs{z-w}^2
+}
+satisfies 
+\eq{
+-\frac{1}{\pi\cst}\box_z G(z,w) = \delta^2(z-w)
+}
+We can integrate out the $Y^\mu$ if we define 
+\eq{
+Z[J] = \int \mc{D}X \, e^{-S[X]-S_J[X]}
+}
+, notice up to the zero modes which may be absorbed inot the normalisation of $Z$
+\eq{
+Z[0] = \int \mc{D}Y \, \exp \pround{-\frac{1}{2\pi\cst} \int_\Sigma d^2z \, \del Y^\mu \bar{\del} Y_\mu }
+}
+and so 
+\be\label{eq:ST:7}
+Z[J] = Z[0] \exp \pround{\frac{1}{2} \int_{\Sigma\times\Sigma} d^2z \, d^2w \, J^\mu(z) G(z,w) J_\mu(w) } \int d^{26}x \, \exp\pround{x^\mu \int_\Sigma d^2z \, J_\mu}
+\ee
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Tachyon Scattering}
+The apmlitude for $n$ Tachyons includes 
+\eq{
+\braket{e^{ik_1 \cdot X(z_1)}\dots e^{ik_n \cdot X(z_n)}}_X &= \int \mc{D}X \, e^{-S[X]}\prod_{i=1}^n e^{ik_i \cdot X(z_i)} \\
+&= \int \mc{D}X \, \exp\pround{-S[X] + i \sum_{i=1}^n k_i \cdot X(z_i)} \\
+&= \int \mc{D}X \, \exp\pround{-S[X] - \int_\Sigma d^2z \, J^\mu(z) X_\mu(z) }
+}
+where $J^\mu(z,\bar{z}) = i \sum_{i=1}^n k_i^\mu \delta^{(2)}(z-z_i)$
+So substituting in this $J^\mu$ to \ref{eq:ST:7} we get 
+\eq{
+\int_\Sigma d^2z \, J_\mu(z) = -i \sum_{j=1}^n \int_\Sigma d^2z \, \delta^{(2)}(z-z_j) {k_j}_\mu = -i\sum_{j=1}^n {k_j}_\mu
+}
+so 
+\eq{
+\int d^{26}x \, \exp\pround{x^\mu \int_\Sigma d^2z \, J_\mu} = \int d^{26}x \, \exp \pround{i x^\mu \sum_{j=1}^n {k_j}_\mu}= (2\pi)^{26} \delta^{(26)}\pround{\sum_{j=1}^n {k_j}^\mu}
+}
+We also have
+\eq{
+\frac{1}{2}\int_{\Sigma \times \Sigma} d^2z \, d^2w \, J^\mu(q) G(z,w) J_\mu(w) &= - \frac{1}{2} \int_{\Sigma \times \Sigma}  d^2z \, d^2w \, \sum_{i \neq j} k_i^\mu \delta^{(2)}(z-z_i) G(z,w) {k_j}_\mu \delta^{(2)}(z_j - w) \\
+&= - \frac{1}{2} \sum_{i\neq j}k_i k_j \pround{- \frac{\cst}{2} \log \abs{z_i - z_j}^2}
+}
+and so 
+\eq{
+\exp \frac{1}{2}\int_{\Sigma \times \Sigma} d^2z \, d^2w \, J^\mu(q) G(z,w) J_\mu(w) = \prod_{i\neq j} \ans{z_i - z_j}^{\frac{\cst k_i \cdot k_j}{2}} = \prod_{i<j} \abs{z_i - z_j}^{\cst k_i \cdot k_j}
+}
+We find 
+\eq{
+\braket{\prod_{i=1}^m e^{i k_i \cdot X(z_i,\bar{z}_i)}}_X = (2\pi)^{26} \delta^{(26)}\pround{\sum_{i=1}^n k_i^\mu} \prod_{i<j} \abs{z_i - z_j}^{\cst k_i \cdot k_j}
+}
+
+
+\end{document}

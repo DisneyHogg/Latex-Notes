@@ -1,0 +1,240 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Symmetry Reductions}
+\author{Linden Disney-Hogg}
+\date{December 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+These are some notes, based on \cite{Moser2010VariousSystems}, for me to learn about moment maps, amongst other things. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{What's going on?}
+Let's take $M$ to be some manifold. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Moment maps}
+\begin{definition}
+Given a one form $\theta$ we say that $(M,\theta)$ is an \bam{exact symplectic manifold} if $(M,\omega = d\theta)$ is a symplectic manifold. 
+\end{definition}
+
+\begin{example}
+A natural example is $(T^\ast M, p\, dq)$
+\end{example}
+
+\begin{definition}
+Given a Lie group $G$, $\phi:G\times M \to M$ is a \bam{symplectic group action} if 
+\begin{itemize}
+    \item $\phi_g : M \to M$ is a diffeo
+    \item $\phi_{gh} = \phi_g \phi_h$
+    \item $\phi_e = \id$
+    \item $\phi_g^\ast \omega = \omega$
+\end{itemize}
+The definition extends to an exact action if $\phi_g^\ast \theta = \theta$. 
+\end{definition}
+
+If we let $\mf{g}$ be the Lie algebra of $G$ and for $A \in \mf{g}$ take $g(t) \equiv \exp(tA) \in G$ we can define a symplectic vector field $X=X(A)$ by 
+\eq{
+Xf \equiv \ev{\frac{d}{dt} f(\phi_{g(t)})}{t=0}
+}
+By our previous properties, $X$ will be linear in $A$. If $\phi$ is exact, so is $X$ and we can define 
+\eq{
+H \equiv i_X\theta : M \times \mf{g} \to \mbb{R} 
+}
+H is a Hamiltonian giving the symplectic form. With such an $H$ defined we get a map $\psi:M \to \mf{g}^\ast$ taking values in the dual of the Lie algebra defined by 
+\eq{
+H(p,A) = \pangle{\psi(p),A}
+}
+Such a $\psi$ is called the \bam{moment map}. 
+
+\begin{example}
+Take $M = \mbb{R}^2$ with $ \omega = dx \wedge dy$. Take the group $G = SO(2)$, giving $\mf{g} = \pbrace{\begin{pmatrix} 0 & -t \\ t & 0 \end{pmatrix}}$, and let $G$ act by multiplication. Let 
+\eq{
+A = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} \Rightarrow \exp(tA) = \begin{pmatrix} \cos t & -\sin t \\ \sin t & \cos t \end{pmatrix}
+}
+and 
+\eq{
+\ev{\frac{d}{dt} f(\phi_{g(t)}(x,y))}{t=0} &= \ev{\frac{d}{dt} f(x\cos t - y \sin t, x\sin t + y \cos t )}{t=0} \\
+&= -y \del_x f + x \del_y f \\
+\Rightarrow X(A) &= -y \del_x + x \del_y \\
+\Rightarrow dH|_{A} \equiv i_X \omega|_{A} &= -ydy -xdx \\ 
+\Rightarrow H((x,y),sA) &= -\frac{1}{2}s(x^2 + y^2) \\
+\Rightarrow \psi(x,y) &= \frac{1}{2}(x^2 + y^2)A
+}
+taking $\pangle{A,B} = \frac{1}{2}\tr(AB)$. 
+\end{example}
+
+\begin{example}
+Take $Q = \mbb{R}^n$ and let $G = \mbb{R}^n \lact Q$ act via translations i.e. for $x \in G$ we have $\phi_x:Q \to Q, \, \phi_x(q) = q+x$. We get an induced action on $M = T^\ast Q$ given by 
+\eq{
+T^\ast \phi_x : M &\to M \\
+(q,p) &\mapsto (\phi_x^{-1}(q),(d\phi_x)_{\phi_x^{-1}(q)}(p))
+}
+In other words we get an action $\Phi : G \times M \to M, \, (x,m) \mapsto \Phi_x(m)$ where 
+\eq{
+\Phi_x(q,p) = (q-x,p)
+}
+as $d\phi_x = \id$. We take the canonical induced symplectic structure $\omega = dq \wedge dp$. Now we know $\mf{g} = \mbb{R}^n$ too and letting $x \in \mf{g}$ we have that $g(t) = \exp(tx)$ must satisfy $g(0)=0,\, g^\prime(0)=x$. Then
+\eq{
+\ev{\frac{d}{dt} f(\Phi_{g(t)}(q,p))}{t=0} &= \ev{\frac{d}{dt}f(q-g(t),p)}{t=0} \\
+&= -x\del_q f(q,p) \\
+\Rightarrow X(x) &= -x\del_q \\
+\Rightarrow \ev{dH}{x} &= -xdp \\
+\Rightarrow H((q,p),x) &= -xp \\
+\Rightarrow \psi(q,p) &= -p
+}
+\hl{Signs are all a mess here, should uniformise these notes to get what I want. }
+\end{example}
+
+\begin{example}
+Similar to the previous example, take $Q = \mbb{R}^2$, $M= T^\ast Q$ with $\omega = dq \wedge dp$, and induce an action on $M$ of $G=SO(2)$ acting via rotations. This is similar, but notably different, to how we had $G$ act on $M=\mbb{R}^2$ previously. For simplicity of notation now let us take $\phi_t(x,y) = (x\cos t - y \sin t, x\sin t + y \cos t ) = \phi_{\exp(tA)}(x,y)$. Note that 
+\eq{
+(d\phi_t)_{(x,y)} &= ((\cos t) dx - (\sin t) dy , (\sin t) dx + (\cos t) dy ) \\
+\Rightarrow (d\phi_t)_{(x,y)}(p) &= (p_1\cos t -p_2 \sin t, p_1 \sin t + p_2 \cos t ) \\ 
+\Rightarrow \Phi_t(q,p) &= (q_1 \cos t + q_2 \sin t, -q_1 \sin t + q_2 \cos t,p_1\cos t +p_2 \sin t,-p_1 \sin t + p_2 \cos t ) \\
+\Rightarrow \ev{\frac{d}{dt} f(\Phi_t(q,p)) }{t=0} &= q_2 \del_{q_1}f -q_1 \del_{q_2}f + p_2 \del_{p_1}f - p_1 \del_{p_2} f \\
+\Rightarrow X(A) &= q_2 \del_{q_1} -q_1 \del_{q_2} + p_2 \del_{p_1} - p_1 \del_{p_2} \\
+\Rightarrow \ev{dH}{A} &= q_2 dp_1 - q_1 dp_2 - p_2 dq_1 + p_1 dq_2 \\
+\Rightarrow H((q,p),A) &= q_2 p_1 - q_1 p_2 \\
+\Rightarrow \psi(q,p) &= (q_1 p_2 - p_1 q_2) A
+}
+\end{example}
+
+\begin{prop}
+The moment map is $G$-equivariant
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Coadjoint representation}
+Suppose now we take $M$ to be the underlying manifold of the Lie group $G$. We then have the group action given by the adjoint representation 
+\eq{
+\phi_g x = g x g^{-1} = L_g R_{g^{-1}} x 
+}
+The corresponding linearised map on the Lie algebra is given by 
+\eq{
+\Ad(g) : \mf{g} \to \mf{g}, \quad
+\Ad(g) = \ev{dL_g dR_{g^{-1}}}{x=e}
+}
+This can be written infinitesimally as $ad(X):\mf{g} \to \mf{g}$.\\
+This map has a corresponding dual called the \bam{coadjoint representation} $\Ad^\ast : \mf{g}^\ast \to \mf{g}^\ast$.
+
+\begin{definition}
+For $\mu \in \mf{g}^\ast$ we define the \bam{orbit} of the coadjoint representation $K \equiv \Ad^\ast$
+\eq{
+O(\mu) = \pbrace{K(g)(\mu) \, | \, g \in G}
+}
+\end{definition}
+The infinitesimal action of the coadjoint is given by 
+\eq{
+\pangle{K_\ast(X)\mu,Y} = \pangle{\mu,-ad(X)Y}
+}
+for $X,Y \in \mf{g}$.
+
+\begin{definition}
+The \bam{isotropy group} or stabiliser of $\mu$
+\eq{
+G_\mu \equiv \pbrace{g \in G \, | \, K(g)\mu = \mu} 
+}
+\end{definition}
+
+\begin{prop}
+The orbits carry a canonical symplectic structure
+\end{prop}
+\begin{proof}
+Note first that by restricting to $O(\mu)$, the group action is transitive, and so $O(\mu)$ is homogeneous. As such to define the form on $O$ is to define it at just one point, say $A$. Now if we let $stab(A)$ be the Lie algebra of $G_A$, we get the short exact sequence 
+\begin{center}
+    \begin{tikzcd}
+    0 \arrow[r] & stab(A) \arrow[r] & \mf{g} \arrow[r] & T_A(O(\mu)) \arrow[r] & 0
+    \end{tikzcd}
+\end{center}
+where $T_A(O(\mu))$ is the tangent space to the orbit as $A$. Hence 
+\eq{
+T_A(O(\mu)) \cong \faktor{\mf{g}}{stab(A)}
+}
+Now we have the natural bilinear map $Q_A$ with $\ker Q_A = stab(A)$, namely
+\eq{
+Q_A(X,Y) \equiv \pangle{K_\ast(X)A,Y}
+}
+We can then define a two form at $A$ by 
+\eq{
+\omega_A(K_\ast(X)A,K_\ast(Y)A) = Q_A(X,Y)
+}
+which is certainly antisymmetric, and non-degenerate by construction. It can be checked that $\omega$ will be closed. 
+\end{proof}
+
+\begin{remark}
+These orbits come as part of the 'orbit method' developed by Kirillov (c.f. \cite{Kirillov1999MeritsMethod}) which is useful in representation theory. 
+\end{remark}
+
+\begin{example}
+Let $G = GL_n(\mbb{R})$. We can identify $\mf{g}^\ast$ with $\mf{g}$ by writing $\mc{B}\in \mf{g}^\ast$ as 
+\eq{
+\mc{B}(A) = \pangle{A,B}= \tr(AB)
+}
+for some $B \in \mf{g}$. As such we can identify the adjoint and coadjoint representations. As such $O(\mu) = \pbrace{\text{Matrices similar to }\mu}$. Thus if $\mu$ has distinct eigenvalues then $O(\mu) = \pbrace{\text{Matrices isospectral to }\mu}$. As we are in a matrix group 
+\eq{
+ad(X)Y = \comm[X]{Y}
+}
+the standard matrix commutator, and we can calculate
+\eq{
+\pangle{K_\ast(X) A,Y} &= \pangle{A,\comm[Y]{X}} \\
+\Rightarrow K_\ast(X) Y &= \comm[X]{A} 
+}
+and so we have the differential form given by 
+\eq{
+\omega(\comm[B_1]{A},\comm[B_2]{A}) = \tr(A\comm[B_1]{B_2})
+}
+\end{example}
+
+As $\psi$ is $G$-equivariant, we know that 
+\eq{
+\psi\pround{\pbrace{\phi_g p \, | \, g \in G}} = O(\psi(p))
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Reduced Phase Space}
+Using the above fact about the orbits and how they interact with the moment map, we can make the following definition:
+\begin{definition}
+Assuming that $\psi^{-1}(\mu)$ is a manifold, $G_\mu$ is compact, and acts on $\psi^{-1}(\mu)$ with no fixed points, the \bam{reduced phase space} is 
+\eq{
+\tilde{M} = \faktor{\psi^{-1}(\mu)}{G_\mu}
+}
+where $[p] = \pbrace{\phi_g p \, | \, g \in G_\mu}$. 
+We have the bundle structure 
+\begin{center}
+    \begin{tikzcd}
+ G_\mu \arrow[r] & \psi^{-1}(\mu) \arrow[d,"\pi"] \\
+ & \tilde{M}
+    \end{tikzcd}
+\end{center}
+\end{definition}
+
+$\tilde{M}$ is a symplectic manifold with form $\tilde{\omega}$ inherited from $M$ by $\pi^\ast \tilde{\omega} = i^\ast \omega$
+
+\begin{center}
+    \begin{tikzcd}
+    \psi^{-1}(\mu) \arrow[r,"i"] \arrow[d,"\pi"] & (M,\omega)\\
+    (\tilde{M},\tilde{\omega}) 
+    \end{tikzcd}
+\end{center}
+
+Moreover it can be given a Hamiltonian $\tilde{H}$ specified by the condition $\tilde{H}\circ \pi = H \circ i $
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{plain}
+\bibliography{references.bib}
+
+
+
+\end{document}

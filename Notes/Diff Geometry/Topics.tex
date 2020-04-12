@@ -1,0 +1,424 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Topics in Geometry Notes}
+\author{Linden Disney-Hogg}
+\date{January 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+The following notes are a collection of topics in geometry. They are intended to provide a sufficient understanding on the underlying geometry present in lots of mathematical physics. Where possible geometric meaning will be promoted to avoid the tendency to immediately work in coordinates. Often in these notes care will \emph{not} have been taken to ensure all definitions are given suitably stringently (e.g. emphasising the difference between a manifold and a smooth manifold). As the tools presented become more important, and so the need to have them be more precise is increased, these flaws will be ironed out.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Differential Forms}
+This section will largely follow the treatment by Arnold in 'Mathematical Methods of Classical Mechanics'. Consider a finite dimensional vector space $V$ over a field $\mbb{F}$ of dimension $n$. Then $V$ is isomorphic to $\mbb{F}^n$. These notes will thus work with $\mbb{R}^n$ for simplicity sake. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Exterior forms}
+
+\begin{definition}[k-form]
+An \bam{exterior form of degree k} or \bam{k-form} is a map 
+\[
+\omega : \underbrace{\mbb{R}^n \times \dots \times \mbb{R}^n}_{k\text{ times}} \to \mbb{R}
+\]
+that is linear, and totally antisymmetric.
+\end{definition}
+
+\begin{theorem}
+The space of k-forms on $\mbb{R}^n$ forms a vector space of dimension $\binom{n}{k}$
+\end{theorem}
+
+\begin{definition}
+Given a function $f:\mbb{R}^m \to \mbb{R}^n$ and exterior k-form $\omega^k$ on $\mbb{R}^n$, there is the corresponding exterior k-form $f^\ast\omega^k$ on $\mbb{R}^m$ given by 
+\[
+(f^\ast\omega^k)(v_1,\dots,v_k) = \omega^k(fv_1,\dots,fv_k)
+\]
+\end{definition}
+
+\begin{definition}[Exterior Product]
+The \bam{exterior product} of a k-form $\omega^k$ and a l-form $\omega^l$ is the $k+l$-form $\omega^k \wedge \omega^l$ defined by 
+\[
+(\omega^k\wedge\omega^l)(v_1,\dots,v_{k+l}) = \sum_{\sigma \in S_{k+l}} (-1)^{sgn(\sigma)} \omega^k(v_{\sigma(1)},\dots,v_{\sigma(k)}) \omega^l(v_{\sigma(k+1)},\dots,v_{\sigma(k+l)})
+\]
+It is 
+\begin{itemize}
+    \item Skew commutative $\omega^k \wedge \omega^l = (-1)^{kl} \omega^l \wedge \omega^k$
+    \item distributive
+    \item associative 
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Exterior Algebra]
+The \bam{k\textsuperscript{th} exterior power} of a vector space $V$ is the subspace $\Lambda^k(V)$ defined by 
+\[
+\Lambda^k(V) = \spn\set{v_1 \wedge \dots \wedge v_k : v_i \in V}
+\]
+for $k<n=\dim V$. The \bam{exterior algebra} is then 
+\[
+\Lambda(V) = \Lambda^0(V) \oplus \Lambda^1(V) \oplus \dots \oplus \Lambda^n(V)
+\]
+where by convention $\Lambda^0(V)=\mbb{F}$, the field the vector space is defined over.  Note the sum is terminated here as for $k>n$, $\Lambda^k(V)=0$, so would add no information to the direct sum. 
+\end{definition}
+
+\begin{definition}[Orientation]
+An \bam{orientation} is determined by specifying a preferred unit vector 
+\[
+w \in \Lambda^n (V)
+\]
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Differential Forms}
+
+\begin{definition}[Differential]
+The \bam{differential} of a function on a manifold $f:\mc{M}\to\mbb{R}$ is 
+\begin{align*}
+    & df : T\mc{M} \to \mbb{R} \\
+    & df(x,v) = df_x(v) = \left. \frac{d}{dt} \right\rvert_{t=0} f(\gamma(t))
+\end{align*}
+where $\gamma:I\to\mc{M}$, $\gamma(0)=x, \dot{\gamma}(0)=v$ is a curve on the manifold. Note that $\forall x\in\mc{M}$, $df_x$ is a 1-form on $T_x \mc{M}$.
+\end{definition}
+
+\begin{example}
+Take coordinate functions about $x\in\mc{M}$ on the manifold $x^i : \mc{M} \to \mbb{R}$, i.e. $\phi:\mc{M}\to\mbb{R}^n$ about x, $\phi(p)=(x^1(p),\dots,x^n(p))$. Take a basis of the tangent space corresponding to the coordinate functions $\set{ \pd{x^i} }$ and let $v=v^i \pd{x^i}\in T_x \mc{M}$. Then let $\gamma=\gamma(t)$ be the curve with coordinates $x^j(\gamma(t)) = x^j(x) + v^j t $ (defined in some open ball). This gives
+\eq{
+dx^j_x(v) &= \left. \frac{d}{dt} \right\rvert_{t=0} x^j(\gamma(t))\\
+&= \left. \frac{d}{dt} \right\rvert_{t=0} x^j(x) + v^j t \\
+&= v^j
+}
+Now for a function $f:\mc{M}\to\mbb{R}$ its expression in terms of the coordinates can be considered as $\tilde{f}:\mbb{R}^n \to \mbb{R}$ where $f=\tilde{f} \circ \phi$. By the chain rule 
+\[
+df = d\tilde{f} \circ d\phi
+\]
+It is known 
+\eq{
+d\tilde{f}\left( \frac{dx^i}{dt} \bm{e}_i \right) &= \pd[\tilde{f}]{x^i} \frac{dx^i}{dt} \\
+\Rightarrow d\tilde{f}\left( \bm{e}_j \right) &= \pd[\tilde{f}]{x^j}
+}
+and hence 
+\eq{
+df(v)&=\pd[\tilde{f}]{x^i}v^i \\
+\Rightarrow df &= \pd[\tilde{f}]{x^i} dx^j
+}
+\end{example}
+
+\begin{definition}[Differential k-form]
+A \bam{differential k-form} at a point $x\in\mc{M}$ some manifold is an exterior k-form on the tangent space $T_x\mc{M}$. If given such $\omega^k\rvert_x$ is given $\forall x\in \mc{M}$ and the corresponding map on $\mc{M}$ is differentiable, then
+\begin{align*}
+    \omega^k : T\mc{M} \to \mbb{R}
+\end{align*}
+is a k-form on $\mc{M}$. The vector space of all such differential k-forms is denoted $\Omega^k(\mc{M})$
+\end{definition}
+
+\begin{remark}
+Note the double use of the term k-form. In not considered properly, this can cause confusion, but the use should be clear from context. 
+\end{remark}
+
+\begin{fact}
+Differential forms can be multiplied by smooth functions to give another differential form. As such it can be seen that the space of all differential forms is a module over the ring of smooth real functions on $\mc{M}$, called $\mc{C}^\infty(\mc{M},\mbb{R})$.
+\end{fact}
+
+\begin{theorem}
+Given coordinates $\set{x^i}_{i=1}^n$ on $\mc{M}$ any differential k-form can be written as 
+\[
+\omega^k = \sum_{i_1<\dots<i_k} a_{i_1 \dots i_k}(x) dx^{i_1} \wedge \dots \wedge dx^{i_k}
+\]
+\end{theorem}
+
+\begin{definition}
+As before for a smooth function $f:\mc{M}\to\mc{N}$ and differential k-form on $\mc{N}$ define the differential k-form $f^\ast\omega^k$ on $\mc{M}$ by 
+\[
+(f^\ast\omega^k)(v_1,\dots,v_k) = \omega^k(f_\ast v_1, \dots, f_\ast v_k)
+\]
+where $f_\ast = df$ is the differential of f. 
+\end{definition}
+
+\begin{theorem}
+Let $\set{x^i}$ be an oriented coordinate system on $\mbb{R}^k$. Then every differential k-form on $\mbb{R}^k$ is proportional to $dx^1 \wedge \dots \wedge dx^k$
+\end{theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cells and Chains}
+
+\begin{definition}[k-dimensional cell]
+A \bam{k-dimensional cell} on $\mc{M}$ is a triple $\sigma=(D,f,Or)$ where 
+\begin{itemize}
+    \item $D\subset\mbb{R}^k$ is a convex polyhedron
+    \item $f:D\to\mc{M}$ a differentiable map
+    \item $Or$ an orientation on $\mbb{R}^k$
+\end{itemize}
+\end{definition}
+
+\begin{definition}[k-dimensional chain]
+A \bam{k-dimensional chain} is a collection $\set{\sigma_i, m_i}_{i=1}^r$ where $\sigma_i$ are k-dimsensional cells and $m_i \in \mbb{Z}$. Denote the chain as 
+\[
+c_k = m_1 \sigma_1 + \dots + m_r \sigma_r
+\]
+Introduce the natural identification 
+\eq{
+(m_1 + m_2)\sigma &= m_1 \sigma + m_2 \sigma \\
+m_1 \sigma_1 + m_2 \sigma_2 &= m_2 \sigma_2 + m_1 \sigma_1 \\ 
+0\sigma &= 0 \\
+\sigma + 0 &= \sigma
+}
+\end{definition}
+
+\begin{definition}[Boundary]
+Given a k-dimensional cell $\sigma=(D,f,Or)$ the boundary of $\sigma$ is defined as 
+\[
+\del \sigma = \sum \sigma_i \quad  \sigma_i = (D_i, f_i, Or_i)
+\]
+where 
+\begin{itemize}
+    \item $D_i$ are the $(k-1)$-dimensional faces of $D$. 
+    \item $f_i = f\rvert_{D_i}$.
+    \item $Or_i$ is the orientation compatible with $Or$ given the normal to $D_i$ is the first element. 
+\end{itemize}
+For a chain $c_k = m_1 \sigma_1 + \dots + m_r \sigma_r$ similarly define 
+\[
+\del c_k = m_1 \del\sigma_1 + \dots + m_r \del\sigma_r
+\]
+\end{definition}
+
+\begin{definition}[Cycle]
+A chain $c$ is called a \bam{cycle} if $\del c =0$
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Integral and Differential}
+
+\begin{definition}
+Let $\omega^k$ be a differential k-form on $\mbb{R}^k$ and $D\subset \mbb{R}^k$ a bounded convex polyhedra. Writing $\omega^k = \varphi(x) dx^1 \wedge \dots \wedge dx^k $ define 
+\[
+\int_D \omega^k = \int_D \varphi(x) dx^1\dots dx^k
+\]
+\end{definition}
+
+\begin{definition}
+Given a k-dimensional cell $\sigma=(D,f,Or)$ and differential k-form $\omega^k$ define 
+\[
+\int_\sigma \omega^k = \int_D f^\ast \omega^k 
+\]
+\end{definition}
+
+\begin{definition}
+Given a k-dimensional chain $c_k = \sum m_i \sigma_i $ and differential k form $\omega^k$ let 
+\[
+\int_{c_k} \omega^k = \sum m_i \int_{\sigma_i} \omega^k 
+\]
+\end{definition}
+
+\begin{definition}[Increment]
+Let $\omega^k$ be a differential k-form on $\mc{M}$. Given $v_1, \dots, v_{k+1} \in T_x \mc{M}$ for $x\in\mc{M}$, and $f:\mbb{R}^n \to T_x\mc{M}$ coordinates on the tangent space define the \bam{increment} 
+\[
+F(v_1, \dots, v_{k+1}) = \int_{\del\Pi} \omega^k
+\]
+where $\Pi = f(\spn_{[0,1]}\set{f^{-1}(v_1),\dots,f^{-1}(v_{k+1})})$
+\end{definition}
+
+\begin{definition}[Exterior Derivative]
+The principal part of the increment is a $(k+1)$-form and is called the \bam{exterior derivative} or \bam{differential} of $\omega^k$. It is denoted $d\omega^k$. Let 
+\[
+d(=d^k): \Omega^k(\mc{M}) \to \Omega^{k+1}(\mc{M})
+\]
+be the map $d:\omega \to d\omega$. 
+\end{definition}
+
+\begin{theorem}
+The differential of $\omega^k$ is independent of the choice of $f$. Moreover, if 
+\[
+\omega^k = \sum_{i_1<\dots<i_k} a_{i_1 \dots i_k}(x) dx^{i_1} \wedge \dots \wedge dx^{i_k}
+\]
+then 
+\[
+d\omega^k = \sum_{i_1<\dots<i_k} da_{i_1 \dots i_k}(x) \wedge dx^{i_1} \wedge \dots \wedge dx^{i_k}
+\]
+\end{theorem}
+
+\begin{theorem}[Properties of the exterior derivative]
+The exterior derivative satisfies
+\begin{itemize}
+    \item $d(\omega_1 + \omega_2) = d\omega_1 + d\omega_2$
+    \item $d(\omega^k \wedge \omega^l) = d\omega^k \wedge \omega^l + (-1)^k \omega^k \wedge d\omega^l $
+    \item $dd=0$
+    \item $f^\ast (d\omega) = d(f^\ast \omega)$
+\end{itemize}
+\end{theorem}
+
+\begin{definition}[Closed]
+A differential form $\omega$ is \bam{closed} if 
+\[
+d\omega = 0
+\]
+\end{definition}
+
+\begin{theorem}
+Every differential is closed. i.e. 
+\[
+\image d^{k-1} \leq \ker d 
+\]
+\end{theorem}
+
+\begin{theorem}[Stokes' Formula]
+For $\omega$ a k-form and $c$ a $k+1$ chain 
+\[
+\int_{\del c} \omega = \int_c d\omega
+\]
+\end{theorem}
+
+\begin{corollary}
+If $\omega^k$ is a closed k-form then for any $(k+1)$-chain $c_{k+1}$
+\[
+\int_{c_{k+1}} \omega^k = 0
+\]
+\end{corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Operators}
+
+\begin{definition}[Hodge Star Operator]
+Given an inner product space $V$ with inner product $(\cdot,\cdot)$ and orientation given by $w$, the \bam{Hodge star operator} 
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Homology and Cohomology}
+
+\begin{definition}[Homology Group]
+The \bam{k\textsuperscript{th} homology group} is
+\[
+H^k(\mc{M})=\faktor{\ker d^k}{\image d^{k-1}}
+\]
+\end{definition}
+
+\begin{example}
+Let $\mc{M}=S^1$. A 0-form is just a smooth function $f:S^1 \to \mbb{R}$. Taking the coordinate $\theta$ on some patch of $S^1$ 
+\[
+df = \frac{df}{d\theta} d\theta 
+\]
+Taking a one form on $S^1$,  $\omega = a(\theta) d\theta$. Then 
+\eq{
+d^1 \omega = da \wedge d\theta = \frac{da}{d\theta} d\theta \wedge d\theta = 0
+}
+Now define 
+\[
+\bar{a} =\frac{1}{2\pi} \int_{S^1} \omega =\frac{1}{2\pi} \int_0^{2\pi} a(\theta) d\theta
+\]
+and let $a_0(\theta) = a(\theta) - \bar{a}$. Then 
+\[
+f(\theta) = \int_0^\theta a_0(t) dt 
+\]
+satisfies $f(0) = f(2\pi)=0 \Rightarrow f(\theta) = f(\theta+2\pi)$ so $f$ is a well defined function on $S^1$. In addition $\frac{df}{d\theta} = a_0$ so 
+\[
+\omega = df + \bar{a} d\theta
+\]
+so 
+\[
+H^1(S^1) = \set{\bar{a}d\theta + \image d^0 : \bar{a}\in\mbb{R}} \cong \mbb{R} 
+\]
+\begin{definition}[Betti Number]
+The \bam{k\textsuperscript{th} Betti number} of $\mc{M}$ is 
+\[
+\dim H^k(\mc{M})
+\]
+\end{definition}
+
+\end{example}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Manifolds}
+
+\subsection{Basics}
+
+
+\subsection{Fibre Bundles}
+
+\begin{definition}[Fibre Bundle]
+A \bam{fibre bundle} is a collection $(P,\pi,\mc{M},F,G)$ where
+\begin{itemize}
+    \item $P$ is a differentiable manifold called the \bam{total space}.
+    \item $\mc{M}$ is a differentiable manifold called the \bam{base space}.
+    \item $F$ is a differentiable manifold called the \bam{standard fibre}.
+    \item $G$ is a Lie group, called the \bam{structure group} that acts on the standard fibre.
+    \item $\pi:P\to\mc{M}$ is a surjective map called the \bam{projection}. If $\dim\mc{M} = m$, $\dim F = n$, then $\dim P = m+n$ and \[
+    \forall p\in P, \; F_p = \pi^{-1}(p) \cong F
+    \]
+    is called the \bam{Fibre at the point $p$}.
+    \item $\mc{M}$ has an open cover $\set{U_\alpha}$ with homermorphisms
+    \[
+    \phi_\alpha^{-1}: U_\alpha \times F \to \pi^{-1}(U_\alpha)
+    \]
+    such that 
+    \[
+    \forall p\in U_\alpha, \, \forall f \in F, \; \pi\cdot\phi_\alpha^{-1}(p,f) = p
+    \]
+    $\phi_\alpha^{-1}$ is called the \bam{local trivialisation} of the bundle.
+    \item The map $\phi_{\alpha,p}^{-1} : F\to F_p$ given by $\phi_{\alpha,p}^{-1}(f) = \phi_\alpha^{-1}(p,f)$ is a homeomorphism, and the function 
+    \[
+    t_{\alpha,\beta}(p) = \phi_{\alpha,p} \cdot \phi_{\beta,p}^{-1} : F \to F
+    \]
+    is an element of the structure group $t_{\alpha,beta}(p)\in G$ called the \bam{transition function}. This realises a map 
+    \[
+    t_{\alpha,\beta} : U_\alpha \cap U_\beta \to G 
+    \]
+    This map satisfies 
+    \[
+    \phi_\beta^{-1}(p,f) = \phi_\alpha^{-1} (p, t_{\alpha,\beta}(p) \cdot f )
+    \]
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Smooth Section]
+A \bam{section} of a bundle is a map $\sigma:\mc{M}\to P$ such that $\pi\circ\sigma=id$
+\end{definition}
+
+\begin{example}
+A good example of a fibre bundle is the tangent bundle
+\[
+T\mc{M} = \bigcup_{x\in\mc{M}} T_x \mc{M}
+\]
+Given an atlas $\set{\mc{U}_\alpha, \phi_\alpha}$ for $\mc{M}$, then the tangent bundle has the natural atlas $\set{\bar{\mc{U}}_\alpha, \bar{\phi}_\alpha}$ given by 
+\begin{align*}
+\bar{\mc{U}}_\alpha = \pi^{-1}(\mc{U}_\alpha) \\
+\bar{\phi}_\alpha : a^i \pd{x^i} \rvert_p \to \phi_\alpha(p) \times (a^1,\dots,a^n)
+\end{align*}
+where $x^i$ are coordinates on $\mc{M}$ and $n=\dim\mc{M}$. Then a vector field is a section of the tangent bundle
+\end{example}
+
+\begin{definition}[Principle Bundle]
+A \bam{principle G-bundle} is one where $G=F$ and acts on itself via multiplication. 
+\end{definition}
+
+\begin{definition}[Associated Bundle]
+An \bam{associated bundle} is one where $F=V$, some vector space, and the action of $G$ on $F$ is via a representation of $G$ with representation space $V$. If a structure group is not specified, then this is just a \bam{vector bundle}. 
+\end{definition}
+
+\subsection{Dual Bundles}
+
+\begin{idea}
+Given a vector space 
+\end{idea}
+
+\subsection{Connection}
+
+\begin{idea}
+The idea behind a connection is to give some way of moving between fibres of a bundle. This can be thought of as parallel transport, wherein 
+\end{idea}
+
+
+
+\end{document}

@@ -1,0 +1,831 @@
+\documentclass{article}
+
+\usepackage{../../header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Gauge Theory Notes}
+\author{Linden Disney-Hogg}
+\date{January 2020}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+These are lecture notes taken from "Topics in Mathematical Physics". It may go poorly trying to type this live but let's see. The course will be covering essentially differential geometric aspects of gauge theory
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Historical Overview}
+\subsubsection{Physics}
+Starting with Maxwell's equations in the 19th century for describing classical electromagnetism, these are differential equations for some fields. These were reformulated by Weyl in the 1920-30s, and the term gauge theory was coined. Namely, electromagnetism was reformulated as a classical $U(1)$ gauge theory. The Aharonov-Bohm theory gave that this extra degree of freedom corresponding to the vector potential has a physical significance for quantum mechanics. In the 1950s, Yang \& Mills gave the equations for gauge theories with arbitrary non-abelian Lie groups. The physical relevance of the commutativity is that non-abelian groups - when quantised - lead to particles which self interact. Note that this is not the case for photons (which correspond to $U(1)$). In the 1960-70s it was shown that non-abelian gauge theories can be renormalised, so correctly quantised, and this allows the standard model to be developed. This is a quantum gauge theory with group $U(1)\times SU(2) \times SU(3)$.
+
+\subsubsection{Maths}
+In the 1930-60s the theory of the principal bundle was developed, and this included the concept of connections. In the 1970s it was realised that these are the same constructs as being developed in physics. In the late 70s the concept of moduli space of instantons was being developed, and in the 80s the Donaldson invariant theory was being worked on. These are invariants of differential manifolds, and led to the discovery of exotic $\mbb{R}^4$. This continued to develop ideas of Seiberg-Witten invariants in the 90s. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Course direction}
+The course will be slightly dictated by the will of the class, but the basic structure will be as follows:
+\begin{itemize}
+    \item Review of manifolds and De Rham cohomology
+    \item Riemannian and symplectic geometry, including symplectic reduction
+    \item Lie groups, Lie algebras, and basic rep theory
+    \item Principal bundles, associated vector bundles, fibre bundles
+    \item Connections from different points of view 
+    \item Chern-Weil theory, characteristic classes, and classifying spaces
+    \item Yang Mills functional, electromagnetism as a gauge theory, and the Aharonov-Bohm experiment
+    \item Gauge theory in dimensions 2,3 and 4, instantons, Chern-Simons theory
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Suggested Reading}
+Possible texts to look at include: \\
+Mathematically sound, though written for physicists - 
+\begin{itemize}
+    \item Nakahara, "Geometry, topology \& physics" 
+    \item Nash, "Topology and geometry for physicists" 
+    \item Frankel, "Geometry of physics" 
+\end{itemize}
+Written for mathematicians - 
+\begin{itemize}
+    \item Marcathe \& Martucci, "The mathematical formulation of gauge theory"
+    \item Nakez, "Topology, geometry, and gauge fields"
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Review of Manifold Theory}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Initial definitions}
+\begin{definition}
+A \bam{topological manifold} of dimension $n$, $M$, is a topological space that is Hausdorff, second countable, paracompact, and locally homeomorphic to $\mbb{R}^n$. i.e. $\forall m \in M, \, \exists U \ni m$ such that $U$ open and homeomorphic to $\mbb{R}^n$. 
+\end{definition}
+Recall that topological manifolds can have further properties such as \bam{compact} or \bam{orientable} (Note that orientability is a well defined topological property, but for manifolds not general topological spaces). \\
+Now we want to be able to do calculus on manifolds, but the standard definition of derivative of a real valued function $f$ does not immediately parse. Namely the concept of $f(x+\eps)$ leads us to want a vector space structure, and so we are led to think locally, where we know our space looks like $\mbb{R}^n$, which is a vector space. Now we have a new problem, that our answer for the derivative may be ambiguous depending on which homeomorphism we chose 
+\begin{example}
+This manifests itself in dimension 1. Let $M = \mbb{R}$, but take the homeomorphisms $id$ or $x^3$ in a neighbourhood of $m=0$. Take the function $f(x) = x^\frac{1}{3}$. If we ask whether this function is differentiable, that depends on which homeomorphism we are using. 
+\end{example}
+To solve this issue, we require extra information, and this turns a topological manifold into a smooth manifold:
+
+\begin{definition}
+A \bam{smooth manifold} is a topological manifold with a preferred set of homeomorphisms $\pbrace{\varphi_\alpha: U_\alpha \overset{\cong}{\to} \varphi_\alpha(U_\alpha) \subset \mbb{R}^n}$ such that 
+\begin{itemize}
+    \item $\cup_\alpha U_\alpha = M$
+    \item $\ev{\varphi_\beta \circ \varphi_\alpha^{-1}}{\varphi_\alpha(U_\alpha \cap U_\beta)}$ is a diffeomorphism
+\end{itemize}
+This is called a \bam{smooth atlas}, and the $\varphi_\alpha$ are called charts. 
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Other viewpoints}
+We can define $C^0(M)$, the $\mbb{R}$-algebra of real valued continuous functions on a topological manifolds naturally, but we require the smooth structure of transition functions in order to define $C^\infty(M)$, the subalgebra of smooth functions. An atlas is said to be compatible with a local homeomorphism $\varphi$ if $\pbrace{\varphi} \cup \pbrace{\varphi_\alpha}$ is still an atlas. This allows us to talk of \bam{maximal atlases}, which are those which contain all possible compatible charts. Each atlas has a unique compatible maximal atlas, and the corresponding equivalence classes of atlases are called \bam{smooth structure}
+
+\begin{example}
+Consider again $M = \mbb{R}$. The atlases given by $id$ and $x^3$ are incompatible as atlases, and so correspond to different smooth structures. However, the homeormorphism $x^\frac{1}{3}:M \to M$ becomes a diffeomorphism wrt the corresponding smooth structure.
+\end{example}
+We can, from this example, begin to ask the question of what smooth structures are possible up to diffeomorphism. This is a question answered by learning from gauge theory, which leads to the concept of exotic $\mbb{R}^4$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Objects on manifolds}
+
+\subsubsection{Vector Fields}
+We can take different viewpoints towards what is a vector field. Suppose we have a chart $\varphi_\alpha$ with coordinates $x^1, \dots, x^n$. \\
+A physicist approach would be to define a vector field as such:
+\begin{definition}[vector field - physicist way]
+A \bam{vector field} is an assignment of $n$ smooth functions $(X^1, \dots, X^n)$ to each chart s.t when switching to a chart with coordinates $\tilde{x}^i$ the smooth functions $\tilde{X}^i$ are given by 
+\eq{
+\tilde{X}^i = \pd[\tilde{x}^i]{x^j} X^j
+}
+\end{definition}
+A mathematical definition would be
+\begin{definition}[Vector field - mathematician way]
+ A \bam{vector field} is a derivation of $C^\infty(M)$. Recall a derivation is a map $X:C^\infty(M) \to C^\infty(M)$ s.t. $X$ is $\mbb{R}$ linear and that $X(fg) = X(f)g + fX(g)$. 
+ \end{definition}
+The connection between the two definitions is that $X^i \pd{x^i}$ is a derivation of $C^\infty(U_\alpha)$
+
+$\forall m \in M$, we have a \bam{tangent space} to $M$ at $m$, written $T_m M$. This requires a smooth structure in order to define. Given the tangent spaces we can define 
+\eq{
+TM = \bigsqcup_m T_m M
+}
+the \bam{tangent bundle}. It is a manifold in its own right, and moreover it comes with the projection 
+\eq{
+\pi : TM & \to M \\
+v \in T_m M &\mapsto m
+}
+With this we can then say
+\begin{definition}
+A \bam{vector field} is a section of $\pi$, i.e. a smooth map $X:M \to TM$ s.t. $\pi \circ X = id_M$. 
+\end{definition}
+
+
+\subsubsection{One forms}
+Each tangent space is a vecotr space, and so has dual vector space $T_m^\ast M$. We can hence similarly define the \bam{cotangent bundle} 
+\eq{
+T^\ast M = \bigsqcup_m T_m^\ast M
+}
+
+\begin{definition}
+A \bam{one form} is a section of $T^\ast M \to M$
+\end{definition}
+we can also apply operations from multilinear algebra, e.g. $TM \oplus TM, \dots$
+
+\begin{definition}[Tensor field - physicist way]
+A \bam{tensor} is a section of a bundle of the form $(p,q)$
+\eq{
+\underbrace{TM \otimes \dots \otimes TM}_{\times p} \otimes \underbrace{T^\ast M \otimes \dots \otimes T^\ast M}_{\times q} \to M 
+}
+\end{definition}
+
+\begin{definition}
+A \bam{k-form} is an element of 
+\eq{
+\Omega^k(M) = \Gamma(\Lambda^k(T^\ast M))
+}
+where $\Gamma$ is the space of sections. These are $\mbb{R}$-vector spaces, and further $C^\infty(M)$-modules. 
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Exterior algebra}
+We can define a \bam{wedge operator} 
+\eq{
+\wedge : \Omega^k(M) \times \Omega^l(M) &\to \Omega^{k+l}(M) \\
+(\alpha,\beta) &\mapsto \alpha \wedge \beta
+}
+We can thus get the graded algebra 
+\eq{
+\Omega^\ast(M) = \bigoplus_{i=0}^n \Omega^i(M)
+}
+We can further define an \bam{exterior derivative} by 
+\eq{
+d: \Omega^k(M) &\to \Omega^{k+1}(M)
+}
+Whereas the wedge operation was done pointwise, the exterior derivative requires local information. It has the property
+\eq{
+d^2 = 0
+}
+This gives a natural motivation to 
+\begin{definition}
+The \bam{i\textsuperscript{th} De Rham Cohomology class} of $M$ is 
+\eq{
+H_{dR}^i(M) = \faktor{\ker(d: \Omega^i(M) \to \Omega^{i+1}(M))}{\image(d: \Omega^{i-1}(M) \to \Omega^i(M))}
+}
+\end{definition}
+Often (e.g when $M$ is compact) this is finite dimensional. Note that, despite the fact that we needed smooth structure in order to define this, it is in fact a topological property. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Back to Vector Fields}
+
+Given a vector field $X \in \mf{X}(M)$, $\exists$ a 1-parameter group of diffeomorphisms $\phi_t^X:M \to M$ for $t \in \mbb{R}$ (we will sometimes denote this as $\exp(tX)$) such that 
+\begin{itemize}
+    \item $\phi_t^X \circ \phi_s^X = \phi_{t+s}^X$
+    \item $\ev{\frac{d}{dt} \phi_t^X(m)}{t=0} = X_m$
+\end{itemize}
+
+If $M$ is not compact, $\phi_t^X$ will only exists 'locally'. If they do exists $\forall t$ we say that $X$ is \bam{complete}. 
+
+\begin{example}
+Take $M = (0,1) \times \mbb{R}$, we can have $X = \del_x$ a horizontal vector field and this is not complete. 
+\end{example}
+
+If $X$ is a (complete) vector field, we can take the \bam{Lie derivative} of anything which can pullback under the diffeomorphisms $\phi_t^X$ by 
+\eq{
+\mc{L}_X T= \ev{\frac{d}{dt} (\phi_t^X)^\ast T }{t=0}  
+}
+
+Some simple cases are 
+\begin{enumerate}
+    \item for $f \in C^\infty(M)$, $\mc{L}_X f = X(f)$
+    \item for $\alpha \in \Omega^\ast(M)$, $\mc{L}_X \alpha = i_X d\alpha + d(i_X \alpha)$
+    \item for $Y \in \mf{X}(M)$, $\mc{L}_X Y = \comm[X]{Y}$. This bracket is the \bam{Lie bracket}
+\end{enumerate}
+
+We can calculate $\phi^{\comm[X]{Y}}_t = \phi^X_{-\sqrt{t}} \circ \phi^Y_{-\sqrt{t}} \circ \phi^X_{\sqrt{t}} \circ \phi^Y_{\sqrt{t}}$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Lie Groups}
+
+\begin{definition}
+A \bam{Lie group} $G$ is a group object in the category of manifolds, i.e. 
+\begin{itemize}
+    \item $G$ is a manifold
+    \item $G \times G \to G$ multiplication is smooth 
+    \item $G \to G$ inverse is smooth
+\end{itemize}
+\end{definition}
+
+\begin{example}
+We have $GL_n(\mbb{R})\subset M_n(\mbb{R}) \cong \mbb{R}^{n^2}$
+\end{example}
+
+\begin{theorem}[Cartan]
+Any closed subgroup of a Lie group is a Lie group itself. 
+\end{theorem}
+
+\begin{example}
+A non-example of the above is given by 
+\eq{
+H = \pbrace{(e^{it},e^{iat}) \, | \, t \in \mbb{R}, \, a \in \mbb{R}\setminus \mbb{Q}} \subset U(1) \times U(1)
+}
+\end{example}
+
+\begin{example}
+$SL_n(\mbb{R}) = \det^{-1}(1) \subset GL_n(\mbb{R})$
+\end{example}
+
+\begin{example}
+$O(n) = \pbrace{A \in GL(n,\mbb{R}) \, \mid \, A^T A = I}$
+\end{example}
+
+\begin{example}
+$Sp(2n,\mbb{R}) = \pbrace{A \in GL(2n,\mbb{R}) \, \mid \, A^T J A = J}$ where $J$ is block diagonal with blocks $\begin{psmallmatrix} 0 & -1 \\ 1 & 0 \end{psmallmatrix}$
+\end{example}
+
+\begin{example}
+We have $GL(n,\mbb{C}) = \pbrace{A \in GL(2n,\mbb{R}) \, \mid \, AJ=JA}$
+\end{example}
+
+\begin{example}
+$U(n) = \pbrace{A \in GL(n,\mbb{C}) \, \mid \, A^\dagger A = I}$
+\end{example}
+
+\begin{lemma}
+\eq{
+U(n) &= GL(n,\mbb{C}) \cap Sp(2n,\mbb{R}) \cap O(2n,\mbb{R}) \\
+&= GL(n,\mbb{C}) \cap Sp(2n,\mbb{R}) \\ 
+&= GL(n,\mbb{C}) \cap O(2n,\mbb{R}) \\
+&= Sp(2n,\mbb{R}) \cap O(2n,\mbb{R})
+}
+\end{lemma}
+
+\begin{remark}
+All of these are matrix groups. Not all Lie groups are matrix groups but most are. 
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Lie Algebra}
+
+\begin{definition}
+A (real) \bam{Lie algebra} is a $\mbb{R}$-vector space $\mf{g}$ with a bilinear, antisymmetric map $\comm[\cdot]{\cdot} : \mf{g} \times \mf{g} \to \mf{g}$ that satisfies the Jacobi identity. 
+\end{definition}
+
+Given any Lie group $G$ we have an associated Lie algebra $\mf{g} = \Lie(G) = T_eG$. Hence $\dim\mf{g} = \dim G$. The Lie bracket structure in constructed as follows: Recall we have the diffeomorphism $L_g : G \to G$ of left multiplication by $g \in G$. We say $X \in \mf{X}(G)$ is \bam{left invariant} if $\forall h \in G,\, (dL_g)_h X_h = H_{gh} \Rightarrow X_h = (dL_g)_e X_e$. Hence LIVFs are determined by $X_e\in T_e G = \mf{g}$. 
+\begin{lemma}
+If $X,Y$ are LI then $\comm[X]{Y}$ is LI
+\end{lemma}
+Given this, we can give $\mf{g}$ a bracket by 
+\eq{
+\comm[X_e]{Y_e} = \comm[X]{Y}_e
+}
+
+Now recall we have the exponential map $\exp : \mf{g} \to G$, and for matrix groups this is given by $\exp(X) = \sum_{n=0}^\infty \frac{X^n}{n!}$. 
+
+\begin{remark}
+All the LIVFs on $G$ are complete, and so we can define the exponential map by 
+\eq{
+\exp : \mf{g} &\to G \\
+X &\mapsto \phi_1^X(e)
+}
+We can find $X$ from this by using $X = \ev{\frac{d}{dt} \exp(tX)}{t=0}$
+\end{remark}
+
+\begin{example} 
+One can ask what the Lie algebras for the corresponding classical matrix groups are. 
+\begin{itemize}
+    \item $GL(n,\mbb{R})$ is a vector space, and so $T_e GL(n,\mbb{R}) = GL(n,\mbb{R})$. The bracket turns out to be the standard matrix commutator. 
+    \item As $SL(n) = \pbrace{A \, \mid \, \det A = 1}$ we find $\mf{sl}_n = \pbrace{B \, | \, \det(\exp(tB)) = 1} = \pbrace{B \, \mid \, \tr(B) = 0}$
+    \item $\mf{o}_n = \pbrace{B  \mid  \ev{\frac{d}{dt} \exp(tB)^T \exp(tB)}{t=0}} = \pbrace{B  \mid B^T + B = 0 }$
+\end{itemize}
+This process can be continues as similarly. 
+\end{example}
+
+\begin{definition}
+We have the \bam{adjoint representation} of a group $G$ acting on $\mf{g}$ by 
+\eq{
+\Ad_g(X) = \ev{ \, \frac{d}{dt} g \exp(tX)^{-1} g^{-1}}{t=0}
+}
+\end{definition}
+
+\begin{lemma}
+For a matrix group, $\Ad_A(B) = ABA^{-1}$. 
+\end{lemma}
+
+\begin{definition}
+We also have an adjoint rep of $\mf{g}$ acting on $\mf{g}$ by 
+\eq{
+\ad_X(Y) = \ev{\frac{d}{dt} \Ad_{\exp(tx)}(Y)}{t=0} = \comm[X]{Y}
+}
+\end{definition}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Riemannian and Symplectic Geometry}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The main stuff}
+
+\begin{definition}
+If $M$ is an even-dimensional manifold we say $M$ is symplectic if it is  equipped with $\omega \in \Omega^2(M)$ which is 
+\begin{itemize}
+    \item closed: $d\omega = 0$
+    \item non-degenerate: $\forall m \in M,\, i_\cdot : T_m M \overset{\cong}{\to} T_m^\ast M$ is an isomorphism. 
+\end{itemize}
+\end{definition}
+
+If $(M,\omega)$ is symplectic and $f \in C^\infty(M)$, then $df \in \Omega^1(M)$ and $\exists ! \, X^f \in \mf{X}(M)$ s.t $i_{X^f}\omega = df$. $X^f$ is called the Hamiltonian function associated to $f$. 
+
+\begin{lemma}
+The Hamiltonian function is constant along the flow lines of its vector field, i.e 
+\eq{
+t \mapsto (f \circ \phi_t^{X^f}(m))
+}
+is constant.
+\end{lemma}
+
+If $G$ is a Lie group with smooth action on $M$, we say that the action is \bam{symplectic} if
+\begin{enumerate}
+    \item $g^\ast \omega = \omega$
+\end{enumerate}
+Now let us think about 
+\begin{tkz}
+C^\infty(M) \arrow[r,"d"] & \Omega^1(M) \arrow[r] & \mf{X}(M) \\
+\mf{g} \arrow[u,dashed,"\mu^\ast"] \arrow[rru] & &
+\end{tkz}
+If such a map exists, we say the action is Hamiltonian and call the map the \bam{co-moment map}. We can then repackage this into a \bam{moment map} 
+\eq{
+\mu : M &\to \mf{g}^\ast \\
+\mu(m)(X) &=\mu^\ast(X)(m)
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Left overs}
+\subsubsection{Minus sign problems}
+There is a mismatch of minus signs in the convention of the literature, namely that constructing a map 
+\eq{
+\mf{g} &\to \mf{X}(M) \\
+X &\mapsto \tilde{X}
+}
+can be done in one of two ways 
+\begin{enumerate}
+    \item Set $\tilde{X}_m = \ev{\frac{d}{dt} \exp(tX) \cdot m}{t=0}$ as is natural, but then the map is a Lie algebra \bam{antihomomorphism}
+    \item Set $\tilde{X}_m = \ev{\frac{d}{dt} \exp(-tX) \cdot m}{t=0}$, and then the map is  Lie algebra homomorphism. 
+\end{enumerate}
+For the purpose of this course the second convention is used. 
+
+\subsubsection{Symplectic Manifolds}
+Given a smooth manifold $N$, we have the following result:
+
+\begin{theorem}
+The cotangent bundle $M= T^\ast N$ has a canonical symplectic structure. $\omega = - d\theta$ where $\theta$ is the tautological one form 
+\end{theorem}
+
+\begin{definition}
+The \bam{tautological one form} $\theta$ on the cotangent bundle is given by noting 
+\eq{
+\pi : T^\ast N & \to N \\
+\Rightarrow d\pi : T(T^\ast N) &\to TN
+}
+so if $ m \in M, \, m \in T_{\pi(m)}^\ast N$ and so we have 
+\eq{
+m : T_{\pi(m)}N \to \mbb{R}
+}
+and 
+\eq{
+\theta_m \equiv m \circ d\pi: T_m M \to \mbb{R}
+}
+\end{definition}
+
+\begin{lemma}
+$\omega = -d\theta$ is (obviously) closed and moreover non-degenerate, hence symplectic. 
+\end{lemma}
+\begin{proof}
+If $q^1, \dots, q^n$ are coordinates on $N$, then $\pd{q^1}, \dots, \pd{q^n}$ are vector fields on $N$. Letting $p_i$ be the one form associated with $\pd{q^i}$ we get coordinates $(q^i,p_i)$ on $M$ in which 
+\eq{
+\theta &= p_i dq^i \\
+\omega &= dq^i \wedge dp_i
+}
+\end{proof}
+
+\begin{aside}
+If $f \in C^\infty(M)$ we get associated Hamiltonian vector fields $X^f$. We then define the \bam{Poisson bracket} of $f$ and $g \in C^\infty(M)$ by 
+\eq{
+\acomm[f]{g} \equiv X^f(g) = \omega(X^f,X^g)
+}
+\end{aside}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Bundles}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Principle Bundles}
+\begin{definition}
+A group action $G \lact M$ is \bam{free} if $\forall m \in M, g \in G, \, e \neq g \Rightarrow g\cdot m \neq m$
+\end{definition}
+
+\begin{definition}
+A group action $G \lact M$ is \bam{proper} if the map between topological spaces 
+\eq{
+G \times M &\to M \times M \\
+(g,m) &\mapsto (m,g\cdot m)
+}
+has compact preimages of compact subsets. 
+\end{definition}
+
+\begin{prop}
+If $G$ is proper, any continuous group action is proper. 
+\end{prop}
+
+\begin{lemma}
+If $G \lact M$ is smooth, free, and proper. Then $\faktor{M}{G}$ axists and is a smooth manifold
+\end{lemma}
+
+\begin{definition}
+If $G$ is a Lie group, $M$ a smooth manifold, a \bam{G principal bundle over M} is given by 
+\begin{itemize}
+    \item $P$ a smooth manifold with projection $\pi:P \to M$
+    \item a smooth right action of $G$, $P \times G \to P$
+    \item a $G$-equivariant local trivialisation, i.e $\pbrace{U_\alpha}$ an open covering s.t $\Psi_\alpha : \pi^{-1}(U_\alpha) \overset{\cong}{\to} U_\alpha \times G, \, \Psi_\alpha(p) = (\pi(p),\psi_\alpha(p))$ and $(m,g) \cdot h = (m,gh)$
+\end{itemize}
+This is often noted as 
+\begin{tkz}
+G \arrow[r] & P \arrow[d,"\pi"] \\ & M
+\end{tkz}
+\end{definition}
+
+\begin{remark}
+By $G$-equivariance $\pi^{-1}(U_\alpha)$ are all $G$-orbits, and moreover the action is free and proper. This means we have $M \cong \faktor{P}{G}$. As such a $G$-principal bundle is given by a smooth, free, and proper action $P \ract G$. 
+\end{remark}
+
+If $U_\alpha,U_\beta$ are part of the open cover s.t $U_{\alpha\beta} \equiv U_\alpha \cap U_\beta \neq \empty$ then we can ask about the diagram
+\begin{center}
+\begin{tikzpicture}[commutative diagrams/every diagram]
+\node (P0) at (90:1cm) {$\pi^{-1}(U_{\alpha\beta})$};
+\node (P1) at (90+120:1.5cm) {$U_{\alpha\beta} \times G$};
+\node (P2) at (90+240:1.5cm) {$U_{\alpha\beta} \times G$};
+\path[commutative diagrams/.cd, every arrow, every label]
+(P0) edge node[swap] {$\Psi_\alpha$} (P1)
+(P0) edge node {$\Psi_\beta$} (P2)
+(P1) edge node[swap] {} (P2);
+\end{tikzpicture}
+\end{center}
+
+\begin{comment}
+\begin{tkz}
+\pi^{-1}(U_{\alpha\beta}) \arrow[r,"\Psi_\beta"] \arrow[d,"\Psi_\alpha"] & U_{\alpha\beta} \times G \\
+U_{\alpha\beta}\times G \arrow[ur] & 
+\end{tkz}
+\end{comment}
+which sends $(m,g) \mapsto (m,\phi_{\beta\alpha}(m)g)$ where the map $\phi_{\beta\alpha}$ satisfies 
+\begin{itemize}
+    \item $\phi_{\alpha\beta}(m) = \phi_{\beta\alpha}(m)^{-1}$ 
+    \item $\phi_{\alpha\alpha} : U_\alpha \to \pbrace{e}\leq G $
+    \item on triple intersects $\phi_{\gamma\beta}\phi_{\beta\alpha} = \phi_{\gamma\alpha}$. 
+\end{itemize}
+
+\begin{remark}
+If a covering $M = \cup_\alpha U_\alpha$ is given with transition function $\phi_{\beta\alpha}:U_{\alpha\beta} \to G$ satisfying the above conditions, then we can recover $P$. This is done as 
+\eq{
+P = \faktor{\pround{\bigsqcup_\alpha U_\alpha \times G}}{\sim}
+}
+where $(m,g) \sim (m, \phi_{\beta\alpha}(m) g)$
+\end{remark}
+
+\begin{example}[Trivial Bundle]
+Given $P=M \times G$ we get a $G$ action by right multiplication. 
+\end{example}
+
+\begin{example}[Hopf Fibration]
+Take $P = S^{2n-1} \subset \mbb{C}^n$ and $G = U(1)$. Let $G$ act on $\mbb{C}^n$ by $\bm{v} \cdot g = g^{-1} \bm{v}$. We then get $M = \mbb{CP}^{n-1}$
+\end{example}
+
+\begin{example}
+The edge of a Mobius strip is a $\mbb{Z}_2$-principal bundle over $S^1$.
+\end{example}
+
+\begin{remark}
+All of the fibres are isomorphic to $G$ as manifolds, but they do not have an intrinsic group structure. As such the fibres are $G$-torsors. 
+\end{remark}
+
+\begin{definition}
+A \bam{section} of $P \overset{\pi}{\to}M$ is a right inverse to $\pi$, i.e $s:M \to P$ s.t. $\pi \circ s = \id_M$. 
+\end{definition}
+
+\begin{lemma}
+A PB has a global section iff is is trivial. 
+\end{lemma}
+
+\begin{example}
+Frame bundle of vector bundles. 
+\end{example}
+
+\begin{definition}
+A \bam{vector bundle} $E \to M$ is a (smooth) morphism s.t. all the fibres are vector spaces of the same dimension $r\equiv\rank E$. 
+\end{definition}
+
+\begin{definition}
+If $E \to M$ is a vector bundle, the associated \bam{frame bundle} is 
+\eq{
+P \equiv \Fr_E =\pbrace{\text{bases of fibres of $E$}}
+}
+This is a $GL(r,\mbb{R})$ bundle. The action is given by 
+\eq{
+(\bm{\sigma}_1, \dots, \bm{\sigma}_r) \mapsto  (\bm{\sigma}_1, \dots, \bm{\sigma}_r) \cdot A = (\bm{\sigma}_1A, \dots, \bm{\sigma}_rA)
+}
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Associated Fibre Bundle}
+If we are given a principal bundle $G \to P \overset{\pi}{\to} M$ and a left action $G \lact F$ we can get the action $(P \times F) \ract G$ by $(p,f) \cdot g = (p\cdot g, g^{-1} \cdot f)$. This action is always smooth, free, and proper. 
+
+\begin{definition}
+The \bam{associated fibre bundle} to $G \to P \overset{\pi}{\to} M$ with $G \lact F$ is 
+\eq{
+P_F \equiv \faktor{(P \times F)}{G} \to M
+}
+All the fibres are diffeomorphic to $F$. 
+\end{definition}
+
+If $G \lact F$ preserves extra structure (e.g. if $F=V$ is a vector space and the action is linear) then all the fibres have this structure canonically. 
+
+\begin{example}
+Suppose $F=V$ is a vector space and $G \lact V$ is linear (i.e. $V$ is a rep space for $G$). Then $P_V$ is a vector bundle over $M$. 
+\end{example}
+
+\begin{prop}
+The assignment $P+V \to P_V$ is the "inverse" of taking the frame bundle.  
+\end{prop}
+\begin{proof}
+Using the defining rep of $GL(r,k) \lact k^r$ we get $(\Fr_E)_{k^r} \cong E$
+\end{proof}
+
+\begin{example}
+If $G \lact \mf{g}$ via the adjoint action $\Ad$, we get $\ad(P) = \faktor{(P \times \mf{g})}{G}$
+\end{example}
+
+\begin{example}
+Let $G \lact G$ by conjugation, i.e. $C_g(h) = ghg^{-1}$. This preserves group structure, so we have $C : G \to \Aut(G)$ and 
+\eq{
+\Ad(G) \equiv P_{G,C} = \faktor{(P\times G)}{G}
+}
+where $(p,g) \sim (ph,h^{-1}gh)$.
+\end{example}
+
+\begin{example}
+If $G \to P \to M$ and we have a Lie group homomorphism $\rho : G \to H$. Then let $G \lact H$ by $g \cdot h = \rho(g)h$. $H \ract H$ by right multiplication, making it into a $H$-torsor, and this is preserved by the action of $G$. Hence we have 
+\eq{
+P_H = \faktor{(P \times H)}{G}
+}
+a $H$-torsor bundle, or a principal $H$ bundle. This provides an \bam{extension of structure group}. 
+\end{example}
+
+Given a $H$-principal bunle $H \to \tilde{P} \to M$ and a Lie group hom $G \to H$ you can ask whether $\exists G \to P \to M$ s.t.  $\tilde{P} \cong P$ as $H$-principal bundle. If such a $P$ exists, we say that it is a \bam{reduction of structure group} of $\tilde{P}$. 
+
+\begin{example}
+If $E \to M$ is a Euclidean vector bundle of rank $r$, we can look at $\Fr_E$ as a $GL(r)$-principal bundle, or at $\Fr_E^\perp= \pbrace{\text{bundle of orthonormal frames}}$ which is a $O(r)$-principal bundle. $\Fr_E^\perp$ is a reduction of structure group of $\Fr_E$ using $O(r) \hookrightarrow GL(r)$
+\end{example}
+
+
+\begin{prop}
+There is a 1:1 correspondence 
+\eq{
+\pbrace{\text{reduction of structure groups of $\Fr_E$ using $O(r) \hookrightarrow GL(r)$}} \leftrightarrow \pbrace{\text{Choice of Euclidean structure on $E$}}
+}
+\end{prop}
+
+\begin{example}
+If $E$ is a rank $r$ bundle, and $\Lambda^2 E$ as a line bundle. Then $\Lambda^2 E$ is the vector bundle associated to $\Fr_E$ with $GL(2,k) \overset{\det}{\to} k^\times$. Hence we get a $k^\times$-principal bundle by extension. 
+\end{example}
+
+\begin{example}
+There is a 1:1 correspondence 
+\eq{
+\pbrace{\text{reduction of structure group of $\Fr_E$ using $GL(r) \to SL(r)$}} \leftrightarrow \pbrace{\text{trivialisations $\Lambda^2 E \cong M \times \mbb{R}$}}
+}
+If we do not have $\Lambda^2 E \cong M \times \mbb{R}$ then reduction might not always be possible. 
+\end{example}
+
+
+\begin{example}
+If $(M,g)$ is an oriented Riemannian Manifold of dimension $n$, then $\Fr_{TM}$ has a reduction of structure group from $GL_n(\mbb{R}) \to SO(n)$. $ n \geq 3 \Rightarrow \pi_1(SO(n)) = \mbb{Z}_2$ and so there is a 2:1 "universal cover" $\Spin(n) \to SO(n)$
+\end{example}
+
+\begin{definition}
+A Spin structure on $M$ is a reduction of structure group from $SO(n)$ to $\Spin(n)$. 
+\end{definition}
+
+If a spin structure is given, then you can look at irreducible representations of the spin group that do not come from $SO(n)$. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Gauge transformations}
+
+\begin{definition}
+Given $G \to P \to M$, a \bam{gauge transformation} for $P$ is a $G$-equivariant diffeomorphism $\psi$ s.t. 
+
+\begin{center}
+\begin{tikzpicture}[commutative diagrams/every diagram]
+\node (P0) at (30:1cm) {$P$};
+\node (P1) at (30+120:1cm) {$P$};
+\node (P2) at (30+240:1cm) {$M$};
+\path[commutative diagrams/.cd, every arrow, every label]
+(P1) edge node {$\psi$} (P0)
+(P0) edge node {$\pi$} (P2)
+(P1) edge node[swap] {$\pi$} (P2);
+\end{tikzpicture}
+\end{center}
+commutes. As the $\psi$ compose, we get a group $\mc{G}(P)$
+\end{definition}
+
+\begin{remark}
+Note both $G$ and $\mc{G}(P)$ act on $P$ by right and left action respectively. 
+\end{remark}
+
+\begin{theorem}
+There are canonical group isomorphisms 
+\eq{
+\mc{G}(P) \cong \Gamma(\Ad(P)\to M) \cong \pbrace{f:P \to G \, | \, f \text{ smooth }, \, f(p \cdot g) = g^{-1}f(p) g}
+}
+\end{theorem}
+\begin{proof}
+We have 
+\begin{center}
+\begin{tikzpicture}[commutative diagrams/every diagram]
+\node (P0) at (30:1.5cm) {$\Gamma(\Ad(P))$};
+\node (P1) at (30+120:1.5cm) {$\mc{G}(P)$};
+\node (P2) at (30+240:1cm) {$\pbrace{f:P \to G}$};
+\path[commutative diagrams/.cd, every arrow, every label]
+(P0) edge node[swap] {$C$} (P1)
+(P2) edge node {$B$} (P0)
+(P1) edge node {$A$} (P2);
+\end{tikzpicture}
+\end{center}
+with 
+\eq{
+A: \psi &\mapsto (f: p \mapsto g \text{ if } \psi(p) = pg) \\
+}
+we may check 
+\eq{
+\psi(p\cdot\tilde{g}) = \psi(p)\cdot \tilde{g} = pg \tilde{g} = (p\tilde{g}) (\tilde{g}^{-1} p \tilde{g})
+}
+so $f$ obeys the necessary condition. We then have 
+\eq{
+B : f \mapsto (s : m \mapsto [p,f(p)]\in \faktor{(P \times G)}{G} \text{ for any }p \in \pi^{-1}(m))
+}
+Again we can check if $\tilde{p} \in \pi^{-1}(m)$, then 
+\eq{
+[p\cdot g,f(p\cdot g) ] = [p\cdot g, g^{-1}f(p) g] = [p,f(p)]
+}
+as this is the action we are quotienting out by. Finally we have 
+\eq{
+C : s \mapsto (\psi : p \mapsto p\cdot g \text{ where } s(\pi(p)) = [p, g])
+}
+and we can see $s(\pi(p \cdot \tilde{g})) = s(\pi(p)) = [p,g] = [p\tilde{g},\tilde{g}^{-1}g \tilde{g}]$ so
+\eq{
+\psi(p\cdot \tilde{g}) = (p \cdot \tilde{g}) \cdot (\tilde{g}^{-1}g \tilde{g}) = p \cdot g \cdot \tilde{g} = \psi(p) \cdot \tilde{g}
+}
+It is necessary to check that $A,B,C$ are group isomorphisms now. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Connections}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Kozul connections}
+Let $ E \to M$ be a vector bundle. We want to be able to take directional derivatives of sections of $E$
+
+\begin{definition}[Kozul connection]
+A \bam{Kozul connection} on $E$ is a map 
+\eq{
+\nabla : \Gamma(E) \to \Gamma(E \otimes T^\ast M)
+}
+For $s \in \Gamma(E), \, X \in \mf{X}(M) = \Gamma(TM)$,
+$(\nabla s)(X) \in \Gamma(E)$ is denoted as $\nabla_X s$. 
+\end{definition}
+
+We want this to satisfy a product rule that for $f \in C^\infty(M)$ 
+\eq{
+\nabla_X (fs) = X(f) s + f \nabla_X(s)
+}
+and linearity in $\Gamma(E), \mf{X}(M)$, i.e. $\forall c_i \in \mbb{R}, f_i \in C^\infty(M)$
+\eq{
+\nabla_X (c_1 s_1 + c_2 s_2) &= c_1 \nabla_X s_1 + c_2 \nabla_X s_2 \\
+\nabla_{(f_1 X_1 + f_2 X_2)} s &= f_1 \nabla_{X_1} s + f_2 \nabla_{X_2} s 
+}
+
+If $E$ is a Euclidean vector bundle with inner product $\pangle{\cdot, \cdot}$, we may ask that a connection respects this additional structure. 
+
+\begin{definition}
+$\nabla$ respects  $\pangle{\cdot, \cdot}$ if 
+\eq{
+X(\pangle{s_1, s_2}) = \pangle{\nabla_X s_1, s_2} + \pangle{s_1, \nabla_X s_2}
+}
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Ehresmann connections}
+Let $G \to P \overset{\pi}{\to} M$ be a $G$-principal bundle. Denote the fibre through $p \in P$ by $F_p = p\cdot G$. We then get the inclusion $T_p F_p \hookrightarrow T_p P$, and this then splits an exact sequence to have $\faktor{T_pP}{T_p F_p} \cong T_{\pi(p)}M$. 
+
+
+\begin{definition}
+An \bam{Ehresmann connection} on $P$, $H$, is a smooth choice of complement $H_p \hookrightarrow T_pP$ s.t. 
+\begin{itemize}
+    \item $\forall p \in P, \, \dim H_p = \dim M$ 
+    \item $\forall p \in P, \, T_pP = T_p F_p \oplus H_p$
+    \item $H$ is $G$-equivariant, i.e. $dR_g H_p = H_{p \cdot g}$
+\end{itemize}
+\end{definition}
+
+\begin{remark}
+$d\pi_p : T_p P \to T_{\pi(p)}M$ gives a isomorphism $T_{\pi(p)} M \overset{\cong}{\to} H_p$
+\end{remark}
+
+\begin{remark}
+Smooth connections always exists. This is as they certainly exist on local trivialisations, and then they can be glued with partitions of unity. 
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Holonomy}
+Given $G \to P \overset{\pi}{\to} M$, a smooth connection $H$, and a smooth closed curve in the base $C: I \to M$, we can lift tangent vectors to $\pi^{-1}(C(I)) \subset M$ to tangent vectors to $P$ to get a vector field on $\pi^{-1}(p)$, and there is a unique such lift that is horizontal. We can then flow along this vector field starting at $\pi^{-1}(C(0))$. This will give a curve $\tilde{C}:I \to P$. However, it will be true that $\tilde{C}(1) \in \pi^{-1}(C(0))$ so $\exists g \in G, \, \tilde{C}(1) = p \cdot g$. 
+
+\begin{definition}
+$g =g(p)$ is the \bam{holonomy} of $C$ w.r.t $H$ starting at $p$.  
+\end{definition}
+
+\begin{definition}
+For $X \in \mf{g}$ we have $\tilde{X}\in T_pP$ s.t. 
+\eq{
+\tilde{X}(f) = \ev{\frac{d}{dt} f(p \cdot \exp(tX))}{t=0}
+}
+\end{definition}
+
+\begin{definition}
+A \bam{principal connection} is a connection form $\omega \in \Gamma(T^\ast M \otimes \mf{g})$ s.t. 
+\begin{itemize}
+    \item $\omega(\tilde{X}) = X$
+    \item $(R_g)^\ast \omega = \Ad_{g^{-1}}\omega$
+\end{itemize}
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Relations between viewpoints}
+Let $V$ be a vector space and $S \subset V$ a subspace. 
+
+\begin{definition}
+A \bam{complement} to $S$ is a choice $\tilde{S}$ s.t. $V = S \oplus \tilde{S}$. \end{definition}
+
+\begin{lemma}
+A complement to $S$ is equivalent to a projection $p: V \to S$ s.t. $\ev{p}{S} = \id_S$
+\end{lemma}
+\begin{corollary}
+$\tilde{S}=\ker p$ 
+\end{corollary}
+
+Now, noting that $\omega$ gives a projection $\omega_p : T_pP \to \mf{g}$ for each $p \in P$, we get the following relation:
+
+\begin{prop}
+$\omega$ gives an Ehresmann connection by letting $H_p = \ker \omega_p$. 
+\end{prop} 
+
+We now recall some facts from the workshops: Given a vector bundle $E \to M$, $\forall U \subset M$ open, we have a short exact sequence 
+\eq{
+0 \to \End(E)(U) \hookrightarrow \mc{D}^{\leq 1}(E)(U) \overset{\sigma}{\to} \psquare{TM \otimes \End(E)}(U) \to 0
+}
+where $\mc{D}^{\leq 1}(E)(U)$ are the first order differential operators on $\ev{E}{U}$. Now for $D \in \mc{D}^{\leq 1}(E)(U)$, $s \in \Gamma(U,E)$, $f \in C^\infty(U)$, we have 
+\eq{
+D(fs) = \sigma(D)(f)(s)
+}
+Putting $\mc{D}^{\leq 1}_{\diag}(E)(U) = \sigma^{-1}(TM \otimes \id_E)$ we have SES 
+\eq{
+0 \to \End(E)(U) \to \mc{D}^{\leq 1}_{\diag}(E)(U) \to \ev{TM}{U} \to 0
+}
+A Kozul connection is now a splitting of this SES, $\nabla : \ev{TM}{U} \to \mc{D}^{\leq 1}_{\diag}(E)(U)$, i.e. given $X \in \mf{X}(U)$, $\nabla_X$ is a 1st order differential operator satisfying $\sigma(\nabla_X) = X$. \\
+Now, if we have a principal bundle $G \to P \to M$, the \bam{Atiyah sequence} associated with it is a SES
+\eq{
+0 \to \ad(P) \to \faktor{TP}{G} \to TM \to 0 \, .
+}
+This is split my the map $\pround{\ev{d\pi}{H_p}}^{-1}:TM \to \faktor{TP}{G}$, given by an Ehresmann connection. Now with $G \lact V$ via a representation, we have the follwing result:
+
+\begin{prop}
+$\forall U \subset M$ we have 
+\begin{tkz}
+0 \arrow[r] & \ad(P)(U) \arrow[r] \arrow[d] & \faktor{TP}{G}(U) \arrow[r] \arrow[d] & \ev{TM}{U} \arrow[r] \arrow[d,"\id"] \arrow[l,red, bend left = 15] & 0 \\
+0 \arrow[r] & \End(E)(U) \arrow[r] & \mc{D}^{\leq 1}_{\diag}(E)(U) \arrow[r,"\sigma"] & \ev{TM}{U} \arrow[r]  \arrow[l,red, bend left = 15] & 0 
+\end{tkz}
+commutes. 
+\end{prop}
+\begin{proof}
+$G \lact V$ so we get $\mf{g} \to \End(V)$, a morphism of Lie algebras that is $G$-equivariant. Then we have 
+\eq{
+\faktor{(P \times \mf{g})}{G} \to \faktor{(P \times \End(V))}{G} = \End(E)
+}
+Further, the space of sections of $E$ is the space of $G$-equivariant functions $P \to V$. This means we can say that $G$-equivariant vector fields on $P$ also act on $G$-equivariant functions $P \to V$, i.e. sections of $E$. It can then be checked that these all commute. 
+\end{proof}
+\begin{corollary}
+A splitting of the Atiyah sequence gives a Kozul connection. 
+\end{corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{../../bib/custom-bib-style}
+\bibliography{../../bib/library}
+
+
+\end{document}

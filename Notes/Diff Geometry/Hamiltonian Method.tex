@@ -1,0 +1,271 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Dirac Yeshiva Lectures: The Hamiltonian Method}
+\author{Linden Disney-Hogg}
+\date{January 2020}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Hamiltonian Method}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Introduction}
+These notes are written from the Dover Edition (2001) of Dirac's 'Lectures on Quantum Mechanics' (1964), lecture 1. They are intended as a way for me to learn what the Dirac bracket is, and how to implement it.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Hamilton's equations}
+We will start off by considering a system with a finite number of degrees of freedom, as we are comfortable with, and then this can be extended formally to a field theory when necessary. We will let these be dynamical coordinates $q_n, \, i=1, \dots N$, from which we see we have $N$ degrees of freedom. The velocities are then given by $\dot{q}_n$, and the Lagrangian introduced is a function $L = L(q,\dot{q})$. 
+
+\begin{remark}
+At this point, we have introduced a preferred time. This does not seem manifestly relativstic, even though it will turn out that the theory ends up being so. Perhaps look back at your notes from Hamiltonian General Relativity (given by J. B. Pitts) to see how this can be dealt with. 
+\end{remark}
+
+We define the action $I = \int L \, dt $, and then the Lagrangian equations of motion 
+\eq{
+\frac{d}{dt}\pround{\pd[L]{\dot{q}}} = \pd[L]{q}
+}
+follow from the variational equation for the action. To go to the Hamiltonian formulation we introduce momentum variable $p_n$\footnote{In these notes, unless I change my mind, I will be relaxed with whether indices should be up or down.} given by 
+\eq{
+p_n = \pd[L]{\dot{q}_n}
+}
+We typically in dynamical theory assume that the momenta are independent functions of the velocities, but this will be too restrictive for the following applications. In fact, we will assume that the dependency relations take the form 
+\eq{
+\phi_m(q,p) = 0 , \; m=1, \dots, M
+}
+for some functions $\phi_m$. 
+
+\begin{definition}
+The relations $\phi_m = 0$ are called the \bam{primary constraints}.
+\end{definition}
+
+We can now consider the quantity $H = p_n \dot{q}_n - L$ (summation assumed). The differential is given by 
+\eq{
+dH &= \dot{q}_n dp_n + p_n d\dot{q}_n - \pd[L]{q_n}dq_n - \pd[L]{\dot{q}_n}d\dot{q}_n \\
+&= \dot{q}_n dp_n - \pd[L]{q_n} dq_n \, .
+}
+As this involves only $dp,dq$ terms we can conclude that $H = H(q,p)$
+
+\begin{definition}
+$H = H(q,p)$ is called the \bam{Hamiltonian} of the system. 
+\end{definition}
+
+Note that the Hamiltonian, as defined, is not unique as we may add any linear combination of the $\phi_m$, hence we may let 
+\eq{
+H_T = H + u_m \phi_m
+}
+for some arbitrary functions $u_m$ and this $H_T$ would represent the same theory. Writing now 
+\eq{
+dH = \psquare{\pd[H]{p_n} + \phi_m \pd[u_m]{p_n} + u_m \pd[\phi_m]{p_n}} dp_n + \psquare{\pd[H]{q_n} +  \phi_m \pd[u_m]{q_n} + u_m \pd[\phi_m]{q_n}} dq_n
+}
+we can equate with our previous expression for $dH$ we get
+\eq{
+\dot{q}_n &= \pd[H]{p_n} + u_m \pd[\phi_m]{p_n} \\
+-\pd[L]{q_n} &= \pd[H]{q_n} + u_m \pd[\phi_m]{q_n} \\
+\Rightarrow \dot{p_n} &= -\pd[H]{q_n} - u_m \pd[\phi_m]{q_n}
+}
+using that $\dot{p}_n = \frac{d}{dt} \pd[L]{\dot{q}_n} = \pd[L]{q_n}$. These are called the \bam{Hamiltonian equations of motion}. \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Poisson bracket formalism}
+To compactify notation, we now want to make the following definition:
+
+\begin{definition}
+Given two function $f(q,p), g(q,p)$, the \bam{Poisson bracket} of the two functions is 
+\eq{
+\acomm[f]{g} \equiv \pd[f]{q_n}\pd[g]{p_n} - \pd[f]{p_n} \pd[g]{q_n}
+}
+\end{definition}
+
+\begin{prop}
+The Poisson bracket has the following properties:
+\begin{itemize}
+    \item antisymmetry: $\acomm[f]{g} = - \acomm[g]{f}$
+    \item bilinearity: $\acomm[f_1 + f_2]{g} = \acomm[f_1]{g} + \acomm[f_2]{g}$
+    \item Leibniz rule: $\acomm[f_1 f_2]{g} = f_1 \acomm[f_2]{g} + \acomm[f_1]{g} f_2$
+    \item Jacobi identity: $\acomm[f]{\acomm[g]{h}}+\acomm[g]{\acomm[h]{f}}+\acomm[h]{\acomm[f]{g}} = 0$
+\end{itemize}
+\end{prop}
+
+Note that for a function $g(q,p)$ we have that 
+\eq{
+\dot{q} =\pd[g]{q_n} \dot{q}_n + \pd[g]{p_n} \dot{p}_n
+}
+and so we can substitute to get 
+\eq{
+\dot{g} = \acomm[g]{H} + u_m \acomm[g]{\phi_m}
+}
+This procedure can be generalised further. Note that only functions of $q,p$ have a Poisson bracket with other quantities. Instead let us assume $\acomm[\cdot]{\cdot}$ is a general bracket satisfying the properties above, and write 
+\eq{
+\dot{g} = \acomm[g]{H + u_m \phi_m}
+}
+Then applying the linearity, Leibniz, and that $\phi_m = 0$, we get the same answer as before. 
+
+\begin{remark}
+Note that if the constraint $\phi_m = 0$ is imposed \bam{before} the Poisson bracket is worked out, the incorrect answer will be reached. To remind us of this rule, we will use the notation $\phi_m \approx 0$, and call these equations \bam{weak equations}. 
+\end{remark}
+
+With the new notation, we may write the dynamics equations in the concise form 
+\eq{
+\dot{g} \approx \acomm[g]{H_T}
+}
+As such we will call $H_T$ the \bam{total Hamiltonian}. \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Consistency}
+We now want to examine the consequences of these equtions of motion. Immediately we get a consistency condition by requiring that $\phi_m\approx0$ at all times, i.e. $\dot{\phi_m}\approx0$, which gives 
+\eq{
+\acomm[\phi_m]{H} + u_{m^\prime} \acomm[\phi_m]{\phi_{m^\prime}} \approx 0
+}
+It is possible for such consistency conditions to lead directly to inconsistencies.
+
+\begin{example}
+If $L(q,\dot{q}) = q$ the equations of motion are $1=0$
+\end{example}
+
+As such we cannot take the Lagrangian to be an arbitrary function. Exclusing these, the restrictions divide into three possible cases 
+\begin{enumerate}
+    \item Equations reduce to $0=0$, i.e. it is identically satisfied under the primary constraints. These need not be considered.
+    \item Equations are independent of $u_m$, and so must be independent of the primary constraints to not be of the first kind. These can thus be written as 
+    \eq{
+    \chi(q,p) = 0
+    }
+    This gives an additional constraint on the Hamiltonain variables, and so is called a \bam{secondary constraint}. Secondary constraints give rise to additional consistency conditions for $\dot{\chi}\approx 0$ so
+    \eq{
+    \acomm[\chi]{H} + u_m \acomm[\chi]{\phi_m} \approx 0
+    }
+    This process continues until all such types of secondary constraints have been found and consistency conditions imposed. 
+    \item Equations do not reduced to either of the above cases, and so impose conditions on $u_m$. 
+\end{enumerate}
+For many cases secondary constraints will be placed on the same footing as primary constraints and so letting $K$ be the total number of secondary constraints, we will notate them as 
+\eq{
+\phi_k \approx 0, \; k=M+1, \dots, M+K
+}
+In total then, letting $J=M+K$, we have the consistency conditions 
+\eq{
+\acomm[\phi_j]{H} + u_m \acomm[\phi_j]{\phi_m} \approx 0 , \; j=1, \dots J
+}
+We look for solutions of the form 
+\eq{
+u_m = U_m(q,p) \, .
+}
+Such a solution must exist, as otherwise the Lagrangian equations of motion would be inconsistent\footnote{why?} and we are excluding this case. This solution is not unique, as we may add to it any $V_m(q,p)$ which satisfies
+\eq{
+V_m \acomm[\phi_j]{\phi_m} = 0
+}
+We label the sets of such $V_m$ as $V_{am}, \, a=1, \dots A$. The most general solution then for $u_m$ is 
+\eq{
+u_m = U_m + v_a V_{am}
+}
+where the $v_a$ are arbitrary functions of time. Substituting into the total Hamiltonian, making the definitions $H^\prime = H + U_m \phi_m, \, \phi_a = V_{am}\phi_m$ we get 
+\eq{
+H_T = H^\prime + v_a \phi_a
+}
+This is a beneficial place to be, as now the $v_a$ are arbitrary (whereas the $u_m$ had to satisfy consistency conditions), and usually it is the case that $A < M$. Theoretically, the time dependence of the $v_a$ represent redundancy in our description, such as gauge in electrodynamics, or arbitrary coordinate choice. \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Dynamics}
+
+To understand now the relationships of quantities in our formalism, it is useful to make the following defintions:
+
+\begin{definition}
+A dynamical variable $R$ is \bam{first class} if $\forall j, \, \acomm[R]{\phi_j}\approx 0$. Otherwise, $R$ is said to be \bam{second class}.
+\end{definition}
+
+If $R$ is first class, it must be strongly equal to a linear combination of the $\phi_j$, i.e. 
+\eq{
+\acomm[R]{\phi_j} = r_{j j^\prime} \phi_{j^\prime}
+}
+
+\begin{theorem}
+The Poisson bracket of two first class quantites is first class
+\end{theorem}
+\begin{proof}
+Let $R,S$ be first class. Then 
+\eq{
+\acomm[\acomm[R]{S}]{\phi_j} &= \acomm[\acomm[R]{\phi_j}]{S} - \acomm[\acomm[S]{\phi_j}]{R} \\
+&= \acomm[r_{j j^\prime} \phi_{j^\prime}]{S} - \acomm[s_{j j^\prime} \phi_{j^\prime}]{R} \\
+&= r_{j j^\prime} \acomm[\phi_{j^\prime}]{S} + \acomm[r_{j j^\prime}]{S} \phi_{j^\prime} - s_{j j^\prime} \acomm[\phi_{j^\prime}]{R} - \acomm[s_{j j^\prime}]{R} \phi_{j^\prime} \\
+&\approx 0
+}
+\end{proof}
+
+Note that $H^\prime, \phi_a$ are both first class variables, and moreover any linear combination of the $\phi_j$ gives a primary constraint, so the $\phi_a$ are primary constraints. The result of this is that the total Hamiltonian is expressed as a sum of a first class Hamiltonian and a linear combination of primary first class constraints. Practically, this becomes useful as you are usually able to guess the $v_a$ from the form of the action, and then this immediately allows you to read off the $\phi_a$ from the total Hamiltonian. \\
+We now want to understand what happens when we feed the system initial conditions and evolve. As the functions $v_a$ were arbitrary we do not need to give them initial conditions. As physical states must be uniquely determined by initial conditions, but the evolution of the state is not because of the $v_a$, it must be the cases that there are a whole class of initial conditions that correspond to the same physical state. To investigate this we let $g(t=0) = g_0$ be the initial condition of a general dynamical variable $g$, and then at a small time $\delta t$ after we have 
+\eq{
+g(\delta t) &= g_0 + \dot{g} \delta t \\
+&= g_0 + \acomm[g]{H_T} \delta t \\
+&= g_0 + \delta t \pround{\acomm[g]{H^\prime} + v_a \acomm[g]{\phi_a}}
+}
+Suppose we had chosen different $v$, i.e. $v^\prime$, we would have 
+\eq{
+\Delta g(\delta t) = \delta t(v_a - v^\prime_a) \acomm[g]{\phi_a} = \eps_a \acomm[g]{\phi_a}
+}
+defining $\eps_a = \delta t(v_a - v^\prime_a)$. With this we see that a change in variables along physically equivalent evolutions is a contact transform generated by the functions $\phi_a$. \\
+If we consider the commutator of two such infinitesimal contact transformations, i.e I apply $\eps_a \phi_a$ then $\gamma_a \phi_a$, and subtract the difference from doing this the other way round I get\footnote{in the following we ignore $\eps^2, \gamma^2$, terms } 
+\eq{
+\Delta g &= \psquare{g_0 + \eps_a \acomm[g]{\phi_a} + \gamma_{a^\prime} \acomm[g + \eps_a \acomm[g]{\phi_a}]{\phi_{a^\prime}}} - \psquare{g_0 + \gamma_{a^\prime} \acomm[g]{\phi_a} + \eps_{a} \acomm[g + \gamma_{a^\prime} \acomm[g]{\phi_a}]{\phi_a}} \\
+&= \eps_a \gamma_{a^\prime}\psquare{\acomm[\acomm[g]{\phi_a}]{\phi_{a^\prime}}- \acomm[\acomm[g]{\phi_{a^\prime}}]{\phi_{a}}}\\
+&= \eps_a \gamma_{a^\prime} \acomm[g]{\acomm[\phi_a]{\phi_{a^\prime}}}
+}
+This must also correspond to a change that does not alter the physical state, so $\acomm[\phi_a]{\phi_{a^\prime}}$ must also by a generator of contact transform that does not alter physical state. \\
+Now, as the $\phi_a$ are first class, so must their Poisson bracket be, and as such can be written as a linear combination of the $\phi_j$. Hence the the generators of such physical-state-preserving transformations are first class variables, which are more general than previously as they could be secondary constraints. 
+
+\begin{remark}
+Here Dirac notes that, although he has not found an example of a first class, secondary constraints that generate a change in physical state, he has been unable to prove that all first class secondary constraints don't generate a physical change in state. 
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Example: The sphere}
+This example is not included in Dirac's lectures, but is shown here to give concreteness to the above. 
+Let us consider a free particle in $\mbb{R}^{N}$ constrained to the sphere $S^{N-1}$. Taking coordinates $q\in \mbb{R}^{N}$ we get the Lagrangian 
+\eq{
+L(q,\dot{q}) = \frac{1}{2}\abs{\dot{q}}^2 = \frac{1}{2}\dot{q}_n \dot{q}_n
+}
+Then momentum is then given by 
+\eq{
+p_n = \dot{q}_n
+}
+and so 
+\eq{
+H = p_n \dot{q}_n - L = \frac{1}{2} p_n p_n
+}
+We also have the constraints that $q_n q_n - 1 = 0, \, q_n p_n = 0$. This gives two consistency conditions, namely 
+\eq{
+0 &\approx \acomm[q^2 - 1]{\frac{1}{2}p^2} + u_1 \acomm[q^2 - 1]{q^2 - 1} + u_2 \acomm[q^2-1]{qp} \\
+&\approx 2(pq+u_2q^2)
+}
+which requires $u_2=0$, and 
+\eq{
+0 &\approx \acomm[qp]{\frac{1}{2}p^2} + u_1 \acomm[qp]{q^2 - 1} + u_2 \acomm[qp]{qp} \\
+&\approx (p^2 -2u_1q^2)
+}
+which imposes $u_1 = \frac{1}{2}p^2$. Now the equation for the $V_m$ is 
+\eq{
+V_1 \acomm[qp]{q^2-1} &= 0\\
+V_2 \acomm[q^2-1]{qp} &= 0 
+}
+which has no non-trivial solutions. Cumulatively then we have that dynamics is governed by 
+\eq{
+\dot{g} = \acomm[g]{\frac{1}{2}p^2 + \frac{1}{2}p^2(q^2-1)} = \frac{1}{2}\acomm[g]{p^2q^2}
+}
+For the phase space coordinates this gives 
+\eq{
+\dot{q} &= pq^2 = p \\
+\dot{p} &= -p^2q
+}
+Combining these two gives $\ddot{q} = -p^2q$, as to be expected in standard theory. \\
+Alternatively, note that if we had not identified the constrain $pq=0$ immediately, following the procedure we would have had the first consistency condition being 
+\eq{
+0 &\approx \acomm[q^2 - 1]{\frac{1}{2}p^2} + u_1 \acomm[q^2 - 1]{q^2 - 1} \\
+&\approx 2pq
+}
+and so this constraint would have been found as a secondary constraint coming from a consistency condition. 
+
+\end{document}

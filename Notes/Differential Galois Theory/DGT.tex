@@ -1,0 +1,202 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Differential Galois Theory Notes}
+\author{Linden Disney-Hogg}
+\date{Novermber 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+A document to clarify and distil some of my learning on Galois theory. The ultimate goal of this will to be to have a sufficient understanding and control of Kovavic's algorithm \cite{Kovacic1986AnEquations}. This will have application to understanding integrability of Hamiltonian systems. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Preliminaries}
+\hl{cf the appendices of} \cite{vanderPut2003GaloisEquations} \hl{for the necessary results from Galois theory to put this theory on a solid standing}. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{General Problem}
+This following notes are typed from Harry's talk 20/11/19. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Getting Started}
+
+Let us take a symplectic manifold $(M,\omega)$, dimension $2n$, with Hamiltonian $H$, and lets take coordinate $z=(q,p)$ such that our Hamilton's equations take the form 
+\eq{
+\dot{z}_i = J_{ij} \del_j H
+}
+Supposing we have a non equilibrium solution $\phi(t)$, we can take a variation around such $z = \phi + \xi$ and construct a variational equation 
+\eq{
+\nabla \xi = 0 \\
+\nabla= \frac{d}{dt} - A
+}
+for some $A$\\
+Recall Poincare said in 1892 that if $\phi$ was periodic, i.e. $\phi(t+T) = \phi(t)$ for some $T$, the variational equation has monodromy, and moreover if we have $k$ independent 1st integrals, then the monodromy has $2k$ eigenvalues of 1. \\
+The next idea we want is from 1888, Kovaleskaya, who said consider $t$ to be complex. We then need our symplectic manifold to be \bam{complex} symplectic, and $\phi(t)$ gives a Riemann surface $\Gamma$, both abstractly and embedding into $M$ ($\iota(\Gamma) \subset M$). We will as such assume that the Hamiltonian $H$ is holomorphic. We now have that $\nabla$ is a connection on $\Gamma$. \\
+Poincare's result then extends to consider complex periods as well, giving us a monodromy of $\nabla$. We can then extend to $\bar{\Gamma}$ to include singular points where $H$ is meromorphic. From general theory we have 
+\eq{
+\Mon \nabla \leq \Gal \nabla \leq GL(2n;\mbb{C}) 
+}
+Now in 1982 Ziglin showed that existence of 1st integrals constrains the monodromy of $\nabla$. Using this restriction, Ito and Yoshida gave examples of how to use this restriction to prove non-integrability. \\
+What is the problem then? $\Mon\nabla$ is "hard to get". \\
+Now our DGT will tell us that $\Gal\nabla$ is an algebraic subgroup, and $\Mon\nabla \leq \Gal\nabla$. We will want to build up to the following theorem 
+\begin{theorem}[Morales Ramis]
+System completely integrable by Liouville $\Rightarrow (\Gal\nabla)^\circ$ (connected component of identity) is abelian
+\end{theorem}
+\noindent For second order equations, it is Kovacic's algorithm which gives the Galois group. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\secmath{\Gal\nabla}}
+Lets start and take a differentiable field $K$ with differential operator $\del = \frac{d}{dz}$. 
+\begin{example}
+$\highlight{K = M(\bar{\Gamma})}$
+\end{example}
+
+\begin{definition}
+A \bam{differentiable automorphism} is an automorphism that commutes with $\del$. 
+\end{definition}
+
+Given a field extension $L \supset K$ the \bam{Galois group} is $\Gal(L:K)$, the group of automorphisms of $L$ that preserve $K$ (under certain conditions on the extension, normality and separability). 
+The useful theorem is 
+\begin{theorem}[Fundamental theorem of Galois theory]
+Subgroups of $\Gal(L:K)$ correspond to subfields $L \supset M \supset K$. 
+\end{theorem}
+
+We will now want to consider the \bam{Picard Vessiot  (PV) extension} for a given equation $E: y^\prime = \nabla y$, and $K=\mbb{C}(z)$, which is the smallest extension which contains all solutions of $\nabla$: $L = K(\Xi_{11}, \dots, \Xi_{mm})$, where $\Xi$ is the fundamental matrix of solutions. 
+
+\begin{example}
+if $E: y^\prime = y$ (in 1d), $L = \mbb{C}(z)[e^z]$. 
+\end{example}
+
+Now note that if $\nabla \xi =0$, and $g \in G$ ($G$ herein defined to be the Galois group of the Picard Vessiot extension - the Picard Vessiot group), then letting $\del = \frac{d}{dt}$
+\eq{
+\del g(\xi) = g(\del \xi) = g(A\xi) = g(A) g(\xi) = Ag(\xi)
+}
+This shows that $g(\xi)$ is also a solution of the DE. Hence we can define a linear map $M_g$ by where it sends the fundamental solutions. i.e.
+\eq{
+g(\Xi) = \Xi M_g
+}
+Note that the action of $g$ must be to permute the funamental solutions, and as such we can deduce it will be faithful. 
+\begin{example}
+$E: y^{\prime\prime} + xy = 0$. $\Gamma = \mbb{P}^1 \setminus \pbrace{\infty}$, $\pi_1(\Gamma) = e$ (identity group), $\Gal\nabla = SL(2;\mbb{C})$. 
+\end{example}
+
+Now recall the following definition:
+\begin{definition}
+A group is \bam{solvable} if we can write 
+\eq{
+e = G_0 < G_1 < \dots < G_m = G
+}
+with $G_i \triangleleft G_{i+1}$ and $\faktor{G_{i+1}}{G_i}$ is abelian. 
+\end{definition}
+
+We have the useful results
+
+\begin{theorem}[Lie-Kolchin]
+Solvable subgroups of $GL(m,K)$ can be put into triangular form if $K$ is algebraically closed, characteristic 0.
+\end{theorem}
+
+and 
+\begin{definition}
+A linear ODE is \bam{Picard Vessiot Integrable} (or \bam{solvable}) if we have a PV extension $L$ obtained by adjoining 
+\begin{enumerate}
+    \item an integral 
+    \item and exponential of an integral 
+    \item an algebraic function. 
+\end{enumerate}
+These gives 
+\eq{
+K=K_0 \subset K_1 \subset \dots \subset L
+}
+s.t. 
+\eq{
+K_{i+1} = K_i(a,a^\prime,a^{\prime\prime}, \dots)
+}
+i.e 
+\begin{enumerate}
+    \item $\highlight{a^\prime \in K_i}$
+    \item $\highlight{a^\prime = ba$, $b \in K_i}$
+    \item $a$ \hl{algebraic over} $K_i$
+\end{enumerate}
+\end{definition}
+
+The big important theorem is 
+
+\begin{theorem}
+A DE is PV integrable $\Leftrightarrow$ $(\Gal \nabla)^\circ$ is solvable. 
+\end{theorem}
+
+Lets recap what we have:
+\begin{itemize}
+    \item $V$ a complex vector space $\dim =m\geq 1$
+    \item $\mbb{C}[V]$ a complex algebra of polynomials
+    \item $\mbb{C}(V)$ rational functions
+    \item $G < GL(V)$
+\end{itemize}
+
+\begin{definition}
+A group $G$ is \bam{r-Ziglin} if $\trans\deg_{\mbb{C}} \mbb{C}(V)^G \geq r$. \\
+It is \bam{r-involutive Ziglin} if $\exists$ r algebraically independent elements $f_1, \dots, f_r \in \mbb{C}(V)^G$ in involution. 
+\end{definition}
+
+\begin{theorem}[Ziglin]
+If you have $k$ meromorphic 1st integral of $X_H$ that are involutive and independent over a neighbourhood of $\iota(\Gamma)$ then 
+\begin{enumerate}
+    \item $\Gal\nabla$ is $k$-involutive Ziglin
+    \item the Zariski closure of $\Mon\nabla$ is $\Gal\nabla$
+    \item $(\Gal\nabla)^\circ$ is abelian. 
+\end{enumerate}
+\end{theorem}
+
+We can see from here how this leads to the Morales Ramis theorem. In practice we can simplify this theorem, by considering only the \texit{normal} variation $\nabla_N$, as in a sense variation along $\Gamma$, as opposed to off it in some neighbourhood, is trivial. (effectively we are looking at monodromy of the normal bundle). \\
+\\
+We will now state one final prop,
+\begin{prop}
+Let $h_1, \dots, h_k$ be an involutive set of independent global 1st integrals $(\nabla,M,\omega) \to (\nabla_N,N,\omega_N)$, then 
+\begin{enumerate}
+    \item $\nabla$ is PV integrable $\Leftrightarrow$ $\nabla_N$ is PV integrable
+    \item $(\Gal\nabla)^\circ$ abelian $\Rightarrow$ $(\Gal\nabla_N)^\circ$ abelian. 
+\end{enumerate}
+\end{prop}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{More Math}
+Let us consider Harry's section as a good lead in to the theory. We may return to the intro section and end up turning it onto a Galois theory repository. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Math}
+Let us start with the statement of an important theorem 
+
+\begin{theorem}
+[Lie-Kolchin]
+A connected linear algebraic group is solvable iff it is conjugate to a triangular group.
+\end{theorem}
+
+we can state a few important lemmas immediately
+
+\begin{lemma}
+Let $G\subseteq SL(2,\mbb{C})$ be an algebraic group, and assume $G^0$ is solvable. Then $G$ is conjugate to 
+\begin{enumerate}
+    \item a finite group 
+    \item \pbrace{\begin{pmatrix} \lambda & 0 \\ 0 & \lambda^{-1} \end{pmatrix}, \begin{pmatrix} 0 - \beta^{-1} \\ \beta & 0 \end{pmatrix} , \lambda \beta \in \mbb{C}^{x}} \\
+    \item $G$ is triangular. 
+\end{enumerate}
+\end{lemma}
+
+\begin{lemma}
+Let $G\subseteq SL(2,\mbb{C})$ s.t. $G^0$ is not solvable, then $G= SL(2,\mbb{C})$. 
+\end{lemma}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{plain}
+\bibliography{references.bib}
+
+\end{document}

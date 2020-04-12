@@ -1,0 +1,2398 @@
+\documentclass{article}
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Cosmology Notes}
+\author{Linden Disney-Hogg}
+\date{January 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+These are notes, hopefully condensed for more efficient revision of cosmology. Highlighted equations in math environment (in red) indicates a possible error that needs to be reviewed. Text that is highlighted (in yellow) indicates an assumption/ statement assumed from farther physics. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Conventions and prerequisites}
+
+\begin{definition}[Natural Units]
+\bam{Natural units} are used where
+\[
+c=\hbar=k_B = 1
+\]
+$[c]=LT^{-1}$, $[\hbar]=L^2 M T^{-1}$, $[k_B] = ML^2 T^{-2} K^{-1}$, so in natural units
+\[
+L=T=K^{-1}=M^{-1}
+\]
+Units are therefore given in \bam{mass dimension}, e.g. if $[f]=M^d$, write $[f]=d$.
+\end{definition}
+
+\begin{fact}
+A table of common values and their mass dimension is given below. 
+\begin{center}$
+\begin{array}{ccc}
+    \text{Quantity} & \text{Symbol} & \text{Mass Dimension} \\
+    \hline
+    \hline
+    \text{Length/Distance} & L/D & -1 \\
+    \text{Volume} & V & -3 \\
+    \text{Measure} & d^n x & -n \\
+    \text{Derivative} & \del_\mu & 1 \\
+    \text{Time} & t & -1 \\
+    \text{Temperature} & T & 1 \\
+    \text{Energy} & E & 1 \\
+    \text{Energy Density} & \rho & 4 \\
+    \text{Momentum} & P/q & 1 \\
+    \text{Pressure} & p & 4 \\
+    \text{Entropy} & S & 0 \\
+    \text{Entropy Density} & s & 3 \\
+    \text{Scale Factor} & a & 0 \\
+    \text{Hubble Rate} & H & 1 \\
+    \text{Curvature parameter} & K & 2 \\
+    \text{Newton's Constant} & G & -2 \\
+    \text{Metric} & g_{ab},g^{ab} & 0 \\
+    \text{Action} & S & 0 \\
+    \text{Lagrangian Density} & \mc{L} & 4 \\
+    \text{Christoffel Symbol} & \Gamma^a_{bc} & 1 \\
+    \text{Riemann Tensor} & R\indices{^a_b_c_d} & 2 \\
+    \text{Ricci Tensor/Scalar} & R_{ab} / R & 2 \\
+    \text{Cosmological Constant} & \Lambda & 2 \\
+    \text{Inflaton Field} & \phi & 0 
+\end{array}
+$\end{center}
+\end{fact}
+
+\begin{definition}[Plank Mass]
+The \bam{Plank mass} is 
+\eq{
+M_{pl} = (8 \pi G)^{-\frac{1}{2}}
+}
+\end{definition}
+
+\begin{definition}[Mostly plus signature]
+The signature that will be used throughout these notes will be the \bam{mostly plus signature}. As these notes will only consider 1+3 dimensional spacetime, as these are all the dimensions that have been observed, this takes the form $(-,+,+,+)$. 
+\end{definition}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{General Relativity}
+Some of the tools from General Relativity will be useful in discussions of cosmology. For a better idea of these results, see the GR notes, and these will be referenced where appropriate. 
+
+\begin{definition}[Energy Momentum Tensor]
+Given an action $S$ with respect to a metric $g_{ab}$ the \bam{energy momentum tensor} is 
+\eq{
+T^{ab} = \frac{2}{\sqrt{-g}} \frac{\delta S_{matter}}{\delta g_{ab}}
+}
+where $g=\det g_{ab}$ and 
+\eq{
+S_{matter} = \int \mc{L}_{matter} g^{\frac{1}{2}} d^4 x
+}
+is the matter action. 
+\end{definition}
+
+\begin{definition}[Perfect Fluid]
+A \bam{perfect fluid} is a medium in which at each point there exist a Local Inertial Frame (LIF). 
+\end{definition}
+
+\begin{fact}
+In a comoving LIF the energy momentum tensor must be diagonal and isotropic hence 
+\eq{
+T^\mu_\nu = \diag(-\rho,P,P,P)
+}
+Hence for a general frame moving with velocity $u^\mu$ s.t $u^\mu u_\mu = - 1$ 
+\eq{
+T^{\mu\nu} =(\rho+p) u^\mu u^\nu +g^{\mu\nu}p
+}
+\end{fact}
+
+
+\begin{definition}[Lie Derivative]
+If under an infinitesimal transform $x^\mu \to x^\mu + \eps V^\mu$ a tensor transform as $T \to T^\prime$ then the \bam{Lie Derivative} of $T$ in the $V$ direction is 
+\eq{
+(\mc{L}_V T)(x) = \lim_{\eps\to 0} \frac{T\indices{^\dots_\dots}(x) - {T^\prime}\indices{^\dots_\dots}(x)}{\eps}
+}
+Some examples are 
+\eq{
+\mc{L}_V \phi &= V^\mu \del_\mu \phi \\
+\mc{L}_V W^\mu &= V^\nu \nabla_\nu W^\mu - W^\nu \nabla_\nu V^\mu \\
+\mc{L}_V W_\mu &= V^\nu \nabla_\nu W^\mu + W_\nu \nabla_\mu V^\nu \\ 
+\mc{L}_V T_{\mu\nu} &= V^\rho \nabla_\rho T_{\mu\nu} + T_{\rho\nu} \nabla_\mu V^\rho + T_{\mu\rho} \nabla_\nu V^\rho
+}
+The most important example is for $g_{\mu\nu}$ the metric tensor where
+\eq{
+\mc{L}_V g_{\mu\nu} = \nabla_\mu V_\nu + \nabla_\nu V_\mu
+}
+\end{definition}
+
+\begin{definition}[Isometry]
+A transform $x \to x^\prime$ is an \bam{isometry} if under the transform 
+\eq{
+g_{\mu\nu} \to g^\prime_{\mu\nu}, \; g^\prime_{\mu\nu}(x) = g_{\mu\nu}(x)
+}
+\end{definition}
+
+\begin{definition}[Killing Vector]
+A vector $\xi^\mu$ is a \bam{Killing vector} if 
+\eq{
+\mc{L}_\xi g_{\mu\nu} = \nabla_\mu \xi_\nu + \nabla_\nu \xi_\mu =0
+}
+Motion along integral curves of $\xi$ are then isometries. 
+\end{definition}
+
+\begin{prop}
+For a Killing vector $\xi$
+\eq{
+\nabla_\rho \nabla_\sigma \xi_\mu = R\indices{_\lambda_\sigma_\mu_\rho} \xi^\lambda
+}
+\end{prop}
+\begin{corollary}
+A Killing vector field  is determined uniquely by specifying $\xi_\mu ,\nabla_\nu \xi^\mu$ at a point. Hence a $D$ dimensional spacetime has at most 
+\[
+D + \frac{1}{2}D(D-1) = \frac{1}{2}D(D+1)
+\]
+isometries. 
+\end{corollary}
+
+\begin{definition}[Maximally Symmetric Spacetime]
+A $D$ dimensional spacetime is \bam{maximally symmetric} if it admits $\frac{1}{2}D(D+1)$ independent Killing vectors. 
+\end{definition}
+
+\begin{prop}
+In maximally symmetric spacetime the Riemann tensor is 
+\eq{
+R_{\mu\nu\rho\sigma} = K g_{\mu(\sigma}g_{\nu\rho)}
+R = -D(D-1) K 
+}
+Hence the Ricci scalar uniquely characterises a maximally symmetric spacetime. 
+\end{prop}
+
+\begin{fact}
+If $N\leq M$ is a maximally symmetric subspace then the line element on $M$ can be expressed as the \bam{\hl{warp product}}
+\eq{
+ds^2 = g_{ab}(x) dx^a dx^b + f(x) \tilde{g}_{ij}(y) dy^i dy^j
+}
+where $y$ are coordinate on $N$ and $x$ coordinates on the rest of $M\setminus N$
+\end{fact}
+
+\begin{definition}[Einstein-Hilbert Action]\label{def:CSM:EinsteinHilbertAction}
+The \bam{Einstein - Hilbert action} is 
+\eq{
+S_{EH} = \frac{1}{2}M_{pl}^2 \int (R-2\Lambda) g^{\frac{1}{2}} d^4 x
+}
+\end{definition}
+
+\begin{definition}[Einstein Equations]
+The \bam{Einstein Equations} are a set of 10 non-linear PDEs for the metric in the presence of some energy momentum tensor, and they are 
+\eq{
+M_{pl}^2 ( R_{ab} - \frac{1}{2}R g_{ab} + \Lambda g_{ab}) = T_{ab}
+}
+$\Lambda$ is a cosmological constant, and is ignored typically in general relativity. 
+\end{definition}
+
+\begin{prop}[Trace Reversed Einstein Equations]
+In $D>2$ dimensions this can be written as 
+\eq{
+M_{pl}^2( R - \frac{D}{2}R + D\Lambda) = T
+}
+with $T=T\indices{^a_a}$. Hence 
+\eq{
+R &= \frac{2}{D-2}\left[ D\Lambda - M_{pl}^{-2} T \right] \\
+\Rightarrow R_{ab} &=  \frac{1}{D-2}\left[ D\Lambda - M_{pl}^{-2} T \right] g_{ab} -\Lambda g_{ab} + M_{pl}^{-2}T_{ab} \\
+&= \frac{2\Lambda}{D-2}g_{ab} + M_{pl}^{-2}\left[ T_{ab} - \frac{1}{D-2} T g_{ab} \right]
+}
+in $D=4$ this becomes 
+\eq{
+R_{ab} = \Lambda g_{ab} + M_{pl}^{-2} \left[ T_{ab} -\frac{1}{2}Tg_{ab} \right] 
+}
+\end{prop}
+
+\begin{theorem}
+The Einstein equations are obtained from finding when the action 
+\eq{
+S = S_{EH} + S_{Matter}
+}
+is stationary, i.e. $\delta S = 0$ with respect to variations in the metric. 
+\end{theorem}
+
+\begin{prop}[Contracted Bianchi Identity]
+\eq{
+\nabla^a(R_{ab} -  \frac{1}{2}R g_{ab} ) = \nabla^a R_{ab} - \frac{1}{2} \nabla_b R = 0
+}
+\end{prop}
+\begin{corollary}
+The energy momentum tensor is conserved, i.e. 
+\eq{
+\nabla_a T^{ab} = 0 
+}
+\end{corollary}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{de Sitter Spacetime}
+
+\begin{definition}[de Sitter Spacetime]
+Consider $\mbb{R}^{1,4}$ with metric 
+\eq{
+ds^2 = -dV^2 +dW^2 + dX^2 + dY^2 + dZ^2 
+}
+and the metric induced on the surface 
+\eq{
+-V^2 + W^2 + X^2 + Y^2+ Z^2 = \frac{3}{\Lambda}
+}
+Any spacetime that has this induced metric is \bam{de Sitter spacetime}.
+\end{definition}
+
+\begin{prop}
+The metric on de Sitter spacetime can be written as 
+\eq{
+ds^2 = - d\tau^2 + \frac{3}{\Lambda}\left[d\chi^2 + \sin^2 \chi \left( d\theta^2 + \sin^2\theta d\phi^2 \right) \right]
+}
+with 
+\eq{
+V &= \sqrt{\frac{3}{\Lambda}}\sinh \left( \tau\sqrt{\frac{3}{\Lambda}} \right) \\
+W &= \sqrt{\frac{3}{\Lambda}}\cosh \left( \tau\sqrt{\frac{3}{\Lambda}} \right)\cos\chi \\
+X &= \sqrt{\frac{3}{\Lambda}}\cosh \left( \tau\sqrt{\frac{3}{\Lambda}} \right)\sin\chi \cos\theta \\
+Y &= \sqrt{\frac{3}{\Lambda}}\cosh \left( \tau\sqrt{\frac{3}{\Lambda}} \right)\sin\chi \sin\theta \cos\phi \\
+Z  &= -\sqrt{\frac{3}{\Lambda}}\cosh \left( \tau\sqrt{\frac{3}{\Lambda}} \right)\sin\chi \sin\theta \sin\phi
+}
+\end{prop}
+\begin{proof}
+Note that for constant $V$ 
+\eq{
+W^2 + X^2 + Y^2+ Z^2 = \frac{3}{\Lambda} + V^2
+}
+is a 3-sphere, hence has the metric 
+\eq{
+d\sigma^2 = d\chi^2 + \sin^2 \chi \left( d\theta^2 + \sin^2\theta d\phi^2 \right)
+}
+with coordinates 
+\eq{
+W &= k\cos\chi \\
+X &= k\sin\chi \cos\theta \\
+Y &= k\sin\chi \sin\theta \cos\phi \\
+Z  &= -k\sin\chi \sin\theta \sin\phi
+}
+for $k=\sqrt{\frac{3}{\Lambda}+V^2}$. Hence letting $V=\sqrt{3}{\Lambda}\sinh v$. Choosing v to normalise $dV$ in the metric gives $v=\tau\sqrt{\frac{3}{\Lambda}}$. 
+\end{proof}
+
+\begin{prop}
+Alternative coordinates can be found on de Sitter space such that the metric becomes 
+\eq{
+ds^2 &= -dt^2 + e^{2H_0 t} d\bm{x}^2 \\
+ &= \frac{-d\tau^2 + d\bm{x}^2}{\tau^2 H_0^2}
+}
+where $H_0 = \sqrt{\frac{\Lambda}{3}}$ in a universe with $w=-1$. 
+\end{prop}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part{Homogenous Universe}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{FLRW}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Metric}
+On large scales, at any given time the universe looks \emph{homogeneous} and \emph{isotropic}, and hence it has a maximally symmetric constant time hypersurface. As a result the line element is 
+\eq{
+ds^2 = dt^2 + a(t)^2 \tilde{g}_{ij}(x) dx^i dx^j
+}
+Note $x$ are \emph{comoving} coordinates such that, for a spacelike separation $\Delta x$
+\eq{
+|\Delta x|_{phys} = a |\Delta x|
+}
+
+\begin{definition}[Hubble Parameter]
+Define the \bam{Hubble parameter} $H$
+\eq{
+H= \frac{\dot{a}}{a}
+}
+\end{definition}
+
+\begin{definition}[FLRW metric]
+The metric induced on the homogeneous isotropic spacetime is the \bam{Friedmann-Lemaitre-Robertson-Walker Metric} 
+\eq{
+ds^2 &= - dt^2 + a(t)^2 \left[ \frac{dr^2}{1-Kr^2} + r^2 d\Omega^2 \right] \\
+ &= - dt^2 + a(t)^2 \left[ d\chi^2 + f(\chi) d\Omega^2 \right]
+}
+where $K = 0, \pm1$, and 
+\eq{
+f(\chi) = \left\{ \begin{array}{lc} \sinh^2 \chi  & K = -1 \\
+    \chi^2 & K=0 \\
+    \sin^2 \chi & K=1
+    \end{array} \right.
+}
+\end{definition}
+
+\begin{definition}[Conformal time]
+Introduce \bam{conformal time} $\tau$ which satisfies 
+\[
+d\tau = \frac{dt}{a(t)} \Leftrightarrow \tau = \int^t \frac{dt^\prime}{a(t^\prime)}
+\]
+\end{definition}
+
+\begin{definition}[Conformal Hubble Parameter]
+In analogy with $H = \frac{\dot{a}}{a}$ the Hubble parameter, define the \bam{conformal Hubble parameter}
+\eq{
+\mc{H} = \frac{a^\prime}{a}
+}
+where $a^\prime = \frac{da}{d\tau} = a \dot{a}=a^2 H$. Hence 
+\eq{
+\mc{H} = aH
+}
+\end{definition}
+
+In conformal time the FLRW metric becomes 
+\eq{
+ds^2 = a^2 [ -d\tau^2 + d\chi^2 + f(\chi) d\Omega^2 ]
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Evolution equations}
+
+\begin{definition}[Continuity Equation]
+The conservation of the energy momentum tensor implies 
+\eq{
+\dot{\rho} + 3H(\rho + p) = 0
+}
+\end{definition}
+
+\begin{definition}[Equation of State]
+The \bam{equation of state} is a relation $p=p(\rho)$. In this course the equation of state will be taken to be 
+\eq{
+p = w\rho
+}
+where the constant $w$ depends on the fluid.
+\end{definition}
+
+\begin{prop}
+If the equation of state is $p = w\rho$ then 
+\eq{
+\dot{\rho} + 3 \frac{\dot{a}}{a}(1+w) \rho = 0 \Rightarrow \rho \propto a^{-3(1+w)}
+}
+\end{prop}
+
+The examples encountered in this course are 
+\begin{center}$
+\begin{array}{ccc}
+    \text{Fluid} & w & \text{Relation} \\
+    \hline
+    \hline
+    \text{Non-relativistic matter (dust)} & 0 & \rho\propto a^{-3}  \\
+    \text{Radiation} & \frac{1}{3} & \rho\propto a^{-4} \\
+    \text{Dark energy (cosmological constant)} & -1 & \rho \text{ constant} \\
+\end{array}
+$\end{center}
+
+\begin{definition}[Friedmann equation]
+In the FLRW metric the Einstein equations reduce to 
+\eq{
+3M_{pl}^2 \pround{ H^2 + \frac{K}{a^2} } = \sum_i \rho_i
+}
+this is the \bam{Friedmann equation}. 
+\end{definition}
+
+\begin{definition}[Raychaudhuri equation]
+Differentiating and rearranging the Friedmann equation given the \bam{Raychaudhuri equation}
+\eq{
+\frac{\ddot{a}}{a} = \frac{-1}{6M_{pl}^2} (\rho + 3P)
+}
+\end{definition}
+
+\begin{definition}[Critical Density]
+Define the \bam{critical density} to be 
+\eq{
+\rho_c = 3 M_{pl}^2 H^2
+}
+writing 
+\eq{
+\Omega_i &= \frac{\rho_i}{\rho_c} \\
+\Omega_K &= -\frac{3M_{pl}^2 K}{\rho_c a^2} = -\frac{K}{H^2 a^2}
+}
+the Friedmann equation becomes 
+\eq{
+1-\Omega_K = \sum_i \Omega_i
+}
+It is common notation to let $\Omega_{i,0} = \Omega_i |_{t=t_0}$, and use $\Omega_{i,0} h^2$ where $h$ is defined by 
+\eq{
+H_0 = 100 h \frac{\text{km}}{\text{sec Mpc}}
+} 
+in order to absorb error in the measurement of $H_0$. 
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Distance}\footnote{See this link \href{http://article.sciencepublishinggroup.com/pdf/10.11648.j.ijass.20150304.13.pdf}{http://article.sciencepublishinggroup.com/pdf/10.11648.j.ijass.20150304.13.pdf} for more information. }
+
+\begin{definition}[Redshift]
+Suppose that a wave is emitted with wavelength $\lambda_e$ and observed with wavelength $ \lambda_o$. Then the \bam{redshift} $z$ is defined by 
+\eq{
+1+z = \frac{\lambda_o}{\lambda_e}
+}
+\end{definition}
+
+\begin{definition}[Cosmological redshift]
+For a photon emitted at time $t_e < t_0$ the redshift due to the expansion of the universe is the \bam{cosmological redshift}
+\eq{
+1+z = \frac{a_0}{a_e}
+}
+If we let $a_0=1$, then we get $1+z = \frac{1}{a(z)}$
+\end{definition}
+
+\begin{definition}[Comoving Distance]
+The \bam{comoving distance} $\chi(t_i,t_f)$ is the distance travelled by a photon between times $t_i,t_f$. Note that for a radially moving null geodesic $ds^2 = a^2[-d\tau^2 + d\chi^2] = 0$ so $d\chi=d\tau$, so 
+\eq{
+\chi(t_i,t_f) &= \int d\tau \\
+&= \int_{t_i}^{t_f} \frac{dt}{a} \\
+&= \int_{a_i}^{a_f} \frac{da}{a^2 H} \\
+&= \int_{z_f}^{z_i} \frac{dz}{H(z)}
+}
+Writing this then in terms of the redshift, then the distance from the earth to an object with redshift $z$ is   
+\eq{
+\chi(z) = \int_0^z \frac{dz}{H(z)}
+}
+\end{definition}
+
+\begin{definition}[Luminosity]
+The \bam{intrinsic luminosity} $L$ of an object is the amount of energy radiated per unit time. The \bam{observed luminosity} $l$ is the amount of energy radiated per unit time per unit surface arriving at an observer some distance from the object.
+\end{definition}
+
+\begin{definition}[Magnitude]
+The \bam{magnitude} of the luminosity of an object is 
+\eq{
+m = -2.5 \log_{10}l + \text{const}
+}
+\end{definition}
+
+\begin{definition}[Luminosity Distance]
+The observed and intrinsic luminosity are related by 
+\eq{
+l = \frac{L}{4\pi d_L^2}
+}
+which defines the $\bam{luminosity distance}$ $d_L$
+ \end{definition}
+ 
+ \begin{prop}
+ The luminosity distance and comoving distance are related by 
+ \eq{
+ d_L(z) = (1+z) a_o \chi(z)
+ }
+ \end{prop}
+\begin{proof}
+\eq{
+l = \frac{L}{4\pi (\chi a_o)^2}\left(\frac{a_e}{a_o}\right)^2
+}
+with the factors coming from: the physical distance corresponding to the comoving distance at the observation time, the reduction in the energy of a photon due to redshift, and the reduced rate of photon arrival. 
+\end{proof}
+
+\begin{definition}[Angular Diameter Distance]
+For an object of size $s$ which subtends an angle $\theta$ from the point of view of the observer, the \bam{angular diameter distance} $d_A$ to the object is 
+\eq{
+d_A = \frac{s}{\theta}
+}
+As the angle the object takes up in the sky will be stretched by a factor of (1+z), the angular diameter distance is related to the comoving distance by 
+\eq{
+d_A(z) = \frac{\chi(z)}{1+z}
+}
+\end{definition}
+
+\begin{definition}[Particle Horizon]
+The \bam{particle horizon} $d_{p.h.}$ is is the greatest distance a photon a could have travelled since the beginning of time $t_i$. Any object a distance $d>d_{p.h.}$ from an observer away can never have communicated with said observer. 
+\eq{
+d_{p.h.}(t) = a(t) \chi(t,t_i) = a(t) \int_{t_i}^t \frac{dt^\prime}{a(t^\prime)}
+}
+\end{definition}
+
+\begin{definition}[Hubble Radius]
+The \bam{comoving Hubble radius} is 
+\eq{
+r_H = \frac{1}{aH}
+}
+and so the physical Hubble radius is 
+\eq{
+r_H = \frac{1}{H}
+}
+\end{definition}
+
+\begin{definition}[e-folds]
+If, during expansion $a \to e^N a$, is it said that \bam{N e-folds of expansion have occurred}. $N$ can we written as a variable 
+\eq{
+dN= Hdt = d(\log a) \Leftrightarrow N = \log a + \text{ constant}
+}
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Possible Universes}
+
+\begin{example}
+Consider a flat $(K=0)$ universe, with only one contribution to the energy density. Then 
+\eq{
+3M_{pl}^2 \left(\frac{\dot{a}}{a}\right)^2 &= \rho_0 \left(\frac{a}{a_0}\right)^{-3(1+w)} \\
+\Rightarrow \frac{\dot{a}}{a} &\propto a^{-\frac{3(1+w)}{2}} \\
+\frac{da}{a} a^{\frac{3(1+w)}{2}} &= dt \\
+\Rightarrow a(t) &= \left\{ \begin{array}{cc} \left[ \frac{3}{2}(1+w) H_0 t \right]^{\frac{2}{3(1+w)}} & w\neq -1 \\ Ae^{H_0 t} & w = -1 \end{array} \right.
+}
+Hence \begin{itemize}
+    \item For non-relativistic matter, $a \propto t^{\frac{2}{3}}$
+    \item For radiation, $a \propto t^\frac{1}{2}$
+    \item For dark energy, $a \propto e^{H_0 t}$
+\end{itemize}
+
+In this case 
+\eq{
+H &= \left\{ \begin{array}{cc}  \frac{2}{3(1+w)}\frac{1}{t}  & w\neq -1 \\ H_0 & w = -1 \end{array} \right. \\
+}
+For $w\neq -1$ this can be written as 
+\eq{
+H(a) &= H_0 \left(\frac{a_0}{a}\right)^\frac{3(1+w)}{2} \\
+H(z) &= H_0 (1+z)^\frac{3(1+w)}{2}
+}
+\end{example}
+
+\begin{prop}
+If $K=0$, the age of the universe can be calculates as 
+\eq{
+t_{age} &= \int dt \\
+ &= \int \frac{da}{\dot{a}} \\
+ &= \int \frac{da}{a H} \\
+ &= \frac{1}{H_0} \int \frac{da}{a} \left[  \frac{\sum_i \rho_i}{3 M_{pl}^2 H_0^2} \right]^{-\frac{1}{2}} \\
+ &= \frac{1}{H_0} \int \frac{da}{a} \left[ \Omega_\Lambda + \Omega_{m,0}a^{-3} + \Omega_{r,0} a^{-4} \right]^{-\frac{1}{2}}
+}
+\end{prop}
+
+\begin{example}[Curvature problem]\label{example:CSM:curvature problem}
+\eq{
+\dot{\Omega}_K = -\frac{2\ddot{a}}{\dot{a}} \Omega_K
+}
+Hence the behaviour of $|\Omega_K|$ depends on 
+\eq{
+\frac{\ddot{a}}{\dot{a}} = - \frac{1}{6M_{pl}^2}(1+3w) \frac{\rho}{H}
+}
+So, in an expanding universe 
+\eq{
+ 1 + 3w > 0 \Leftrightarrow |\Omega_K| \text{ grows} \\
+ 1 + 3w < 0 \Leftrightarrow |\Omega_K| \text{ shrinks}
+}
+and hence during radiation and matter domination $|\Omega_K|$ grows. Observation puts 
+\eq{
+\Omega_{K,0} = 0.000 \pm, 0.005
+}
+This suggests a very large fine tuning of the initial value of $\Omega_K$
+\end{example}
+
+\begin{example}[Horizon Problem]\label{example:CSM:horizon problem}
+In a single component universe with $w\in(0,\frac{1}{3})$ we find 
+\eq{
+\chi(z) &= \frac{1}{H_0} \int_0^z (1+z)^{-\frac{3(1+w)}{2}} \, dz \\
+&= \frac{1}{H_0}\left[ -\frac{2}{1+3w} (1+z)^{-\frac{1+3w}{2}}\right]_0^z \\
+&= \frac{1}{H_0}\frac{2}{1+3w}\left[1-(1+z)^{-\frac{1+3w}{2}}\right]
+}
+For $z\gg1$ we thus have 
+\eq{
+\chi(z) \approx \frac{\mc{O}(1)}{H_0}
+}
+Alternatively we can calculate the particle horizon from the beginning of the universe to redshift $z$ as 
+\eq{
+x_{p.h.}(z) &= \frac{1}{H_0} \int_z^\infty (1+z)^{-\frac{3(1+w)}{2}} \, dz\\
+&=  \frac{1}{H_0}\left[ -\frac{2}{1+3w} (1+z)^{-\frac{1+3w}{2}}\right]_z^\infty \\
+&= \frac{1}{H_0}\frac{2}{1+3w} (1+z)^{-\frac{1+3w}{2}} \\
+&= \frac{2}{1+3w} \frac{1+z}{H(z)}
+}
+Hence for large $z$
+\eq{
+\frac{\chi(z)}{x_{p.h.}(z)} \approx (1+z)^{\frac{1+3w}{2}} \gg 1
+}
+Thus antipodal regions with large $z$ must be causally disconnected, as their comoving distance is much greater than the particle horizon. As a result, there is no explanation for the statistical isotropy observed in the universe. 
+\end{example}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Inflation}
+
+\begin{definition}[Inflation]
+\bam{Inflation} is a period of time during which $\dot{a},\ddot{a} > 0$. 
+\end{definition}
+
+Such a period would provide a solution to the curvature problem (example \ref{example:CSM:curvature problem}) and the horizon problem (example \ref{example:CSM:horizon problem}). 
+
+\begin{definition}[Reheating]
+\bam{Reheating} is the period when evolution changes from inflation to the decelerating hot Big Bang. 
+\end{definition}
+
+\begin{prop}
+Approximately $50$ e-folds passed during inflation. 
+\end{prop}
+\begin{proof}
+In order to solve the Horizon problem (example \ref{example:CSM:horizon problem}) it is necessary that the particle horizon is greater than the Hubble radius. For approximately de Sitter expansion, $H$ is approximately constant, so $d_{p.h.}\approx \frac{1}{H}$, thus comparing the \hl{comoving distances}\footnote{why the comoving distances?} 
+\eq{
+\frac{1}{a_i H_i} > \frac{1}{a_0 H_0}
+}
+where $i$ indicates the beginning of inflation. Thus letting $reh$ represent when reheating occurs, 
+\eq{
+\frac{a_{reh} H_{reh}}{a_i H_i} > \frac{a_{reh} H_{reh}}{a_0 H_0}
+}
+Hence using definition \ref{def:CSM:1} and the Friedmann equation in a flat universe 
+\eq{
+3M_{pl}^2 H^2 = \rho
+}
+gives 
+\eq{
+\frac{a_{reh} H_{reh}}{a_0 H_0} &= \pround{\frac{\frac{cst}{T_{CMB,0}}\sqrt{(g_\ast)_0 \frac{\pi^2}{90} } \frac{T_{CMB,0}^2}{M_{pl}}}{\frac{cst}{T_{reh}}\sqrt{(g_\ast)_{reh} \frac{\pi^2}{90} } \frac{T_{reh,0}^2}{M_{pl}}}}^{-1} \\
+&\approx \frac{T_{reh}}{T_{CMB,0}}
+}
+Now $T_{CMB,0} \approx 2.7K \approx 0.2 meV = 2 \times 10^{-13} Gev $
+\eq{
+\Rightarrow \frac{a_{reh} H_{reh}}{a_0 H_0} \approx \highlight{5 \times 10^{23}}\footnote{value given in notes is $4\times 10^{21}$. Why?} \left( \frac{T_{reh}}{10^{10} GeV} \right)
+}
+\footnote{value given in notes is $4\times 10^{21}$. Why?}
+Hence the number of e-folds is 
+\eq{
+\Delta N_{infl} &= \log{\frac{a_{reh}}{a_i}} \gtrapprox 50 + \log \frac{T_{reh}}{10^{10}}
+}
+Taking the uncertainty in $T_{reh}$ to be s.t. that $T_{reh} \in (1,10^{15}) GeV$ gives $\Delta N_{infl} \in (25,60)$. It will be often be taken that $\Delta N_{infl} \approx 50$ hence. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Slow-Roll Inflation}
+
+\begin{definition}[Hubble Slow Roll Parameter]
+Define the \bam{first Hubble slow roll parameter} $\eps$ such that 
+\eq{
+\frac{\ddot{a}}{a} = \dot{H}+H^2 = H^2(1-\eps) \Leftrightarrow \eps = -\frac{\dot{H}}{H^2}
+}
+In a single fluid universe 
+\eq{
+\eps = \frac{3(1+w)}{2}
+}
+Note that this can be written as 
+\eq{
+\eps = - \del_N \log H 
+}
+Then define the \bam{second Hubble slow roll parameter} $\eta$ by 
+\eq{
+\eta = \del_N \log \eps = \frac{\dot{\eps}}{H\eps}
+}
+Then the \bam{n\textsuperscript{th} Hubble slow roll parameter} $\xi_n$ is given inductively by 
+\eq{
+\xi_n = \del_N \log \xi_{n-1}
+}
+with $\xi_1 = \eps$, $\xi_2 = \eta$. 
+\end{definition}
+
+Inflation requires $\eps < 1 \Rightarrow w < -\frac{1}{3}$. It will be seen later that scale invariance follows from a spacetime background that is approximately de Sitter, i.e. $H$ approximately constant. Hence consider the case $0< \eps \ll 1$. 
+
+\begin{definition}[Slow Roll Inflation]
+\bam{Slow roll inflation} is inflation during which $\dot{H}$ remains small throughout.
+\end{definition}
+
+\begin{prop}
+For slow roll inflation, it is sufficient that 
+\eq{
+\forall n, \quad  0 < \xi_n \ll 1
+}
+\end{prop}
+\begin{proof}
+For slow roll inflation it is required that $0 < \eps \ll 1$ as already discussed. Taylor expanding $\eps(N)$ from the beginning of inflation $N=N_\ast$ gives \eq{
+\eps(N) - \eps(N_\ast) &= \pd[\eps]{N}|_{N_\ast}(N-N_\ast) + \pds[\eps]{N}|_{N_\ast} + \mc{O}(\del_N^3 \eps) \\
+&= \eps\left[ \eta(N-N_\ast) + \eta \xi_2 \frac{(N-N_\ast)^2}{2} + \dots \right]
+}
+so to ensure that $\eps$ remains small it is required $\eta \Delta N_{infl}, \eta \xi_2 \Delta N_{infl}, \dots < 1$, so it is enough to have $0<\xi_n < \frac{1}{\Delta N_{infl}} \ll 1$ for all $n$. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Single Fields Inflation}
+
+Consider the action
+\eq{
+S = \frac{1}{2} M_{pl}^2 \int \left[ R + M_{pl}^{-2}\left( -\del_\mu \phi \del^\mu \phi - 2V(\phi) \right) \right] g^\frac{1}{2} d^4 x 
+}
+where $\phi$ is some scalar field. To ensure consistency with the symmetries of FLRW it must be that $\phi = \phi(t)$.  Note the similarity to the Einstein Hilbert action \ref{def:CSM:EinsteinHilbertAction} if 
+\eq{
+\Lambda = M_{pl}^{-2} \left( \frac{1}{2} \del_\mu \phi \del^\mu \phi + V(\phi) \right)
+}
+The energy momentum tensor of this action is 
+\eq{
+T_{\mu\nu} &= \del_\mu \phi \del_\nu \phi + g_{\mu\nu} \left[ -\frac{1}{2} \del_\sigma \phi \del^\sigma \phi - V(\phi) \right] \\
+&= (\rho + p) u_\mu u_\nu + g_{\mu\nu}p
+}
+making the identifications 
+\eq{
+\rho &= -\frac{1}{2}\del_\mu \phi \del^\mu \phi + V(\phi) \\
+p &= -\frac{1}{2}\del_\mu \phi \del^\mu \phi - V(\phi) \\
+u_\mu &= \frac{\del_\mu \phi}{\sqrt{-\del_\mu \phi \del^\mu \phi}}
+}
+These reduce to 
+\eq{
+\rho &= \frac{1}{2} \dot{\phi}^2 + V(\phi) \\
+p &=  \frac{1}{2} \dot{\phi}^2 - V(\phi) \\
+u_\mu &= (1,\bm{0})
+}
+as $\phi=\phi(t)$. 
+
+The Friedmann equations are then 
+\eq{
+\ddot{\phi} + 3H\dot{\phi} + V^\prime(\phi) = 0 \text{ (continuity equation)}\\
+3H^2 M_{pl}^2 = \frac{1}{2} \dot{\phi}^2 + V(\phi)  \text{ (evolution equations)}
+}
+
+\begin{prop}\label{prop:CSM:1}
+\eq{
+-\dot{H} M_{pl}^2 = \frac{1}{2}\dot{\phi}^2
+}
+\end{prop}
+\begin{proof}
+Differentiate the evolution equation and sub in the continuity equation. 
+\end{proof}
+
+\begin{definition}
+In scalar field inflation, the first three slow roll parameters are 
+\begin{align}\label{eq:CSM:13}
+\eps_V &= \frac{1}{2} M_{pl}^2 \left( \frac{V^\prime}{V} \right)^2 \\
+\eta_V &= M_{pl}^2 \frac{V^{\prime\prime}}{V} \\
+\xi_{3V} &= M_{pl}^4 \frac{V^\prime V^{\prime\prime}}{V^2}
+\end{align}
+\end{definition}
+
+\begin{prop}
+\eq{
+V = (3-\eps) H^2 M_{pl}^2
+}
+and hence 
+\eq{
+\eps_V &= \frac{\eps(\eta-2\eps+6)^2}{4(\eps-3)^2} \\
+\eta_V &= \frac{\eta(\eta+2\xi_3+6)-2\eps(5\eta+12)+8\eps^2}{4(\eps-3)}
+}
+\end{prop}
+\begin{proof}
+The evolution equation becomes 
+\eq{
+V = H^2 M_{pl}^2 (3-\eps)
+}
+through substitution for $\frac{1}{2}\dot{\phi}^2$. Then 
+\eq{
+V^\prime \dot{\phi} &= 2H \dot{H} M_{pl}^2 (3-\eps) - \dot{\eps} H^2 M_{pl}^2 \\
+&= M_{pl}^2 H^3 \eps (2\eps-6 - \eta) \\
+\Rightarrow {V^\prime}^2 \dot{\phi}^2 &= M_{pl}^4 H^6 \eps^2 (\eta - 2\eps + 6)^2  \\
+\Rightarrow {V^\prime}^2 &= 2M_{pl}^2 H^4 \eps (\eta - 2\eps + 6)^2 \\
+\frac{1}{2} M_{pl}^2 \pround{\frac{V^\prime}{V}}^2 &= \frac{\eps(\eta - 2\eps + 6)^2}{(\eps-3)^2 }
+}
+\end{proof}
+
+\begin{corollary}
+For $\eps,\eta \ll 1$
+\eq{
+\eps \approx \eps_V \\
+\eta \approx 4\eps_V - 2\eta_V
+}
+\end{corollary}
+
+\begin{definition}
+Write $X = -\frac{1}{2} \del_\mu \phi \del^\mu \phi = \frac{1}{2}\dot{\phi}^2$. Then 
+\eq{
+\rho = X+V \\
+p = X-V \\
+\dot{X}+6HX +V^\prime \dot{\phi} = 0 \\
+-\dot{H} M_{pl}^2 = X
+}
+\end{definition}
+
+Hence we can write 
+\eq{
+\eps = -\frac{\dot{H}}{H^2} = \frac{\frac{X}{M_{pl}^2}}{\frac{X+V}{3M_{pl}^2}} = \frac{3X}{X+V} \ll 1 \Rightarrow X \ll V
+}
+and so  
+\begin{align}\label{eq:CSM:14}
+3 M_{pl}^2 H^2 \approx V 
+\end{align}
+Hence 
+\eq{
+\eta = \frac{\dot{\eps}}{\eps H} = 2\eps + \frac{\dot{X}}{XH}
+}
+so 
+\eq{
+\eps,\eta \ll 1 \Rightarrow \dot{X} \ll XH \Rightarrow 2\ddot{\phi} \ll \dot{\phi}H
+}
+and so we can neglect the acceleration term giving 
+\eq{
+3 H \dot{\phi} &\approx -V^\prime \\
+\Rightarrow \dot{\phi} &\approx - \frac{V^\prime M_{pl}}{\sqrt{3V}} \\
+\Rightarrow t &\approx \int d\phi \, \frac{\sqrt{3V}}{V^\prime M_{pl}} + \text{const}
+}
+This equation can be inverted to give $\phi(t)$ a \bam{slow roll solution}, valid if $\eps,\eta \ll 1$
+
+\subsubsection*{End of Inflation}
+We shall \hl{assume that inflation ends at} $t_e$ where $\eps(t_e)\approx 1$. In addition, we \hl{assume that at the end of inflation} $\phi$ is at a minimum of V with 
+\eq{
+V(\phi_{min}) \approx (10^{-3} eV)^4 \approx 0 
+}
+Then the total of e-folds during inflation is 
+\eq{
+\Delta N &= \int_{N_i}^{N_e} dN \\
+&= \int_{t_i}^{t_e} H dt \\
+&= \int_{\phi_i}^{\phi_e} \frac{H}{\dot{\phi}} d\phi \\
+&\approx \int_{\phi_i}^{\phi_e} d\phi \, \sqrt{\frac{V}{3M_{pl}^2}} \left( - \frac{V^\prime M_{pl}}{\sqrt{3V}} \right)^{-1} \\
+&= \int_{\phi_e}^{\phi_i} d\phi \, \frac{V}{M_{pl}^2 V^\prime}
+}
+
+\begin{definition}
+Define a field to be a \bam{small field} if during inflation $\Delta \phi < M_{pl}$ and a \bam{large field} if $\Delta \phi > M_{pl}$
+\end{definition}
+
+\begin{definition}
+Let 
+\eq{
+\Lambda_\phi = \frac{V}{V^\prime}
+}
+\end{definition}
+\hl{assuming} that $V$ remains relatively flat, so $V,V^\prime$ are approximately constant. Then 
+\eq{
+\Delta N &\approx \frac{V}{M_{pl}^2 V^\prime}\Delta \phi \\
+\Rightarrow \frac{\Delta \phi}{M_{pl}} &\approx 50 \frac{M_{pl}}{\Lambda_\phi}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Constituents of the Universe}
+The five main components of the universe are 
+\begin{itemize}
+    \item Photons
+    \item Baryons (Protons, Neutrons, and other 3 quark species)
+    \item Neutrinos
+    \item Dark Matter 
+    \item Dark Energy
+\end{itemize}
+For a particle species to have sizeable density on its own today, that species must have a lifetime comparable to the lifetime of the universe. This includes photons, protons, and electrons. Species such as neutrons have retain their density by forming stable nuclei. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Thermodynamics}
+\begin{definition}
+The 1st law of thermodynamics is 
+\eq{
+TdS = dE + pdV - \mu dN
+}
+where $E$ is the energy of the system, $T$ the temperature, $p$ pressure, $V$ volume, $\mu$ the chemical potential, and $N$ the number of the particle. 
+\end{definition}
+
+\subsubsection*{Equilibrium}
+\begin{definition}[Kinetic Equilibrium]
+A system of particles is in \bam{kinetic equilibrium} if the constituent particles exchange energy and momentum efficiently. They are thus in a maximum-entropy state with distributions given by 
+\eq{
+f_{BE/FD}(\bm{x},\bm{P},t) = \frac{1}{e^{\frac{E_{\bm{P}}-\mu}{T}}\mp1}
+}
+the phase space density for bosons (\bam{Bose-Einstein statistics}) and fermions (\bam{Fermi-Dirac statistics}) respectively. 
+\end{definition}
+
+\begin{definition}[Chemical Equilibrium]
+An interaction is in \bam{chemical equilibrium} if the chemical potentials of the interacting species balance out, i.e in a reaction $1 + 2 \leftrightarrow 3 + 4$
+\eq{
+\mu_1 + \mu_2 = \mu_3 + \mu_4
+}
+\end{definition}
+
+\begin{lemma}
+From chemical equilibrium we can say 
+\begin{itemize}
+    \item $\mu_\gamma = 0$ (as photon number is not conserved)
+    \item $\mu_X = -\mu_{\bar{X}}$ (as a particle and its antiparticle can annihilate to make photons)
+\end{itemize}
+\end{lemma}
+
+\begin{definition}[Thermal Equilibrium]
+An interaction is in \bam{thermal equilibrium} if it is in both kinetic and chemical potential. This forces all species to have the same temperature $T$. 
+\end{definition}
+
+\begin{definition}[Bose-Einstein/Fermi-Dirac statistics]
+For a species of particles $a$ with comoving momentum $P$, then the energy momentum tensor and number density are 
+\eq{
+T^{\mu\nu}_a ( \bm{x},t) &= \frac{2}{\sqrt{-g}} g_a \int \frac{d^3\bm{P
+}}{(2\pi)^3 2E_{\bm{P}}} P^\mu P^\nu f(\bm{x},\bm{P},t) \\
+n_a ( \bm{x},t) &= \frac{2}{\sqrt{-g}} g_a \int \frac{d^3\bm{P
+}}{(2\pi)^3 2E_{\bm{P}}}  f(\bm{x},\bm{P},t)
+}
+where 
+\begin{itemize}
+    \item $g_a$ is the degeneracy of the species, e.g. 2 for a photon
+    \item $E_{\bm{P}} = \sqrt{m^2 + |\bm{P}|^2}$
+\end{itemize}
+\end{definition}
+
+\begin{prop}
+In flat FLRW space the components of the energy momentum tensor and number density take the form 
+\eq{
+\rho_a &= \frac{g_a}{2\pi^2} \int_0^\infty dq \, q^2 \frac{E(q)}{e^{\frac{E(q)-\mu}{T}}\mp1} \\
+p_a &= \frac{g_a}{2\pi^2} \int_0^\infty dq  \, q^2 \frac{q^2}{3E(q)} \frac{1}{e^{\frac{E(q)-\mu}{T}}\mp1} \\
+n_a &= \frac{g_a}{2\pi^2} \int_0^\infty dq \, q^2 \frac{1}{e^{\frac{E(q)-\mu}{T}}\mp1}
+}
+\end{prop}
+\begin{proof}
+In flat FLRW $\sqrt{-g} = a^3$ and $d^3\bm{P} = a^3 d^3\bm{q}$ for physical momentum $\bm{q}$. Then $\rho = T^0_0$ and $p=\frac{1}{3}T^i_i$. Then finally writing $d^3\bm{q}=q^2 dq d\Omega$ and completing the angular integral for a factor of $4\pi$ gets the answer. 
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Suppose $T \ll E - \mu $, then 
+\begin{align}\label{eq:CSM:4}
+\frac{1}{e^\frac{E(q)-\mu}{T}\mp1} \approx  e^{-\frac{E(q)}{T}}e^{\frac{\mu}{T}} \ll 1 
+\end{align}
+So the integrals will be supported mainly where 
+\eq{
+& 0= \frac{d}{dq} q^2 e^{-\frac{\sqrt{m^2 + q^2}}{T}} = 2q e^{-\frac{\sqrt{m^2 + q^2}}{T}} - \frac{q^3}{T\sqrt{m^2+q^2}}e^{-\frac{\sqrt{m^2 + q^2}}{T}}\\
+ \Rightarrow & 2-\frac{q^2}{T\sqrt{m^2+q^2}} = 0 \\
+  \Rightarrow & q^4 -4T^2q^2-4T^2m^2 = 0 \\
+  \Rightarrow & q^2 = 2T^2 \pround{1 + \sqrt{1 + \pround{\frac{m}{T}}^2}} \\
+ \Rightarrow & \left\{ \begin{array}{cc}  q\approx 2T & m \ll T \\  q\approx \sqrt{2mT} & m\gg T \end{array} \right.
+}
+
+Hence 
+\eq{
+\sqrt{m^2+q^2} \approx \left\{ \begin{array}{cc} q & m \ll T \\ m+\frac{q^2}{2m} & m \gg T \end{array} \right.
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Relativistic Particles}
+For relativistic particles, the expressions thus are 
+\eq{
+\rho_a &\approx \frac{g_a}{2\pi^2} \int_0^\infty dq \,  \frac{q^3}{e^{\frac{q}{T}}\mp1} \\
+p_a &\approx \frac{1}{3}\frac{g_a}{2\pi^2} \int_0^\infty dq  \,   \frac{q^3}{e^{\frac{q}{T}}\mp1} \\
+n_a &\approx \frac{g_a}{2\pi^2} \int_0^\infty dq \, \frac{q^2}{e^{\frac{q}{T}}\mp1}
+}
+making the substitution $y = \frac{q}{T}$ gives 
+\eq{
+\rho_a &\approx \frac{g_a T^4}{2\pi^2} \int_0^\infty dy \,  \frac{y^3}{e^{y}\mp1} \\
+p_a &= \frac{1}{3} \rho_a \\
+n_a &\approx \frac{g_a T^3}{2\pi^2} \int_0^\infty dy \, \frac{y^2}{e^y \mp1}
+}
+
+\begin{lemma}
+\eq{
+\int_0^\infty dy \, \frac{y^n}{e^y - 1} = \zeta(n+1) \Gamma(n+1)
+}
+and 
+\eq{
+\int dy \, \frac{y^n}{e^y + 1} = \left( 1- \frac{1}{2^n} \right) \int dy \, \frac{y^n}{e^y - 1}
+}
+\end{lemma}
+\begin{proof}
+For $\Re{z} > 0 $
+\eq{
+\Gamma(z) = \int_0^\infty t^{z-1} e^{-t} \, dt 
+}
+and for $\Re{s} > 1$
+\eq{
+\zeta(s) = \sum_{n=1}^\infty \frac{1}{n^s}
+}
+Hence for $Re{z} > 1$
+\eq{
+\zeta(z)\Gamma(z) &= \sum_{n=1}^\infty \int_0^\infty t^{z-1} n^{-z} e^{-t} \, dt  \\
+\text{(let $t=n\tau$) } &= \sum_{n=1}^\infty \int_0^\infty \tau^{z-1} n^{-1} e^{-n\tau} \, nd\tau \\
+&= \int_0^\infty \tau^{z-1} \left(\sum_{n=1}^\infty e^{-n\tau}\right) \, d\tau \\
+&= \int_0^\infty d\tau \, \frac{\tau^{z-1}}{e^{\tau}-1} 
+}
+Now 
+\eq{
+\frac{1}{e^y+1} &= \frac{e^y-1}{(e^y+1)(e^y-1)} \\
+&= \frac{(e^y+1)-2}{(e^y+1)(e^y-1)} \\
+&= \frac{1}{e^y-1} - \frac{2}{e^{2y}-1} \\
+\Rightarrow \int_0^\infty dy \, \frac{y^n}{e^y+1} &= \int_0^\infty dy \, \frac{y^n}{e^y-1} - 2\int_0^\infty dy \, \frac{y^n}{e^{2y}-1} \\
+\text{(let $u=2y$) } &= \int_0^\infty dy \, \frac{y^n}{e^y-1} - 2\int_0^\infty \frac{1}{2}du \, \frac{2^{-n}u^n}{e^{u}-1} \\
+&= \left(1 - \frac{1}{2^n} \right) \int_0^\infty dy \, \frac{y^n}{e^y-1}
+}
+\end{proof}
+
+\begin{fact}
+\eq{
+\Gamma(n+1) &= n! \\
+\zeta(3) &= 1.202\dots \quad \text{(no reasonable representation)} \\
+\zeta(4) &= \frac{\pi^4}{90}
+}
+\end{fact}
+
+Hence 
+\eq{
+\rho_a = 3p_a&= g_a \frac{\pi^2}{30}T^4 \left\{ \begin{array}{cc} 1 & \text{bosons} \\ \frac{7}{8} & \text{fermions} \end{array}\right. \\
+n_a &= g_a \frac{\zeta(3)}{\pi^2} T^3  \left\{ \begin{array}{cc} 1 & \text{bosons} \\ \frac{7}{8} & \text{fermions} \end{array}\right.
+}
+\footnote{Note that fermions should have the lower density due to the Pauli exclusion principle.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Non-Relativistic Particles}
+For non-relativistic particles the expressions thus are 
+\eq{
+\rho_a &\approx \frac{g_a}{2\pi^2}e^\frac{\mu-m}{T} \int_0^\infty dq \, q^2\left(m+\frac{q^2}{2m} \right) e^{-\frac{q^2}{2mT}} \\
+p_a &\approx \frac{g_a}{2\pi^2}e^\frac{\mu-m}{T} \int_0^\infty dq \, q^2 \frac{q^2}{3\left( m+\frac{q^2}{2m} \right)} e^{-\frac{q^2}{2mT}} \\
+n_a &\approx \frac{g_a}{2\pi^2}e^\frac{\mu-m}{T} \int_0^\infty dq \, q^2 e^{-\frac{q^2}{2mT}}
+}
+and then the integrals can be done analytically integrating by parts, e.g.
+\eq{
+n_a &= \frac{g_a}{2\pi^2}e^\frac{\mu-m}{T} \int_0^\infty \sqrt{2mT} \cdot du \cdot 2mT u^2 e^{-u^2} \\
+&= \frac{g_a}{2\pi^2}e^\frac{\mu-m}{T} (2mT)^\frac{3}{2} \left\{ \left[-\frac{1}{2}u e^{-u^2}\right]_0^\infty + \int_0^\infty \frac{1}{2}e^{-u^2} \, du \right\} \\
+&= g_a \left(\frac{mT}{2\pi}\right)^\frac{3}{2} e^\frac{\mu-m}{T} \quad \text{using } \int_0^\infty e^{-u^2} \, du = \frac{\sqrt{\pi}}{2} 
+}
+to give 
+\eq{
+n_a &= g_a \left( \frac{mT}{2\pi} \right)^\frac{3}{2} e^\frac{\mu-m}{T} \\
+\rho_a &= g_a \left( \frac{mT}{2\pi} \right)^\frac{3}{2} e^\frac{\mu-m}{T} \left(m+\frac{3}{2}T \right) = n_a \left(m+\frac{3}{2}T \right)  \\
+p_a &= g_a \left( \frac{mT}{2\pi} \right)^\frac{3}{2} e^\frac{\mu-m}{T} T = n_a T 
+}
+Note that if relativistic and non relativistic particles are in thermal equilibrium and $\mu \ll T$ then 
+\eq{
+\frac{\rho_{\text{non-rel}}}{\rho_\text{rel}} \propto e^{-\frac{m}{T}} \left(\frac{T}{m}\right)^\frac{5}{2} \ll 1
+}
+hence it is sensible to neglect non-relativistic particles' contribution to energy density, pressure, and entropy density in thermal equilibrium. 
+
+\begin{definition}[Effective Number of Relativistic Degrees of Freedom]\label{def:CSM:1}
+Define the \bam{effective number of relativistic degrees of freedom} $g_\ast = g_\ast(T)$ such that the total energy density is
+\eq{
+\rho = g_\ast(T) \frac{\pi^2}{30} T^4
+}
+In thermal equilibrium, this is just
+\eq{
+g_\ast = \sum_{\text{bosons}} g_a + \frac{7}{8} \sum_{\text{fermions}} g_a
+}
+Out of thermal equilibrium, we must allow for the fact that the species may be at different temperatures, so 
+\eq{
+g_\ast(T) = \sum_{\text{bosons}} g_a\pround{\frac{T_i}{T}}^4 + \frac{7}{8} \sum_{\text{fermions}} g_a \pround{\frac{T_i}{T}}^4
+}
+\end{definition}
+
+\begin{example}
+A possible way to use this definition is to, during radiation domination, note 
+\eq{
+0 &= \dot{\rho} + 4H\rho \quad \text{from the continuity equation} \\
+&\propto \dot{T} + HT \quad \text{using $\rho\propto T^4$}
+}
+In a flat universe the Friedmann equation gives 
+\begin{align}\label{eq:CSM:5}
+H = \sqrt{\frac{\rho}{3 M_{pl}^2}} = \sqrt{g_\ast \frac{\pi^2}{90} } \frac{T^2}{M_{pl}}
+\end{align}
+Hence the continuity can be rewritten as 
+\eq{
+\dot{T} &= - T^3 \frac{\pi}{M_{pl}} \sqrt{\frac{g_\ast}{90}} \\
+\Rightarrow T(t) &= \left( \frac{5}{2g_\ast} \right)^\frac{1}{4} \sqrt{\frac{3M_{pl}}{\pi t}} \propto \frac{1}{a} \\
+\Rightarrow t &= \sqrt{\frac{5}{2g_\ast}} \frac{3M_{pl}}{\pi T^2}
+}
+\end{example}
+
+\begin{prop}
+In equilibrium
+\eq{
+S = \frac{(\rho+p)V}{T} \Leftrightarrow s = \frac{\rho+p}{T}
+}
+where $s=\frac{S}{V}$ is the \bam{entropy density}.
+\end{prop}
+\begin{proof}
+From the first law
+\eq{
+T dS &= d(\rho V) + pdV \\
+&= V d\rho + (\rho + p) dV
+}
+As the situation is in equilibrium, $\rho=\rho(T), p=p(T)$, so 
+\begin{align} \label{eq:CSM:3}
+TdS = V \frac{d\rho}{dT} dT + (\rho + p) dV
+\end{align}
+and from the symmetry of partial derivatives 
+\eq{
+\pd{V} \pd[S]{T} &= \pd{T} \pd[S]{V} \\
+\Rightarrow \pd{V} \left( \frac{V}{T} \frac{d\rho}{dT} \right) &= \pd{T} \left(\frac{\rho+p}{T} \right) \\
+\Rightarrow \frac{1}{T} \frac{d\rho}{dT} &= - \frac{\rho+p}{T^2} + \frac{1}{T} \left( \frac{d\rho}{dT} + \frac{dp}{dT} \right) \\
+\Rightarrow \frac{dp}{dT} &= \frac{\rho+p}{T}
+}
+Now using \ref{eq:CSM:3} 
+\eq{
+dS &= \frac{1}{T} d[(\rho+p)V] - \frac{V}{T} dp \\
+&= \frac{1}{T} d[(\rho+p)V] - \frac{\rho+p}{T^2}dT \\
+&= d\left[ \frac{(\rho+p)V}{T} \right] \\
+\Rightarrow S &= \frac{(\rho+p)V}{T} \\
+\Rightarrow s &= \frac{S}{V} = \frac{\rho+p}{T}
+}
+(up to a constant)
+\end{proof}
+
+\begin{prop}
+Entropy is conserved in equilibrium.
+\end{prop}
+\begin{proof}
+The entropy 
+\eq{
+S = \frac{(\rho + p)V}{T}
+}
+But $\rho,p \propto T^4$, $T\propto a^{-1}$, and $V\propto a^3$. Hence $S \propto a^0$ so constant. Instead, if it is assumed entropy is constant, then for constant $g_\ast$, $T\propto a^{-1}$. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Boltzmann equation}
+Consider a 2-2 scattering process $1+2 \leftrightarrow 3+4$. 
+
+\begin{theorem}
+The ODE that describes the time evolution of the number density of 1 particles, $n_1$, is 
+\eq{
+a^{-3} \frac{d(a^3 n_1)}{dt} = \braket{\sigma v} n_1^{(0)} n_2^{(0)} \left[ \frac{n_3 n_4}{n_3^{(0)} n_4^{(0)}} - \frac{n_1 n_2}{n_1^{(0)} n_2^{(0)}} \right]
+}
+\end{theorem}
+\begin{proof}
+\eq{
+a^{-3} \frac{d(a^3 n_1)}{dt} =& \int \left( \prod_i \underbrace{\frac{d^3 \bm{p}_i}{(2\pi)^3 2E_i}}_{\text{LI measure}} \right) \underbrace{(2\pi)^4\delta^{(3)}(\bm{p}_1 + \bm{p}_2 - \bm{p}_3 -\bm{p}_4)\delta(E_1 + E_2 - E_3 - E_4)}_{\text{4-momentum conservation}} |\mc{M}|^2 \\
+& \times \{ f_3 f_4 [1\pm f_2][1 \pm f_1] - f_1 f_2 [1\pm f_3][1 \pm f_4]\}
+}
+where $E_i = E_{\bm{p}_i}$, $|\mc{M}|$ is the \hl{scattering amplitude from quantum theory}, and $\{ f_3 f_4 \dots \}$ is a term \hl{corresponding to interactions} where the $f_i$ are the density functions. 
+\hl{Assume the reaction takes place rapidly} such that $f_i = f_{FD/BE}$. Considering temperatures $T \ll E_\mu$, so using \ref{eq:CSM:4} 
+\eq{
+\{ f_3 f_4 [1\pm f_2][1 \pm f_1] - f_1 f_2 [1\pm f_3][1 \pm f_4]\} &\approx e^{-\frac{E_3+E_4}{T}}e^{\frac{\mu_3+\mu_4}{T}}-e^{-\frac{E_1+E_2}{T}}e^{\frac{\mu_1+\mu_2}{T}} \\
+&= e^{-\frac{E_1+E_2}{T}}\left[ e^{\frac{\mu_3+\mu_4}{T}} - ^{\frac{\mu_1+\mu_2}{T}} \right] \quad \text{using energy conservation}
+}
+Now defining $n_i^{(0)} = n_i |_{\mu=0}$ we have 
+\eq{
+e^\frac{\mu_i}{T} &= \frac{n_i}{n_i^{(0)}} \\
+\Rightarrow \{ f_3 f_4 [1\pm f_2][1 \pm f_1] - f_1 f_2 [1\pm f_3][1 \pm f_4]\} &= e^{-\frac{E_1+E_2}{T}} \left[ \frac{n_3 n_4}{n_3^{(0)} n_4^{(0)}} - \frac{n_1 n_2}{n_1^{(0)} n_2^{(0)}} \right]
+}
+Finally, defining the \bam{thermally average cross section}
+\eq{
+\braket{\sigma v} = \frac{1}{n_1^{(0)} n_2^{(0)}} \int \left( \prod_i \frac{d^3 \bm{p}_i}{(2\pi)^3 2E_i} \right) (2\pi)^4\delta^{(3)}(\bm{p}_1 + \bm{p}_2 - \bm{p}_3 -\bm{p}_4)\delta(E_1 + E_2 - E_3 - E_4) |\mc{M}|^2 e^{-\frac{E_1+E_2}{T}}
+}
+yields the desired result
+\end{proof}
+
+\begin{definition}
+The \bam{reaction rate} is 
+\eq{
+\Gamma = n_2^{(0)} \braket{\sigma v}
+}
+This gives 
+\eq{
+\underbrace{a^{-3} \frac{d(a^3 n_1)}{dt}}_{=\mc{O}(H)} = \underbrace{\braket{\sigma v} n_1^{(0)} n_2^{(0)} \left[ \frac{n_3 n_4}{n_3^{(0)} n_4^{(0)}} - \frac{n_1 n_2}{n_1^{(0)} n_2^{(0)}} \right]}_{=\mc{O}(\Gamma)}
+}
+\end{definition}
+
+Note that
+\begin{itemize}
+    \item $\Gamma \gg H \Rightarrow$ reaction is fast and efficient, and so quickly reaches the chemical equilibrium 
+    \eq{
+    \frac{n_3 n_4}{n_3^{(0)} n_4^{(0)}} = \frac{n_1 n_2}{n_1^{(0)} n_2^{(0)}} \Leftrightarrow \mu_1 + \mu_2 = \mu_3 + \mu_4 \quad \text{(\bam{Saha equation})}
+    }
+    \item $\Gamma \ll H \Rightarrow$ reaction is too slow for expansion of the universe, and solutions becomes 
+    \eq{
+    a^{-3} \frac{d(a^3 n_1)}{dt}=0 \Rightarrow n_i(t) \approx n_i(a_\ast) \left( \frac{a_\ast}{a(t)}\right)^{-3}
+    }
+    where $a_\ast$ is when last $\Gamma \approx H$. 
+\end{itemize}
+
+Dimensional analysis finds $\Gamma \propto T$ at high temperatures, and so $\frac{\Gamma}{H}\propto\frac{1}{T}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Big Bang Nucleosynthesis (BBN)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Neutron Abundance}
+\hl{Three reactions mediate neutron abundance at MeV energies} 
+\eq{
+n + \nu_e &\leftrightarrow p^+ + e^- \\
+n + \bar{e}^+ &\leftrightarrow p^+ + \bar{\nu}_e \\
+n \rightarrow p^+ &+e^- + \bar{\nu}_e
+}
+\begin{definition}[Fractional Abundance]
+Define the \bam{fractional abundance} of neutrons to be 
+\eq{
+X_n = \frac{n_n}{n_n+n_p}
+}
+\end{definition}
+
+\hl{Assume now the leptons are in equilibrium}, so $n_l = n_l^{(0)}$. Then 
+\eq{
+a^{-3} \frac{d(a^3 n_n)}{dt} = n_l^{(0)} \braket{\sigma v} \left\{ \frac{n_p n_n^{(0)}}{n_p^{(0)}} -n_n \right\}
+}
+Now substitute for $X_n$, using that $(n_p + n_n)a^3$ is conserved and letting $\lambda_{np}=n_l^{(0)} \braket{\sigma v}$
+\eq{
+a^{-3} \frac{d(a^3 X_n(n_n + n_p))}{dt} &= \lambda_{np} \left\{ (1-X_n)(n_n+n_p)\frac{\left(\frac{m_n T}{2\pi}\right)^\frac{3}{2} e^\frac{m_n}{T}}{\left(\frac{m_p T}{2\pi}\right)^\frac{3}{2} e^\frac{m_p}{T}}-X_n(n_n+n_p) \right\} \\
+\Rightarrow \frac{dX_n}{dt} &\approx \lambda_{np} \left[ (1-X_n) e^{-\frac{Q}{T}} - X_n \right] \quad \text{letting } Q=m_n-m_p
+}
+Let $x=\frac{Q}{T}$ so 
+\eq{
+\frac{dx}{dt}=-x\frac{\dot{T}}{T} = xH \quad \text{using} \quad T \propto a^{-1}
+}
+then 
+\be\label{eq:CSM:16}
+\frac{dX_n}{dx} = \frac{\lambda_{np}(x)}{xH(x)}\left[ e^-x - X_n(1+e^{-x})\right]
+\ee
+\hl{It is an exercise in quantum field theory to find that }
+\eq{
+\lambda_{np}(x) = \frac{255}{t_{life}x^5}(12+6x+x^2)
+}
+with $t_{\text{life}} \sim 887s\sim 15\text{min}$ the neutron lifetime. \\
+Finally at this time, 
+\eq{
+g_\ast = \underbrace{(1\times2)}_{1 \text{ photon}} + \frac{7}{8}[\underbrace{(3\times1)}_{3 \text{ neutrinos}} + \underbrace{(3\times 1)}_{3 \text{ antineutrinos}}+\underbrace{(1\times 2)}_{1 \text{ electron}} + \underbrace{(1\times2)}_{1 \text{ positron}}] = 10.75
+}
+Hence it is possible to calculate 
+\eq{
+H(x) &= \sqrt{\frac{g_\ast}{90}} \frac{T^2 \pi}{M_{pl}} \quad \text{from \ref{eq:CSM:5}} \\
+&= \frac{1}{x^2}\sqrt{\frac{g_\ast}{90}} \frac{Q^2 \pi}{M_{pl}} \\
+&= \frac{H(1)}{x^2} \approx \frac{1.1 s^{-1}}{x^2}
+}
+The solution to \ref{eq:CSM:16} may then be found numerically. 
+
+\begin{remark}
+When $T\sim 0.1 MeV$, neutron decay now becomes important (this corresponds to when the interaction time is comparable to the decay time). At this point to take account for decay, multiply $n_n$ by $e^{-\frac{t}{t_{\text{life}}}}$
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Light Element Formation}
+\hl{The approximation taken for light element formation will be that it is instantaneous at equilibrium}. Deuterium $D$ is mediated by the process \eq{
+n + p \leftrightarrow D + \gamma 
+}
+\eq{
+\text{Equilibrium} \Rightarrow \left[ \frac{n_D n_\gamma}{n_D^{(0)} n_\gamma^{(0)}} - \frac{n_n n_p}{n_n^{(0)} n_p^{(0)}} \right] 
+}
+\hl{Photons have negligible chemical potential} $\Rightarrow n_\gamma = n_\gamma^{(0)}$, so 
+\eq{
+\frac{n_D}{n_n n_p} &= \frac{n_D^{(0)}}{n_n^{(0)} n_p^{(0)}}\\
+&= \frac{3}{4}\left( \frac{2\pi m_D}{m_n m_p T} \right)^\frac{3}{2} e^{\frac{(m_n + m_p-m_D)}{T}} \\
+& \approx \frac{3}{4}\left( \frac{4\pi}{m_p T} \right)^\frac{3}{2} e^{\frac{B_D}{T}} \quad \text{letting } B_D = m_n+m_p-m_D
+}
+
+\begin{definition}[Baryon-to-Photon Ratio]
+Define the \bam{baryon-to-photon ratio} 
+\eq{
+\eta_b = \frac{n_b}{n_\gamma}
+}
+\end{definition}
+
+So assuming $n_n\sim n_p\sim n_b$ the \bam{\hl{baryon number density}} yields
+
+\eq{
+\frac{n_D}{n_b} & \approx n_b \frac{3}{4}\left( \frac{4\pi}{m_p T} \right)^\frac{3}{2} e^{\frac{B_D}{T}}\\
+& \approx \eta_b \psquare{2 \frac{\zeta(3)}{\pi^2}T^3} \cdot \frac{3}{4}\left( \frac{4\pi}{m_p T} \right)^\frac{3}{2} e^{\frac{B_D}{T}} \\
+& \approx \eta_b \left( \frac{T}{m_p}\right)^\frac{3}{2} e^\frac{B_D}{T}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\part{Cosmological Perturbation Theory}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Observables and statistical properties}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Observables}
+\subsubsection*{Large scale structure}
+\begin{definition}[Fractional Overdensity]
+Let $n_g$ be the galaxy number density. Then define the \bam{fractional overdensity} as 
+\[
+\delta_g(\bm{x}) = \frac{n_g(\bm{x})-\bar{n}_g}{\bar{n}_g}
+\]
+where $\bar{n}_g$ is the average value. 
+\end{definition}
+
+It is typical to assume a linear relation ship between the galaxy density and matter density 
+\[
+n_g = b \rho_m
+\]
+where b is the \bam{linear galaxy bias}. This gives the \bam{matter density perturbation}
+\[
+\delta_g(\bm{x}) = b \times \frac{\rho_m(\bm{x})-\bar{\rho}_m}{\bar{\rho}_m} = b \times \delta_m(\bm{x})
+\]
+
+\begin{definition}[Two point correlation function]
+Given a general field $f$ and some probability of having the field configuration $Pr[f]$, the \bam{two point correlation function} is 
+\eq{
+\xi^f(\bm{x},\bm{y}) = \braket{f(\bm{x})f(\bm{y})} = \int \mc{D}f f(\bm{x})f(\bm{y}) Pr[f]
+}
+\end{definition}
+
+\begin{lemma}
+Imposing homogeneity and isotropy of the universe gives 
+\eq{
+\braket{f(\bm{k})f(\bm{k}^\prime)} = (2\pi)^3 P^f(|\bm{k}|) \delta^{(D)}(\bm{k} + \bm{k}^\prime)
+}
+for the Fourier coefficients $\braket{f(\bm{k})f(\bm{k}^\prime)}$ such that 
+\begin{align}\label{eq:CSM:15}
+ \xi^f(\bm{x},\bm{y}) = \braket{f(\bm{x})f(\bm{y})} &= \int \frac{d\bm{k}}{(2\pi)^3} \frac{d\bm{k}^\prime}{(2\pi)^3} e^{-i\bm{k}\cdot\bm{x} -i \bm{k}^\prime \cdot \bm{y}} \braket{f(\bm{k})f(\bm{k}^\prime)} \\
+ &=\int \frac{d\bm{k}}{(2\pi)^3} \frac{d\bm{k}^\prime}{(2\pi)^3} e^{-i\bm{k}\cdot\bm{x} -i \bm{k}^\prime \cdot \bm{y}}  (2\pi)^3 P^f(|\bm{k}|) \delta^{(D)}(\bm{k} + \bm{k}^\prime) \\
+ &= \int \frac{d\bm{k}}{(2\pi)^3} P^f(|\bm{k}|) e^{-i\bm{k} \cdot (\bm{x} - \bm{y})}
+\end{align}
+This defines the \bam{power spectrum} $P^f$ of the field. It is common to also define the \bam{dimensionless power spectrum} 
+\eq{
+\highlight{\Delta^f(k)} = \frac{k^3}{2\pi^2} P^f(k)
+}
+\end{lemma}
+
+\begin{definition}[Gaussian Random Fields]
+A \bam{Gaussian random field} is one whose probability functional takes the form 
+\eq{
+Pr[f] \propto \frac{\exp -f_i \xi_{ij} f_j}{\sqrt{\det \xi_{ij}}}
+}
+for 
+\eq{
+\braket{f_i f_j} = \xi_{ij}
+}
+\end{definition}
+
+\begin{definition}[Flat Sky approximation]
+The CMB temperature $T=T(\hat{\bm{n}})$ is defined on a sphere. However, on a sufficiently small patch the \bam{flat-sky approximation} can be used, taking $T(\bm{l})$ to be the 2D Fourier transform of $T$, then the power spectrum is given by 
+\eq{
+\braket{T(\bm{l})T(\bm{l}^\prime)} = (2\pi)^3 C_l \delta^{(D)}(\bm{l} + \bm{l}^\prime )
+}
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Assumptions}
+It will be assumed throughout subsequent sections that all observational predictions are generated by "well known" physics if the initial density fluctuation are 
+\begin{itemize}
+    \item Scale invariant : $P^f \propto k^{-4 + n_s}$ with $n_s \approx 1 \Rightarrow \Delta^f \propto k^{-1+n_s}$. 
+    \item Adiabatic. 
+    \item Gaussian.
+\end{itemize}
+These can be justified through inflation. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Decomposition}
+We will consider perturbations about homogeneous flat FLRW spacetime, namely 
+\eq{
+g_{\mu\nu}(x,t) &= \bar{g}_{\mu\nu}(t) + h_{\mu\nu}(x,t) \\
+T_{\mu\nu}(x,t) &= \bar{T}_{\mu\nu}(t) + \delta T_{\mu\nu}(x,t) 
+}
+where $|h| \ll |\bar{g}|$ and $|\delta T| \ll |\bar{T}|$. Write 
+\eq{
+\delta \rho (x,t) &= \rho(x,t) - \bar{\rho}(t) \\
+\delta p(x,t) &= p(x,t) - \bar{p}(t)
+}
+
+\begin{theorem}
+The linearised, trace reversed Einstein equations are 
+\eq{
+\highlight{\text{This may not be necessary}}
+}
+\end{theorem}
+
+These are now entirely written in terms of $h_{\mu\nu}$ and $\delta T_{\mu\nu}$. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Fourier Decomposition}
+
+\begin{prop}
+Fourier modes of a perturbation decouple. 
+\end{prop}
+\begin{proof}
+Consider the general form of linear equations of motion
+\eq{
+\sum_A \mc{O}_A Pert_A(\bm{x},t) = 0
+}
+where $Pert_A$ is some perturbation $\set{h_{\mu\nu},\delta T_{\mu\nu}}$, enumerated by index $A$, and the $\mc{O}_A$ are linear differential operators.
+Now 
+\begin{itemize}
+    \item Ensuring general covariance gives that the $\mc{O}_A$ must be constructed from covariant derivatives $\nabla_\mu$ and other tensorial objects. i.e 
+    \eq{
+    \mc{O}_A = \mc{O}_A(\del_t, \del_j)
+    }
+    \item The background is homogeneous the $\mc{O}_A$ cannot depend on $\bm{x}$
+\end{itemize}
+hence when the Fourier transform of the e.o.m is taken we get 
+\eq{
+0 &= \int d^3 \bm{x} \, e^{-i \bm{k} \cdot \bm{x}} \sum_A \mc{O}_A Pert_A(\bm{x},t) \\
+&= \sum_A \tilde{\mc{O}}_A \tilde{Pert}_A(\bm{k},t)
+}
+where 
+\eq{
+\tilde{\mc{O}}_A &= \mc{O}_A(\del_t,ik_j) \\
+\tilde{Pert}_A(\bm{k},t) &= \int d^3 \bm{x} \, e^{i\bm{k}\cdot\bm{x}} Pert_A(\bm{x},t)
+}
+This has change the e.o.m from 1 PDE to infinitely many ODEs, on for each $\bm{k}$, that are not coupled together. 
+\end{proof}
+
+Note that as $r = x_{phys} = a x$,  $k_{phys} = \frac{k}{a}$. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Scalar-Vector-Tensor Decomposition (SVT)}
+
+\begin{definition}[Hodge Decomposition]
+Any vector $v_i$ can be decomposed as 
+\eq{
+v_i = w_i + \del_i \theta
+}
+where $\theta$ is the solution (that necessarily exists, e.g. by using Green's functions, on topologically trivial spaces) of 
+\eq{
+\del^i v_i = \nabla^2 \theta
+}
+and then 
+\eq{
+w_i = v_i - \del_i \theta
+}
+satisfies $\del^i w_i = 0$
+\end{definition}
+
+\begin{definition}[Tensor Decomposition]
+A tensor $S_{ij}$ can be decomposed as 
+\eq{
+S_{ij} = \delta_{ij} A + \del_i\del_j B  + \del_{(i}C_{j)} + D_{ij}
+}
+with 
+\eq{
+\del_i C_i = 0 = D_{ii} = \del_i D_{ij} 
+}
+\end{definition}
+
+
+\begin{theorem}
+Perturbations with different helicities decouple.
+\end{theorem}
+\begin{proof}
+Under a rotation, $\set{x^0,x^i} \to \set{{x^\prime}^0,{x^\prime}^{i^\prime}}=\set{x^0, R\indices{_i^{i^\prime}} x^i}$, so the transformations of tensors is governed by 
+\eq{
+\pd[{x^\prime}^{\mu^\prime}]{x^\mu} = \begin{pmatrix} 1 & \\ & R\indices{^{i^\prime}_i} \end{pmatrix}
+}
+Hence terms that contain no spacial indices are rotation-scalars, terms that contain 1 spatial index are rotation vector, and those with two are rotation tensors. \\
+Now, it is impossible to construct a non-zero scalar from transverse vectors or transverse traceless tensors using only derivatives and background quantities at linear order. Hence all mixing vanishes. 
+\end{proof}
+
+\begin{definition}[SVT Decomposition]
+The \bam{SVT decomposition} oh $h$ and $\delta T $ is 
+\eq{
+h_{00} &= -E \\
+h_{i0} &= a\left[ \del_i F + G_i \right] \text{ s.t } \del^i G_i = 0 \\
+h_{ij} &= a^2 \left[ \delta_{ij}  A + \del_i\del_j B  + \del_{(i}C_{j)} + D_{ij} \right] \text{ s.t. } \del_i C_i = 0 = D_{ii} = \del_i D_{ij} \\
+\delta T_{00} &= -\bar{\rho} h_{00} + \delta \rho \\
+\delta T_{i0} &= \bar{p} h_{0i} - (\bar{\rho} + \bar{p} ) \left[ \del_i \delta u + \delta u_i^V \right] \text{ s.t } \del^i \delta u_i^V = 0 \\
+\delta T_{ij} &= \bar{p} h_{ij} + a^2 \left[ \delta_{ij} \delta p + \del_i \del_j \pi^S + \del_{(i}\pi_{j)}^V + \pi_{ij}^T \right] \text{ s.t. } \del_i \pi_i^V = 0 = \pi_{ii}^T = \del_i 
+\pi_{ij}^T \\
+u_\mu &= (u_0,u_i) = (-1+\delta u_0, \del_i \delta u + \delta u_i^V)
+}
+The $\pi$ terms are the \bam{anisotropic inertia}, and are zero for perfect fluids. 
+\end{definition}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Vector Perturbations}
+Selecting only the vector perturbations, and \hl{assuming the constituents of the universe behave like perfect fluid} so the anisotropic inertia can be neglected gives 
+\eq{
+\del_0 \left[ \left(\bar{\rho} + \bar{p} \right) \delta u_j^V \right] + 3H \left(\bar{\rho} + \bar{p} \right)\delta u_j^V = 0 
+\Rightarrow \left(\bar{\rho} + \bar{p} \right) \delta u_j^V \propto a^{-3}
+}
+Substituting into the linearised Einstein equations gives 
+\eq{
+M_{pl}^{-2} \left(\bar{\rho} + \bar{p} \right) \delta u_j^V a = \frac{1}{2} \del^2 \left( G_j - \highlight{a} \dot{C}_j \right) \\
+\Rightarrow   G_j - \highlight{a} \dot{C}_j \propto a^{-2}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Tensor Perturbations}
+Selecting only the tensor perturbations, and neglecting anisotropic inertia gives 
+\eq{
+\ddot{D}_{ij} + 3H \dot{D}_{ij} - \frac{1}{a^2} \del^2 D_{ij} = 0
+}
+or in terms of the Fourier transform 
+\eq{
+\ddot{\tilde{D}}_{ij} + 3H \dot{\tilde{D}}_{ij} - \frac{k^2}{a^2} \tilde{D}_{ij} = 0
+}
+
+\begin{definition}
+Define the \bam{polarisation tensors} $\eps_{ij}^s$ for $s=1,2$ to be two independent solutions to 
+\eq{
+k^i \eps_{ij}^s(\bm{k}) = 0 = \eps_{ii}^s(\bm{k}) \\
+\eps_{ij}^s \eps_{ji}^{s^\prime} = 2 \delta_{s s^\prime}
+}
+Then write 
+\eq{
+\tilde{D}_{ij}(t,\bm{k}) = \sum_{s=1,2} \eps_{ij}^s(\bm{k}) \mc{D}_s(t,k)
+}
+\end{definition}
+
+Each polarisation evolves as 
+\eq{
+\ddot{\mc{D}}_s(t,k) + 3H \dot{\mc{D}}_s(t,k) - \frac{k^2}{a^2} \mc{D}_s(t,k) = 0
+}
+
+In the super Hubble regime $k_{phys} \ll H \Rightarrow k \ll aH$. 
+\eq{
+\Rightarrow \ddot{\mc{D}}_s(t,k) + 3H \dot{\mc{D}}_s(t,k) \approx 0 \Rightarrow \dot{\mc{D}}_s \propto a^{-3} \\
+\Rightarrow \mc{D}_s(t,k) = A_s(k) + B_s(k) a(t)^\frac{3(w-1)}{2}
+}
+
+In the sub Hubble regime, $k_{phys} \gg H \Rightarrow k \gg aH$ and solve using the ansatz 
+\eq{
+\mc{D}_s(t,k) = X(t) \exp \left[ ik\int^t \frac{dt^\prime}{a(t^\prime)} \right] \\
+\Rightarrow \mc{D}_s (t,k) = \frac{\bar{A}_s \cos k\tau + \bar{B}_s \sin k\tau}{a}
+}
+for $\tau = \int^t \frac{dt^\prime}{a(t^\prime)}$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Scalar Perturbations}
+Taking the Newtonian gauge, and  selecting out just the scalar perturbations, taking $A=-2\Psi$, $E=2\Phi$ gives 
+\eq{
+- \frac { 1 } { 2 M _ { \mathrm { Pl } } ^ { 2 } } \left[ \delta \rho - \delta p - \nabla ^ { 2 } \pi ^ { S } \right] &= H \dot { \Phi } + \left( 4 H ^ { 2 } + 2 \frac { \ddot { a } } { a } \right) \Phi - \frac { \nabla ^ { 2 } \Psi } { a ^ { 2 } } + \ddot { \Psi } + 6 H \dot { \Psi } \\
+- \frac { a ^ { 2 } } { M _ { \mathrm { Pl } } ^ { 2 } } \partial _ { i } \partial _ { j } \pi ^ { S } &= \partial _ { i } \partial _ { j } ( \Phi - \Psi ) \\
+\frac { 1 } { 2 M _ { \mathrm { Pl } } ^ { 2 } } ( \overline { \rho } + \overline { p } ) \partial _ { i } \delta u &= - H \partial _ { i } \Phi - \partial _ { i } \dot { \Psi } \\
+\frac { 1 } { 2 M _ { \mathrm { Pl } } ^ { 2 } } \left( \delta \rho + 3 \delta p + \nabla ^ { 2 } \pi ^ { S } \right) &= \frac { \nabla ^ { 2 } \Phi } { a ^ { 2 } } + 3 H \dot { \Phi } + 3 \ddot { \Psi } + 6 H \dot { \Psi } + 6 \frac { \ddot { a } } { a } \Phi
+}
+and the continuity equations 
+\eq{
+\delta p + \nabla ^ { 2 } \pi ^ { S } + \partial _ { 0 } [ ( \overline { \rho } + \overline { p } ) \delta u ] + 3 H ( \overline { \rho } + \overline { p } ) \delta u + ( \overline { \rho } + \overline { p } ) \Phi &= 0 \\
+\delta \dot { \rho } + 3 H ( \delta \rho + \delta p ) + \nabla ^ { 2 } \left[ \frac { ( \overline { \rho } + \overline { p } ) } { a ^ { 2 } } \delta u + H \pi ^ { S } \right] - 3 ( \overline { \rho } + \overline { p } ) \dot { \Psi } &= 0
+}
+Neglecting anisotropic stress gives that $\Phi=\Psi$ is a solution
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Gauge Transformations}
+
+As GR is a generally covariant theory, we are able to perform a gauge transform $x^\mu \to {x^\prime}^\mu = x^\mu + \eps^\mu(x)$, where we hold the background constant and attribute all change in tensor to the perturbation. 
+
+\begin{prop}
+Under the gauge transform, the tensor $S = \bar{S} + \delta S$ varies as 
+\eq{
+\Delta(\delta S) = -\mc{L}_\eps S = -\mc{L}_\eps \bar{S} + \mc{O}(\eps^2)
+}
+so for a scalar $s$, vector $V^\mu$, and $h_{\mu\nu}$
+\eq{
+\Delta( \delta s) &= -\eps^0 \dot{\bar{s}} \\
+\Delta( \delta V^\mu) &= -\eps^\nu \nabla \bar{V}^\mu + \bar{V}^\nu \nabla_\nu \eps^\mu \\
+\Delta( h_{\mu\nu}) &= -\nabla_\mu \eps_\nu - \nabla_\nu \eps_\mu
+}
+\end{prop}
+
+\begin{prop}
+Under a gauge transform the SVT decomposition transforms as 
+\eq{
+\Delta A &= 2H \eps_0 \\
+\Delta B &= -\frac{2}{a^2}\eps^S \\
+\Delta C_i &= -\frac{1}{a^2} \eps_i^V \\
+\Delta D_{ij} &= 0 \\
+\Delta E &= 2\dot{\eps_0} \\
+\Delta F &= \frac{1}{a} \left( -\eps_0 - \dot{\eps}^S + 2H \eps^S \right) \\
+\Delta G_i &= \frac{1}{a} \left( -\dot{\eps}_i^V + 2H \eps_i^V \right) 
+\Delta \delta \rho  \\
+\Delta \delta p &= \dot{\bar{p}} \eps_0 \\
+\Delta \delta u &= - \eps_0 \\
+\Delta \pi^S &= \Delta \pi_i^V =\Delta \pi_{ij}^T = \Delta \delta u_i^V =0
+}
+decomposing the gauge transform as 
+\eq{
+\eps^\mu = (\eps^0 , \del^i \eps^S + {\eps^i}^V)
+}
+\end{prop}
+
+\begin{definition}[Newtonian Gauge]
+The \bam{Newtonian gauge} takes 
+\eq{
+\left\{ \begin{array}{c} \eps^S = \frac{a^2 B}{2} \\ \eps_0 = aF - \frac{a^2}{2} \dot{B} \end{array} \right. \Rightarrow \left\{ \begin{array}{c} B=0 \\ F=0 \end{array} \right.
+}
+In this gauge we find 
+\eq{
+h_{00} &= -2\Phi \\
+h_{0i} &= 0 \\
+h_{ii} &= -2a^2 \delta_{ij}\Psi \\
+\delta T _ { 00 } &= 2 \overline { \rho } \Phi + \delta \rho \\
+\delta T _ { 0 i } &= - ( \overline { \rho } + \overline { p } ) \partial _ { i } \delta u\\
+\delta T _ { i j } &= a ^ { 2 } \partial _ { i j } \pi ^ { S } + \delta _ { i j } a ^ { 2 } ( \delta \rho - \overline { p } \Psi ) 
+}
+\footnote{\hl{How do we fix G to be 0?} }
+\end{definition}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Adiabatic Modes}
+
+\begin{definition}[Curvature Perturbations]
+The \bam{curvature perturbation on comoving hypersurfaces} is 
+\eq{
+\mc{R} = \frac{A}{2} + H \delta u 
+}
+and the \bam{curvature perturbation on constant density hypersurfaces} is 
+\eq{
+\zeta = \frac{A}{2} - H \frac{\delta \rho}{\dot{\bar{\rho}}}
+}
+\end{definition}
+
+\begin{prop}
+In the Newtonian gauge 
+\eq{
+\zeta(k,t) = \mc{R}(k,t) + \frac{M_{pl}^2}{3a^2(\bar{\rho} + \bar{p})} k^2 A(k,t) 
+}
+\end{prop}
+
+Note $\zeta-\mc{R} \propto \left(\frac{k}{aH}\right)^2$, so on super Hubble scales when $k\ll aH$ $\zeta-\mc{R} \approx0$.
+
+\begin{theorem}
+Outside the Hubble radius $\exists k_1, k_2, k_3$ s.t. 
+\begin{itemize}
+    \item $\dot{\mc{R}}(k_1,t) = 0 = \dot{\mc{R}}(k_2,t)$ (adiabatic modes) 
+    \item $\mc{R}(k_1,t) \neq 0$
+    \item $\dot{\tilde{D}}_{ij}(k_3) = 0$ and $\tilde{D}_{ij}(k_3) \neq 0$
+\end{itemize}
+\end{theorem}
+\begin{proof}
+We will prove to linear order in the Newtonian gauge. 
+Consider the gauge transform that preserves the Newtonian Gauge 
+\eq{
+\eps_\mu = (\eps(t), a(t)^2 \omega_{ij} x^j)
+}
+This perturbs a flat FLRW metric to 
+\eq{
+\Phi &= -\dot{\eps} \\
+\Psi &= H\eps - \frac{1}{3} \omega_{ii} \\
+\delta p &= -\dot{\bar{p}}\eps \\
+\delta \rho &= -\dot{\bar{\rho}}\eps \\
+\delta u &= \eps \\
+\pi^S &= 0 \\
+D_{ij} &= -\omega_{(ij)} + \frac{2}{3} \delta_{ij} \omega_{kk}
+}
+This perturbation must be a solution of the Einstein equation as GR is a generally covariant theory. For it to be a physical solution it must decay at infinity. This requires the Fourier transform to be supported at $k \neq 0  $. Then if the solution does not decay, it is always possible to ensure it does by perturbing the solution slightly in Fourier space, and using that this remains a solution to the equation. Hence $\exists k$ such that $D_{ij}$ is constant and non-vanishing up to correction suppressed by $k^2$ in the super Hubble limit  \\
+The solution is therefore only not physical if an equation of motion vanishes identically for $k=0$. This does occur for off diagonal term, so we impose for $k\neq 0$
+\eq{
+k_i k_j (\Phi- \Psi) = 0 \Rightarrow \Phi = \Psi
+}
+this fixes 
+\eq{
+\dot{\eps}+H\eps = \frac{1}{3} \omega_{kk} \Rightarrow \eps(t) = \frac{\omega_{kk}}{3a(t)} \int_T^t a(t^\prime) dt^\prime 
+}
+Substituting yields 
+\eq{
+\mc{R} = \frac{\omega_{kk}}{3}
+}
+Hence a solution with $\dot{\mc{R}}=0$, $\mc{R}\neq 0$ always exists by diffeomorphism invariance. (\hl{where did the second sol go})
+
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Newtonian Perturbation}
+
+For a non-relativistic fluid with mass density $\rho$, pressure $P$, and velocity $\bm{u}$, the determining equations are 
+\eq{
+\del_t \rho + \grad_{\bm{r}} \cdot (\rho \bm{u}) = 0 \quad \text{(continuity equation)} \\
+\del_t \bm{u} + \bm{u} \cdot \grad_{\bm{r}} \bm{u} = -\frac{1}{\rho} \grad_{\bm{r}} P - \grad_{\bm{r}} \Phi \quad \text{(Euler equation)} \\
+\nabla_{\bm{r}}^2 \Phi = 4\pi G \rho \quad \text{(Poisson's equation)}
+}
+For a comoving observer the physical coordinate $\bm{r}$ is related to the comoving coordinate $\bm{x}$ by 
+\eq{
+\bm{r}(t) = a(t) \bm{x} \\
+\Rightarrow \bm{u} = \dot{\bm{r}} = H\bm{r}
+}
+Hence 
+\eq{
+\pround{\pd{t}}_{\bm{r}} = \pround{\pd{t}}_{\bm{x}} - H\bm{x} \cdot \grad \\
+\grad_{\bm{r}} = \frac{1}{a} \grad
+}
+letting $\grad = \grad_{\bm{x}}$. \\
+Now writing a perturbation as 
+\eq{
+\rho \to \bar{\rho} + \delta\rho = \bar{\rho}(1+\delta) \\
+P \to \bar{P} + \delta P \\
+\bm{u} \to Ha\bm{x} + \bm{v} \\
+\Phi \to \bar{\Phi} + \delta \Phi
+}
+and substituting in gives, to zeroth and first order 
+\eq{
+\pd[\bar{\rho}]{t}+3H\bar{\rho} = 0 \quad \text{(continuity for matter)}\\
+\dot{\delta} = -\frac{1}{a}\grad\cdot\bm{v} \quad \text{(continuity equation)} \\
+\dot{\bm{v}} + H\bm{v} = -\frac{1}{a\bar{\rho}}\grad \delta P -\frac{\grad \Phi}{a} \quad \text{(Euler equation)} \\
+\nabla^2 \Phi = 4\pi G a^2 \bar{\rho} \delta \quad \text{(Poisson's equation)}
+}
+Combining these gives 
+\begin{align} \label{eq:CSM:1}
+\ddot{\delta} + 2H\dot{\delta} - \frac{1}{a^2\bar{\rho}}\nabla^2 \delta P - 4\pi G \bar{\rho}\delta = 0
+\end{align}
+
+\begin{definition}[Barotropic Fluid]
+A barotropic fluid is one where $P=P(\rho)$. In such a fluid the speed of sound is 
+\[
+c_s = \sqrt{\pd[P]{\rho}}
+\]
+\end{definition}
+
+For a barotropic fluid \ref{eq:CSM:1} gives 
+\eq{
+\ddot{\delta} + 2H\dot{\delta} - \frac{c_s^2}{a^2}\nabla^2 \delta  - 4\pi G \bar{\rho}\delta = 0
+}
+and so Fourier transforming 
+\eq{
+\ddot{\delta} + 2H\dot{\delta} + \left[ \frac{c_s^2}{a^2}k^2 - 4\pi G \bar{\rho} \right]\delta = 0
+}
+
+\begin{definition}[Jean's wavenumber]
+The \bam{Jean's wavenumber and scale} are
+\eq{
+k_J &= \frac{\sqrt{4\pi G \bar{\rho}a^2}}{c_s} = \frac{2a\sqrt{\pi G\bar{\rho}}}{c_s}  \\
+\lambda_J &= \frac{2\pi a }{k_J} = c_s \sqrt{\frac{\pi}{G\bar{\rho}}}
+}
+\end{definition}
+
+Perturbations on a scale smaller than the Jean's scale, i.e. $k>k_J$ the equation is essentially damped oscillation, whereas for large perturbations $k<k_J$ the perturbation grows as a power law. 
+
+\begin{idea}
+This power law growth should be seen as the case where there is insufficient pressure support to stop the gravitational collapse of a perturbation, as the speed of such a wave is too slow to respond in sufficient collapse time. This can be seen by estimating the collapse time as 
+\eq{
+t_f \sim \frac{1}{\sqrt{G\bar{\rho}}}
+}
+and the time for a pressure wave to cross a perturbation radius $R$ as 
+\eq{
+t_{sc} = \frac{R}{c_s}
+}
+For pressure support we would then want 
+\eq{
+t_{sc} < t_f  \\ 
+\Rightarrow R \lesssim \lambda_J
+}
+\end{idea}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Dark matter domination}
+In dark matter domination, the Hubble rate is determined only by dark matter. Then as seen before $a\propto t^{\frac{2}{3}}$,  $H=\frac{2}{3t}$ and $H^2=\frac{8\pi G\bar{\rho}_m}{3}$. Then assuming that $c_s=0$ in dark matter
+\eq{
+\ddot{\delta}_m + \frac{4}{3t} \dot{\delta}_m - \frac{2}{3t^2}\delta_m = 0
+}
+Power law solutions are $\delta \propto t^\frac{2}{3}, t^{-1}$, so growing modes are $\delta \propto a$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Radiation Domination}
+During radiation domination, the total energy density sources the Hubble growth, so 
+\eq{
+\ddot{\delta}_m + 2H\dot{\delta}_m   - 4\pi G \sum_i \bar{\rho}_i\delta_i = 0
+}
+It will be shown that on subhorizon scales photon perturbations oscillates rapidly with respect to the time scale of structure formation, and so will not contribute overall. Now in radiation domination $a\propto t^\frac{1}{2}$, $H=\frac{1}{2t}$, so 
+\eq{
+\ddot{\delta}_m + \frac{1}{t}\dot{\delta}_m   - 4\pi G \bar{\rho}_m\delta_m = 0
+}
+In the absence of pressure the time space must be fixed so 
+\eq{
+\ddot{\delta}_m \sim H \dot{\delta}_m \sim H^2\delta_m \sim \frac{8\pi G \rho_r }{3}\delta_m \gg 4\pi G \bar{\rho}_m \delta_m
+}
+and the equation reduces to 
+\eq{
+\ddot{\delta}_m + \frac{1}{t} \dot{\delta}_m = 0 
+}
+Hence the solutions are $\delta_m \propto 1, \log t$ 
+giving for the growing mode 
+\eq{
+\delta_m \propto \log a 
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Dark energy domination}
+In dark energy domination, as $\Lambda$ is constant, and $H\gg 4\pi G\bar{\rho}_m$ the equation becomes 
+\eq{
+\ddot{\delta}_m + 2H \dot{\delta}_m = 0 
+}
+and so $\delta_m \propto 1, e^{-2Ht}$ so in dark energy domination perturbations stop growing. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Relativistic Perturbation}
+
+\begin{definition}[Horizon scale]
+The \bam{conformal horizon scale} is $\mc{H}^{-1}$, where
+\eq{
+\mc{H} = \frac{a^\prime}{a}
+}
+is the conformal Hubble parameter
+A mode is \bam{superhorizon} if $k^{-1}\gg \mc{H}^{-1}$, and it is \bam{subhorizon} if $k^{-1}\ll \mc{H}^{-1}$.
+\end{definition}
+
+\begin{fact}
+Superhorizon modes are not in causal contact with themselves, and so cannot evolve dynamically. 
+\end{fact}
+
+Now for a relativistic perturbation, the following first order equations are 
+\begin{align}\label{eq:CSM:9}
+\delta^\prime + 3\mc{H} \left( \frac{\delta P}{\delta \rho} - \frac{\bar{P}}{\bar{\rho}} \right) \delta = - \left( 1 + \frac{\bar{P}}{\bar{\rho}}\right) (\grad \cdot \bm{v} - 3\Phi^\prime) \quad \text{(Conservation of stress energy)} \\
+\bm{v}^\prime + 3\mc{H} \left(\frac{1}{3} - \frac{\bar{P}}{\bar{\rho}} \right) \bm{v} = -\frac{\grad \delta P}{\bar{\rho}+\bar{P}} - \grad\Phi \quad \text{(Euler equation)} \\
+\end{align}
+and the Einstein equations 
+\begin{align} \label{eq:CSM:2}
+\nabla^2 \Phi - 3\mc{H}(\Phi^\prime + \mc{H}\Phi)  &= 4\pi G a^2 \delta \rho \\
+\Phi^\prime + \mc{H}\Phi &= -4\pi G a^2 (\bar{\rho} + \bar{P}) v \\
+\Phi^{\prime\prime} + 3 \mc{H} \Phi^\prime + (2\mc{H}^\prime + \mc{H}^2 ) \Phi &= 4\pi G a^2 \delta P 
+\end{align}
+where $\bm{v} = \grad v$.
+\begin{definition}[Comoving gauge density contrast]
+Define the \bam{Comoving gauge density contrast} $\Delta$ by
+\eq{
+\Delta = \delta - 3\mc{H}\left(1 + \frac{\bar{P}}{\bar{\rho}} \right) v
+}
+\end{definition}
+
+Substituting for the CGDC gives 
+\begin{equation}\label{eq:CSM:8}
+\nabla^2 \Phi = 4\pi G a^2 \bar{\rho} \Delta
+\end{equation}
+
+\begin{definition}[Comoving curvature perturbation]
+The \bam{comoving curvature perturbation} $\mc{R}$ is the curvature perturbation on a comoving hypersurface and is defined by 
+\[
+\mc{R} = -\Phi + \mc{H}v
+\]
+Using \ref{eq:CSM:2} this can be written as 
+\eq{
+\mc{R} = -\Phi - \frac{\mc{H}(\Phi^\prime + \mc{H} \Phi}{4\pi G a^2 (\bar{\rho} + \bar{P})}
+}
+and then recalling 
+\eq{
+\mc{H}^2 = \frac{1}{3M_{pl}^2} \bar{\rho}a^2 
+}
+gives 
+\begin{equation}\label{eq:CSM:6}
+\mc{R} = -\Phi - \frac{2}{3(1+w)} \left( \frac{\Phi^\prime}{\mc{H}} + \Phi \right)
+\end{equation}
+\end{definition}
+
+\begin{prop}
+$\mc{R}$ is conserved on superhorizon scales
+\end{prop}
+\begin{proof}
+It can be shown 
+\eq{
+-4\pi G a^2 (\bar{\rho} + \bar{P}) \mc{R}^\prime = \underbrace{4\pi G a^2 \mc{H} (\delta P - \frac{\bar{P}^\prime}{\bar{\rho}^\prime} \delta \rho)}_{=0 \text{ for adiabatic pert}} + \underbrace{\mc{H} \frac{\bar{P}^\prime}{\bar{\rho}^\prime} \nabla^2 \Phi}_{\sim \mc{H}k^2 \mc{R}}
+}
+Hence 
+\eq{
+\frac{d \log \mc{R}}{d\log a} \sim \pround{\frac{k}{\mc{H}}}^2
+}
+small on superhorizon scales. 
+\end{proof}
+
+When one component of the universe dominates, $\bar{P} \approx w \bar{\rho} $ and $\delta P \approx w \delta \rho$, substituting in \ref{eq:CSM:2}, yields 
+\begin{equation}\label{eq:CSM:7}
+\Phi^{\prime \prime} + 3(1+w) \mc{H} \Phi + k^2 w \Phi = 0
+\end{equation}
+where we have used that 
+\eq{
+\mc{H}^2 + 2\mc{H} + 3w \mc{H}^2 = 0
+} 
+from the Friedmann equation, and taken the FT. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Superhorizon limit}
+In the superhorizon limit of \ref{eq:CSM:7} we have that 
+\eq{
+\Phi^{\prime \prime} + 3(1+w) \mc{H} \Phi^\prime = 0 
+}
+This has only one growing mode solution $\Phi = \text{const}$ for fixed $w$. Using \ref{eq:CSM:6} we see 
+\begin{align} \label{eq:CSM:10}
+\mc{R} = - \frac{5+3w}{3+3w} \Phi
+\end{align}
+must be constant between matter domination and radiation domination, hence 
+\eq{
+\mc{R} = - \frac{3}{2} \Phi_{RD} = - \frac{5}{3} \Phi_{MD} \\
+\Rightarrow \Phi_{MD} = \frac{9}{10} \Phi_{RD}
+}
+Then \ref{eq:CSM:2} gives 
+\eq{
+\delta &= \highlight{- \frac{2}{3} \frac{k^2 \Phi}{\mc{H}^2} - 2\frac{\Phi^\prime}{\mc{H}} - 2\Phi} \\
+&\approx -2\Phi = \text{ const}
+}
+Hence initially after inflation, when $\delta \approx \delta_r$, \hl{assuming adiabatic perturbations}, 
+\eq{
+\highlight{\delta_m = \frac{3}{4} \delta_r} \approx - \frac{3}{2} \Phi_{RD}
+}
+so we have overall, in matter domination \begin{align}\label{eq:CSM:12}
+    \delta_m = \frac{3}{4} \delta_r - 2\Phi_{MD}
+\end{align}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Potential Evolution}
+
+\subsubsection*{Radiation Domination}
+Taking $w=\frac{1}{3}$ in \ref{eq:CSM:7} gives 
+\eq{
+\Phi^{\prime \prime} + \frac{4}{\tau} \Phi^\prime  + \frac{k^2}{3} \Phi = 0
+}
+
+The solution is 
+\begin{align}\label{eq:CSM:11}
+\Phi_k = A_k \frac{j_1\pround{\frac{k\tau}{\sqrt{3}}}}{\frac{k\tau}{\sqrt{3}}} + B_k \frac{n_1\pround{\frac{k\tau}{\sqrt{3}}}}{\frac{k\tau}{\sqrt{3}}}
+\end{align}
+defined as 
+\eq{
+j_1(x) &= \frac{\sin x}{x^2} - \frac{\cos x}{x} \quad \text{ (Bessel function)} \\
+n_1(x) &= - \frac{\cos{x}}{x^2} - \frac{\sin x}{x} \quad \text{(Neumann function)}\\ 
+}
+In the $x \to 0$ limit, $n_1(x)$ is singular and so $B_k = 0$ in order to match inflationary perturbations \footnote{\hl{why could it not just be very small? Or is this just effectively zero?}}. As $j_1(x) \sim \frac{x}{3}$ for small $x$, we find $A_k = -2\mc{R}_k(\tau=0) $
+\eq{
+\Rightarrow \Phi_k = -2\mc{R}_k(0) \frac{\sin\pround{\frac{k\tau}{\sqrt{3}}} -\frac{k\tau}{\sqrt{3}} \cos\pround{\frac{k\tau}{\sqrt{3}}}}{\pround{\frac{k\tau}{\sqrt{3}}}^3}
+}
+Recalling that during radiation domination $\tau = \frac{1}{\mc{H}}$, on subhorizon scales $k\tau = \frac{k}{\mc{H}} \gg 1$ so 
+\eq{
+\Phi_k \approx 6 \mc{R}_k(0) \frac{\cos\pround{\frac{k\tau}{\sqrt{3}}}}{(k\tau)^2}
+}
+
+\subsubsection*{Matter Domination}
+Taking $w = 0$ in \ref{eq:CSM:7} gives 
+\eq{
+\Phi^{\prime \prime} = \frac{6}{\tau} \Phi^\prime = 0
+}
+The only growing mode solution to this is $\Phi = \text{ const}$. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Radiation Evolution}
+
+Use again 
+\eq{
+\delta = - \frac{2}{3} \frac{k^2 \Phi}{\mc{H}^2} -\frac{2\Phi^\prime}{\mc{H}}-2\Phi
+}
+
+\subsubsection*{Radiation Domination}
+With $\mc{H} = \frac{1}{\tau}$ gives 
+\eq{
+\delta_r = -\frac{2}{3} k^2 \tau^2 \Phi - 2\Phi^\prime \tau - 2\Phi
+}
+\begin{itemize}
+    \item Superhorizon : $\delta_r = -2\Phi = \text{ const}$ 
+    \item Subhorizon : 
+    \eq{
+    \delta_r = -\frac{2}{3} k^2 \tau^2 \Phi =-4\mc{R}(0) \cos \left( \frac{k\tau}{\sqrt{3}} \right)
+    }
+\end{itemize}
+
+\subsubsection*{Matter Domination}
+
+Substituting $\frac{\delta P}{\delta \rho} = \frac{\bar{P}}{\bar{\rho}} = \frac{1}{3} $ into 
+\eq{
+\delta _ { r } ^ { \prime } + 3 \mathcal { H } \left( \frac { \delta P } { \delta \rho } - \frac { \overline { P } } { \overline { \rho } } \right) \delta _ { r } &= - \left( 1 + \frac { \overline { P } } { \overline { \rho } } \right) \left( \nabla \cdot \mathbf { v } _ { r } - 3 \Phi ^ { \prime } \right) \\
+\mathbf { v } _ { r } ^ { \prime } + 3 \mathcal { H } \left( \frac { 1 } { 3 } - \frac { \overline { P } } { \overline { \rho } } \right) \mathbf { v } _ { r } &= - \frac { \nabla \delta P } { \overline { \rho } + \overline { P } } - \nabla \Phi
+}
+gives 
+\eq{
+&\delta_r^\prime = - \frac{4}{3} \divergence \bm{v}_r \\
+&\bm{v}_r^\prime = - \frac{1}{4} \grad \delta_r - \grad \Phi \\
+\Rightarrow &\delta_r^{\prime \prime} - \frac{1}{3} \nabla^2 \delta_r = \frac{4}{3} \nabla^2 \Phi = \text{ const}
+}
+Writing this as 
+\eq{
+\left[ \delta_r(k,\tau) + 4\Phi_{MD}(k) \right]^{\prime \prime} + \frac{1}{3} k^2 \left[ \delta_r(k,\tau) + 4\Phi_{MD}(k) \right] = 0
+}
+we can see that $\delta_r$ exhibits oscillations about $\delta_r = -4\Phi_{MD}$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Matter Evolution}
+
+\subsubsection*{Superhorizon Evolution} 
+Using equation \ref{eq:CSM:8} to write 
+\eq{
+\Delta_m = \frac{\nabla^2 \Phi}{4\pi G a^2 \bar{\rho}}
+}
+and recalling that, on superhorizon scale $\Phi$ is constant, so 
+\begin{itemize}
+    \item Radiation domination $\Rightarrow \bar{\rho} \propto a^{-4} \Rightarrow \Delta_m \propto a^2$
+    \item Matter domination $\Rightarrow \bar{\rho} \propto a^{-3} \Rightarrow \Delta_m \propto a$
+\end{itemize}
+
+
+\subsubsection*{Subhorizon Evolution} 
+Taking $P\approx 0$ in \ref{eq:CSM:9} gives 
+\eq{
+\delta_m^\prime = - \divergence \bm{v}_m + 3\Phi^\prime \\ 
+\bm{v}_m^\prime + \mc{H} \bm{v}_m = - \grad \Phi
+}
+which gives 
+\eq{
+\delta_m^{\prime \prime} + \mc{H} \delta_m^\prime = \nabla^2 \Phi + 3(\Phi^{\prime \prime} + \mc{H} \Phi^\prime ) 
+}
+Then \hl{assuming} $\Delta \approx \delta $ 
+\eq{
+\delta_m^{\prime \prime} + \mc{H} \delta_m^\prime - 4\pi G \rho a^2 \delta_m = 0 \\
+\Rightarrow \delta_m^{\prime \prime} + \mc{H} \delta_m^\prime - \frac{3}{2} \mc{H}^2 \delta_m = 0
+}
+Rewriting 
+\eq{
+\mc{H}^2 = \frac{H_0^2 \Omega_m^2}{\Omega_r} \left( \frac{1}{y} + \frac{1}{y^2} \right)
+}
+where $y = \frac{a}{a_{eq}}$. It was an example sheet exercise to show that this implies 
+\eq{
+\frac{d^2 \delta_m}{dy^2} + \frac{2+3y}{2y(1+y)} \frac{d\delta_m}{dy} - \frac{3}{2y(1+y)} \delta_m = 0 \quad \text{(Mezaros equation)}
+}
+The solutions are 
+\eq{
+\delta_m \propto \left\{ \begin{array}{c} 2+3y \\ (2+3y)\log \left( \frac{\sqrt{1+y}+1}{\sqrt{1+y}-1} \right) - 6\sqrt{1+y} \end{array} \right.
+}
+hence 
+\begin{itemize}
+    \item Radiation domination $ \Rightarrow \delta_m \propto \log a$ 
+    \item Matter domination $ \Rightarrow \delta_m \propto a$
+\end{itemize}
+
+
+\subsubsection*{Dark Energy Contribution} At late times 
+\eq{
+\nabla^2 \Phi = 4 \pi G a^2 \bar{\rho}_m \Delta_m
+}
+since there are no fluctuations in the dark energy density\footnote{As dark energy has $w = -1$ so is constant density}. Then 
+\eq{
+\bar{\rho} \propto a^{-3} \Rightarrow \forall k \; \Phi \propto \frac{\Delta_m}{a}
+}
+We now consider the EE for potential evolution \ref{eq:CSM:2} with $\delta P \approx 0$ so 
+\eq{
+\Phi^{\prime \prime} + 3 \mc{H} \Phi^\prime + (2\mc{H}^\prime + \mc{H}^2) \Phi = 0 \\
+\Rightarrow \left(\frac{\Delta_m}{a} \right)^{\prime \prime} + 3 \mc{H} \left(\frac{\Delta_m}{a} \right)^\prime + (2\mc{H}^\prime + \mc{H}^2) \left(\frac{\Delta_m}{a} \right) = 0 \\
+\Rightarrow \Delta_m^{\prime\prime} + \mc{H} \Delta_m^\prime + (\mc{H}^\prime - \mc{H}^2) \Delta_m = 0  \\
+\Rightarrow \Delta_m^{\prime\prime} + \mc{H} \Delta_m^\prime - 4 \pi H \bar{\rho}_m a^2 \Delta_m = 0
+}
+using the Friedmann equation $ \mc{H}^\prime - \mc{H}^2 = -4 \pi H \bar{\rho}_m a^2$. This corresponds to \ref{eq:CSM:1}, the Newtonian case, so we see as before that growth halts due to suppression from dark energy. 
+
+
+
+\subsubsection*{Power Spectrum Evolution}
+\hl{Assuming a scale invariant initial spectrum} $P_\mc{R} \propto k^{-3}$. Since on superhorizon scales $\Phi \propto \mc{R}$ (see equation \ref{eq:CSM:10}) $P_\Phi \propto k^{-3}$. Using equation \ref{eq:CSM:8} so say, in Fourier space 
+\eq{
+ \Delta_m \propto k^2 \Phi_k \\
+ \Rightarrow P_\Delta \propto (k^2)^2 P_\Phi \propto k 
+}
+Now at early times (radiation domination) 
+\begin{itemize}
+    \item subhorizon $\Rightarrow k> k_{eq}$ and $\Delta_m \propto \log a $
+    \item superhorizon $\Rightarrow k < k_{eq}$ and $\Delta_m \propto a^2$
+\end{itemize}
+Thus modes with $k > k_{eq}$ are suppressed relative to modes with $k < k_{eq}$ by a factor 
+\eq{
+\approx \frac{a_{he}^2}{a_{eq}^2} \log \frac{a_{eq}}{a_{he}}
+}
+where $he$ stands for horizon exit. Noting that up to horizon entry $k \propto \frac{1}{a}$ so the power spectrum is scaled by a relative factor of 
+\eq{
+\approx \left[\frac{k_{eq}^2}{k^2} \log \frac{k}{k_{eq}} \right]^2
+}
+(note $k = k_{he}$) so the final power spectrum is 
+\eq{
+P_\Delta(k) \propto \left\{ \begin{array}{cc} k^{-3} \left[[\log\left(\frac{k}{k_{eq}}\right)\right]^2 & k>k_{eq} \\ k & k<k_{eq} \end{array} \right.
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Cosmic Microwave Background (CMB)}
+\begin{idea}
+The CMB is "pretty much" linear, which makes it nice to work with. 
+\end{idea}
+
+\begin{definition}[Last Scattering Surface]
+The \bam{last scattering surface} is the hypersurface at the point at which the electron-photon-proton plasma recombines leaving the universe transparent. Photons emitted from this surface constitute the the CMB. The last scattering surface is \hl{assumed} to have occurred at a time $\tau = \tau_\ast + \delta \tau$, at a comoving distance $\chi_\ast = \tau_0 - \tau_\ast$. 
+\end{definition}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Relating CMB to observables}
+Consider propagation in the conformal Newtonian gauge, where
+\eq{
+ds^2 = a(\tau)^2 \left[ (1+2\Phi) d\tau^2 - (1-2\Phi) d\bm{x}^2 \right]
+}
+Consider an observer at rest, i.e. $u^\nu \propto \delta^\nu_0$. Then to linear order we must have 
+\eq{
+u^\nu &= \frac{(1-\Phi) \delta^\nu_0}{a} \\
+u_\nu &= a(1+\Phi) \delta_{0\nu}
+}
+Let a photon have momentum $p^\mu = \frac{d x^\mu}{d\lambda}$ where $\lambda$ is an affine parameter, so  
+\eq{
+E = p^\mu u_\mu = p^0a(1+\Phi) 
+\Rightarrow p^0 = \frac{E(1-\Phi)}{a}
+}
+Then evaluating the 0 component of the geodesic equation $\frac{dp^\mu}{d\lambda} = \Gamma^\mu_{\rho\sigma} p^\rho p^\sigma$
+\eq{
+\Rightarrow \frac{dp^0}{d\lambda}\left( \frac{a^\prime}{a} + \Phi^\prime \right) p^0 p^0 + 2p^0 p^i \pd[\Phi]{x^i} - \left[ \frac{a^\prime}{a}(1-2\Phi) - \Phi^\prime \right] \frac{g_{ij}}{a^2} p^i p^j = 0
+}
+Then using 
+\begin{itemize}
+    \item $p^i \pd{x^i} = \frac{d}{d\lambda} - p^0 \pd{\tau}$
+    \item $p_\mu p^\mu =0$ (as a photon)
+    \item $p^ 0 = \frac{E(1-\Phi)}{a}$
+\end{itemize}
+this can we rewritten as  
+\eq{
+\frac{d[aE(1+\Phi)]}{d\lambda} &= 2E^2 \Phi^\prime \\
+\Rightarrow \frac{ d\log (aE)}{d\tau } - \frac{d\Phi}{d\tau} + 2\Phi^\prime &= 0
+}
+Hence for a photon emitted at $\tau = \tau_e$ and observed at $\tau = \tau_0$ 
+\eq{
+E_0 = a(\tau_e) E(\tau_e) \left[ 1 + \underbrace{\Phi_e - \Phi_0}_{\text{redshift}} + \underbrace{\int_{\tau_e}^{\tau_0} 2\Phi^\prime \, d\tau}_{\substack{\text{Integrated } \\ \text{Sachs-Wolfe effect} }} \right]
+}
+If the last scattering surface instead has velocity $\bm{v}$ it can be shown $E_{\text{obs}} = E_0 ( 1- \hat{\bm{n}} \cdot \bm{v} ) $
+\eq{
+E_\text{obs} = a(\tau_e) E(\tau_e) \left[ 1 + \Phi_e - \Phi_0 - \hat{\bm{n}} \cdot \bm{v}  + \int_{\tau_e}^{\tau_0} 2\Phi^\prime \, d\tau \right]
+}
+As this redshifting is what causes the change in temperature of the CMB
+\eq{
+\frac{T_\text{obs}}{T_e} = a(\tau_e) \left[ 1 + \Phi_e - \Phi_0 - \hat{\bm{n}} \cdot \bm{v}  + \int_{\tau_e}^{\tau_0} 2\Phi^\prime \, d\tau \right]
+}
+We specifically want to consider the temperature of recombination $T_\ast$, i.e. at the last scattering surface. This temperature must be constant,as it is fixed by atomic physics, but the time at which this temperature is reached will vary.
+\eq{
+\rho_r ( \tau_\ast + \delta \tau) = (\bar{\rho}_r + \delta \rho_r)( \tau_\ast + \delta \tau) = \sigma T_\ast^4 \\
+\Rightarrow \delta \rho_r = \bar{\rho}^\prime_r \delta \tau \\
+\Rightarrow \delta \tau = - \frac{\delta \rho_r}{ \bar{\rho}^\prime_r} = - \frac{\delta \rho_r}{ \frac{d\bar{\rho}}{da} \times \frac{da}{d\tau}} = \frac{\delta_r}{4\mc{H}} \quad \text{as } \rho_r \propto a^{-4} \\
+\Rightarrow a(\tau_e) = a(\tau_\ast + \delta \tau) = a(\tau_\ast) (1 + \mc{H} \delta \tau) = a(\tau_\ast) \left( 1 + \frac{\delta_r}{4} \right)
+}
+Hence 
+\eq{
+\frac{T_\text{obs}}{T_e} = a(\tau_\ast) \left[ 1 + \frac{\delta_r}{4} + \Phi_e - \Phi_0 - \hat{\bm{n}} \cdot \bm{v}  + \int_{\tau_e}^{\tau_0} 2\Phi^\prime \, d\tau \right]
+}
+Writing $\Delta T(\hat{\bm{n}}) = T(\hat{\bm{n}}) = \bar{T}$, $\bar{T} = a(\tau_\ast) T_\ast$. 
+\eq{
+\frac{\Delta T(\hat{\bm{n}})}{\bar{T}} =   \underbrace{\frac{\delta_r}{4} + \Phi_e}_{\substack{\text{Sachs-Wolfe} \\ \text{term}}} - \Phi_0 - \hat{\bm{n}} \cdot \bm{v}  + \int_{\tau_e}^{\tau_0} 2\Phi^\prime \, d\tau 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Power Spectrum}
+
+Expand the CMB temperature in terms of spherically harmonic function $Y_{lm}(\hat{\bm{n}})$
+\eq{
+T ( \hat { \mathbf { n } } ) = \sum _ { l = 0 } ^ { \infty } \sum _ { m = - l } ^ { l } a _ { l m } Y _ { l m } ( \hat { \mathbf { n } } )
+}
+Given the orthonormality of the harmonics over the sphere, that is 
+\eq{
+\int d \hat { \mathbf { n } } \, Y _ { l m } ( \hat { \mathbf { n } } ) Y _ { l ^ { \prime } m ^ { \prime } } ^ { * } ( \hat { \mathbf { n } } ) = \delta _ { l l ^ { \prime } } \delta _ { m m ^ { \prime } }
+}
+we can express 
+\eq{
+a _ { l m } = \int d \hat { \mathbf { n } } \,  T ( \hat { \mathbf { n } } ) Y _ { l m } ^ { * } ( \hat { \mathbf { n } } )
+}
+The \emph{power spectrum} is then defined by 
+\eq{
+\left\langle a _ { l m } a _ { l ^ { \prime } m ^ { \prime } } ^ { * } \right\rangle = C _ { l } \delta _ { l l ^ { \prime } } \delta _ { m m ^ { \prime } }
+}
+By seeking to understand \hl{large scale fluctuations}\footnote{Why can we neglect the other terms on large scales} , we will focus only on 
+\eq{
+S(\bm{x}) =\frac{1}{4}\delta_r(\bm{x}) + \Phi_e(\bm{x})
+}
+It was shown previously that in linear theory the terms in $S$ can be related to $\mc{R}$, so we express 
+\eq{
+S(\bm{k},\tau) = T_S(k,\tau) \mc{R}(\bm{k},0)
+}
+where $T_S$ is some transfer function and we have Fourier transformed. Hence 
+\eq{
+\frac{\Delta T(\hat{\bm{n}})}{\bar{T}} = S(\bm{x} = \chi_\ast \hat{\bm{n}}, \tau_\ast ) = \int \frac{d^3 k }{(2\pi)^3} e^{-i \bm{k} \cdot \hat{\bm{n}} \chi_\ast} S(\bm{k},\tau)
+}
+
+\begin{prop}[Rayleigh Plane Wave Expansion]\label{prop:CSM:RayleighPlaneWaveExpansion}
+\eq{
+e ^ { i \mathbf { k } \cdot \mathbf { x } } = 4 \pi \sum _ { l, m } i ^ { l } j _ { l } ( k x ) Y _ { l m } ^ { * } ( \hat { \mathbf { k } } ) Y _ { l m } ( \hat { \mathbf { x } } )
+}
+where $j_l$ are the spherical Bessel functions. 
+\end{prop}
+
+\begin{remark}
+In cosmology, Bessel functions like to turn up (why?) (e.g. prop \ref{prop:CSM:RayleighPlaneWaveExpansion}, equation \ref{eq:CSM:11}) . Hence it can sometimes be useful to try turn an equation into the form of Bessel's equation 
+\[
+\frac{d^2y}{dx^2} + \frac{1}{x} \frac{dy}{dx} + \left( 1-\frac{\nu^2}{x^2} \right )y = 0 
+\]
+\end{remark}
+
+\begin{theorem}
+\eq{
+C_l &= 4\pi \int d(\log k) \, \Delta_\mc{R}(k)  [ T_S(k,\tau_\ast) j_l(k \chi_\ast)]^2
+}
+\end{theorem}
+\begin{proof}
+Using prop \ref{prop:CSM:RayleighPlaneWaveExpansion} gives 
+\eq{
+\frac{\Delta T(\hat{\bm{n}})}{\bar{T}} = 4\pi \int \frac { d ^ { 3 } k } { ( 2 \pi ) ^ { 3 } } T _ { S } \left( k , \tau _ { * } \right) \mathcal { R } ( \mathbf { k } , 0 ) \sum _ { l, m } i ^ { l } j _ { l } \left( k \chi _ { * } \right) Y _ { l m } ^ { * } ( \hat { \mathbf { k } } ) Y _ { l m } ( \hat { \mathbf { n } } )
+}
+Hence we can read off the the spherical harmonic coefficients 
+\eq{
+a _ { l m } = 4 \pi i ^ { l } \int \frac { d ^ { 3 } k } { ( 2 \pi ) ^ { 3 } } T _ { S } \left( k , \tau _ { * } \right) \mathcal { R } ( \mathbf { k } , 0 ) j _ { l } \left( k \chi _ { * } \right) Y _ { l m } ^ { * } ( \hat { \mathbf { k } } )
+}
+Hence 
+\eq{
+\braket{ a_{lm} a_{l^\prime m^\prime}^\ast} &= (4\pi)^2 i^{l-l^\prime} \int \frac{d^3 k }{(2\pi)^3} \int \frac{d^3 k^\prime }{(2\pi)^3} T_S(k,\tau_\ast) T_S(k^\prime,\tau_\ast) \braket{ \mc{R}(\bm{k},0) \mc{R}^\ast (\bm{k}^\prime,\tau_\ast) } j_l(k \chi_\ast) j_{l^\prime}(k^\prime \chi_\ast) Y_{lm}^\ast (\hat{\bm{k}}) Y_{l^\prime m^\prime} (\hat{\bm{k}}^\prime) \\
+&= (4\pi)^2 i^{l-l^\prime} \int \frac{d^3 k }{(2\pi)^3} \int \frac{d^3 k^\prime }{(2\pi)^3} T_S(k,\tau_\ast) T_S(k^\prime,\tau_\ast) \left[ (2\pi)^3 \frac{2\pi^2}{k^3} \Delta_\mc{R} (k) \delta(\bm{k}+\bm{k}^\prime) \right] j_l(k \chi_\ast) j_{l^\prime}(k^\prime \chi_\ast) Y_{lm}^\ast (\hat{\bm{k}}) Y_{l^\prime m^\prime} (\hat{\bm{k}}^\prime) \\
+&= (4\pi)^2 i^{l-l^\prime} \int \frac{d^3 k }{(2\pi)^3}  \frac{2\pi^2}{k^3} \Delta_\mc{R} (k) [ T_S(k,\tau_\ast)]^2 j_l(k \chi_\ast) j_{l^\prime}(k \chi_\ast) Y_{lm}^\ast (\hat{\bm{k}}) Y_{l^\prime m^\prime} (\hat{\bm{k}}) \\
+&= 4\pi \delta_{l l^\prime} \delta_{m m^\prime} \int d(\log k) \, \Delta_\mc{R}(k)  [ T_S(k,\tau_\ast) j_l(k \chi_\ast)]^2 
+}
+Result follows. 
+\end{proof}
+
+\begin{corollary}
+On superhorizon scales, \hl{assuming} recombination occurs during matter domination (i.e. $\Phi_e = -\frac{3}{5} \mc{R}$ from eq. \ref{eq:CSM:10}, $\delta_r=\frac{4}{3}\delta_m = -\frac{8}{3}\Phi_e = \frac{8}{5} \mc{R}$from eq. \ref{eq:CSM:12}  ) gives
+\eq{
+S &= -\frac{1}{5} \mc{R} \\
+\Rightarrow T_S &= -\frac{1}{5} \\
+\Rightarrow C_l &= \frac{4\pi}{25}\int d(\log k) \, \Delta_\mc{R}(k)  [j_l(k \chi_\ast)]^2
+}
+\end{corollary}
+
+\begin{corollary}
+Taking the power spectrum to be scale invariant, i.e. $P\propto k^{-4+1} \Rightarrow \Delta \propto k^0$ gives 
+\eq{
+C_l \propto \int d(\log k) \, [j_l(k \chi_\ast)]^2 \propto \frac{2\pi}{2l(l+1)}
+} 
+\end{corollary}
+
+The limitations of this result are 
+\begin{itemize}
+    \item A large scales / low multipoles, we see a contribution from the ISW term. This is as, because the potentials decay during dark energy domination, a photon blueshifts more when falling into a potential then it redshifts when climbing out. 
+    \item Baryons mean that potential wells are deeper where there is an overdensity. The opposite does not occur. Hence compression peaks have larger amplitudes than rarefaction peaks\footnote{This gives a way to measure the baryon density.}. 
+    \item Photons and baryons do not perfectly couple in a fluid, instead photons diffuse slowly, smoothing out oscillations on larger scales, causing the power spectrum to fall off at high multipoles. 
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Quantum Inflationary Origin}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Classic Evolution of the Inflaton Field}
+
+By taking the standard action for the inflaton field and constructing the field equations for a general $\phi(\bm{x},t)= \bar{\phi}(t) + \delta \phi(\bm{x},t)$ gives 
+\eq{
+\ddot{\phi} + 3H \dot{\phi} - \frac{1}{a^2} \nabla^2 \phi + V^\prime(\phi) = 0
+}
+or in conformal time 
+\eq{
+\phi^{\prime\prime} + 2\mc{H} \phi^\prime - \nabla^2 \phi + a^2 V^\prime(\phi) = 0
+}
+Now define 
+\eq{
+f(\bm{x},\tau)= a(\tau) \delta \phi(\bm{x},\tau)
+}
+
+substituting in gives 
+\eq{
+f^{\prime\prime} - \nabla^2 f + \left( a^2  V^{\prime\prime} - \frac{a^{\prime\prime}}{a} \right) f =0 
+}
+
+\begin{prop}
+In slow roll inflation, we have
+\eq{
+\highlight{a^2 V^{\prime\prime} \ll \frac{a^{\prime\prime}}{a}}
+}
+\end{prop}
+\begin{proof}
+\eq{
+a^{\prime\prime} =(a^2 H)^\prime = 2aa^\prime H + a^2 H^\prime
+}
+During slow roll inflation, $H$ is approximately constant, so we can neglect the second term to say  
+\eq{
+\frac{a^{\prime\prime}}{a} \approx 2a^\prime H = 2a^2 H^2 
+}
+Now using equations \ref{eq:CSM:13} and \ref{eq:CSM:14} gives 
+\eq{
+\frac{V^{\prime\prime}}{H^2}  \approx \frac{3M_{pl}^2 V^{\prime\prime}}{V} =3 \eta_V \ll 1
+}
+\end{proof}
+
+Hence we define 
+
+\begin{definition}[Mukhanov Sasaki Equation]
+The \bam{MSE} is 
+\[
+f ^ { \prime \prime } - \nabla ^ { 2 } f - \frac { a ^ { \prime \prime } } { a } f = 0
+\]
+In Fourier space this is 
+\eq{
+f_k^{\prime\prime} + \left( k^2 - \frac{a^{\prime\prime}}{a} \right)f_k = 0
+}
+\end{definition}
+
+Note on subhorizon scales this reduces to \eq{
+f_k^{\prime \prime} + k^2 f = 0 
+}
+the equation for a simple harmonic oscillator. 
+
+\begin{aside}
+Note that the same result can be derived by substituting for $f$ straight in the action initially. The actions is 
+\eq{
+S = \int d^4 x  \, g^{\frac{1}{2}} \left( \frac{1}{2}\del_\mu \phi \del^\mu \phi - V(\phi) \right)
+}
+and taking the conformally flat FLRW metrix $ds^2 = a(\tau)^2 [d\tau^2 + d\bm{x}^2]$ gives 
+\eq{
+S = \int d\tau \, d^3 x \, a^4 \left( \frac{1}{2} \frac{1}{a^2} \psquare{(\del_\tau \phi)^2  + |\grad \phi|^2 } - V \right)
+}
+Substituting in $\phi = \bar{\phi} + \frac{f}{a}$ and collecting the terms of order 2 in $f$ gives 
+\eq{
+S^{(2)} = \frac{1}{2}\int d\tau \, d^3x \, \frac{1}{2} \left[ (f^\prime)^2 - |\grad f|^2 - \frac{a^{\prime\prime}}{a} f^2 \right] 
+}
+Applying Euler-Lagrange to this new integrand rederives the Mukhanov-Sasaki equation. 
+\end{aside}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Quantisation of the Inflaton Field}
+
+Taking $H$ approximately constant, so $a(t) \approx e^{Ht}$ gives $a(\tau) = - \frac{1}{H\tau}$, so 
+\eq{
+f_k^{\prime\prime} + \left( k^2 - \frac{2}{\tau^2}\right)f_k = 0
+}
+The previously found action gives a conjugate momentum to $f$ 
+\eq{
+\pi(\bm{x},\tau) = \frac{\delta \mc{L}}{\delta f^\prime} = f^\prime(\bm{x},t)
+}
+
+Canonically quantise the function by promoting $ f \to \hat{f}, \pi \to \hat{\pi}$, operators, and require 
+\eq{
+\comm[\hat{f}(\bm{x},\tau)]{\hat{\pi}(\tilde{\bm{y}},\tau)} = i \delta^3(\bm{x}-\bm{y}) \\
+\hat{f}(\tau,\mathbf{x})=\int\frac{\mathrm{d}^3k}{(2\pi)^\frac{3}{2}} \left[ f_k^\ast (\tau) \hat{a}_{\bm{k}}^\dagger e^{-i\bm{k} \cdot\bm{x}}+f_k(\tau) \hat{a}_{ \bm{k}} e^{i \bm{k}\cdot \bm{x}} \right] \\
+\hat{\pi}(\tau,\mathbf{y})=\int\frac{\mathrm{d}^3k}{(2\pi)^\frac{3}{2}} \left[ [f_k^\ast (\tau)]^\prime \hat{a}_{\bm{k}}^\dagger e^{-i\bm{k} \cdot\bm{x}}+[f_k(\tau)]^\prime \hat{a}_{ \bm{k}} e^{i \bm{k}\cdot \bm{x}} \right] 
+}
+Then the conditions
+\eq{
+\comm[\hat{a}_{\bm{p}}]{\hat{a}_{\bm{q}}^\dagger} = \delta^3(\bm{p}-\bm{q}) \\
+\comm[\hat{a}_{\bm{p}}]{\hat{a}_{\bm{q}}} = 0 =\comm[\hat{a}_{\bm{p}}^\dagger]{\hat{a}_{\bm{q}}^\dagger}
+}
+are equivalent to 
+\eq{
+iW(f_k,f_k^\prime) = f_k (f_k^\ast)^\prime - f_{-k}^\ast (f_{-k})^\prime = 1
+}
+Combining this with the Mukhanov Sasaki equation fully determines 
+\eq{
+f_k(\tau) = \frac{e^{-ik\tau}}{\sqrt{2k}} \left( 1 - \frac{i}{k\tau}\right)
+}
+the \bam{Bunch Davies mode function}. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Evaluating Perturbations from Inflation}
+
+To understand perturbations resulting from inflation, we want to calculate the two point correlation functions 
+\eq{
+&\xi(r) = \braket{0 | \delta \hat{\phi}(\bm{x},\tau) \delta \hat{\phi}(\bm{x}+\bm{r},\tau)  | 0} \\
+= & \frac{1}{a^2} \int\int \frac{d^3 k}{(2\pi)^\frac{3}{2}} \frac{d^3 k^\prime}{(2\pi)^\frac{3}{2}} \braket{0 | \left[ f_k^\ast (\tau) \hat{a}_{\bm{k}}^\dagger e^{-i\bm{k} \cdot\bm{x}}+f_k(\tau) \hat{a}_{ \bm{k}} e^{i \bm{k}\cdot \bm{x}} \right] \left[ f_{k^\prime}^\ast (\tau) \hat{a}_{\bm{k}^\prime}^\dagger e^{-i\bm{k}^\prime \cdot(\bm{x}+\bm{r})}+f_{k^\prime}(\tau) \hat{a}_{ \bm{k}^\prime} e^{i \bm{k}^\prime \cdot (\bm{x}+\bm{r})} \right] | 0 } \\
+= & \frac{1}{a^2} \int\int \frac{d^3 k \, d^3 k^\prime}{(2\pi)^3} f_k(\tau) f_{k^\prime}^\ast (\tau) e^{i \bm{k} \cdot \bm{x}} e^{-i \bm{k}^\prime \cdot (\bm{x} + \bm{r})} \braket{0 | \hat{a}_{\bm{k}} \hat{a}_{\bm{k}^\prime}^\dagger | 0} \\
+= & \frac{1}{a^2} \int \frac{d^3 k }{(2\pi)^3} |f_k(\tau)|^2 e^{-i \bm{k} \cdot \bm{r}}
+}
+Now from \ref{eq:CSM:15} we know 
+\eq{
+\highlight{\Delta_{\delta \phi}}  &= \frac{k^3}{2\pi^2} P(k) \\
+&= \frac{k^3}{2\pi^2} \frac{|f_k(\tau)|^2}{a^2} \\
+&= \frac{k^3}{2\pi^2} \frac{1}{2ka^2} \left( 1 + \frac{1}{k^2 \tau^2} \right) \\
+&= \left( \frac{H}{2\pi}\right)^2 \left( 1 + \frac{k^2}{a^2 H^2} \right)
+}
+using $\tau = - \frac{1}{aH}$ in inflation. 
+\begin{remark}
+For $k < aH$, i.e. just after horizon exit, 
+\eq{
+\Delta_{\delta \phi} \approx \left( \frac{H}{2\pi}\right)^2
+}
+so perturbations are approximately scale invariant, as during inflation $H$ is constant. 
+\end{remark}
+
+\begin{fact}
+\hl{From Baumann's notes} 
+\eq{
+\mc{R} = C - \frac{1}{3} \nabla^2 E - \mc{H} \frac{\delta \rho}{\bar{\rho}}
+}
+and so in the spatially flat gauge, where $C = 0 =E$
+\eq{
+\mc{R}(\bm{x}) = - \mc{H} \frac{\delta \phi(\bm{x})}{\bar{\phi}^\prime} \\
+\Rightarrow \Delta_\mc{R}^2 = \left( \frac{\mc{H}}{\bar{\phi}^\prime} \right)^2 \Delta_{\delta\phi}^2 
+}
+\end{fact}
+
+Hence with the definition of the slow roll parameter and using proposition \ref{prop:CSM:1}
+\eq{
+\eps = \frac{\frac{1}{2} \dot{\phi}^2}{H^2 M_{pl}^2} = \frac{{\phi^\prime}^2}{2 \mc{H}^2 M_{pl}^2} 
+}
+so we have 
+\eq{
+\Delta_{\mc{R}}^2 = \frac{1}{2\eps M_{pl}^2} \left(\frac{H}{2\pi} \right)^2
+}
+If we instead parametrise the power spectrum as 
+\eq{
+\Delta_{\mc{R}}^2 = A \left(\frac{k}{k_0} \right)^{n_s -1}
+}
+in order to investigate near scale invariance, we get 
+\eq{
+n_s - 1 = \frac{d(\log \Delta_{\mc{R}}^2)}{d(\log k)} =\frac{d(\log \Delta_{\mc{R}}^2)}{dN} \frac{dN}{d(\log k)}
+}
+Taking the scale invariant approximation gives 
+\eq{
+\frac{d(\log \Delta_{\mc{R}}^2)}{dN} = 2 \frac{d(\log H)}{dN} - \frac{d(\log \eps)}{dN} = -2\eps - \eta
+}
+Further, as near $k = aH, \log k = N + \log H $
+\eq{
+\Rightarrow &\frac{dN}{d(\log k)} = \left( \frac{d(\log k)}{dN} \right)^{-1} = ( 1 + \eps)^{-1} \approx 1-\eps \\
+&n_s - 1 \approx -2\eps - \eta 
+}
+to leading order, 
+
+
+\end{document}

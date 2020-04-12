@@ -1,0 +1,213 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{The Method of Characteristics }
+\author{Linden Disney-Hogg}
+\date{November 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+These are a set of notes written to remind me of the method of characteristics, and to extend what I previously knew (the quasi-linear case) to the full non-linear case. \\
+Then general idea will be as follows: Suppose we have a first order pde for $u:\mbb{R}^n \to \mbb{R}$. We assume there are curves in $\mbb{R}^n$ $\bm{x} = \bm{x}(s)$ such that along these curves
+\eq{
+u(\bm{x}(s)) = U(s) \,.
+}
+Then along these curves the pde becomes and ode. In the non-linear case this needs extending, but the principle is the same. \\
+The reason we shall be caring about this, is that the Hamilton Jacobi equation is a general non-linear first order pde. Hence understanding these is useful to our pursuit. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{(Quasi)Linear}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{2d linear}
+Consider the pde
+\eq{
+(\alpha \del_x + \beta \del_y)u = f
+}
+where $\alpha,\beta,f,u$ are all functions of $x,y$. Then along a given integral curve $(x(s),y(s))$, if we solved 
+\eq{
+\frac{dx(s)}{ds} &= \alpha(x(s),y(s)) & \frac{dy(s)}{ds} &= \beta(x(s),y(s))
+}
+we would have 
+\eq{
+\frac{dU(s)}{ds} = \frac{du(x(s),y(s))}{ds} = f(x(s),y(s))
+}
+Now note, for a complete solution, the pde will have inital data specified along some curve $B$. If we parametrise this with $t$, i.e. $B = \pbrace{b(t)}$ we specify initial conditions for a given integral curve by saying $(x(0),y(0)) = b(t)$. Thus in general we can label our integral curves as $C_t = \pbrace{(x_t(s),y_t(s)}$, where these are the unique solutions to the ode
+\eq{
+\frac{dx_t(s)}{ds} &= \alpha(x_t(s),y_t(s)) \\
+\frac{dy_t(s)}{ds} &= \beta(x_t(s),y_t(s)) \\
+(x_t(0),y_t(0)) &= b(t) 
+}
+If the initial data for $u$ is then given along $B$ as $u(b(t)) = g(t)$, we have the implicit solution for the value of $u$ along the characteristic $C_t$,
+\eq{
+U_t(s) = g(t) + \int_0^s f(x_t(s^\prime),y_t(s^\prime)) \, ds^\prime
+}
+\begin{example}
+We may see an example calculation. Suppose the pde we are given is 
+\eq{
+e^x \pd[u(x,y)]{x} + \pd[u(x,y)]{y} = 0
+}
+with data $u(x,0) = \cosh x$. Then the initial data curve $B = \pbrace{b(t) = (t,0)}$. As such integral curves are specified by 
+\eq{
+\frac{dx_t(s)}{ds} &= e^{x_t(s)} \\
+\frac{dy_t(s)}{ds} &= 1 \\
+(x_t(0),y_t(0)) &= (t,0)
+}
+giving implicitly
+\eq{
+e^{-x_t(s)} &= -s + e^{-t} \\
+y_t(s) &= s
+}
+Now along a given integral curve we see, as $f=0$, $U_t(s) = \cosh t$. Substituting in for $t,s$ gives 
+\eq{
+u(x,y) = \cosh\psquare{\log(y+e^{-x})}
+}
+\end{example}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{General quasilinear}
+Note there was nothing special about working in two dimensions, and we can immediately generalise to $u$ a function on $\mbb{R}^n$, the only change needing to be made recognising that now $B$ must be a submanifold of codimension 1, so dimension $n-1$, and so needs $n-1$ parameters $(t_1, \dots, t_{n-1}) = \bm{t}$. In this case the ode for the characteristics would have been 
+\eq{
+\frac{d\bm{x}_{\bm{t}}(s)}{ds} &= \bm{\alpha}(\bm{x}_{\bm{t}}(s)) \\
+\bm{x}_{\bm{t}}(0) &= b(\bm{t})
+}
+where we have promoted to $\bm{x} = (x_1, \dots , x_n)$, $\bm{\alpha} = (\alpha_1 , \dots , \alpha_n)$ for the pde
+\eq{
+\pround{\sum_i \alpha_i \del_i}u = f
+}
+If we extend to the quasilinear case where now $\alpha_i = \alpha_i(\bm{x},u), \, f=f(\bm{x},u)$, note the treatment from before still applies, we merely no longer have an explicit solution in terms of an integral along characteristics. 
+\begin{example}
+consider the quasilinear pde
+\eq{
+\pd[u]{x} + u \pd[u]{y} = 0
+}
+with initial data given by $u(x_0,y) = y$. Then the ode to solve is 
+\eq{
+\frac{dx_t(s)}{ds} &= 1 \\
+\frac{dy_t(s)}{ds} &= U_t(s) \\
+\frac{dU_t(s)}{ds} &= 0
+}
+with initial conditions 
+\eq{
+(x_t(0),y_t(0)) &= (x_0,t) \\ 
+U_t(0) &= t
+}
+This has solution $U_t(s) = t$ along characteristic given by $(x_t(s),y_t(s)) = (x_0 + s, t(1+s))$, i.e
+\eq{
+u(x,y) = \frac{y}{1+x-x_0}
+}
+\end{example}
+
+\begin{example}
+Now consider $u_x + uu_y = u$ using the same initial conditions as before. Then along characteristics $U_t(s) = te^s$, the characteristics given by $(x_t(s),y_t(s)) = (x_0 + s, te^s)$, or substituting 
+\eq{
+u(x,y) = y
+}
+Note this solution nowhere used the initial condition \hl{what does this mean?}
+\end{example}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{NonLinear}
+We may extend to the case of a fully non-linear pde of the form 
+\eq{
+F(x,y,u,p_x,p_y) = 0
+}
+where now we have defined $p_i = \del_i u$ \\
+It is not immediately clear how to now define the characteristic curves. We can still consider there to be a $\bm{x}(s)$ along which we have $u(\bm{x}(s)) = U(s)$, $\bm{p}= \bm{p}(s)$. Then differentiating the pde, 
+\eq{
+\pround{\pd[F]{x} + p_x\pd[F]{u}} \frac{dx}{ds} + \pround{\pd[F]{y} + p_y \pd[F]{y}} \frac{dy}{ds} + \pd[F]{p_x} \frac{dp_x(s)}{ds} + \pd[F]{p_y} \frac{dp_y(s)}{ds} = 0
+}
+We want to choose $\frac{dx_i}{ds},\frac{dp_i}{ds}$ to satisfy this equation, and so we may take 
+\eq{
+\frac{dx_i}{ds} &= \pd[F]{p_i} \\
+\frac{dp_i}{ds} &= -\pround{\pd[F]{x_i} + p_i \pd[F]{u}}
+}
+This is well motivated, as $\frac{dx_i}{ds}$ would reduce down to what we previously had in the linear case. These then give
+\eq{
+\frac{du}{ds} &= p_x \frac{dx}{ds} + p_y \frac{dy}{ds} \\ 
+&= p_x \pd[F]{p_x} + p_y \pd[F]{p_y}
+}
+
+\begin{example}
+To illustrate this method we can conider the nonlinear pde 
+\eq{
+\pd[u]{x} + \frac{1}{2} \pround{\pd[u]{y}}^2 = 0
+}
+with the initial condition $u(x_0,y) = \frac{1}{2} y^2$. Note that if we made the substitution $v=\pd[u]{y}$ this would reduce to the previously solved quasilinear case. Alternatively using our new method we would write this in the form
+\eq{
+p_x + \frac{1}{2}(p_y)^2 = 0
+}
+and find 
+\eq{
+\frac{dx}{ds} &= 1 \\
+\frac{dy}{ds} &= p_y \\
+\frac{dp_x}{ds} &= 0 \\
+\frac{dp_y}{ds} &= 0 \\
+(x(0),y(0),p_x(0),p_y(0)) &= (x_0,t,0,t) \\
+\frac{du}{ds} &= p_x + (p_y)^2
+}
+and so the characteristics are given by 
+\eq{
+x(t,s) &= x_0 + s \\
+y(t,s) &= t(1+s) \\
+p_x(t,s) &= 0 \\
+p_y(t,s) &= t 
+}
+and so 
+\eq{
+u(t,s) &= \frac{1}{2}t^2(1+s) \\ 
+\Rightarrow u(x,y) &= \frac{y^2}{2(1+x-x_0)}
+}
+Recall that our previous example gave 
+\eq{
+\pd[u(x,y)]{y} = v(x,y) &= \frac{y}{1+x-x_0} \\
+\Rightarrow u(x,y) &= \frac{y^2}{2(1+x-x_0)}
+}
+which agrees with our above result. 
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Validity}
+As previously stated our general problem is a non-linear first order pde 
+\eq{
+F(x_i,u,p_i) = 0
+}
+on some region $\Omega \subseteq \mbb{R}^n$, with some initial data given on a codimension 1 subspace. Hadamard gave the definition of a \bam{well posed} Cauchy problem to be one where 
+\begin{itemize}
+    \item A solution exists
+    \item It is unique
+    \item The solution varies continuously with the initial data. 
+\end{itemize}
+We can now ask the question of when the method of characteristics works given a well posed solution to the Cauchy problem given. Now writing out the equation 
+\eq{
+\begin{pmatrix} \frac{dx_i}{ds} \\ \frac{du}{ds} \\ \frac{dp_i}{ds} \end{pmatrix} &= \begin{pmatrix} \pd[F]{p_i} \\ p_x \pd[F]{p_x} + p_y \pd[F]{p_y} \\ -\pround{\pd[F]{x_i} + p_i \pd[F]{x_i}}\end{pmatrix}
+}
+is equivalent to saying 
+\eq{
+\frac{d}{ds}(x_i(s),u(s),p_i(s)) = G(s,x_i(s),u(s),p_i(s))
+}
+Picard's theorem gives us that we have a global solution on the interval $I=[0,T]$ if $G$ is Lipschitz continuous in $I \times \mbb{R}^n$, given that we have provided initial conditions at $s=0$ by specifying that at that $s=0$.\\
+Recall that by specifying that at $s=0$, $\bm{x}_t(0)$ lay at some point $b(t)$ along that inital data surface, at which $u$ was given by $u_t(0) = g(t)$. We still need to specify the $\bm{p}$. This is possible in the case $n=2$, under invertibility conditions, by using the two equations 
+\eq{
+F(x(0),y(0),u(0),p_x(0),p_y(0)) &= 0 \\
+p_x(0) \left.\frac{dx}{ds}\right\rvert_{s=0} + p_y(0) \left. \frac{dy}{ds} \right\rvert_{s=0} &= 0 
+}
+For $n>2$ we then do not have sufficient information for well posedness in the fully non-linear case, but we do for the quasi-linear case \\
+We note further that as the solution to the ode is in general given by an implicit integral equation, we will have continuity of the solution along each characteristic immediately, and so provided the initial conditions and initial surface are continuous, the only impediment to a solutions varying continuously with the initial data is that two or more characteristics cross, or a characteristic re-intersects the initial surface.  \\
+Moreover, to transform between $(s,t)$ and $\bm{x}$ coordinates, we require that by the inverse function theorem 
+\eq{
+\det\pd[(u,\bm{t})]{\bm{x}} \neq 0
+}
+Finally, recognise that the characteristic curves coming from $B$ may not fill the region $\Omega$, in which case additional data would be required 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}

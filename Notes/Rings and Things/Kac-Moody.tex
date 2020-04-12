@@ -1,0 +1,1912 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Topics in Rings and Representation Theory - Kac Moody Algebras}
+\author{Linden Disney-Hogg}
+\date{January 2020}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+A set of lecture notes on a masters course on Kac moody algebras 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Groups, Algebras, and their Representations}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Algebras}
+Throughout this course we will take $k$ to be a field. 
+
+\begin{definition}
+An \bam{algebra} is a triple $(A,m,i)$ of
+\begin{itemize}
+    \item a $k$-vector space $A$
+    \item a linear map $m: A \otimes A \to A$
+    \item an element $i : k \to A$
+\end{itemize}
+satisfying associativity and unitality. 
+\end{definition}
+
+\begin{notation}
+For $a,b \in A$ we will denote $m(a,b) = a \cdot b$. 
+\end{notation}
+
+\begin{remark}
+Linearity of $m$ gives distributivity of the multiplication over $k$.
+\end{remark}
+
+\begin{prop}
+If a unit exists for $(A,\cdot)$, it is unique
+\end{prop}
+\begin{proof}
+Let $1,1^\prime\in A$ be the units. Then 
+\eq{
+1 = 1 \cdot 1^\prime = 1^\prime
+}
+\end{proof}
+
+
+\begin{example}
+Some examples of algebras are 
+\begin{itemize}
+    \item The base field $k$
+    \item polynomials over $k$, $k[X]$. 
+    \item $\End(V)$ where $V$ is a vector space, with multiplication given by composition
+\end{itemize}
+\end{example}
+
+\begin{example}
+The \bam{free algebra} $k\pangle{x_1, \dots, x_n}$ is the vector space consisting formally of all possible combinations of the $x_i$ in order to make it a vector space, namely 
+\eq{
+k\pangle{x_1, \dots, x_n} = \bigoplus_{m=0}^\infty k \cdot \prod_{1 \leq j_i \leq n} x_{j_1} \cdots x_{j_m} 
+}
+\end{example}
+
+\begin{example}
+Given a group $G$ we have the \bam{group algebra} $A \equiv kG$ with 
+\begin{itemize}
+    \item basis $\pbrace{x_g \, | \, g \in G}$
+    \item multiplication $x_g \cdot x_h = x_{gh}$
+    \item unit $x_{e_G}$
+\end{itemize}
+\end{example}
+
+\begin{definition}
+$(A,\cdot)$ is \bam{commutative} if $\forall a,b \in A, \, a \cdot b = b \cdot a$. 
+\end{definition}
+
+\begin{example}
+$kG$ is abelian iff $G$ is abelian. 
+\end{example}
+
+\begin{definition}
+A homomorphism of algebras $f : A \to B$ is a linear map of vector spaces compatible with $\cdot$ s.t. 
+\begin{itemize}
+    \item $\forall a,b \in A, \, f(a\cdot b ) = f(a) \cdot f(b)$
+    \item ($f(1_A) = 1_B$)
+\end{itemize}
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Representations}
+
+\begin{definition}
+A \bam{representation} of $(A,\cdot)$ is a vector space $V$ with $\rho : A \to \End(V)$ a homomorphism of algebras. 
+\end{definition}
+
+\begin{notation}
+We will often, for simplicity, abuse notation and write for $a \in A, v \in V$
+\eq{
+\rho(a)(v) = a \cdot v
+}
+\end{notation}
+
+\begin{remark}
+A representation is also call a \bam{left A-module}. A right $A$-module has $\sigma:A \to \End(V)$ an antihomomorphism. We define an algebra $(A^{op},m^{op})$ s.t. $A^{op} = A$, $\forall a,b \in A, \, m^{op}(a,b) = m(b,a)$. We can then say that a right $A$-module is a representation of $A^{op}$. 
+\end{remark}
+
+\begin{example}
+We have a few standard examples of reps:
+\begin{itemize}
+    \item $V=0$
+    \item $V=A$ and for $a \in A$, $\rho: a \mapsto \rho(a)$ s.t. $\forall b \in A, \, \rho(a)(b) = m(a,b)$. This is called the \bam{regular} rep.
+    \item $A=k$, then any rep is just a vector space over $k$
+    \item If $A = k\pangle{x_1,\dots, x_n}$ then a rep is a vector space with $\rho(x_i) \in \End(V)$ specified. 
+\end{itemize}
+\end{example}
+
+\begin{definition}
+Given two representations $V_1, V_2$, the \bam{direct sum} representation $V_1 \oplus V_2$ is given with 
+\eq{
+\rho_{V_1 \oplus V_2}(a)(v_1 + v_2) = \rho_{V_1}(a)(v_1) + \rho_{V_2}(a)(v_2)
+}
+for $a \in A, v_i \in V_i$. 
+\end{definition}
+
+\begin{definition}
+A \bam{subrepresentation} is  subspace $W \subset V$ s.t. $\forall a \in A, \, \rho(a)(W) \subset W$. 
+\end{definition}
+
+\begin{definition}
+Given $v \in V$ the \bam{minimal subrep} containing $v$ is 
+\eq{
+A \cdot V = \pbrace{w \in V \, | \, \exists a \in A, \, w = a \cdot v} 
+}
+\end{definition}
+
+\begin{definition}
+A rep is \bam{irreducible} if the only subreps are $W=0,V$
+\end{definition}
+
+\begin{definition}
+Let $V_1,V_2$ be reps of $A$. Then a homomorphism of reps (an \bam{intertwiner}) is linear map $\phi: V_1 \to V_2$ s.t. $\forall v \in V_1, \, a \in A$, with $\rho_i : A \to \End(V_i)$ we have 
+\begin{tkz}
+V_1 \arrow[r,"\phi"] \arrow[d,"\rho_1(a)"'] & V_2 \arrow[d,"\rho_2(a)"] \\ V_1 \arrow[r,"\phi"'] & V_2 
+\end{tkz}
+commutes, i.e. $\phi(a \cdot v) = a \cdot \phi(v)$
+\end{definition}
+
+\begin{prop}
+Let $f: V \to W$ be an intertwiner. Then 
+\begin{itemize}
+    \item $\ker f \subset V$ is a subrep
+    \item $\image f \subset W$ is a subrep
+\end{itemize}
+\end{prop}
+
+\begin{lemma}[Schur]
+Let $V_1,V_2$ be two $A$-reps and let $f:V_1 \to V_2$ be a non-zero intertwiner. Then
+\begin{itemize}
+    \item $V_1$ irreducible $\Rightarrow \, f$ is injective
+    \item $V_2$ irreducible $\Rightarrow \, f$ is surjective 
+\end{itemize}
+\end{lemma}
+
+\begin{definition}
+A representation is \bam{indecomposable} is when $V = V_1 \oplus V_2$, either $V_1 = 0$ or $V_2 = 0$
+\end{definition}
+
+\begin{prop}
+Any irreducible rep is indecomposable
+\end{prop}
+\begin{proof}
+$V_1, V_2 $ are subreps of $V_1 \oplus V_2$. 
+\end{proof}
+
+\begin{remark}
+The converse to the above is not true, 
+\end{remark}
+
+\begin{aside}
+Coming from the workshop, we have some points that we want to have made clear in our mind:
+\begin{enumerate}
+    \item Rep theory is linear algebra. If $f:V \to W$ is an intertwiner, the condition that for $a \in A, \, v \in V$ $f(a \cdot v) = a \cdot f(v)$, is essentially saying that $f$ is $A$-linear. We now have a correspondence 
+    \begin{center}
+        \begin{tabular}{c|c} 
+            $A$-linear & $k$-linear  \\ \hline 
+            Irreducible reps & eigenspaces \\
+            indecomposable reps & generalised eigenspaces
+        \end{tabular}
+    \end{center}
+
+\end{enumerate}
+\end{aside}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Lie algebras}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{preliminaries}
+
+\begin{definition}
+A \bam{Lie algbera} is a vector space $\mf{g}$ endowed with a bilinear map 
+\eq{
+\comm[\cdot]{\cdot} : \mf{g} \times \mf{g} \to \mf{g}
+}
+satisfying
+\begin{itemize}
+    \item antisymmetry: $\forall x \in \mf{g}, \, \comm[x]{x} = 0$
+    \item Jacobi identity: $\forall x, y, z \in \mf{g},$
+    $\comm[x]{\comm[y]{z}} + \comm[y]{\comm[z]{x}} + \comm[z]{\comm[x]{y}} = 0$
+\end{itemize}
+\end{definition}
+
+\begin{example}
+Given an associative algebra $A$, we can make $A$ a Lie algebra using 
+\eq{
+\comm[a]{b} = ab - ba
+}
+for $a,b \in A$. 
+\end{example}
+
+\begin{example}
+Let $\mf{sl}_n(k) = \pbrace{X \in M_n(k) \, \mid \, \tr(X) = 0}$. Then as $\tr(XY) = \tr(YX)$ we have a bracket given by the commutator 
+\eq{
+\comm[X]{Y} = XY - YX
+}
+This gives an algebra structure to $\mf{sl}_n(k)$ which is not inherited from matrix multiplication, as $\mf{sl}_n(k)$ is not closed under this operation. To motivate looking at such a vector space, note that 
+\eq{
+\tr(X) = 0 \Rightarrow \det\exp(X) = e^{\tr(X)} = 1
+}
+and $SL_n(k) = \pbrace{Y \in M_n(k) \, \mid \, \det(Y) = 1}$ has a natural operation of matrix multiplication, as $\det(XY) = \det(X)\det(Y)$. 
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Universal Enveloping Algebras}
+
+\begin{definition}
+Let $\pbrace{x_i}$ be a basis of $\mf{g}$ a Lie algebra and suppose the bracket is specified by 
+\eq{
+\comm[x_i]{x_j} = \sum_k c^k_{ij} x_k
+}
+for some \bam{structure constants} $c_{ij}^k$. Then the \bam{universal enveloping algebra} $\mc{U}_\mf{g}$ is the associative algebra generated by the $x_i$ with the relations 
+\eq{
+x_i x_j - x_j x_i = \sum_k c^k_{ij} x_k
+}
+i.e. 
+\eq{
+\mc{U}_\mf{g} = \faktor{k\pangle{x_1, \dots, x_n}}{\pangle{x_i x_j - x_j x_i = \sum_k c^k_{ij} x_k}}
+}
+We get the map 
+\eq{
+\iota : \mf{g} &\to \mc{U}_\mf{g} \\
+x_i &\mapsto x_i
+}
+\end{definition}
+
+\begin{remark}
+The above definition involves a choice of basis of $\mf{g}$. In general we want to remove this to give a universal property of $\mc{U}_\mf{g}$. 
+\end{remark}
+
+\begin{prop}
+For any associative algebra $A$, and Lie algebra map $\mf{g} \overset{f}{\to} A^{\text{Lie}}$, there exists a unique map of associative algebras $\mc{U}_\mf{g} \overset{\mc{U}(f)}{\to} A$ s.t. 
+\begin{tkz}
+& \mc{U}_\mf{g} \arrow[d,"\mc{U}(f)"] \\
+\mf{g} \arrow[ur,"\iota"] \arrow[r,"f"] & A
+\end{tkz}
+commutes
+\end{prop}
+
+\begin{ex}
+Prove that $\mc{U}_\mf{g}$ is uniquely defined (up to isomorphism) by this universal property. 
+\end{ex}
+\begin{proof}
+Consider
+\eq{
+\mc{U}_\mf{g} = \faktor{\psquare{\bigoplus_{n\geq 0} \mf{g}^{\otimes n}}}{\pangle{x \otimes y - y \otimes x - \comm[x]{y}}}
+}
+\end{proof}
+
+\begin{prop}
+If $\mc{U}_\mf{g}$ satisfies the universal property then there is a bijection 
+\eq{
+\pbrace{\text{rep of Lie algebra } \mf{g}} \leftrightarrow \pbrace{\text{reps of associative algebra }\mc{U}_\mf{g}}
+}
+\end{prop}
+
+\subsubsection{Construction}
+
+\begin{definition}
+Recall that for a vector space $V$ over $k$, the \bam{tensor algebra} is 
+\eq{
+T(V) \equiv \bigoplus_{n \geq 0} V^{\otimes n}
+}
+where $V^{\otimes 0}=k$. It comes with the map 
+\eq{
+V^{\otimes n} \times V^{\otimes m} &\to V^{\otimes (n+m)} \\
+(v,w) &\mapsto v \otimes w
+}
+\end{definition}
+
+\begin{definition}
+The \bam{symmetric algebra} is 
+\eq{
+S(V) \equiv \faktor{T(V)}{\pangle{v \otimes w - w \otimes v \, | \, v,w\in V}}
+}
+\end{definition}
+
+\begin{definition}
+Given a Lie algebra $\mf{g}$, the \bam{universal enveloping algebra} is 
+\eq{
+\mc{U}(\mf{g}) = \faktor{T(\mf{g})}{\pangle{x \otimes y - y \otimes x - \comm[x]{y} | \, x,y \in \mf{g}}}
+}
+\end{definition}
+
+\begin{theorem}[Poincare-Birkhoff]
+We have the following two properties: 
+\begin{enumerate}
+    \item $\mc{U}(\mf{g})$ satisfies the universal property 
+    \item As a vector space, $\mc{U}(\mf{g}) \cong S(\mf{g})$. 
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}
+If $\pbrace{x_i \, | \, i=1, \dots, n}\subset \mf{g}$ is a basis, then the set of ordered monomials $x_1^{i_1} \cdots x_n^{i_n} = x_1^{\otimes i_1} \otimes \dots \otimes x_n^{\otimes i_n}$ is a basis of $\mc{U}(\mf{g})$.
+\end{remark}
+
+\begin{remark}
+Note that in $\mc{U}(\mf{g})$, by our quotient it must be that 
+\eq{
+x_i x_j - x_j x_i = \comm[x_i]{x_j}
+}
+which is what we wanted to see. 
+\end{remark}
+
+\begin{example}
+If $\mf{g}$ is abelian, then $\forall x, y \in \mf{g}, \, \comm[x]{y}=0$ and we see by definition $\mc{U}(\mf{g}) \cong S(\mf{g})$.  
+\end{example}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Representations}
+
+\subsubsection{Simple Lie algebra}
+
+\begin{definition}
+An \bam{ideal} of a Lie algebra $\mf{g}$ is a subspace $\mf{g}^\prime$ s.t. $\comm[\mf{g}^\prime]{\mf{g}} \subset \mf{g}^\prime $
+\end{definition}
+
+\begin{definition}
+$\mf{g}$ is \bam{simple} if the only ideals of $\mf{g}$ are $0,\mf{g}$. $\mf{g}$ is \bam{semi-simple} if it is a direct sum of simple Lie algebras. 
+\end{definition}
+
+
+\begin{remark}
+$\mf{g} \lact \mf{g}$ by $x \cdot y = \comm[x]{y}$ This is the \bam{adjoint rep}. Then we have ideals of $\mf{g}$ correspond to subreps of the adjoint rep. 
+\end{remark}
+
+\begin{example}
+Consider $\mf{gl}_n(k) = M_n(k)^{\Lie}$. Recall $\mf{sl}_n(k) \subset \mf{gl}_n(k)$ is the set of traceless matrices. This is an ideal so $\mf{gl}_n(k)$ is non-simple.
+\end{example}
+
+\begin{ex}
+Prove $\mf{sl}_n(k)$ is simple. 
+\end{ex}
+
+\begin{theorem}[Weyl complete reducibility]
+Let $\mf{g}$ be a finite dimensional semi-simple Lie algebra and $V \in \Rep(\mf{g})$. If $W \subseteq V$ is a subrepresentation, then $\exists W^\prime \subseteq V$ s.t $V \cong W \oplus W^\prime$ as representations. 
+\end{theorem}
+
+\subsubsection{Classification of complex f.d  simple Lie algebras}
+\begin{itemize}
+    \item $(A_n, n \geq 1)$: $\mf{sl}_{n+1}(\mbb{C}) = \pbrace{\tr(X) = 0}\subset \mf{gl}_{n}$ 
+    \item $(B_n, n \geq 2)$: $\mf{so}_{2n+1}(\mbb{C}) = \pbrace{\tr(X) = 0, X^T + X = 0}\subset \mf{gl}_{2n+1}$
+    \item $(C_n, n \geq 3)$: $\mf{sp}_n(\mbb{C}) = \pbrace{J_n X = X^T J_n} \subset \mf{gl}_{2n}$
+    \item $(D_n, n\geq 4)$: $\mf{so}_{2n}(\mbb{C}) = \pbrace{\tr(X) = 0, X^T + X = 0} \subset \mf{gl}_{2n}$
+    \item Exceptionals, $E_6, E_7, E_7, F_4, G_2$, dimensions $52, 133, 248, 52, 14$. 
+\end{itemize}
+
+\begin{remark}
+Suppose $\mf{g}$ is simple. Take $\pi: \mf{g} \to \mf{gl}(V)$ a morphism of Lie algebras. If $\pi \neq 0$, then as $\ker \pi \subsetneq \mf{g}$ is an ideal it must be the case that $\ker\pi=0$\\
+Now if we define $\mf{gl}_n = \End_i(k^n)^{\Lie}$, this has a basis $\pbrace{E_{ab} = (\delta_{ia}\delta_{jb})_{i,j=1}^n}$ called the \bam{elementary matrices}. These obey 
+\eq{
+E_{ij}E_{kl} &= \delta_{jk} E_{il} \\
+\Rightarrow  \comm[E_{ij}]{E_{kl}} &= \delta_{jk}E_{il} - \delta_{il}E_{jk}
+}
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\secmath{\mf{sl}(n)}}
+
+\begin{example}
+Consider $\mf{sl}(2)$. Taking $n=2$, we have the basis 
+\eq{
+e = E_{12} &= \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} \\
+f = E_{21} &= \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix} \\
+h = E_{11}-E_{22} &= \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
+}
+These get the commutation relations 
+\eq{
+\comm[h]{e} &= 2e \\ 
+\comm[h]{f} &= -2f \\
+\comm[e]{f} &= h
+}
+\end{example}
+
+More generally, we see $\dim_\mbb{C}(\mf{sl}(n)) = n^2 -1$ by considering the trace condition, but has only $3(n-1)$ generators 
+\eq{
+e_i &+ E_{i,i+1} \\
+f_i &= E_{i+1,i} \\
+h_i &= E_{ii} - E_{i+1,i+1}
+}
+for $i = 1, \dots, n-1$. 
+\begin{ex}
+Moreover we have
+\eq{
+\comm[e_i]{e_{i+2}} &= 0 \\
+\comm[e_i]{\comm[e_i]{e_{i+1}}} &= 0
+}
+\end{ex}
+These generate as 
+\eq{
+\comm[e_i]{e_{i+1}} &= E_{i,i+2}
+}
+and this can be iterated to get all upper triangular matrices, likewise for lower triangular with $f$ and diagonal with all. Explicitly 
+\eq{
+\comm[h_i]{e_j} &= a_{ji} e_j \\
+\comm[h_i]{f_j} &= -a_{ji} f_j \\
+\comm[e_i]{f_j} &= \delta_{ij} h_i
+}
+where 
+\eq{
+a_{ij} = \left \lbrace \begin{array}{cc}
+    2 & \abs{i-j}=0 \\
+    -1 & \abs{i-j}=1 \\
+    0 & \abs{i-j} > 1 
+\end{array}\right.
+}
+We call $A = (a_{ij})$ the \bam{Cartan matrix}. 
+
+\begin{theorem}[Serre]
+If $\mf{g}$ is a finite dimensional simple Lie algebra over $\mbb{C}$ then $\mf{g}$ has a similar presentation. 
+\end{theorem}
+
+\begin{prop}
+A has the following properites: 
+\begin{itemize}
+    \item $A \in M_n(\mbb{Z})$ 
+    \item $\forall i \neq j, \, a_{ii}=0 $ and $a_{ij}\leq 0$ 
+    \item $a_{ij}=0 \Leftrightarrow a_{ji}$ 
+    \item $A$ is indecomposable
+    \item $\det(A) \neq 0$ and $A$ is positive definite. 
+\end{itemize}
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Kac-Moody Algebras}
+
+\begin{idea}
+We can try to reverse engineer the Cartan matrix, to generalise it and then assign a Lie algebra $\mf{g}(A)$ to the resulting matrix $A$. 
+\end{idea}
+
+\begin{definition}
+A \bam{realisation} of $A$ is a triple $(\mf{h},\Pi^\vee,\Pi)$ where
+\begin{itemize}
+    \item $\mf{h}$ is a vector space 
+    \item $\Pi^\vee = \pbrace{\alpha_1^\vee, \dots, \alpha^\vee_n} \subseteq \mf{h}$ 
+    \item $\Pi = \pbrace{\alpha_1, \dots, \alpha_n} \subset \mf{h}^\ast$
+\end{itemize}
+s.t. 
+\begin{itemize}
+    \item $\Pi^\vee$ is a linearly independent set 
+    \item $\Pi$ is a linearly independent set 
+    \item $\alpha_i(\alpha_j^\vee) = a_{ji}$
+\end{itemize}
+\end{definition}
+
+\begin{ex}
+Show the following results: 
+\begin{itemize}
+    \item If $(\mf{h},\Pi^\vee,\Pi)$ is a realisation, $\dim \mf{h} \geq 2n-\rank(A)$
+    \item A \bam{minimal realisation} (i.e $\dim \mf{h} = 2n-\rank(A)$) always exists
+\end{itemize}
+\end{ex}
+
+\begin{definition}
+A morphism $(\mf{h},\Pi^\vee,\Pi) \to (\mf{h}^\prime,(\Pi^\prime)^\vee,\Pi^\prime)$ is
+\begin{itemize}
+    \item $\phi : \mf{h} \to \mf{h}^\prime$ 
+    \item $\phi(\Pi^\vee) = (\Pi^\prime)^\vee$
+    \item $\phi(\Pi) = \Pi^\prime$
+\end{itemize}
+\end{definition}
+
+\begin{prop}
+For any $A$, $\exists!$ realisation up to isomorphism. 
+\end{prop}
+
+\begin{definition}
+Let $(\mf{h},\Pi^\vee,\Pi)$ be a realisation of $A$. Then $\tilde{\mf{g}}(A)$ is the Lie algebra with generators $e_i,f_i$ for $i=1, \dots, n$ containing $\mf{h}$ s.t. 
+\eq{
+\comm[e_i]{f_j} &= \delta_{ij} \alpha_i^\vee \in \mf{h} \\
+\forall h \in \mf{h}, \, \comm[h]{e_i} &= \alpha_i(h) e_i \\
+\forall h \in \mf{h}, \, \comm[h]{f_i} &= -\alpha_i(h) f_i \\
+\forall h, h^\prime \in \mf{h}, \, \comm[h]{h^\prime} &= 0
+}
+\end{definition}
+
+\begin{idea}
+$\tilde{\mf{g}}(A)$ is still currently too large, for example as the $e_i$ are not yet related, and we want to try make it look like $\mf{sl}_n$, i.e maybe simple. Hence we want to consider all ideals of the form 
+\eq{
+\text{trivial ideals } = \pbrace{r \subset \tilde{\mf{g}}(A) \text{ ideals } \, | \, r \cap \mf{h} =0}
+}
+and let 
+\eq{
+r_{\text{max}} = \sum_{r \in \text{trivial}} r 
+}
+\end{idea}
+
+\begin{definition}
+We define the Lie algebra $\mf{g}(A) = \faktor{\tilde{\mf{g}}(A)}{r_{\text{max}}}$
+\end{definition}
+
+
+\begin{idea}
+We want to go 
+\eq{
+A \to (\mf{h},\Pi^\vee,\Pi) \to \tilde{\mf{g}}(A) \to \mf{g}(A)
+}
+\end{idea}
+
+\begin{example}
+If $A=[2]$, we can follow the procedure and find $\mf{g}(A) = \mf{sl}(2)$. To see we see $\dim\mf{h}=1$ for a minimal realisation, so we only need $\alpha^\vee \in \mf{h}, \alpha\in \mf{h}^\ast$ s.t. $\alpha(\alpha^\vee)=2$. With this $\mf{h} = \spn\pbrace{\alpha^\vee}$ We then need $e,f$ to satisfy 
+\eq{
+\comm[e]{f} &= \alpha^\vee \\
+\comm[\alpha^\vee]{e} &= \alpha(\alpha^\vee) e = 2e \\
+\comm[\alpha^\vee]{f} &= -\alpha(\alpha^\vee) f = -2f
+}
+This is just $\mf{sl}_2$ if we relabel $h = \alpha^\vee$. 
+\end{example}
+
+\begin{ex}
+Show that if $A = \begin{psmallmatrix} 2 & -1 \\ -1 & 2 \end{psmallmatrix} $ we get $\mf{g}(A) = \mf{sl}_3$. 
+\end{ex}
+
+We can then make the definitions of calling $\Pi$ the \bam{simple roots}, and $\Pi^\vee$ the \bam{simple coroots}. We then define 
+
+\begin{definition}
+We define
+\begin{itemize}
+    \item $Q = \bigoplus_{i=1}^n \mbb{Z}\alpha_i$ the \bam{root lattice}
+    \item $Q \supset Q_+ = \bigoplus_{i=1}^n \mbb{Z}_{\geq 0}\alpha_i$ the \bam{positive root lattice}
+    \item $Q^\vee = \bigoplus_{i=1}^n \mbb{Z}\alpha^\vee_i$ the \bam{coroot lattice}
+    \item $Q^\vee \supset Q^\vee_+ = \bigoplus_{i=1}^n \mbb{Z}_{\geq 0}\alpha^\vee_i$ the \bam{positive coroot lattice}
+\end{itemize}
+\end{definition}
+
+Note that the relations required for $\tilde{g}(A)$ give us all the commutators we need, e.g 
+\eq{
+\comm[h]{\comm[e_1]{e_2}} &= -\comm[e_2]{\comm[h]{e_1}} - \comm[e_1]{\comm[e_2]{h}} \\
+&= \alpha_1(h) \comm[e_2]{e_1} + \alpha_2(h) \comm[e_1]{e_2} \\
+&= (\alpha_1 + \alpha_2)(h) \comm[e_1]{e_2}
+}
+
+Now for $\alpha \in Q$ we can define 
+\eq{
+\tilde{\mf{g}}_\alpha \equiv \pbrace{x \in \mf{g}(\Sigma) \, | \, \forall h \in \mf{h}, \, \comm[h]{x} = \alpha(h)x}
+}
+
+
+\begin{example}
+We can consider examples of this:
+\begin{itemize}
+    \item $\mf{h} \supset \tilde{\mf{g}}_0 = \mf{h}$.
+    \item $\mbb{C}e_i \supset \tilde{\mf{g}}_{\alpha_i} = \mbb{C}e_i$
+    \item $\tilde{\mf{g}}_{-\alpha_i} = \mbb{C}f_i$
+    \item $\tilde{\mf{g}}_{\alpha_1 - \alpha_2} = 0$
+\end{itemize}
+\end{example}
+
+We can then also state the following 
+
+\begin{theorem}
+We have the following 
+\begin{enumerate}
+    \item As a vector space, $\tilde{\mf{g}}(\Sigma) = \tilde{n}_+ \oplus \mf{h} \oplus \tilde{n}_-$ where $\tilde{n}_+ $ is the free Lie algebra generated by the $e_i$, and $\tilde{n}_-$ by the $f_i$. 
+    \item We have 
+\eq{
+\tilde{n}_+ &= \bigoplus_{\alpha \in Q_+ \setminus 0} \tilde{\mf{g}}_\alpha \\
+\tilde{n}_- &= \bigoplus_{\alpha \in Q_+ \setminus 0} \tilde{\mf{g}}_{-\alpha}
+}
+\item $\comm[\tilde{\mf{g}}_\alpha]{\tilde{\mf{g}}_\beta}\subset \tilde{\mf{g}}_{\alpha +\beta} \Rightarrow \tilde{\mf{g}}(\Sigma)$ is $Q$-graded. 
+\end{enumerate}
+\end{theorem}
+
+Now 
+\begin{lemma}
+\begin{enumerate}
+    \item $I \subset \tilde{\mf{g}}(\Sigma)$ is an ideal then $I = \oplus_{\alpha \in Q} (I \cap \tilde{\mf{g}}_\alpha)$
+    \item $\exists! $ maximal ideal $r \subseteq \tilde{\mf{g}}(\Sigma)$ s.t. $r \cap \mf{h}=0$ 
+    \item $r = r_+ \oplus r_-$ with $r_\pm = r \cap \tilde{n}_\pm$
+\end{enumerate}
+\end{lemma}
+
+\begin{definition}
+The $KM$ algebra $\mf{g}(\Sigma)$ is $\mf{g}(\Sigma)\equiv \faktor{\tilde{\mf{g}}(\Sigma)}{r}$
+\end{definition}
+
+\begin{definition}
+Define $\mf{g} = \pbrace{x \in \mf{g}(\Sigma) \, | \, \forall h \in \mf{h}, \, \comm[h]{x} = \alpha(h)x}$.
+\end{definition}
+
+\begin{remark}
+We have the $\forall \alpha \in Q_+ \setminus 0$, 
+\begin{itemize}
+    \item $\tilde{\mf{g}}_{\pm\alpha} \neq 0$
+    \item $\dim \tilde{\mf{g}}_{\pm\alpha}<\infty$
+    \item If we define $ht(\alpha) = \sum_i k_i$ for $\alpha = \sum_i k_i \alpha_i$ then $\dim\tilde{\mf{g}}_{\pm\alpha} \neq n^{\abs{ht(\alpha)}}$
+\end{itemize}
+\end{remark}
+
+\begin{definition}
+We call $R = \pbrace{\alpha \in Q \setminus 0 \, | \, \mf{g}_\alpha \neq 0} \subset Q$ the \bam{set of roots}
+\end{definition}
+
+\begin{prop}
+ We have
+\begin{enumerate}
+    \item $\mf{g}(\Sigma) = \bigoplus_{\alpha \in Q_+ \setminus 0} \mf{g}_\alpha \oplus \mf{h} \oplus \bigoplus_{\alpha \in Q_+ \setminus 0} \mf{g}_{-\alpha}$. 
+    \item $R = R_+ \cup R_-$ where $R_\pm = R \cap (\pm Q_\pm)$. 
+\end{enumerate}
+\end{prop}
+
+\begin{ex}
+We can show 
+\eq{
+A = (2) &\Rightarrow R = \pbrace{\alpha_1} \cup \pbrace{-\alpha_1} \\
+A = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix} &\Rightarrow R_+ = \pbrace{\alpha_1, \alpha_2, \alpha_1 + \alpha_2}, \, R_- = - R_+ \\
+A = \begin{pmatrix} 2 & -2 \\ -2 & 2 \end{pmatrix} &\Rightarrow \abs{R} = \infty
+}
+\end{ex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Bilinear forms on g(A)}
+
+Sometimes $\mf{g}(\Sigma)$ has a non-degenerate, symmetric, invariant bilinear form 
+\eq{
+(\cdot,\cdot) : \mf{g} \otimes \mf{g} \to \mbb{C}
+}
+i.e. 
+\begin{itemize}
+    \item $\ker(,) = \pbrace{x \in \mf{g} \, | \, \forall y \in \mf{g}, \, (x,y) =0} = 0$
+    \item $\forall x,y,z \in \mf{g}, (x,y) = (y,x)$
+    \item $(\comm[x]{y},z) = (x,\comm[y]{z})$
+\end{itemize}
+
+This will turn out to be the analogue of the Killing form. 
+
+\begin{theorem}
+If $A$ is symmetrisable, i.e. $\exists D = \diag(d_1, \dots, d_n)$ s.t. $\det D \neq 0$ and $B=DA$ is symmetric, then $\exists$ such a form on $\mf{g}(\Sigma)$. 
+\end{theorem}
+
+Note that in the above theorem, we have fixed a choice by asking for $D$. It is then natural to ask how many choices we have. 
+
+\begin{example}
+$\mf{g}(A) \cong \mf{g}(DA)$, as this simply scales generators $e_i \mapsto d_i e_i$. 
+\end{example}
+
+We can define a non-degenerate symmetric bilinear form on $\mf{h}$ by 
+\begin{itemize}
+    \item $\forall h \in \mf{h}, \, (\alpha_i^\vee,h) = d_i \alpha_i(h)$
+    \item $\forall h_1,h_2 \in \mf{h}^{\prime\prime}, \, (h_1, h_2) = 0$
+\end{itemize}
+where we have defined $\mf{h}^\prime \equiv \pangle{\Pi^\vee} = \bigoplus_{i=1}^N \mbb{C}\alpha_i^\vee$ and then required $\mf{h} = \mf{h}^\prime \oplus \mf{h}^{\prime\prime}$. It is the coupling to $D$ that gives the symmetry e.g 
+\eq{
+(\alpha_i^\vee,\alpha_j^\vee) &= d_i \alpha_i(\alpha_j^\vee) \\
+&= d_i a_{ji} \\
+&= d_j a_{ij} \\
+&= \dots
+}
+
+\begin{theorem}
+$(\cdot,\cdot)$ extends to a non-degenerate symmetric bilinear \emph{invariant} form on $\mf{g}(A)$ by setting 
+\begin{itemize}
+    \item $(e_i,f_j) = \delta_{ij}$
+    \item $(e_i,e_j) = 0 = (f_i,f_j)$
+    \item $(e_i,h) = 0 = (f_i,h)$
+\end{itemize}
+\end{theorem}
+
+\begin{remark}
+Note that these conditions are imposed on us in order to have invariance, e.g 
+\eq{
+(\comm[e_1]{e_2},f_1) &= (e_1, \comm[e_2]{f_1}) = 0  
+}
+or 
+\eq{
+(\comm[e_1]{e_2},f_1) &= -(e_2,\underbrace{\comm[e_1]{f_1}}_{\in \mf{h}}) = 0
+}
+\end{remark}
+
+\begin{corollary}
+Let $\alpha \in Q$, and recall $\mf{g}_\alpha = \pbrace{x \in \mf{g}(A) \, | \, \forall h \in \mf{h}, \, \comm[h]{x} = \alpha(h)x}$. Then 
+\eq{
+(\mf{g}_\alpha,\mf{g}_\beta) \neq 0 \Leftrightarrow \alpha + \beta =0
+}
+Then identifying $\mf{g}\cong \mf{g}^\ast$ by $x \mapsto (x,\cdot)$, we have 
+\eq{
+\mf{g}_\alpha \cong \mf{g}_{-\alpha}^\ast
+}
+\end{corollary}
+
+Now let us make the prop:
+
+\begin{prop}
+Let $\nu : \mf{h} \overset{\cong}{\to} \mf{h}^\ast$ be the function 
+\eq{
+\nu(h) &= (h,\cdot) \\
+\nu(\alpha_i^\vee) &= d_i \alpha_i
+}
+Then for $x \in \mf{g}_\alpha, \, y \in \mf{g}_{-\alpha}$;
+\eq{
+\comm[x]{y} = (x,y) \cdot \nu^{-1}(\alpha)
+}
+\end{prop}
+
+\begin{theorem}[Serre]
+Suppose we have $A \in M_n(\mbb{Z})$ satisfying $a_{ii} = 2, \, a_{ij} \leq 0$. Then in $\mf{g}(A)$
+\eq{
+\ad(e_i)^{1-a_{ij}}(e_j) &= 0 \\
+\ad(f_i)^{1-a_{ij}}(f_j) &= 0
+}
+These are called the \bam{Serre relations}. 
+\end{theorem}
+\begin{proof}
+
+\end{proof}
+
+\begin{theorem}[Gabber - Kac]
+If we have $A \in M_n(\mbb{Z})$ satisfying $a_{ii} = 2, \, a_{ij} \leq 0$ \bam{and} $A$ is symmetrisable, then the only relations on $\mf{g}(A)$ are the Serre relations. 
+\end{theorem}
+
+\begin{remark}
+If we have the conditions of the above theorem, then we know $\mf{g}(A)$ is generated by $e_i, f_i, \mf{h}$ s.t. 
+\begin{itemize}
+    \item $\comm[h]{h^\prime} = 0$
+    \item $\comm[h]{e_i} = \alpha_i(h) e_i$ 
+    \item $\comm[h]{f_i} = -\alpha_i(h) f_i$ 
+    \item $\comm[e_i]{f_j} = \delta_{ij} \alpha_i^\vee$
+    \item $\ad(e_i)^{1-a_{ij}}(e_j) = 0$
+    \item $\ad(f_i)^{1-a_{ij}}(f_j) = 0$
+\end{itemize}
+and this entirely determines $\mf{g}(A)$. 
+\end{remark}
+
+\begin{example}
+Consider $A=\begin{psmallmatrix} 2 & -1 \\ -1 & 2 \end{psmallmatrix}$, which has $\mf{g}(A) = \mf{sl}_3$. Then we found 
+\eq{
+\ad(e)^{1-(-1)}(e) = \comm[e_1]{\comm[e_1]{e_2}} = 0 
+}
+\end{example}
+
+\begin{lemma}
+We have the following two classifications
+\begin{enumerate}
+    \item For $x \in n_+, \, x=0 \Leftrightarrow \forall i, \, \comm[f_i]{x} = 0$
+    \item For $x \in n_-, \, x=0 \Leftrightarrow \forall i, \, \comm[e_i]{x} = 0$
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Set $\mf{g}_1 = \bigoplus_{i=1}^n \mbb{C} e_i \subset n_+$. Then define the vector space 
+\eq{
+J_x \equiv \sum_{k \geq 0} \ad(g_1)^k(e) \ni x
+}
+Then we can note 
+\begin{itemize}
+    \item $\comm[n_+]{J_x} \subset J_x$
+    \item $\comm[\mf{h}]{J_x} \subset J_x$
+\end{itemize}
+and further 
+\begin{claim}
+$\comm[f_i]{\ad(g_1)^k(x)} \subset J_x$
+\end{claim}
+We can show this by induction. Certainly if we have assumed $\comm[f_i]{x} = 0$, then $\comm[f_i]{x} \in J_x$. Now for $a \in \mf{g}_1, b \in \ad(\mf{g}_1)^{k-1}(x)$ we have 
+\eq{
+\comm[f_i]{\comm[a]{b}} &= \comm[\underbrace{\comm[f_i]{a}}_{\in \mf{h}}]{b} + \comm[a]{\underbrace{\comm[f_i]{b}}_{\in J_x}}
+}
+Si we have that $J_x$ is an ideal and that $J_x \cap \mf{h} = 0$, so $J_x= 0$. 
+\end{proof}
+
+Now we have a copy of $\mf{sl}_2$, called $\mf{sl}_2^{(i)} = \pangle{e_i,f_i,\alpha_i^\vee}$ sitting in $\mf{g}(A)$. If we make the definitions $v = f_j, \theta_{ij} = \ad(f_i)^{1-a_{ij}}(f_j)$, we can also give an action of $\mf{sl}_2^{(i)}$ on $v$ by 
+\begin{itemize}
+    \item $f_i \cdot v = \ad(f_i)(v)$
+    \item $\alpha_i^\vee \cdot v = \comm[\alpha_i^\vee]{f_j} = -a_{ij}v$
+    \item $e_i \cdot v = \comm[e_i]{f_j} = 0$
+\end{itemize}
+We then have an action $\mf{sl}_2 \lact V \ni v$ s.t. $h\cdot v = \lambda v$, $e \cdot v = 0$, then 
+\eq{
+v_m &= \frac{f^m}{m!}v \\
+h \cdot v_m &= (\lambda - m) v_m
+}
+
+Going further, We can consider more generally an action $\mf{g}(A) \lact \mf{g}(A) = \bigoplus_{\alpha \in Q} \mf{g}_\alpha$ by $x \cdot y = \comm[x]{y}$ (the adjoint action). Then $\forall y \in \mf{g}(A)$ we have that for sufficiently large $N$ 
+\eq{
+e_i^N \cdot y &= 0 \\
+f_i^N \cdot y &= 0
+}
+We say $e_i, f_i$ are \bam{locally nilpotent}. As $\exp(x) \equiv \sum_{N \geq 0} \frac{x^N}{N!}$, if we have that $x^N \cdot y=0$ sufficiently large $N$ we may then allow $\exp(x) \lact \mf{g}(A)$. Further, if $h \in \mf{h}$ and $x \in \mf{g}_\alpha$ we will have 
+\eq{
+h \cdot x &= \alpha(h) x \\
+\Rightarrow \exp(h) \cdot x &= e^{\alpha(h)}x
+}
+
+\begin{definition}
+We say $V \in \Rep(\mf{g}(A))$ is \bam{integrable} if 
+\begin{enumerate}
+    \item $V = \bigoplus_{\lambda \in \mf{h}^\ast} V_\lambda$ where $V_\lambda = \pbrace{v \in V \, | \, \forall h \in \mf{h}, \, h \cdot v = \lambda(h)v}$
+    \item $e_i,f_i$ acts locally nilpotently on $V$. 
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+If $V_\lambda \neq 0$, we call it a \bam{weight space of weight $\lambda$} 
+\end{definition}
+
+\begin{example}
+$\mf{g}(A)$ is integrable over itself as the adjoint rep. Here the weight spaces are $\mf{g}_\alpha$. 
+\end{example}
+
+\begin{example}
+Ever finite dimensional representation is integrable. This is as automatically $V = \bigoplus V_\lambda$, and then as eigenspaces cannot mix, there is no way to keep acting. 
+\end{example}
+
+\begin{prop}
+Let $V \in \Rep(\mf{g}(A))^{Int}$ and let $\mf{g}_{(i)} = \pangle{e_i,f_i,\alpha_i^\vee} \subset \mf{g}(A)$. Then 
+\begin{enumerate}
+    \item As $\mf{g}_{(i)}$ modules, 
+    \eq{
+    V = \bigoplus_{d \geq 0} V^{\oplus m_d}_d
+    }
+    where $V_d$ is a irreducible rep of $\mf{sl}_2$, $\dim V_d = d+1$, $m_d \in \mbb{Z}_{\geq 0} \cup \pbrace{\infty}$. 
+    \item Take $\lambda \in \wt(V) \equiv \pbrace{\mu \in \mf{h}^\ast \, | \, V_\mu \neq 0}$ and fix an $\alpha_i$-string through $\lambda$, $M = \pbrace{t \in \mbb{Z} \, | \, \lambda + t \alpha_i \in \wt(V)}$. Then 
+    \begin{enumerate}
+        \item $\exists p,q \in \mbb{Z}_{\geq 0} \cup \pbrace{\infty} \text{ s.t. } M = \comm[-p]{q}$ 
+        \item $\mult_V(\lambda) = \dim V_\lambda < \infty \Rightarrow p,q < \infty$. 
+        \item $p,q < \infty \Rightarrow p-q = \lambda(\alpha_i^\vee)$
+        \item $t \mapsto m(t) \equiv \dim V_{\lambda + t\alpha_i}$ is symmetric at $t = - \frac{1}{2} \lambda(\alpha_i^\vee)$
+    \end{enumerate}
+\end{enumerate}
+\end{prop}
+\begin{proof}
+Take $v_\lambda \in V_\lambda$, and define 
+\eq{
+U_{v_\lambda} = \sum_{k,l \geq 0} \mbb{C} \cdot f_i^k \cdot e_i^l \cdot v_\lambda
+}
+Now we must have $\dim U_{v_\lambda} \leq 0$ from nilpotency, and we have an action $\mf{g}_{(i)} \lact U_{v_\lambda}$. By Weyl reducibility 
+\eq{
+U_{v_\lambda} = \bigoplus_{d \geq 0} V_d^{\oplus m_d}
+}
+Do this forall $v \in V$. \\
+Now let $U = \sum_{t \in M} V_{\lambda + t \alpha_i} \ract \mf{g}_{(i)}$, and define $p = - \inf M, \, q = \sup M$. As $0 \in M$ it must be the case $p,q \geq 0$. Now we can calculate 
+\eq{
+(\lambda + t \alpha_i)(\alpha_i^\vee) &= \lambda(\alpha_i^\vee) + 2t 
+}
+and so we have 
+\eq{
+(\lambda + t \alpha_i)(\alpha_i^\vee) = 0 \Leftrightarrow t = -\frac{1}{2}\lambda(\alpha_i^\vee)
+}
+
+\end{proof}
+
+\begin{corollary}
+$\lambda \in \wt(V) \Rightarrow \lambda - \lambda(\alpha_i^\vee)\alpha_i \in \wt(V)$
+\end{corollary}
+
+\begin{example}
+Take $\mf{g}(A) = \bigoplus_{\alpha \in Q} \mf{g}_\alpha$, $Q = \bigoplus_{i=1}^n \mbb{Z} \alpha_i$. Then $\wt(\mf{g}(A)) = \pbrace{\text{roots}}\cup\pbrace{0}$ 
+\end{example}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Weyl group}
+
+\begin{definition}[Fundamental reflections]
+We define the \bam{fundamental refelctions} $r_i \in GL(\mf{h}^\ast)$ by $r_i(\lambda) = \lambda - \lambda(\alpha_i^\vee) \alpha_i$
+\end{definition}
+
+\begin{prop}
+$r_i$ are reflections with fixed points $\ker(\alpha_i^\vee) = \pbrace{\lambda \in \mf{h}^\ast \, | \, \lambda(\alpha_i^\vee) = 0}$. Moreover $r_i(\alpha_i) = -\alpha_i$. 
+\end{prop}
+
+\begin{definition}[Weyl group]
+We define the \bam{Weyl group} to be 
+\eq{
+W = \pangle{r_i} \subseteq GL(\mf{h}^\ast)
+}
+\end{definition}
+
+\begin{prop}
+Take $V \in \Rep(\mf{g}(A))^{Int}, \, \lambda \in \mf{h}^\ast, \, w \in W$, then \begin{enumerate}
+    \item $\mult_V(\lambda) = \mult_V(w(\lambda))$
+    \item $W \lact R \equiv \pbrace{\alpha \in Q\setminus 0  \, | \, \mf{g}_\alpha \neq 0} $
+    \item $\dim\mf{g}_\alpha = \mult(\alpha) = \mult(w(\alpha)) = \dim\mf{g}_{w(\alpha)}$
+\end{enumerate}
+\end{prop}
+
+\begin{remark}
+$W \lact Q$
+\end{remark}
+
+\begin{ex}
+$W \cong \pangle{r_i^\vee} \subseteq GL(\mf{h})$ where $r_i^\vee(h) = h - \alpha_i(h) \alpha_i^\vee$
+\end{ex}
+
+Now assume we have $x,y:V \to V$ locally nilpotent s.t $\ad(x)^N(y) = 0$ form some $N \gg 0$. Then 
+\eq{
+\exp(x) \cdot y \cdot \exp(-x) = \Ad(\exp(x))(y) = \exp(\ad(x))(y) 
+}
+
+\begin{theorem}
+Take $V \in \Rep(\mf{g}(A))^{Int}$ with $\pi: \mf{g}(A) \to \mf{gl}(V)$ the rep. We define $r_i^\pi : \exp(f_i) \exp(-e_i) \exp(f_i)$. Then 
+\begin{enumerate}
+    \item $r_i^\pi(V_\lambda) = V_{r_i(\lambda)}$
+    \item $r_i^{\ad} : \mf{g}(A) \to \mf{g}(A), \, \ev{r_i^{\ad}}{\mf{h}} = r_i^\vee$.  
+\end{enumerate}
+\end{theorem}
+
+\begin{example}
+Take $\mf{g}(A) = \mf{sl}_2$, then $W = \pangle{r_1 \, | \, r_1^2 = 1} \cong C_2$
+\end{example}
+
+\begin{example}
+$\mf{g}(A) = \mf{sl}_3$. Then we have
+\begin{center}
+    $\begin{array}{c|c|c}
+    & \alpha_1 & \alpha_2 \\ \hline \hline
+r_1 &  -\alpha_1  & \alpha_1 + \alpha_2 \\ \hline 
+r_2 & \alpha_1 + \alpha_2 & -\alpha_2 \\ \hline 
+r_1 r_2 & \alpha_2 & -(\alpha_1 + \alpha_2) \\ \hline 
+r_2 r_1 & -(\alpha_1 + \alpha_2) & \alpha_1 \\ \hline 
+r_1 r_2 r_1 & -\alpha_2 & -\alpha_1 \\ \hline 
+r_2 r_1 r_2 & -\alpha_2 & -\alpha_1 \\ 
+    \end{array}$
+\end{center}
+Hence we have 
+\eq{
+W = \pangle{r_1, r_2 \, | \, r_1^2 = 1 = r_2^2, \, r_1r_2r_1 = r_2r_1r_2} \cong S_3
+}
+We get this rep by taking $r_1 \mapsto (12), \, r_2 \mapsto (23)$
+
+\begin{remark}
+We can see that the above would satisfy what we want by using the braid relations. 
+\end{remark}
+
+Now we can decompose 
+\eq{
+\mf{sl}_3 =\underbrace{\mf{g}_{\alpha_1}}_{e_1} \oplus \underbrace{\mf{g}_{\alpha_2}}_{e_2} \oplus \underbrace{\mf{g}_{\alpha_1 + \alpha_2}}_{\comm[e_1]{e_2}} \oplus \dots
+}
+and then 
+\eq{
+R = \pbrace{\alpha_1, \alpha_2, \alpha_1 + \alpha_2} \cup \pbrace{-\alpha_1, -\alpha_2, -(\alpha_1 + \alpha_2)}
+}
+\end{example}
+
+
+\begin{prop}
+$W$ is generated by the $r_i$ with the relations 
+\begin{itemize}
+    \item $r_i^2=1$
+    \item $(r_i r_j)^{m_{ij}}=1$ or equivalently $\underbrace{r_j r_i r_j \dots}_{m_{ij}} = \underbrace{r_i r_j r_i \dots}_{m_{ij}}$
+\end{itemize}
+where 
+\begin{center}
+    $\begin{array}{c||c|c|c|c|c}
+    m_{ij} & 2 & 3 & 4 & 6 & \infty \\ \hline
+a_{ij} a_{ji} & 0 & 1 & 2 & 3 & \geq 4
+    \end{array}$
+\end{center}
+\end{prop}
+
+\begin{example}
+We have correspondences 
+\eq{
+\begin{pmatrix} 2 & 0\\ 0 & 2 \end{pmatrix} &\mapsto \mf{sl}_2 \oplus \mf{sl}_2 \\
+\begin{pmatrix} 2 & -1\\ -1 & 2 \end{pmatrix} &\mapsto \mf{sl}_3 \\
+\begin{pmatrix} 2 & -2\\ -1 & 2 \end{pmatrix} &\mapsto \mf{so}_4 \\
+\begin{pmatrix} 2 & -3\\ -1 & 2 \end{pmatrix} &\mapsto G_2 \\
+\begin{pmatrix} 2 & -2\\ -2 & 2 \end{pmatrix} &\mapsto \widehat{\mf{sl}_2} = \faktor{a \ast b}{(a^2 = 1 = b^2)} \; \text{ (affine $\mf{sl}_2$)}
+}
+\end{example}
+
+Now we could consider working with realisations, and we would get the following results:
+\begin{itemize}
+    \item $\mf{h}_\mbb{R} \subset \mf{h}$
+    \item $Q^\vee = \bigoplus_{i=1}^n \mbb{Z} \alpha_i^\vee \subset \mf{h}_\mbb{R} \ract W$
+\end{itemize}
+
+\begin{definition}[Fundamental chamber]
+The \bam{fundamental chamber} is $\mc{C} \equiv \pbrace{h \in \mf{h}_\mbb{R} \, | \, \alpha_i(h) \geq 0}$. We further define the \bam{Tits cone} $X = \bigcup_{w \in W} w(\mc{C})$
+\end{definition}
+
+\begin{prop}
+TFAE:
+\begin{itemize}
+    \item $\abs{W} < \infty $
+    \item $\abs{R} < \infty$ 
+    \item $X = \mf{h}_\mbb{R}$. 
+\end{itemize}
+\end{prop}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Finite vs Affine}
+We aim now to construct completely $\mf{g}(\begin{psmallmatrix} 2 & -2 \\ -2 & 2 \end{psmallmatrix}) \equiv \hat{g}$. We start by finding a realisation. We need 
+\begin{itemize}
+    \item $\hat{\mf{h}}$ s.t. $\dim_\mbb{C} \hat{\mf{h}} = 3$
+    \item $\pbrace{\alpha_0, \alpha_2} \subset \hat{\mf{h}}^\ast$, $\pbrace{\alpha_0^\vee, \alpha_1^\vee} \subset \hat{\mf{h}}$ linearly indep s.t. $\alpha_i(\alpha_j^\vee) = \pm 2$ if $i=j$ or $i \neq j$. 
+\end{itemize}
+We can take 
+\eq{
+\hat{\mf{h}} &= \mbb{C} \alpha_0^\vee \oplus \mbb{C} \alpha_1^\vee \oplus \mbb{C}d \\
+\hat{\mf{h}}^\ast &= \mbb{C} \alpha_0 \oplus \mbb{C} \alpha_1 \oplus \mbb{C}\Lambda
+}
+with 
+\eq{
+\alpha_0(d) &= 1 \\
+\alpha_1(d) &= 0 \\
+\Lambda(\alpha_0^\vee) &= 1 \\
+\Lambda(\alpha_1^\vee) &= 0 \\
+\Lambda(d) &= 0
+}
+Now we know we will also have a bilinear form given by 
+\eq{
+(\alpha_i^\vee,\alpha_j^\vee) &= a_{ij} \\
+(\alpha_0^\vee,d) &= 1 \\
+(\alpha_1^\vee,d) &= 0 \\
+(d,d) &= 0 \\
+\text{also} \\
+(\alpha_i,\alpha_j) &= a_{ij} \\
+(\alpha_0,\Lambda) &= 0 \\
+(\alpha_1,\Lambda) &= 0 \\
+(\Lambda,\Lambda) &= 0 
+}
+Now we recognise this gives a special element $c \equiv \alpha_0^\vee + \alpha_1^\vee, \, \delta = \alpha_0 + \alpha_1$. This gives a map 
+\eq{
+\nu : \hat{\mf{h}} &\to \hat{\mf{h}}^\ast \\
+\alpha_i^\vee &\mapsto \alpha_i \\
+d &\mapsto \Lambda \\
+c &\mapsto \delta
+}
+These now have inner product 
+\eq{
+(\delta,\alpha_0) &= 0 = (\delta,\alpha_1) \\
+(\delta,\delta) &= 0 \\
+(\delta,\Lambda) &= 1 \\
+(c,\alpha_0^\vee) &= 0 = (c,\alpha_1^\vee) \\
+(c,c) &= 0 \\
+(c,d) &= 1
+}
+Now we have orthogonal decompositions 
+\eq{
+\hat{\mf{h}} &= \mbb{C} \alpha_1^\vee \oplus \mbb{C} \oplus \mbb{C}d \\
+\hat{\mf{h}}^\ast &= \mbb{C} \alpha_1 \oplus \mbb{C} \delta \oplus \mbb{C}\Lambda
+}
+We want to relate $\hat{\mf{g}}$ to $\mf{g} = \mf{sl}_2$. In $\hat{\mf{g}}$
+\eq{
+\comm[d]{e_1} &= 0 = \comm[d]{f_1} \\ 
+\comm[d]{e_0} &= e_0 \\
+\comm[d]{f_0} &= -f_0 \\
+\comm[c]{e_i} &= 0 = \comm[c]{f_i}
+}
+Hence $c \in Z(\hat{\mf{g}})$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Central extension of the loop algebra}
+Now let us define $\mc{L} = \mbb{C}[t,t^{-1}] = \pbrace{\text{Laurent polynomials}}$ and for $P = \sum_{k} c_k t^k \in \mc{L}$ define $\res(P) = c_{-1}$. Now note $\res : \mc{L} \to \mbb{C}$ is actually a linear functional with \begin{itemize}
+    \item $\res(t^{-1}) = 1$ 
+    \item $\res \frac{dP}{dt} = 0$
+\end{itemize}
+Hence we can construct $\varphi : \mc{L} \times \mc{L} \to \mbb{C}$ by 
+\eq{
+\varphi(P,Q) = \res \pround{Q \frac{dP}{dt}}
+}
+This has the properties 
+\begin{itemize}
+    \item $\varphi(P,Q) = - \varphi(Q,P)$
+    \item $\varphi(PQ,R) + \varphi(QR,P) + \varphi(RP,Q) = 0$
+\end{itemize}
+
+\begin{definition}
+The \bam{loop algebra} of $\mf{g}$ is 
+\eq{
+\mc{L}\mf{g} \equiv \mf{g} \otimes_{\mbb{C}} \mc{L} = \Maps(\mbb{C}^\times,\mf{g})
+}
+We give it the Lie bracket 
+\eq{
+\comm[x \otimes P]{y \otimes Q}_0 = \comm[x]{y} \otimes PQ
+}
+\end{definition}
+
+\begin{definition}
+A \bam{central extension} of the loop algebra is $\mc{L}\mf{g} \oplus \mbb{C}c$ with the Lie bracket where $\forall a \in \mc{L}\mf{g}$;
+\eq{
+\comm[c]{a} &= 0 \\
+\comm[a]{b} &= \comm[a]{b}_0 + \psi(a,b) c
+}
+for some antisymmetric bilinear map $\psi$ which makes that Jacobi identity hold. 
+\end{definition}
+
+Restricting back to our example of $\mf{g} = \mf{sl}_2$ we have a bilinear form, so we can set 
+\eq{
+\psi : \mc{L} \mf{g} \otimes_\mbb{C} \mc{L}\mf{g} &\to \mbb{C} \\
+}
+with 
+\eq{
+\psi(x \otimes P, y \otimes Q) = (x,y) \cdot \varphi(P,Q)
+}
+This $\psi$ satisfies 
+\begin{itemize}
+    \item $\forall a, b, \, \psi(a,b) = - \psi(b,a)$
+    \item $\psi(\comm[a]{b}_0,c) + \psi(\comm[b]{c}_0,a) + \psi(\comm[c]{a}_0,b) = 0$
+\end{itemize}
+
+Now set $\tilde{\mc{L}}\mf{g} = \mc{L}\mf{g} \oplus \mbb{C}c$ with the bracket as above to get a central extension of the loop algebra of $\mf{sl}_2$. \\
+So in $\tilde{\mc{L}}\mf{g}$, 
+\begin{itemize}
+    \item $Z(\tilde{\mc{L}}\mf{g}) = \mbb{C}c$
+    \item $\alpha_1^\vee = \alpha_1^\vee \otimes 1 \in \tilde{\mc{L}}\mf{g}$ satisfies 
+    \eq{
+    \comm[\alpha_1^\vee]{y \otimes Q}_0 &= \comm[\alpha_1^\vee]{y} \otimes Q = \wt(y)(\alpha_1^\vee)(y \otimes Q) \\
+    \psi(\alpha_1^\vee, y \otimes Q) &= (\alpha_1^\vee,y) \underbrace{\varphi(1,Q)}_{\res(0)} = 0 
+    }
+\end{itemize}
+This gives us a well defined subalgebra $\mbb{C}\alpha_1^\vee \oplus \mbb{C}c \subset \tilde{\mc{L}}\mf{g}$. \\
+Finally we can define 
+\eq{
+\hat{\tilde{g}} = \mc{L} \mf{g} \oplus \mbb{C}c \oplus \mbb{C}d
+}
+s.t. 
+\begin{itemize}
+    \item $\comm[a]{b} = \comm[a]{b}_0 + \psi(a,b)c$
+    \item $\comm[d]{c} = 0$
+    \item $\comm[d]{x \otimes P} = x \otimes t \frac{dP}{dt}$
+\end{itemize}
+
+\begin{theorem}
+With the above definition we have 
+\eq{
+\mf{g}(\begin{psmallmatrix} 2 & -2 \\ -2 & 2 \end{psmallmatrix}) &\to \hat{\mf{g}} \\
+e_1, \alpha_1^\vee, f_1 &\mapsto e_1, \alpha_1^\vee, f_1 \\
+c &\mapsto c \\
+d &\mapsto t\frac{d}{dt} \\
+e_0 &\mapsto f_1 \otimes t \\
+f_0 &\mapsto e_1 \otimes t^{-1}
+}
+\end{theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Witt and Virasoro Algebras}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Witt algebra}
+Let $A = \mbb{C}[z,z^{-1}]$ be Laurent polynomials, and then define
+\eq{
+\Der(A) = \pbrace{\phi : A \to A \, | \, \phi \text{ $\mbb{C}$-linear, }\phi(fg) = \phi(f)g + f\phi(g)}
+}
+
+\begin{prop}
+$\Der(A)$ is a Lie algebra with bracket 
+\eq{
+\comm[\phi]{\psi}(f) = \phi(\psi(f)) - \psi(\phi(f))
+}
+\end{prop}
+
+\begin{prop}
+The operators $\pbrace{L_n = - z^{n+1} \frac{d}{dz} \, | \, n \in \mbb{Z}}$ are a basis for $\Der(A)$
+\end{prop}
+\begin{proof}
+The are obviously independent. Write $\phi(z) = -\sum_n a_n z^{n+1}$ (with all but finitely many $a_n \neq 0$). Now the Leibniz rule gives 
+\eq{
+\phi(z^{k}) = k z^{k-1} \phi(z) 
+}
+and so 
+\eq{
+\phi(f)(z) \frac{df}{dz} \phi(z) &= -\sum_n a_n z^{n+1} \frac{d}{dz} f(z) \\
+&= \sum_n a_n L_n(f)(z)
+}
+\end{proof}
+
+\begin{definition}
+The \bam{Witt algebra} $\Witt$ is the Lie algebra with basis $\pbrace{L_n}$ and bracket as above. 
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Central extension}
+
+\begin{definition}
+Let $\mf{a}$ be a Lie algebra. A \bam{central extension} if $\mf{a}$ is a pari $(\tilde{\mf{a}},\pi)$ s.t. 
+\begin{itemize}
+    \item $\tilde{\mf{a}}$ is a Lie algebra
+    \item $\pi : \tilde{\mf{a}} \to \mf{a}$ is a surjective LA hom 
+    \item $\dim_\mbb{C} \ker \pi = 1 $
+    \item $\forall x \in \tilde{\mf{a}}, y \in \ker\pi, \, \comm[x]{y} = 0$
+\end{itemize}
+\end{definition}
+
+\begin{definition}
+Two central extensions $(\tilde{\mf{a}},\pi), (\tilde{\mf{a}}^\prime,\pi^\prime)$ are \bam{equivalent} if $\exists \phi : \tilde{\mf{a}} \to \tilde{\mf{a}}^\prime$ a LA iso s.t. $\pi^\prime \circ \phi = \pi$.
+\end{definition}
+
+\begin{example}
+The trivial extension is $\tilde{\mf{a}} = \mf{a} \oplus \mbb{C}K$ where $K$ is the centre of $\mf{a}$, and we take the same bracket for $\tilde{\mf{a}}$
+\end{example}
+
+\begin{prop}
+Up to equivalence, $\exists !$ non trivial central extension of the Witt algebra, the \bam{Virasoro algebra} $\Vir$, written as 
+\eq{
+0 \to \underbrace{\mbb{C}c}_{\ker(\pi_{\Vir})} \to \Vir \overset{\pi_{\Vir}}{\to} \Witt \to 0
+}
+Explicitly we may say that $\Vir$ has basis $\pbrace{L_n,c}$ with bracket
+\eq{
+\comm[c]{\Vir} &= 0 \\
+\comm[L_m]{L_n} &= (m-n) L_{m+n}  + \frac{m^3 - m}{12} \delta_{m,-n}c
+}
+The map to $\Witt$ is $L_n \mapsto L_n, \, c \mapsto 0$
+\end{prop}
+\begin{proof}
+We check it exists, and this is done simply by observing that the relations given above give a central extension. We can check it is not trivial, as in the trivial extension we would have $\comm[L_2]{L_{-2}} = 2\comm[L_1]{L_{-1}}$. \\
+For uniqueness, let $(\mf{b},\pi)$ be another central extension. Choose a splitting $i:\Witt \to \mf{b}$ with $\pi \circ i = \id$. We then have $\mf{b} = \mbb{C}k \oplus i(\Witt)$. The bracket is given by 
+\eq{
+\comm[i(\Witt)]{k} &= 0 \\
+\comm[i(L_m)]{i(L_n)} &= (m-n)i(L_{m+n}) + a(m,n)k
+}
+for some antisymmetric $a: \mbb{Z} \times \mbb{Z} \to \mbb{C}$. Define a new splitting $i^\prime$ by 
+\eq{
+i^\prime(L_n) = \left\lbrace \begin{array}{cc}
+    i(L_0) & n=0 \\
+    i(L_n) - \frac{a(0,n)}{n}k & n \neq 0 
+\end{array}\right.
+}
+Then $\comm[i^\prime(L_0)]{i^\prime(L_n)} = -ni^\prime(L_n)$. so wlog we may assume $a(0,n) = 0$. Applying the Jacobi identity we get 
+\eq{
+0 &= \comm[{\comm[i(L_0)]{i(L_m)}}]{i(L_n)} + \comm[{\comm[i(L_n)]{i(L_0)}}]{i(L_m)} + \comm[{\comm[i(L_m)]{i(L_n)}}]{i(L_0)} \\
+&= (m+n)a_(m,n)k
+}
+Hence $a(m,n) = a(m)\delta_{m,-n}$ for some odd function $a: \mbb{Z} \to \mbb{C}$. Applying Jacobi again for the triple $i(L_0), i(L_n), i(L_{-n-1})$ gives 
+\eq{
+(n-1)a(n+1) = (n+2)a(n) - (2n+1) a(1)
+}
+This is a linear recurrence completely determined by $a(1), a(2)$, so the space of solutions is 2-dimensional. It can be found that $a(n) = n, a(n) = n^3$ are both solutions, so the general solution is $a(n) = \alpha n + \beta n^3$ for $\alpha,\beta \in \mbb{C}$. \\
+If $\beta = 0$, we have a map 
+\eq{
+\Witt \oplus \mbb{C}k &\to \mf{b} \\
+L_n &\mapsto i(L_n) + \frac{1}{2} \alpha \delta_{0n}k \\
+k &\mapsto k
+}
+which is a LA iso, and so $(\mf{b},\pi)$ is trivial. \\
+If $\beta \neq 0$, we have the LA iso
+\eq{
+\Vir &\to \mf{b} \\
+L_n &\mapsto i(L_n) + (\alpha +\beta) \delta_{0n}k \\
+c &\mapsto 12\beta k
+}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Heisenberg algebra}
+
+\begin{definition}
+The \bam{Heisenberg algebra}, $\Heis$, has basis $\pbrace{\hbar,a_n}$ and bracket 
+\eq{
+\comm[a_m]{a_n} &= m \delta_{m.-n} \hbar \\
+\comm[\hbar]{a_n} &= 0 
+}
+\end{definition}
+
+\begin{example}[Natural reps of $\Heis$]
+Fixing $\mu, h \in \mbb{C}$, define 
+\eq{
+B(\mu,h) = \mbb{C}[x_1, x_2, \dots]
+}
+with rep $\rho : \Heis \to \mf{gl}(B(\mu,h))$ given by 
+\eq{
+\rho(\hbar) &= h \\
+\rho(a_n) &= \left\lbrace \begin{array}{cc}
+    \pd{x_n} & n>0  \\
+    \mu & n=0 \\
+    -hn x_{-n} & n<0
+\end{array}\right.
+}
+This is called the \bam{Bosonic Fock space} or \bam{oscillator reps}. 
+\end{example}
+
+\begin{remark}
+The reps $V = B(\mu,h)$ satisfy 
+\eq{
+\forall v \in V, \, \exists N \, \text{s.t. } \forall n > N, \, a_n v = 0 
+}
+\end{remark}
+
+Let $V$ be any rep satisfying the above condition. For any $n \in \mbb{Z}$, define
+\eq{
+L_n = \frac{1}{2} \sum_{k \in \mbb{Z}} :a_{-k}a_{n+k}:
+}
+where $: \cdot :$ is the normal ordered product, i.e. 
+\eq{
+:a_i a_j: = \left \lbrace \begin{array}{cc}
+    a_i a_j & i<j \\
+    a_j a_i & i>j
+\end{array}\right.
+}
+By our requirement on $V$, we have ensured that $\forall v \in V, \, L_n v$ is well defined as the sum has only finitely many non-zero terms. 
+
+We will work towards proving a big theorem now, so we will need some results: 
+
+\begin{lemma}
+$\forall k,n \in \mbb{Z}, \, \comm[a_k]{L_n} = ka_{k+n}$
+\end{lemma}
+\begin{proof}
+Define $\psi : \mbb{R} \to \mbb{R}$ by 
+\eq{
+\psi(x) = \left\lbrace \begin{array}{cc}
+    1 & \abs{x}\leq 1 \\
+    0 & \abs{x}>1
+\end{array}\right.
+}
+Choose $\eps >0$ and then set
+\eq{
+L_n(\eps) = \frac{1}{2} \sum_{j \in \mbb{Z}} :a_{-j} a_{j+n}: \psi(\eps j)
+}
+Note that $\forall v \in V, \exists \delta > 0 \text{ s.t. } \forall \eps <\delta, L_n(\eps) v= L_n v$. Now $L_n(\eps) = \frac{1}{2} \sum_{j \in \mbb{Z}} a_{-j} a_{j+n} \psi(\eps j)$ acts by a $\mbb{C}$-scalar as 
+\eq{
+\comm[a_k]{L_n(\eps)} &= \frac{1}{2} \sum_{j \in \mbb{Z}} \comm[a_k]{a_{-j} a_{j+n}} \psi(\eps j) \\
+&= \frac{1}{2} \sum_{j \in \mbb{Z}} \psquare{\comm[a_k]{a_{-j} }a_{j+n} \psi(\eps j) + a_{-j} \comm[a_k]{ a_{j+n}} \psi(\eps j)} \\
+&= \frac{1}{2}\psquare{ka_{k+n}\psi(\eps k) + ka_{k+n}\psi(\eps(-n-k))} \\
+&= k a_{k+n} \quad \text{(for $\eps$ small)}
+}
+\end{proof}
+
+With the above we can state and prove the following:
+
+\begin{theorem}
+Let $V$ be as above and assume $\forall v \in V, \, \hbar v = v$. (e.g. $V = B(\mu,1)$). Then 
+\eq{
+\comm[L_m]{L_n} = (m-n)L_{m+n} + \delta_{m,-n} \frac{m^3 - m}{12}
+}
+\end{theorem}
+\begin{proof}
+Using notation from before calculate 
+\eq{
+\comm[L_m(\eps)]{L_n} &= \frac{1}{2} \sum_{j \in \mbb{Z}} \comm[a_{-j}a_{j+m}]{L_n}\psi(\eps j) \\
+&= \frac{1}{2} \sum_{j \in \mbb{Z}} \psquare{\comm[a_{-j}]{L_n}a_{j+m} + a_{-j}\comm[a_{j+m}]{L_n}}\psi(\eps j) \\
+&= \frac{1}{2} \sum_{j \in \mbb{Z}} \psquare{(-j)a_{n+j}a_{j+m} + (j+m)a_{-j}a_{j+m+n}}\psi(\eps j) \\
+&= \frac{1}{2} \sum_{j \in \mbb{Z}} \psquare{(-j):a_{n+j}a_{j+m}: + (j+m):a_{-j}a_{j+m+n}:}\psi(\eps j)\\
+&\phantom{=} - \frac{1}{2}\delta_{m,-n}\sum_{j < -m}(-m-j)j \psi(\eps j) + \frac{1}{2}\delta_{m,-n}\sum_{j<0} (-j)(j+m) \psi(\eps j) \\
+&= \frac{1}{2} \sum_{j \in \mbb{Z}} \psquare{(-j):a_{n+j}a_{j+m}: + (j+m):a_{-j}a_{j+m+n}:}\psi(\eps j) \\
+&\phantom{=} + \frac{1}{2}\delta_{m,-n} \sum_{j=-1}^{-m} j(j+m) \psi(\eps j)
+}
+The first sum telescopes (reindexing) giving a finite sum, so we can then take the limit $\eps \to 0$, and we get 
+\eq{
+\comm[L_m]{L_n} = \frac{1}{2}\sum_{j \in \mbb{Z}} (m-n) :a_{-j}a_{j+m+n}: + \frac{1}{2} \delta_{m,-n} \sum_{j=-1}^{-m} j(j+m)
+}
+and answer follows. 
+\end{proof}
+
+\begin{definition}
+A $\Vir$ rep $V$ has \bam{central charge} $c \in \mbb{C}$ if 
+\eq{
+\forall v \in V, \, c_{\Vir} \cdot v = cv
+}
+where $c_{\Vir}$ is the central charge of $\Vir$. 
+\end{definition}
+
+\begin{remark}
+The theorem says that the $\Heis$ rep $V$ has central charge 1. If the central charge was 0, these reps would be reps of $\Witt$, and moreover this is a bijection.
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Connection to affine Lie algebras}
+
+Recall that if $\mf{g}$ is a finite-dimensional Lie algebra then $\mc{L}\mf{g} = \mf{g}[t,t^{-1}] = \mf{g} \otimes \mbb{C}[t,t^{-1}]$ with bracket $\comm[xf]{yg} = \comm[x]{y} fg$, then the affine Lie algebra $\hat{\mf{g}}$ is a natural central extension with SES 
+\eq{
+0 \to \mbb{C}k \to \tilde{\mc{L}\mf{g}} \to \mc{L}\mf{g} \to 0
+}
+If $\mf{g}$ is simple, then $\hat{\mf{g}} = \tilde{\mc{L}\mf{g}} \oplus \mbb{C}d$ is Kac-Moody. 
+
+\begin{example}
+If $\mf{g} =\mf{a} =  \mbb{C}a$ is a 1-dimensional abelian Lie algebra then 
+\eq{
+\mc{L}\mf{a} &\to \Heis \\
+at^n &\mapsto a_n \\
+k &\mapsto \hbar
+}
+is LA hom. 
+\end{example}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Highest weight representations}
+
+\begin{definition}
+Let $V$ be a rep space of $\Vir$. We say $v \in V$ is \bam{singular} of weight $(h,c) \in \mbb{C}^2$ if 
+\begin{itemize}
+    \item $L_0 v = hv$
+    \item $c_{\Vir} v = cv$
+    \item $\forall n >0, \, L_n v = 0$
+\end{itemize}
+\end{definition}
+
+\begin{definition}
+Let $v \in V$ be singular. We say it is a \bam{highest weight vector} if 
+\eq{
+V = \spn \pbrace{L_{-n_1} \dots L_{-n_k}v \, | \, k,n_1, \dots, n_k >0}
+}
+\end{definition}
+
+\begin{remark}
+There is a similar definition for Kac-Moody algebras. 
+\end{remark}
+
+\begin{example}
+$v = 1 \in B(\mu,1)$ is a singular vector of weight $(\frac{1}{2}\mu^2,1)$. 
+\end{example}
+
+\begin{prop}
+Let $V$ be a highest weight rep of $\Vir$ with highest weight $(h,c)$. Then
+\begin{itemize}
+    \item The module $V$ has central charge $c$, i.e. $\forall w \in V, \, c_{\Vir}w = cw$
+    \item We have 
+    \eq{
+    V = \bigoplus_{k \in \mbb{Z}_{\geq 0}}V_{h+k}
+    }
+    where $V_\lambda = \pbrace{w \in V \, | \, L_0 w = \lambda w}$.
+    \item Each $V_{h+k} $ is finite dimensional 
+    \item $\dim V_h = 1$. 
+\end{itemize}
+\end{prop}
+
+\begin{prop}
+Let $V$ be a highest weight module. Then there is a unique maximal proper submodule $V^{\prime\prime} \subseteq V$. Hence $V^\prime = \faktor{V}{V^{\prime\prime}}$ is an irreducible highest weight rep with the same highest weight as $V$.  
+\end{prop}
+\begin{proof}
+Let $V^{\prime\prime}$ be the sum of all proper submodules of $V$. It remains to be shown that $V^{\prime\prime} \neq V$. Assume $U \subsetneq V$ is a submodule, and then we know $U \cap V_h = \pbrace{0}$ as the intersection is either $0$ (as $V_h$ is 1 dimensional) or contains the highest weight vector, and in the latter case we would have $U=V$. So 
+\eq{
+U = \bigoplus_{k \in \mbb{Z}_{\geq 0}} (U \cap V_{h+k}) \subseteq \bigoplus_{k \in \mbb{Z}_{> 0}} V_{h+k} 
+}
+and then 
+\eq{
+V^{\prime\prime} = \sum U = \subseteq \bigoplus_{k \in \mbb{Z}_{> 0}} V_{h+k} 
+}
+so $V^{\prime\prime} \neq V$. To get the second part, note that $W \subsetneq V^{\prime}$ has preimage under the quotient which must lie in $V^{\prime\prime}$ $\Rightarrow W= 0$. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Verma modules}
+\begin{prop}
+Let $(h,c) \in \mbb{C}^2$. Then $\exists$ a highest weight $\Vir$-module $M(h,c)$ with highest weight $(h,c)$ and highest weight vector $v_M$ s.t. 
+\begin{itemize}
+    \item $\forall V$ another rep of highest weight $(h,c)$ with hwv $v$ $\exists !$ $\Vir$-module hom 
+    \eq{
+    M(h,c) & \to V \\
+    v_M &\mapsto v
+    }
+    \item $V$ is isomorphic to a quotient of $M(h,c)$
+\end{itemize}
+\end{prop}
+\begin{proof}
+As a vector space 
+\eq{
+\Vir = \Vir_+ \oplus \mf{h} \oplus \Vir_-
+}
+where $\Vir_\pm = \spn\pbrace{L_n \, | \, n \gtrless 0 }$ and $\mf{h} = \spn\pbrace{L_0,c_{\Vir}}$. Let $\Vir_{\geq 0} = \Vir_+ \oplus \mf{h}$ Then we have 
+\eq{
+\rho : \Vir_{\geq 0} &\to \mf{gl}_1 = \mf{gl}(\mbb{C}_{(h,c)}) \\
+\forall n >0, \, L_n &\mapsto 0 \\
+L_0 &\mapsto h \\
+c_{\Vir} &\mapsto c
+}
+Hence 
+\eq{
+\rho : U(\Vir_{\geq 0}) &\to \mf{gl}_1
+}
+is an extension to an associative algebra hom from the UEA. We can then construct $M(h,c)$ by 
+\eq{
+M(h,c) &= U(\Vir) \otimes_{U(\Vir_{\geq 0})} \mbb{C}_{(h,c)} \\
+&\cong \faktor{U(\Vir)}{U(\Vir)(x, -\rho(x), x \in \Vir_+)}
+}
+
+\begin{ex}
+Show that this constructed $M(h,c)$ has the properties required, with hwv 1. 
+\end{ex}
+
+\end{proof}
+
+\begin{ex}
+Show that if $M,M^\prime$ are two modules satisfying the above, then $M \cong M^\prime$
+\end{ex}
+\begin{definition}
+$M(h,c)$ is called the \bam{Verma module} of highest weight $(h,c)$
+\end{definition}
+
+\begin{corollary}
+$\forall (h,c) \in \mbb{C}^2$, there is a unique irreducible $\Vir$-module $V(h,c)$ of highest weight $(h,c)$
+\end{corollary}
+\begin{proof}
+Let $V(h,c) = \faktor{M(h,c)}{J(h,c)}$ be the unique irreducible quotient of $M(h,c)$. Then by def any other such $V$ irreducible of highest weight is isomorphic to a quotient so $V \cong V(h,c)$
+\end{proof}
+
+\begin{prop}
+The Verma module $M(h,c)$ has basis 
+\eq{
+\pbrace{L_{-n_k} \dots L_{-n_1} v_M \, | \, k \geq 0, \, 0 < n_1 \leq \dots \leq n_k}
+}
+\end{prop}
+\begin{proof}
+By the Poincare-Birkhoff-Witt theorem we know 
+\eq{
+\pbrace{L_{-n_k} \dots L_{-n_1} c^i h^j L_{m_1} \dots L_{m_l} \, | \, i,j > 0, \, k,l \geq 0, \, 0 < n_1 \leq \dots \leq n_k, \, 0 < m_1 \leq \dots \leq m_l}
+}
+Then as the latter part is a basis for $U(\Vir_{\geq 0})$, it gets cancelled in the quotient. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Unitary reps}
+
+Recall we knew that $1$ is a singular vector of weight $(\frac{1}{2}\mu^2,1)$ for the rep $B(\mu,1)$. If we define 
+\eq{
+B^\prime(\mu,1) = \spn\pbrace{L_{-n_k}\dots L_{-n_1}1 \, | \, k \geq 0, \, n_i > 0} \subseteq B(\mu,1)
+}
+then $B^\prime(\mu,1)$ is now a highest weight rep with highest weight $(\frac{1}{2}\mu^2,1)$. 
+
+\begin{definition}
+Let $\mf{a}$ be a complex Lie algebra. An \bam{anti-involution} on $\mf{a}$ is a function $\omega : \mf{a} \to \mf{a}$ s.t. 
+\begin{itemize}
+    \item $\omega^2 = \id$
+    \item $\omega(ax+by) =\bar{a}x + \bar{b}y$
+    \item $\omega(\comm[x]{y}) = - \comm[\omega(x)]{\omega(y)}$
+\end{itemize}
+\end{definition}
+
+\begin{definition}
+If $V$ is an $\mf{a}$-rep, then a Hermitian form on $V$ is \bam{contravariant} if 
+\eq{
+\forall u,v \in V, \, x \in \mf{a}, \, \pangle{x \cdot u,v} = \pangle{u,\omega(x)\cdot v}
+}
+\end{definition}
+
+\begin{definition}
+A rep $V$ is \bam{unitary} if it admits a contravariant inner product.
+\end{definition}
+
+\begin{example}
+Anti-inovlutions on $\Heis$ and $\Vir$ are given by 
+\begin{enumerate}
+    \item $\omega_{\Heis}(a_n) = a_{-n}, \, \omega_{\Heis}(\hbar) = \hbar$
+    \item $\omega_{\Vir}(L_n) = L_{-n}, \, \omega_{\Vir}(c) = c$
+\end{enumerate}
+Note 
+\eq{
+\omega_{\Heis}(L_n) = \frac{1}{2}\sum_{j \in \mbb{Z}}\omega_{\Heis}(:a_{-j}a_{j+n}:) = \frac{1}{2}\sum_{j \in \mbb{Z}} :a_{-j-n} a_j: = L_{-n} = \omega_{\Vir}(L_n)
+}
+\end{example}
+
+\begin{prop}
+Assume $\mu \in \mbb{R}$, then the $\Heis$ rep $B(\mu,1)$ has a unique contravariant inner product s.t. $\pangle{1,1}=1$. Explicitly 
+\eq{
+\pangle{P,Q} = \pangle{\omega(P)Q} 
+}
+where $\pangle{\cdot}= \text{take constant term}$ and 
+\eq{
+\omega : \mbb{C}[x_1, \dots, ] &\to \Heis
+}
+is the complex anti-linear ring hom given by $\omega(x_n) = \frac{1}{n}a_n $
+\end{prop}
+\begin{proof}
+\begin{ex}
+Do this
+\end{ex}
+\end{proof}
+
+\begin{corollary}
+$B(\mu,1)$ is a unitary $\Vir$ rep. 
+\end{corollary}
+
+\begin{lemma}
+Let $V$ be a unitary $\Vir$-module such that $V = \bigoplus_{\lambda \in \mbb{C}}V_\lambda$ is a direct sum of $L_0$-eigenspaces and $\dim V_\lambda  < \infty$. \\
+If $U \subseteq V$ is a submodule, then $\exists U^\perp \subseteq V$ another submodule s.t. $V = U \oplus U^\perp$. 
+\end{lemma}
+\begin{proof}
+Let 
+\eq{
+U^\perp = \pbrace{v \in V \, | \, \forall u \in U, \, \pangle{u,v}=0}
+}
+It is simple to check $U^\perp \subseteq V$ is a submodule, and $U \cap U^\perp = 0$. To show $V = U + U^\perp$, note we can decompose $v \in V$ into eigenvectors of $L_0$, so it is sufficient to show $V_\lambda \subseteq U + U^\perp$. But 
+\eq{
+V_\lambda = (V_\lambda \cap U) \oplus (V_\lambda \cap U^\perp)
+}
+as $\dim V_\lambda < \infty$
+\end{proof}
+
+\begin{lemma}
+Let $V$ be a unitary highest weight rep. Then $V$ is irreducible.
+\end{lemma}
+\begin{proof}
+Let $V^{\prime\prime} \subseteq V$ be the unique maximal proper submodule. Then $(V^{\prime\prime})^\perp \subseteqq V$ is a submodule and $V^{\prime\prime} \cap (V^{\prime\prime})^\perp = 0$. THen either 
+\begin{enumerate}
+    \item $(V^{\prime\prime})^\perp = V \Rightarrow$ done 
+    \item $(V^{\prime\prime})^\perp = 0 \Rightarrow V = V^{\prime\prime}$ contradction. 
+\end{enumerate}
+\end{proof}
+
+\begin{prop}
+Assume $\mu \in \mbb{R}$. Then the highest weight module $B^\prime(\mu,1)$ is irreducible. 
+\end{prop}
+\begin{proof}
+Use that $B^\prime$ is unitary. then done by lemma. 
+\end{proof}
+
+\begin{prop}
+Assume $h,c \in \mbb{R}$. Then 
+\begin{enumerate}
+    \item If $M(h,c)$ is unitary, then $h,c > 0$
+    \item If $h \geq 0, \, c \geq 1$, then the irreducible representation $V(h,c) = \faktor{M(h,c)}{J(h,c)}$ is unitary
+    \item If $h>0, \, c>1$ then $M(h,c) = V(h,c)$. 
+\end{enumerate}
+\end{prop}
+
+\begin{prop}
+Assume $h,c \in \mbb{R}$. Let $v \in M(h,c)$ be the highest weight vector. Then 
+\begin{enumerate}
+    \item $\exists !$ contravariant Hermitian form on $M$ s.t. $\pangle{v,v}=1$
+    \item The eigenspaces of $L_0$ are pairwise orthogonal
+    \item $\ker \pangle{\cdot,\cdot} = J(h,c)$ is a maximal proper submodule
+\end{enumerate}
+Hence $V(h,c)$ carries a non-degenerate Hermitian form s.t. $\pangle{v,v}=1$
+\end{prop}
+\begin{proof}
+See notes
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Kac Determinant formula}
+Recall we have a basis for $M(h,c)$. Kac found a formula for the determinant of $\ev{\pangle{\cdot,\cdot}}{M(h,c)_{h+n}}$
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Lie algebra of infinite matrices}
+
+\begin{definition}
+Define
+\eq{
+\mf{gl}_\infty = \pbrace{(a_{ij}) \, | \, a_{ij} \in \mbb{C}, \, \text{almost all entries 0}}
+}
+It has has basis $\pbrace{E_{ij}}$, the natural extension of that for finite $\mf{gl}_n$. 
+\end{definition}
+
+\begin{prop}
+$\mf{gl}_\infty$ is a Lie algebra with bracket given by matrix commutation. 
+\end{prop}
+
+Recall the definition of a grading:
+
+\begin{definition}
+A \bam{graded Lie algebra} is a Lie algebra $\mf{g}$ with decomposition $\mf{g} = \bigoplus_{k \in \mbb{Z}} \mf{g}_k$ s.t. 
+\eq{
+\comm[\mf{g}_k]{\mf{g}_l} \subseteq \mf{g}_{k+l}
+}
+We write $\forall X \in \mf{g}_k, \, \deg X = k$
+\end{definition}
+
+\begin{prop}
+We can make $\mf{gl}_\infty$ into a graded Lie algebra with grading 
+\eq{
+(\mf{gl}_\infty)_k = \spn\pbrace{E_{ij} \, | \, i-j=k}
+}
+\end{prop}
+
+\begin{definition}
+We define the associated group to be 
+\eq{
+GL_\infty = \pbrace{(A_{ij}) \, | \, A_{ij} \in \mbb{C}, \, \text{invertible, almost all $A_{ij}-\delta_{ij}$ 0}}
+}
+with operation given by matrix multiplication
+\end{definition}
+
+\begin{prop}
+$GL_\infty$ is a Lie group with Lie algebra $\mf{gl}_\infty$
+\end{prop}
+
+It turns out we need a bigger Lie algebra
+
+\begin{definition}
+Let 
+\eq{
+\mf{gl}_\infty^\Delta = \pbrace{(a_{ij}) \, | \, \forall \abs{i-j} \gg 0, \, a_{ij}=0}
+}
+\end{definition}
+
+\begin{prop}
+$\mf{gl}_\infty \subset \mf{gl}_\infty^\Delta$
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Central extension}
+
+\begin{definition}
+Consider the central extension $\hat{\mf{gl}}_\infty^\Delta$ defined by 
+\eq{
+0 \to \mbb{C}c \to \hat{\mf{gl}}_\infty^\Delta \to \mf{gl}_\infty^\Delta \to 0
+}
+with bracket given by, for $a,b \in \mf{gl}_\infty^\Delta$,
+\eq{
+\comm[a]{b} = ab - ba + \gamma(a,b)c
+}
+$\gamma$ is called the \bam{cocycle} and satisfies 
+\eq{
+\gamma(E_{ij},E_{ji}) = 1 = -\gamma(E_{j-i},E_{ij} \quad \text{for $i \leq 0$, $j \geq 1$} 
+}
+and is $0$ otherwise. 
+\end{definition}
+
+We have representations of $\Heis$ and $\Vir$ inside $\hat{\mf{gl}}_\infty^\Delta$ given by 
+\eq{
+V  = \bigoplus_{j \in \mbb{Z}} \mbb{C} v_j
+}
+There is then a natural action on $V$ by multiplication. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Shift operators}
+
+\begin{definition}
+Define the \bam{shift operator} $\Delta_k : V \to V$, $v_j \mapsto v_{j-k}$. We can write explicitly \eq{
+\Lambda_k = \sum_{i \in \mbb{Z}} E_{i,i+k}
+}
+\end{definition}
+
+\begin{prop}
+$\comm[\Delta_k]{\Delta_j} = 0$
+\end{prop}
+
+Let $ \eta = \oplus_k \mbb{C} \Lambda_k$ be the subalgebta of $\mf{gl}_\infty^\Delta$. We can then let $\hat{\eta}$ be the central extension given by 
+\begin{tkz}
+ 0 \arrow[r] & \mbb{C}c \arrow[r] & \hat{\mf{gl}}_\infty^\Delta \arrow[r] & \mf{gl}_\infty^\Delta \arrow[r] & 0 \\ 
+ 0 \arrow[r] & \mbb{C}c \arrow[r] & \hat{\eta} \arrow[r] \arrow[u,hook] & \eta \arrow[r] \arrow[u,hook] & 0 
+\end{tkz}
+
+
+\begin{prop}
+We have
+\begin{itemize}
+    \item $\gamma(\Lambda_n,\Lambda_k) = n \delta_{n,-k}$
+    \item $\hat{\eta} = \Heis$
+\end{itemize}
+\end{prop}
+\begin{proof}
+The first point is a calculation, Secondly, there is an explicit isomorphism, and the relations are the same in each. 
+\end{proof}
+
+\begin{prop}
+For the $\Witt$ algebra we can say 
+\begin{itemize}
+    \item $\exists$ a family of embeddings depending on $\alpha,\beta \in \mbb{C}$ given by 
+    \eq{
+    i_{\alpha,\beta} : \Witt &\hookrightarrow \mf{gl}_\infty^\Delta  \\
+    L_n &\mapsto \sum_{k \in \mbb{Z}} \psquare{k - \alpha - \beta(n+1)}E_{k+n,k}
+    }
+    \item Let $\hat{\Witt} \subset \hat{\mf{gl}}_\infty^\Delta$ be the central extension. Then 
+    \eq{
+    \gamma(L_i,L_j) = \delta_{i,-j} \pround{\frac{i^3 - i}{12}c_\beta + 2ih_0}
+    }
+    where $c_\beta = -12\beta^2 + 12\beta - 2$ and $h_0 = \frac{1}{2}\alpha(\alpha + 2\beta - 1)$
+    \item Let $\hat{L_n} = L_n + \delta_{n,0}h_0 c$. Then 
+    \eq{
+    \comm[\hat{L_n}]{\hat{L}_m} = (n-m) \hat{L}_{n+m} + \delta_{n,-m} \pround{\frac{n^3 - n}{12}}c_\beta c
+    }
+\end{itemize}
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fermionic Fock space}
+
+We can then consider $T(V) = \bigoplus_{k \geq 0} V^{\otimes k}$, let $I = \pangle{x \otimes x}$, and then get 
+\eq{
+\Lambda(V) = \faktor{T(V)}{I}
+}
+This comes equipped with a projection map $p : T(V) \to \Lambda(V)$. Letting $p(T_k(V) = \Lambda^k(V)$, we get the decomposition
+\eq{
+\Lambda(V) = \bigoplus_{k\geq 0} \Lambda^k(V)
+}
+There are also linear maps 
+\eq{
+\phi_{s,k}^{(m)} : \Lambda^k(V) &\to \Lambda^s(V) \\
+u &\mapsto u \wedge (v_{-k+m} \wedge \dots \wedge v_{-s+k+m}
+}
+for fixed $m \in \mbb{Z}, \, k \leq s$. These maps obey 
+\eq{
+\phi_{r,s}^{(m)} \circ \phi_{s,k}^{(m)} &= \psi_{r,k}^{(m)} \\
+\phi_{k,k}^{(m)} &= \id
+}
+Hence $(\Lambda^k(V),\phi_{r,k}^{(m)})$ for a \bam{direct system} for each $m \in \mbb{Z}$. I can then take the direct limit to get 
+\begin{definition}
+The \bam{Fermionic Fock space of charge m} is 
+\eq{
+F^{(m)} = \Lambda_{(m)}^\infty(V) = \lim_{\to} \Lambda^k(V)
+}
+The construction works as 
+\eq{
+\lim_{\to} \Lambda^k(V) = \faktor{\bigsqcup_k \Lambda^k(V)}{\sim}
+}
+where the equivalence relation is given by 
+\eq{
+x_i \in \Lambda^i(V) \sim x_j \in \Lambda^j(V) \Leftrightarrow \exists h,\, i,j \leq h, \, \phi_{h,i}^{(m)}(x_i) = \phi_{k,j}^{(m)}(x_j)
+}
+\end{definition}
+
+We have a basis given by 
+\eq{
+\psi = v_{i_0} \wedge v_{i_{-1}} \wedge \dots \ 
+}
+called the \bam{semi-infinite monomials}, requiring the conditions 
+\begin{itemize}
+    \item $i_0 > i_{-1} > \dots $
+    \item $ i_k = k+m$ for $k \ll 0$.
+\end{itemize}
+This generalises naturally to get 
+\eq{
+\psi_m = v_m \wedge v_{m-1} \wedge \dots
+}
+which is the \bam{vacuum vector of charge m}. \\
+The FFS comes with a grading given by 
+\eq{
+\deg \psi = \sum_{s\geq 0} i_{-s}+s-m
+}
+which is forced to be finite by our condition on $i_k$ for $k \ll 0$. We then have 
+\eq{
+F_k^{(m)} = \spn \pbrace{\psi \, | \, \deg \psi = k}
+}
+Now let $\lambda = (\lamdba_0, \dots, \lambda_{n-1}) + k$ be a partition if $h$, that is 
+\begin{itemize}
+    \item $\lambda_0 + \dots + \lambda_{n-1} + k = h$
+    \item $\lamdba_0 \geq \lambda_1 \geq \dots \geq \lambda_{n-1}$
+\end{itemize}
+
+We can then get semi-infinite monomials $\psi_\lambda$ from partitions by saying $j_{-i} = \lambda_i -i+m$ for $i=0, \dots, n-1$ and then $j_{-n-i} = -n+m-i$
+
+\begin{example}
+Take $\lambda = (5,3,3,1) + 12$ is a partition of 24. Take $m=0$. We then find 
+\eq{
+j_{0} &= 5
+j_{-1} &=  2 \\
+j_{-2} &= 1 \\
+j_{-3} &= -2
+}
+and so we get 
+\eq{
+\psi_\lambda = (v_5 \wedge v_2 \wedge v_1 \wedge v_{-2}) \wedge v_{-4} \wedge v_{-5} \wedge \dots 
+}
+\end{example}
+
+\begin{prop}
+We have 
+\begin{itemize}
+    \item $F^{(m)} = \bigoplus_{k \geq 0} F_k^{(m)}$, $F_0^{(m)} = \mbb{C}\psi_m$
+    \item $\dim F_k^{(m)} = p(k) =$number of partitions of k
+    \item $\dim_q F^{(m)} \equiv \sum_{k \geq 0}(\dim F_k^{(m)})q^k = \prod_{l \geq 1} (1-q^l)^{-1}$
+\end{itemize}
+\end{prop}
+\begin{proof}
+\begin{itemize}
+    \item Clear
+    \item $\pbrace{\psi_\lambda \, | \, \lambda \text{ partition of h}}$ is a basis of $F_h^{(m)}$
+    \item The first part is the definition. Then we have 
+    \eq{
+    \dim_q F^{(m)} = \sum_{k \geq 0} p(k) q^k
+    }
+\end{itemize}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Representations of \secmath{GL_\infty, \, \mf{gl}_\infty, \, \text{on }F^{(m)}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Actions on tensor products}
+Let $\mf{g}$ be a Lie algebra and $M,N$ $\mf{g}$-reps. Then $M \otimes_{\mbb{C}}N$ is a representation space of $\mf{g}$ given by 
+\eq{
+x \in \mf{g}, \, m,n \in M,N, \, x \cdot(m \otimes n) = (x \cdot m) \otimes n + m \otimes (x \cdot n)
+}
+If $G$ is a group, then we get a rep on $M \otimes_{\mbb{C}} N$ by 
+\eq{
+g \cdot(m \otimes n) = (gm) \otiems (gn)
+}
+
+\begin{remarl}
+
+\end{remarl}
+
+
+\end{document}

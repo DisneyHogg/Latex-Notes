@@ -1,0 +1,1174 @@
+\documentclass{article}
+
+\usepackage{header-colourful}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Lie Algebroids and Poisson Geometry}
+\author{Linden Disney-Hogg}
+\date{Februrary 2020}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+These are typset notes based on a small graduate lecture course given by Carlos.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Poisson Algebra}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Poisson Algebra}
+
+\begin{definition}
+A \bam{Poisson algebra} is a triple $(A, \cdot , \acomm[]{})$, where 
+\begin{enumerate}
+    \item $(A,\cdot)$ is a commutative $\mbb{R}$-algebra
+    \item $(a, \acomm[]{})$ is a Lie $\mbb{R}$-algebra
+    \item Leibniz identity giving compatibility: $\acomm[a]{b\cdot c} = \acomm[a]{b}\cdot c + b \cdot \acomm[a]{c}$. 
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+Here we will assume commutatiev algebras are unital and associative. 
+\end{remark}
+
+\begin{remark}
+In general the derivations on the algebra will be those that follow this Leibniz. This is equivalent to asking that $\ad_{\acomm[]{}}: A \to \Der(A, \cdot) \subset \End_{\mbb{R}}(A)$. 
+\end{remark}
+
+If we ask that $X \in \Der(A, \cdot) \cap \Der(A, \acomm[]{})$ we have that $X$ is a \bam{Poisson derivation}. The elements $X_a \equiv \acomm[a]{\cdot}$ is called a \bam{Hamiltonian derivation}. 
+
+
+\begin{definition}
+We say that $\psi : A \to B$ is a \bam{Poisson algebra morphism} if 
+\begin{enumerate}
+    \item $\psi : (A, \cdot) \to (B, \cdot)$ is a morphism of commutative algebras
+    \item $\psi : (A, \acomm[]{}) \to (B, \acomm[]{})$ is a morphism of Lie algebras
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+$I \subset A$ is a \bam{coisotrope} if 
+\begin{enumerate}
+    \item $I \subset (A, \cdot)$ is an ideal
+    \item $I \subset (A, \acomm[]{})$ is a Lie subalgebra. 
+\end{enumerate}
+\end{definition}
+
+\begin{prop}[Reduction of Poisson algebras]
+Let $N(I)\equiv \pbrace{a \in A \, | \, \comm[a]{I} \subset I}$ be the idealiser. Then $\faktor{N(I)}{I} \equiv A^\prime$ inherits a Poisson algebra structure from $A$.  
+\end{prop}
+
+\begin{idea}
+This is really the point of coisotropes, that they give us a way to do this reduction. 
+\end{idea}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Poisson Manifolds}
+
+\begin{definition}
+$(P,\acomm[]{})$ is a \bam{Poisson manifold} when $(C^\infty(P), \cdot, \acomm[]{})$ is a Poisson algebra. 
+\end{definition}
+
+Recall $\Der(C^\infty(P), \cdot) \cong \Gamma(TP)$. We can then define Poisson and Hamiltonian vector fields naturally using this isomorphism. 
+
+\begin{definition}
+$(P,\Pi)$ is \bam{Poisson} when $\Pi \in \Gamma(\Lambda^2 TM)$ satisfies $\Pi(df, dg) = \acomm[f]{g}$. 
+\end{definition}
+
+\begin{fact}
+We have the characterisation that $\Pi$ is Poisson iff $\dcomm[\Pi]{\Pi} = 0$. 
+\end{fact}
+
+\begin{definition}
+$\phi : P_1 \to P_2$ is a \bam{Poisson map} if $\phi^\ast : C^\infty(P_1) \to C^\infty(P_2)$ is a Poisson morphism. 
+\end{definition}
+
+We can now define 
+\eq{
+\Pi^\sharp :T^\ast P \to TP \\
+}
+And $\Pi^\sharp \subset TP$ gives a horizontal distribution called the \bam{Hamiltonian distribution}. 
+
+\begin{definition}
+$ C \subset (P,\Pi)$ is a \bam{coisotropic submanifold} if 
+\eq{
+(T_x C)^\circ \equiv \pbrace{\alpha \in T_x^\ast P \, | \, \forall v \in T_xC \, \alpha(v) = 0}
+}
+satisfies that $\forall x \in C, \, (T_xC)^\circ \subset (T_x^\ast,\Pi_x)$ is isotropic, i.e. $\forall \alpha, \beta \in (T_c C)^\circ, \, \Pi_x(\alpha,\beta)=0$. 
+\end{definition}
+
+\begin{prop}[Characterisation of coisotropic submanifolds]
+TFAE
+\begin{enumerate}
+    \item $C \subset (P,\Pi)$ is coisotropic
+    \item $I_C =\pbrace{g \in C^\infty(P) \, | \, \ev{g}{C} = 0}\subset C^\infty(P)$ is coisotropic
+    \item $X_{I_C} \subset TC$. 
+\end{enumerate}
+\end{prop}
+
+\begin{definition}
+If $(P_1, \Pi_1), (P_2, \Pi_2)$ are Poisson manifolds, then the \bam{Poisson product manifold} $(P_1 \times P_2, \Pi_{12})$ is a Poisson manifold, where 
+\eq{
+\Pi_{12} = \Pi_1 + \Pi_2
+}
+via $T(P_1 \times P_2) \cong TP_1 \oplus TP_2$. Equivalently, there is a unique Poisson structure on $P_1 \times P_2$ s.t. 
+\begin{tkz}
+(P_1, \acomm[]{}_1) & (P_1 \times P_2, \acomm[]{}_{12}) \arrow[l,"pr_1"] \arrow[r,"pr_2"] & (P_2, \acomm[]{}_2)
+\end{tkz}
+are Poisson maps and 
+\eq{
+\forall f_i \in C^\infty(P_i), \, \acomm[pr_1^\ast f_1]{pr_2^\ast f_2} = 0
+}
+\end{definition}
+
+Now we want to consider $\bar{P}_1$ the Poisson manifold s.t $(\bar{P}_1, \bar{\Pi}_1) = (P_1, -\Pi_1)$. Take $R \subset P_2 \times \bar{P}_1$, and if $R$ is a coisotropic submanifold we can consider it to be a \bam{coisotropic relation} $R : (P_1, \Pi_1) \to (P_2, \Pi_2)$. 
+
+\begin{prop}[Poisson maps are coisotropic relations]
+Given $\phi:P_1 \to P_2$, it is a Poisson map iff $\graph(\phi) \subset P_2 \times \bar{P}_1$ is coisotropic. 
+\end{prop}
+
+\begin{theorem}[Coisotropic reduction]
+Let $(P,\Pi)$ be a Poisson manifold, $i:C \hookrightarrow P$ for some closed isotropic submanifold $C$. Assume $X_{I_C}$ integrates to a regular foliation $\chi$ on $C$ with smooth leaf space so that the map $q : C \to P^\prime \equiv \faktor{C}{\chi}$ is a submersion
+\begin{tkz}
+C \arrow[r,"i",hook]  \arrow[d, two heads] & P \\ P^\prime  
+\end{tkz}
+Then $(P^\prime, \Pi^\prime)$ inherits a Poisson structure s.t. 
+\eq{
+\forall f,g \in C^\infty(P^\prime), \, \, q^\ast \acomm[f]{g}^\prime = i^\ast \acomm[F]{G}
+}
+where $F,G \in C^\infty(P)$ are any extensions, i.e. $q^\ast f = i^\ast F, q^\ast g = i^\ast G$. 
+\end{theorem}
+
+\begin{definition}
+$\tilde{P} \subset P$ is a \bam{Poisson submanifold} if $\Pi^\sharp(T^\ast\tilde{P}) = X_{I_{\tilde{P}}} = 0 $. Equivalently the embedding $i^\ast$ is a Poisson morphism. 
+\end{definition}
+
+\begin{definition}
+A \bam{Poisson group action} is $\Psi : G \times P \to P$ via Poisson maps, or infinitesimally $\psi : \mf{g} \to \Gamma(TP)$ via Poisson vector fields. Furthermore the action is \bam{Hamiltonian} if there is a \bam{co-moment map}, $\bar{\mu} : \mf{g} \to C^\infty(P)$ a Lie algebra morphism. 
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Pre-Symplectic Manifolds}
+
+\begin{definition}
+A \bam{pre-symplectic manifold} is a pair $(S,\omega)$ where $S$ is a manifolds and $\omega \in \Omega^2(S)$ satisfies $d\omega = 0$. 
+\end{definition}
+
+\begin{definition}
+$\phi: S_1 \to S_2$ is a presymplectic map if $\phi^\ast \omega_2 = \omega_1$. 
+\end{definition}
+
+We now have the natural $\omega^\flat : TS \to T^\ast S$, and we call $\ker\omega^\flat \equiv \mc{K}_\omega$. 
+
+\begin{prop}
+$\mc{K}_\omega$ is an involutive distribution.  
+\end{prop}
+\begin{proof}
+Follows from $d\omega = 0$.
+\end{proof}
+
+Now $X \in \Gamma(TS)$ is a Hamiltonian vector field if of $ f \in C^\infty(S)$ s.t. 
+\eq{
+\omega^\flat(X) = df
+}
+This is Hamilton's equation on a pre-symplectic manifold. This $X$ may not be a unique solution, and further may not exists, and so we define 
+\eq{
+C^\infty_\omega(S) = \pbrace{f \in C^\infty(S) \, | \, \exists X_f \, s.t. \, \omega^\flat(X_f) = df }
+}
+we call these the \bam{admissible functions} of $(S,\omega)$. 
+
+\begin{ex}
+$C^\infty_\omega(S) \subset C^\infty(S)$ is a subring. 
+\end{ex}
+
+\begin{prop}[Admissible functions are a Poisson algebra]
+$(C^\infty_\omega(S), \cdot)\subset C^\infty(S)$ is a commutative subalgebra, with 
+\eq{
+\forall f, g \in C^\infty_\omega(S) , \, \acomm[f]{g}_\omega = \omega(X_f,X_g)
+}
+\end{prop}
+\begin{proof}
+We will give a sketch: Well defined as $\mc{K}_\omega$ is involutive. The Jacobi identity for $\acomm[]{}_\omega $ is equivalent to $d\omega = 0$. 
+\end{proof}
+
+\begin{definition}
+We have the \bam{product pre-symplectic manifold} of $(S_i,\omega_i)$ by $(S_1 \times S_2, pr_1^\ast \omega_1 + pr_2^\ast \omega_2)$. 
+\end{definition}
+
+\begin{definition}
+$i: C \hookrightarrow (S, \omega)$ is an isotropic submanifold if $i^\ast \omega = 0$. 
+\end{definition}
+
+\begin{definition}
+A \bam{Hamiltonian group action} is $\Phi : G \times S \to S$ via pre-symplectic maps s.t infinitesimally $\psi : \mf{g} \to \Gamma(TS)$  satisfies $\mc{L}_{\phi(a)} \omega = 0$. Equivalently we have a comoment map $\bar{\mu} : \mf{g} \to C^\infty_\omega(S)$ that is a Lie algebra morphism. 
+\end{definition}
+
+\begin{remark}
+We require admissible functions above as it means that we can have a Hamiltonian vector field to generate the flow. i.e. 
+\eq{
+\omega^\flat (\psi(a)) = d\bar{\mu}(a)
+}
+\end{remark}
+
+\begin{prop}[Hamiltonian pre-symplectic reduction]
+Let $G \lact (S, \omega)$ be Hamiltonian. Assume that $\mu^{-1}(0)$ is an embedded submanifold on which $G$ acts freely and properly. Then we have the diagram 
+\begin{tkz}
+\mu^{-1}(o) \arrow[r,hook, "i"] \arrow[d,two heads, "q"'] & (S,\omega) \\ (S^\prime,\omega^\prime)
+\end{tkz}
+where $S^\prime = \faktor{\mu^{-1}(0)}{G}$, $q$ is the quotient, and $\omega^\prime$ is uniquely defined by $q^\ast \omega^\prime = i^\ast \omega$. We then get 
+\eq{
+\mc{K}_{\omega^\prime} = \faktor{\mc{K}_\omega}{\ev{\psi(\mf{g})}{\mu^{-1}(0)}}
+}
+\end{prop}
+
+Let $(P,\Pi)$ be a Poisson manifold. We have $\Pi^\sharp \subset TP$ is in involution from $\comm[X_f]{X_g} = X_{\acomm[f]{g}}$, which follows from the Jacobi identity. Now let $M \subset P$ be an integral submanifold of $\pi^\sharp(T^\ast P)$. Then $M$ is coisotropic, and moreover Poisson, as a submanifold. It inherits a Poisson structure $(M,\Pi^M)$ from coisotropic reduction, and then from the musical isomorphism we get that this is equivalently described as a pre-symplectic manifold by $(M,\Pi^{\sharp\sharp})$,. This is as $(\Pi^M)\sharp : T^\ast M \overset{\cong}{\to} TM$. Hence $\Pi^{\sharp\sharp} \in \Omega^2(M)$ and $d\Pi^{\sharp\sharp} = 0$. \\
+Conversely, we have  $\mc{K}_\omega \subset TS$ is involutive from $d\omega = 0$, and so assuming the distribution is regular and integrated by a foliation $\mc{K}_\omega$ s.t. $q: S \to M \equiv \faktor{S}{\mc{K}_\omega}$ a submersion. Further 
+\eq{
+C^\infty_\omega(S) = q^\ast C^\infty(M)
+}
+This allows us to make a Poisson manifold $(M,\omega^{\flat\flat})$. Moreover, $\omega^{\flat\flat}$ is non-degenerate. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Symplectic Manifolds}
+
+It will turn out that when we consider the intersection of the spaces of Poisson manifolds, and pre-symplectic manifolds, this turns out to be exactly the symplectic manifolds. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Lie Groupoids}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Groupoids}
+
+\begin{definition}
+A \bam{groupoid} is a (small) category with all morphisms being isomorphisms. 
+Graphically this looks like
+\begin{tkz}
+G \arrow[d,shift left,"s"] \arrow[d,shift right,"t"'] \arrow[loop left,"i"]& G \times_{s,t} G = \pbrace{(g,h) \, | \, t(g) = s(h) } \arrow[l,"m"'] \\
+M \arrow[u,"e"', bend right = 50]
+\end{tkz}
+We have $i(g) = g^{-1}$ is the inverse, $s,t$ are the source and target maps respectively, $e$ is the map giving a unit.
+\end{definition}
+\begin{remark}
+Note that categorical rules force us to have $s \circ i = t, \, t \circ i = s$. 
+\end{remark}
+
+For $x,y,z \in M$, let $g \in G(x,y) \equiv t^{-1}(y) \cap s^{-1}(x), \, h \in G(y,z), \, 1_x \in G(x,x) \equiv G_x$. We then get left and right actions defined by 
+\eq{
+L_h : t^{-1}(y) &\to t^{-1}(z) \\
+g &\mapsto hg \\
+R_g : s^{-1}(y) &\to s^{-1}(x) \\
+h &\mapsto hg
+}
+
+We can also define orbits. We say $x \sim_G y $ iff $\exists g \in G,\, s(g) = x, \, t(g) = y$ (equivalently $G(x,y) \neq \emptyset$). We then denote $O_x = [x]_G$ the $G$-orbit at $x \in M$.  \\
+We can ask questions about isotropy, and we realise $\forall x \in M$, $G_x$ is a group with restricted groupoid multiplication. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Bisections}
+\begin{definition}
+The set of \bam{bisections} on a groupoid $G$ is 
+\eq{
+\bm{\Gamma}(G) = \pbrace{M \overset{b}{\to} G \, | \, \exists \sigma_b, \tau_b : M \overset{\cong}{\to}M, \, s \circ b = \sigma_b, \, t \circ b = \tau_b. \, (\tau_b^{-1} \circ \sigma_b \circ \tau_b = \id_M)}
+}
+\end{definition}
+
+\begin{prop}
+$(\bm{\Gamma}(G),\cdot)$ is a group where $\forall a,b,x \in \bm{\Gamma}(G), \, (a \cdot b)(x) = a(\tau_b(x)) b(\tau_b^{-1} \sigma_a \tau_b(x))$
+\end{prop}
+\begin{proof}
+Let us check the conditions in order.
+\begin{itemize}
+    \item Well defined: $s \circ a \circ \tau_b = \sigma_a \circ \tau_b$. Also $t \circ b \circ \tau_b^{-1} \circ \sigma_a \circ \tau_b = \tau_b \circ \tau_b^{-1} \circ \sigma_a \circ \tau_b = \sigma_a \circ \tau_b$. Hence we can do this multiplication
+    \item Associativity: Follows from the associativity of $G$
+    \item Identity: Recall we have $e:M \to G$ satisfying $s \circ e = \id_M = t \circ e$. Then 
+    \eq{
+    (e \cdot a)(x) = e(\tau_a(x)) a(\tau_a^{-1} \id_M \tau_a(x)) = e(\tau_a(x))a(x) = a(x)
+    }
+    so $e$ is a left identity. We may check right identity similarly. 
+    \item Inverse: For $a \in \bm{\Gamma}(G)$, define $a^{-1}$ by $a^{-1}(x) = (a(\tau^{-1} \sigma_a(x))^{-1}$. Then 
+    \eq{
+    (a^{-1}\cdot a)(x) &= a^{-1}(\tau_a(x)) a(\tau_a^{-1}\sigma_{a^{-1}}\tau_a(x)) \\
+    &= (a(\tau^{-1} \sigma_a \tau_a(x))^{-1} a(\tau_a^{-1}\sigma_{a^{-1}}\tau_a(x)) \\
+    &= e(\tau_a^{-1} \sigma_a \tau_a(x))
+    }
+    where we have used that by definition $\sigma_{a^{-1}} = s \circ a^{-1} = s \circ i \circ a \circ \tau_{a}^{-1} \circ \sigma_a = t \circ a \circ \tau_a^{-1} \circ \sigma_a= \sigma_a$. Requiring that $a^{-1} \circ a = e$, we are forced to take the condition $\tau_a^{-1} \sigma_a \tau_a = \id_M \Rightarrow \sigma_a = \id_M$. 
+\end{itemize}
+\end{proof}
+
+We can now introduce the idea of \bam{Left and right translations} as for $b \in \bm{\Gamma}(G)$;
+\eq{
+L_b : G &\to G \\
+b &\mapsto b(t(g)) g \\
+R_b : G &\to G \\
+b &\mapsto g b(s(g))  
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Lie groupoids}
+\begin{definition}
+A \bam{Lie groupoid} is a groupoid s.t all sets and structure maps are smooth $C^\infty$ (i.e. internal to the category of smooth manifolds) and s.t .$s,t : G \twoheadrightarrow M$ are submersions (which gives smooth fibres). 
+\end{definition}
+
+Consequences of this definition are that:
+\begin{enumerate}
+    \item $i,R_g,L_g \in \Diff(G)$
+    \item $e : M \hookrightarrow G$ is an embedding
+    \item $G_x \hookrightarrow G$ are embedded Lie groups
+    \item $O_x \hookrightarrow G$ are immersed 
+    \item $\ev{s^{-1}(x)}{O_x} \overset{t}{\to} O_x$ is a principle $G_x$-bundles.
+\end{enumerate}
+
+\begin{prop}
+$L_\cdot : \bm{\Gamma}(G) \to \Diff(G)$ is a group morphism.
+\end{prop}
+\begin{proof}
+Exercise
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Examples of Lie groupoids}
+We have a list of examples of Lie groupoids:
+\begin{enumerate}
+    \item $M = \pbrace{x}$ where $G_x \cong G \cong \bm{\Gamma}(G)$
+    \item Manifolds $M$ modulo smooth equivalence relations $R \subset M \times M$.
+    \item The fundamental/path groupoid 
+    \eq{
+    \Pi(M) = \pbrace{[\gamma]_\text{homotopy} \, | \, \gamma:[0,1] \to M}
+    }
+    where $s([\gamma]) = \gamma(0), \, t([\gamma]) = \gamma(1)$. We get $\Pi_x(M) \cong \pi_1(M,x)$
+    \item General Linear groupoid of a vector bundle $E \to M$, 
+    \eq{
+    GL(E) = \pbrace{\psi_{xy} : E_x \overset{\cong}{\to} E_y \, | \, x, y \in M}
+    }
+    We have $GL_x(E) = GL(E_x)$. Moreover, it can be shown 
+    \eq{
+    \bm{\Gamma}(GL(E)) \cong \Aut(E)
+    }
+    leading to the slogan that Lie groupoids unify internal and external symmetries. 
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Morphisms of (Lie) groupoids}
+
+\begin{definition}
+A \bam{morphism of (Lie) groupoids} is a (smooth) functor 
+\begin{tkz}
+G \arrow[r,"\Phi"] \arrow[d,shift left] \arrow[d, shift right] & H \arrow[d,shift left] \arrow[d, shift right] \\
+M \arrow[r,"\varphi"'] & N
+\end{tkz}
+s.t. the above commutes (for $s$ diagram or $t$ diagram separately) and 
+\begin{itemize}
+    \item $\forall h,g \in G, \, \Phi(gh) = \Phi(g) \Phi(h)$ 
+    \item $\Phi \circ e_G = e_H \circ \varphi$
+    \item $\Phi \circ i_G = i_H \circ \Phi$
+\end{itemize}
+\end{definition}
+
+\begin{ex}
+Check what the morphisms are for the examples in the previous subsection. 
+\end{ex}
+
+\begin{prop}
+A morphism of Lie groupoids $\Phi:G \to H$ induces a group morphism if bisections $\Phi_\ast : \bm{\Gamma}(G) \to \bm{\Gamma}(H)$. 
+\end{prop}
+\begin{proof}
+Exercise. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Vector fields on Lie groupoids}
+
+\begin{remark}
+In this section we will be using the notation $T$ for the functorial pushforward. 
+\end{remark}
+
+\begin{definition}
+An $s$\bam{-vertical vector field} is $X \in \Gamma(\ker Ts) \equiv \Gamma(T^sG)\subset \Gamma(TG)$
+\end{definition}
+
+\begin{definition}
+The \bam{left invariant vector fields} are $\pbrace{X \, | \,  \forall g,h \in G, \, X(hg) = (T_g L_h) X(g)} \equiv \mf{X}^{LI}(G) = \Gamma^{LI}(TG)$. 
+\end{definition}
+
+\begin{prop}
+$\Gamma^{LI}(T^sG)$ is closed under the Lie bracket of vector fields. 
+\end{prop}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Geometrical Perspective}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Vector bundle preliminaries}
+Consider the category of vector bundles over manifolds $\Vect_{\Man}$, and we can fix the base to restrict to the category $\Vect_M$. We denote a vector bundle as $E \overset{\eps}{\to} M$ and then the general notion of a vector bundle morhpism os $F,G$ s.t. the diagram 
+\begin{tkz}
+F : E_1 \arrow[r] \arrow[d,"\eps_1", shift left] & E_2  \arrow[d,"\eps_2"] \\ \phi : M_1 \arrow[r] & M_2
+\end{tkz}
+We have constructions:
+\begin{itemize}
+    \item pullbacks along $\phi : M \to N$ given by $\phi^\ast E \equiv N \times_{\phi,\eps} E$
+    \item products of $E_i \to M_i$ as $E_1 \boxplus E_2 = pr_1^\ast E_1 \oplus pr_2^\ast E_2 \to M_1 \times M_2$
+\end{itemize}
+We may also define sections of a vector as elements of 
+\eq{
+\Gamma(E) \equiv \pbrace{s : M \to E \, | \, \eps \circ s = \id_M}
+}
+a $C^\infty(M)$-module. This gives a category assignment 
+\eq{
+\Gamma : \Vect_{\Man} &\to R\Mod 
+}
+and we should be reminded of 
+\eq{
+C^\infty : \Man &\to \Ring
+}
+\begin{idea}
+The latter is a functor, so we should try and push to get a functor out of $\Gamma$. 
+\end{idea}
+To understand this further we can draw the diagram 
+\begin{tkz}
+E_1 \arrow[r,"F"] \arrow[d] & \phi^\ast E_2 \arrow[r,"\id_{E_2}"] \arrow[d] & E_2 \arrow[d] \\ 
+M_1 \arrow[r,"\id_{M_1}"'] \arrow[u,"s_1",bend left=50] & M_1 \arrow[r,"\phi"'] & M_2  \arrow[u,"s_2"', bend right =50]
+\end{tkz}
+and then from these we can see we have
+\eq{
+\Gamma(E_1) \overset{F}{\to} \Gamma(\phi^\ast E_2) \overset{\phi^\ast}{\leftarrow} \Gamma(E_2)
+}
+In this case we can define the concept of \bam{F-relatedness}, where we say $s_1 \sim_F s_2 \Leftrightarrow F \circ S_1 = s_2 \circ \phi$. If $\phi$ is a diffeo, we can define the \bam{pushforward} by F, $F_\ast s  = F \circ s \circ \phi^{-1}$. \\
+We can ask about the properties of the pushforward, and we have 
+\begin{itemize}
+    \item $F_\ast (s+r) = F_\ast s + F_\ast r $
+    \item $F_\ast (fs) = (\phi^{-1})^\ast f \cdot F_\ast s$
+\end{itemize}
+Thus if we wanted $F_\ast$ to be functorial, we need $\phi=\id$, and so we restrict our category. Lets now make some stuff formal:
+
+\begin{definition}[Pullback]
+Let $F : E_1 \to E_2$, then we define the \bam{pullback} of $F$ as 
+\eq{
+F^\ast : \Gamma(E_1^\ast ) & \to \Gamma(E_2^\ast) \\
+\alpha &\mapsto F^\ast \alpha 
+}
+where for $x \in M_1, \, e \in (E_1)_x$, $\ev{F^\ast \alpha}{x}(e) = \ev{\alpha}{\phi(x)}(F(e))$.
+\end{definition}
+Moreover, this can be extended to $\omega,\eta \in \Gamma(\bigotimes^\cdot E_2^\ast)$, $f \in \Gamma(\bigotimes^0 E_2^\ast) = C^\infty(M_2)$, wherein we have the properties 
+\begin{itemize}
+    \item $F^\ast (\omega + \eta) = F^\ast \omega + F^\ast \eta$ 
+    \item $F^\ast (\omega \otimes \eta) = F^\ast \omega \otimes F^\ast \eta$
+    \item $F^\ast f = \phi^\ast f$
+\end{itemize}
+with all these, we may construct the functor by setting $\mc{T}(E) = \Gamma(\bigotimes^\cdot E^\ast) = \bigoplus_{k=0}^\infty \Gamma(\bigotimes^k E^\ast )$ and then have
+\eq{
+\mc{T} : \Vect_{\Man} &\to \text{AssocAlg} \\
+E &\mapsto \mc{T}(E) \\
+F &\mapsto F^\ast 
+}
+
+\begin{prop}
+$\mc{T}$ is a (contravariant) functor
+\end{prop}
+
+Now we have the concept of \bam{spanning functions} $C^\infty_s(E) \subset C^\infty(E)$, given by dual maps 
+\eq{
+\eps^\ast : C^\infty(M) &\hookrightarrow C^\infty(E) \quad (\text{fibrewise constant functions}) \\
+l : \Gamma(E^\ast) &\hookrightarrow C^\infty(E) \quad (\text{fibrewise linear functions})
+}
+as 
+\eq{
+C_s^\infty(E) = \eps^\ast C^\infty(M) \oplus l \Gamma(E^\ast)
+}
+
+\begin{prop}
+$C_s^\infty(E)$ is a $C^\infty(M)$-module and 
+\eq{
+\spn(dC_s^\infty(E)) = T^\ast E
+}
+\end{prop}
+\begin{proof}
+by construction $l(f \cdot \alpha) = \eps^\ast f l(\alpha)$, which gives the modules structure. 
+\end{proof}
+
+\begin{prop}
+Symmetrising $\mc{T}(E)$ we have $\mc{T}(E) = \pangle{C_s^\infty(E)} \subset C^\infty(E)$
+\end{prop}
+
+\begin{idea}
+The takeaway form this is that we should be considering vector bundle morphisms as our morphisms, and we want to assign them to algebras, and the story above is the most natural way to do so. 
+\end{idea}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Lie algebroids}
+
+\begin{definition}
+A \bam{Lie algebroid} is a triple $(A \overset{\pi}{\to}M, \rho:A \to TM, \comm[\cdot]{\cdot})$ ($\rho$ is called the \bam{anchor map}) where $A$ is a vector bundle, and $(\Gamma(A),\comm[]{})$ is a $\mbb{R}$-Lie algebra s.t. 
+    \eq{
+    \comm[a]{f\cdot b} = \rho_\ast a[f] \cdot b + f \cdot \comm[a]{b}
+    }
+\end{definition}
+
+\begin{prop}
+$\rho_\ast : (\Gamma(A),\comm[\cdot]{\cdot}_A) \to (\Gamma(TM),\comm[\cdot]{\cdot})$ is a LA morphism
+\end{prop}
+\begin{proof}
+Corollary of "Symbol Squiggle theorem" seen later. 
+\end{proof}
+
+We then have two non-trivial construction from this: \\
+The \bam{isotropy Lie algebra} of $A$  for $x \in A$ is defined to be $(\mf{g}_x, \comm[\cdot]{\cdot}_x) = (\ker \rho_x, \ev{\comm[\cdot]{\cdot}}{\ev{\Gamma(A)}{x}}$. Note $\ker \rho_x \subset A_x$ and for $u,v \in A_x$ s.t. $u=a(x), v=b(x)$ we define 
+\eq{
+\comm[u]{v}_x = \comm[a]{b}(x)
+}
+For $\beta \in \mbb{R}$, let $f$ be s.t. $f(x) = \beta$ and then 
+\eq{
+{\comm[u]{\beta v}}_x &= \comm[a]{fb}(x) \\
+&= \pround{\rho_\ast a \psquare{f} \cdot b + f \cdot {\comm[a]{b}}}(x) \\
+&= \rho{\comm[u]{v}}_x \quad \text{as $\rho(a)=0$}
+}
+We can define the \bam{characteristic distribution} $\rho(A) \subset TM$ which is involutive (from the prop) 
+\begin{example}
+We have examples of Lie algebroids,
+\begin{itemize}
+    \item $\mf{g}\to \pbrace{x}$. This is just a Lie algebra
+    \item $TM \to M$. This is the standard tangent bundle with bracket given by the Lie bracket. 
+    \item $D \hookrightarrow TM$ a regular involutive distribution giving the anchor map.
+    \item $\mbb{R}_M \equiv M \times \mbb{R} \to M$. Suppose we have anchor map $\rho_x : \mbb{R}_x \to T_x M $ and bracket $\comm[\cdot]{\cdot}$. Then $\rho_\ast : C^\infty(M) \to \Gamma(TM)$ encodes the information of vector fields, and we get 
+    \eq{
+    \comm[f]{g}_X = f X[g] - g X[f]
+    }
+    \item Atiyah algebroids: Suppose $P \ract G$ is a principal bundle. Then we can construct 
+    \eq{
+    0 \to P \times_G \mf{g} \to A_P \overset{\rho}{\to} TM \to 0
+    }
+    where $A_P$ is the Atiyah algebroid.
+    \item Derivation bundle: given $E \to M$ have $DE \to M$ where $\Gamma(DE)$ are infinitesimal automorphisms
+    \item Poisson manifolds: $(M,\Pi)$ s.t. $\acomm[f]{g}= \Pi(df,dg)$ satisfies Jacobi, and then we get algebroid $(T^\ast M, \Pi^\ast, \comm[\cdot]{\cdot}^\Pi)$ where 
+    \eq{
+    \comm[df]{dg}^\Pi = d\acomm[f]{g}
+    }
+\end{itemize}
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Algebraic structures associated with Lie algebroids}
+
+Notice how both from examples and basic definition, Lie algebroids try to generalise both Lie algebras and tangent bundles. The action of the section of the algebra on functions of the base will be exactly the data in the Gersteunhaber algebra. 
+
+\begin{definition}
+The \bam{Gerstenhaber algebra} of the Lie algebroid is $(\Gamma(\Lambda^\cdot A),\Lambda,\dcomm[\cdot]{\cdot})$ where for $a,b \in \Gamma(A), \, f,g \in C^\infty(M)$,
+\eq{
+\dcomm[a]{b} &= \comm[a]{b} \\
+\dcomm[a]{f} &= \rho_\ast a[f] \\
+\dcomm[f]{g} &= 0
+}
+\end{definition}
+
+This has a dual notion 
+
+\begin{definition}
+The \bam{exterior algebra (/de Rham complex/Chevalley-Eilenberg complex)} of the Lie algebroid is $(\Gamma(\Lambda^\cdot A^\ast),\wedge,d_A)$ (A differential graded algebra), sometimes denoted $\Omega^\cdot(A)$. Note $d_A$ acts as 
+\eq{
+d_Af(a) &= \rho_\ast a[f] \\
+d_A \alpha(a,b) &= \rho_\ast a[\alpha(b)] - \rho_\ast b[\alpha(a)] - \alpha([a]{b})
+}
+\end{definition}
+
+\begin{remark}
+The above has an associated Lie algebroid cohomology $H^\cdot(A)$. 
+\end{remark}
+
+We also have a Cartan calculus for this exterior algebra, and it behaves as would be expected 
+\eq{
+\mc{L}_a &= i_a d_A + d_A i_a \\
+\comm[\mc{L}_a]{\mc{L}_b} &= \mc{L}_{\comm[a]{b}} \\
+\comm[\mc{L}_a]{i_b} &= i_{\comm[a]{b}}
+}
+
+\begin{definition}
+The \bam{linear Poisson structure} associated with $E \to M$ is $(C^\infty(E),\acomm[\cdot]{\cdot})$ satisfying 
+\eq{
+\acomm[l]{l} &\subset l \\ 
+\acomm[l]{\eps^\ast} &\subset \eps^\ast \\
+\acomm[\eps^\ast]{\eps^\ast} &= 0
+}
+\end{definition}
+
+\begin{prop}
+We have 1-1 correspondence 
+\eq{
+\pbrace{\text{linear Poisson structure $E \to M$}} \leftrightarrow \pbrace{\text{Lie algebroid $E^\ast \to M$}}
+}
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Lie algebroid morphisms}
+
+Consider the diagram 
+\begin{tkz}
+(A_1,\rho_1,\comm[]{}_1) \arrow[d] \arrow[r,"F"] & (A_2,\rho_2,\comm[]{}_2) \arrow[d] \\ 
+M_1 \arrow[r,"\phi"'] & M_2
+\end{tkz}
+In order to ask that $F$ is a morphism we want 
+\begin{itemize}
+    \item Compatibility with the anchor, i.e. 
+    \begin{tkz}
+    A_1 \arrow[r,"F"] \arrow[d,"\rho_1"'] & A_2 \arrow[d,"\rho_2"] \\ TM_1 \arrow[r,"T\phi"'] & TM_2
+    \end{tkz}
+    commutes
+    \item Compatibility with brackets, i.e 
+    \eq{
+    \left. \begin{array}{c}
+    a_1 \sim_F a_2  \\
+    b_1 \sim_F b_2    
+    \end{array}\right\rbrace \Rightarrow \comm[a_1]{b_1} \sim_F \comm[a_2]{b_2}
+    }
+\end{itemize}
+From the previous subsection, we can consider two possibilities to get this definition: 
+\begin{enumerate}
+    \item restrict to $\mc{T}:A \mapsto (\Gamma(\Lambda^\cdot A^\ast),\wedge,d_A)$ a DGA. Then $F:A_1 \to A_1$ is a Lie algebroid morphism if $F^\ast \Gamma(\Lambda^\cdot A^\ast_2) \to \Gamma(\Lambda^\cdot A^\ast_1)$ is a DGA morphisms with $d_{A_1} \circ F^\ast = F^\ast \circ d_{A_2}$.  This will be the one used in the rest of this series
+    \item If we have associated linear Poisson structure $A_i^\ast$ ti $A_i$, then maps $A_1 \to A_2$ give coisotropic submanifolds $C \subset A_2^\ast \times \bar{A_1^\ast}$. Lie algebroid morphisms would then correspond to Poisson morphisms of $C$. 
+\end{enumerate}
+
+\begin{remark}
+If $\phi$ is a diffeo, we have pushforward, and we will get that a Lie algebroid morphisms satisfies $F_\ast \comm[a]{b} = \comm[F_\ast a]{F_\ast b}$. 
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Differential Operators}
+
+\begin{remark}[Starting points]
+The primary references for this section will be:
+\begin{itemize}
+    \item Coutinho, A primer of algebraic D-modules
+    \item Nestruev, Smooth manifolds and observable
+\end{itemize}
+We will throughout take our base field to be $k = \mbb{C}$. 
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Derivations}
+Let $A$ be a commutative $\mbb{C}$-algebra. 
+
+\begin{definition}
+A \bam{derivation} of $A$ is a $\mbb{C}$ linear map $\del : A \to A$ s.t. 
+\eq{
+\forall a, b \in A, \, \del(ab) = a\del(b) + \del(a)b \quad \text{(Leibniz)}
+}
+We call the set of all derivations $\Der_{\mbb{C}}(A)$
+\end{definition}
+
+\begin{ex}
+Prove that $\del(\mbb{C}) = 0$
+\end{ex}
+
+More generally, if $B$ is any commutative ring, $A$ a $B$-algebra, and $M$ a $A$-bimodule, we have the idea of $\Der_B(A,M)$, which explicitly is 
+\eq{
+\Der_B(A,M) = \pbrace{\del \in \Hom_B(A,M) \, | \, \forall a, b \in A, \, \del(ab) = a \del(b) + \del(a) b}
+}
+Note we need the bimodule structure to have multiplication on both sides. \\
+Trivially, we have $\Der_{\mbb{C}}(A) \subseteq \End_{\mbb{C}}(A)$, and we always have the embedding $ A \hookrightarrow \End_{\mbb{C}}(A)$ given by $a \mapsto (m_a : b \mapsto ab)$. 
+
+\begin{prop}
+$\del \in \End_{\mbb{C}}(A)$ is a derivation iff:
+\begin{itemize}
+    \item $\del(\mbb{C}) = 0$
+    \item $\forall a \in A\subset\End_{\mbb{C}}(A), \, \del a - a \del \in A$. 
+\end{itemize}
+\end{prop}
+\begin{proof}
+We have Leibniz iff $\del a - a\del = \del(a)$, as 
+\eq{
+(\del a - a \del)(b) = \del(ab) - a \del(b) = \del(a)b + \psquare{\del(ab) - a \del(b) - \del(a)b}
+}
+Now $\del a - a \del = \del(a) \in A \Leftrightarrow \del a - a \del = c \in A$. 
+\end{proof}
+
+\begin{example}
+We claim $\Der_{\mbb{C}}(\mbb{C}[x]) = \mbb{C}[x] \frac{d}{dx}$. Certainly we see that $\forall f in \mbb{C}[x], \, f\frac{d}{dx}$ is a derivation. \\ Conversely, for $\del \in \Der_{\mbb{C}}(\mbb{C}[x])$, we have 
+\eq{
+\psquare{\del(x) \frac{d}{dx}}(x) &= \del(x) \\
+\psquare{\del(x) \frac{d}{dx}}(1) &= 0 = \del(1)
+}
+so by $\mbb{C}$-linearity we know $\del = \del(x) \frac{d}{dx}$, hence done. \\
+Likewise, we have 
+\eq{
+\Der_{\mbb{C}}(\mbb{C}[x_1, \dots, x_n]) = \bigoplus_{i=1}^n \mbb{C}[x_1, \dots, x_n] \pd{x_i}
+}
+\end{example}
+
+\begin{aside}
+Suppose $A = C^\infty(M)$. We know $\Der_{\mbb{R}}(A) = \Vect(M)$. It turns out that the more general derivations we are considering correspond to tangent vectors of varieties in a way
+\end{aside}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Differential operators}
+
+We will now give two different definitions of the ring of differential operators on $A$:
+
+\begin{definition}[Differential operators 1]
+The ring of \bam{differential operators} on $A$, $D(A)$, are the subalgebra of $\End_{\mbb{C}}(A)$ generated by $A$ and $\Der_{\mbb{C}}(A)$. 
+\end{definition}
+
+\begin{definition}
+$\theta \in D(A)$ has \bam{order} $(\leq)p$ is $\theta$ is a sum of products of $\leq p$ derivations. 
+\end{definition}
+
+\begin{example}
+$\frac{d^2}{dx^2} + 1 = \pround{\frac{d}{dx}}^2+1$ has order 2. 
+\end{example}
+
+\begin{definition}[Differential operators 2]
+We define the \bam{differential operators of order 0} as $D^0(A)=A$. We then inductively define the \bam{differential operators of order $(\leq) p$} by 
+\eq{
+D^p(A) = \pbrace{\theta \in \End_{\mbb{C}}(A) \, | \, \forall a \in A, \, \theta a - a \theta \in D^{p-1}(A)}
+}
+We then define the \bam{differential operators} on $A$ as 
+\eq{
+D(A) = \bigcup_{p \geq 0} D^p(A)
+}
+\end{definition}
+
+\begin{remark}
+Note that for $\theta \in D^1(A)$ we have 
+\eq{
+\theta = \underbrace{\psquare{\theta - \theta(1)}}_{\in \Der_{\mbb{C}}(A)} + \underbrace{\theta(1)}_{\in A}
+}
+i.e. $D^1(A) = \Der_{\mbb{C}}(A) \oplus A$. 
+\end{remark}
+
+\begin{prop}
+We have 
+\begin{itemize}
+    \item $D^p(A) \subseteq D^{p+1}(A)$
+    \item $D^p(A) D^r(A) \subseteq D^{p+r}(A)$
+\end{itemize}
+\end{prop}
+
+Definition 2 is the "right" definition, and we have the following thm to say that in nice situations they are the same:
+
+\begin{theorem}[Grothendieck]
+The definitions are equivalent iff $\Spec A$ is non-singular. Moreover, if the definitions are equivalent then 
+\eq{
+D(A) = \faktor{T_A \pround{\Der_{\mbb{C}}(A)}}{\pangle{\del \del^\prime - \del^\prime - \comm[\del]{\del^\prime}}}
+}
+\end{theorem}
+
+\begin{example}
+If $A = \mbb{C}[x]$ then letting $\del = \frac{d}{dx}$
+\eq{
+\faktor{\mbb{C}\pangle{x,\del}}{\pangle{\del x - x \del = 1}}
+}
+\end{example}
+
+\begin{fact}
+If $\theta \in D^p(A), \theta^\prime \in D^r(A)$, then 
+\eq{
+\theta \circ \theta^\prime - \theta^\prime \circ \theta \in D^{p+r-1}(A)
+}
+so $D(A)$ is a Lie algebra, as is $\Der_{\mbb{C}}(A)$. 
+\end{fact}
+
+From now on in this section we wall assume all our varieties (namely $\Spec A)$ are non-singular. 
+
+\begin{conjecture}
+If $X= \Spec A, \, Y = \Spec B$ are affine varieties, if $D(A) \cong D(Y)$, then $X \cong Y$
+\end{conjecture}
+\begin{remark}
+If $X$ or $Y$ are singular, then this is not true. 
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\secmath{D(A) \text{ gives a Poisson algebra}}}
+
+Recall we heard $\comm[D^p(A)]{D^r(A)} \subseteq D^{p+r-1}(A)$. Let us check this for $\del, \del^\prime$ derivations. Recall here we have $\comm[\del]{\del^\prime} = \del \circ \del^\prime - \del^\prime \circ \del$. Then taking $a,b \in A$
+\eq{
+\comm[\del]{\del^\prime}(ab) &= \del\del^\prime(ab) - \del^\prime \del(ab) \\
+&= \del(a\del^\prime(b) + \del^\prime(a)b) - \del^\prime(\del(a)b + a \del(b) \\
+&= \psquare{a \del \del^\prime (b) +  \del(a) \del^\prime(b) + \del^\prime(a) \del(b) + \del\del^\prime(a) b} \\
+&\phantom{=} - \psquare{a \del^\prime \del (b) +  \del(a) \del^\prime(b) + \del^\prime(a) \del(b) + \del^\prime\del(a) b} \\
+&= a (\comm[\del]{\del^\prime}(b)) - (\comm[\del]{\del^\prime}(a))b 
+}
+
+We now make the definition:
+
+\begin{definition}
+The \bam{graded derivation ring} is 
+\eq{
+\gr D(A) = \bigoplus_p \faktor{D^p(A)}{D^{p-1}(A)}
+}
+\end{definition}
+
+\begin{prop}
+$\gr D(A)$ is 1) a commutative ring and 2) a Poisson algebra
+\end{prop}
+\begin{proof}
+Let $\pi \in D^p(A), \rho \in D^r(A)$. 
+1) Although $\pi\rho, \rho\pi \in D^{p+r}(A)$, we know $\comm[\pi]{\rho} \in D^{p+r-1}(A)$. This means 
+\eq{
+\pi \rho + D^{p+r-1}(A) = \rho \pi + D^{p+r-1}
+}
+so our ring is indeed commutative. \\
+2) Define $\gr\pi = [\pi], \gr\rho = [\rho]$ in the cosets. Then define a Poisson bracket by 
+\eq{
+\acomm[\gr\pi]{\gr\rho} = \comm[\pi]{\rho} + D^{p+r-2} = \gr \comm[\pi]{\rho}
+}
+This is a Poisson bracket as it inherits all its properties from the Lie bracket $\comm[\cdot]{\cdot}$. 
+\end{proof}
+In fact 
+\eq{
+\gr D(A) = \gr \pround{\faktor{T_A(\Der_{\mbb{C}}(A))}{\pangle{\del \del^\prime - \del^\prime \del - \comm[\del]{\del^\prime}}}}
+}
+and we have 
+\begin{theorem}
+Actually 
+\eq{
+\gr(\Der(A)) = \faktor{T_A(\Der_{\mbb{C}}(A))}{\pangle{\del \del^\prime - \del^\prime \del}} = \Sym_A(\Der_{\mbb{C}}(A))
+}
+and if $X = \Spec A$, $\Der_{\mbb{C}}(A) = \Vect(X)$ so 
+\eq{
+\gr(D(A)) = \mbb{C}[T^\ast X]
+}
+\end{theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Weyl algebra}
+
+Let $A = \mbb{C}[x_1, \dots, x_n]$. We will now state a few facts about $D(A)$ without proof: 
+
+\begin{fact}
+We have 
+\begin{enumerate}
+    \item $D(A) \cong \faktor{\mbb{C}\pangle{x_1,y_1, \dots, x_n, y_n}}{\pangle{\comm[x]{x} = \comm[y]{y}=0, \, \comm[x_i]{y_j} = \delta_{ij}}}$. Here we should see $y_i \sim -\pd{x_i}$, and this is called the \bam{n\textsuperscript{th} Weyl algebra}. 
+    \item $\gr D(A) = \mbb{C}[x_1, y_1, \dots, x_, y_n]$, and the Poisson structure is given by $\acomm[x_i]{x_j} = 0 = \acomm[y_i]{y_j}, \, \acomm[x_i]{y_j} = \delta_{ij}$. This is called the \bam{first example} when looking at $T^\ast \mbb{A}^n$. 
+    \item $D(A)$ is simple and $\gr D(A)$ is Poisson simple. 
+\end{enumerate}
+\end{fact}
+
+\begin{prop}
+Let $I$ be a right ideal of $D(A)$. Then $J = \gr I$ is a multiplicative ideal of $\gr D(A)$ and it is involutive (coisotropic). i.e. 
+\eq{
+\acomm[J]{J} \subseteq J
+}
+\end{prop}
+\begin{proof}
+Let $\theta, \eta \in I$. Then $\theta \eta - \eta \theta \in I$, and so 
+\eq{
+\acomm[\gr\theta]{\gr\eta} = \gr(\comm[\theta]{\eta}) \in J 
+}
+Result follows.
+\end{proof}
+
+\begin{theorem}[Gabber]
+$\sqrt{J} = \pbrace{\rho \, | \, \exists n \text{ s.t. } \rho^n \in J}$ is also a coisotrope.
+\end{theorem}
+
+\begin{corollary}[Bernstein's inequality]
+$\dim \pround{V(J)\subseteq \mbb{C}^{2n}} \geq n$
+\end{corollary}
+
+\begin{corollary}
+$D(\mbb{C}[x])$ has no finite-dimensional modules. 
+\end{corollary}
+\begin{proof}
+Let $V$ be a $D(\mbb{C}[x])$-module with $\dim V = d$. $D$ acts on $V$, so $\exists X,Y \in M_{b \times d}(\mbb{C})$ s.t $XY - YX = I_d$, but taking the traces gives a contradiction. Hence done.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Differential operators on manifolds}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{From algebras to smooth manifolds}
+Following from the algebraic theory of differential operators seen in the previous lecture, we restrict to a special class of algebras $\mc{A}$, assumed to be over $\mbb{R}$, unital, associative, and commutative. 
+
+\begin{definition}
+A \bam{point} of $\mc{A}$ is an algebra morphism 
+\eq{
+x : \mc{A} \to \mbb{R}
+}
+The \bam{dual} of $\mc{A}$,$\abs{\mc{A}}$, is the set of all points. 
+\end{definition}
+
+\begin{definition}
+$\mc{A}$ is \bam{geometric} where 
+\eq{
+\bigcap_{x \in \abs{\mc{A}}} \ker x = 0
+}
+\end{definition}
+
+We can define the set of $\mbb{R}$-valued functions on the dual of the form 
+\eq{
+\tilde{\mc{A}} = \pbrace{f_a : \abs{\mc{A}} \to \mbb{R} \, | \, \forall a \in \mc{A}, \, f_a(x) = x(a) }
+}
+We find a canonical algebra structure on $\tilde{\mc{A}}$ and (if $\mc{A}$ is geometric) an isomorphism of algebras 
+\eq{
+\mc{A} \cong \tilde{\mc{A}}
+}
+\begin{remark}
+This justifies the name geometric, since all such algebras are canonically isomorphic for algebras of $\mbb{R}$-valued functions on sets. It is possible to put a topology or, further, a smooth structure on $\abs{\mc{A}}$ so that we can define a notion of continuous or smooth algebras. We can then find equivalences of topoligcal spaces and smooth manifolds. 
+\end{remark}
+
+\begin{definition}
+\bam{Differential operators} on a smooth manifold $M$ are defined as elements of 
+\eq{
+\Diff(M) &= \bigcup_{k \in \mbb{N}} \Diff_k(M) \\
+\Diff_k(M) &= D^k(C^\infty(M))
+}
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Jet bundles of manifolds}
+Since differential operators were shown to correspond to the classical notion from linear PDEs locally, we are compelled to define the following equivalence relation on functions: 
+
+\begin{definition}
+For $f,g \in C^\infty(M)$, say 
+\eq{
+f \sim_x^k g \Leftrightarrow f(x) = g(x), \dots, \del^{\abs{k}}f(x) = \del^{\abs{k}}g(x)
+}
+\end{definition}
+
+Similar to the construction of the cotangent make the following def: 
+
+\begin{definition}
+THe \bam{k-jet bundle} of $M$ is 
+\eq{
+J^kM &= \bigcup_{x \in M} J^k_xM \\
+J_x^kM &= \pbrace{[f]^k_x = j_x^kf \, | \, f \in C^\infty(M)}
+}
+\end{definition}
+
+Note that by construction we have the following maps: 
+\eq{
+\pi^k : J^kM &\to J^{k-1}M \\
+j^k : C^\infty(M) &\to \Gamma(J^kM)
+}
+where $\pi^k$ simply projects to classes of functions that agree on lower-order derivations. 
+\begin{definition}
+The \bam{k-jet prolongation} (abbreviated k-jet) of a function is defined as 
+\eq{
+(j^kf)(x) = j_x^kf
+}
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{General Local Lie algebras}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Motivation}
+Recall that a standard Poisson bracket it $\acomm[\cdot]{\cdot} : C^\infty(M) \times C^\infty(M) \to C^\infty(M)$, which is local in the sense that 
+\eq{
+\supp(\acomm[f]{g}) \subset \supp (f) \cap \supp(g)
+}
+We make the following definition:
+
+\begin{definition}
+A \bam{local Lie algebra} $A \to M$ is a $\mbb{R}-$Lie algebra $(\Gamma(A),\comm[\cdot]{\cdot})$ s.t. 
+\eq{
+\ad_{\comm[\cdot]{\cdot}}:\Gamma(A) \to \Diff_1(A) \subset \End_{\mbb{R}}(\Gamma(A))
+}
+is a differential operator, i.e. $\ad_{\comm[\cdot]{\cdot}} \in \Diff_1(A,\diff_1(A))$
+\end{definition}
+
+Recall we had that 
+\eq{
+\Diff_1(A) \cong \Gamma((J^1A)^\ast \otimes A)
+}
+where $(J^1A) = \Gamma(\diff_1(A))$. 
+
+\begin{ex}
+$\Delta, \nabla \in \Diff_1(A)$. where $A\to M$ is a vector bundle. i.e $p,q \in \Gamma(TM \otimes A^\ast A)$, $p(\alpha) : \Gamma(A) \to \Gamma(A)$, where $p,q$ are the symbols of the operators. Then show 
+\eq{
+\comm[\Delta]{\nabla}(f \cdot s) = f \cdot \comm[\Delta]{\nabla}(s) + \pround{\underbrace{\comm[p(df)]{\nabla} + \comm[\Delta]{q(df)}}_{\lambda_{\Delta\nabla}(df)}}(s)
+}
+and 
+\eq{
+\lambda_{\Delta\nabla}(df)(g \cdot s) = g \cdot \lambda_{\Delta\nabla}(df)(s) + \pround{\comm[p(df)]{q(dg)} + \comm[p(dg)]{q(df)}}(s)
+}
+Without the Leibniz characterisation this is 
+\eq{
+\comm[{\comm[{\comm[\Delta]{\nabla}}]{f}}]{g} = \comm[{\comm[\nabla]{f}}]{\comm[\Delta]{g}} + \comm[{\comm[\nabla]{g}}]{\comm[\Delta]{f}}
+}
+\end{ex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Derivative local Lie algebras}
+
+\begin{definition}
+A \bam{derivative local Lie algebra} is a local Lie s.t. 
+\eq{
+\ad_{\comm[\cdot]{\cdot}}: \Gamma(A) \to \Der(A)
+}
+and $\ad_{\comm[\cdot]{\cdot}} \in \Diff_1(A,DA)$
+\end{definition}
+
+We can justify the name with the following result. 
+
+\begin{prop}
+Let $E \to M$ be a vector bundle. Then $DE \to M$ carries a canonical derivative Lie algebra structure. 
+\end{prop}
+\begin{proof}
+To start I need to define a Lie bracket on sections of $DE$, and we know 
+\eq{
+\Gamma(DE) \cong \Der(E) \subset \pround{\End_{\mbb{R}}(\Gamma(E)), \comm[\cdot]{\cdot}}
+}
+so we are given the bracket naturally. Now let $D,D^\prime \in \Der(E)$, and call $\sigma_D = X_D \otimes \id_E$ for $X_D \in \Gamma(TM)$. Then 
+\eq{
+\comm[D]{D^\prime}(f \cdot s) = f \cdot \comm[D]{D^\prime}(s) + \comm[X_D]{X_{D^\prime}}[f] \cdot s 
+}
+
+Now we use the fact that 
+\eq{
+\phi \in \Diff_0(E) \cong \End_{C^\infty(M)}(\Gamma(E)) \Rightarrow \phi \in \Der(E)
+}
+and then if $D \in \Der(E)$
+\eq{
+\phi \circ D, \, D \circ \phi \in \Der(E)
+}
+Then we find 
+\eq{
+\ad_{\comm[\cdot]{\cdot}}(f \cdot D)(D^\prime) &= \comm[f \cdot D]{D^\prime} \\
+&= f D D^\prime - \comm[D^\prime]{f}D - fDD^\prime \\
+&= f \comm[D]{D^\prime} - \sigma_{D^\prime}(df)D \\
+&= \pround{f \cdot \ad_{\comm[\cdot]{\cdot}}(D) - \sigma_{\cdot}(df) \circ D}(D^\prime)
+}
+This looks to be giving a Leibniz term for $\ad$, so we let 
+\eq{
+\lambda(\cdot,\cdot) =  \sigma_\cdot(\cdot) \circ \cdot \in \Gamma(TM \otimes DE^\ast \otimes DE^\ast \otimes DE)
+}
+Hence we see $\lambda$ as a symbol map for $\ad$. We see that $\lambda$ is built to be $C^\infty(M)$-linear. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Symbol-squiggle theorem}
+Take a derivative Lie algebra $(\Gamma(A), \comm[\cdot]{\cdot})$. 
+
+\begin{definition}
+For $a,b \in \Gamma(A), \, f \in C^\infty(M)$, write 
+\eq{
+\comm[a]{f \cdot b} = f \cdot \comm[a]{b} + \lambda_a[f] \cdot b
+}
+where $\sigma_{\ad_{\comm[\cdot]{\cdot}}(a)} = \lambda_a \otimes \id_{\Gamma(A)}$. We call the map
+\eq{
+\Diff_1(A,TM) \ni \lambda : \Gamma(A) \to \Gamma(TM)
+}
+the \bam{symbol} of $(\Gamma(A), \comm[\cdot]{\cdot})$. 
+\end{definition}
+
+\begin{definition}
+Since $\lambda$ is a differential operator, define the \bam{squiggle} of $(\Gamma(A), \comm[\cdot]{\cdot})$ as 
+\eq{
+\Lambda^\sharp = \sigma_\lambda \in \Gamma(TM \otimes A^\ast \otimes TM)
+}
+\end{definition}
+
+\begin{prop}
+Let $(\Gamma(A), \comm[\cdot]{\cdot})$ be a derivative Lie algebra as above. Then we have the \bam{symbol-squiggle identity}
+\eq{
+\comm[f \cdot a]{g \cdot b} = fg \cdot \comm[a]{b} + f \cdot \lambda_a[g] \cdot b - g \cdot \lambda_b[f] \cdot a  + \Lambda(df \otimes a, dg \otimes b)
+}
+with the following identities: 
+\begin{itemize}
+    \item $\Lambda^\sharp(df \otimes a)[g] \cdot b = - \Lambda^\sharp(dg \otimes b)[f] \cdot a$ ($Rightarrow$ defines $\Lambda\in \Gamma(\wedge^2(TM \otimes A^\ast)\otimes A)$)
+    \item $\lambda_{\comm[a]{b}} = \comm[\lambda_a]{\lambda_b}$ 
+    \item $\lambda_{f\cdot A} = f \cdot \lambda_a + \Lambda^\sharp(df \otimes a)$
+    \item $\comm[\lambda_a]{\Lambda^\sharp(df \otimes b)} = \Lambda^\sharp(d(\lambda_a[f]) \otimes b + df \otimes \comm[a]{b})$ 
+    \item $\Lambda(df \otimes a,\pround{\highlight{\cdots}}$
+\end{itemize}
+\end{prop}
+
+\begin{remark}
+We should think of this as just Leibniz for a bracket. 
+\end{remark}
+
+\begin{prop}
+If $A \to M$ is a vector bundle, and $\Sigma \subset \Gamma(A)$ are spanning sections, i.e. $C^\infty(M) \cdot \Sigma = \Gamma(A)$, then the data of a derivative Lie algebra $(\Gamma(A), \comm[\cdot]{\cdot})$ is equivalent to 
+\begin{itemize}
+    \item $\mbb{R}$-Lie bracket $\comm[\cdot]{\cdot}):\Sigma\times \Sigma \to \Gamma(A) $
+    \item $\mbb{R}$-linear map $\lambda : \Gamma(A) \to \Gamma(TM)$
+    \item $\Lambda \in \Gamma(\wedge^2(TM \otimes A^\ast ) \otimes A)$ inducing a $C^\infty(M)$-linear $\Lambda^\sharp$
+\end{itemize}
+satisfying the conditions of the previous proposition. 
+\end{prop}
+
+Note that $\lambda$ is $C^\infty(M)$-linear iff $\Lambda=0$. 
+
+\begin{definition}
+If $\lambda$ is $C^\infty(M)$-linear, $\lambda = \rho_\ast$ for some map
+\eq{
+\rho : A \to TM
+}
+called the \bam{anchor} of $(\Gamma(A), \comm[\cdot]{\cdot})$. 
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The rank 1 dichotomy}
+
+\begin{prop}
+Any (general) local Lie algebra structure on $(\Gamma(A), \comm[\cdot]{\cdot})$ with $\rank(A)=1$ is necessarily derivative 
+\end{prop}
+\begin{proof}
+Note that for a line bundle $A$, $\Der(A) = \Diff_1(A)$, as $\rank(A)=1 \Rightarrow \End(A) \cong \mbb{R}_M$ with $0 \neq \id_A \in \Gamma(\End(A))$
+\end{proof}
+
+\begin{prop}
+The symbol of any derivative Lie algebra structure $(\Gamma(A), \comm[\cdot]{\cdot})$ with $\rank(A) >1$ is necessarily and anchor (i,e, the local Lie algebra is a Lie algebroid).
+\end{prop}
+\begin{proof}
+Take (possibly locally) two $C^\infty(M)$-linearly independent sections $a,b \in \Gamma(A)$, and write 
+\eq{
+g \cdot \comm[f \cdot a]{b} + \lambda_{f \cdot a}[g] \cdot b =  \comm[f \cdot a]{g \cdot b} &= f \cdot \comm[a]{g \cdot b} - \lambda_{g \cdot b}[f] \cdot a \\
+\Rightarrow fg\comm[a]{b} - g\lambda_b[f] \cdot a + \lambda_{f \cdot a}[g] b &= fg \comm[a]{b} + f \cdot \lambda_a[g]\cdot b - \lambda_{g \cdot b}[f] \cdot a 
+}
+as $a,b$ are independent we get 
+\eq{
+\lambda_{f \cdot a} = f \cdot \lambda_a
+}
+\end{proof}
+
+These two results motivate the definitions
+
+\begin{definition}
+A \bam{Lie algebroid} is a derivative Lie algebra with anchor
+\end{definition}
+
+\begin{definition}
+A \bam{Jacobi structure} is a local (derivative) Lie algebra of rank 1. 
+\end{definition}
+
+
+\begin{remark}
+Let us now spend a little bit of time thinking about Jacobi structures. Suppose we have a line bundle $L \to M$, and then our Jacobi structure is $(\Gamma(L), \acomm[\cdot]{\cdot})$. We want to get a good idea of what is a morphism of Jacobi structures
+\begin{tkz}
+B : L_1 \arrow[r] \arrow[d,anchor=west] & L_2 \arrow[d] \\
+b: M_1 \arrow[r] & M_2
+\end{tkz}
+$B$ is regular if $\forall x \in M, \, B_x : (L_1)_x \to (L_2)_x$ is an isomorphism. Then we have 
+\eq{
+B^ \ast : \Gamma(L_2) &\to \Gamma(L_1) \\
+(B^\ast s)(x) &= B_x^{-1}s(b(x))
+}
+This satisfies 
+\eq{
+B^\ast (f \cdot s) = b^\ast f \cdot B^\ast s
+}
+We say $B$ is a \bam{Jacobi morphism} when $B^\ast$ is a Lie morphism. Then what we should think about is that a line bundle is a natural generalisation of manifolds, and moreover the "Poisson flavour" on manifolds generalises directly to Jacobi structure. 
+\end{remark}
+
+
+
+\end{document}
+
+
+
+

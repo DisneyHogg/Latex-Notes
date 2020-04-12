@@ -1,0 +1,1603 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Quantum Field Theory Revision Notes}
+\author{Linden Disney-Hogg}
+\date{January 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+A brief overview of some key ideas, concepts, and facts that I find useful in revising QFT. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Preliminaries}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Miscellaneous}
+
+\begin{definition}
+In these notes attention will only be paid to $3+1$ dimension spacetime. As such Greek indices (e.g $\mu$, $\nu$) will run from $0$ to $3$, while Latin indices (e.g. $i$, $j$) will run from $1$ to $3$. 
+\end{definition}
+
+\begin{definition}[Field]
+In these notes a \bam{field} will be a function of spacetime $\phi=\phi(x)$ where $x=(t,\bm{x})$. 
+\end{definition}
+
+\begin{definition}[Minkowski Metric]
+In these notes the mostly-minus metric convention will be adopted, so the \bam{Minkowski metric} is 
+\[
+\eta^{\mu\nu}=\diag(1, -1, -1, -1)
+\]
+\end{definition}
+
+\begin{definition}[Natural Units]
+In QFT, \bam{natural units} are used where
+\[
+c=1=\hbar
+\]
+$[c]=LT^{-1}$, $[\hbar]=L^2 M T^{-1}$, so in natural units
+\[
+L=T=M^{-1}
+\]
+Units are therefore given in \bam{mass dimension}, e.g. if $[f]=M^d$, write $[f]=d$.
+\end{definition}
+
+\begin{fact}
+A table of common values and their mass dimension is given below. 
+\begin{center}$
+\begin{array}{ccc}
+    \text{Quantity} & \text{Symbol} & \text{Mass Dimension} \\
+    \hline
+    \hline
+    \text{Energy} & E & 1 \\
+    \text{Action} & S & 0 \\
+    \text{Lagrangian} & \mc{L} & 4 \\
+    \text{Spacetime derivative} & \del_\mu & 1 \\
+    \text{Spacetime measure} & d^4x & -4 \\
+    \text{Scalar field} & \phi/\psi & 1 \\
+    \text{Spinor field} & \psi^\alpha & \sfrac{3}{2} \\ 
+\end{array}
+$\end{center}
+\end{fact}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Lorentz Transformations}
+
+\begin{definition}[Lorentz Group]
+The \bam{Lorentz Group} is $O(1,3)$, the group of transformations that preserve the Minkowski metric, i.e.
+\[
+\forall \Lambda\in O(1,3) \quad \Lambda^\mu_\rho \Lambda^\nu_\sigma \eta^{\rho\sigma}=\eta^{\mu\nu}
+\]
+The \bam{proper orthochronous Lorentz group} is the connected component containing the identity $SO^+(1,3)$. These preserve orientation and the direction of time. 
+\end{definition}
+
+\begin{theorem}
+Under a Lorentz transformation $\Lambda$, $x\to x^\prime=\Lambda x$, a scalar field $\phi=\phi(x)$ transforms as 
+\[
+\phi\to\phi^\prime, \quad \phi^\prime(x^\prime)=\phi(x)
+\]
+Vector fields $A^\mu(x)$ transform as 
+\[
+A\to A^\prime, \quad \left(A^\prime\right)^\mu(x^\prime)=\Lambda^\mu_\nu A^\nu (x)
+\]
+In general a field transforms as 
+\[
+\phi\to\phi^\prime, \quad (\phi^\prime)^\mu(x^\prime)=D(\Lambda)^\mu_\nu \phi^\nu(x)
+\]
+where $D$ is some representation of the Lorentz group. 
+\end{theorem}
+
+\begin{theorem}
+Let $\Lambda^\mu_\nu$ be a Lorentz transform with infinitesimal expansion 
+\[
+\Lambda^\mu_\nu=\delta^\mu_\nu+\eps \omega^\mu_\nu +\mathcal{O}(\eps^2) 
+\]
+Then 
+\[
+\omega^{\mu\nu}+\omega^{\nu\mu}=0
+\]
+\end{theorem}
+
+\begin{definition}
+Define the matrix $M^{\rho\sigma}$ by 
+\[
+\left( M^{\rho\sigma} \right)^{\mu\nu} = \eta^{\rho\mu}\eta^{\sigma\nu}-\eta^{\sigma\mu}\eta^{\rho\nu}
+\]
+These matrices for generate all antisymmetric tensors by \[
+\omega^{\mu\nu}=\frac{1}{2}\left(\Omega_{\rho\sigma}M^{\rho\sigma}\right)^{\mu\nu}
+\]
+summation convention used. Hence $\set{M^{\rho\sigma}}$ is a generating set for the Lorentz transforms. 
+\end{definition}
+
+\begin{definition}[Lorentz Algebra]
+The matrices $M^{\rho\sigma}$ satisfy the \bam{Lorentz algebra}
+\[
+\comm[M^{\rho\sigma}]{M^{\mu\nu}}=\eta^{\sigma\mu}M^{\rho\nu}-\eta^{\rho\mu}M^{\sigma\nu}-\eta^{\sigma\nu}M^{\rho\mu}+\eta^{\rho\nu}M^{\sigma\mu}
+\]
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Pauli Matrices}
+
+\begin{definition}[Pauli Matrices]
+The \bam{Pauli matrices} are
+
+\begin{align*}
+\sigma_1 &= \begin{pmatrix} 0 & 1 \\ 1 & 0\end{pmatrix}  \\
+\sigma_2 &= \begin{pmatrix} 0 & -i \\ i & 0\end{pmatrix}  \\
+\sigma_3 &= \begin{pmatrix} 1 & 0 \\ 0 & -1\end{pmatrix}  
+\end{align*}
+
+Note they are all Hermitian and traceless.
+\end{definition}
+
+\begin{fact}
+\[
+\sigma_i \sigma_j = \delta_{ij}I +i\epsilon_{ijk}\sigma_k
+\]
+Hence 
+\begin{align*}
+    \comm[\sigma_i]{\sigma_j} &= 2i\eps_{ijk}\sigma_k \\
+    \acomm[\sigma_i]{\sigma_j} &= 2\delta_{ij}I
+\end{align*}
+\end{fact}
+
+\begin{fact}
+It will be common to notate $\bm{\sigma}=(\sigma_1, \sigma_2, \sigma_3)$, and $\sigma^\mu=(I,\bm{\sigma})$, $\bar{\sigma}^\mu=(I, -\bm{\sigma})$
+\end{fact}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Classical Fields}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Basics}
+
+\begin{definition}[Free Theory]
+A \bam{free field theory} is one that contains no interaction terms, and so there are no terms containing multiple different fields. 
+\end{definition}
+
+\begin{definition}[Local Lagrangian]
+A Lagrangian is $\bam{local}$ if all the terms are evaluated at the same spacetime point. 
+\end{definition}
+
+\begin{definition}[Active and Passive Transformations]
+Under an \bam{active} transformation $x \to x^\prime$, a scalar field transforms as 
+\eq{
+\phi(x^\prime) \to \phi(x)
+}
+i.e. the the field sees a coordinate change. In a \bam{passive} transform 
+\eq{
+\phi(x) \to \phi(x^\prime)
+}
+\end{definition}
+
+\begin{definition}[Euler-Lagrange Equations]
+Given a Lagrangian density $\mathcal{L}=\mathcal{L}(\phi_a,\del_\mu \phi_a)$ the \bam{Euler-Lagrange (E-L) equations} are 
+\[
+\del_\mu \pd[\mc{L}]{(\del_\mu \phi_a)}-\pd[\mc{L}]{\phi_a}=0
+\]
+These are necessary and sufficient conditions for the action 
+\[
+S=\int \mc{L}(x) \, d^4x
+\]
+to be stationary, given sufficiently decaying boundary terms. 
+\end{definition}
+
+\begin{definition}[Lorentz Invariance]
+A field theory is \bam{Lorentz invariant (LI)} if the action is unchanged by a Lorentz transformation. 
+\end{definition}
+
+\begin{idea}
+It is common to look for theories that exhibit Lorentz invariance, as it is believed to be a true symmetry of the universe.
+\end{idea}
+
+\begin{definition}[Klein-Gordon Field]
+The \bam{Klein-Gordon (K-G) field} is the real field $\phi$ with Lagrangian density
+\[
+\mc{L}=\frac{1}{2}\eta^{\mu\nu} \del_\mu\phi \del_\nu\phi-\frac{1}{2}m^2\phi^2
+\]
+It is a free field theory, and will be the prototypical field theory. The E-L equation is the \bam{Klein-Gordon equation}
+\[
+\left( \del_\mu \del^\mu + m^2 \right)\phi=0
+\]
+The corresponding action is Lorentz invariant. 
+\end{definition}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Conserved Quantities}
+
+\begin{theorem}[Noether's Theorem]
+Every continuous symmetry of the action of the form $\phi\to\phi+\alpha\Delta\phi$, that induces the transform on the Lagrangian density 
+\[
+\mc{L} \to \mc{L}+\alpha \del_\mu X^\mu
+\]
+gives rise to a conserved current $j^\mu$ s.t. $\del_\mu j^\mu = 0$, given by
+\[
+j^\mu = \pd[\mc{L}]{(\del_\mu \phi)}\Delta\phi-X^\mu
+\]
+and a corresponding conserved charge
+\[
+Q=\int_{\mbb{R}^3} j^0 \, d^3x
+\]
+\end{theorem}
+
+\begin{example}[Complex Scalar Field]
+The Lagrangian for a complex scalar field $\psi$ is 
+\[
+\mc{L}=\del_\mu \psi^\dagger \del^\mu \psi - V\left(|\psi|^2\right)
+\]
+This is invariant under the continuous symmetry $\psi \to e^{i\alpha}\psi$. The corresponding conserved current is 
+\[
+j^\mu=i\left( \psi\del^\mu\psi^\dagger-\psi^\dagger\del^\mu\psi \right)
+\]
+\end{example}
+
+\begin{definition}[Energy-Momentum Tensor]
+For a given Lagrangian density the \bam{energy momentum tensor} is defined as  
+\[
+T^{\mu\nu}=\pd[\mc{L}]{(\del_\mu \phi)} \del^\nu \phi - \eta^{\mu\nu}\mc{L}
+\]
+\end{definition}
+
+\begin{theorem}
+If the Lagrangian density depends only on $x$ implicitly, then translation $x^\mu \to x^\mu-\alpha\eps^\mu$ is a continuous symmetry, and hence for each $\nu$, $T^{\mu\nu}$ is a conserved current. 
+\end{theorem}
+
+\begin{idea}
+If $T^{\mu\nu}$ is not symmetric, it can be made so by adding 
+\eq{
+T^{\mu\nu} + \del_\rho \Gamma^{\rho\mu\nu}
+}
+where $\Gamma^{\rho\mu\nu}$ is antisymmetric in $\nu\leftrightarrow \rho$. 
+\end{idea}
+
+\begin{definition}[Energy and Momentum]
+The energy $E$ is defined as 
+\[
+E=\int_{\mbb{R}^3} T^{00} \, d^3x
+\]
+and the momentum $\bm{P}$ is defined with components 
+\[
+P^i = \int_{\mbb{R}^3} T^{0i} \, d^3
+\]
+
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Hamiltonian Dynamics}
+
+\begin{definition}[Conjugate Momentum]
+The \bam{conjugate momentum} to a field $\phi$ is defined as 
+\[
+\pi = \pd[\mc{L}]{(\del_0\phi)} = \pd[\mc{L}]{\dot{\phi}}
+\]
+\end{definition}
+
+\begin{definition}[Hamiltonian Density]
+Given a Lagrangian density $\mc{L}$, the corresponding \bam{Hamiltonian density} is defined as 
+\[
+\mc{H}=\pi \dot{\phi}-\mc{L}
+\]
+where $\mc{H}$ is a function of $\pi$ instead of $\dot{\phi}$. The corresponding \bam{Hamiltonian} is 
+\eq{
+H = \int \mc{H} \, d^3 x 
+}
+\end{definition}
+
+\begin{definition}[Hamilton's Equations]
+Given a Hamiltonian density $\mc{H}$, \bam{Hamilton's equations} are 
+\[
+\dot{\phi}=\frac{\delta H}{\delta \pi} \text{ and } \dot{\pi}=-\frac{\delta H}{\delta \phi} 
+\]
+\end{definition}
+
+\begin{example}
+For the Klein-Gordon Lagrangian the conjugate momentum is 
+\[
+\pi=\dot{\phi}
+\]
+and so the Hamiltonian density becomes 
+\[
+\mc{H}=\frac{1}{2}\pi^2+\frac{1}{2}|\grad\phi|^2+\frac{1}{2}m^2\phi^2
+\]
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Free Electromagnetic Field}
+
+The \bam{free electromagnetic field} is $A_\mu$ which satisfies the Lagrangian 
+\eq{
+\mc{L} = - \frac{1}{4} F_{\mu\nu} F^{\mu\nu}
+}
+where $F_{\mu\nu} = \del_\mu A_\nu - \del_\nu A_\mu$ is the \bam{field strength tensor}. The Euler-Lagrange equation is 
+\eq{
+\del_\mu F^{\mu\nu} = 0
+}
+The electromagnetic field will eventually quantise to give the photon. Note that the field has no terms quadratic in the field, so it is massless. This means $E_{\bm{p}} = \abs{\bm{p}}$.  
+
+\begin{lemma}[Bianchi Identity]
+The field strength tensor obeys the \bam{Bianchi identity} 
+\eq{
+\del_{\lambda} F_{\mu\nu} + \del_\mu F_{\nu\lambda} + \del_\nu F_{\lambda\mu} = 0
+}
+\end{lemma}
+
+\begin{theorem}[Maxwell's Equations]
+\bam{Maxwell's equations} are 
+\eq{
+\divergence \bm{B} &= 0 \\
+\del_t {\bm{B}} &= - \grad \wedge \bm{E} \\
+\divergence \bm{E} &= 0 \\
+\del_t {\bm{E}} &= \grad \wedge \bm{B}
+}
+These are equivalent to the Euler Lagrange equations for the free electromagnetic field where $A^\mu = (\phi, \bm{A})$ and
+\eq{
+\bm{E} &= - \grad \phi - \del_t \bm{A} \\
+\bm{B} &= \grad \wedge \bm{A}
+}
+\end{theorem}
+
+The conjugate momenta are 
+\eq{
+\pi^\mu &= \pd[\mc{L}]{(\del_0 A_\mu)} = -F^{0\mu} \\
+\Rightarrow \pi^0 &= 0 \\
+\pi^i &= F^{i0} = \del^i A^0 - \del^0 A^i = E^i
+}
+It can be shown 
+\eq{
+H = \int \frac{1}{2} \pround{\bm{E}^2 + \bm{B}^2} - A_0 (\divergence\bm{E}) \, d^3 x 
+}
+
+\begin{remark}
+Note that $A_\mu$ appears to have 4 degrees of freedom, whereas we would expect a photon to have 2 degrees of freedom. This is solved by two facts 
+\begin{itemize}
+    \item $A_0$ is non-dynamical, as there are no $\del_0 A_0$ terms in the Lagrangian, and indeed it is determined by
+    \eq{
+    \divergence \bm{E} = 0 = -(\nabla^2 A_0 + \divergence \del_t \bm{A})
+    }
+    This means $A_\mu$ only has three dynamical degrees of freedom. 
+    \item The Lagrangian has the \bam{gauge symmetry} 
+    \eq{
+    A_\mu \to A_\mu + \del_\mu \lambda
+    }
+    for any differentiable function $\lambda$ that decays at spatial infinity. If we choose a particular gauge, we fix one degree of freedom of the field. 
+\end{itemize}
+\end{remark}
+
+\begin{definition}[Lorentz gauge]
+The Lorentz gauge is chosen by fixing 
+\eq{
+\del_\mu A^\mu = 0 
+}
+\end{definition}
+
+\begin{definition}[Coulomb gauge]
+The Coulomb gauge is chosen by fixing 
+\eq{
+\divergence \bm{A} = 0 
+}
+\end{definition}
+
+\begin{remark}
+Note that if we have chosen the Lorenz gauge, then our theory is equivalent to that with the Lagrangian 
+\eq{
+\mc{L} = - \frac{1}{4} F_{\mu\nu} F^{\mu\nu} - \frac{1}{2\alpha} (\del_\mu A^\mu )^2 
+}
+It will be convenient to work in this new theory, and impose the Lorenz gauge condition later. Then the \bam{Feynman gauge} has $\alpha = 0$ and the \bam{Landau gauge} has $\alpha = 0$. In this theory 
+\eq{
+\pi^0 &= -\frac{1}{\alpha} \del_\mu A^\mu \\
+\pi^i &= E^i 
+}
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fermions}
+This section will begin to discuss spinor fields, which will turn out to represent fermions when quantised.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Clifford Algebra}
+The \bam{Clifford algebra} is $\set{ \gamma^\mu }$ with the anticommutation relation 
+\[
+\acomm[\gamma^\mu]{\gamma^\nu} = 2\eta^{\mu\nu}
+\]
+
+\begin{definition}[$\gamma^5$]
+Define
+\[
+\gamma^5 = i \gamma^0 \gamma^1 \gamma^2 \gamma^3
+\]
+\end{definition}
+
+\begin{theorem}
+The following are properties of $\gamma^\mu$:
+\begin{itemize}
+    \item $\forall p\in\mbb{N}_0, \; \tr \left( \prod _ { i = 1 } ^ { 2 p + 1 } \gamma ^ { \mu _ { i } } \right)$
+    \item $\tr(\gamma^\mu \gamma^\nu)=4\eta^{\mu\nu}$
+    \item $\comm[\gamma^\mu\gamma^\nu]{\gamma^\rho\gamma^\sigma}=2\eta^{\nu\rho}\gamma^\mu\gamma^\sigma-2\eta^{\mu\rho}\gamma^\nu\gamma^\sigma+2\eta^{\nu\sigma}\gamma^\rho\gamma^\mu-2\eta^{\mu\sigma}\gamma^\rho\gamma^\nu$
+    \item $\acomm[\gamma^\mu]{\gamma^5}=0$
+    \item $(\gamma^5)^2=I$
+    \item $\tr{\gamma^5}=0$
+\end{itemize}
+\end{theorem}
+
+
+
+
+\begin{definition}[Chiral Representation]
+The \bam{chiral} or \bam{Weyl representation} of the Clifford Algebra is the 4 dimensional representation
+\begin{align*}
+    \gamma^0 &= \begin{pmatrix} 0 & I_2 \\ I_2 & 0 \end{pmatrix} \\
+    \gamma^i &= \begin{pmatrix} 0 & \sigma_i \\ -\sigma_i & 0 \end{pmatrix} \\ 
+\end{align*}
+In this representation 
+\[
+\gamma^5=\begin{pmatrix} -I_2 & 0 \\ 0 & I_2 \end{pmatrix}
+\]
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Spinors}
+
+\begin{definition}[$S^{\mu\nu}$]
+Define
+\[
+S^{\mu\nu}=\frac{1}{4}\comm[\gamma^\mu]{\gamma^\nu}=\frac{1}{2}\left( \gamma^\mu \gamma^\nu -\eta^{\mu\nu} \right)
+\]
+\end{definition}
+
+\begin{theorem}
+$S^{\mu\nu}$ satisfies the commutation relations
+\begin{align*}
+\comm[S^{\mu\nu}]{\gamma^\rho} &= \gamma^\mu \eta^{\nu\rho}-\gamma^\nu \eta^{\rho\mu} \\
+\comm[S^{\rho\sigma}]{S^{\mu\nu}} &= \eta^{\sigma\mu}S^{\rho\nu}-\eta^{\rho\mu}S^{\sigma\nu}-\eta^{\sigma\nu}S^{\rho\mu}+\eta^{\rho\nu}S^{\sigma\mu}
+\end{align*}
+and hence gives a representation of the Lorentz algebra.
+\end{theorem}
+
+\begin{definition}[Spinor]
+A \bam{Dirac spinor} is a 4-component vector $\psi_\alpha$ that transforms under a Lorentz transform 
+\[
+\Lambda=\exp\left(\frac{1}{2}\Omega_{\rho\sigma}M^{\rho\sigma}\right)
+\]
+as 
+\[
+\psi^{\alpha}(x)\to S[\Lambda]_{\beta}^{\alpha}\psi^{\beta}\left(\Lambda^{-1}x\right)
+\]
+where
+\[
+S[\Lambda]=\exp\left(\frac{1}{2}\Omega_{\rho\sigma}S^{\rho\sigma}\right)
+\]
+\end{definition}
+
+\begin{theorem}
+No such representation of the Lorentz group is unitary.
+\end{theorem}
+\begin{proof}
+$S$ is unitary $\iff$ $S^{\rho\sigma}$ is anti-Hermitian, i.e. $\left( S^{\rho\sigma} \right)^\dagger = -S^{\rho\sigma}$. Now 
+\[
+\left( S^{\rho\sigma} \right)^\dagger = -\comm[{\gamma^\mu}^\dagger]{{\gamma^\nu}^\dagger}
+\]
+Hence for $S^{\rho\sigma}$ to be anti-Hermitian, all $\gamma^\mu$ must be Hermitian or all must be anti-Hermitian. Now $(\gamma^0)^2=I$ so $\gamma^0$ has real eigenvalues, hence cannot be anti-Hermitian. Also, $(\gamma^i)^2=-I$ so $\gamma^i$ has imaginary eigenvalues, hence cannot be Hermitian. 
+\end{proof}
+
+\begin{example}
+Calculating explicitly in the chiral representation yields 
+\begin{align*}
+    S^{ij} &= \frac{-i}{2}\eps_{ijk} \begin{pmatrix} \sigma_k & 0 \\ 0 & \sigma_k \end{pmatrix} \\
+    S^{0i} &= \frac{1}{2} \begin{pmatrix} -\sigma_i & 0 \\ 0 & \sigma_i \end{pmatrix}
+\end{align*}
+Hence if $\Lambda$ is a pure rotation, i.e. the only non-zero $\Omega_{\rho\sigma}$ are $\Omega_{ij}=-\eps_{ijk}\phi^k$, then 
+\[
+S[\Lambda]=\begin{pmatrix} e^{\frac{i\bm{\phi}\cdot\bm{\sigma}}{2}} & 0 \\ 0 & e^{\frac{i\bm{\phi}\cdot\bm{\sigma}}{2}} \end{pmatrix}
+\]
+Alternatively, if $\Lambda$ is a pure boost, i.e the only non-zero $\Omega_{\rho\sigma}$ are $\Omega_{0i}=-\Omega_{i0}=\chi_i$, then
+\[
+S[\Lambda]=\begin{pmatrix} e^{-\frac{\bm{\chi}\cdot\bm{\sigma}}{2}} & 0 \\ 0 & e^\frac{\bm{\chi}\cdot\bm{\sigma}}{2} \end{pmatrix}
+\]
+\end{example}
+
+\begin{idea}
+One key benefit of the chiral representation is that it is manifestly reducible, as discussed below.
+\end{idea}
+
+\begin{definition}[Chiral Spinors]
+As the chiral representation matrices are block diagonal, the representation is reducible into the direct sum of two irreducible 2-dimensional representations. Write the representation space as $\mbb{C}^4=\mbb{C}^2\oplus\mbb{C}^2$ letting 
+\[
+\psi=\begin{pmatrix} U_L \\ U_R \end{pmatrix}
+\]
+$U_{L/R}$ are called \bam{chiral} or \bam{Weyl spinors}. Under rotations and boosts they transform as 
+\begin{align*}
+    U_{L/R} &\to e^{\frac{i\bm{\phi}\cdot\bm{\sigma}}{2}} U_{L/R} \\ 
+    U_{L/R} &\to e^{\mp\frac{\bm{\chi}\cdot\bm{\sigma}}{2}} U_{L/R}
+\end{align*}
+\end{definition}
+
+\begin{definition}[Projection Operators]
+Define the operators 
+\begin{align*}
+    P_L &= \frac{1}{2}(I-\gamma^5) \\
+    P_R &= \frac{1}{2}(I+\gamma^5) 
+\end{align*}
+It can be verified that $P_{L/R}^2=P_{L/R}$ and $P_L P_R =0$ so they are orthogonal \bam{projection operators}
+\end{definition}
+
+\begin{definition}[Left and Right Handed Spinors]
+Define a \bam{left handed spinor} as 
+\[
+\psi_L=P_L \psi
+\]
+and similarly a \bam{right handed spinor} as 
+\[
+\psi_R=P_R \psi
+\]
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Parity}
+
+\begin{fact}
+The connected components of the Lorentz group have a Klein 4 group structure induced by the maps 
+\[
+T: (t,\bm{x}) \mapsto (-t,\bm{x}) \quad \text{(Time reversal)}
+\]
+and
+\[
+P: (t,\bm{x}) \mapsto (t, -\bm{x}) \quad \text{(Parity transform)}
+\]
+\end{fact}
+\begin{fact}
+Let $R$ be the generator of a rotation, i.e 
+\[
+R=-\frac{1}{2}\eps_{ijk}\phi_k M^{ij}
+\]
+and $B$ the generator of a boost, i.e. 
+\[
+B=\frac{1}{2}\chi_i (M^{0i}-M^{i0})
+\]
+then
+\begin{align*}
+    PR &= RP \\
+    PB &= -BP 
+\end{align*}
+and so, after a parity transform, under rotation or boost
+\begin{align*}
+    U_{L/R} &\to e^{\frac{i\bm{\phi}\cdot\bm{\sigma}}{2}} U_{L/R} \\ 
+    U_{L/R} &\to e^{\pm\frac{\bm{\chi}\cdot\bm{\sigma}}{2}} U_{L/R}
+\end{align*}
+Hence 
+\[
+P:\psi_{L/R}(t,\bm{x}) \mapsto \psi_{R/L}(t,-\bm{x})
+\]
+\end{fact}
+
+\begin{fact}
+For a Dirac spinor, parity transform is implemented as 
+\[
+P: \psi(t,\bm{x}) \mapsto \gamma^0 \psi(t,-\bm{x})
+\]
+\end{fact}
+
+\begin{definition}[Vector-Like and Chiral Theories]
+If a theory has symmetry under $\psi_L \leftrightarrow \psi_R$ then it is called \bam{vector-like}. If not, and $\psi_L, \psi_R$ appear differently, then the theory is \bam{chiral}. 
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Lorentz Invariant Spinor Action}
+
+\begin{fact}
+In the chiral representation, ${\gamma^0}^\dagger=\gamma^0$, ${\gamma^i}^\dagger=-\gamma^i$. Hence
+\[
+\gamma^0 \gamma^\mu \gamma^0={\gamma^\mu}^\dagger
+\]
+so 
+\[
+(S^{\mu\nu})^\dagger=-\gamma^0 S^{\mu\nu} \gamma^0
+\]
+yielding
+\[
+S[\Lambda]^\dagger=\gamma^0 S[\Lambda]^{-1} \gamma^0
+\]
+\end{fact}
+
+\begin{definition}[Dirac Adjoint]
+The \bam{Dirac adjoint} of a spinor $\psi$ is 
+\[
+\bar{\psi}=\psi^\dagger \gamma^0
+\]
+\end{definition}
+
+\begin{theorem}
+The following are Lorentz invariant combinations
+\begin{center}$
+\begin{array}{ccc}
+    \text{Coupling} & \text{Type} & \text{Quantity} \\
+    \hline
+    \hline
+    \bar{\psi}\psi & \text{scalar} & 1 \\
+    \bar{\psi}\gamma^\mu\psi & \text{vector} & 4 \\
+    \bar{\psi} S^{\mu\nu} \psi & \text{tensor} & 6 \\
+    \bar{\psi}\gamma^5\psi & \text{pseudoscalar} & 1 \\
+    \bar{\psi}\gamma^5\gamma^\mu\psi & \text{pseudovector} & 4 \\
+\end{array}
+$\end{center}
+\end{theorem}
+
+\begin{definition}[Slash Notation]
+The contraction $\gamma^\mu A_\mu=\gamma_\mu A^\mu$ is written in \bam{slash notation} as $\slashed{A}$
+\end{definition}
+
+\begin{definition}[Dirac Lagrangian]
+The action
+\[
+S=\int d^{4}x \underbrace{\bar{\psi}(x)\left(i\gamma^\mu\del_\mu-m\right)\psi(x)}_{\mc{L}_D}
+\]
+Is Lorentz invariant. The Lagrangian $\mc{L}_D$ is the \bam{Dirac Lagrangian}
+\end{definition}
+
+\begin{definition}[Dirac Equation]
+The Euler-Lagrane equation corresponding to the Dirac Lagrangian is the \bam{Dirac equation}
+\[
+\left(i\gamma^\mu\del_\mu-m\right)\psi=0
+\]
+In slashed notation this is 
+\[
+(i \slashed{\del}-m)\psi=0
+\]
+\end{definition}
+
+\begin{theorem}
+If $\psi$ satisfies the Dirac equation then each component of $\psi$ also satisfies the Klein-Gordon equation. 
+\end{theorem}
+
+\begin{idea}
+If the intention is to have a free particle that solves the K-G equation, then for scalar particles the K-G Lagrangian is of of the only solutions, and it is second order. For spinors, the Dirac equation satisfies the requirement that components solve K-G, but also gives additional information as it is first order. 
+\end{idea}
+
+\begin{example}
+The equations of motion for a spinor field are first order, and so only an initial value needs to be specified. Hence is can be specified that $\mc{L}_D=0$ and this remains true. 
+The energy-momentum tensor for the Dirac Lagrangian is then  
+\[
+T^{\mu\nu} = i\bar{\psi}\gamma^\mu\del^\nu\psi-\eta^{\mu\nu}\mc{L}_D = i\bar{\psi}\gamma^\mu\del^\nu\psi
+\]
+There is also a conserved current arising from Lorentz invariance. Consider 
+\[
+\psi^\alpha \to S[\Lambda]^\alpha_\beta \psi^\beta (x^\mu-\omega^\mu_\nu x^\nu )
+\]
+with $\omega^\mu_\nu = \frac{1}{2} \Omega_{\rho\sigma}(M^{\rho\sigma})^\mu_\nu$. Note $\Omega$ can be taken to be antisymmetric as the symmetric part will give $0$ contribution, so $\omega^{\mu\nu}=\Omega^{\mu\nu}$. Then 
+\begin{align*}
+\delta \psi^\alpha &= -\omega^\mu_\nu x^\nu \del_\mu \psi^\alpha + \frac{1}{2}\Omega_{\rho\sigma}(S^{\rho\sigma})^\alpha_\beta \psi^\beta \\
+&= -\omega^{\mu\nu} \left[ x_\nu \del_\mu \psi^\alpha -\frac{1}{2} (S_{\mu\nu})^\alpha_\beta \psi^\beta \right]
+\end{align*}
+giving the conserved current
+\[
+(J^\mu)^{\rho\sigma}=x^\rho T^{\mu\sigma}-x^\sigma T^{\mu\rho}-i\bar{\psi} \gamma^\mu S^{\rho\sigma} \psi
+\]
+In addition, there are internal symmetries due to phase of the field. Considering the symmetry $\psi \to e^{i\alpha} \psi$ gives the conserved current 
+\[
+j^\mu = \bar{\psi} \gamma^\mu \psi
+\]
+\end{example}
+
+\begin{definition}[Weyl Equation]
+Expanding the Dirac equation in terms of chiral spinors gives 
+\begin{align*}
+    i \bar{\sigma}^\mu \del_\mu U_L &= 0 \\
+    i \sigma^\mu \del_\mu U_R &= 0
+\end{align*}
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Plane Wave Solutions}
+
+\begin{theorem}
+Plane wave solutions to the Dirac equation of the form 
+\[
+\psi(x) = u_p e^{-i p\cdot x }
+\]
+are
+\[
+u_p = \begin{pmatrix} \sqrt{p\cdot\sigma} \xi \\ \sqrt{p\cdot\bar{\sigma}} \xi \end{pmatrix}
+\]
+for any two component spinor $\xi$ normalised such that $\xi^\dagger \xi = 1$. There are also negative frequency solutions of the form 
+\[
+\psi(x) = v_p e^{+i p\cdot x }
+\]
+with 
+\[
+v_p = \begin{pmatrix} \sqrt{p\cdot\sigma} \xi \\ -\sqrt{p\cdot\bar{\sigma}} \xi \end{pmatrix}
+\]
+\end{theorem}
+
+\begin{idea}
+For a given momentum, the above theorem demonstrates that there are only two degrees of freedom. 
+\end{idea}
+
+\begin{definition}
+Choose two linearly independent $\xi$, $\xi^s$ for $s=1,2$, such that 
+\[
+(\xi^r)^\dagger \xi^s = \delta^{rs}
+\]
+Then let 
+\begin{align*}
+    u_p^r &= \begin{pmatrix} \sqrt{p\cdot\sigma} \xi^r \\ \sqrt{p\cdot\bar{\sigma}} \xi^r \end{pmatrix} \\
+    v_p^r &= \begin{pmatrix} \sqrt{p\cdot\sigma} \xi^r \\ -\sqrt{p\cdot\bar{\sigma}} \xi^r \end{pmatrix} \\
+\end{align*}
+\end{definition}
+
+\begin{definition}[Helicity Operator]
+The \bam{helicity operator} $h$ projects the angluar momentum along the direction of motion 
+\[
+h=\hat{\bm{p}} \cdot \bm{s} = \frac{1}{2}\hat{p}_i \begin{pmatrix} \sigma_i & 0 \\ 0 & \sigma_i \end{pmatrix}
+\]
+\end{definition}
+
+\begin{example}
+Take $\xi^1=\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ and $\xi^2=\begin{pmatrix} 0 \\ 1 \end{pmatrix}$. Consider a particle with 4 momentum $p^\mu = (E,0,0,p^3)$ and mass $m$. Note as $m \to 0$, $E \to p^3$. Then 
+\begin{align*}
+    u_p^1 &= \begin{pmatrix} \sqrt{E+p^3} \begin{pmatrix} 1 \\ 0 \end{pmatrix} \\ \sqrt{E-p^3} \begin{pmatrix} 1 \\ 0 \end{pmatrix} \end{pmatrix} \to_{m \to 0} \sqrt{2E}\begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix} \\
+    u_p^2 &= \begin{pmatrix} \sqrt{E+p^3} \begin{pmatrix} 0 \\ 1 \end{pmatrix} \\ \sqrt{E-p^3} \begin{pmatrix} 0 \\ 1 \end{pmatrix} \end{pmatrix} \to_{m \to 0} \sqrt{2E}\begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix} \\
+\end{align*}
+
+Then
+
+\begin{align*}
+    h u_p^1 &= \frac{1}{2} \sqrt{2E} \begin{pmatrix} \sigma_3 & 0 \\ 0 & \sigma_3 \end{pmatrix} \begin{pmatrix} \xi^1 \\ 0 \end{pmatrix} = \frac{1}{2} u_p^1 \\
+     h u_p^2 &= \frac{1}{2} \sqrt{2E} \begin{pmatrix} \sigma_3 & 0 \\ 0 & \sigma_3 \end{pmatrix} \begin{pmatrix} \xi^2 \\ 0 \end{pmatrix} = -\frac{1}{2} u_p^2 \\
+\end{align*}
+So $u_p^1$ has helicity $\frac{1}{2}$ and $u_p^2$ has helicity $-\frac{1}{2}$
+\end{example}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Quantisation}
+
+\begin{definition}[Quantum Field]
+A \bam{quantum field} is an operator valued function that obeys the commutation relations 
+\begin{align*}
+    \comm[\phi_a(\bm{x})]{\phi_b(\bm{y})} &= 0 \\
+    \comm[\pi^a(\bm{x})]{\pi^b(\bm{y})} &= 0 \\
+    \comm[\phi_a(\bm{x})]{\pi^b(\bm{y})} &= i\delta^3(\bm{x}-\bm{y}) \delta_a^b
+\end{align*}
+in the Schr\"odinger picture. 
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Real Scalar Field}
+
+\begin{example}
+To quantise a real scalar field that satisfies K-G, write 
+\[
+\phi(t,\bm{x})=\int\tmeas e^{i\bm{p}\cdot\bm{x}} \hat{\phi}(t,\bm{p})
+\]
+using Fourier transform. Then the K-G equation forces 
+\[
+\left[\pds{t}+(|\bm{p}|^2+m^2)\right]\hat{\phi}(t,\bm{p})=0
+\]
+Hence letting $\omega_{\bm{p}}=\sqrt{|\bm{p}|^2+m^2}$ yields solutions 
+\[
+\hat{\phi}(t,\bm{p})=\frac{a_{\bm{p}}}{\sqrt{2\omega_p}} e^{-i\omega_{\bm{p}} t}
+\]
+Where $a_{\bm{p}}$ is some operator, and the factor of 
+$\frac{1}{\sqrt{2\omega_p}}$ is arbitrary. Then, ensuring that $\phi$ is real gives 
+\[
+\phi(t,\bm{x})=\int\tmeas  \frac{1}{\sqrt{2\omega_p}} \left( a_{\bm{p}} e^{i\bm{p}\cdot\bm{x}-i\omega_{\bm{p}} t} + a_{\bm{p}}^\dagger e^{-i\bm{p}\cdot\bm{x}+i\omega_{\bm{p}} t} \right)
+\]
+Hence 
+\[
+\pi(t,\bm{x})=\int\tmeas  (-i)\sqrt{\frac{\omega_p}{2}} \left( a_{\bm{p}} e^{i\bm{p}\cdot\bm{x}-i\omega_{\bm{p}} t} - a_{\bm{p}}^\dagger e^{-i\bm{p}\cdot\bm{x}+i\omega_{\bm{p}} t} \right)
+\]
+Here $a_{\bm{p}}$ is call an \bam{annihilation operator} and $a_{\bm{p}}^\dagger$ a \bam{creation operator}. Note this quantisation has occured in the Heisenberg picture, where the operator is time dependent. In the Schr\"odinger picture time dependence needs to be removed.
+\end{example}
+
+\begin{definition}[Quantising a Real Scalar Field]
+Given a real scalar field $\phi$ in the Schr\"odinger picture, satisfying the K-G equation, with conjugate momentum $\pi$, it shall be defined to be quantised as
+\[
+\phi(\bm{x})=\int\tmeas  \frac{1}{\sqrt{2\omega_p}} \left( a_{\bm{p}} e^{i\bm{p}\cdot\bm{x}} + a_{\bm{p}}^\dagger e^{-i\bm{p}\cdot\bm{x}} \right)
+\]
+and
+\[
+\pi(\bm{x})=\int\tmeas  (-i)\sqrt{\frac{\omega_p}{2}} \left( a_{\bm{p}} e^{i\bm{p}\cdot\bm{x}} - a_{\bm{p}}^\dagger e^{-i\bm{p}\cdot\bm{x}} \right)
+\]
+These can be rewritten as 
+\[
+\phi(\bm{x})=\int\tmeas  \frac{1}{\sqrt{2\omega_p}} \left( a_{\bm{p}}  + a_{-\bm{p}}^\dagger  \right)e^{i\bm{p}\cdot\bm{x}}
+\]
+and
+\[
+\pi(\bm{x})=\int\tmeas  (-i)\sqrt{\frac{\omega_p}{2}} \left( a_{\bm{p}}  - a_{-\bm{p}}^\dagger  \right)e^{i\bm{p}\cdot\bm{x}}
+\]
+\end{definition}
+
+\begin{theorem}
+Given the above quantisation of a real scalar quantum field, the following commutation relations are induced on the operators $a_{\bm{p}}$, $a_{\bm{p}}^\dagger$. 
+\begin{align*}
+    \comm[a_{\bm{p}}]{a_{\bm{q}}} &= 0 \\
+    \comm[a_{\bm{p}}^\dagger]{a_{\bm{q}}^\dagger} &= 0 \\
+    \comm[a_{\bm{p}}]{a_{\bm{q}}^\dagger} &= (2\pi)^3 \delta^3(\bm{p}-\bm{q})
+\end{align*}
+\end{theorem}
+
+\begin{definition}[Normal Ordering]
+Given a product of a string of scalar fields $\phi_1(\bm{x}_1)\dots\phi_n(\bm{x}_n)$ the \bam{normal ordering} of the product is denoted as 
+\[
+:\phi_1(\bm{x}_1)\dots\phi_n(\bm{x}_n):
+\]
+and is defined by moving all the annihilation operators to the right of the product, and all the creation operators to the left. For spinor fields, the definition is analogous, but with a factor of $-1$ included for each interchange, in order to have the result consistent with the anticommutation relations. 
+\end{definition}
+
+\begin{theorem}
+The corresponding Hamiltonian is 
+\begin{align*}
+    H &= \int d^3x \, \frac{1}{2}\pi^2+\frac{1}{2}|\grad\phi|^2+\frac{1}{2}m^2\phi^2 \\
+    &= \frac{1}{2} \int \tmeas \omega_{\bm{p}} (a_{\bm{p}}a_{\bm{p}}^\dagger+a_{\bm{p}}^\dagger a_{\bm{p}}) \\
+    &= \int \tmeas \omega_{\bm{p}} ( a_{\bm{p}}^\dagger a_{\bm{p}} +\frac{1}{2}\comm[a_{\bm{p}}]{a_{\bm{p}}^\dagger})
+\end{align*}
+After normal ordering this is 
+\[
+:H:=\int\tmeas \omega_{\bm{p}} a_{\bm{p}}^\dagger a_{\bm{p}}
+\]
+\end{theorem}
+
+\begin{idea}
+Stealing from Peskin and Schroeder, the three terms in the Hamiltonian can be thought of as "the energy cost of "moving" in time, the energy cost of "shearing" in space, and the energy cost of having the field around at all". The infinite term in the Hamiltonian is a constant, and so can be considered as the energy of the background. As only energy differences can be measured experimentally, it is common to ignore this infinite ground state energy. Moreover, we have a divergence from the fact that we are integrating over every momentum, which is unphysical. Really, a scale needs to be introduce, and this is the concept of renormalisation. 
+\end{idea}
+
+\begin{theorem}
+The Hamiltonian satisfies the commutation relations
+\begin{align*}
+    \comm[H]{a_{\bm{p}}} &= -\omega_{\bm{p}} a_{\bm{p}} \\ 
+    \comm[H]{a_{\bm{p}}^\dagger} &= +\omega_{\bm{p}} a_{\bm{p}}^\dagger
+\end{align*}
+\end{theorem}
+
+\begin{definition}[Vacuum]
+The \bam{vacuum state} $\ket{0}$ is defined such that 
+\[
+\forall \bm{p} \quad a_{\bm{p}} \ket{0} = 0
+\]
+normalised such that 
+\[
+\braket{0|0}=1
+\]
+\end{definition}
+
+\begin{definition}[Energy Eigenstate]
+The \bam{energy eigenstates} are 
+\[
+\ket{\bm{p}_1,\bm{p}_2,\dots,\bm{p}_n}=a_{\bm{p}_1}^\dagger a_{\bm{p}_2}^\dagger \dots a_{\bm{p}_n}^\dagger \ket{0}
+\]
+with eigenvalues $\omega_{\bm{p}_1}+\omega_{\bm{p}_2}+\dots+\omega_{\bm{p}_n}$. Hence write $E_{\bm{p}}=\omega_{\bm{p}}$ to identify $\omega_{\bm{p}}$ as an energy.
+\end{definition}
+
+\begin{definition}[Relativistic Dispersion Relation]
+The \bam{relativistic dispersion relation} for a particle, mass $m$, momentum $p$ is 
+\[
+p_\mu p^\mu = (p_0)^2-|\bm{p}|^2=m^2
+\]
+\end{definition}
+
+\begin{definition}[Momentum Operator]
+The \bam{momentum operator} is the quantised analogue of the classical momentum operator 
+\[
+\bm{P}=-\int \pi(\bm{x}) \grad\phi(\bm{x}) \, d^3x = \int \tmeas \bm{p} a_{\bm{p}}^\dagger a_{\bm{p}}
+\]
+\end{definition}
+
+\begin{theorem}
+$\bm{P}\ket{\bm{p}}=\bm{p}\ket{\bm{p}}$. Hence $\ket{p}$ is a momentum eigenstate. 
+\end{theorem}
+
+\begin{definition}[Number Operator]
+Define the \bam{number operator} $N$ by 
+\[
+N=\int \tmeas a_{\bm{p}}^\dagger a_{\bm{p}}
+\]
+\end{definition}
+
+\begin{theorem}
+$N\ket{\bm{p}_1,\bm{p}_2,\dots,\bm{p}_n}=n\ket{\bm{p}_1,\bm{p}_2,\dots,\bm{p}_n}$
+\end{theorem}
+
+\begin{idea}
+The number operator counts the number of particles in a state. Note $\comm[N]{H}=0$, so the number of particles is conserved. This will not remain true when interaction terms are added to the Lagrangian. 
+\end{idea}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Complex Scalar Field}
+
+\begin{definition}[Quantising a Complex Scalar Field]
+Given a complex scalar field $\psi$ in the Schr\"odinger picture, it shall be defined to be quantised as
+\begin{align*}
+\psi(\bm{x}) &= \int\tmeas  \frac{1}{\sqrt{2E_{\bm{p}}}} \left( b_{\bm{p}} e^{i\bm{p}\cdot\bm{x}} + c_{\bm{p}}^\dagger e^{-i\bm{p}\cdot\bm{x}} \right) \\ 
+\psi(\bm{x})^\dagger &= \int\tmeas  \frac{1}{\sqrt{2E_{\bm{p}}}} \left( b_{\bm{p}}^\dagger e^{-i\bm{p}\cdot\bm{x}} + c_{\bm{p}} e^{i\bm{p}\cdot\bm{x}} \right)
+\end{align*}
+and
+\[
+\pi(\bm{x})=\int\tmeas  i\sqrt{\frac{E_{\bm{p}}}{2}} \left( b_{\bm{p}}^\dagger e^{-i\bm{p}\cdot\bm{x}} - c_{\bm{p}} e^{i\bm{p}\cdot\bm{x}} \right)
+\]
+This comes from consider the Lagrangian for the free field
+\eq{
+\mc{L} = \del_\mu \phi^\dagger \del^\mu \psi - \mu^2 \psi^\dagger \psi
+}
+\end{definition}
+
+\begin{theorem}
+Given the above quantisation of a complex scalar quantum field, the following commutation relations are induced on the operators $b_{\bm{p}}$, $c_{\bm{p}}^\dagger$, etc. 
+\begin{align*}
+    \comm[b_{\bm{p}}]{b_{\bm{q}}} &= 0 = \comm[c_{\bm{p}}]{c_{\bm{q}}} \\
+    \comm[b_{\bm{p}}^\dagger]{b_{\bm{q}}^\dagger} &= 0 = \comm[c_{\bm{p}}^\dagger]{c_{\bm{q}}^\dagger} \\
+    \comm[b_{\bm{p}}]{c_{\bm{q}}^\dagger} &= 0 = \comm[b_{\bm{p}}^\dagger]{c_{\bm{q}}}\\
+    \comm[b_{\bm{p}}]{b_{\bm{q}}^\dagger} &= (2\pi)^3 \delta^3(\bm{p}-\bm{q}) = \comm[c_{\bm{p}}]{c_{\bm{q}}^\dagger}
+\end{align*}
+\end{theorem}
+
+\begin{theorem}
+From example 3.2.1 the quantity
+\[
+Q=i \int d^3x \, \left( \psi\dot{\psi}^\dagger-\psi^\dagger\dot{\psi} \right) = i \int d^3x \, \left( \pi\psi - \psi^\dagger \pi^\dagger \right)
+\]
+is conserved. After normal ordering 
+\[
+Q=\int \tmeas \left( c_{\bm{p}}^\dagger c_{\bm{p}} - b_{\bm{p}}^\dagger b_{\bm{p}} \right) = N_c - N_b
+\]
+\end{theorem}
+
+\begin{theorem}
+The Hamiltonian is 
+\[
+H = \int\tmeas E_{\bm{p}} \left( b_{\bm{p}}^\dagger b_{\bm{p}} + c_{\bm{p}}^\dagger c_{\bm{p}} \right)
+\]
+\end{theorem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Properties of Scalar Fields}
+
+\begin{theorem}
+As $\comm[a_{\bm{p}}^\dagger]{a_{\bm{q}}^\dagger}=0$,
+\[
+\ket{\bm{p},\bm{q}}=\ket{\bm{q},\bm{p}}
+\]
+Hence the states obey \bam{Bose-Einstein statistics}, and so the particles are called \bam{bosons}.
+\end{theorem}
+
+
+\begin{definition}
+The \bam{identity operator on one particle states} is 
+\[
+1=\int \tmeas \ket{\bm{p}}\bra{\bm{p}}
+\]
+\end{definition}
+
+\begin{theorem}
+The integral 
+\[
+\int \frac{d^3 \bm{p}}{2E_{\bm{p}}}
+\]
+is Lorentz invariant
+\end{theorem}
+\begin{proof}
+Certainly 
+\[
+\int d^4 p 
+\]
+is LI, as $\Lambda\in SO(1,3)$, so $\det\Lambda=1$, preserving the measure. Further the relativistic dispersion relation $p_\mu p^\mu=m^2$ must be LI. Finally the branch of the solution must be LI. Hence 
+\[
+\int d^4p \, \delta(p_\mu p^\mu-m^2)|_{p_0>0} = \int \left. \frac{d^3\bm{p}}{2p_0} \right|_{p_0=E_{\bm{p}}}
+\]
+\end{proof}
+
+\begin{corollary}
+As 
+\[
+1=\int \frac{d^3 \bm{p}}{2E_{\bm{p}}} 2E_{\bm{p}} \delta^3(\bm{p}-\bm{q})
+\]
+is invariant, so must be $2E_{\bm{p}} \delta^3(\bm{p}-\bm{q})$.
+\end{corollary}
+
+\begin{definition}
+Define 
+\[
+\ket{p}=\sqrt{2E_{\bm{p}}}\ket{\bm{p}}=\sqrt{2E_{\bm{p}}}a_{\bm{p}}^\dagger \ket{0}
+\]
+\end{definition}
+
+\begin{idea}
+By the above corollary 
+\[
+\braket{p|q}=\sqrt{4E_{\bm{p}}E_{\bm{q}}}(2\pi)^3 \delta^3(\bm{p}-\bm{q})
+\]
+is a LI normalisation. 
+\end{idea}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Spinor Field}
+
+\begin{definition}[Quantising a Spinor Field]
+Given a spinor field $\psi$ in the Schr\"odinger picture, it shall be defined to be quantised as
+\begin{align*}
+\psi(\bm{x}) &= \sum_{s=1}^2 \int\tmeas  \frac{1}{\sqrt{2E_{\bm{p}}}} \left( b_{\bm{p}}u_{\bm{p}}^s e^{i\bm{p}\cdot\bm{x}} + c_{\bm{p}}^\dagger {v_{\bm{p}}^s}^\dagger e^{-i\bm{p}\cdot\bm{x}} \right) 
+\end{align*}
+\end{definition}
+
+\begin{theorem}
+Given the above quantisation of a spinor field, the anticommutation relations 
+\begin{align*}
+    \acomm[\psi_\alpha(\bm{x})]{\psi_\beta(\bm{y})} &= 0 \\
+    \acomm[\psi_\alpha^\dagger(\bm{x})]{\psi_\beta^\dagger(\bm{y})} &= 0 \\
+    \acomm[\psi_\alpha(\bm{x})]{\psi_\beta^\dagger(\bm{y})} &= \delta^3(\bm{x}-\bm{y})\delta_{\alpha\beta} 
+\end{align*}
+are imposed. These induce the following anticommutation relations on the operators $b_{\bm{p}}$, $c_{\bm{p}}^\dagger, \dots$. 
+\begin{align*}
+    \acomm[b_{\bm{p}}^r]{{b_{\bm{q}}^s}^\dagger} &= (2\pi)^3 \delta^3(\bm{p}-\bm{q}) \delta^{rs} = \acomm[c_{\bm{p}}^r]{{c_{\bm{q}}^s}^\dagger}
+\end{align*}
+with all other combinations $0$. 
+\end{theorem}
+
+\begin{idea}
+For spinor fields the structure of the Hamiltonian is different from that of scalar fields pre-quantisation. As such for scalar fields commutation relations must be imposed in order to get causal theories with a positive minimum energy, whereas for spinor fields anticommutation relations are required. This difference will ultimately lead to the differennce between Bose-Einstein statistics and Fermi-Dirac statistics, as has partially been seen already. 
+\end{idea}
+
+\begin{theorem}
+For a spinor field the Hamiltonian is 
+\[
+H=\int \tmeas E_{\bm{p}} \sum_{s=1}^2 ({b_{\bm{p}}^s}^\dagger b_{\bm{p}}^s + {c_{\bm{p}}^s}^\dagger c_{\bm{p}}^s )
+\]
+\end{theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Properties of Spinor Fields}
+
+\begin{definition}
+Define in analogy the states 
+\[
+\ket{\bm{p}_1,r_1,\dots,\bm{p}_n,r_n} = b_{\bm{p}_1}^{r_1} \dots b_{\bm{p}_n}^{r_n} \ket{0}
+\]
+These are similarly energy eigenstate with energy $E_{\bm{p}_1}+\dots+E_{\bm{p}_n}$
+\end{definition}
+
+\begin{theorem}
+Due to the anticommutation relations 
+\[
+\ket{\bm{p},r,\bm{p}^\prime,r^\prime}=-\ket{\bm{p}^\prime,r^\prime,\bm{p},r}
+\]
+Hence the states obey \bam{Fermi-Dirac statistics} and so the particles are called \bam{fermions}.  
+\end{theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Free Electromagnetic Field}
+The free electromagnetic field is quantised as 
+\eq{
+A_\mu(\bm{x}) = \sum_{\lambda=0}^3 \int \tmeas \frac{1}{\sqrt{2 \abs{\bm{p}}}} \eps_\mu^{(\lambda)}(\bm{p}) \pround{  a_{\bm{p}}^\lambda e^{i\bm{p}\cdot\bm{x}} +  {a_{\bm{p}}^\lambda}^\dagger e^{-i\bm{p}\cdot\bm{x}}  }
+}
+We may wlog pick $\eps_\mu^{(0)}$ to be timelike and $\eps_\mu^{(i)}$ to be spacelike so 
+\eq{
+\eps^{(\lambda)} \cdot \eps^{(\lambda^\prime)} = \eta^{\lambda \lambda^\prime}
+}
+We can further choose $\eps^{(1)} \cdot p = 0 = \eps^{(2)} \cdot p$ so they are transverse. We then choose $\eps^{(3)}$ to be longitudinal. The conjugate momentum is also 
+\eq{
+\pi^\mu(\bm{x}) = \sum_{\lambda=0}^3 \int \tmeas \sqrt{\frac{\abs{\bm{p}}}{2}}(+i) \eps^{\mu(\lambda)}(\bm{p}) \pround{  a_{\bm{p}}^\lambda e^{i\bm{p}\cdot\bm{x}} -  {a_{\bm{p}}^\lambda}^\dagger e^{-i\bm{p}\cdot\bm{x}}  }
+}
+This imposes the commutation relations 
+\eq{
+\comm[a_{\bm{p}}^\lambda]{{a_{\bm{q}}^{\lambda^\prime}}^\dagger} = -\eta^{\lambda \lambda^\prime} (2\pi)^3 \delta^{(3)}(\bm{p}-\bm{q})
+}
+
+\begin{remark}
+The commutation relation has what we might consider the wrong sign for the terms with $\lambda = \lambda^\prime = 0$. This can lead to states of negative norm. This will be a problem that needs rectifying. 
+\end{remark}
+
+\begin{definition}[Gupta Bleuler Condition]
+Define the quantities 
+\eq{
+A_\mu^+ (\bm{x}) &=  \sum_{\lambda=0}^3 \int \tmeas \frac{1}{\sqrt{2 \abs{\bm{p}}}} \eps_\mu^{(\lambda)}(\bm{p}) a_{\bm{p}}^\lambda e^{i\bm{p}\cdot\bm{x}} \\
+A_\mu^- (\bm{x}) &=  \sum_{\lambda=0}^3 \int \tmeas \frac{1}{\sqrt{2 \abs{\bm{p}}}} \eps_\mu^{(\lambda)}(\bm{p}) {a_{\bm{p}}^\lambda}^\dagger e^{-i\bm{p}\cdot\bm{x}}
+}
+We then restrict the Hilbert space to 
+\eq{
+\mc{H}_{phys} = \set{\ket{\Psi} \in \mc{H} : \del^\mu A_\mu^+ \ket{\Psi} = 0}
+}
+These are the physical states with positive norm. The condition is called the \bam{Gupta Bleuler condition}. This conditions imposes 
+\eq{
+\bra{\Psi^\prime} \del^\mu A_\mu \ket{\Psi} = 0
+}
+Decomposing physical states into $\ket{\psi} = \ket{\psi_T}\ket{\phi}$, where $\ket{\psi}$ contains only transverse modes (created by $a^1,a^2$) and $\ket{\phi}$ contains only longitudinal or timelike modes (created by $a^0,a^3$) the Gupta Bleuler condition becomes 
+\eq{
+(a_{\bm{p}}^3 - a_{\bm{p}}^0) \ket{\phi} = 0
+}
+Hence, in physical states, timelike modes and longitudinal modes must come in pairs. Write 
+\eq{
+\ket{\phi} = \sum_{n=0}^\infty C_n \ket{\phi_n}
+}
+where the state $\ket{\phi_n}$ has n pairs. Then 
+\eq{
+\braket{\phi_m| \phi_n} = \delta_{m0} \delta_{n0}
+}
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Interactions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Heisenberg and Interaction Picture}
+
+\begin{definition}[Schr\"odinger Equation]
+In the Schr\"odinger picture, states are time dependent, and obey the \bam{time dependent Schr\"odinger equation}
+\eq{
+i \frac{d}{dt}\ket{\psi} = H\ket{\psi}
+}
+\end{definition}
+
+\begin{definition}[Heisenberg Picture]
+Given an operator in the Schr\"odinger picute $O_S$ and Hamiltonian $H$, the corresponding operator in the \bam{Heisenberg picture} is 
+\[
+O_H (t) = e^{iHt} O_S e^{-iHt}
+\]
+This ensures that the expectation of any operator is the same in both the Schr\"odinger and Heisenberg picture. i.e.
+\eq{
+\bra{\phi_H} O_H(t) \ket{\psi_H} = \bra{\phi_S(t)} O_S \ket{\psi_S(t)}
+}
+\end{definition}
+
+\begin{theorem}
+Given an operator $O_H(t)$ in the Heisenberg picture 
+\[
+\frac{d}{dt} O_H(t) = i \comm[H]{O_H(t)}
+\]
+\end{theorem}
+
+\begin{theorem}
+For any creation/annihilation operators with $\comm[H]{a_{\bm{p}}^\dagger} =  E_{\bm{p}} a_{\bm{p}}^\dagger$, $\comm[H]{a_{\bm{p}}} = - E_{\bm{p}} a_{\bm{p}}$
+\begin{align*}
+e^{iHt} a_{\bm{p}}  e^{-iHt} &= e^{-iE_{\bm{p}}t} a_{\bm{p}} \\
+e^{iHt} a_{\bm{p}}^\dagger  e^{-iHt} &= e^{iE_{\bm{p}}t} a_{\bm{p}}^\dagger
+\end{align*}
+\end{theorem}
+\begin{proof}
+Define 
+\eq{
+f(t) &= e^{iHt} a_{\bm{p}} e^{-iHt} \\
+\Rightarrow f^\prime(t) &= e^{iHt} i\comm[H]{a_{\bm{p}}} e^{-iHt} \\
+&= -iE_{\bm{p}} f(t)
+}
+so $f$ obeys an ode and has $f(0) = a_{\bm{p}}$. Likewise for the case of $a_{\bm{p}}^\dagger$. 
+\end{proof}
+
+\begin{theorem}
+In the Heisenberg picture, for $\phi$ a real scalar field, 
+\[
+\phi(x)=\phi(t,\bm{x}) = \int\tmeas  \frac{1}{\sqrt{2E_{\bm{p}}}} \left( a_{\bm{p}} e^{-i p\cdot x} + a_{\bm{p}}^\dagger e^{i p\cdot x} \right)
+\]
+where $p\cdot x = E_{\bm{p}}t-\bm{p}\cdot\bm{x}$. Analogous results hold for complex scalar fields and spinor fields. 
+\end{theorem} 
+
+\begin{definition}[Interaction Hamiltonian]
+Given a Hamiltonian $H$ which is a combination of a free theory Hamiltonian $H_0$ and additional terms, let the \bam{interaction Hamiltonian} be 
+\[
+H_{int} = H - H_0
+\]
+\end{definition}
+
+\begin{definition}[Interacting Vacuum]
+Write $\ket{0}$ for the vacuum of the free theory, i.e. 
+\[
+H_0 \ket{0} = 0
+\]
+as before, and let $\ket{\Omega}$ be the \bam{interaction vacuum}, i.e. \[
+H \ket{\Omega} = 0
+\]
+\end{definition}
+
+\begin{definition}[Interaction Picture]
+Given a state evolving under the full Hamiltonian in the Schr\"odinger picture 
+\eq{
+\ket{\psi_S(t)} = e^{-iHt} \ket{\psi_S(0)}
+}
+we define the state in the interaction picture by removing the evolution under $H_0$, i.e. 
+\eq{
+\ket{\psi_I(t)} = e^{iH_0 t} \ket{\psi_I(t)}
+}
+Given an operator in the Schrodinger picture $O_S$, define the corresponding operator in the \bam{interaction picture} $O_I$ by 
+\[
+O_I(t) = e^{iH_0t} O_S e^{-iH_0t}
+\]
+\end{definition}
+
+\begin{definition}[$U(t,t_0)$]
+Given an operator, write 
+\begin{align*}
+O_H(t) &= e^{iHt} e^{-iH_0t} O_I(t) e^{iH_0t}e^{-iHt} \\
+ &= U(t,0)^\dagger O_I(t) U(t,0)
+\end{align*}
+defining 
+\[
+U(t,t_0) = e^{iH_0 t}e^{-iH (t-t_0)} e^{-iH_0 t_0}
+\]
+\end{definition}
+
+\begin{definition}[Time Ordering]
+Given two time dependent operators $O$, $O^\prime$, the \bam{time ordered product} is 
+\[
+T \{ O(t) O^\prime(t^\prime) \} = \left\{ \begin{array}{lc} O(t) O^\prime(t^\prime) & t > t^\prime \\
+    O^\prime(t^\prime) O(t) & t^\prime > t 
+    \end{array} \right. \\
+\]
+\end{definition}
+
+\begin{theorem}
+Denote $(H_{int})_I = H_I$. Then 
+\begin{align*}
+i \frac{d}{dt} U(t,t_0) &= H_I U(t,t_0) \\
+\Rightarrow U(t,t_0) &= T \exp\left\{ -i \int_{t_0}^t H_I(t^\prime) \, dt^\prime \right\}
+\end{align*}
+This is \bam{Dyson's formula}. 
+\end{theorem}
+
+\begin{definition}[Relevant and Marginal Couplings]
+With a Lagrangian density 
+\eq{
+\mc{L} = \frac{1}{2} \del_\mu \phi \del^\mu \phi + \sum \frac{\lambda_n}{n!} \phi^n
+}
+the mass dimension of the couplings can be found to be $[\lambda] = 4-n$. Couplings with $4-n = 0$ are called \bam{marginal}, and those with $4-n > 0$ \bam{relevant}. 
+\end{definition}
+
+\begin{definition}[Renormalizable]
+A theory with $H_I \propto \lambda$ is \bam{renormalizable} if $[\lambda]\geq0$. 
+\end{definition}
+
+\begin{idea}
+If $[\lambda]=n$, then $\frac{\lambda}{E^n}$ is a dimensionless constant. If approximating 
+\[
+U(t,t_0) \approx I -i\int_{t_0}^t H_I(t^\prime) \, dt^\prime + \frac{(-i)^2}{2!}\int_{t_0}^t \int_{t_0}^t T\{ H_I(t^\prime) H_I(t^{\prime\prime)} \} \, dt^\prime dt^{\prime\prime} + \dots
+\]
+is to be accurate then it is necessary that $\frac{\lambda}{E^n} \ll 1$. At high energies, this is only possible if $n\geq0$.
+\end{idea}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Propagators}
+
+\begin{definition}[Propagator]
+Define the \bam{propagator} of a particle from a spacetime point $y$ to $x$ as 
+\begin{align*}
+D(x-y) &= \bra{0} \phi(x) \phi(y) \ket{0} \\
+% &= \int \tmeas \frac{e^{-ip\cdot(x-y)}}{2E_{\bm{p}}}
+  &= \int \LImeas e^{-ip\cdot(x-y)}
+\end{align*}
+\end{definition}
+
+\begin{theorem}
+Particle propagation is \bam{causal}, that is 
+\begin{align*}
+    \Delta(x-y) &= \comm[\phi(x)]{\phi(y)} \\
+     &= \int \LImeas \left( e^{-ip\cdot(x-y)} - e^{ip\cdot(x-y)} \right) \\
+     &= D(x-y) - D(y-x) \\
+     &= 0 
+\end{align*}
+for any spacelike separation $(x-y)^2 <0$. 
+\end{theorem}
+\begin{proof}
+It is a fact that for $x$, $y$ spacelike separated, there exists a continuous Lorentz transform from $x-y$ to $y-x$. This is not true for timelike separated such $x$, $y$. Applying this to the second equality gives the required result. 
+\end{proof}
+
+\begin{idea}
+Note that neither $D(x-y)$ or $D(y-x)$ are $0$ for spacelike separations, but they are equal. This has the interpretation that the contribution due to any particle propagating from $x$ to $y$ is equally cancelled out by an anti particle (e.g. particle moving backwards in time) along the same path.
+\end{idea}
+
+\begin{definition}[Feynman Propagator for Scalars]
+The \bam{Feynman propagator} is 
+\[
+\Delta_F(x-y) = \left\{ \begin{array}{lc} D(x-y) & x^0 > y^0 \\
+    D(y-x) & y^0 > x^0 
+    \end{array} \right. \ket{0} = \bra{0} T\{\phi(x) \phi(y) \} \ket{0} \\
+\]
+\end{definition}
+
+\begin{theorem}
+For scalar particles the Feynman propagator can be written as 
+\[
+\Delta_F(x-y) = \int \fmeas \frac{i}{p^2-m^2+i\eps} e^{-ip\cdot(x-y)}
+\]
+\end{theorem}
+
+\begin{corollary}
+The Feynman propagator is a Green's function for the K-G equation, that is 
+\[
+(\del^2+m^2)\Delta_F(x-y) = -i \delta^4(x-y)
+\]
+\end{corollary}
+
+\begin{definition}[Feynman Propagator for Spinors]
+Define the \bam{Feynman propagator for spinors} in analogy to that for scalar fields by 
+\[
+S_{F,\alpha\beta}(x-y)=\bra{0} T\{ \psi_\alpha(x) \bar{\psi}_\beta(y) \} \ket{0} = \left\{ \begin{array}{lc} \bra{0} \psi_\alpha(x) \bar{\psi}_\beta(y)  \ket{0} & x^0 > y^0 \\
+    -\bra{0} \bar{\psi}_\beta(y) \psi_\alpha(x) \ket{0} & y^0 > x^0 
+    \end{array} \right. \\ 
+\]
+\end{definition}
+
+\begin{idea}
+Note the minus sign. If $(x-y)^2 < 0$, then there is no Lorentz invariant way to determine if $x^0 > y^0$ or $y^0 > x^0$, so must have the two definitions agreeing. As for $(x-y)^2 < 0$, $\acomm[\psi(x)]{\bar{\psi}(y)}=0$, the minus sign ensures Lorentz invariance. 
+\end{idea}
+
+\begin{theorem}
+For spinors 
+\[
+S_F(x-y) = \int \fmeas \frac{i(\slashed{p}+m)}{p^2-m^2+i\eps} e^{-ip\cdot (x-y)}
+\]
+\end{theorem}
+
+\begin{theorem}[Photon Propagator]
+For the free electromagnetic field, the photon propagator is 
+\eq{
+\braket{0| T\{A_\mu(\bm{x}) A_\nu(\bm{y})\}|0} = \int \fmeas \frac{-i}{p^2+i\eps} \psquare{\eta_{\mu\nu} + (\alpha-1) \frac{p_\mu p_\nu}{p^2}} e^{-ip\cdot(x-y)}
+}
+\end{theorem}
+
+\begin{definition}[Contraction]
+Define the \bam{contraction} of two fields in a product as 
+\[
+\overbracket[0.5pt]{\phi(x)\phi(y)} = \Delta_F(x-y)
+\]
+and likewise 
+\[
+\overbracket[0.5pt]{\psi(x)\bar{\psi}(y)} = S_F(x-y)
+\]
+\end{definition}
+
+\begin{theorem}[Wick's Theorem]
+For any collection of fields $\phi_1 = \phi(x_1), \dots, \phi_n = \phi(x_n)$, 
+\[
+T \{ \phi_1 \dots \phi_n \} = :\phi_1 \dots \phi_n: + \set{\text{all possible contractions}}
+\]
+Note that for scalar fields which satisfy commutation relations 
+\[
+:\phi_1 \phi_2: = :\phi_2 \phi_1 : 
+\]
+whereas for spinors 
+\[
+:\psi_1 \psi_2: = -:\psi_2 \psi_1 : 
+\]
+\end{theorem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Correlation Functions and Scattering}
+
+\begin{definition}[$m$-point Correlation Function]
+Define the \bam{m-point correlation function} as 
+\[
+\bra{\Omega} T\{ \phi_1 \dots \phi_m \} \ket{\Omega}
+\]
+where the fields are given in the Heisenberg picture. Note that for a free theory, the 2-point correlation function is simply the Feynman propagator. 
+\end{definition}
+
+\begin{definition}[$S$-matrix]
+Given some initial and final state $\ket{i}$, $\ket{f}$ respectively at times $t_\pm$, then the \bam{S-matrix} is defined with matrix elements 
+\[
+\bra{f}S\ket{i} = \lim_{t_\pm \to \pm\infty} \bra{f} U(t_+, t_-) \ket{i}
+\]
+\end{definition}
+
+\begin{theorem}
+The m-point correlation function can be written as 
+\[
+\bra{\Omega} T\{ \phi_1 \dots \phi_m \} \ket{\Omega} = \frac{\bra{0} T\{\phi_{1,I} \dots \phi_{m,I} S \} \ket{0}}{\bra{0} S \ket{0}}
+\]
+\end{theorem}
+\begin{proof}
+Wlog assume the fields on the RHS have already been time ordered. Then as $S = U(\infty,-\infty)$ we may expans the numerator as 
+\eq{
+\bra{0} T\{\phi_{1,I} \dots \phi_{m,I} S \} \ket{0} = \bra{0} U(\infty,t_1) \phi_{1,I} U(t_1,t_2) \phi_{2,I} \dots \phi_{m,I} U(t_{m},-\infty)\ket{0}
+}
+Then noting $U(t_k,t_{k+1}) = U(t_k,0)U(0,t_{k+1})$ we can write this as 
+\eq{
+\bra{0} U(\infty,0) [U(0,t_1)\phi_{1,I} U(t_1,0)][U(0,t_2) \phi_{2,I} U(t_2,0)] \dots [U(0,t_m)\phi_{m,I} U(t_{m},0)] U(0,-\infty)\ket{0}
+}
+We notice the expressions in square brackets are the definition of $\phi_i$, so 
+\eq{
+\bra{0} T\{\phi_{1,I} \dots \phi_{m,I} S \} \ket{0} = \bra{0} U(\infty,0) T\{ \phi_1 \dots \phi_m \} U(0,-\infty) \ket{0}
+}
+Now we have that fact that for any state $\ket{\psi}$ 
+\eq{
+\bra{\psi} U(0,t) \ket{0} = \bra{0} e^{iHt} \ket{0}
+}
+Then by inserting a complete set of momentum states we have 
+\eq{
+\lim_{t \to -\infty} \bra{\psi} U(0,t) \ket{0} &= \lim_{t \to -\infty} \bra{\psi} e^{iHt} \psquare{\ket{\Omega}\bar{\Omega} + \sum_{n=1}^\infty \int \prod_{k=1}^n \frac{d^3 p_k}{(2\pi)^3 2E_{p_k}} \ket{p_1 \dots p_n}\bra{p_1 \dots p_n}} \ket{0} \\
+&= \braket{\psi|\Omega}\braket{\Omega|0} + \lim_{t \to -\infty} \sum_{n=1}^\infty \int \prod_{k=1}^n \frac{d^3 p_k}{(2\pi)^3 2E_{p_k}} e^{i \sum_{k=1}^n E_{p_k}t} \braket{\psi | p_1 \dots p_n} \braket{p_1 \dot p_n | 0}
+}
+The Riemann Lebesgue lemma gives that the second term vanishes, heuristically, because as $t \to -\infty$ the exponential causes the term to go round in a circle rapidly, cancelling out itself. Hence 
+\eq{
+\bra{0} U(\infty,0) T\{ \phi_1 \dots \phi_m \} U(0,-\infty) \ket{0} = \bra{0} U(\infty,0) T\{ \phi_1 \dots \phi_m \} \ket{\Omega} \braket{\Omega | 0}
+}
+Similarly we may do the same to the left hand side of this to give 
+\eq{
+\bra{0} T\{\phi_{1,I} \dots \phi_{m,I} S \} \ket{0} = \bra{\Omega} U(\infty,0) T\{ \phi_1 \dots \phi_m \} \ket{\Omega} \braket{\Omega| 0} \braket{0 | \Omega}
+}
+Therefore 
+\eq{
+\frac{\bra{0} T\{\phi_{1,I} \dots \phi_{m,I} S \} \ket{0}}{\bra{0} S \ket{0}} = \frac{\bra{\Omega} U(\infty,0) T\{ \phi_1 \dots \phi_m \} \ket{\Omega} \braket{\Omega| 0} \braket{0 | \Omega}}{\braket{\Omega| 0} \braket{0 | \Omega}} = \bra{\Omega} U(\infty,0) T\{ \phi_1 \dots \phi_m \} \ket{\Omega}
+}
+\end{proof}
+
+\begin{idea}
+The above theorem allows the calculation of the correlation function in terms of powers of the interaction Hamiltonian. This will turn out to be an easier calculation (up to a certain order) via Feynman diagrams. 
+\end{idea}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Feynman Diagrams}
+
+We calculating interactions, we may use Feynman diagrams to keep track of all possible contractions. 
+
+\begin{theorem}[Position Space Feynman Rules]
+In position space the Feynman rules are as follows: 
+\begin{itemize}
+    \item Draw external lines for the initial and final state $\ket{i}, \ket{f}$. Assign each 4 momenta. For Fermions assign a spin. 
+    \item For $\mbb{C}$ fields add an arrow, the direction depending on whether it is a particle or antiparticle. 
+    \item Add vertices corresponding to the possible interactions from the interaction Hamiltonian. 
+    \item Add a momentum $k$ to each internal line. 
+    \item For each internal line, write a factor of the corresponding propagator
+    \item Add a factor of the vertex coupling constant and $(2\pi)^4 \delta(momentum)$ at each vertex to impose 4 momentum conservation. 
+\end{itemize}
+\end{theorem}
+
+We can also write down Feynman rules in Momentum space by Fourier transforming the above 
+
+\begin{theorem}[Momentum Space Feynman Rules]
+In momentum space the Feynmann rules are 
+\begin{itemize}
+\item Draw external lines for the initial and final state $\ket{i}, \ket{f}$. Assign each 4 momenta. For Fermions assign a spin. 
+    \item For $\mbb{C}$ fields add an arrow, the direction depending on whether it is a particle or antiparticle. 
+    \item Add vertices corresponding to the possible interactions from the interaction Hamiltonian. 
+    \item Add a momentum $k$ to each internal line, then impose momentum conservation. 
+    \item Add a factor of $\int \fmeas$ for any undetermined internal momenta 
+    \item Add an integrand of a propagator for internal lines. 
+\end{itemize}
+\end{theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Examples of Interacting Theories}
+
+
+\begin{definition}[$\phi^4$ Theory]
+The Lagrangian for \bam{$\phi^4$ theory} is 
+\[
+\mc{L} = \frac{1}{2}\eta^{\mu\nu} \del_\mu\phi \del_\nu\phi-\frac{1}{2}m^2\phi^2 - \frac{\lambda}{4!}\phi^4
+\]
+The corresponding interaction Hamiltonian is 
+\[
+H_{int} = \frac{\lambda}{4!} \int d^3x \, {\phi(x)}^4
+\]
+Note $[\lambda]=0$. The Feynmann rules are 
+\begin{itemize}
+    \item Vertex gets a factor of $-i\lambda$
+    \item Propagators get a factor of $\frac{i}{p^2 - m^2 + i\eps}$
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Scalar Yukawa Theory]
+The Lagrangian for \bam{scalar Yukawa theory} is 
+\[
+\mc{L} = \del_\mu\psi^\dagger \del^\mu\psi+\frac{1}{2}\del_\mu\phi \partial^\mu\phi-\mu^2\psi^\dagger\psi-\frac{1}{2}m^2 \phi^2-g\psi^\dagger\psi\phi
+\]
+Note $[g]=1$. Note $\phi$ can represent a meson, $\psi$ a nucleon. The Feynmann rules are 
+\begin{itemize}
+    \item Vertex gets a factor of $-ig$
+    \item $\phi$ propagators get a factor of $\frac{i}{p^2 - m^2 + i\eps}$
+    \item  $\psi$ propagators get a factor of $\frac{i}{p^2 - \mu^2 + i\eps}$
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Fermionic Yukawa Theory]
+The Lagrangian for \bam{fermionic Yukawa theory} is
+\[
+\mc{L} = \frac{1}{2}\del_\mu\phi \partial^\mu\phi-\frac{1}{2}\mu^2 \phi^2 + \bar{\psi}(i\slashed{\del}-m)\psi - \lambda\phi\bar{\psi}\psi
+\]
+Note $[\lambda] = 0$. The Feynmann rules are 
+\begin{itemize}
+    \item Vertex gets a factor of $-i\lambda$
+    \item $\phi$ propagators get a factor of $\frac{i}{p^2 - \mu^2 + i\eps}$
+    \item  $\psi$ propagators get a factor of $\frac{i(\slashed{p}+m)}{p^2 - \mu^2 + i\eps}$
+    \item Ingoing fermions ($\psi$) get a $u$
+    \item Ingoing antifermions ($\bar{\psi}$) get a $\bar{v}$
+    \item Outgoing fermions ($\psi$) get a $\bar{u}$
+    \item Outgoing antifermions ($\bar{\psi}$) get a $v$
+    \item Contract terms backward along the direction of charge propagation
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Quantum Electrodynamics (QED)]
+The Lagrangian density for \bam{quantum electrodynamics} is 
+\eq{
+\mc{L} = - \frac{1}{4} F_{\mu\nu} F^{\mu\nu} + \bar{\psi}(i\slashed{\del}-m)\psi - e \bar{\psi}_\alpha \gamma^\mu_{\alpha\beta} A_\mu \psi_\beta
+}
+The final term couples the electromagnetic field to a current $j^\mu = e \bar{\psi} \gamma^\mu \psi$. The field equations for the EM field becomes 
+\eq{
+\del_\mu F^{\mu\nu} = j^\nu
+}
+Here we are simulating the coupling of photons to electrons. The Feynmann rules are 
+\begin{itemize}
+    \item Vertex gets a factor of $-ie\gamma^\mu$
+    \item  $\psi$ propagators get a factor of $\frac{i(\slashed{p}+m)}{p^2 - \mu^2 + i\eps}$
+    \item $A_\mu$ propagators get a factor of $\frac{-i}{p^2}\psquare{\eta_{\mu\nu} + \frac{p_\mu p_\nu}{p^2}}$
+    \item Ingoing fermions ($\psi$) get a $u$
+    \item Ingoing antifermions ($\bar{\psi}$) get a $\bar{v}$
+    \item Outgoing fermions ($\psi$) get a $\bar{u}$
+    \item Outgoing antifermions ($\bar{\psi}$) get a $v$
+    \item In/Outgoing photons get a polarisation $\eps_\mu$. 
+    \item Contract terms backwards along the direction of charge propagation
+\end{itemize}
+\end{definition}
+
+\begin{idea}
+If we had the standard Dirac Lagrangian $\mc{L}_D = \bar{\psi}(i\slashed{\del}-m)\psi$, but we wanted it to be invariant under a $U(1)$ gauge transform of $\psi \to e^{i\alpha}\psi$, we would need to introduce a gauge field that transforms as $A_\mu \to A_\mu + \del_\mu \alpha$ and use the covariant derivative $D_\mu = \del_\mu + ieA_\mu$, where $e$ is some coupling strength. Then 
+\eq{
+\bar{\psi} ( i \slashed{D} - m) \psi &= \bar{\psi} ( i\gamma^\mu[\del_\mu + ieA_\mu] - m) \psi \\
+&= \bar{\psi} ( i \slashed{\del} - m) \psi - e \bar{\psi}_\alpha \gamma^\mu_{\alpha\beta} A_\mu \psi_\beta
+}
+For full generality of the Lagrangian, we would then include a term of the field strength tensor. 
+\end{idea}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cross Sections}
+
+\begin{definition}[Cross Section]
+The \bam{scattering cross section} for a $2\to n$ scattering from momenta $p_1, p_2$ to $q_i$ is 
+\eq{
+\sigma = \int \prod _ { i = 1 } ^ { n } \left( \frac { d ^ { 3 } q _ { i } } { ( 2 \pi ) ^ { 3 } 2 E _ { q _ { i } } } \right) \frac { | \mathcal { M } | ^ { 2 } } { \mathcal { F } } ( 2 \pi ) ^ { 4 } \delta ^ { 4 } \left( p _ { 1 } + p _ { 2 } - \sum _ { i = 1 } ^ { n } q _ { i } \right)
+}
+where $\mc{F}$ is the \bam{flux factor} and $\mc{M}$ is the scattering amplitude. 
+\end{definition}
+
+\begin{definition}[Decay Rate]
+The decay rate of a particle, momentum $p$, into a collection of particles with momenta $q_i$ is 
+\eq{
+\Gamma = \frac { 1 } { 2 E _ { p } } \int \prod _ { i = 1 } ^ { n } \left( \frac { d ^ { 3 } q _ { i } } { ( 2 \pi ) ^ { 3 } 2 E _ { q _ { i } } } \right) | \mathcal { M } | ^ { 2 } ( 2 \pi ) ^ { 4 } \delta ^ { 4 } \left( p - \sum _ { i = 1 } ^ { n } q _ { i } \right)
+}
+defined in the rest frame of the decaying particle. 
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{\secmath{2 \to 2} Scattering}
+
+\begin{definition}[Mandelstam Variables]
+Given $2$-$2$ scattering, with initial momenta $p_1,p_2$ and final momenta $p_1^\prime, p_2^\prime$, the \bam{Mandelstam variables} are defined as 
+\begin{align*}
+    s &= (p_1 + p_2)^2 \\ 
+    t &= (p_1 - p_1^\prime)^2 \\
+    u &= (p_1 - p_2^\prime)^2 
+\end{align*}
+\end{definition}
+
+\begin{theorem}
+The Mandelstam variables are not all independent, as 
+\[
+s+t+u = m_1^2 + m_2^2 + {m_1^\prime}^2 +{m_2^\prime}^2
+\]
+Moreover, in the centre of mas frame, $\bm{p}_1 = -\bm{p}_2$ so $s=(E_1+E_2)^2$. If $m_1 = m_2$, $E_1=E_2 = \frac{\sqrt{s}}{2}$
+\end{theorem}
+
+\begin{prop}
+The differential cross section in the centre of momentum frame for $2\to2$ scattering is 
+\eq{
+\pround{\frac{d\sigma}{dt}}_{\text{c.o.m}} = \frac{\abs{\mc{M}}^2}{16\pi \lambda(s,m_1^2,m_2^2)}
+}
+where $m_1,m_2$ are the initial particle masses and 
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\end{document}
