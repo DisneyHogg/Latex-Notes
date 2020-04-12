@@ -25,6 +25,7 @@ This is work I have typed up for any courses. I do not particularly use it often
 'Geodesics of Quadrics'/
 The main project I am currently working on with Harry. 
 Has its own .bib file in it currently, which is out of date. (DELETE IT). 
+Has its own header.sty file in it currently, which is out of date (DELETE IT).
 
 Notes/ 
 Notes I have written on a bunch of topics. 

@@ -1,0 +1,768 @@
+\documentclass{article}
+
+\usepackage{../../header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Separability of the HJE}
+\author{Linden Disney-Hogg}
+\date{January 2020}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Bookkeeping}
+These are notes I am writing to set into concrete my thoughts on separability and the works of Eisenhart, Kalnins, and Benenti. This work will also hopefully tie into the work of St\"ackel. \\
+Indices will be flying all over the place, and I will try to uniformise this with my KYT notes afterwards to keep their ranges standard, but be prepared to be on your toes. Moreover, I will switch back and forth between using summation notation and not in a blas\'e manner. To work out if I am or not, assume not, and then sum over any indices which would otherwise not be explained. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Motivation}
+The purpose of this subsection will be to motivate the Hamilton Jacobi equation, and then to give a reason as to why we would want to study its separability. \\
+To start, consider two manifolds $Q_1, Q_2$, and a symplectomorphism $\phi : T^\ast Q_1 \to T^\ast Q_2$ where the cotangent spaces are given the natural symplectic structure from the tautological one form.\footnote{Note that $\phi$ being a symplectomorphism means that $\dim Q_1 = \dim Q_2$ necessarily.} That is, letting $\theta_i \in \Omega^1(T^\ast Q_i)$ be the respective tautological one form,
+\eq{
+\phi^\ast (-d\theta_2) &= -d\theta_1 \\
+\Rightarrow d(\theta_1 - \phi^\ast \theta_2) &= 0
+}
+using that exterior derivative and pullback commute. Now suppose we can write $\phi$ locally as 
+\eq{
+p &= p(q,x)\\
+y &= y(q,x)
+}
+where $(q,p), (x,y)$ are locally trivialising coordinates for $Q_1, Q_2$ respectively\footnote{These could be indexed to show that there are multiple coordinates, but that will only make notation clunky so I will not do it.}. Note that this can be done locally if $\pd[x]{p} \neq 0$ as we certainly have a well defined map 
+\eq{
+x &= x(q,p) \\
+y &= y(q,p)
+}
+and then if $\pd[x]{p} \neq 0$ we can invert this. In this case we have a (locally well defined) function
+\eq{
+\Gamma : Q_1 \times Q_2 \to T^\ast Q_1 \times T^\ast Q_2
+}
+whose image is the graph of $\phi$. Now using $\Gamma$ the symplectomorphism condition can be written as 
+\eq{
+d\psquare{\Gamma^\ast(\theta_1 - \theta_2)} &= 0 \\
+\Rightarrow \Gamma^\ast(\theta_1 - \theta_2) &= dS 
+}
+for some $S \in C^\infty(Q_1 \times Q_2)$ (at least locally). In coordinates this says 
+\eq{
+pdq - ydx = \del_q S \, dq + \del_x S \, dx \Rightarrow \left\lbrace \begin{array}{l}
+     p = \del_q S  \\
+     y = -\del_x S 
+\end{array}\right. 
+}
+S is called a \bam{generating function} of the transform. 
+
+\begin{example}
+Consider the function $S(q,x) = qx$. Then 
+\eq{
+p &= \del_q S = x \\
+y &= -\del_x S = q 
+}
+This demonstrates that we can treat (up to a minus sign) position and momenta equivalently in a Hamiltonian formalism. 
+\end{example}
+
+Suppose now at a point $\pd[x]{p}=0$. Then here $\pd[y]{p} \neq 0$ as $\phi$ is invertible. In this case we follow through the above work, but now writing the transform in the form 
+\eq{
+p &= p(q,y) \\
+x &= x(q,y)
+}
+This is now less natural, as instead of having a function $Q_1 \times Q_2 \to T^\ast Q_1 \times T^\ast Q_1$, we get a map from $U\times V$, where $U \subset Q_1$, and $V$ is an open neighbourhood with coordinates $y$, corresponding to a region where $\pd[y]{p} \neq 0$. In this case we get a generating function $S = S(q,y)$ with conditions 
+\eq{
+x &= \del_y S \\
+p &= \del_q S
+}
+Note that this is in some sense a more natural generating function, as the identity transform (and any transform "close" to it) have a generating function of this type (e.g. $S(q,y) = qy$ for the identity). This is a useful class of generating functions because of its relation to time evolution:
+Recall that if we have a time flow on the phase space $T^\ast Q$ we get a smooth 1-parameter family of diffeomorphisms $\phi_t : T^\ast Q \to T^\ast Q$ s.t. 
+\begin{itemize}
+    \item $\phi_0 = \id$
+    \item $\phi_{t}\circ \phi_s = \phi_{t+s}$
+\end{itemize}
+As such we should believe we can find a generating function of this type for time evolution. Consider an evolution $\phi_\eps$, where $\abs{\eps} \ll 1$, so to first order 
+\eq{
+x &= q + \eps \dot{q} \\
+y &= p + \eps \dot{p}
+}
+If the evolution is Hamiltonian flow on the manifold then 
+\eq{
+\dot{q} &= \del_p H \\
+\dot{p} &= -\del_q H 
+}
+We now want to find a generating function as $S(q,y) = qy + \eps T(q,y)$, for this transform. Plugging in we get 
+\eq{
+x &= q + \eps \del_y T  \Rightarrow \del_y T = \del_p H\\
+p &= y + \eps \del_q T  \Rightarrow \del_q T = \del_q H
+}
+This is satisfied if $T(q,y)=H(q,p(q,y))$. Now note 
+\eq{
+\dot{T} = \dot{q} \del_q T + \dot{y}\del_y T = (\del_p H)(\del_q H) + (-\del_q H + \eps \ddot{p})(\del_pH) = \mc{O}(\eps)
+}
+so $T(q,y)$ is a constant. Hence to find the generating function is equivalent to finding a solution $S$ to 
+\eq{
+E = H(q,\del_q S)
+}
+\begin{remark}
+Note in all the above we have considered only autonomous systems as they are all I have ever cared about, but in principle it can be extended.
+\end{remark}
+
+\hl{can the second part of this discussion be made more geometric? I hope so. }
+\hl{I know that the HJE can be derived as a 0th order WKB approximation to the Schr\"odinger equation. It'd be nice to see this sometime.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{General Separability}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Completely integrable foliations}
+For completeness we now reproduce here the results of \cite{Benenti2002}. Let us consider a trivial fibration $\pi : M = Q \times Z \to Q$ where $Z$ is a $N$-dimensional vector space with coordinates $z = (z_A)$, and $Q$ is an $n$-dimensional manifold with local coordinates $q = (q^i)$. Let $C$ be a regular distribution giving a connection, and let 
+\eq{
+D_i = \pd{q^i} + C_{iA}\pd{z_A}
+}
+be $n$ horizontal vector fields that span $C$ locally. Then $D_i$ are called the \bam{generators} of $C$. 
+\begin{theorem}
+A first order differential system of the form 
+\eq{
+\del_i f_A(q,c) = C_{iA}(q,f(q,c))
+}
+is completely integrable, i.e. admits a local complete solution satifying the \bam{completeness condition}
+\eq{
+\det \pd[f]{c} \neq 0
+}
+iff the generators $D_i$ commute. 
+\end{theorem}
+\begin{proof}
+We may calculate 
+\eq{
+\comm[D_i]{D_j} &= \pround{\pd{q^i} + C_{iA}\pd{z_A}} \pround{\pd{q^j} + C_{jB}\pd{z_B}} - \pround{\pd{q^j} + C_{jB}\pd{z_B}} \pround{\pd{q^i} + C_{iA}\pd{z_A}} \\
+&= \pround{\pd[C_{jB}]{q^i} + C_{iA} \pd[C_{jB}]{z_A}} \pd{z_B} -  \pround{\pd[C_{iA}]{q^j} + C_{jB}\pd[C_{iA}]{z_B}} \pd{z_A}
+}
+This vector field must be vertical, and so by the Frobenius theorem $C$ is integrable iff $\comm[D_i]{D_j}=0$. \\
+Complete integrability gives a folitation of integral manifold transversal to the fibres, and locallly represented by equations 
+\eq{
+z_A = f_A(q,c)
+}
+where $c = (c_A)$ are constant parameters uniquely determined by assigning values $z$ at a fixed $q_0 \in Q$. This unique determination means that we must have the completeness condition
+Moreover, since the integral manifolds are tangent to generators, it must we the case that 
+\eq{
+D_i(z_a - f_A(q,c)) &= 0 \\
+\Rightarrow \del_i f_A &= C_{iA}
+}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Separability of PDEs}
+
+To understand separability we now want to consider the partial differential equation 
+\eq{
+\mc{H}(q,u,u_i, u_{ij}, \dots, u_{ij \cdots h}) = E
+}
+for the function $u = u(q)$, where $u_{ij \cdot h} = \del_h \dots \del_j \del_i u$, $E$ is a constant, and $\mc{H}$ is a smooth function of the up to the $l$th partials of $u$. 
+
+\begin{definition}
+A \bam{separable solution} to the pde is a solution of the form 
+\eq{
+u(q) = \sum_{i=1}^n S_i(q^i,E)
+}
+\end{definition}
+
+For a separable solution the mixed partials vanish and so the pde reduces to 
+\eq{
+\mc{H}_s(q,u,u^{(1)},u^{(2)}, \dots , u^{(l)}) = E
+}
+where $u^{(1)} = (u_i), u^{(2)} = (u_{ii})$, etc. 
+
+\begin{notation}
+Note that technically $\mc{H}_s$ is a different function from $\mc{H}$ (being a function of fewer variables) but we will suppress this for simplicity of notation. 
+\end{notation}
+
+Taking the total derivative we get 
+\eq{
+\pd[\mc{H}]{q^i} + \pd[\mc{H}]{u} u_i + \dots + \pd[\mc{H}]{u_i^{(l)}} u_i^{(l+1)} = 0
+}
+and so under the assumption $\pd[\mc{H}]{u_i^{(l)}} \neq 0$ we may define 
+\eq{
+R_i = -\pround{\pd[\mc{H}]{u_i^{(l)}}}^{-1} \pround{\pd[\mc{H}]{q^i} + \pd[\mc{H}]{u} u_i + \dots + \pd[\mc{H}]{u_i^{(l-1)}} u_i^{(l)}}
+}
+so 
+\eq{
+u_i^{(l+1)} = R_i
+}
+and we get
+\eq{
+\del_i u &= u_i^{(1)} \\
+\del_i u_i^{(1)} &= u_i^{(2)} \\
+\dots &= \dots \\
+\del_i u_i^{(l)} &= R_i \\
+\del_j u_i^{(k)} &= 0 , \; i \neq j
+}
+To connect this with our previous theorem, we consider the $N = nl+1$ functions $u,u^{(1)}, \dots, u^{(l)}$ as coordinates on a space $Z$, i.e 
+\eq{
+z = (u,u^{(1)}, \dots, u^{(l)})
+}
+and then we have the equations for tangent integral manifolds for generators 
+\eq{
+D_i = \del_i + u_i^{(1)} \pd{u} + u_i^{(2)} \pd{u_i^{(1)}} + \dots + R_i \pd{u_i^{(l)}}
+}
+This gives us a characterisation of complete separability:
+
+\begin{theorem}
+The PDE
+\eq{
+\mc{H}(q,u,u_i, u_{ij}, \dots, u_{ij \cdots h}) = E
+}
+is separable (i.e. admits a completely separable solution) in the coordinates $q$ iff the separability conditions 
+\eq{
+\comm[D_i]{D_j} = 0
+}
+are identically satisfied for $D_i$ defined as above. 
+\end{theorem}
+
+\begin{remark}
+In examples where $\pd[\mc{H}]{u} = 0$ we can exclude the $u$ coordinate in $z$ while excluding the $\pd{u}$ term in $D$ and all the above carries through.
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Separation of the Hamilton Jacobi Equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Levi-Civita separability}
+We now wish to apply the above theory to the Hamilton Jacobi Equation (HJE) associated with a Hamiltonian $H : M= T^\ast Q \to \mbb{R}$. Note that the cotangent fibration $T^\ast Q \to Q$ is not in general trivial, but it is certainly locally so, and so are previous considerations can apply locally. \\
+Now in standard notation the HJE is 
+\eq{
+H(q,\del_i S) = E
+}
+where we have identified $\mc{H}=H$, $u=S, u_i^{(1)} = \del_i S, z = (u_i) = (p_i)$. The differential system is then 
+\eq{
+\del_i p_i &= R_i = -\frac{\del_i H}{\del^i H} \\
+\del_j p_i &= 0
+}
+where we have used $\del^i = \pd{p_i}$. 
+\begin{theorem}
+The HJE is completely separable in coordinates $q$ iff the \bam{Levi-Civita separability conditions (LCSCs)}
+\eq{
+\forall i \neq j , \; (\del^i \del^jH) (\del_i H)( \del_j H) + (\del_i \del_j H)( \del^i H)( \del^j H) - (\del^i \del_j H) (\del_i H) (\del^j H) - (\del_i \del^jH) (\del^i H) (\del_j H) = 0
+}
+are satisfied identically.
+\end{theorem}
+\begin{proof}
+From the previously developed theory, the separability of the HJE is equivalent to 
+\eq{
+0 =& \comm[\del_i - \frac{\del_i H}{\del^i H} \del^i]{\del_j - \frac{\del_j H }{\del^j H}\del^j}  \\
+=&- \psquare{-\frac{\del_j \del_i H}{\del^i H} + \frac{(\del_i H)(\del_j \del^i H)}{(\del^i H)^2}}\del^i +\frac{\del_j H}{\del^j H}\psquare{-\frac{\del^j \del_i H}{\del^i H} + \frac{(\del_i H)(\del^j \del^i H)}{(\del^i H)^2}}\del^i \\
+&- \frac{\del_iH}{\del^i H}\psquare{-\frac{\del^i \del_j H}{\del^j H} + \frac{(\del_j H)(\del^i \del^j H)}{(\del^jH)^2}} \del^j + \psquare{-\frac{\del_i \del_j H}{\del^j H} +\frac{(\del_j H)(\del_i \del^j H)}{(\del^j H)^2} } \del^j 
+}
+so we must have 
+\eq{
+\frac{\del_j \del_i H}{\del^i H} - \frac{(\del_i H)(\del_j \del^i H)}{(\del^i H)^2}+\frac{\del_j H}{\del^j H}\psquare{-\frac{\del^j \del_i H}{\del^i H} + \frac{(\del_i H)(\del^j \del^i H)}{(\del^i H)^2}}  =0
+}
+any multiplying up gives the 
+\end{proof}
+
+\begin{definition}
+A \bam{natural Hamiltonian} is one of the form $H(q,p) = \frac{1}{2}g^{ij}(q)p_i p_j + V(q)$
+\end{definition}
+
+\begin{definition}
+A \bam{standard coordinate system} is a coordinate system $q = (q^i) = (q^a, q^\alpha)$ with $a = 1, \dots, m, \, \alpha = m+1, \dots, n$ such that 
+\begin{itemize}
+    \item the metric tensor assumes the semi-diagonal standard form 
+\eq{
+\bm{g} =  g^{aa}\del_a \otimes \del_a + g^{\alpha\beta} \del_\alpha \otimes \del_\beta
+}
+\item the coordinates $(q^\alpha)$ are \bam{ignorable}, i.e. 
+\eq{
+\del_\alpha g^{ij} &= 0 \\
+\del_\alpha V &= 0 
+}
+\end{itemize}
+The coordinates $(q^a)$ are called \bam{essential}.
+\end{definition}
+
+Making the definition\footnote{Note here that $\del_i \log g^{jj} = \frac{\del_i g^{jj}}{g^{jj}}$ for $g^{jj} < 0$. Here we know $g^{jj} \neq 0$ as throughout we assume a non-degenerate metric.} that for $f \in C^\infty(M)$
+\eq{
+S_{ij}(f) &= \del_i \del_j f - (\del_i \log g^{jj}) (\del_j f) - (\del_j \log g^{ii}) (\del_i f)
+}
+we have the following result
+
+\begin{prop}
+In a standard coordinate system for a natural Hamiltonian the LCSCs are 
+\eq{
+S_{ab}(g^{cc}) &= 0\\
+S_{ab}(g^{\alpha\beta}) &= 0\\
+S_{ab}(V) &= 0
+}
+In the case of an orthogonal coordinate system we just have 
+\eq{
+S_{ij}(g^{kk}) &= 0\\
+S_{ij}(V) &= 0
+}
+\end{prop}
+\begin{proof}
+For completeness we reproduce the beginning of the proof here. Clearly the 3 contributions from $g^{aa}, g^{\alpha\beta},V$ will separate due to the order of the momenta in these terms. Hence we will show this initially just for the $g^{aa}$ term. As the $q^\alpha$ are ignorable we do not need to think about $\del_\alpha$ terms. Hence we get
+\eq{
+\del_a H &= \frac{1}{2}(\del_a g^{cc}) p_c^2 \\
+\del^a H &= g^{ac}p_c = g^{aa}p_a \\
+\del_{a}\del_b H &= \frac{1}{2} (\del_a \del_b g^{cc})p_c^2 \\
+\del_a \del^b H &= (\del_a g^{bc}) p_c = (\del_a g^{bb})p_b \\
+\del^a \del^b H &= g^{ab} = 0 
+}
+so the LCSCs are 
+\eq{
+\frac{1}{2} (\del_a \del_b g^{cc})g^{aa}g^{bb}p_a p_b p_c^2 - \frac{1}{2}(\del_b g^{aa})(\del_a g^{cc}) g^{bb} p_a p_b p_c^2 - \frac{1}{2}(\del_a g^{bb})(\del_b g^{cc})g^{aa} p_a p_b p_c^2  &= 0 \\
+\Rightarrow \frac{1}{2}g^{aa} g^{bb} p_a p_b p_c^2 S_{ab}(g^{cc}) &= 0
+}
+\end{proof}
+
+\begin{prop}
+The general solution of the LCSCs in a standard coordinate system is 
+\eq{
+g^{aa} &= \varphi^a_{(m)} \\
+g^{\alpha\beta} &= \phi_a^{\alpha\beta} g^{aa} \\
+V &= \phi_a g^{aa} 
+}
+where $[\varphi^{(b)}_a]$ is a $m \times m$ St\"ackel matrix, the $a^{th}$ row depending on $q^a$ only, and $\phi^{\alpha\beta}_a, \phi_a$ are functions depending on $q^a$ only. In this case the HJE splits to 
+\eq{
+p_\alpha  &= c_\alpha \\
+\frac{1}{2} p_a^2 &= \varphi_a^{(b)}c_b - \phi^{\alpha\beta}_a c_\alpha c_\beta - \phi_a
+}
+where $c = (c^i) = (c^a, c^\alpha)$ are arbitrary constants. 
+\end{prop}
+\begin{proof}
+A standard proof of St\"ackel's theorem shows that we must have the St\"ackel matrix $\varphi^{(b)}_a$ and the $\phi_a$. To get the $\phi^{\alpha\beta}_a$, knowing the $p_\alpha$ are ignorable, we know that in the separated HJE the equation for them will be $p_\alpha = c_\alpha$. Hence we can consider $g^{\alpha\beta}p_\alpha p_\beta$ as an additional potential term, and finding 
+\eq{
+g^{\alpha\beta}(q^a)p_\alpha p_\beta = \Phi_a(q^a,p_\alpha) g^{aa} = \phi_a^{\alpha\beta}(q^a)p_\alpha p_\beta
+}
+\end{proof}
+
+\begin{remark}
+According to \cite{Benenti1991} the integral curves of the Hamiltonian with metric $g$ and potential $V$ at fixed energy $E$ are equivalent to those of the Hamiltonian with no potential and metric $(V-E)g$, which is a consequence of the Maupertuis' principle. As such we can choose to ignore the potential and absorb its effect into the metric. This requires that $V$ be bounded below, and we take $E < \inf V$ in order to keep the new metric non-degenerate. If instead $V$ is bounded abouve we can take $E > \sup V$ and then consider $(E-V)g$. If $V$ is not bounded, we need to restrict to a compact subset of $Q$. 
+\end{remark}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Equivalent separable systems}
+
+To start to extend this theory to ask what more general coordinate systems are allowed, we make definitions which allows us to make precise questions:
+
+\begin{definition}
+Let $(q^i)$ be a system of separable coordinates. We say a coordinate $q^i$ is \bam{first class} if $R_i$ is linear in the momenta $(p_j)$. Otherwise we say the coordinate is \bam{second class}.
+\end{definition}
+
+\begin{remark}
+Note that ignorable coordinates are first class. As such, to correspond with previous section, we will indicate first class coordinates with Greek letters $(\alpha,\beta,\dots)$ and second class coordinates with Latin indices $(a,b,\dots)$. 
+\end{remark}
+
+\begin{definition}
+Two separable coordinate systems are \bam{equivalent} if in everywhere they are simultaneously defined the give rise to the same foliation of the cotangent bundle $M$. 
+\end{definition}
+
+\begin{definition}
+A \bam{separated transformation} is one whose Jacobian is diagonal. 
+\end{definition}
+
+\begin{prop}
+Separated transformations preserve the separability property. 
+\end{prop}
+
+\begin{remark}
+This characterisation of separability can be viewed in different ways. This way emphasises geometric aspects. A more algebraic definition would be to say that the two coordinate systems give the same $S$, the solution of the HJE. By "the same" I mean in the sense of the following diagram:
+\begin{tkz}
+\mbb{R}^n \arrow[drr,"S^x"'] & \mbb{R}^{2n} \arrow[l,"\pi_x"'] & M \arrow[l,"\pround{x,y}"'] \arrow[r,"\pround{q,p}"] \arrow[d,"S",dashed] & \mbb{R}^{2n} \arrow[r,"\pi_q"] & \mbb{R}^n \arrow[dll,"S^q"]  \\  & & \mbb{R} & & 
+\end{tkz}
+that is, if two local trivialisations of $M$, $(x,y), (q,p)$ have solutions to the HJE in these coordinates $S^x,S^q$ respectively, then the corresponding pulled-back map on $M$, is the same for both. 
+\end{remark}
+
+With the above definitions we can start by making an immediate claim 
+
+\begin{prop}
+Two equivalent separable systems have the same number of first class coordinates
+\end{prop}
+\begin{proof}
+Let $(q^i), (\bar{q}^{\bar{\imath}})$ be equivalent systems of separable coordinates. Let the change of coordinate matrices be given by 
+\eq{
+A^i_{\bar{\jmath}} &= \pd[q^i]{\bar{q}^{\bar{\jmath}}} \\
+\bar{A}^{\bar{\jmath}}_i &= \pd[\bar{q}^{\bar{\jmath}}]{q^i}
+}
+As the separable systems are equivalent, we must have $p_i  = \del_i S$ and $\bar{p}_{\bar{\jmath}} S$, hence we can write
+\eq{
+p_i &= \bar{A}^{\bar{\jmath}}_i \bar{p}_{\bar{\jmath}} \\
+\bar{p}_{\bar{\jmath}} &= A^i_{\bar{\jmath}} p_i
+}
+Applying $\bar{\del}_{\bar{\jmath}} = A^i_{\bar{\jmath}} \del_i$ to the first eq gives
+\eq{
+A^j_{\bar{\jmath}} \del_j p_i &= A^j_{\bar{\jmath}} \del_j (\bar{A}^{\bar{\imath}}_i \bar{p}_{\bar{\imath}}) \\
+&= A^j_{\bar{\jmath}} (\del_j \bar{A}^{\bar{\imath}}_i) \bar{p}_{\bar{\imath}} +
+\bar{A}^{\bar{\imath}}_i \bar{\del}_{\bar{\jmath}} \bar{p}_{\bar{\imath}} \\
+\Rightarrow A^i_{\bar{\jmath}} R_i &=A^j_{\bar{\jmath}} (\del_j \bar{A}^{\bar{\imath}}_i) \bar{p}_{\bar{\imath}} +
+\bar{A}^{\bar{\jmath}}_i\bar{R}_{\bar{\jmath}} \quad \text{(no sum over $i,\bar{\jmath}$ )}
+}
+If we choose $i=\alpha$ to be the index of a first class coordinate, and $\bar{\jmath} = \bar{a}$ to be second class, then we have that $R_\alpha$ is linear, in momenta, but $R_{\bar{a}}$ is not. This is a contradiction unless $\bar{A}^{\bar{a}}_\alpha = 0$. By symmetry of the argument it must also be true that $A^\alpha_{\bar{a}}=0$. As such we know that the second class coordinates in one system must completely determine those in the other, and so there are equally many.
+\end{proof}
+
+We may couple this results with a useful one about first class coordinates: 
+
+\begin{prop}
+Every separable system is equivalent to a separable system in which all first class coordinates are ignorable. 
+\end{prop}
+\begin{proof}
+For the first class coordinates write
+\eq{
+\del_\alpha p_\alpha = B_\alpha^i p_i
+}
+The Frobenius integrability condition gives that 
+\eq{
+\comm[\del_i + R_i \del^i]{\del_j + R_j \del^j} &= 0 \\
+\Rightarrow \del_i R_j + (\del^j R_j) R_i &= 0 
+}
+and so we find 
+\eq{
+\del_a (B_\alpha^i p_i)  + B_\alpha^a R_a  \quad \text{(no sum over $a$)}
+}
+Hence $R_a$ is linear in momenta ($\contradiction$) unless $B_\alpha^a=0$, which forces $\del_a B_\alpha^i = 0$. This gives an autonomous subsystem in first class coordinates given by 
+\eq{
+\del_\alpha p_\alpha = B_\alpha^\beta p_\beta
+}
+This system is integrable and linear, and so $\exists \phi^{(\beta)}$ a system of independent solutions s.t. the general solution for the momenta is given by 
+\eq{
+p_\alpha = c_\beta \phi_\alpha^{(\beta)}
+}
+Define a new coordinate system $(x^i)$ by 
+\eq{
+dx^a &= dq^a \\
+dx^\alpha &= \phi_\beta^{(\alpha)}dq^\beta
+}
+We can calculate 
+\eq{
+p_\alpha dq^\alpha  = dS = \pd[S]{x^\beta} dx^\beta = y_\beta \phi_\alpha^{(\beta)} dq^\alpha
+}
+where we have let $y_\beta = \pd[S]{x^\beta}$ be the conjugate momenta to the coordinate $x^\beta$. This shows that $y_\beta = c_\beta$, As such the $x^\alpha$ are ignorable. Since the second class coordinates are unchanged, the system remains separable, and so the two systems are equivalent.  
+\end{proof}
+
+
+\begin{prop}
+In two equivalent separable systems the second class coordinates are related by a separated transformation.  
+\end{prop}
+\begin{proof}
+See \cite{Benenti1991}. The proof is not replicated here as it currently does not provide any additional useful information.
+\end{proof}
+
+We finish this subsection with a result that will be uesful when talking about what separable systems correspond to Einstein metrics:
+
+\begin{prop}
+Let $(q^i)=(q^a, q^\alpha)$ be a separable system s.t. the $q^\alpha$ are ignorable. Then every equivalent separable system $(x^i) = (x^a, x^\alpha)$ is related (up to a separable transform) by transform of the kind 
+\eq{
+dq^a &= dx^a \\
+dq^\alpha &= A^\alpha_i dx^i
+}
+where $A^\alpha_i = A^\alpha_i(x^i)$ is a function only of the coordinate corresponding to the lower index. 
+\end{prop}
+\begin{proof}
+See \cite{Benenti1991}. The proof is not replicated here as it currently does not provide any additional useful information.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Generality of standard coordinate systems}
+
+In this section, we will build upon the results of equivalent coordinate systems to find the most general separable HJE for a natural Hamiltonian, and then show it is equivalent to the a standard coordinate system. A question we will eventually want to ask is what separable systems correspond to Einstein manifolds, and \hl{it is then necessary to know whether if a system is Einstein whether equivalent systems are also Einstein}\footnote{Are we inclined to think this is the case? Consider conformal equivalences at least in the next section}.
+
+\begin{prop}
+In a separable system $(q^i) = (q^a, q^\alpha)$, the second class coordinates are orthogonal
+\end{prop}
+\begin{proof}
+Let $H_a = \del_a H, H^a = \del^a H,$ etc. and then the Levi-Civita separability conditions for second class coordinates gives 
+\eq{
+H^a(H^b H_{ab}- H_b H_a^b) = H_a(H^b H^a_b - H_b H^{ab}) \quad \text{(no sum over $a,b$)}
+}
+Note that $H_a = \frac{1}{2}(\del_a g^{ij}) p_i p_j$, and $H^a = g^{aj}p_j$, so as $R_a = \frac{H_a}{H^a}$ is not linear in momenta, it must be that $H^a$ is not a factor of $H_a$. Then the equation above gives that 
+\eq{
+H^a \, | \, H^b H_b^a - H_b g^{ab} \\
+\Rightarrow H^b H_b^a - H_b g^{ab} = L_{ba}H^a
+}
+for some $L_{ba} = L_{ba}^i p_i$ a linear polynomial in momenta. Substituting back into our Levi-Civita condition gives
+\eq{
+H^b H_{ab}- H_b H_a^b = H_a L_{ba}
+}
+Note that if $L_{ba}=0$ then $R_b = \frac{H_b^a}{g^{ab}} = \frac{(\del_b g^{aj}) p_j}{g^{ab}}$ is linear in momenta $\contradiction$. \\
+Hence we must have $L_{ba} \neq 0$. 
+\comment{Now we can see 
+\eq{
+ \del^a(H^b H_b^a - H_b g^{ab}) &= \del^a(L_{ba}H^a) \\
+ \Rightarrow H^b \del_b g^{aa} &= g^{aa}L_{ba} + H^a L_{ba}^a \\
+ \Rightarrow \del^a(H^b \del_b g^{aa}) &= \del^a(g^{aa}L_{ba} + H^a L_{ba}^a) \\
+ \Rightarrow g^{ab} \del_b g^{aa}&= 2g^{aa}L_{ba}^a
+}
+}
+By playing about with divisors (see \cite{Benenti1991}), it can be shown that $g^{ab}\neq 0 \Rightarrow L_{ab}=0$, and so done. 
+\end{proof}
+
+The above result allows us to distinguish second class coordinates into two cases
+\begin{enumerate}
+    \item $q^{aa} = 0$, said to be \bam{isotropic}
+    \item $q^{aa} \neq 0$
+\end{enumerate}
+Taking, as has been done previously, there to be $m$ second class coordinates, we split these into $m_1$ non-isotropic coordinates, and $m_1= m-m_1$ isotropic coordinates. This allows us to make the following claim:
+
+\begin{prop}
+In each equivalence of separable coordinates, $\exists (q^i) = (q^{\tilde{a}}, q^{\bar{a}}, q^\alpha)$ a coordinate system s.t. 
+\begin{itemize}
+    \item The first class coordinates are $q^\alpha$, which are ignorable
+    \item The $q^{\tilde{a}}$ are non-isotropic second class coordinates with $g^{\tilde{a}\alpha}=0$
+    \item The $q^{\bar{a}}$ are isotropic second class coordinates
+\end{itemize}
+i.e. the metric looks like 
+\eq{
+(g^{ij}) = \begin{pmatrix} g^{\tilde{a}\tilde{a}} & 0 & 0 \\
+0 & 0 & g^{\bar{a}\beta}  \\
+0 & g^{\alpha\bar{a}} & g^{\alpha\beta} 
+\end{pmatrix}
+}
+Such coordinates are called \bam{normal separable coordinates}
+\end{prop}
+\begin{proof}
+Building upon previous results, it remains to be shown that we can find a separability-preserving transform making $g^{\tilde{a}\alpha} = 0$. \\
+The content of the proof in \cite{Benenti1991} comes in showing that $\theta_a^\alpha = \frac{g^{a\alpha}}{g^{aa}}$ is a function of $q^a$ only if $g^{aa} \neq 0$. Then the coordinate transform 
+\eq{
+dx^a &= dq^a \\
+dx^\alpha &= dq^\alpha - \theta^\alpha_{\tilde{a}} dq^{\tilde{a}}
+}
+preserves the separability property by previously shown results, keeps the first class coordinates ignorable, and moreover gives $g^{\tilde{a}\alpha}=0$ in the new coordinates. 
+\end{proof}
+\begin{remark}
+Note that we must have at least one $g^{\bar{a}\alpha}\neq 0$ in order to have a non-degenerate metric. 
+\end{remark}
+
+We can now remark the result that I mentioned near the beginning of this section 
+
+\begin{theorem}
+All separable coordinate systems on a manifold with positive definite metric are equivalent to a standard coordinate system where $\bm{g} = g^{aa} \del_a \otimes \del_a + g^{\alpha\beta} \del_\alpha \otimes \del_\beta$. 
+\end{theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Einstein Manifolds}
+
+We start by recalling what an Einstein metric is:
+
+\begin{definition}
+A metric is \bam{Einstein} if $\exists \lambda \in \mbb{R}, \, \Ric = \lambda g$. 
+\end{definition}
+
+It is perhaps an interesting question to ask what kinds of Einstein metrics can be separated. We should possibly ask for some motivation that these two could be related to start with. 
+
+\begin{example}
+We note that in \cite{Kalnins1986} it is shown that the Riemannian manifolds of constant curvature all admit metrics which can be separated in (often multiple) coordinates system. It is a known fact that all of these manifolds are Einstein, so we are perhaps given initial hope that this isn't a foolish question. 
+\end{example}
+
+We can now consider the simplest example of a diagonal metric $\bm{g} = g^{aa} \del_a \otimes \del_a$. We will assume $g^{aa} > 0$. We have from \cite{Win1996} that the off-diagonal and diagonal components of the Ricci tensor are separately given by 
+\eq{
+4R_{ab} &= \sum_{c \neq a,b} \psquare{(\del_a \log g_{bb} - \del_a)\del_b \log g_{cc} + (b \leftrightarrow a) - (\del_a \log g_{bb})(\del_b \log g_{aa})} \\
+4 R_{aa} &= \left(\partial_{a} \log g_{aa}-2 \partial_{a}\right) \partial_{a} \log \frac{g}{g_{aa}}-\sum_{c \neq a}\left[\left(\partial_{a} \log g_{cc}\right)^{2}+\left(\partial_{c} \log \frac{g}{g_{aa}^{2}}+2 \partial_{c}\right) g^{cc} \partial_{c} g_{aa}\right]
+}
+Immediately, we know that a general diagonal metric is non-Einstein, as the Ricci tensor is not diagonal. \\
+Recall we know $S_{ab}(g^{cc}) = 0$, \hl{can this be used to simplify $R_{ab}$?}
+
+
+As previously mentioned, and immediately useful question to ask is whether transforms that preserve the separability property preserve the Einstein property. By our discussion above, we see that we need only consider two types of transform 
+\begin{enumerate}
+    \item Separable transformations, i.e. $\pd[\bar{q}^{\bar{\imath}}]{q^i} = \delta_i^{\bar{\imath}}\xi^i(q^i)$
+    \item Transformation of first class coordinates of the form $dx^\alpha = A^\alpha_i(q^i) dq^i $
+\end{enumerate}
+
+\begin{prop}
+Separable transformations preserve the Einstein property \hl{maybe, this is a placeholder while I do the calculation}
+\end{prop}
+\begin{proof}
+Take a separable metric, which we know must be of the form $\bm{g} = g^{aa} \del_a \otimes \del_a + g^{a\alpha}\del_a \otimes \del_\alpha + g^{\alpha a}\del_\alpha \otimes \del_a + g^{\alpha\beta} \del_\alpha \otimes \del_\beta$.  
+\end{proof}
+
+
+A separate question we might like to ask is what conformal transforms preserve both the separability property and the Einstein property. Suppose we make the transform $H \to \tilde{H} = e^{2f}H$ for $f \in C^\infty(Q)$, the LCSCs become (using the notation $\del_j f = f_{j}, \ ,\del_i\del_j f = f_{ij}, \, \del^iH = H^i, \dots$)
+\eq{
+0 =& e^{6f}\left\lbrace H^{ij}(H_{i} + Hf_{i})(H_{j} + Hf_{j}) + (H f_i f_j + Hf_{ij} + H_i f_j + H_j f_i + H_{ij})H^i H^j \right.\\
+& \left. - (H^i_j + H^i f_j)(H_i + Hf_i)H^j - (H^j_i + H^j f_i)(H_j + Hf_j)H^i \right\rbrace \\
+\Rightarrow 0 =& H^{ij}(HH_i f_j + HH_j f_i + H^2 f_i f_j) + H^i H^j(H f_i f_j + H f_{ij} + H_i f_j + H_j f_i) \\
+& - H^j(H H^i_j f_i + H^i H_i f_j + H^i H f_i f_j)  - H^i(H H^j_i f_j + H^j H_j f_i + H^j H f_i f_j) \\
+=& H\psquare{H^{ij}(H_i f_j + H_j f_i + H f_i f_j) +  H^i H^j(f_{ij} - f_i f_j) - (H^j H^i_j + H^i H^j_i)} 
+}
+If we have a diagonal separable metric $g^{aa}$ s.t. $H = \frac{1}{2} g^{aa} p_a^2$ we get 
+\eq{
+0 &= \pbrace{ f_{ab} - f_a f_b - (\del_b \log g^{aa} + \del_a \log g^{bb})} g^{aa}g^{bb}p_a p_b
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Geometric Characterisation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{St\"ackel Webs}
+
+We will now develop the geometric theory to give conditions on the existence of separability. To have all the properties of Killing tensors under your belt, look at the KYT notes. \\
+We start with some definitions:
+
+\begin{definition}
+An \bam{orthogonal web} on $(Q,\bm{g})$ is a family $(\mc{S}_i) = (\mc{S}_1, \dots, \mc{S}_n)$ of n orthogonal foliations of hypersurfaces defined on $M\setminus \Omega$ where $\Omega$ is some closed singular set. A \bam{parametrisation} of the orthogonal foliation is a set of coordinates $\pbrace{q_i}$ on $Q\setminus \Omega$ s.t. $\mc{S}_i = \pbrace{q_i = \text{const}}$.
+\end{definition}
+
+\begin{definition}
+An orthogonal web whose coordinates give a separable HJE for the geodesic Hamiltonian is called a \bam{St\"ackel web}.
+\end{definition}
+
+\begin{definition}
+A \bam{Killing-St\"ackel algebra (KSA)} is a $n$ dimensional subspace of the space of Killing tensors of order 2 on $Q$, $\mc{K}$, s.t on $Q\setminus \Omega$
+\begin{itemize}
+    \item $\mc{K}$ has a basis of pointwise independent elements 
+    \item the elements of $\mc{K}$ have common eigendirections
+    \item the eigendirections are normal (i.e orthogonally integrable).
+\end{itemize}
+\end{definition}
+
+\begin{prop}
+An orthogonal web is a St\"ackel web iff its leaves are integral manifolds of a KSA.
+\end{prop}
+\begin{proof}
+Let $\pbrace{q_i}$ be a parametrisation of the orthogonal web and $\del_i = \pd{q_i}$ We have that the condition of $\mc{S}_i$ being foliations gives that their tangent spaces given by $\spn\pbrace{\del_1, \dots, \del_n}$ are involutive. Let $\rho_i$ be eigenvalues of a Killing tensor that is diagonalised wrt the parametrisation, then  
+\eq{
+0 =&  \del_i (\del_j \rho_k) - \del_j (\del_i \rho_k) \\
+=&  \del_i \psquare{(\rho_j - \rho_k)\del_j \log g^{kk}} - \del_j \psquare{(\rho_i - \rho_k)\del_i \log g^{kk}} \\
+=&  \del_j \log g^{kk} \psquare{(\rho_i - \rho_j)\del_i \log g^{jj} - (\rho_i -\rho_k)\del_i \log g^{kk}} \\
+& - \del_i \log g^{kk} \psquare{(\rho_j - \rho_i)\del_j \log g^{ii} - (\rho_j -\rho_k)\del_j \log g^{kk}} - (\rho_i - \rho_j) \del_i \del_j \log g^{kk} \\
+=& (\rho_i - \rho_j)\psquare{(\del_j \log g^{kk})(\del_i \log g^{jj}) + (\del_i \log g^{kk})(\del_j \log g^{ii}) - (\del_i \log g^{kk})(\del_j \log g^{kk}) - 
+\del_i \del_j \log g^{kk}} \\
+=& (\rho_i - \rho_j)\psquare{\frac{\del_j g^{kk}}{g^{kk}}\del_i \log g^{jj} + \frac{\del_i g^{kk}}{g^{kk}}\del_j \log g^{ii} - \frac{\del_i g^{kk}}{g^{kk}}\frac{\del_j g^{kk}}{g^{kk}} - \pround{\frac{\del_i \del_j g^{kk}}{g^{kk}} -  \frac{\del_i g^{kk}}{g^{kk}}\frac{\del_j g^{kk}}{g^{kk}} }}
+} 
+Hence we have 
+\eq{
+(\rho_i -\rho_j) (\del_i \del_j g^{kk} - \del_i \log g^{jj} \del_j g^{kk} - \del_j \log g^{ii} \del_i g^{kk} ) = (\rho_i - \rho_j) S_{ij}(g^{kk}) = 0
+}
+$(\Rightarrow):$ Assume that the orthogonal coordinates are separable, then the above equations are immediately satisfied by the previous lemma, and so we have $n$ independent solutions $(\rho_a)_i = \rho_i^{(a)}$. As such we have a Killing tensor basis of a KSA $\mc{K}$ given by 
+\eq{
+\pbrace{\bm{T}^{(a)} = \sum_i \rho_i^{(a)} dq^i \otimes \del_i }
+}
+The leaves of the foliation are then given by $\pbrace{q^i = \text{const}}$, which are exactly the integral manifold of $\mc{K}$, defined on the same range $M \setminus \Omega$. \\
+$(\Leftarrow):$ Conversely, if such a St\"ackel system exists,  we may take a basis corresponding to the directions $\del_i$ and then the functions $\rho_i^{(a)}$ form s complete solution set to integrability equation condition. As we cannot have $\rho_i^{(a)} - \rho_j^{(a)} = 0$ for all $a$ (as then the solutions would not be independent), it must be that case that the separability condition holds. 
+\end{proof}
+
+We can go even farther with the following theorem:
+
+\begin{theorem}
+A KSA is uniquely determined by a Killing tensor with normal eigenvectors and pointwise simple eigenvalues.
+\end{theorem}
+
+
+\begin{prop}
+A potential $V:Q \to \mbb{R}$ is compatible with respect to a St\"ackel web generated by a KSA $\mc{K}$ iff for $\bm{T}$ generating $\mc{K}$
+\eq{
+d(\bm{T}\cdot dV) = 0
+}
+\end{prop}
+\begin{proof}
+Let $\bm{T} = \sum_i \rho_i dq^i \otimes \del_i $. Then $\bm{T} \cdot dV = \sum_i (\rho_i \del_i V) dq^i$ and so the condition in the statement is equivalent to 
+\eq{
+\del_j(\rho_i \del_i V) - \del_i( \rho_j \del_j V) = 0
+}
+Which using the results from Killing tensors gives 
+\eq{
+0 &= (\rho_i - \rho_j) \del_i \del_j V + \del_i V\psquare{(\rho_j - \rho_i) \del_i \log g^{jj}} - \del_j V\psquare{(\rho_i - \rho_j) \del_j \log g^{ii}} \\
+&= (\rho_i - \rho_j) \psquare{\del_i \del_j V - (\del_i \log g^{jj}) (\del_j V) - (\del_j \log g^{ii}) (\del_i V)} \\
+&= (\rho_i - \rho_j) S_{ij}(V)
+}
+Hence we are done. 
+\end{proof}
+
+\begin{prop}
+Let $\bm{T}^{(a)}$ be a basis of a St\"ackel system, and $V$ a separable potential. Define $V^{(a)} : M \to \mbb{R}$ locally by 
+\eq{
+dV^{(a)} = \bm{T}^{(a)} \cdot dV
+}
+and the functions $c_a : M \to \mbb{R}$ by 
+\eq{
+c_a = J_{T^{(a)}} + \pi^\ast V^{(a)}
+}
+where $\pi : M \to Q$ is the cotangent fibration. Then the $c_a$ are independent functions in involution
+\end{prop}
+\begin{proof}
+\eq{
+\pbrace{c_a, c_b} &= \pbrace{J_{T^{(a)}} + \pi^\ast V^{(a)},J_{T^{(b)}} + \pi^\ast V^{(b)}} \\
+&= J_{\comm[\bm{T}^{(a)}]{\bm{T}^{(b)}}} + J_{\bm{T}^{(a)}\cdot dV^{(b)}} - J_{\bm{T}^{(b)}\cdot dV^{(a)}} \\
+&= J_{(\bm{T}^{(a)}\cdot\bm{T}^{(b)} - \bm{T}^{(b)}\cdot \bm{T}^{(a)}) \cdot dV} = 0
+}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Properties of KSAs}
+
+A few useful characterisations of the above are as follows:
+
+\begin{prop}
+A tensor $\bm{T}$ has distinct eigenvalues iff 
+\eq{
+D \equiv \begin{vmatrix} n & S_1 & \cdots & S_{n-1} \\ 
+S_1 & S_2 & \cdots & S_n \\
+\vdots & \vdots & \ddots & \vdots  \\
+S_{n-1} & S_n & \cdots & S_{2n-2}
+\end{vmatrix} \neq 0 
+}
+where $S_p \equiv \tr(\bm{T}^p)$
+\end{prop}
+\begin{proof}
+Follows from Sylvester's theorem on the discriminant $D$ of an algebraic equation, applied to the characteristic equation of $\bm{T}$
+\end{proof}
+
+\begin{prop}
+A symmetric tensor $\bm{T}$ with simple eigenvalues has normal eigenvectors iff 
+\eq{
+H_{ab}^c T^a_d T^b_e + 2H^b_{a[d}T^a_{e]}T^c_b + H^a_{de}T^c_b T^b_a = 0
+}
+where 
+\eq{
+H^c_{ab}(\bm{T}) \equiv 2T^d_{[a}\del_{|d|}T_{b]}^c - 2T^c_{[d}\del_{|a|}T_{b]}^d
+}
+is the \bam{Nijenhuis Torsion}. 
+\end{prop}
+
+\begin{prop}
+An n-dimensional space $\mc{K}$ of Killing tensors is a KSA if
+and only if its elements 
+\begin{enumerate}
+    \item commute as matrices: $\forall \bm{T},\bm{S} \in \mc{K}, \, \bm{T}\bm{S} - \bm{S}\bm{T}=0$
+    \item are in involution: $\forall \bm{T},\bm{S} \in \mc{K}, \, \acomm[J_T]{J_S} = 0$
+\end{enumerate}
+\end{prop}
+\begin{proof}
+Note that commutation as matrices is equivalent to being simultaneously diagonalisable. Involutivity then gives normality of eigenvectors. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Generalisation}
+
+We can now relax orthogonality as a condition and think more generally about a standard coordinate system:
+
+\begin{definition}
+A Killing tensor $\bm{T}$ is said to be in \bam{standard form} wrt to a standard coordinate system if  
+\eq{
+\bm{T} = \rho_a g^{aa} \del_a \otimes \del_a + T^{\alpha\beta}\del_\alpha \otimes \del_\beta
+}
+and $\del_\alpha \rho_a = 0 = \del_\alpha T^{\beta \gamma}$. 
+\end{definition}
+
+\begin{definition}
+A \bam{separable Killing algebra} is a pair $(D,\mc{K})$ where 
+\begin{itemize}
+    \item $D$ is a $r$ dimensional linear space of commuting Killing vectors 
+    \item $\mc{K}$ is a $D$-invariant, $(n-r)$-dimensional vector space of Killing two tensors with $m=n-r$ normal simultaneous eigenvectors orthogonal to $D$. 
+\end{itemize}
+\end{definition}
+
+All the previous characterisations now generalise, in the sense that separability of the HJE is now equivalent to the existence of a separable Killing algebra. We remark that, moreover, we can quotient $Q$ by the orbits of $D$ to get $\tilde{Q}$, which is now an $m$-dimensional manifold with metric $\tilde{\bm{g}} = (g^{ab})$. As a consequence of the $D$ invariance of $\mc{K}$ in the separable Killing algebra, it projects onto a KSA $\tilde{\mc{K}}$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{../../bib/custom-bib-style}
+\bibliography{../../bib/library,../../bib/manual}
+\end{document}

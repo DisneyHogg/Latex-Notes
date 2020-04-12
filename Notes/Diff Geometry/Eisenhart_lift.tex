@@ -1,0 +1,206 @@
+\documentclass{article}
+\usepackage{../../header}
+
+\title{The Eisenhart Lift}
+\author{Linden Disney-Hogg \& Harry Braden}
+\date{March 2020}
+
+\begin{document}
+
+\maketitle
+
+
+\section{The Eisenhart Lift}
+Consider the $(d+2)$-dimensional line element,
+\begin{equation}
+\label{eislift}
+ds^2=\hat g_{\mu\nu}\,dx\sp{\mu}\,dx\sp{\nu}
+=h_{ij}\, dx\sp{i}\, dx\sp{j}+2dt \left( dv-\Phi dt+N_i dx\sp{i}\right),
+\end{equation}
+where $i,j=1,\ldots,d$, $x\sp{d+1}=t$,  $x\sp{d+2}=v$ and $\Phi$, $N_i$ and $h_{ij}$ are independent of the coordinate $v$. Then
+$\xi = \partial_v$ is a Killing vector.
+We have
+$$\hat g=\begin{pmatrix}h_{ij}&N_i&0\\ N_j&-2\Phi&1\\ 0&1&0\end{pmatrix},\qquad
+\hat g\sp{-1}=\begin{pmatrix}h\sp{ij}&0&-h\sp{ik}N_k\\ 0&0&1\\ -h\sp{jk}N_k &1&2 \Phi+ N_i h\sp{ij} N_j\end{pmatrix},
+$$
+where $h\sp{ij}$ is the inverse of $h_{ij}$. The geodesic Lagrangian is
+$$\mathcal{ L}=\frac12 \hat  g_{\mu\nu}\,\dot x\sp{\mu}\,\dot x\sp{\nu}=
+\frac12 h_{ij}\, \dot x\sp{i}\, \dot x\sp{j}+\dot t \dot v-\Phi {\dot t}^2+N_i \,\dot x\sp{i}\dot t
+:= \tilde{L}+\dot t \dot v  ,
+$$
+where $\dot x\sp{\mu}=dx\sp{\mu}/d\lambda$ for an affine geodesic parameter $\lambda$ ($\tilde{L}$ is defined below).
+Calculating the equations of motion from $\mathcal{L}$ enables a simple determination of (appropriate
+combinations of) the  Christoffel symbols for $\hat g$. Recall
+$$\hat \Gamma\sp{\mu}_{\, \nu \rho}=\frac12 \hat g\sp{\mu \delta}\left(
+\hat g_{\delta \nu, \rho} + \hat g_{\delta \rho, \nu} - \hat g_{ \nu \rho,\delta}\right)
+:=  \hat g\sp{\mu \delta}[ \nu \rho,\delta]_{\hat g}.
+$$
+and the equations of motion are
+$$ 0=\ddot x\sp{\mu}+ \hat \Gamma\sp{\mu}_{\, \nu \rho} \dot x\sp{\mu}\dot x\sp{\rho}.
+$$
+Setting
+$$A:=A_\mu dx\sp{\mu}=N_i dx\sp{i}-\Phi dt,\qquad
+F=dA=\frac12 (\partial_\mu A_\nu- \partial_\nu A_\mu)\, dx\sp\mu \wedge dx\sp\nu =\frac12 F_{\mu\nu}
+\, dx\sp\mu \wedge dx\sp\nu
+$$
+the equations of motion for $v$, $x\sp{i}$ and $t$ yield
+\begin{align*}
+0&=\ddot t,\\
+0&= h_{ij}\,\ddot x\sp{j}+[jk,i]_h\, \dot x\sp{j} \dot x\sp{k} +
+(\partial_t h_{ij}+\partial_j N_i-\partial_i N_j) \,\dot t \dot x\sp{j} +\left(\partial_i\Phi+\partial_t N_i\right) \dot t^2,\\
+&= h_{ij}\,\ddot x\sp{j}+[jk,i]_h\, \dot x\sp{j} \dot x\sp{k}+ (\partial_t h_{ij} -F_{ij})\, \dot t \dot x\sp{j}
++F_{ti}\dot t\sp2,\\
+0&=\ddot v+ N_i\ddot x\sp{i}+ \left[ \frac12 \left(\partial_j N_i+\partial_i N_j\right)- \frac12 \partial_t h_{ij}
+\right]\,\dot x\sp{i} \dot x\sp{j} -2\partial_i\Phi \,\dot t \dot x\sp{i} - \partial_t\Phi\, \dot t^2,\\
+&=\ddot v+
+ \left[ \frac12 \left(\partial_j N_i+\partial_i N_j\right)-N_k \Gamma\sp{k}_{ij}- \frac12 \partial_t h_{ij}
+\right]\,\dot x\sp{i} \dot x\sp{j} 
++\left[ -N\sp{k} (\partial_t h_{ki} -F_{ki}) -2\partial_i\Phi \right]\,\dot t \dot x\sp{i} 
++\left(- \partial_t\Phi +N\sp{i}F_{it} \right)\, \dot t^2
+\end{align*}
+where we have substituted the earlier equations in the latter. Note that where the indec From these we read that
+the nonvanishing Christoffel symbols for $\hat g$ are
+\begin{align*}
+\hat \Gamma\sp{i}_{jk}&=  \Gamma\sp{i}_{jk},
+&\hat \Gamma\sp{i}_{jt}&=-\frac12 F\sp{i}_{\ j}+\frac12 h\sp{ik}\partial_t h_{kj},
+&\hat \Gamma\sp{i}_{tt}&=h\sp{ik} \left( \partial_t N_k +\partial_{k} \Phi \right)= -F\sp{i}_{\ t},
+\\
+\hat \Gamma\sp{v}_{tt}&=-\partial_t \Phi+N\sp{k}F_{ku}, 
+&\hat \Gamma\sp{v}_{ij}&=\frac14\left[\nabla\sp{(h)}_{i}N_{j}+\nabla\sp{(h)}_{j}N_{i}-\partial_u h_{ij}\right],
+&\hat \Gamma\sp{v}_{ti}&=-\frac12 N\sp{k} (\partial_t h_{ki} -F_{ki}) -\partial_i\Phi .
+\end{align*}
+Note that to raisethe index of $N$ has required we recognise that 
+\eq{
+N^i = \hat{g}^{ij} N_j = h^{ij} N_j
+}
+In particular this means $\partial_s$ is parallel with respect to the Levi-Civita metric.
+
+
+The canonical momenta are given by $p_\mu =\partial \mc{L}/\partial \dot x\sp{\mu}=\hat{g}_{\mu\nu}\dot{x}^\nu$ giving
+$$p_v =\dot t,\qquad p_i=h_{ij} \dot x\sp{j} +N_i \dot t, \qquad p_t=\dot v- 2\Phi \dot t +N_i \dot x\sp{i},
+$$
+and so
+$$\dot t=p_v,\qquad  \dot x\sp{i}=h\sp{ij}(p_j- N_j p_v),\qquad \dot v=p_t-N\sp{i} p_i+[2\Phi +N^2]\, p_v.$$
+
+Likewise, the geodesic Hamiltonian is
+$$\mathcal{H}=p_\mu \dot x\sp{\mu}-\mathcal{L} = \frac12 \hat{g}\sp{\mu\nu}\,p_{\mu}\, p_{\nu}=
+\frac12 h\sp{ij}\, (p_{i}-N_i p_v)(p_j-N_j p_v) +p_t  p_v+\Phi \,p_v^2 .
+$$
+The equations of motion are
+\begin{align*}
+\frac{dt}{d\lambda}&=\frac{\partial \mathcal{H}}{\partial p_t}=p_v, &
+\frac{dv}{d\lambda}&=\frac{\partial \mathcal{H}}{\partial p_v},& 
+\frac{d x^i}{d\lambda}&=\frac{\partial \mathcal{H}}{\partial p_i}=h\sp{ij}\, (p_j-N_j p_v),
+\\
+\frac{d p_t}{d\lambda}&=-\frac{\partial \mathcal{H}}{\partial t},
+&
+\frac{d p_v}{d\lambda}&=-\frac{\partial \mathcal{H}}{\partial v}=0,&
+\frac{d p_i}{d\lambda}&=-\frac{\partial \mathcal{H}}{\partial x^i}.
+\end{align*}
+Because $v$ is a cyclic coordinate its conjugate momentum $p_v$ is conserved along geodesics:
+thus $p_v=m$ is a constant and we may write
+$$\mathcal{H}:=H+m\, p_t,\qquad H:=\frac12 h\sp{ij}\, (p_{i}-m N_i )(p_j-m N_j) +m^2\, \Phi.$$
+We observe that we have the geodesics have the conserved quantities,
+\begin{align*}
+\frac12 \hat g\sp{\mu\nu}\, p_\mu p_\nu&=m\left[ \frac{p\sp{i}p_i}{2m}- N\sp{i}p_i +m N\sp{i}N_i
++p_t +m\Phi \right] :=- m E_0,\\
+\hat g\sp{\mu\nu}\, p_\mu \xi_\nu&=p_v=m.
+\end{align*}
+Following the identifications of \cite{Duval1991} we view $p_v=m$ as the mass, $-p_t=E$  as the energy,
+$E_0$ as the internal energy, and $m\Phi=V$ as the potential energy. Taking the internal energy to vanish in the nonrelativistic limit the null geodesics of $\hat g$ may be identified with the motion in the $d$-dimensional space with potential energy $V$. We note that two conformally related metrics have the same null geodesics, and so the $d$-dimensional world lines will be the same. For $m\ne 0$ the equations of motion for $t$ then give $dt/d\lambda=m$, whence $dt =m\,d\lambda$ and we may eliminate the affine geodesic parameter $\lambda$
+for $t$. The equations of motion are then precisely those coming from the standard mechanical system
+$$\tilde L= \frac12 h_{ij}\, \dot x\sp{i}\, \dot x\sp{j}+N_i \,\dot x\sp{i}-\Phi $$
+where $ \dot x\sp{i}$ is now the standard $d x\sp{i}/dt$ (and $\dot t = 1$). Now
+\begin{enumerate}[(a)]
+\item in the case of a non-null geodesic, if we parameterised the curve by arc length, $\lambda=s$ and $t =ms$, then from (\ref{eislift}) we have 
+$$\frac{dv}{dt}= \frac1{2m^2} -\tilde L.$$
+The equations of motion for $v$ follow from this and
+$$v=\frac{t}{2m^2}-\int \tilde L\, dt +b.$$
+\item in the case of a null geodesics we have
+ $$\frac{dv}{dt}=  -\tilde L,\qquad  v=-\int \tilde L\, dt +b.$$
+\end{enumerate}
+Thus we have for each $m\ne0$ and $b$ a bijection between the geodesics of $\hat g$ and the
+equations of motion of $\tilde L$.
+
+\subsection{Bargman Structures}
+A Bargmann structure $(B, \hat g, \xi)$ is a principal bundle $\pi:\, B\rightarrow M$, where $\dim B=\dim M+1$,
+equipped with a Lorentzian metric $\hat g$ and nowhere vanishing null vector field $\xi$ such that with respect to the usual Levi-Civita connection $\hat \nabla \xi=0$. Then $M:=B/\mathbb{R}\xi$ is equipped with
+a Newton-Cartan geometry $(M, K, \theta, \nabla)$ where
+$$ K=\pi_\ast {\hat g}\sp{-1}, \qquad \hat g(\xi)=\pi\sp\ast\theta,$$
+$K$ is degenerate and $\pi\sp\ast\theta$ generates $\ker K$.
+
+In our setting we have a metric of Brinkmann form
+$$\hat g= h + dt\otimes \omega+\omega\otimes dt,\ \
+\omega= dv -\Phi(x,t)\, dt+ N_i(x,t)\, dx\sp{i}, \ \  h=h_{ij}(x,t) dx\sp{i}\otimes dx\sp{j}.
+$$
+Then $\xi =\partial_v$, $\theta=dt$.
+
+\section{Introduction}
+
+Let us start with a bit of back story, so we can develop and go further. This will be built off of \cite{Duval1985}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Galilei and Newton Structures}
+We start with some more classical work.
+
+\begin{definition}[Galilei group]
+The \bam{Galilei group} is the matrix group
+\eq{
+G = \pbrace{\begin{pmatrix}
+		R & b & c \\ 0 & 1 & e \\ 0 & 0 & 1
+\end{pmatrix} \, | \, R \in SO(d), \ , b,c \in \mbb{R}^n, \, e \in \mbb{R} } \leq GL_{d+2}(\mbb{R})
+}	
+\end{definition}
+
+We think of $G$ as acting on $(\bm{x},t,1)$ s.t. 
+\eq{
+\begin{pmatrix}R & b & c \\ 0 & 1 & e \\ 0 & 0 & 1 \end{pmatrix} \begin{pmatrix}
+	x \\ t \\ 1
+\end{pmatrix} = \begin{pmatrix}
+Rx + tb + c \\ t+e \\ 1
+\end{pmatrix}
+}
+with this action we see:
+\begin{enumerate}
+	\item $R$ are rotations in space
+	\item $b$ are boosts
+	\item $c,e$ are translations in space and time respectively
+\end{enumerate}
+
+With this interpretation we have
+
+\begin{definition}
+	The \bam{Homogeneous Galilei group/Euclidean group} $H$ is the group of Galilean transformations that preserve the spatio-temporal origin $(\bm{0},0,1)$. 
+\end{definition}
+
+\begin{prop}
+	$H$ consists of matrices of the form 
+	\eq{
+	\begin{pmatrix}R & b & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix} \, .
+}
+Moreover $H \cong SO(d)\ltimes \mbb{R}^d$ as a Lie group (\hl{not a as a Lie transformation group} \cite{Kunzle1972} ) is faithfully represented by matrices of the form 
+\eq{
+\begin{pmatrix}R & b  \\ 0 & 1  \end{pmatrix} \in GL_{d+1} \, .
+}
+\end{prop}
+\begin{proof}
+	See my CQIS notes for a more built up discussion of this fact. 
+\end{proof}
+
+We now recall the following def:
+
+\begin{definition}
+	The \bam{frame bundle} of a $k$-dimensional smooth manifold $M$ is $GL(M)$, the $GL_k$-principal fibre bundle with fibres at $x \in M$ given by the space of ordered bases of $T_xM$. 
+\end{definition}
+
+\begin{definition}
+	A \bam{proper Galilei structure} $H(M)$ is a reduction of structure group of the frame bundle of a $(d+1)$-dimensional $M$ via $H \hookrightarrow GL_{d+1} $.
+\end{definition}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{../../bib/custom-bib-style}
+\bibliography{../../bib/library,../../bib/manual}
+
+\end{document}

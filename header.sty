@@ -1,0 +1,236 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Packages
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{braket} %Bras, kets, sets, caps or not. 
+\usepackage{hyperref} %References and links. 
+\usepackage{bm} %Bold vectors. 
+\usepackage{faktor} %Write quotients nicely.
+\usepackage{xfrac} %Slanted fractions with \sfrac
+\usepackage{slashed} %Dirac slash notation
+\usepackage{mathtools} %Contraction notation \overbracket. 
+\usepackage[dvipsnames]{xcolor} % \highlight to color math input.
+\usepackage{tensor} %Raised and lowered indices with \indices.
+\usepackage{color}
+\usepackage{listings} %type nice code into latex
+\usepackage[shortlabels]{enumitem} %use to make short labels in enumerate, e.g. (a), ...
+\usepackage{pgfplots} %better plotting of graphs
+
+%%
+%% Maple definitions (c) 2008 Alexander Shapiro
+%%
+\lstdefinelanguage{Maple}%
+{morekeywords={and,assuming,break,by,catch,description,do,done,%
+elif,else,end,error,export,fi,finally,for,from,global,if,%
+implies,in,intersect,local,minus,mod,module,next,not,od,%
+option,options,or,proc,quit,read,return,save,stop,subset,then,%
+to,try,union,use,uses,while,xor},%
+sensitive=true,%
+morecomment=[l]\#,%
+morestring=[b]",%
+morestring=[d]"%
+}[keywords,comments,strings]%
+
+\usepackage{soul} %Highlight text with \hl{}
+%\usepackage{xurl} %Put URLs in text that split lines \url{}
+\usepackage[colorinlistoftodos]{todonotes}
+%\usepackage{aligned-overset} %put text over symbols with \overset
+\usepackage{tikz-cd}
+\usetikzlibrary{decorations.pathmorphing,decorations.pathreplacing} %decorate, decorations=snake to make wavy line
+\usepackage{pgfmath} %allows arrays for tikz
+\usepackage{mdframed} %puts the coloured frames around environs, see header-colourful
+\usepackage{verbatim} 
+\usepackage{mathrsfs}
+\usepackage{csquotes}
+\usepackage{stmaryrd}
+\usepackage{blkarray} %make big matrices
+
+% Sets bibliography style and preferences
+% To clear the month entry in bibtex 
+%\usepackage[
+%backend=bibtex,
+%date=year,
+%style=alphabetic,
+%citestyle=numeric-comp
+%]{biblatex}
+
+%\addbibresource{/home/s1504632/Documents/Coding/Latex/Notes/refernces.bib} %Imports bibliography file
+%\addbibresource{/home/s1504632/Documents/Coding/Latex/Notes/references_manual.bib}
+
+
+%\bibliographystyle{abbrv,date=year} outdated
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Definitions
+
+%Environments
+%\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{prop}{Proposition}[subsection]
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{conjecture}{Conjecture}[subsection]
+\newtheorem{conjecture}[theorem]{Conjecture}
+%\newtheorem{fact}{Fact}[subsection]
+\newtheorem{fact}[theorem]{Fact}
+
+%\newtheorem{definition}{Definition}[section]
+\newtheorem{definition}[theorem]{Definition}
+%\newtheorem{ex}{Exercise}[section]
+\newtheorem{ex}[theorem]{Exercise}
+%\newtheorem{example}{Example}[section]
+\newtheorem{example}[theorem]{Example}
+
+\newtheorem*{idea}{Idea}
+\newtheorem*{remark}{Remark}
+\newtheorem*{aside}{Aside}
+\newtheorem*{notation}{Notation}
+
+
+
+
+%Text math operators.
+\DeclareMathOperator{\spn}{Span}
+\DeclareMathOperator{\tr}{Tr}
+\DeclareMathOperator{\SU}{SU}
+%\DeclareMathOperator{\dim}{dim}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Pfaff}{Pfaff}
+\DeclareMathOperator{\image}{Im}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\vol}{Vol}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Harm}{Harm}
+\DeclareMathOperator{\ind}{index}
+\DeclareMathOperator{\cohom}{Cohom}
+\DeclareMathOperator{\res}{res}
+\DeclareMathOperator{\sign}{sgn}
+\DeclareMathOperator{\Maps}{Maps}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Mon}{Mon}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\trans}{trans}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Ad}{Ad}
+\DeclareMathOperator{\rep}{rep}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Spin}{Spin}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\midbar}{\middle|}
+\DeclareMathOperator{\Diff}{Diff}
+\DeclareMathOperator{\diff}{diff}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\eval}{ev}
+\DeclareMathOperator{\Rep}{Rep}
+\DeclareMathOperator{\Fr}{Fr}
+\DeclareMathOperator{\wt}{wt}
+\DeclareMathOperator{\mult}{mult}
+\DeclareMathOperator{\Der}{Der}
+\DeclareMathOperator{\graph}{graph}
+\DeclareMathOperator{\gr}{gr}
+\DeclareMathOperator{\Ric}{Ric}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Vect}{Vect}
+\DeclareMathOperator{\Man}{Man}
+\DeclareMathOperator{\Ring}{Ring}
+\DeclareMathOperator{\Mod}{Mod}
+\DeclareMathOperator{\Vir}{Vir}
+\DeclareMathOperator{\Witt}{Witt}
+\DeclareMathOperator{\Heis}{Heis}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Vector}{Vec}
+
+
+
+%Symbolic shortcuts 
+\newcommand{\lact}{\circlearrowright}
+\newcommand{\ract}{\circlearrowleft}
+\newcommand{\contradiction}{\textreferencemark}
+\newcommand{\eps}{\epsilon}
+\newcommand{\curl}{\bm{\nabla}\times}
+\newcommand{\divergence}{\bm{\nabla}\cdot}
+\newcommand{\grad}{\bm{\nabla}}
+\newcommand{\del}{\partial}
+\newcommand{\tmeas}{\frac{d^3\bm{p}}{(2\pi)^3}}
+%Momentum measure in 3 dimensions 
+\newcommand{\fmeas}{\frac{d^4p}{(2\pi)^4}} %Momentum measure in 4 dimensions
+\newcommand{\LImeas}{\frac{d^3\bm{p}}{(2\pi)^32E_{\bm{p}}}}
+%Normalised LI measure.
+\newcommand{\cst}{\alpha^\prime} % String constant.
+\newcommand{\msolar}{M_\odot}
+\newcommand{\bari}{\bar{\imath}}
+\newcommand{\barj}{\bar{\jmath}}
+\newcommand{\sfm}{\mathrm I\!\mathrm I}
+
+
+%Text type shortcuts
+\newcommand{\bam}[1]{\textbf{#1}}
+\newcommand{\mf}[1]{\mathfrak{#1}}
+\newcommand{\mbb}[1]{\mathbb{#1}}
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\ms}[1]{\mathscr{#1}}
+\newcommand{\highlight}[1]{%
+  \colorbox{red!50}{$\displaystyle#1$}}
+\newcommand{\secmath}[1]{\texorpdfstring{$ #1 $}{T}}
+\newcommand{\pround}[1]{\left( #1 \right)}
+\newcommand{\psquare}[1]{\left[ #1 \right]}
+\newcommand{\pbrace}[1]{\left\{ #1 \right\} }
+\newcommand{\pangle}[1]{\left\langle #1 \right\rangle}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert} %absolute value. 
+\newcommand{\norm}[1]{\left\lvert\left\lvert #1 \right\rvert\right\rvert}
+\newcommand{\ev}[2]{\left. #1 \right\rvert_{#2}} %evaluation to the right.
+
+\renewcommand{\bar}[1]{\overline{#1}} %change bar to overline as it is just better I think
+
+%Functions shortcuts.
+\newcommand{\dcomm}[2][]{\left[\left[ #1, #2 \right]\right]}
+\newcommand{\comm}[2][]{\left[ #1, #2 \right]} %Commutator .
+\newcommand{\acomm}[2][]{\left\{ #1, #2 \right\}} %Anticommutator .
+\newcommand{\pd}[2][]{\frac{\partial#1}{\partial#2}} %Partial derivative. 
+\newcommand{\pds}[2][]{\frac{\partial^2 #1}{\partial #2^2}} %Second partial derivative.
+
+\newcommand{\pb}[2][]{\left\{ #1, #2 \right\}_{PB}} %Poisson bracket, different from acomm
+\newcommand{\upwick}[1]{\overbracket[0.5pt]{#1}} % Bracket for a Wick contraction
+\newcommand{\downwick}[1]{\underbracket[0.5pt]{#1}} % Bracket for a Wick contraction 
+
+
+
+\newcommand{\be}{\begin{equation}}  
+\newcommand{\ee}{\end{equation}}
+%Used like \[ \] but with tags.
+
+\newcommand{\eq}[1]{\begin{align*}#1\end{align*}}
+%Used to short align env. 
+
+\newenvironment{tkz}{\begin{center}
+\begin{tikzcd}
+}
+{
+\end{tikzcd}
+\end{center}}
+% create tikz diagram
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Misc
+\numberwithin{equation}{subsection}
+
+\definecolor{mygray}{rgb}{0.4,0.4,0.4}
+
+\lstset{basicstyle=\ttfamily\color{mygray}, commentstyle=\color{blue}, keywordstyle=\color{black}, language=Matlab }
+
+\newenvironment{claim}[1]{\par\noindent\underline{Claim:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}

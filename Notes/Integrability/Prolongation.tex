@@ -1,0 +1,266 @@
+\documentclass{article}
+
+\usepackage{../header-colourful}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Prolongation Structures}
+\author{Linden Disney-Hogg}
+\date{April 2020}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+These will be notes I have written to further my understanding in a geometric manner of prolongations. These will start with a review of the original papers by Walqhuist and Estabrook \cite{Wahlquist1975,Estabrook1976}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Korteweg-de Vries equation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Definition and Existence of solutions}
+We start with a reminder of the golden child of non-linear pdes for integrability - the KdV equation
+
+\begin{definition}
+	The \bam{Korteweg-de Vries (KdV) equation} is the non-linear pde for $u: \mbb{R}^{1+1} \to \mbb{R}$ given by 
+	\eq{
+u_t + u_{xxx} + 12uu_x = 0	
+}  
+\end{definition}
+
+\begin{remark}
+	The coefficient of $12$ here reflects a choice for convenience. It can be changed by rescaling $u$. 
+\end{remark}
+If we make the definitions
+\eq{
+z &= u_x \\
+p &= z_x = u_{xx}
+}
+this turns the KdV eqn into the first order pde 
+\eq{
+u_t + p_x + 12uz = 0 \, .
+}
+\begin{remark}
+	When given an ODE, it is standard to complete this process, after which we can guarantee a local solution by the Picard-Lindel\"of theorem. We are going to do a similar thing, by imposing the conditions of Frobenius' theorem to get an integrable distribution. 
+\end{remark}
+Let us now consdier these new variables as independent coordinates on the $5d$ manifold $M=\mbb{R}^5$, and let us define
+\eq{
+\alpha^1 &= du \wedge dt - zdx \wedge dt \\
+\alpha^2 &= dz \wedge dt - pdx \wedge dt \\
+\alpha^3 &= -du \wedge dx + dp \wedge dt + 12uz dx \wedge dt
+} 
+
+\begin{prop}
+On any $2d$ submanfold $S_2 \subset M$ on which $x,t$ are good coordinates and $u_x = z, \, z_x = p$ we have $\ev{\alpha^i}{S_2}=0$. 
+\end{prop}
+\begin{proof}
+	We can check each case separately. E.g. by requiring $u_x=z \Rightarrow du = zdx$, so 
+	\eq{
+\alpha^1 = zdx \wedge dt - zdx \wedge dt = 0	
+}
+\end{proof}
+
+\begin{prop}
+	Let $I = (\alpha^1,\alpha^2,\alpha^3) \triangleleft \Omega(M)$. Then $dI \subset I$. 
+\end{prop}
+\begin{proof}
+	Again this is merely checking. E.g. 
+	\eq{
+	d\alpha^1 = -dz \wedge dx \wedge dt = dx \wedge \alpha^2
+}
+\end{proof}
+
+\begin{corollary}
+	The KdV equation has a solution locally. 
+\end{corollary}
+\begin{proof}
+This is just Frobenius' theorem for differential forms. 
+\end{proof}
+
+\begin{remark}
+	\cite{Wahlquist1975} tells us that by a \hl{Cartan's theorem} this solution patches together to give us a global one. \hl{I do not know this theorem, so find it. }
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{General Theory}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Conserved quantites}
+We prove now an important proposition in developing our geometric theory. We will use summation notation unless otherwise stated, and take $u: \mbb{R}^{1+1} \to \mbb{R}$ to obey some pde. As with KdV, we let $\alpha_i$ be forms whose null set $S_2$ characterises the solution to the pde.  
+
+\begin{prop}
+	Exact 2-forms give quantities conserved through evolution of the pde. 
+\end{prop}
+\begin{proof}
+	Let $\beta = f_i \alpha^i \in \Omega^2(M)$ be exact with $\beta = d\omega$.  Recall that by Stokes' theorem 
+	\eq{
+\int_{\del S} \omega = \int_{S} d \omega	
+}
+where $S \subset M$ is a $2d$ submanifold. If we choose $S\subset S_2$ to correspond to $(x,t) \in [R,S] \times [0,T]$ we get 
+\eq{
+\int_{\del S} \omega = 0
+} 
+and writing $\omega_{(x,t)} = F(x,t) dx + G(x,t) dt$ in $S$ we see 
+\eq{
+0 &= \int_{R}^S F(x,0) \, dx + \int_0^T G(R,t) \, dt + \int_{R}^S F(x,T) \, dx + \int_0^T G(S,t) \, dt
+}
+If we assume sufficient decay conditions s.t. 
+\eq{
+\lim_{R \to -\infty}  \int_0^T G(R,t) \, dt &= 0 \\
+\lim_{S \to \infty}  \int_0^T G(S,t) \, dt &= 0
+}
+then we have 
+\eq{
+\int_{-\infty}^\infty F(x,0) \, dx = \int_{-\infty}^\infty F(x,T) \, dx
+}
+i.e. $\int_{-\infty}^\infty F(x,t) \, dx$ is a conserved quantity. 
+\end{proof}
+
+\begin{example}
+	Take KdV, and consider $\beta = -\alpha^3 - 12u\alpha^1$. One can check $d\beta = 0$, and as $H^2(M) = 0$ we know $\beta$ is exact. It can be worked out that 
+	\eq{
+\omega = udx -(p + 6u^2)dt	
+}
+is suitable. From this we then find the conserved quantity 
+\eq{
+\int_{\mbb{R}} u(x,t) \, dx
+}
+We may verify this through standard techniques, as 
+\eq{
+\pd{t} \int_{\mbb{R}} u(x,t) \, dx &= \int_{\mbb{R}} u_t \, dx \\
+&= -\int_{\mbb{R}} u_{xxx} + 12 u u_x \, dx \\
+&= -\int_{\mbb{R}} \pd{x}\pround{u_{xx} + 6u^2} \, dx \\
+&= -\psquare{u_{xx} + 6u^2}_{-\infty}^\infty = 0
+}
+\end{example}
+
+Now note for any $\omega$ s.t. $\beta=d\omega$, we have freedom in the choice of $\omega$ by adding on any element of $H^1(M)$. i.e. we can make the change 
+\eq{
+\omega \mapsto \omega + dy
+}
+where $y$ is some scalar function. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Prolongation}
+From our previous section, we had an additional degree of freedom on $\omega$ arising from the choice of scalar function $y$. We view $y$ as a new independent variable to extend our space  $M \mapsto \tilde{M} $. We have also extended the ideal $I\mapsto \tilde{I} = (\alpha^1, \dots, \alpha^n,\omega)$. We again know $d\tilde{I}\subset \tilde{I}$. 
+
+\begin{definition}
+	The process of generating a new independent variable and larger closed ideal is called the \bam{prolongation} of the orginial set. 
+\end{definition}  
+
+If we now define $S_2$ to be the $2d$ submanifold of $\tilde{M}$ parameterised by $x,t$ that nulls $\alpha^1, \dots \alpha^3,\omega$ we must get 
+\eq{
+(y_x +F)dx + (y_t + G)dt = 0 \Rightarrow \left\lbrace \begin{array}{c}
+	y_x = -F \\
+	y_t = -G
+\end{array}\right.
+}
+If we can eliminate $p,u,z$ from these equations we get a pde for $y$. We call $y$ a \bam{potential function}.
+
+\begin{example}
+	Using $\omega$ as in the previous example, we have the equations for y
+	\eq{
+y_x &= -u \\
+y_t &= p+6u^2	
+}
+From these we get 
+\eq{
+w_t + w_{xxx} -6 w_x^2 = 0
+}
+\end{example}
+
+We can now come up with a procedure to try and find such conservation laws. Expanding out the condition $\beta=d\omega$ we get 
+\eq{
+\pround{F_{,\mu} dz^\mu \wedge dx + G_{,\mu} dz^\mu \wedge dt} -  f_i \alpha^i = 0 
+}
+where we have used the notation $F_{,\mu} = \pd[F]{z^\mu}$ for $z^\mu = (x,t,u,z=x_x,p=u_{xx}, \dots)$. This is called the \bam{closure equation}. These are a set of overdetermined coupled linear first-order pdes, and each solution gives rise to a conservation law, as well as a prolongation. 
+
+\begin{remark}
+	Note that a solution to the above equation is not unique, we are free to add any constant onto $F,G$, and to scale $F,G,f_i$ all by the same scale factor. 
+\end{remark}
+
+\begin{example}
+	For KdV, we get 
+	\eq{
+-F_{,t} + G_{,x} &= -f_1z -pf_2 + 12uzf_3 & &(dx \wedge dt) \\
+F_{,u} &= -f_3 & &(du \wedge dx)\\
+F_{,z} &= 0 &&(dz \wedge dx)\\
+F_{,p} &= 0 &&(dp \wedge dx)\\
+G_{,u} &= f_1 &&(du \wedge dt)\\
+G_{,z} &= f_2 &&(dz \wedge dt)\\
+G_{,p} &= f_3 &&(dp \wedge dt)
+}
+If we made an ansatz that $F,G$ are independent of $x,t$ we get that $F= F(u)$. Then $f_3 = -F^\prime$ and 
+\eq{
+G(u,z,p) = pf_3(u) + g(u,z)
+}
+Substituting in 
+\eq{
+0 &= -z\pround{pf_3^\prime + g_{,u}} -p g_{,z} +12uz f_3 \\
+&= -p\pround{zf_3^\prime +g_{,z}} + z\pround{12 uf_3 - g_{,u}}
+}
+Setting each of these two brackets to 0 gives 
+\eq{
+g(z,u) = -\frac{1}{2}z^2 f_3^\prime(u) + h(u)
+}
+where $h$ satisfies 
+\eq{
+12uf_3(u) + \frac{1}{2}z^2 f_3^{\prime\prime}(u) - h^\prime(u) = 0 
+}
+Looking at this second equation we must have $f_3^{\prime\prime}=0 \Rightarrow f_3(u) = cu+d$ for $c,d \in \mbb{R}$.  This then gives 
+\eq{
+h(u) = \int^u 12v(cv+d) \, dv = 4cu^3 + 6du^2 + \text{const}
+}
+Within this set of solutions we get our previous example taking $c=0,d=-1$. 
+\end{example}
+
+Once we have found a prolongation, we may repeat the process, and so on forming a sequence of $\omega^k$ s.t. 
+\eq{
+\omega^k =dy^k + F^k dx + G^k dt
+}
+where $F^k = F^k(z^\mu,y^i), \, G^k = G^k(z^\mu,y^i)$. We can then generalise the prolongation process to allow a closure equation 
+\eq{
+d\omega^k - f^k_i \alpha^i  - \eta^k_i \wedge \omega^i = 0
+}
+where $\eta^k_i$ are some one-forms. Note that the nullity condition for $\omega^k$ means that 'on-shell'
+\eq{
+	(y^k_x +F^k)dx + (y^k_t + G^k)dt = 0 \Rightarrow \left\lbrace \begin{array}{c}
+		y^k_x = -F^k \\
+		y^k_t = -G^k
+	\end{array}\right.
+}
+This means the closure equation will now have non-linearity in the $dx\wedge dt$ term where we will get contributions of the form 
+\eq{
+-F^k_{,y^i}y^i_{,t} + G^k_{,y^i}y^i_{,x} = G^i F^k_{,y^i} - F^i G^k_{,y^i}
+}
+This is a term of the form $\comm[\bm{G}]{\bm{F}}^k$, leading to an underlying algebraic structure to the prolongation. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Extended example - prolongation structure of KdV}
+We have previously worked out the closure equation for the first prolongation of the KdV equation, and found a class of solutions to it. We can go further, and work out the more general prolongation sequence now. We again make the ansatz that $F,G$ are independent of $x,t$ explicitly. 
+
+\begin{remark}
+	\cite{Wahlquist1975} notes that this ansatz is taken primarily for simplicity, and while it can be midly motivated by noting that the KdV equation does not depend on $x,t$ explicitly, it is noted that this may lose possible solutions. 
+\end{remark}  
+
+Now the general closure equation, can be written as 
+\eq{
+F^k_{,z} &= 0 \\
+F^k_{,p} &= 0 \\
+F^k_{,u} + G^k_{,p} &= 0 \\
+z G^k_{,u} + pG^k_{,z} - 12 uz G^k_{,p} + G^i F^k_{,y^i} - F^i G^k_{,y^i} &= 0 
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{../../bib/custom-bib-style}
+\bibliography{../../library}
+
+\end{document}

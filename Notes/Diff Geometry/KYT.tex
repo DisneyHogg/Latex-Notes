@@ -1,0 +1,914 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Killing Yano Tensors}
+\author{Linden Disney-Hogg}
+\date{November 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+For my own benefit, we will now review the theory of Killing Yano tensors. The current approach is very coordinate heavy, but \hl{I hope to go over these after an try take a more geometric viewpoint (for example, removing places where I have used the dot product or linear maps corresponding to tensors, and use symbols such as the inner product operator and the musical isomorphisms)}. This introduction will remind you of some useful theorems from differential geometry, before diving into the main stuff. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Some basic differential geometry}
+
+For concreteness sake let us take $Q,N$ to be a smooth manifolds dimension $n = 2m+\delta$, $\delta = 0,1$.
+
+\begin{notation}
+As we will have a lot of indices flying around, covering different ranges, I will now spell out what each one represents what. \\
+\begin{center}
+\begin{tabular}{ccc}
+    $a,b,c,\dots$ & tensor indices/spacetime indices & $1 \leq a \leq n$ \\
+    $i,j,k,\dots$ & index of an object & $1 \leq i \leq m$ \\
+    $\bar{\imath},\bar{\jmath},\bar{k}, \dots$ & shifted indices & $0 \leq \bar{\imath} \leq m$
+\end{tabular}
+\end{center}
+\end{notation}
+
+
+Recall given a diffeomorphism $\phi:Q \to N$, we can \bam{pullback} one forms $\theta$ on $N$ to one forms on $Q$ by 
+\eq{
+\pround{\phi^\ast \theta}_q(V) = \theta_{\phi(q)}(d\phi_q(V))
+}
+for $q \in Q$. This can be extended for higher rank covariant differential forms. Specifically, given a metric $\bm{g}$ on $Q$, if we take $\phi:Q \to Q$ we can transform the metric under a diffeomorphism, and in local coordinates $(q)$ this becomes 
+\eq{ 
+\pround{\phi^\ast g}_{ab}(q) = \pd[\phi(q)^c]{q^a} \pd[\phi(q)^d]{q^b} g_{cd}(\phi(q))
+}
+Now, to any vector field $\bm{K}$ we can associate integral curves given by (in coordinates)
+\eq{
+\frac{dq^a}{ds} = K^a(q(s))
+}
+with some initial condition giving the starting point. These integral curves give a diffeomorphism $\phi_s : Q \to Q$ given by $q(0) \mapsto q(s)$, which is moreover a 1 parameter family of diffs. To this vector field we can then define the \bam{Lie derivative} of a covariant tensor given by 
+\eq{
+\mc{L}_{\bm{K}}\bm{g} = \lim_{s \to 0} \frac{\phi^\ast_s \bm{g} - \bm{g}}{s}
+}
+\begin{prop}[Cartan's identity]
+\eq{
+\mc{L}_{\bm{K}}\bm{g} = i_{\bm{K}} d\bm{g} + d(i_{\bm{K}} \bm{g})
+}
+\end{prop}
+\begin{prop}
+\eq{
+\mc{L}_{f\bm{K}}\bm{g} = f \mc{L}_{\bm{K}}\bm{g} + df \wedge i_{\bm{K}} \bm{g}
+}
+\end{prop}
+We can also define the Lie derivative of a contravariant tensor by 
+\eq{
+\mc{L}_{\bm{K}}\bm{V} = \lim_{s \to 0} \frac{ \bm{V} - (\phi_s)_\ast \bm{V}}{s}
+}
+where $\phi_\ast \bm{V}$ is the pushforward, given in coordinate by (for example)
+\eq{
+(\phi_\ast V)^a(\phi(q)) = (\del_b \phi^a) V^b(q)
+}
+This allows us to define the \bam{Lie bracket} or \bam{commutator} of two vector fields $\bm{X},\bm{Y}$ to be 
+\eq{
+\comm[\bm{X}]{\bm{Y}} \equiv \mc{L}_{\bm{X}}\bm{Y}
+}
+It is a verifiable fact that this obeys all the properties we want from a bracket, i.e antisymmetry, bilinearity, and satisfying the Jacobi identity. In components we may calculate 
+\eq{
+\comm[\bm{X}]{\bm{Y}}^a &= \lim_{\eps \to 0} \frac{1}{\eps} \pbrace{Y^a(q) - \del_b\psquare{q^a + \eps X^a + O(\eps^2)}Y^b(q + \eps X + O(\eps^2)}\\
+ &= \lim_{\eps \to 0} \frac{1}{\eps} \pbrace{Y^a(x) - \psquare{\delta^a_b + \eps \del_b X^a + O(\eps^2)}\psquare{Y^b(x) + \eps X^b \del_c Y^c + O(\eps^2)}} \\
+&= X^b \del_b Y^a - Y^b \del_b X^a
+}
+Again, as we have a torsionless connection this is 
+\eq{
+X^b \nabla_b Y^a - Y^b \nabla_b X^a
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Completely integrable distributions}
+As a useful start, I want to start with a discussion and proof of Frobenius' theorem.
+
+\begin{definition}
+A \bam{k dimensional smooth distribution} is a smooth subbundle $D = \coprod_{q \in Q} D_q \subset TQ$ where for each $q \in Q$, $D_q \subset T_qQ$ is a k dimensional linear subspace. 
+\end{definition}
+
+
+\begin{definition}
+Given a  smooth distribution, and immersed submanifold $N \subset Q$ is an \bam{integral manifold} of $D$ if $\forall q \in N, \, T_qN = D_q$ 
+\end{definition}
+
+\begin{definition}
+A distribution is \bam{involutive} if given any pair of smooth local sections of $D$, their Lie bracket is is a local section of $D$
+\end{definition}
+
+These notes are very achronological, and so see later for a definition of the Lie bracket. \\
+We will now say that a distribution is \bam{integrable} if each point of $Q$ is contained in an integrable manifold of $D$. This can and will be confusing with dynamical systems being called integrable for entirely different reasons. Simply ignore this and keep going. 
+
+\begin{prop}
+Every integrable distribution is involutive. 
+\end{prop}
+\begin{proof}
+Suppose $X,Y$ are smooth local section of $D$, defined in some region $U \subset Q$. For $q \in U $ let $N$ be the integral manifold containing it. Then $X_q,Y_q$ are tangent to $N$, and from general theory we then know $\comm[\bm{X}_q]{\bm{Y}_q} = \comm[\bm{X}]{\bm{Y}}_q$ is tangent to $N$, hence in $D_q$. 
+\end{proof}
+
+\begin{definition}
+A chart $(U,\phi)$ is \bam{flat} for a $k$ dimensional distribution $D$ if 
+\eq{
+\phi(U) = U_1 \times U_2 \subset \mbb{R}^k \times \mbb{R}^{n-k} 
+}
+and $\forall q \in U, \, D_q = \spn\pbrace{\pd{q^1}, \dots, \pd{q^k} }$.
+\end{definition}
+This condition immediately gives us integral manifolds of the form $q^{k+1} = c_{k+1}, \dots, q^n = c_n$. 
+\begin{definition}
+A distribution is \bam{completely integrable} if in a neighbourhood of each $q\in Q$ the distribution has a flat chart. 
+\end{definition}
+
+So far we have seen that 
+\eq{
+\text{completely integrable} \Rightarrow \text{integrable} \Rightarrow \text{involutive}
+}
+\begin{theorem}
+Every involutive distribution is complete integrable. 
+\end{theorem}
+\begin{proof}
+Recall the canonical form for commuting vector fields; that is given $\bm{X}_1, \dots, \bm{X}_k$ smooth indep vector fields, the fact that all the $\bm{X}_i$ commute is equivalent to the existence of coordinates $q^i$ in the neighbourhood of each point such that $\bm{X}_i = \pd{q^i}$. As such it is sufficient that the involutive distribution is locally spanned by smooth commuting vector fields. \\
+Pick $q \in Q$ and a neighbourhood $U$. Choosing any coordinate charts $q^i$ on $U$ we can assume after reordering that $D_q$ is complementary to $\spn\pbrace{\pd{q^{k+1}}|_q, \dots, \pd{q^n}|_q}$. Now the coordinate projection map
+\eq{
+\Pi : U &\to \mbb{R}^k \\
+x &\mapsto (q^1(x), \dots, q^k(x))
+}
+induces a map on the tangent spaces 
+\eq{
+\Pi_\ast : TU &\to \mbb{R}^k \\ 
+\sum_{a=1}^n v^a \ev{\pd{q^a}}{x} &\mapsto \sum_{a=1}^k v^a \ev{\pd{q^a}}{\Pi(x)}
+}
+By our coordinate choice $D_q \perp \ker \Pi_\ast \Rightarrow \Pi_\ast |_{D_q}$ is bijective. By continuity this is also true for $\Pi_\ast |_{D_q}$. Hence we may define a smooth frame for $D$ near $q$ by 
+\eq{
+\bm{X}_i |_q = \pround{\Pi_\ast |_{D_q}}^{-1} \ev{\pd{q^i}}{\Pi(q)}
+}
+Now inverting this relation gives 
+\eq{
+\ev{\pd{q^i}}{\Pi(q)} &= \pround{\Pi_\ast |_{D_q}}\bm{X}_i |_q \\
+\Rightarrow \Pi_\ast \pround{\comm[\bm{X}_i]{\bm{X}_j}_q} &= \comm[\pd{q^i}]{\pd{q^j}}_{\Pi(q)} = 0 
+}
+and as $\Pi_\ast$ is bijective, hence injective, $\comm[\bm{X}_i]{\bm{X}_j}_q = 0$, and we are done. 
+\end{proof}
+The content of this theorem means that now we have
+\eq{
+\text{completely integrable} \Leftrightarrow \text{integrable} \Leftrightarrow \text{involutive}
+}
+Stating the following lemma 
+\begin{lemma}
+Let $\mc{F}$ be a foliation of $Q$, then the collection of tangent space to the leaves of $\mc{F}$ forms an involutive distribution on $Q$. 
+\end{lemma}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Theory of Killing stuff}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Review of Killing vectors}
+
+This will follow closely \cite{Hansen2014Killing-YanoTensors}.  Recall we call $\phi$, a diffeomorphism, an \bam{isometry} if $\phi^\ast \bm{g} = \bm{g}$. 
+We then see that $\phi_s$ being an isometry is equivalent to $\mc{L}_{\bm{K}}\bm{g} = 0$. Such a vector $\bm{K}$ is then called a \bam{Killing vector}. We may work out what the condition of being a Killing vector is in coordinates by noting 
+\eq{
+\phi_\eps^\ast g_{ab}(q) &= \del_a\psquare{q^c + \eps K^c + O(\eps^2)}\del_b\psquare{q^d + \eps K^d + O(\eps^2)} g_{cd}(q + \eps K + O(\eps^2)) \\
+&= \psquare{\delta^c_a + \eps \del_a K^c + O(\eps^2)}\psquare{\delta^d_b + \eps \del_b K^d + O(\eps^2)}\psquare{g_{cd} + \eps K^e\del_e g_{cd} + O(\eps^2) } \\
+&= g_{ab} + \eps \psquare{g_{cb}\del_a K_c + g_{cb}\del_b K^c + K^c \del_c g_{ab}} + O(\eps^2)
+}
+Now note that if we introduce a covariant derivative with torsionless metric connection then 
+\eq{
+\lim_{\eps \to 0} \frac{\phi_\eps^\ast g_{ab} - g_{ab}}{\eps} &= g_{cb}(\nabla_a K^c - \Gamma^c_{ad}K^d) + g_{cb}(\nabla_b K^c - \Gamma^c_{bd}K^d) + K^c(\nabla_c g_{ab} + \Gamma^d_{ca} g_{db} + \Gamma^d_{cb}g_{ad}) \\
+&= \nabla_a K_b + \nabla_b K_a = 2\nabla_{(a}K_{b)}
+}
+It can be shown that the maximal number of Killing vectors on a manifold are $\frac{1}{2}n(n+1)$, and that this is obtained in flat space. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Killing tensors}
+Using the final results of the previous section we will make a more general definition:
+
+\begin{definition}[Killing Tensor]
+A symmetric rank $p$ tensor $\bm{T}$ is a \bam{Killing tensor} (KT) if 
+\eq{
+\nabla_{(a}T_{b_1 \dots b_p )} = 0
+}
+$\bm{L}$ is a \bam{conformal Killing tensor} (CKT) if $\exists \bar{\bm{L}}$ such that 
+\eq{
+\nabla_{(a}L_{b_1 \dots b_p )} = g_{(ab_1} \bar{L}_{b_2 \dots b_p)}
+}
+\end{definition}
+The second definition arises from considering the change that occurs to a Killing tensor under a conformal transform. 
+
+There is an alternative approach to this definition which we will try see here now. 
+\begin{lemma}
+The commutator of two Killing vectors is a Killing vector.
+\end{lemma}
+\begin{proof}
+Apply the Jacobi identity. This can be equivalently interpreted as saying that the commutator of two Killing vectors also generates a symmetry, which is obvious as it corresponds to the the composition of symmetries.  
+\end{proof}
+We now generalise the bracket to be, for totally symmetric $\bm{X}$ rank $p$ and $\bm{Y}$ rank $q$
+\eq{
+\comm[\bm{X}]{\bm{Y}}^{a_1 \dots a_{p+q-1}} = pX^{b(a_1 \dots a_{p-1}}\nabla_b Y^{a_p \dots a_{p+q-1})} - qY^{b(a_1 \dots a_{q-1}}\nabla_b X^{a_q \dots a_{p+q-1})}
+}
+This is the \bam{Schouten-Nijenhuis bracket}, and again satisfies all our bracket-y properties. We then get the following theorem 
+\begin{theorem}
+$\bm{T}$ is a Killing tensor iff $\comm[\bm{g}]{\bm{T}}=0$ with a metric compatible connection. Similarly, $\bm{L}$ is a conformal Killing tensor iff $\comm[\bm{g}]{\bm{L}} = 2\bm{g} \odot \bar{\bm{L}}$
+\end{theorem}
+\begin{proof}
+\eq{
+\comm[\bm{g}]{\bm{T}}^{b a_1 \dots a_{p}} &= 2g^{c(b}\nabla_c T^{a_1 \dots a_{p})} - pT^{c(b \dots a_{p-2}} \nabla_c g^{a_{p-1} a_{p})} \\
+&= 2g^{c(b}\nabla_c T^{a_1 \dots a_{p})} \\
+&= 2 \nabla^{(b}T^{a_1 \dots a_{p})}
+}
+\end{proof}
+Now our result about the commutator of two Killing vectors immediately extends to Killing tensors. We can also say 
+\begin{prop}
+Let $\bm{T}$, $\bm{S}$ be Killing tensors, then so is $\bm{T} \odot \bm{S}$
+\end{prop}
+\begin{proof}
+$(\bm{T} \odot \bm{S})_{b_1 \dots b_{p+q}} = T_{(b_1 \dots b_p}S_{b_{p+1}\dots b_{p+q})}$ and so follows immediately from the Liebniz rule of the Schouten-Nijenhuis bracket.
+\end{proof}
+
+The above prop leads to the following def
+\begin{definition}
+A Killing tensor is \bam{reducible} if it can be decomposed into the symmetric product of other Killing tensors.
+\end{definition}
+
+\begin{theorem}
+On a manifold with constant curvature, every Killing tensor is reducible. 
+\end{theorem}
+\begin{proof}
+\hl{Find this, c.f. }\cite{Benenti1991SeparationEquation} page 30. and  \cite{Heil2016KillingTensors} sections 7,8. 
+\end{proof}
+
+We will now explain the reason why we care about Killing tensor, namely \bam{they correspond to conserved quantities}. 
+
+\begin{prop}
+Let $u^a$ be the tangent vector to a geodesic and $T_{a_1 \dots a_p}$ a Killing tensor. Then 
+\eq{
+J_T \equiv T_{a_1 \dots a_p} u^{a_1} \dots u^{a_p}
+}
+is conserved along the geodesic.
+\end{prop}
+\begin{proof}
+Recall that, almost by definition $u^b \nabla_b u^a = 0$. So 
+\eq{
+u^b \nabla_b (T_{a_1 \dots a_p} u^{a_1} \dots u^{a_p}) &= u^b (\nabla_b T_{a_1 \dots a_p}) u^{a_1} \dots u^{a_p} \\
+&= \pround{\nabla_{(b}T_{a_1 \dots a_{p})}} u^b u^{a_1} \dots u^{a_p} \\
+\Rightarrow \dot{J}_T &= 0
+}
+\end{proof}
+Note in fact that the above theorem is iff. We want to relate these results to a Hamiltonian formalism. If we take coordinates on the cotangent bundle to $Q$, $(q^a,p_b)$, we write the geodesic equation as Hamilton's equations 
+\eq{
+\dot{q}^a &= \pd[H]{p_a} \\
+\dot{p}_a &= - \pd[H]{q^a}
+}
+As it is the Lagrangian $L= \frac{1}{2}g_{ab} u^a u^b$ that gives the geodesic equation, the corresponding Hamiltonian obtained by Legendre transform is $H = \frac{1}{2}g^{ab}p_a p_b$ where $p_a = g_{ab}u^b$. The change of an observable $O$ on the cotangent bundle along a geodesics is then given by 
+\eq{
+\dot{O} &= (\del_a O) \dot{x}^a  + (\del^a O)\dot{p}_a\\
+ &= (\del_a O) (\del^a H) - (\del^a O) (\del_a H) \equiv \acomm[A]{H}
+}
+the Poisson bracket. We can now state an important result:
+\begin{prop}
+\eq{
+\acomm[J_A]{J_B} = -J_{\comm[\bm{A}]{\bm{B}}}
+}
+\end{prop}
+\begin{proof}
+algebra
+\end{proof}
+
+\begin{corollary}
+\eq{
+\acomm[J_A]{J_B}=0 \Leftrightarrow \comm[\bm{A}]{\bm{B}}=0 
+}
+\end{corollary}
+
+Note that this result gives again our results on the conserved observables, as $J_g = 2H$, so $\bm{T}$ is a KT iff $\acomm[J_T]{H} = 0$ (this will be called the \bam{Poisson-Killing equation}). More generally, we use the lemma 
+\begin{lemma}
+\eq{
+J_{\bm{T}\odot \bm{S}} = J_T J_S
+}
+\end{lemma}
+to say $\bm{L}$ is a CKT iff $\acomm[J_L]{H}=  H J_{\bar{L}}$ \\
+We have the following lemma which gives a simplification of the condition for Killing tensors.
+
+\begin{lemma}
+Let $(q^i) = (q^a, q^\alpha)$ be coordinates wrt which $\bm{g} = g^{aa} \del_a \otimes \del_a + g^{\alpha\beta} \del_\alpha \otimes \del_\beta$ and $\bm{T} = \rho_a g^{aa} \del_a \otimes \del_a + T^{\alpha\beta} \del_\alpha \otimes \del_\beta$, and $(q^\alpha)$ are ignorable for both tensors. Then $\bm{T}$ is a Killing tensor iff
+\eq{
+\del_a \rho_b &= (\rho_a - \rho_b) \del_a \log g^{bb} \\
+\del_a T^{\alpha\beta} &= \rho_a \del_a g^{\alpha\beta}
+}
+\end{lemma}
+\begin{proof}
+Take conjugate momenta $p_i$ in the contangent bundle. Note $J_T =  \rho_a g^{aa} p_a^2 + T^{\alpha\beta}p_\alpha p_\beta$, so we have Killing iff
+\eq{
+0 &= \acomm[J_T]{J_g} \\
+&= \del_i \pround{\rho_b g^{bb} p_b^2 + T^{\alpha\beta}p_\alpha p_\beta} \del^i \pround{g^{aa} p_a^2 + g^{\gamma\delta}p_\gamma p_\delta} - \del_i \pround{g^{bb} p_b^2 + g^{\alpha\beta}p_\alpha p_\beta}\del^i \pround{\rho_a g^{aa} p_a^2 + T^{\gamma\delta}p_\gamma p_\delta} \\
+&= \pbrace{ \psquare{ \pround{g^{bb}\del_c \rho_b + \rho_b \del_c g^{bb}}p_b^2  + p_\alpha p_\beta \del_c T^{\alpha\beta}}\psquare{2g^{aa}p_a\delta_a^c} - \psquare{p_b^2 \del_c g^{bb} + p_\alpha p_\beta \del_c g^{\alpha\beta}} \psquare{2p_a \rho_a g^{aa}\delta^c_a }} \\ 
+&= 2\pbrace{g^{aa}\psquare{g^{bb} \del_a \rho_b - (\rho_a - \rho_b)\del_a g^{bb}}p_a p_b^2 + g^{aa} p_a p_\alpha p_\beta \psquare{\del_a T^{\alpha\beta} - \rho_a \del_a g^{\alpha\beta}}}
+}
+and so result follows. 
+\end{proof}
+These equations can be viewed as a system of linear first order DEs for the functions $\rho_a, T^{\alpha\beta}$. They have an immediate corollary
+\begin{corollary}
+Let $\bm{T}$ be a symmetric tensor rank 2 tensor diagonalised wrt orthogonal coordinates $(q^i)$, and let $\rho_i$ be the eigenvalues of the matrix $T^i_j$. Then $\bm{T}$ is a Killing tensor iff 
+\eq{
+\del_i \rho_j = (\rho_i - \rho_j) \del_i \log g^{jj}
+}
+These are the \bam{Eisenhart-Killing equations}.
+\end{corollary}
+Looking at the notes on separability, and connecting this we make the following claim:
+
+\begin{theorem}[Separability]
+$Q$ of dimension $n$ admits a \bam{r separability structure} iff $\exists \, r$ independent Killing vectors $\bm{K}^{(i)}$ and $n-r$ independent rank 2 Killing tensors $\bm{T}^{(i)}$ such that 
+\eq{
+\comm[\bm{T}^{(i)}]{\bm{T}^{(j)}} &= 0 \\
+\comm[\bm{T}^{(i)}]{\bm{K}^{(j)}} &= 0 \\
+\comm[\bm{K}^{(i)}]{\bm{K}^{(j)}} &= 0
+}
+and the Killing tensors have $n-r$ common eigenvectors $\bm{x}^{(i)}$ such that 
+\eq{
+\comm[\bm{x}^{(i)}]{\bm{x}^{(j)}} &= 0 \\
+\comm[\bm{x}^{(i)}]{\bm{K}^{(j)}} &= 0 \\
+\bm{x}^{(i)} \cdot \bm{K}^{(j)} &= 0 
+}
+\end{theorem}
+
+\hl{Is this really the correct statement, and if so how does this parse with what we say later?}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Killing Yano tensors}
+We will now define Killing Yano tensors.
+
+\begin{definition}
+A \bam{rank p Killing Yano tensor} (KYT) $\bm{Y}$ is a totally antisymmetric tensor that satisfies 
+\eq{
+\nabla_a Y_{b_1 \dots b_p} = \nabla_{[a}Y_{b_1 \dots b_p]}
+}
+\end{definition}
+
+We can immediately get the following result
+
+\begin{prop}
+$T_{ab} = Y_{ac_2 \dots c_p}Y\indices{_b^{c_2}^\dots^{c_p}}$ is a Killing tensor
+\end{prop}
+
+\begin{prop}
+$Y_{b_1 \dots b_p}u^{b_p}$ is parallel transported along a geodesic with tangent vector $u$. 
+\end{prop}
+
+\begin{idea}
+Killing Yano tensors are the square root of Killing tensors.
+\end{idea}
+
+\begin{definition}
+A \bam{conformal Killing Yano tensor} (CKYT) is a totally antisymmetric tensor rank $p$ (i.e. a $p$-form)  $\bm{Y}$ such that 
+\eq{
+\nabla_a Y_{b_1 \dots b_p} = \nabla_{[a} Y_{b_1 \dots b_p ]} + pg_{a[b_1}\bar{Y}_{b_2 \dots b_p]}
+}
+for some antisymmetric tensor of rank $p-1$, $\bar{\bm{Y}}$
+\end{definition}
+Direct contraction gives the results that 
+\eq{
+\bar{Y}_{b_2 \dots b_p} = \frac{1}{n-p+1}\nabla_a Y\indices{^a_{b_2}_\dots_{b_p}}
+}
+\begin{lemma}
+Given any rank 2 CKYT $\bm{Y}$, we can construct as CKT $\bm{T}$ by 
+\eq{
+T_{ab} \equiv Y_{ac}Y\indices{_b^c}
+}
+\end{lemma}
+\begin{remark}
+Note that the content of this lemma is not that $\bm{T}$ is a Killing tensor, this we stated earlier in more general rank $p$. The important thing is that $\bm{T}$ is \bam{conformal}, and this is in general not true for higher rank. 
+\end{remark}
+
+We can also classify an important class of CKYTs, namely the \bam{closed conformal Killing Yano tensors} (CCKYT) which satisfy 
+\eq{
+\nabla_{[a}Y_{b_1 \dots b_p]} = 0 \Rightarrow \nabla_a Y_{b_1 \dots b_p} = pg_{a[b_1}\bar{Y}_{b_2 \dots b_p]}
+}
+These tensors may be written as $\bm{Y} = d\bm{B}$ for some $p-1$ form. This definition give an interesting theorem:
+
+\begin{theorem}
+The Hodge dual $\star\bm{Y}$ of a rank $p$ CCKYT is a KYT of rank $n-p$, and vice versa. 
+\end{theorem}
+\begin{proof}
+Write $\bm{Z} = \star \bm{Y}$. Then $Z_{b_{p+1} \dots p_n} = \frac{1}{p!} \eps\indices{^{b_1}^\dots^{b_p}_{b_{p+1}}_\dots_{b_n}}Y_{b_1 \dots \dots b_p}$ and 
+\eq{
+\nabla_a Z_{b_{p+1} \dots p_n} &= \frac{1}{p!} \eps\indices{^{b_1}^\dots^{b_p}_{b_{p+1}}_\dots_{b_n}} \nabla_a Y_{b_1 \dots \dots b_p} \\
+&= \frac{1}{(p-1)!} \eps\indices{^{b_1}^\dots^{b_p}_{b_{p+1}}_\dots_{b_n}} g_{a[b_1} \bar{Y}_{b_2 \dots b_p]} \\
+&= \frac{1}{(p-1)!} \eps\indices{^{b_1}^\dots^{b_p}_{b_{p+1}}_\dots_{b_n}} \cdot \frac{1}{p}\psquare{g_{ab_1}\bar{Y}_{b_2 \dots b_p} - (p-1)g_{ab_2} \bar{Y}_{b_1 b_3 \dots b_p}} \\
+&= \frac{1}{p!}\psquare{\eps\indices{_a^{b_2}^\dots^{b_p}_{b_{p+1}}_\dots_{b_n}}\bar{Y}_{b_2 \dots b_p} + (p-1) \eps\indices{_a^{b_1}^{b_3}^\dots^{b_p}_{b_{p+1}}_\dots_{b_n}}\bar{Y}_{b_1 b_3 \dots b_p}} \\
+&= \frac{1}{(p-1)!}\eps\indices{_a^{b_2}^\dots^{b_p}_{b_{p+1}}_\dots_{b_n}}\bar{Y}_{b_2 \dots b_p}
+}
+This is clearly totally antisymmetric as $\eps$ is. Moreover we get the reverse implication as the Hodge star is a self dual bijective operation. 
+\end{proof}
+
+We also have 
+\begin{theorem}
+If $\bm{Y},\bm{Z}$ are CCKTYs of ranks $p,q$ respectively, then $\bm{Y}\wedge\bm{Z}$ is a CCKYT of rank $p+q$.
+\end{theorem}
+\begin{proof}
+Let $\bm{k} = \bm{Y} \wedge \bm{Z}$. Certainly $\bm{k}$ is closed as 
+\eq{
+d\bm{k} = d\bm{Y} \wedge \bm{Z} + (-1)^p \bm{Y} \wedge d\bm{Z} = 0
+}
+Now 
+\eq{
+\nabla_a k_{b_1 \dots b_{p+q}} &= \nabla_a \psquare{\frac{(p+q)!}{p!q!} Y_{[b_1 \dots b_p}Z_{b_{p+1}\dots b_{p+q}]} } \\
+&= \frac{(p+q)!}{p!q!}\psquare{\pround{ \nabla_a Y_{[b_1 \dots b_p}}Z_{b_{p+1}\dots b_{p+q}]}  + Y_{[b_1 \dots b_p} \pround{\nabla_{|a|} Z_{b_{p+1}\dots b_{p+q}]}}} \\
+&= \frac{(p+q)!}{p!q!}\psquare{ pg_{a[b_1}\bar{Y}_{b_2 \dots b_p}Z_{b_{p+1} \dots b_{p+q}]} + q Y_{[b_1 \dots b_p}g_{ab_{p+1}}\bar{Z}_{b_{p+2} \dots b_{p+q}]} } \\
+&= (p+q) g_{a[b_1}\bar{k}_{b_2 \dots b_{p+q}]}
+}
+\end{proof}
+
+We can make that additional categorisation of 
+\begin{definition}
+$\bm{h}$ is called a \bam{principal conformal Killing Yano tensor} (PCKYT) if it is a non degenerate rank 2 CCKYT satisfying 
+\eq{
+\nabla_a h_{bc} &= 2g_{a[b}\xi_{c]} \Rightarrow \xi_a = \frac{1}{n-1} \nabla_b h\indices{^b_a} }
+i.e. 
+\eq{
+\nabla_{\bm{X}} \bm{h} &= \bm{X} \wedge \bm{\xi} \Rightarrow \bm{\xi} = \frac{1}{n-1} \nabla \cdot \bm{h}
+}
+$\bm{\xi}$ is call the \bam{primary vector}
+\end{definition}
+As $\bm{h}$ is, by definition, closed, we have that $\exists \bm{b}$ the \bam{KY potential} 1-form such that 
+\eq{
+\bm{h} = d\bm{b}
+}
+
+It is a fact that $\bm{\xi}$ is a Killing vector for the canonical metric (defined later), but we will not show this here. 
+\hl{Here the reference material seems to imply that a PCKYT, if it exists, is unique. Why? Either way, we will take this to be the case now}
+
+\begin{definition}[KY tensor tower]
+The $j$th CCKYT of the KY tensor tower is 
+\eq{
+\bm{h}^{(\barj)} \equiv \bm{h}^{\wedge \barj}
+}
+\end{definition}
+
+\begin{theorem}[Properties of the KY tower]
+We have that 
+\begin{itemize}
+    \item $\bm{h}^{(\barj)}$ is a CCKYT of rank $2\barj$
+    \item $\bm{h}^{(\barj)} = d\bm{b}^{(\barj)}$ where $\bm{b}^{(\barj)} \equiv \bm{b} \wedge \bm{h}^{(\barj-1)}$
+    \item $\bm{f}^{(\barj)} \equiv \star\bm{h}^{(j\barj)}$ is a rank $n-2\barj$ KY tensor
+    \item The KY tower gives a corresponding Killing tensor tower given by \eq{ T_{ab}^{(\barj)} \equiv f^{(\barj)}_{a c_2 \dots c_{n-2\barj}} {f^{(\barj)}}\indices{_b^{c_2}^\dots^{c_{n-2\barj}}} } 
+\end{itemize}
+\end{theorem}
+
+It is a (meaty, but feasible) calculation to show that 
+\eq{
+{T^{(\barj)}}{\indices{^a_b}} &= A^{(\barj)}\delta^a_b - {\tilde{T}^{(\barj)}}{\indices{^a_b}}
+}
+where 
+\eq{
+A^{(\barj)} &= \frac{(2\barj)!}{(2^{\barj} \barj!)^2} h^{[c_1 c_1^\prime}\dots h^{c_{2{\barj}}c_{2{\barj}}^\prime]}h_{[c_1 c_1^\prime}\dots h_{c_{2{\barj}}c_{2{\barj}}^\prime]} \\
+\tilde{T}^{({\barj})}{\indices{^a_b}} &= \frac{2{\barj}(2{\barj})!}{(2^{\barj} {\barj}!)^2} h^{a[ c_1^\prime}\dots h^{c_{2{\barj}}c_{2{\barj}}^\prime]}h_{b[ c_1^\prime}\dots h_{c_{2{\barj}}c_{2{\barj}}^\prime]}
+}
+
+ Then the tower terminates at ${\barj} = m$. As this last element is uninteresting (it is either constant or the product of Killing vectors) we restrict to $1 \leq {\barj} \leq m-1$. We can also extend the Killing tower by letting $\bm{T}^{(0)} = \bm{g}$.
+
+In addition to the $m$ conserved charges generated by the KT tower we get $m+\delta$ Killing vectors $\bm{K}^{({\barj})}$ through the \bam{vector tower} generated by 
+\eq{
+K^{({\barj})}_a \equiv& T^{({\barj})}_{ab} \xi^b \quad  (0 \leq {\barj} \leq m-1) \\
+K^{(m)}_a \equiv& f_a^{(m)} = (\star\bm{h}^{(m)})_a \quad \text{(interesting if $\delta = 1$)}
+}
+
+The conserved charges and Killing vectors generated by these towers will turn out to be independent. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Canonical Coordinates and Metric}
+
+\begin{idea}
+In order to get separability, which will be our ultimate aim in order to construct action angle coordinates, we need to find a coordinate system in which this is possible. The best way to do this is via a PCKYT \bam{giving} us the right coordinates. 
+\end{idea}
+
+Let us now restrict to euclidean signature metrics. We now can turn the PCKYT into a linear map on the tangent space $h:TQ \to TQ$  acting by 
+\eq{
+\pround{h\bm{X}}^a = h\indices{^a_b} X^b 
+}
+We then make the tangent space into an inner product space with 
+\eq{
+\bm{X} \cdot \bm{Y} = g_{ab} X^a Y^b
+}
+This makes $h$ an antisymmetric operator, as it is antisymmetric in its indices. Now let $H$ be the linear operator corresponding to $\bm{H}$ the CKT associated with $\bm{h}$ by 
+\eq{
+H_{ab} &= h_{ac}h\indices{_b^c} \\
+\Rightarrow \, H\indices{^a_b} &= -h\indices{^a_c}h\indices{^c_b} \\
+\Rightarrow\, H &= -h^2
+}
+Now $H$ is symmetric (its Killing) and positive def as 
+\eq{
+\bm{X} \cdot(H\bm{X}) &= -\bm{X}\cdot (h^2 \bm{X})= (h\bm{X}) \cdot (h\bm{X}) \geq 0
+}
+From linear algebra, as $H$ is symmetric we can diagonalise it with an orthonormal basis. Moreover we have the following results. 
+
+\begin{lemma}
+Let $\bm{n}$ be a normalised element of the $\rho$-eigenspace of $H$. Define
+\eq{
+\bar{\bm{n}} \equiv \left\lbrace \begin{array}{cc} \frac{1}{\sqrt{\abs{\rho}}}h\bm{n} & \rho \neq 0 \\ \bm{n} & \rho = 0 \end{array}  \right.
+}
+Then $\bar{\bm{n}}$ is also a normalised element of the $\rho$-eigenspace of $H$, and further if $\rho \neq 0$ then $\bar{\bm{n}}\cdot\bm{n} = 0$. We call $\bar{\bm{n}}$ the \bam{conjugate eigenvector }
+\end{lemma}
+
+Note actually that we know that  $\rho \in \mbb{R}_{\geq 0}$ from the positive definiteness of $H$, and so the absolute value is redundant. Moreover recognise that 
+\eq{
+\bar{\bar{\bm{n}}} = \pm \bm{n}
+}
+and so non-zero eigenvalues have even dimensional eigenspaces. As such we can deduce that $h$ is block diagonal with blocks of the form 
+\eq{
+\begin{pmatrix}
+0 & \sqrt{\rho} \\ -\sqrt{\rho} & 0
+\end{pmatrix}
+}
+As, by assumption, $h$ had rank $2m$, $h$ has as 0-eigenspace of dimensions $\delta$ (spanned by $\bm{n}_0 = \bar{\bm{n}}_0$), and then $H$ must have $m$ independent eigenvalues of $\rho_j= x_j^2$, meaning $h$ has eigenvalues $0, \pm ix_j$. The set $\pbrace{\bm{n}_i, \bar{\bm{n}}_i}$ is called the \bam{Darboux basis}. We order into one set as 
+\eq{
+\hat{\bm{n}}_0 &= \bm{n}_0 \\
+\hat{\bm{n}}_{2i-1} &= \bm{n}_i \\
+\hat{\bm{n}}_{2i} &= \bar{\bm{n}}_i
+}
+This has a canonical dual basis of covectors we will naturally notate as $\hat{\bm{n}}^i$. In this basis we can express the metric as 
+\eq{
+\bm{g} = \sum_{i,j = 1}^n \delta_{ij} \hat{\bm{n}}^i \hat{\bm{n}}^j 
+}
+which gives 
+\eq{
+\bm{h} = \sum_{i=1}^m x_i \bm{n}^i \wedge \bar{\bm{n}}^i
+}
+Here we have made a choice of sign of $x_i$, which out to correspond to taking $x_i = -\sqrt{\rho_i}$, which forces $h\bar{\bm{n}}_i = x_i \bm{n}_i, h\bm{n}_i = -x_i \bar{\bm{n}}_i$.
+%%%%%%%%%%%%%%%%%
+With this presentation we can now write the KY tower as 
+\eq{
+\bm{h}^{({\barj})} = {\barj}! \sum_{ i_1 < \dots < i_{\barj} = 1}^m x_{i_1} \dots x_{i_{\barj}} \bm{n}^1 \wedge \bar{\bm{n}}^1 \wedge \dots \wedge \bm{n}^{\barj} \wedge \bar{\bm{n}}^{\barj}
+}
+And then we find the expressions from earlier
+\eq{
+A^{({\barj})} &= \sum_{i_1 < \dots < i_{\barj}} x_{i_1}^2 \dots x_{i_{\barj}}^2 \\
+A^{({\barj})}_i &= \sum_{\substack{i_1 < \dots < i_{\barj} \\ i_k \neq i }} x_{i_1}^2 \dots x_{i_{\barj}}^2 \\ 
+\tilde{\bm{T}}^{({\barj})} &= \sum_{i=1}^m x_i^2 A_i^{({\barj}-1)} \pround{\bm{n}^i \otimes \bm{n}^i + \bar{\bm{n}}^i \otimes \bar{\bm{n}}^i}
+}
+an so noticing $A^{({\barj})} = A_i^{({\barj})} + x_i^2 A^{({\barj}-1)}_i$, taking the def $A^{(0)}_1 = 1$,  gives 
+\eq{
+\bm{T}^{({\barj})} = \sum_{i=1}^m A_i^{({\barj})}\pround{\bm{n}^i \otimes \bm{n}^i + \bar{\bm{n}}^i \otimes \bar{\bm{n}}^i} + \delta A^{({\barj})} \bm{n}^0 \otimes \bm{n}^{(0)} \quad 0 \leq {\barj} \leq m-1 
+}
+%Now we can take an orthonormal basis of eigenvecotrs of $h$ given by 
+%\eq{
+%\bm{m}_i = \frac{1}{\sqrt{2}} (\bar{\bm{n}}_i + i \bm{n}_i) &\text{ with eigenvalue } -ix_i \\
+%\bar{\bm{m}}_i = \frac{1}{\sqrt{2}} (\bar{\bm{n}}_i - i \bm{n}_i) &\text{ with eigenvalue } +ix_i \\
+%\bar{\bm{m}}_0 = \bm{m}_0 = \bm{n}_0 &\text{ with eigenvalue } 0
+%}
+
+Note that this result has shown that all $\bm{T}^{(i)}$ are simultaneously diagonalised, and the eigendirections are all normal \\
+From this basis, we can construct eigenvectors for $h$ with evals $-ix_j, +ix_j, 0$ respectively as 
+\eq{
+\bm{m}_j &\equiv \frac{1}{\sqrt{2}} ( \bar{\bm{n}}_j + i\bm{n}_j) \\
+\bar{\bm{m}}_j &\equiv \frac{1}{\sqrt{2}}(\bar{\bm{n}}_j -i \bm{n}_j) \\
+\bm{m}_0 &= \bar{\bm{m}}_0 = \bm{n}_0  
+}
+These have the orthogonality relations 
+\eq{
+\bm{m}_i \cdot \bm{m}_j = 0 = \bar{\bm{m}}_i \cdot \bar{\bm{m}}_j \, ,\\
+\bm{m}_i \cdot \bar{\bm{m}}_j = \delta_{ij} \, ,
+}
+and the corresponding duals satisfy 
+\eq{
+\bar{m}^a_i m^i_b + m^a_i \bar{m}^i_b =\delta^a_b 
+}
+\begin{remark}
+Note that this entire description has a phase redundancy demonstrated by the transformations
+\eq{
+\bm{n}_i &\mapsto \cos \alpha \bm{n}_i - \sin \alpha \bar{\bm{n}}_i \\
+\bar{\bm{n}}_i &\mapsto \sin \alpha \bm{n}_i + \cos \alpha \bar{\bm{n}}_i \\
+\bm{m}_i &\mapsto e^{-i\alpha} \bm{m}_i \\
+\bar{\bm{m}}_i &\mapsto e^{i\alpha} \bar{\bm{m}}_i
+}
+\end{remark}
+
+With these m we can define a covariant derivative (\hl{Is this the clearest way to approach the following derivation? Think about this and maybe adapt, for example Frolov p.37}) in the Darboux basis in terms of the standard Levi Civita connection as 
+\eq{
+D_i &\equiv \nabla_{\bm{m}_i} = m_i^a \nabla_a \\
+\bar{D}_i &\equiv \nabla_{\bar{\bm{m}}_i} = \bar{m}_i^a \nabla_a \\
+D_0 &\equiv \nabla_{\bm{m}_0} = m_0^a \nabla_a \\
+}
+This covariant derivative has the following properties 
+\begin{lemma}
+\eq{
+(D_j h) \bm{m}_i = (\bm{m}_i \cdot \bm{\xi}) \bm{m}_j + \bm{\xi}\delta_{j0}\delta_{i0}
+}
+\end{lemma}
+\begin{lemma}
+\eq{
+(h + ix_j I) D_k \bm{m}_j + i (D_k x_j) \bm{m}_j + (\bm{m}_i \cdot \bm{\xi})\bm{m}_j + \bm{\xi}\delta_{j0}\delta_{i0} = 0
+}
+\end{lemma}
+\begin{proof}
+Use $h\bm{m}_j +ix_j \bm{m}_j = 0$, take the covariant derivative, and use the previous property.
+\end{proof}
+
+\begin{lemma}
+\eq{
+D_k x_j &= i(\bm{m}_j \cdot \bm{\xi})\delta_{jk} \\
+D_0 x_0 &= 0 
+}
+\end{lemma}
+\begin{proof}
+Contract the expression in the previous lemma with $\bar{\bm{m}}_j$. For the second condition, note $x_0 = 0$, so this is satisfied immediately. 
+\end{proof}
+
+
+We now have two important props that will lead to the calculation of canonical coordinates:
+
+\begin{prop}
+$ \mc{L}_{\bm{\xi}} \bm{h} = 0 $
+\end{prop}
+\begin{proof}
+Define 
+\eq{
+Q_i \equiv 2\abs{D_i x_i}^2 
+}
+We can then choose phases such that 
+\eq{
+D_j x_j = \frac{i}{\sqrt{2}}\sqrt{Q_j}
+}
+and as such 
+\eq{
+\bm{m}_i \cdot \bm{\xi} = \sqrt{\frac{Q_i}{2}} = \bar{\bm{m}}_i \cdot \bm{\xi}
+}
+This gives
+\eq{
+\bm{\xi} &= \sum_{i=1}^m (\bm{m}_i \cdot \bm{\xi}) \bm{m}_i +  (\bar{\bm{m}}_i \cdot \bm{\xi}) \bar{\bm{m}}_i  + \delta(\bm{m}_0 \cdot \bm{\xi}) \bm{m}_0\\
+&= \delta c \bm{n}_0 + \sum_{i=1}^m  \sqrt{Q_i} \bar{\bm{n}}_i 
+}
+for some number $c$. Then calculating
+\eq{
+(dx_i)_a &= \nabla_a x_i \\
+&= (m_a^j \bar{m}_j^b + \bar{m}_a^j m^b_j) \nabla_b x_i \\
+&= m_a^j \bar{D}_j x_i + \bar{m}^j_a D_j x_i \\
+&= \sqrt{Q_i} n^i_a
+}
+gives 
+\eq{
+\bm{\xi} \cdot \bm{h} = -\sum_{i=1}^m x_i \sqrt{Q_i} \bm{n}^i = -d\pround{\frac{1}{2}\sum_{i=1}^m x_i^2} \, .
+}
+Hence 
+\eq{
+\mc{L}_{\bm{\xi}}\bm{h} &= \bm{\xi} \cdot d\bm{h} + d(\bm{\xi}\cdot \bm{h}) = 0
+}
+
+\end{proof}
+
+\begin{prop}
+$\mc{L}_{\bm{\xi}} \bm{g} = 0$
+\end{prop}
+\begin{proof}
+Define 
+\eq{
+q_i =\bm{\xi} \cdot d(\log \sqrt{Q_i})
+}
+Then calculation yields 
+\eq{
+\mc{L}_{\bm{\xi}} \bm{n}_i &= q_i \bm{n}_i \\
+\mc{L}_{\bm{\xi}} \bar{\bm{n}}_i &= - q_i \bar{\bm{n}}_i
+}
+Now from the relations 
+\eq{
+\bm{n}_i \cdot dx_i &= \sqrt{Q_i} \\
+\bm{n}_i \cdot dx_j &= 0 \\
+\bar{\bm{n}}_i \cdot dx_j &= 0 
+}
+ensure that, in a coordinate chart with half the coordinates given by the $x_i$, the other coordinates must be specified by the $\bar{\bm{n}}_i$. Now the fact $Q_i  = (\bm{n}_i \cdot dx_i)^2$ ensures that $Q_i$ is solely a function of the $x_i$, and as such 
+\eq{
+d(\log\sqrt{Q_i}) &= \sum_{i=1}^m c_i dx_i \\
+\Rightarrow q_i &= 0 
+}
+and as such, as $\mc{L}_{\bm{\xi}}$ is built out of $\mc{L}_{\bm{\xi}}\bm{n}_i = 0 = \mc{L}_{\bm{\xi}}\bar{\bm{n}}_i$, $\mc{L}_{\bm{\xi}}=0$.
+\end{proof}
+
+Now using the previous prop and the Leibniz property we have, for $0 \leq {\barj} \leq m-1$ recalling $ \bm{T}^{({\barj})} = \sum_{i=1}^m A^{({\barj})}_i (\bm{n}^i \otimes \bm{n}^i + \bar{\bm{n}}^i \otimes \bar{\bm{n}}^i) + \delta A^{({\barj})}\bm{n}^{(0)} \otimes \bm{n}^{(0)}$ 
+\eq{
+\comm[\bm{\xi}]{\bm{T}^{({\barj})}} = \mc{L}_{\bm{\xi}}\bm{T}^{({\barj})} = 0
+}
+and further for $0 \leq {\bari} \leq m-1$ we have 
+\eq{
+\comm[\bm{K}^{({\bari})}]{\bm{T}^{({\barj})}} &= \comm[\bm{\xi}\cdot \bm{T}^{({\bari})}]{\bm{T}^{({\barj})}} \\
+&= \comm[\bm{\xi}]{\bm{T}^{({\barj})}} \cdot \bm{T}^{({\bari})} + \bm{\xi} \cdot \comm[\bm{T}^{({\bari})}]{\bm{T}^{({\barj})}} \\
+&= 0 \\
+&\phantom{=} \\
+\comm[\bm{K}^{({\bari})}]{\bm{K}^{({\barj})}} &= \comm[\bm{K}^{({\bari})}]{\bm{\xi} \cdot \bm{T}^{({\barj})}} \\
+&= \comm[\bm{T}^{({\bari})}\cdot \bm{\xi}]{\bm{\xi}} \cdot \bm{T}^{({\barj})} \\
+&= 0
+}
+Remember that in the case $\delta=1$, we have the additional Killing vector $\bm{K}^{(m)} = \bm{f} = \star\bm{h}$. \hl{ I can't show this right now, but I'm sure this isn't an issue, and the above relations still hold.} 
+Recall by general theory we already know that 
+\eq{
+\comm[\bm{T}^{(\bari)}]{\bm{T}^{({\barj})}} = 0
+}
+This is the making of an $m+\delta$ separability structure, and this isn't an accident. Now once again construct a new basis given by 
+\eq{
+\bm{e}_i &= \frac{1}{\sqrt{Q_i}}\bm{n}_i = \del_{x_i} \quad (1 \leq i \leq m)\\
+\bar{\bm{e}}_{\barj} &= \bm{K}^{({\barj})} = \sum_{i=1}^m A_i^{({\barj})} \sqrt{Q_i} \bar{\bm{n}}_i \quad (0 \leq {\barj} \leq m-1)
+}
+These are truly independent because of the different powers in the $A^{({\barj})}$, and orthogonal for the orthogonality of the Darboux basis. Note that the $\bm{e}_i$ are eigenvalues of the $\bm{T}^{({\barj})}$ as 
+\eq{
+\bm{T}^{({\barj})} \cdot \bm{e}_i &= \psquare{\sum _{k=1}^m A_k^{({\barj})} (\bm{n}_k \otimes \bm{n}^k + \bar{\bm{n}}_k \otimes \bar{\bm{n}}^k ) + \delta A^{({\barj})}\bm{n}^{(0)}\otimes \bm{n}^{(0)}} \cdot \frac{1}{\sqrt{Q_i}}\bm{n}_i \\
+&= \sum_{k=1}^m A_k^{({\barj})} \frac{1}{\sqrt{Q_i}} \delta_i^k \bm{n}_k \\
+&= A_i^{({\barj})} \bm{e}_i
+}
+(\hl{Look at the order of operations in this calculation - better to formalise rather than use this dot product to clarify}) and moreover they satisfy 
+\eq{
+\comm[\bar{\bm{e}}_{\bari}]{\bar{\bm{e}}_{\barj}} &= 0 & \text{(from above)} \, ,\\
+\comm[\bar{\bm{e}}_{\bari}]{\bm{e}_{\barj}} &= 0 = \comm[\bm{e}_{\bari}]{\bm{e}_{\barj}} & \text{(by properties of Ricci tensor)} \,.
+}
+A such such we can choose a coordinate chat $\pbrace{x_i, \psi_{\barj}}$ (the \bam{Canonical Coordinates}) such that 
+\eq{
+\bm{e}_i &= \del_{x_i} \\
+\bar{\bm{e}}_{\barj} &= \del_{\psi_i}
+}
+with corresponding canonical dual basis given by 
+\eq{
+\bm{e}^i &= \sqrt{Q_i} \bm{n}^i \\
+\bar{\bm{e}}^{\barj} &= \sum_{i=1}^m \frac{(-x_i^2)^{m-1-{\barj}}}{U_i \sqrt{Q_i}} \bar{\bm{n}}^i
+}
+where 
+\eq{
+U_i \equiv \prod_{\substack{j = 1 \\ j \neq i}}^m (x_j^2 - x_i^2)
+}
+It turns out that the flow of the Killing vector $\bar{\bm{e}}_j$ generates closed curves, and as such we restrict $\psi_k \in [0,2\pi]$. \\
+The matrix 
+\eq{
+B^i_{(\barj)} \equiv \frac{(-x_i^2)^{m-1-\barj}}{U_i}
+}
+should be imagined as the inverse to the matrix $A_i^{(j)}$, and indeed 
+\eq{
+\sum_{i=1}^m B^i_{(\barj)} A^{(\bar{k})}_i &= \delta^{\bar{k}}_{\barj} \\
+\sum_{\bar{k}=0}^{m-1} B^i_{(\bar{k})} A_j^{(\bar{k})} &= \delta^i_j
+}
+(The first result follows from results using the Van der Monde matrix, see notes on Geodesics on Ellipsoids. The second case can be argued by looking at telescoping terms, and considering the order and zeros of the respective rational function)
+These relationships allow us to invert
+\eq{
+\bm{n}^i &= \frac{1}{\sqrt{Q_i}} dx_i \\
+\bar{\bm{n}}^i &= \sqrt{Q_i} \sum_{\barj=0}^{m-1} A_i^{(\barj)} d\psi_{\barj} 
+}
+Inverting the metric then gives 
+\eq{
+\bm{g} = \sum_{i=1}^m \psquare{\frac{(dx_i)^2}{Q_i} + Q_i \pround{\sum_{\barj=0}^{m-1} A_i^{(\barj)} d\psi_{\barj}}^2}
+}
+(\hl{Here I have pulled some wool over eyes in order to get the even case in the last minute, that is because I want to spend some more time understanding exactly what is going on in the odd case}.) \\
+We can also calculate the PCKYT in these coordinates to be 
+\eq{
+\bm{h} &= \frac{1}{2} \sum_{{\barj}=0}^{m-1} dA^{({\barj}+1)}_i \wedge d\psi_{\barj} \\
+\Rightarrow \bm{b} &= \frac{1}{2}  \sum_{{\barj}=0}^{m-1} A^{({\barj}+1)}_i d\psi_{\barj} 
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Connection to St\"ackel systems}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Symmetric Function Preliminaries}
+This subsection follows from \cite{Benenti1992InertiaSpaces} Let $\bm{u} = (u^1, \dots, u^n)$ be variables on $Q$ and define 
+\eq{
+\sigma_i = \sigma_i(\bm{u}) = \sum_{a_1 < \dots < a_i} u_{a_1} \cdots u_{a_i}
+}
+for $1 \leq i \leq n$. symmetric polynomials in $\bm{u}$. Note that $A^{(j)} = \sigma_j ( \bm{x}^2)$, and this is a notation inconsistency \hl{that I need to rectify at some point}. \\
+We can then define the symmetric polynomials excluding certain indices as 
+\eq{
+\sigma_i^{a \dots b} = \ev{\sigma_i}{u^a = \dots = u^b = 0}
+}
+We can choose 
+\eq{
+\sigma_0 = \sigma_0^a = \sigma_0^{ab} &= 1 \\
+\sigma_{-1} = \sigma_{-1}^a = \sigma_{-1}^{ab} &= 0 \\
+\sigma_n^a = \sigma^{ab} &= 0 \\
+\sigma_{n-1}^{ab} &= 0 \\
+\sigma_i^{aa} &= 0 
+}
+And as such letting $\del_a = \pd{u^a}$ we get the identities 
+\eq{
+\del_a \sigma_i^b &= \sigma_{i-1}^{ab} \\
+\sigma_i^b &= \sigma_i^{ab} + u^a \sigma_{i-1}^{ab} \\
+\sigma_i^a - \sigma_i^b &= (u^b - u^a) \sigma_{i-1}^{ab} \\
+\sum_{a=1}^n u^a \sigma^a_{j-1} &= j \sigma_j
+}
+We cam combine to get 
+\eq{
+(u^b - u^a) \del_a \sigma^b_i = \sigma_i^a - \sigma_i^b
+}
+We also have the equivalent definition of the elementary symmetric functions by 
+\eq{
+\sum_{k=0}^n (-1)^k \lambda^{n-k}\sigma_k &= U(\lambda) \equiv \prod_{a=1}^n (\lambda - u^a) \\
+\text{which has the two implications} \\
+ \sum_{k=0}^n (-1)^k (n-k) \lambda^{n-k-1} \sigma_k &= U^\prime (\lambda) \\
+\sum_{k=0}^n (-1)^k (u^a)^{n-k} &= 0 
+}
+and so together, applying $\del_a, \del_b$ for $b \neq a$
+\eq{
+\sum_{k=0}^n (-1)^k (u^a)^{n-k} \sigma_{k-1}^a &= - U^\prime(u^a) \\
+\sum_{k=0}^n (-1)^k (u^a)^{n-k} \sigma_{k-1}^b &= 0
+}
+(\hl{Again here is the opportunity to unify notation across the ellipsoid project and here. Think about this and then make them coherent})
+As such we have can consider $(\sigma_i^a)$ as an $n \times n$ matrix (taking $0\leq i \leq n-1, 1 \leq a \leq n$) and then its matrix inverse $\bar{\sigma}$ is given by 
+\eq{
+\bar{\sigma}^i_a = \frac{(-1)^i(u^a)^{n-k-1}}{U^\prime(u^a)}
+}
+Through Van der Monde arguments we can show 
+\eq{
+\det(\sigma_i^a) = \prod_{b>a} (u^a - u^b)
+}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{What's the point?}
+
+We will use the example of the Kerr-NUT-(A)dS metric, taken from \cite{Frolov2017BlackIntegrability}
+\eq{
+\bm{g} &= \frac{\Delta_y}{\Sigma}(d\tau^2 + x^2 d\psi)^2 - \frac{\Delta_x}{\Sigma}(d\tau + y^2 d\psi)^2 + \frac{\Sigma}{\Delta_y}dy^2  - \frac{\Sigma}{\Delta_x} dx^2
+}
+where 
+\eq{
+\Delta_x &= \frac{a^2 - x^2}{1 + \frac{\Lambda x^2}{3}} + 2b_x x \\
+\Delta_y &= \frac{a^2 - y^2}{1 + \frac{\Lambda y^2}{3}} + 2b_y y \\
+\Sigma &= y^2 - x^2 
+}
+and $x = ir, b_x = iM$. This coordinate change means we can write 
+\eq{
+\Delta _r &= \frac{a^2 + r^2}{1 - \frac{\Lambda r^2}{3}} - 2M r \\
+\Sigma &= r^2 + y^2 
+}
+Another useful  Note this is a spacetime, so Wick rotation should be employed to put it into Riemannian signature. Here $n=4$ so have $m=0, \delta = 0$. The inverse is given by 
+\eq{
+\bm{g}^{-1} = \frac{1}{\Sigma} \psquare{-\Delta_r^{-1}(r^2 \del_\tau + \del_\psi)^2 + \Delta_y^{-1}(y^2 \del_\tau - \del_\psi)^2 + \Delta_r (\del_r)^2 + \Delta_y (\del_y)^2} \, .
+}
+This metric admits a PCKYT 
+\eq{
+\bm{h} = ydy \wedge (d\tau - r^2 d\psi)^2 - rdr \wedge (d\tau + y^2 d\psi)
+}
+from potential 
+\eq{
+\bm{b} = - \frac{1}{2} \psquare{(r^2 - y^2) d\tau + r^2 y^2 d\psi} \, .
+}
+It can be calculated
+\eq{
+\bm{f} = rdy \wedge (d\tau - r^2 d\psi) + ydr \wedge (d\tau + y^2 d\psi)
+}
+We can then calculate the KT tower (which in this case is just $\bm{T}^{(1)}$, in addition to the always existing $\bm{T}^{(0)} = \bm{g}$)
+\eq{
+\bm{T}^{(1)} \equiv \bm{k} = \frac{1}{\Sigma} \psquare{y^2 \Delta_r (d\tau + y^2 d\psi)^2 + r^2 \Delta_y (d\tau - r^2 d\psi)^2} + \Sigma \psquare{\frac{r^2 dy^2 }{\Delta_y} - \frac{y^2 dr^2}{\Delta_r}}
+}
+and the vector tower given by 
+\eq{
+\bm{K}^{(0)} \equiv \bm{\xi}_{(\tau)} = \del_\tau \\
+\bm{K}^{(1)} \equiv \bm{\xi}_{(\psi)} = \del_\psi
+}
+From our general theory we know that $\bm{\xi}_{(\tau)}, \bm{\xi}_{(\psi)}, \bm{k}, \bm{g}$ are all independent (\hl{did we anywhere actually show this?}) and mutually commuting wrt the Nijenhuis-Schouten tensor (this we did show), and so we know that the corresponding integrals of geodesic motion are independent, and so in involution. 
+Now we can also calculate the CKT corresponding to $\bm{h}$
+\eq{
+\bm{H} \equiv \bm{Q} = \frac{1}{\Sigma} \psquare{r^2 \Delta_r (d\tau + y^2 d\psi)^2 + y^2 \Delta_y (d\tau - r^2 d\psi)^2} + \Sigma \psquare{\frac{y^2 dy^2 }{\Delta_y} - \frac{r^2 dr^2}{\Delta_r}}
+}
+This has a Darboux basis 
+\eq{
+\bm{n}_1 &\equiv \bm{n} = \sqrt{\frac{\Delta_r}{\Sigma}} \del_r \\
+\bar{\bm{n}}_1 &= \hat{\bm{n}} = \frac{1}{\Sigma}\sqrt{\frac{\Sigma}{\Delta_r}} (\del_\psi + r^2 \del_\tau) \\
+\bm{n}_2 &\equiv \bm{e} = \sqrt{\frac{\Delta_y}{\Sigma}} \del_y \\
+\bar{\bm{n}}_2 &= \hat{\bm{e}} = \frac{1}{\Sigma}\sqrt{\frac{\Sigma}{\Delta_y}}(-\del_\psi + y^2 \del_\tau)
+}
+corresponding to eigenvalues $x_1^2 = -r^2, x_2^2 = y^2$. Their duals are 
+\eq{
+\bm{n}^1 &\equiv \bm{\nu} = \sqrt{\frac{\Sigma}{\Delta_r}} dr \\
+\bar{\bm{n}}^1 &\equiv \hat{\bm{\nu}} = \sqrt{\frac{\Delta_r}{\Sigma}} ( d\tau +y^2 d\psi) \\
+\bm{n}^2 &\equiv \bm{\eps} = \sqrt{\frac{\Sigma}{\Delta_y}} dy \\
+\bar{\bm{n}}^2 &\equiv \hat{\bm{\eps}} = \sqrt{\frac{\Delta_y}{\Sigma}} (d\tau - r^2 d\psi) 
+}
+wrt which 
+\eq{
+\bm{h} &= -r \bm{\nu} \wedge \hat{\bm{\nu}} + y \bm{\eps} \wedge \hat{\bm{\eps}} \\
+\bm{g} &= - \hat{\bm{\nu}}\hat{\bm{\nu}} + \bm{\nu}\bm{\nu} + \bm{\eps}\bm{\eps} + \hat{\bm{\eps}}\hat{\bm{\eps}}
+}
+The principal tensor eigenvalues $r,y$ give two of the canonical coordinates. Now 
+\eq{
+\del_{\psi_0} &= \bm{K}^{(0)} = \del_\tau \\
+\del_{\psi_1} &= \bm{K}^{(1)} = \del_\psi
+}
+so up to translation $\tau,\psi$ are the other canonical coordinates. Hence the Hamilton Jacobi equation separates, that is we have conserved quantities $-E = p_\tau, L_\psi = p_\psi$, and then 
+\eq{
+S = -E\tau + L_\psi + S_r(r) + S_y(y)
+}
+where the separate HJEs are 
+\eq{
+\Delta_r (\del_r S_r)^2 - \frac{\chi_r}{\Delta_r} &= 0 \\
+\Delta_y (\del_y S_y)^2 - \frac{\chi_y}{\Delta_y} &= 0
+}
+and 
+\eq{
+\chi_r &= (Er^2 - L_\psi)^2 - \Delta_r (K+ m^2 r^2) \\
+\chi_r &= -(Ey^2 + L_\psi)^2 + \Delta_y (K- m^2 r^2)
+}
+$K = J_{\bm{k}},-m^2 = J_g =H$. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{plain}
+\bibliography{references.bib}
+
+
+
+\end{document}
