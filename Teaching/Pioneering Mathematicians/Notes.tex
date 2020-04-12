@@ -1,0 +1,197 @@
+\documentclass{article}
+\usepackage{header}
+
+\usepackage[]{geometry}
+
+\setlength{\voffset}{-0.5in}
+\setlength{\headsep}{0pt}
+\setlength{\textheight}{250mm}
+\setlength{\footskip}{0mm}
+%\setlength{\textwidth}{480pt}
+%\setlength{\hoffset}{-0.25in}
+
+
+\begin{document}
+
+\section*{Notes}
+
+This talk will be a brief overview of some of the pioneering women in mathematics over the last 1600 years. My aim is to leave you with an inspiring mathematician you had perhaps not known about before. I will omit titles and refer to people by their commonly used names, e.g Ada Lovelace is actually Augusta Ada King, Countess of Lovelace.\\
+The talk was originally written for non-mathematicians at an evening celebrating the 150\textsuperscript{th} anniversary of Girton. I am not an expert in \emph{any} areas of maths, much less some than others. If I say anything wrong about a bit of maths, please let us all know at the end. In addition if you know anything about any of the people spoken about today, please let me know as I would be interested. \\
+Additional resources are available, and I have some paper copies of these references available. Email me if you would like a copy.
+
+\subsubsection*{History}
+
+\begin{itemize}
+    \item Thales of Miletus, ~600BC. Earliest person with attributed mathematical discovery (Pythagoras ~550BC).
+    
+    
+    \item Pandrosion ~300AD, may have been man or woman, but referred to by Pappus
+    
+    
+    \item Maybe the first recorded women mathematician was Hypatia of Alexandria, ~400AD. “More of a teacher and commentator” than pioneer. Women were expected to be secluded from men and only taught about housekeeping. Hypatia father was a maths professor, so made sure she was educated. 
+    
+    
+    \item Have to wait until 1700s for more female mathematicians to be recorded. At this time women were still not allowed to hold office. 
+    
+    
+    \item Maria Agnesi - Italian - wrote on of the earliest textbooks on calculus. "...in a discussion about a French translation of Agnesi’s book, it was remarked that such a translation should be done by a woman, thereby implying that there was something specifically feminine about the way she had written the text." Appointed Chair of Mathematics at University of Bologna by Pope Benedict XIV but never accepted the position, instead doing charity work. 
+    
+    
+    \item Emilie du Chatelet - French - Translated Newton's Principia, still the French standard today. First woman to have a scientific paper published by the French Academy of Science (then the Paris Academy). Argued for women's education.
+    
+    
+    \item Mary Somerville - Scottish - When John Stuart Mill, the philosopher and economist, organised a massive petition to Parliament to give women the right to vote, he had Somerville put her signature first on the petition. She was the first "scientist" (previously they were men of science"). Wrote numerous books and held many offices. \textit{On the connexion of the Physical Sciences} most successful science book until \textit{Origin of Species}. More of a scientist, \\
+    \newline
+    "In writing this book I made a great mistake, and repent it - Mathematics are the natural bent of my mind. If I had devoted myself exclusively to that study, I might probably have written something useful, as a new era had begun in that science."
+    \newline
+    
+    
+    \item Sophie Germain - French - Living in Paris, kept indoors when the Bastille fell, she self taught at 13, she would sneak into the library at night. Barred from Ecole Polytechnique for being a woman, she submitted work under the name of a male student. At the time (1787 first) Ernst Chladni had done experiments on vibrating plates, and had developed "Chladni figures", but there was no theory to explain them. Germain worked for 7 year from 1809 to 1816, being turned down multiple times. This is as her work lacked rigour, understandably as she never had a formal education. She nonetheless developed ideas in geometry of curvature (Mean curvature). Her final equation was 
+    \eq{
+    N^2 \pround{\frac{\del^4 z}{\del x^4}+\frac{\del^4 z}{\del x^2 \del y^2} +\frac{\del^4 z}{\del y^4}}+\pds[z]{t}=0
+    }
+    Despite being first woman to win a prize from the Paris Academy (for her work on elasticity), she was not allowed to attend the award ceremony as a woman. "Germain's work was fundamental in the development of a general theory of elasticity." Her name is omitted from the side of the Eiffel Tower. She also worked in number theory, coming up with "Germain's Theorem", as statement of divisibility of solutions to Fermat's equation, namely
+    \begin{theorem}
+    Let $p$ be an odd prime. If $\exists P=2Np+1$ prime for $N$ positive integer not divisible by 3, such that 
+    \begin{itemize}
+        \item $x^p+y^p=x^p (mod p) \Rightarrow xyz = 0 (mod P)$
+        \item $p$ is not a pth power residue mod $P$
+    \end{itemize}
+    then Fermat's last theorem is true for $p$.
+    \end{theorem}
+    "But when a woman, because of her sex, our customs and prejudices, encounters infinitely more obstacles than men, in familiarizing herself with their knotty problems, yet overcomes these fetters and penetrates that which is most hidden, she doubtless has the most noble courage, extraordinary talent, and superior genius."
+    \newline
+    
+    
+    \item Ada Lovelace - English - Heralded as the first computer programmer, writing the first algorithm for Babbage's Analytical Engine as a note on a translation a talk. It was designed to calculate Bernoulli numbers. These numbers occur often in number theory and are a pain to calculate, getting very nasty very quickly. Program was designed to calculate $B_1, B_3, B_5, B_7$, which are respectively
+    \eq{
+    B_1 &= \frac{1}{6} \\
+    B_3 &= \frac{-1}{30} \\
+    B_5 &= \frac{1}{42} \\
+    B_7 &= \frac{-1}{30}
+    }
+    using the fact
+    \eq{
+    0 = & - \frac { 1 } { 2 } \cdot \frac { 2 n - 1 } { 2 n + 1 } + B _ { 1 } \left( \frac { 2 n } { 2 } \right) + B _ { 3 } \left( \frac { 2 n \cdot ( 2 n - 1 ) \cdot ( 2 n - 2 ) } { 2 \cdot 3 \cdot 4 } \right) \\
+    &+ B _ { 5 } \left( \frac { 2 n \cdot ( 2 n - 1 ) \cdot ( 2 n - 2 ) \cdot ( 2 n - 3 ) \cdot ( 2 n - 4 ) } { 2 \cdot 3 \cdot 4 \cdot 5 \cdot 6 } \right) + \ldots + B _ { 2 n - 1 }
+    }
+    and iterating (more info see here \url{https://rclab.de/_media/analyticalengine/aal_noteg_glaschick_v1.2.pdf} ). She wanted to demonstrate the power of the machine.
+    The machine's design would be a mechanical mess (never fully built, only a small model), taking big punch cards as inputs. Ada Lovelace day is the second Tuesday of October, and its goal is to \\
+    \newline
+    "... raise the profile of women in science, technology, engineering, and maths," and to "create new role models for girls and women" in these fields.
+    \newline
+    Tutored by Somerville. 
+
+    
+    \item Florence Nightingale - English - Pioneered the use of performing mathematical analysis on statistics and using clear visualisations to present data as opposed to just using table. This clear data presentation helped her push through her sanitation reform. Working as a nurse during the Crimean war, she noticed all the unnecessary deaths due to unsanitary conditions. Previously statistics had been presented in data tables, but she put them into a brilliant visualisation, which she presented to an investigation on the War. (OU video in one of the links). She was the first woman elected to the Royal Statistics Society. 
+    
+    
+    \item Sophie Kovalevsky - Russian - Her father didn't want her to study physics. Although not allowed to study at university, she became the first woman to get a PhD at a European university for her contributions to PDEs (namely the generalisation of the Cauchy Kovalevsky theorem on the existence of solutions to pdes locally) and the motion of Saturn's rings. She also discovered the Kovalevsky top, a rare example of an integrable system in Hamiltonian Dynamics. The equation for a general top is 
+    \eq{
+    H = \frac { \left( \ell _ { 1 } \right) ^ { 2 } } { 2 I _ { 1 } } + \frac { \left( \ell _ { 2 } \right) ^ { 2 } } { 2 I _ { 2 } } + \frac { \left( \ell _ { 3 } \right) ^ { 2 } } { 2 I _ { 3 } } + m g \left( a n _ { 1 } + b n _ { 2 } + c n _ { 3 } \right)
+    }
+    where the $l$, $n$ are dynamical. Some integrable examples were known, e.g. the Euler top with $a=b=c=0$. Kovalevsky determined all possible integrable cases to those known and an entirely new one she found. This is crazy because integrable system are now known to be rare, and because it was one of the first non-integrability proofs created. 
+    Despite being made the first female member of the Russian Academy of Sciences, she was not allowed to attend meetings as a woman.  \\
+    \newline
+    "... the more I reflect on her life and consider the magnitude of her achievements, set against the weight of the obstacles she had to overcome, the more I admire her. For me she has taken on a heroic stature achieved by very few other people in history. To venture, as she did, into academia, a world almost no woman had yet explored, and to be consequently the object of curious scrutiny, while a doubting society looked on, half-expecting her to fail, took tremendous courage and determination. To achieve, as she did, at least two major results of lasting value to scholarship, is evidence of a considerable talent, developed through iron discipline."
+    \newline
+    
+    
+    \item Emmy Noether - German - Prove Noether's theorem, one of the most important results in modern theoretical physics. Indeed it was vital in understanding Einstein's general relativity. The theorem came in two parts, one for f.d Lie groups, which states for each element of the Lie algebra there is a conserved quantity, and the second for infinite dimensional Lie groups such as gauge groups, which provides a constraint on the variation. This constraint when applied to the Einstein Hilbert action gives the Bianchi identity 
+    \eq{
+    \nabla_\mu G^{\mu\nu}=0
+    }
+    where Einstein's equation is 
+    \eq{
+    G^{\mu\nu}= 8\pi G T^{\mu\nu}
+    }
+    Hence this gives conservation of energy, considered vital for a physical theory.
+    
+    She also developed the modern language of abstract algebra, unifying concepts in ring theory, and contributed to topology.  \\
+    Life and times of Emmy Noether \url{https://arxiv.org/pdf/hep-th/9411110.pdf} \\
+    \newline
+    "The development of abstract algebra, which is one of the most distinctive innovations of twentieth century mathematics, is largely due to her – in published papers, in lectures, and in personal influence on her contemporaries."
+    \newline
+    
+    Herman Weyl said \\
+    \newline
+    “one cannot read the scope of her accomplishments from individual results of her papers alone; she originated above all a new and epoch-making style of thinking in algebra.”
+\newline
+    
+    
+    \item Julia Robinson - American - Worked in computability theory. Played a large role in the solution to Hilbert's 10\textsuperscript{th} problem, part of a list of 22 problems suggested to be important to the future development of maths in 1900 by David Hilbert. The 10th problem asks whether an algorithm exists that determines whether a Diophantine equations (polynomial in the integers) has a solution. An example of one such equation is the equation in Fermat's Last Theorem
+    \eq{
+    x^n+y^n = z^n
+    }
+    for $n\in\mbb{N}$. She specifically showed that it would not be true if there was a pair of numbers that 
+    \begin{itemize}
+        \item Grew exponentially
+        \item Was defined by a Diophantine equation
+    \end{itemize}
+    The solution was $n=F_{2m}$, $F$ the Fibonacci numbers. The resulting set of n and m values matches Robinson’s criteria and grows exponentially as $\pround{\frac{3+\sqrt{5}}{2}}^n$.  Since the Fibonacci sequence contains all the numbers which solve the Diophantine Equation $x^2 - xy - y^2 = \pm 1$, this is a Diophantine set which also happens to display exponential properties.) 
+    President of the American Mathematical Society \\
+    \newline
+    "All this attention has been gratifying but also embarrassing. What I really am is a mathematician. Rather than being remembered as the first woman this or that, I would prefer to be remembered, as a mathematician should, simply for the theorems I have proved and the problems I have solved."
+    \newline
+    
+    \item Maryam Mirzakhani - Iranian - Received recognition for her work on the proof of Shor's algorithm, a quantum algorithm for factorisation of integers. Even greater so, she worked with geodesics, and in 2014 won the Fields Medal, the Nobel prize of mathematics, for \\
+    \newline 
+    "her outstanding contributions to the dynamics and geometry of Riemann surfaces and their moduli spaces"
+    \newline
+    At the time of the award, Jordan Ellenberg explained her research to a popular audience:\\
+    \newline
+    [Her] work expertly blends dynamics with geometry. Among other things, she studies billiards. But now, in a move very characteristic of modern mathematics, it gets kind of meta: She considers not just one billiard table, but the universe of all possible billiard tables. And the kind of dynamics she studies doesn't directly concern the motion of the billiards on the table, but instead a transformation of the billiard table itself, which is changing its shape in a rule-governed way; if you like, the table itself moves like a strange planet around the universe of all possible tables ... This isn't the kind of thing you do to win at pool, but it's the kind of thing you do to win a Fields Medal. And it's what you need to do in order to expose the dynamics at the heart of geometry; for there's no question that they're there.
+    \newline
+
+\end{itemize}
+
+\subsubsection*{Pioneers at Cambridge}
+The maths tripos is the oldest, and before reforms in 1909 it was formidable, with the exam period lasting 44 hours over 8 days, with a total of 17000 marks available. The top in the year (the senior wrangler) would get ~8000 marks, then second would get ~4000, the lowest wrangler would get ~1500, and the lowest in the year ~200. 
+\begin{itemize}
+    \item Sarah Woodhead - One of the three "Girton Pioneers" (also Rachel Cook and Louisa Lumsden), the first three women to sit tripos examinations in Cambridge, first in 1871, and completing in 1873, Sarah being the only one doing maths. University Council actually rejected a grace to force examiners to mark Girton undergraduates work, but in a way such that \\
+    \newline
+    "carefully abstained from expressing any disapproval of our Examiners examining your students in their private capacity and in a clandestine way"
+    \newline
+    \newline
+    "Some talk of Senior Wranglers,
+    And some of Double Firsts,
+    And truly of their species
+    These are not the worst;
+    But of all the Cambridge heroes
+    There’s none that can compare
+    With Woodhead, Cook and Lumsden,
+    The Girton Pioneers"
+    \newline
+    
+    
+    \item Charlotte Scott - Having got special dispensation to sit the tripos in 1880, Scott got the 8th highest score, which would have made her 8\textsuperscript{th} wrangler out of 102. However, as she was a woman, she was not awarded the position. This led to women being allowed to formally sit the exam, though they would still not have their results listed with the men. This wsa the first year women got degrees in the UK (UoL). \\
+    \newline
+    I am most disturbed and disappointed at present to find you taking the position that intellectual pursuits must be "watered down" to make them suitable for women, and that a lower standard must be adopted at a woman's college than in a man's. I do not expect any of the other members of the faculty to feel this way about it; they, like (nearly) all men that I have known, doubtless take an attitude of toleration, half amused and half kindly, on the whole question; for even where men are willing to help in women's education, it is with an inward reserve of condescension.
+    \newline
+    Went on to found Bryn Mawr college in the states and become an educator. Of the 9 women to earn a doctorate in maths in the 19th century, Scott supervised three. 
+    
+    
+    \item Phillipa Fawcett - In 1890 Fawcett gets the highest mark in the tripos, but is not allowed the title of senior wrangler. It would be 57 years until women could get degrees, over 100 years until a woman was awarded the title of senior wrangler, with Ruth Hendry in 1992. She worked on fluid dynamics, and lectured at Newnham. The Telegraph wrote \\
+    \newline
+    "Once again has woman demonstrated her superiority in the face of an incredulous and somewhat unsympathetic world... And now the last trench has been carried by Amazonian assault, and the whole citadel of learning lies open and defenceless before the victorious students of Newnham and Girton. There is no longer any field of learning in which the lady student does not excel."
+    \newline
+    Trinity college Dublin allowed women to get degrees from 1904 onwards, and so Fawcett was one of the "Steamboat ladies" who travelled to Dublin to receive a degree. 
+    
+    \item Dame Mary Cartwright - The DOS of mathematics from 1936, then the mistress from 1948 to 1968, she developed the theory of functions, and she was one of the first mathematicians to study the fine structure of solutions to differential equations, in what would become the field of chaos theory, and phenomena such as the butterfly effect. She looked at the forced Van der Pol oscillator
+    \eq{
+    \ddot { y } - k \left( 1 - y ^ { 2 } \right) \dot { y } + y = b \lambda k \cos ( \lambda t + a )
+    }
+    based on the fact that during the war radio receivers were obsering garbage. In the paper she writes \\
+    \newline
+    "If,  however,  $b <  \frac{2}{3}$, and $k$ is large  enough,  (E) shows a rich  variety of behaviour,  some  of it very  bizarre "
+    \newline
+    
+    She was the president of the Mathematical Society and the London Mathematical Society, a fellow of the Royal Society, and in 1969 she received the distinction of DBE. She also simplified a proof of the irrationality of $\pi$, which she set as an exam question in 1945, and is to this day the proof that undergraduates encounter. Worked also in pure maths on the theory of functions.  \\
+    \newline
+    "Cartwright had been working with Littlewood on the solutions of the [ Van der Pol] equation, which describe the output of a nonlinear radio amplifier when the input is a pure sine-wave. The whole development of radio in World War Two depended on high power amplifiers, and it was a matter of life and death to have amplifiers that did what they were supposed to do. The soldiers were plagued with amplifiers that misbehaved, and blamed the manufacturers for their erratic behavior. Cartwright and Littlewood discovered that the manufacturers were not to blame. The equation itself was to blame. They discovered that as you raise the gain of the amplifier, the solutions of the equation become more and more irregular. At low power the solution has the same period as the input, but as the power increases you see solutions with double the period, and finally you have solutions that are not periodic at all."
+    \newline
+    
+\end{itemize}
+
+The aim of this talk was to introduce you to some icons in maths, demonstrate the variety of work they can be involved in, and exhibit how they pushed forward both maths and women's representation in the subject. 
+\end{document}

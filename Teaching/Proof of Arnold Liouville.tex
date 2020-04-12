@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{header}
+
+\title{Proof of the Arnol'd-Liouville Theorem}
+\author{Linden Disney-Hogg}
+
+\begin{document}
+
+\section*{Proof of the Arnol'd Liouville Theorem - Required Concepts}
+\subsection*{Symplectic Manifold}
+Let $M$ be a $2n$-dimensional manifold and $\omega^2$ a differential 2-form on $M$ that is closed and non-degenerate. Then the pair $(M,\omega^2)$ is called a \bam{symplectic manifold}. 
+
+
+\subsection*{I}
+On any symplectic manifold there is a natural isomorphism between the cotangent space and tangent space at a point $x\in M$, $I : T_x^\ast M \to T_x M $, given by for $\omega^1 \in T_x^\ast M$, $\forall v\in T_xM$
+\[
+\omega^1(v) = \omega^2(v,I\omega^1)
+\]
+It can be seen that $I$ is a linear map as $\omega^2$ is, and that injectivity follows from the non-degeneracy of $\omega^2$. By counting dimensions we then know $I$ is an isomorphism.
+
+
+\subsection*{Phase Flow} 
+To $F:M\to \mbb{R}$ we may associate the 1-parameter group of diffeomorphisms $\phi_F^t : M \to M$ defined by 
+\[
+\left. \frac{d}{dt} \right\rvert_{t=0} \phi_F^t x = (IdF)(x)
+\]
+Such a 1-parameter group is called the \bam{phase flow}.
+
+\subsection*{Poisson Bracket}
+Given $F,G : M \to \mbb{R}$ we may define the \bam{Poisson bracket} $\{ F, G \} : M \to \mbb{R}$ by \begin{align*}
+    \{ F, G \}(x) &= \left. \frac{d}{dt} \right\rvert_{t=0} F(\phi_G^t x) \\
+    &= dF(IdG(x)) \quad \text{by the chain rule} \\
+    &= \omega^2(IdF,IdG)(x)
+\end{align*}
+
+\subsection*{Canonical Sympletic Form}
+Given coordinates $(\bm{q},\bm{p})$ on a manifold, the \bam{canonical symplectic form} is 
+\[
+\omega^2 = d\bm{p} \wedge d\bm{q}
+\]
+ 
+
+\end{document}

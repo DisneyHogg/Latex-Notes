@@ -1,0 +1,58 @@
+\documentclass{article}
+
+\usepackage{header}
+
+\geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{CAP Written Homework 3}
+\author{Linden Disney-Hogg}
+\date{February 2020}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+
+\section{Question 1}
+
+We are provided the function 
+\eq{
+p(t) = \frac{1}{1+ ae^{-kt}}
+}
+for positive constants $a,k$, and told that it models the proportion of a population that has heard a given rumour. Having shown that $\lim_{t \to \infty} p(t) = 1$, we are asked to interpret what this means for the rumour. The solution set provides the answer 
+\begin{displayquote}
+\textit{It follows that the rumour will gradually spread through the whole population. (To be precise, for every
+$0 < P < 1$, there will exist a finite time $t > 0$ such that $p(t) > P$.)}
+\end{displayquote}
+A lot of people wrote in their answers something along the lines of \textit{"eventually the entire population will know the rumour"}. There are two ways of thinking about this answer and whether it is correct:
+\begin{enumerate}
+    \item Mathematically, to say \textit{"eventually the entire population will know the rumour"} is to say 
+    \eq{
+    \exists T \text{ s.t. } \forall t > T, \, p(t) = 1
+    }
+    as this implies that after a certain time, everyone will know. This is certainly not true.
+    \item We are modelling a finite population, in which case a continuum of values of $p$ is not possible, but instead if our population has $N \in \mbb{N}$ individuals, then $p$ should take values in $\pbrace{\frac{1}{N}, \frac{2}{N}, \dots, \frac{N-1}{N}, 1}$. In that case when $p(t) > 1-\frac{1}{N}$, it makes sense to say \textit{"the entire population knows the rumour"}. In this scenario we could also say \textit{"each individual eventually knows the rumour"}.
+\end{enumerate}
+These may seem like small points to make, but they are important. Precise statements matter with regards to mathematical theorems, and it is good practice now. Alternatively, in modelling it is necessary to understand when continuum approximations break down. A hugely prevalent example of this is in the Navier-Stokes equations. These model the dynamics of fluids, and to do so treats them as a continuum. However, we know about atoms, and though we can in general treat them as an ensemble, the equations break down wehen we start to look at very small length scales. 
+
+\section{Question 2}
+In a lot of solutions, people started writing expressions such as $0^\infty, 0 \times \infty, \frac{1}{\infty}$. While it can be useful on occasion to use this notation to get a feeling of a limit (e.g. saying $\lim_{x \to \infty} \frac{1}{x} = \frac{1}{\infty} = 0$), this is not correct, and treating it as such can lead to confusion or errors. \\
+On another note, it is important when using limit rules to know when they are valid. A simple example of this is the product rule 
+\eq{
+\lim_{x \to a} f(x) g(x) = \lim_{x \to a} f(x)  \times \lim_{x \to a} g(x)
+}
+This only hold when each individual limit exists. It can be shown to break with simple example of $f(x) = x$, $g(x) = \frac{1}{x}$, where
+\eq{
+1 = \lim_{x \to 0} 1 \neq \pround{\lim_{x \to 0} x} \pround{\lim_{x \to 0} \frac{1}{x}} \,. 
+}
+Here, $\lim_{x \to 0} \frac{1}{x}$ doesn't even exists, by having the left/right limits be $\mp \infty$ respectively. 
+
+\end{document}

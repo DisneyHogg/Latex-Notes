@@ -1,0 +1,124 @@
+\documentclass{article}
+
+\usepackage{header}
+
+\geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{CAP Written Homework 6}
+\author{Linden Disney-Hogg}
+\date{March 2020}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+
+\section{Question 1}
+This question discusses what is known as the \bam{rocket equation}, that 
+\eq{
+v(t) = -gt - v_e \log\pround{ \frac{m-rt}{m} }
+}
+for times $t < \frac{m}{r}$. With a little bit of a physics background, this equation isn't too hard to derive. The rocket is acted upon by two forces in the vertical direction:
+
+\begin{enumerate}
+    \item gravity: $F_{g} = -Mg$, where $M$ is the mass of the rocket.
+    \item thrust: $F_t = -\frac{dp}{dt}$, where $p$ is the momentum of the exhaust gasses from the fuel. This is the information contained in Newton's second and third laws, if you know what these are. In a small time $\delta t$, $r\delta t$ kg of exhaust gas is ejected downwards, at a speed $v_e$ relative to the rocket. This is a change in momentum of $(v_e-v) r \delta t$ for the gas, and so we see $F_t = r(v_e-v)$ (where the signs are coming from thinking about the direction of the momentum, which is a vector). 
+\end{enumerate}
+Recalling that the mass of the rocket is decreasing as exhaust gasses are ejected, such that $\frac{dM}{dt} =-r$, we have the equation 
+\eq{
+\frac{d}{dt}(Mv) &= -Mg + r(v_e-v) \\ 
+\Rightarrow -rv + M\frac{dv}{dt} &= -Mg + rv_e -rv \\
+\Rightarrow \frac{dv}{dt} &= -g + \frac{rv_e}{M}
+}
+Now we will let $m = M(0)$, so $M(t) = m-rt$. Taking $v(0) = 0$ and solving gives us this equation. \\
+Now the reason I gave this derivation, is to emphasise that this equation is not pulled out of nowhere, but comes from (albeit slightly simple) physical approximations, so any time we are answering such a question we need to not forget the physics. This leads to a couple of points about how the question was answered.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Units matter}
+In the above derivation, I have been rather sneaky, because I not explicitly stated my units yet because I have implicitly assumed I am taking the same units for mass, length and time in all quantities, but I should always in any equation have the same \emph{dimension} on either side. \\
+By dimension I mean as follows: we have three fundamental quantities which are separate in this question, length, mass, and time, 
+\eq{
+[v] &= \text{(length)(time)}^{-1} \\
+[g] &= \text{(length)(time)}^{-2} \\
+[t] &= \text{(time)} \\
+[m] &= \text{(mass)} \\
+[r] &= \text{(mass)(time)}^{-1}
+}
+And the \bam{dimension} is the exponents of the fundamental quantities. For example, velocity has length dimension 1, time dimension -1, and the notation $[v]$ just means the dimension of $v$.  Things which are just numbers (e.g. $\pi,1$) have dimensions 0, and are called \bam{dimensionless}.  This gives a good way to check that an equation you have derived is correct, as all terms in an equation must have the same dimension. We can check this in my derivation, as 
+\eq{
+\psquare{\frac{dv}{dt}} = \frac{[v]}{[t]} = \frac{\text{(length)(time)}^{-1}}{\text{(time)}} = \text{(length)(time)}^{-2} = [g] = \frac{\text{(mass)(time)}^{-1}\text{(length)(time)}^{-1}}{\text{(mass)}} = \psquare{\frac{rv_e}{M}}
+}
+This technique of checking units can be even more useful when we look at the $\log$ term. Recalling that if $\abs{x}<1$, then $\log(1-x) =-\sum_{n \geq 1} \frac{x^n}{n}$, we see that if $x$ was a quantity with non-zero dimension, we would have no hope of having an equation where all the dimensions are equal. Hence the argument of $\log$ must always be dimensionless. We can check this is the case in the rocket equation, as 
+\eq{
+\psquare{\frac{rt}{m}} = \frac{\text{(mass)(time)}^{-1}\text{(time)}}{\text{(mass)}} = \text{(mass)}^0 \text{(length)}^0 \text{(time)}^0 
+}
+The converse of this is that whenever you are giving an answer, the units of that value should be given, for example giving the answer to the homework in metres. Further, when you are substituting in for symbolic values you need to given the number in the right units. In our case, we wanted to find the height gained after 1 minute, but as all our values are given in time units of seconds, than means we need $t=60s$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Definite and indefinite integral are different}
+When we use integrals in physics, it is because we are trying to calculate an actual change in a variable, not just compute the theoretical antiderivative. This is a point that requires remembering the fundamental theorem of calculus: if $h$ is my height, and $\frac{dh}{dt} = v$, then 
+\eq{
+h(t) - h(0) = \int_0^t v(t^\prime) \,  dt^\prime
+}
+I can ignore my lower limit to get an indefinite integral by writing 
+\eq{
+h(t) = \int^t v(t^\prime) \,  dt^\prime + c
+}
+where $c$ is some constant. To then calculate the \emph{change} in the height, I have to do 
+\eq{
+h(t) - h(0) &= \psquare{\int^t v(t^\prime) \,  dt^\prime + c} - \psquare{\int^0 v(t^\prime) \,  dt^\prime + c} \\
+&= \int^t v(t^\prime) \,  dt^\prime - \int^0 v(t^\prime) \,  dt^\prime
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Approximations must come with the precision}
+This is a very simple point to state, but an important one. If you get an answer in terms of an infinitely continuing decimal, and you want to truncate it, you should write it either using the approximately equals sign, or even better by providing the exact precision with which you truncated the number. For example, say I had $x = \log 2$. Then I can either write 
+\eq{
+x &\approx 0.693 \\
+x &= 0.693 \; \text{(3.s.f)} \\
+x &= 0.69 \; \text{(2.d.p)} \\
+&\text{etc.}
+}
+This is especially necessary if you are doing experiments, where your equipment will not have infinite precision, and the exact confidence you have will have far reaching consequences for what your results mean. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Are your answers sensible?}
+The actual answer question 1 was of the order $10^4 m$, but answers ranged all the way up to $10^{10} m$, which implies the rocket is going nearly the speed of light. You should always if possible have an idea of what size answer you are looking for, or have a bound for its size. I will give an example of how this can be done in this case.\\
+I am going to look for an upper bound on my answer. I first write 
+\eq{
+\frac{m-rt}{m} = 1- \frac{rt}{m}
+}
+and so as $r,t,m >0$, we know $\log\pround{\frac{m-rt}{m}} < 0$. I know $\log$ is monotonic and decreasing as $t$ increases.  This allows me to say that for $T < \frac{m}{r}$
+\eq{
+\forall t \in [0,T], \, v(t) &= -gt - v_e \log\pround{ \frac{m-rt}{m} } \\
+&\leq - v_e \log\pround{ \frac{m-rt}{m} } \\
+&\leq -v_e \log \pround{1 - \frac{rT}{m}} \\
+&= v_e \sum_{n \geq 1 } \frac{1}{n}\pround{\frac{rT}{m}}^n
+}
+Then I can say 
+\eq{
+h(T) - h(0) &= \int_0^T v(t) \, dt \\
+&\leq T \max_{t \in [0,T]} v(t) \\
+&= v_e T \sum_{n \geq 1 } \frac{1}{n}\pround{\frac{rT}{m}}^n
+}
+With the numbers we are given, taking $T = 60s$
+\eq{
+\frac{rT}{m} = \frac{1.6 \times 10^2 \times 6 \times 10^1}{3 \times 10^4} = 3.2 \times 10^{-1} < \frac{1}{3}
+}
+Hence 
+\eq{
+ \sum_{n \geq 1 } \frac{1}{n}\pround{\frac{rT}{m}}^n < \sum_{n \geq 1 } \frac{1}{n}\pround{\frac{1}{3}}^n < \sum_{n \geq 1} \frac{1}{3^n} = \frac{1}{2}
+}
+and so \emph{the very maximum} increase I can have in height is 
+\eq{
+h(T) - h(0) = \frac{1}{2}v_e T = \frac{1}{2} \times 3 \times 10^3 \times 6 \times 10^1 = 9 \times 10^4
+}
+\end{document}
