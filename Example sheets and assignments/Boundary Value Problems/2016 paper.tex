@@ -1,0 +1,94 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Boundary Value Problems in Linear PDEs 2016 Paper}
+\author{Linden Disney-Hogg}
+\date{December 2018}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 1}
+Consider 
+\eq{
+u_t = u_{xx} + \alpha u_{x}
+}
+for $0< x< L$, $0<t<T$, $\alpha > 0$, with boundary conditions 
+\eq{
+u(x,0) &= u_0(x) \\
+u(0,t) &= g_0(t) \\
+u(L,t) &= h(t)
+}
+Let 
+\eq{
+\hat{u}(\lambda,t) &= \int_0^L e^{-i\lambda x} u(x,t) \, dx \\
+u(x,t) &= \frac{1}{2\pi} \int_{-\infty}^\infty e^{i\lambda x} \hat{u}(\lambda,t) \, d\lambda 
+}We derived the global relation through integration by parts to be 
+\eq{
+e^{\omega t} \hat{u}(\lambda,t) - \hat{u}_0(\lambda) = e^{-i\lambda L}\psquare{\tilde{h}_1 + (i\lambda + \alpha) \tilde{h}} - \psquare{\tilde{g}_1 + (i\lambda + \alpha) \tilde{g}_0}
+}
+valid for $\lambda \in \mbb{C}$, where 
+\eq{
+\omega(\lambda) = \lambda^2 - i\alpha \lambda
+}
+and 
+\eq{
+\tilde{f}(\omega(\lambda),t) = \int_0^t e^{\omega(\lambda),\tau} f(\tau) \, d\tau
+}
+We find the solution $\nu(\lambda) = -\lambda + i\alpha$ to $\omega(\nu) = \omega(\lambda)$. This gives the second global relation 
+\eq{
+e^{\omega t} \hat{u}(\nu,t) - \hat{u}_0(\nu) = e^{\alpha L} e^{i\lambda L} \psquare{\tilde{h}_1 -i\lambda \tilde{h}} - \psquare{\tilde{g}_1 -i\lambda \tilde{g}_0}
+}
+We now want to consider the curve $\Re \omega = 0$, i.e $x^2 - y^2 + \alpha y = 0$ where $\lambda = x+iy$. 
+
+We can invert the first global relation to get the integral relations 
+\eq{
+u(x,t) = & \frac{1}{2\pi} \int_{\mbb{R}} e^{i\lambda x - \omega t} \hat{u}_0(\lambda) \, d\lambda + \frac{1}{2\pi} \int_{\mbb{R}} e^{-i\lambda(L -x) - \omega t} \psquare{\tilde{h}_1 + (i\lambda + \alpha) \tilde{h}} \, d\lambda  \\
+&- \frac{1}{2\pi} \int_{\mbb{R}} e^{i\lambda x - \omega t} \psquare{\tilde{g}_1 + (i\lambda + \alpha) \tilde{g}_0} \, d\lambda 
+}
+In the regions $\Re \omega > 0$, which includes the real line, we have (for example) 
+\eq{
+e^{-\omega t} \tilde{g}_1 \sim \mc{O}\pround{\frac{1}{\omega}} \; \text{as} \; \abs{\lambda} \to \infty 
+}
+so we can deform the contours with Jordan's lemma and cauchy's theorem onto $\Re\omega = 0$ in the LHP and UHP respectively, so 
+\eq{
+u(x,t) = & \frac{1}{2\pi} \int_{\mbb{R}} e^{i\lambda x - \omega t} \hat{u}_0(\lambda) \, d\lambda + \frac{1}{2\pi} \int_{\del D^-} e^{-i\lambda(L -x) - \omega t} \psquare{\tilde{h}_1 + (i\lambda + \alpha) \tilde{h}} \, d\lambda  \\
+&- \frac{1}{2\pi} \int_{\del D^+} e^{i\lambda x - \omega t} \psquare{\tilde{g}_1 + (i\lambda + \alpha) \tilde{g}_0} \, d\lambda 
+}
+we now wish to substitute out the unknown, so let 
+\eq{
+G(\lambda,t) = \hat{u}_0(\lambda) + (i\lambda + \alpha) \psquare{e^{-i\lambda L}\tilde{h} - \tilde{g}_0}
+}
+Then the global relations become
+\eq{
+e^{\omega t} \hat{u}(\lambda,t) &= G(\lambda,t) + e^{-i\lambda L}\tilde{h}_1 - \tilde{g}_1 \\
+e^{\omega t} \hat{u}(\nu,t) &= G(\nu,t) + e^{\alpha L}e^{i\lambda L}\tilde{h}_1 - \tilde{g}_1
+}
+so solving 
+\eq{
+e^{\omega t}\psquare{\hat{u}(\lambda,t) - \hat{u}(\nu,t)} &= G(\lambda,t) -G(\nu,t) + (e^{-i\lambda L} - e^{\alpha L}e^{i\lambda L}) \tilde{h}_1 \\
+e^{\omega t}\psquare{e^{i\lambda L}\hat{u}(\lambda,t) - e^{-\alpha L}e^{-i\lambda L}\hat{u}(\nu,t)} &= e^{i\lambda L}G(\lambda,t) -e^{-\alpha L}e^{-i\lambda L}G(\nu,t) - (e^{i\lambda L} - e^{-\alpha L}e^{-i\lambda L}) \tilde{g}_1
+}
+When we substitute, terms with $\hat{u}$ will give 0 contribution when closed over the respective $D^\pm$ by Jordan and Cauchy by previous argument. Singularities in the inversion will occur where 
+\eq{
+e^{-i\lambda L} - e^{\alpha L} e^{i\lambda L} = 0
+}
+which is when $\Im\lambda = \frac{\alpha}{2}$. This will never intersect the contours, so we are ok. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 3}
+
+\end{document}

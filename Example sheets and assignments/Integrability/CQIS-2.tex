@@ -1,0 +1,302 @@
+\documentclass{article}
+
+\usepackage{header-colourful}
+
+\geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Classical and Quantum Integrable Systems Example Sheet 2}
+\author{Linden Disney-Hogg}
+\date{January 2020}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part a)}
+Consider 
+\eq{
+X_0 &= \frac{1}{2}\begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} \\
+X_1 &= \frac{1}{2}\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix} \\
+X_2 &= \frac{1}{2}\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} 
+}
+\begin{prop}
+The matrices above satisfy $\comm[X_a]{X_b} = \eps_{abc} X^c$ where index raising has been done with $\eta = \diag(1,-1,-1)$.
+\end{prop}
+\begin{proof}
+We have 
+\eq{
+\comm[X_0]{X_1} &= \frac{1}{4} \psquare{\begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}  - \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}\begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}} \\
+&= \frac{1}{4} \psquare{\begin{pmatrix} 0 & -1 \\ -1 & 0 \end{pmatrix} -\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} } \\
+&= -X_2 = X^2 \\
+\comm[X_1]{X_2} &= \frac{1}{4} \psquare{\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} - \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}} \\
+&= \frac{1}{4} \psquare{\begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} - \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}} \\
+&= X_0 = X^0\\
+\comm[X_2]{X_0} &= \frac{1}{4} \psquare{\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} - \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} } \\
+&= \frac{1}{4} \psquare{\begin{pmatrix} -1 & 0 \\ 0 & 1 \end{pmatrix} - \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}} \\
+&= -X_1 = X^1
+}
+ Thus done. 
+\end{proof}
+
+\begin{prop}
+The matrices are normalised s.t $(X_a,X_b)=\eta_{ab}$ w.r.t the standard inner product given by 
+\eq{
+(X,Y) = -2\tr(XY)
+}
+\end{prop}
+\begin{proof}
+From the calculation in the previous proposition it is clear that $(X_a,X_b) = 0$ when $a \neq b$. Moreover, as all the $X_a$ are traceless and have $\det X_a=-\eta_{aa}$ (no sum), it must be the case that the eigenvalues of $X_a$ are $\pm \lambda_a$ where $\lambda_a^2 = -\eta_{aa}$. Then as $\tr(X_a^2) = 2\lambda_a^2$, we have $(X_a,X_b) = \eta_{ab}$.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part b)}
+
+\begin{prop}
+Then Lorentzian inner product is invariant under the $SL_2(\mbb{R})$ adjoint action. 
+\end{prop}
+\begin{proof}
+$(\cdot, \cdot)$ is invariant under the adjoint action of $SL_2(\mbb{R})$ if 
+\eq{
+\forall X,Y \in \mf{sl}_2(\mbb{R}), \, \forall g \in SL_2(\mbb{R}), \, (\Ad_g X, \Ad_g Y) = (X,Y)
+}
+Infinitesimally, this is equivalent to 
+\eq{
+\forall X,Y,Z \in \mf{sl}_2(\mbb{R}), \, (\comm[Z]{X},Y) + (X,\comm[Z]{Y}) = 0
+}
+It is sufficient to prove this for the $X_a$ as they form a basis and the inner produce is bilinear. Now 
+\eq{
+(\comm[X_a]{X_b},X_c) + (X_b,\comm[X_a]{X_c}) &= (\eps_{abd}X^d,X_c) + (X_b, \eps_{acd} X^d) \\
+&= \eps_{abc} + \eps_{abc} = 0
+}
+Alternatively, note that as $SL_2(\mbb{R})$ is a matrix group we may write $\Ad_g X = g X g^{-1}$, so 
+\eq{
+(\Ad_g X, \Ad_g Y) = -2\tr(g X g^{-1} g Y g^{-1}) = -2\tr(XY) = (X,Y)
+}
+\end{proof}
+
+With the above, we can recognise that the adjoint orbits must correspond to Lorentz equivalent frames (borrowing ideas from special relativity, treating the $X_i$ as a frame in $\mbb{R}^{2+1}$), and as such must be boosted or rotated. The coadjoint orbits are then observables that are Lorentz invariable. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part c)}
+Let 
+\eq{
+t = X_a \otimes X^a 
+}
+
+\begin{prop}
+$t$ is $\ad$-invariant.
+\end{prop}
+\begin{proof}
+We can explicitly calculate, again needing to check only for the action of the  $X_b$:
+\eq{
+\ad(X_b)(t) &= \comm[X_b]{X_a} \otimes X^a + X_a \otimes \comm[X_b]{X^a} \\
+&= \eps_{bad} X^d \otimes X^a + \eps\indices{_b^a_d} X_a \otimes X^d  \\
+&= (\eps_{bad} + \eps_{bda})X_d \otimes X^a = 0
+}
+\end{proof}
+
+Further, we may define 
+\eq{
+\omega &= \eps_{abc} X^a \otimes X^b \otimes X^c \\
+r &= X_2 \wedge X_0 = X_2 \otimes X_0 - X_0 \otimes X_2
+}
+We will then state a necessary lemma:
+
+\begin{lemma}
+Let $\mf{g}$ be a Lie algebra, $r \in \mf{g} \otimes \mf{g}$ skew, and $t \in \mf{g} \otimes \mf{g}$ $\ad$-invariant. Then 
+\eq{
+\dcomm[r+t]{r+t} = \dcomm[r]{r} + \dcomm[t]{t}
+}
+\end{lemma}
+
+\begin{prop}
+$\dcomm[t]{t} = \omega$ and $\dcomm[r]{r} = - \omega$. 
+\end{prop}
+\begin{proof}
+We proceed by explicit calculation:
+\eq{
+\comm[t_{12}]{t_{13}} &= \comm[X_a]{X_b} \otimes X^a \otimes X^b \\
+&= \eps_{abc} X^c \otimes X^a \otimes X^b \\
+&= \eps_{bca} X^a \otimes X^b \otimes X^c = \omega \\
+\comm[t_{12}]{t_{23}} &= X_a \otimes \comm[X^a]{X_b} \otimes X^b \\
+&= \eps_{acb} X^a \otimes X^b \otimes X^c = -\omega \\
+\comm[t_{13}]{t_{13}} &= X_a \otimes X_b \otimes \comm[X^a]{X^b} \\
+&= \eps_{abc} X^a \otimes X^b \otimes X^c = \omega
+}
+and so we are done. Similarly
+\eq{
+\comm[r_{12}]{r_{13}} &= \comm[X_2]{-X_0} \otimes X_0 \otimes X_2 + \comm[-X_0]{X_2} \otimes X_2 \otimes X_0 \\
+&= X^1 \otimes X^0 \otimes X^ 2 - X^1 \otimes X^2 \otimes X^0 \\
+\comm[r_{12}]{r_{23}} &= X_2 \otimes \comm[X_0]{X_2} \otimes X_0 - X_0 \otimes \comm[X_2]{-X_0} \otimes X_2 \\
+&= X^2 \otimes X^1 \otimes X^0 - X^0 \otimes X^1 \otimes X^2 \\
+\comm[r_{13}]{r_{13}} &= X_2 \otimes X_0 \otimes \comm[X_0]{-X_2} - X_0 \otimes X_2 \otimes \comm[X_2]{X_0} \\
+&= -X^2 \otimes X^0 \otimes X^1 + X^0 \otimes X^2 \otimes X^1
+}
+and so the result follows by inspection. 
+\end{proof}
+\begin{corollary}
+$\dcomm[r+t]{r+t} = 0$
+\end{corollary}
+\begin{proof}
+This is an immediate given the lemma, and using the previously gained results. 
+\end{proof}
+
+We now define $\rho: \mf{sl}_2 (\mbb{R}) \to \mf{sl}_2(\mbb{R})$ by 
+\eq{
+\forall X,Y \in \mf{sl}_2(\mbb{R}), \, (\rho(X),Y) = (r, X \otimes Y)
+}
+This definition is linear, and so to calculate $\rho$ it suffices to work out its values on the basis. Then 
+\eq{
+(\rho(X_a),X_b) &= (r, X_a \otimes X_b) \\
+&= (X_2 \otimes X_0,X_a \otimes X_b) - (X_0 \otimes X_2, X_a \otimes X_b) \\
+&= \eta_{2a}\eta_{0b} - \eta_{0a}\eta_{2b} \\
+\Rightarrow \rho(X_a) &= -\delta_{2a}X_0 - \delta_{0a}X_2 \\
+\Rightarrow \rho(X = x^a X_a) &= x_2 X_0 - x_0 X_2
+}
+We now define a new bracket $\comm[\cdot]{\cdot}_r$ by 
+\eq{
+\forall X,Y \in \mf{sl}_2(\mbb{R}), \, \comm[X]{Y}_r = \comm[\rho(X)]{Y} + \comm[X]{\rho(Y)}
+}
+Using our calculation of $\rho$ we can see 
+\eq{
+\comm[X_a]{X_b}_r &= \comm[-\delta_{2a}X_0 - \delta_{0a}X_2]{X_b} + \comm[X_a]{-\delta_{2b}X_0 - \delta_{0b}X_2} \\
+&= (-\delta_{2a}\eps_{0bc} - \delta_{0a}\eps_{2bc} - \delta_{2b}\eps_{a0c} - \delta_{0b}\eps_{a2c}) X^c \\
+&= 2\pround{\delta_{0[a}\eps_{b]2c} + \delta_{2[a}\eps_{b]0c}}X^c \\
+&= 4\delta_{(0|[a}\eps_{b]|2)c}X^c
+}
+We can check what this is explicitly for the three non-trivial brackets and get 
+\eq{
+\comm[X_0]{X_1}_r &= X^0 = X_0 \\
+\comm[X_0]{X_2}_r &= 0 \\
+\comm[X_1]{X_2}_r &= X^2 = - X_2
+}
+We will call this Lie algebra $\mf{an}_2$ and the corresponding connected Lie group obtained by exponentiation $AN(2)$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part d)}
+For the subsequent part, we will let $\ad, \Ad$, refer to the action of $AN(2)$. \\
+Note now
+\eq{
+\ad(tX_1)(X_0) &= -tX_0 \\
+\Rightarrow \ad(tX_1)^n(X_0) &= (-t)^n X_0 \\
+\Rightarrow \Ad(\exp(tX_1))(X_0) &= \exp(\ad(tX_1))(X_0) = e^{-t} X_0
+}
+Letting $Y = y^a X_a$,  this extends to give  
+\eq{
+\Ad(\exp(Y))(X_0) &= e^{-y^1}X_0 = e^{y_1}X_0  \\
+\Ad(\exp(Y))(X_2) &= e^{y_1} X_2
+}
+Alternately 
+\eq{
+\ad(Y)(X_1) &= y^0 X_0 + y^2 X_2 \\
+\Rightarrow \ad(Y)^2(X_1) &= -y^1 y^0 X_0 - y^1 y^2 X_2 \\
+\Rightarrow \Ad(\exp(Y))(X_1) &= X_1 + y_0e^{y_1}X_0 - y_2 e^{y_1} X_2
+}
+Combining this and letting $Z = z^a X_a$, we have $\Ad(\exp(Y))(Z)=  z^1X_1 + e^{y_1}\psquare{(z^0 + z^1 y_0)X_0 + (z^2 - z^1 y_2)X_2}$. So
+\eq{
+\Ad(AN(2))(Z) = \left \lbrace \begin{array}{cc}
+    Z + \spn_{\mbb{R}}\pbrace{X_0,X_2} & z^1 \neq 0 \\
+    \mbb{R}_{>0} Z & z^1 = 0
+\end{array}\right.
+}
+and as such the adjoint orbits are either plane or directed lines thorugh $Z$. We can then see that for $\alpha = \alpha_a X^a$, $\Ad^\ast(\exp(Y))(\alpha) = \psquare{\alpha_1 + e^{y_1}(\alpha_0 y_0 -\alpha_2 y_2)}X^1 + e^{y_1}(\alpha_0 X^0 + \alpha_2 X^2)$. This gives
+\eq{
+\Ad^\ast(AN(2))(\alpha) = \left \lbrace \begin{array}{cc}
+    \mbb{R}_{>0}\alpha + \spn_\mbb{R}\pbrace{X^1} & \alpha_0 \neq 0 \neq \alpha_2 \\
+    \alpha & \alpha_0 = 0 = \alpha_2
+\end{array}\right.
+}
+and as such the coadjoint orbits are either planes or points. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part e)}
+Recall:
+\begin{definition}
+KKS Poisson brackets are defined by 
+\eq{
+\acomm[f]{g}(\alpha) &= (\comm[df_\alpha]{dg_\alpha},\alpha) \\
+\acomm[f]{g}_r(\alpha) &= (\comm[df_\alpha]{dg_\alpha}_r,\alpha)
+}
+\end{definition}
+
+Let $x_a$ be the functions $\alpha \mapsto \alpha(X_a)$. Recognise that $dx_a = X_a$ where we are now considering $X^a$ as the dual basis to $X_a$. As such we get 
+\eq{
+\acomm[x_a]{x_b}(X^c) &= (\comm[X_a]{X_b},X^c) \\
+&= \eps\indices{_a_b_d}(X^d,X^c) = \eps\indices{_a_b^c} \\
+\acomm[x_a]{x_b}_r(X^c) &= (\comm[X_a]{X_b}_r,X^c) \\
+&= 4\delta\indices{_(_0_[_a}\eps\indices{_b_]_2_)_d} (X^d,X^c) = 4\delta\indices{_(_0_[_a}\eps\indices{_b_]_2_)^c}
+}
+Now note that the condition $x_0(\alpha)=0$ is preserved under the coadjoint action, and so the Poisson structure on $\mf{an}_2^\ast$ must restrict to one on the submanifold $M = \pbrace{\alpha \in \mf{an}_2^\ast \, | \, x_0(\alpha) = 0}\subset \mf{an}_2^\ast$. Moreover, it is a maximal such submanifold, as including another $\beta$ with $x_0(\beta) \neq 0$ would cause the subspace to span. As such it is a symplectic leaf. 
+Setting $p= x_1, \, x = x_2$ and restricting to this symplectic leaf, we get a Poisson bracket $\acomm[p]{x}_r = -x$. We want to now consider evolution under the Hamiltonian $H = p^2 + x^2$ on this leaf:
+
+\subsubsection{(i)}
+We can calculate this evolution immediately using 
+\eq{
+\dot{x} &= \acomm[H]{x}_r = 2p\acomm[p]{x}_r = -2xp \\
+\dot{p} &= \acomm[H]{p}_r = 2x\acomm[x]{p}_r = 2x^2
+}
+
+\subsubsection{(ii)}
+Alternatively, we may use the evolution equation
+\eq{
+\frac{d}{d\tau} f(\alpha) = -(df_\alpha, \ad^\ast_{\rho(dH_\alpha)}(\alpha))
+}
+Letting $\alpha = \alpha_a X^a$ we have  $dH_\alpha = \ev{2(pdp + xdx)}{\alpha} = 2(\alpha_1 X_1 + \alpha_2 X_2) \Rightarrow \rho(dH_\alpha) = -2\alpha_2 X_0$. Now we have by definition 
+\eq{
+\ad_X^\ast (\alpha)(Y) &= \alpha(\ad_{(-X)}(Y)) \\
+\Rightarrow \ad_{X_a}^\ast(\alpha)(X_b) &= \alpha(\comm[-X_a]{X_b}) \\
+&= -\eps\indices{_a_b^c}\alpha_c \\
+\Rightarrow \ad_{X_a}^\ast (\alpha) &= -\eps\indices{_a_b^c}\alpha_c X^b \\
+\Rightarrow \ad_{\rho(dH_\alpha)}^\ast (\alpha) &= 2\alpha_2\eps^{0bc}\alpha_c X_b= 2\alpha_2(\alpha_1 X_2 - \alpha_2 X_1) 
+}
+As such we get 
+\eq{
+\frac{d}{d\tau} x(\alpha) &=  -(X^2, 2\alpha_2(\alpha_1 X_2 - \alpha_2 X_1)) = -2\alpha_1\alpha_2 = -2x(\alpha)p(\alpha)\\
+\frac{d}{d\tau} p(\alpha) &= -(X^1, 2\alpha_2(\alpha_1 X_2 - \alpha_2 X_1) ) = 2\alpha_2^2 = 2x(\alpha)^2
+}
+
+
+\subsubsection{(iii)}
+Finally, we may note 
+\eq{
+L(\alpha) = p(\alpha)X_1 + x(\alpha)X_2 = -\alpha(X_a) X^a = -(\alpha \otimes 1)(t)
+}
+when restricted to the symplectic leaf, and as such, using results from the notes, we have that it forms a Lax pair with $P(\alpha) = \rho(dH_\alpha)$. Hence the evolution equation is given by 
+\eq{
+\frac{d}{d\tau} L(\alpha) &= \comm[L]{P}(\alpha) \\ 
+\Rightarrow X_1\frac{d}{d\tau}p(\alpha) + X_2 \frac{d}{d\tau}x(\alpha) &= \comm[\alpha_1 X_1 + \alpha_2 X_2]{-2\alpha_2 X_0} \\
+&= -2\alpha_2\alpha_1 X_2 + 2\alpha_2^2 X_1 \\
+&= 2x(\alpha)^2 X_1 - 2x(\alpha)p(\alpha) X_2
+}
+This is consistent with the above. 
+Now note $(\dot{x},\dot{p}) \cdot (x,p) = -2x^p + 2x^2p = 0$. As such the velocity is perpendicular to the position in the $x-p$ plane, leading to arcs of circles as trajectories.  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part f)}
+
+Now consider the coordinate change $q = - \log x \Rightarrow x = e^{-q}$. We immediately get $H = p^2 + e^{-2q}$. Now 
+\eq{
+\dot{q} = -\frac{\dot{x}}{x} = 2p
+}
+but equally 
+\eq{
+\dot{q} = \acomm[H]{q}_r = 2p \acomm[p]{q}_r
+}
+yielding $\acomm[p]{q}_r = 1$. 
+
+\end{document}

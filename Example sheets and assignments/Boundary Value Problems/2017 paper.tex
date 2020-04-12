@@ -1,0 +1,172 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Boundary Value Problems in Linear PDEs 2017 Paper}
+\author{Linden Disney-Hogg}
+\date{December 2018}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 3}
+
+Consider Laplace's equation 
+\eq{
+u_{xx} + u_{yy} = 0
+}
+for a function $q:\Omega\to\mbb{R}$, where $\Omega = [0,\infty]\times[0,\infty]$ is the domain. Take boundary conditions 
+\eq{
+u(0,y) &= u_1(y) \\
+u(x,0) &= u_2(x)
+}
+Assume that the boundary conditions are sufficiently 'nice' and compatible. We want to derive a global relation for the problem. Here, using our knowledge of the problem in advance we want to find a form of the global relation that involves $q$, in order to be able to utilise the boundary conditions supplied. Take complex coordinates 
+\eq{
+z &= x+iy \\ 
+\bar{z} &= x-iy
+}
+
+\begin{claim}
+The global relations for the problem can be written as 
+\eq{
+\int_{\del \Omega} e^{-i\lambda z}\pround{u_n + \lambda u \frac{dz}{ds}} \, ds &= 0 \\
+\int_{\del \Omega} e^{i\lambda \bar{z}}\pround{u_n + \lambda u \frac{d\bar{z}}{ds}} \, ds &= 0
+}
+where $q_n$ is the derivative normal to the boundary. 
+\end{claim}
+\begin{proof}
+Take the adjoint to the Laplace equation 
+\eq{
+v_{xx} + v_{yy} = 0
+}
+combining the two equations gives 
+\eq{
+\pround{vu_x - uv_x}_x + \pround{vu_y - u v_y}_y = 0
+}
+We have the particular solution to the equation for $v$ given by 
+\eq{
+v(x,y) = e^{-i\lambda(x+iy)}
+}
+for any $\lambda \in \mbb{C}$. Substituting yields 
+\be
+\psquare{e^{-i\lambda(x+iy)}\pround{u_x + i \lambda u}}_x + \psquare{e^{-i\lambda(x+iy)}\pround{u_y - \lambda u}}_y = 0
+\ee
+We also have the second relation obtained by taking the independent particular solution $v(x,y) = e^{i\lambda(x-iy)}$
+\be
+\psquare{e^{i\lambda(x-iy)}\pround{u_x +- i \lambda u}}_x + \psquare{e^{i\lambda(x-iy)}\pround{u_y - \lambda u}}_y = 0
+\ee
+We now recall Green's theorem in the plane: 
+\eq{
+\int_{\Omega} \pround{\pd[Q]{x} - \pd[P]{y}} \, dx \,dy = \int_{\del \Omega} P \, dx + Q \, dy 
+}
+which implies 
+\eq{
+\int_{\del \Omega} \psquare{e^{-i\lambda(x+iy)}\pround{u_x + i \lambda u}} \, dy - \psquare{e^{-i\lambda(x+iy)}\pround{u_y - \lambda u}} \, dx &= 0 \\
+\int_{\del \Omega} \psquare{e^{i\lambda(x+-iy)}\pround{u_x - i \lambda u}} \, dy - \psquare{e^{i\lambda(x-iy)}\pround{u_y - \lambda u}} \, dx &= 0
+}
+We notice that, splitting up the term, we get contributions from 
+\eq{
+dx + i dy = dz
+}
+and 
+\eq{
+u_x \, dy - u_y \, dx = u_n \, ds
+}
+where $u_n$ is the \emph{outward} pointing normal derivative along the boundary, and $s$ parametrises length along the curve. We can thus rewrite the above equations as 
+\eq{
+\int_{\del \Omega} e^{-i\lambda z}\pround{u_n + \lambda u \frac{dz}{ds}} \, ds &= 0 \\
+\int_{\del \Omega} e^{i\lambda \bar{z}}\pround{u_n + \lambda u \frac{d\bar{z}}{ds}} \, ds &= 0
+}
+as desired. 
+\end{proof}
+As, in our case, we are working on a polygonal domain with vertices as $z_1 = i\infty, z_2 = 0, z_3 = \infty$\footnote{Observe $z_3 = z_1$ in the sense of the Riemann sphere, so this is a polygon in that way. } we may apply theory for polygons that says, given vertices $z_j$, the integral relation corresponding to the first above found global relation is 
+\eq{
+u_z(z) &= \frac{1}{2\pi} \sum_j \int_{l_j} e^{i\lambda z} \hat{u}_j(\lambda) \, d\lambda
+}
+where 
+\eq{
+\hat{u}_j(\lambda) = \int_{z_j}^{z_{j+1}} e^{-i\lambda z}\pround{u_n + \lambda u \frac{dz}{ds}} \, ds
+}
+and 
+\eq{
+l_j = \pbrace{ \lambda : \arg\lambda = - \arg(z_{j+1} - z_j)}
+}
+In our problem we find 
+\eq{
+\hat{u}_1(\lambda) = -\int_0^\infty e^{\lambda s} \psquare{ u_n(0,s) + i\lambda u(0,s)} \, ds \quad (\text{valid for $\Re\lambda\leq0$})
+}
+parametrising by $s = y$, and 
+\eq{
+\hat{u}_2(\lambda) = \int_0^\infty e^{-i\lambda s} \psquare{u_n(s,0) + \lambda u(s,0)} \, ds \quad (\text{valid for $\Im\lambda\leq0$})
+}
+parametrising by $s = x$, as well as the rays 
+\eq{
+l_1 &= \pbrace{\lambda : \arg \lambda = \frac{\pi}{2}} \\
+l_2 &= \pbrace{\lambda : \arg\lambda = 0}
+}
+As such, the solutions is 
+\eq{
+u_z(z) = \frac{1}{2\pi} \int_0^{i\infty} e^{i\lambda z} \hat{u}_1(\lambda) \, d\lambda + \frac{1}{2\pi}\int_0^\infty e^{i\lambda z} \hat{u}_2(\lambda) \, d\lambda
+}
+Introduce the unknowns 
+\eq{
+u_n(0,s) = h_1(s) \\
+u_n(s,0) = h_2(s)
+}
+and letting 
+\eq{
+G_j(\lambda) &= \int_0^\infty e^{\lambda s} g_j(s) \, ds \\
+H_j(\lambda) &= \int_0^\infty e^{\lambda s} h_j(s) \, ds
+}
+we can write 
+\eq{
+\hat{u}_1(\lambda) &= -\psquare{H_1(\lambda) + i\lambda G_1(\lambda)} \quad (\text{valid for $\Re\lambda\leq0$})\\
+\hat{u}_2(\lambda) &= \psquare{H_2(-i\lambda) + \lambda G_2(-i\lambda)} \quad (\text{valid for $\Im\lambda\leq0$})
+}
+As a result, we have the first global relation 
+\eq{
+-H_1(\lambda) - i\lambda G_1(\lambda) + H_2(-i\lambda) + \lambda G_2(-i\lambda)=0 \quad \text{valid in $\arg\lambda \in \psquare{\pi,\frac{3\pi}{2}}$}
+}
+and so the second
+\eq{
+-H_1(\lambda) + i\lambda G_1(\lambda) + H_2(i\lambda) + \lambda G_2(i\lambda)=0 \quad \text{valid in $\arg\lambda \in \psquare{\frac{\pi}{2},\pi}$}
+}
+We want to eliminate the $H$ terms. Note that our integral relation integrates over the lines $\arg\lambda=0$ and $\arg\lambda=\frac{\pi}{2}$, so if a function is analytic in the first quadrant we can combine its contributions on both lines. We will therefore try to get all $H$ contributions in terms of $H_2(i\lambda)$, analytic in the first quadrant. \\
+On $\arg\lambda = \frac{\pi}{2}$, the second global relation gives 
+\eq{
+H_1(\lambda) = i\lambda G_1(\lambda) + H_2(i\lambda) + \lambda G_2(i\lambda)
+}
+and moreover we find on $\arg\lambda = 0$
+\eq{
+H_2(-i\lambda) = H_1(-\lambda) + i\lambda G_1(-\lambda) + \lambda G_2(-i\lambda) 
+}
+and to remove $H_1(-\lambda)$ from this expression we use the first global relation, such that on $\arg\lambda = 0$
+\eq{
+H_2(-i\lambda) &= \psquare{i\lambda G_1(-\lambda) + H_2(i\lambda)-\lambda G_2(i\lambda)} + i\lambda G_1(-\lambda) + \lambda G_2(-i\lambda) \\
+&= 2i\lambda G_2(-\lambda) + H_2(i\lambda) - \lambda G_2(i\lambda) + \lambda G_2(-i\lambda)
+}
+Hence, the final integral relation, identifying the $H_2(i\lambda)$ contributions as cancelling, is 
+\eq{
+u_z(z) = \frac{1}{2\pi} \int_0^{i\infty} e^{i\lambda z} \psquare{-2i\lambda G_1(\lambda) -\lambda G_2(i\lambda)} \, d\lambda + \frac{1}{2\pi} \int_0^\infty e^{i\lambda z} \psquare{2i\lambda G_2(-\lambda) -\lambda G_2(i\lambda) + 2\lambda G_2(-i\lambda)} \, d\lambda
+}
+we may then use the fact that $G_2(i\lambda)$ is also analytic in the first quadrant to deform the contour of integration through it, giving 
+\eq{
+u_z(z) = \frac{1}{\pi}\int_0^{i\infty} - e^{i\lambda z}\psquare{i\lambda G_1(\lambda)  + G_2(i\lambda)} \, d\lambda + \frac{1}{\pi}\int_0^\infty e^{i\lambda z} \psquare{i\lambda G_2(-\lambda) + \lambda G_2(-i\lambda)} \, d\lambda
+}
+\end{document}

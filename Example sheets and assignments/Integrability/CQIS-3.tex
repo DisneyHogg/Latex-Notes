@@ -1,0 +1,366 @@
+\documentclass{article}
+
+\usepackage{header-colourful}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Classical and Quantum Integrable Systems Example Sheet 3}
+\author{Linden Disney-Hogg}
+\date{February 2020}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 3.1}
+
+We start with some definitions to remember from lectures
+
+\begin{definition}
+Recall for $R = R(u) = \sum_i A_i \otimes B_i$ the \bam{quantum Yang-Baxter equation (QYBE)} is 
+\eq{
+R_{12}(u-v) R_{13}(u) R_{23}(v) = R_{23}(v) R_{13}(u) R_{12}(u-v)
+}
+where we have 
+\eq{
+R_{12} &= \sum_i A_i \otimes B_i \otimes 1 \\
+R_{13} &= \sum_i A_i \otimes 1 \otimes B_i \\
+R_{23} &= \sum_i 1 \otimes A_i \otimes B_i
+}
+\end{definition}
+
+\begin{definition}
+The \bam{flip operator} is $P = \sum_{i,j = 1}^N E_{ij} \otimes E_{ji}$, where $E_{ij}$ are the elementary $N \times N$ matrices. It is defined to have the property that 
+\eq{
+P : \mbb{C}^N \otimes \mbb{C}^N &\to \mbb{C}^N \otimes \mbb{C}^N \\
+v \otimes w &\mapsto w \otimes v
+}
+\end{definition}
+
+\begin{prop}
+$R(u) = 1 \otimes 1 + u^{-1}P$ is a solution of the QYBE.
+\end{prop}
+\begin{proof}
+Take $x,y,z \in \mbb{C}^N$. Then 
+\eq{
+R_{23}(v) (x \otimes y \otimes z) =& x \otimes y\otimes z + v^{-1} x \otimes z \otimes y \\
+\Rightarrow R_{13}(u)R_{23}(v) (x \otimes y \otimes z) =&  x \otimes y\otimes z + v^{-1} x \otimes z \otimes y + u^{-1} z \otimes y \otimes x  + (uv)^{-1}y \otimes z \otimes x \\
+\Rightarrow R_{12}(u-v) R_{13}(u) R_{23}(v)(x \otimes y \otimes z) =& x \otimes y\otimes z + v^{-1} x \otimes z \otimes y + u^{-1} z \otimes y \otimes x  + (uv)^{-1}y \otimes z \otimes x \\
+& + (u-v)^{-1} y \otimes x \otimes z  + [(u-v)v]^{-1} z \otimes x \otimes y  + [(u-v)u]^{-1} y \otimes z \otimes x \\
+&+ [(u-v)uv]^{-1} z \otimes y \otimes x \\
+=& x \otimes y \otimes z + v^{-1} x \otimes z \otimes y + (u-v)^{-1} y \otimes x \otimes z + [(u-v)v]^{-1} y \otimes z \otimes x \\
+&+ [(u-v)v]^{-1} z \otimes x \otimes y + (u^{-1} + [(u-v)uv]^{-1})z \otimes y \otimes x  
+}
+Alternatively 
+\eq{
+R_{12}(u-v)(x \otimes y \otimes z) =& x \otimes y \otimes z + (u-v)^{-1} y \otimes x \otimes z \\
+\Rightarrow R_{13}(u) R_{12}(u-v) (x\otimes y \otimes z) =& x \otimes y \otimes z + (u-v)^{-1} y \otimes x \otimes z + u^{-1} z \otimes y \otimes x + [(u-v)u]^{-1} z \otimes x \otimes y \\
+\Rightarrow R_{23}(v) R_{13}(u) R_{12}(u-v) (x \otimes y \otimes z) =& x \otimes y \otimes z + (u-v)^{-1} y \otimes x \otimes z + u^{-1} z \otimes y \otimes x + [(u-v)u]^{-1} z \otimes x \otimes y \\
+& + v^{-1} x \otimes z \otimes y + [(u-v)v]^{-1} y \otimes z \otimes x + (uv)^{-1} z \otimes x \otimes y \\
+&+ [(u-v)uv]^{-1} z \otimes y \otimes x \\
+=& x \otimes y \otimes z + v^{-1} x \otimes z \otimes y + (u-v)^{-1}y \otimes x \otimes z + [(u-v)v]^{-1} y \otimes z \otimes x \\
+&+ [(u-v)v]^{-1} z \otimes x \otimes y  + (u^{-1} + [(u-v)]uv)^{-1} z\otimes y \otimes x 
+}
+and hence done
+\end{proof}
+\begin{remark}
+In the notes, it is stated that $R^\prime(u) = 1-u^{-1} P$ is a solution of the QYBE. We can see that this will be true as well, as $R^\prime(u) = R(-u)$, and making the substitution $u,v \mapsto -u,-v$ in the above calculation preserves the inequality.  
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 3.2}
+
+We now want to consider the matrix $T(u) = \sum_{i,j} E_{ij} \otimes t_{ij}(u)$, that is to think of $T$ as a matrix with non-commutative entries $t_{ij}(u) \equiv \delta_{ij} + \sum_{k \geq 1} u^{-k} t_{ij}^{(k)}$. This definition can be written as $t_{ij}(u) = \sum_{k \geq 0} u^{-k} t_{ij}^{(k)}$ if we let $t_{ij}^{(0)} = \delta_{ij}$ We are considering the $t_{ij}^{(k)}$ to be generators of an algebra (namely $Y(\mf{gl}_n)$). With this we can consider the two associated tensors 
+\eq{
+T_1(u) &= \sum_{i,j} E_{ij} \otimes 1 \otimes t_{ij}(u) \\
+T_2(u) &= \sum_{i,j} 1 \otimes E_{ij} \otimes t_{ij}(u)
+}
+We make the following definition
+\begin{definition}
+The \bam{RTT} relation is 
+\eq{
+R_{12}(u-v) T_1(u) T_2(v) = T_2(v) T_1(u) R_{12}(u-v) 
+}
+where $R_{12}$ is defined as previously.   
+\end{definition}
+
+This relation will define commutation relations on the generators $t_{ij}^{(k)}$, and we can work them out. Defining $s_{ij}(u) = \delta_{ij} + u^{-1}E_{ji}$ we have $R(u) = \sum_{i,j} E_{ij} \otimes s_{ij}(u) $. As such 
+\eq{
+T_2(v)T_1(u)R_{12}(u-v) &= \pround{\sum_{k,l} 1 \otimes E_{kl} \otimes t_{kl}(v)}\pround{\sum_{i,j}E_{ij} \otimes 1 \otimes t_{ij}(u)}\pround{\sum_{m,n} E_{mn} \otimes s_{mn}(u-v) \otimes 1} \\
+&= \sum_{i,j,k,l,m,n} (E_{ij}E_{mn}) \otimes (E_{kl}s_{mn}(u-v)) \otimes (t_{kl}(v)t_{ij}(u)) \\
+&= \sum_{i,j,k,l,m,n} \delta_{jm}E_{in} \otimes (\delta_{mn}E_{kl} + (u-v)^{-1}\delta_{ln}E_{km})  \otimes (t_{kl}(v)t_{ij}(u)) \\
+&= \sum_{i,j,k,l,n} E_{in} \otimes (\delta_{jn}E_{kl}+(u-v)^{-1}\delta_{ln}E_{kj}) \otimes (t_{kl}(v)t_{ij}(u))\\
+&= \sum_{i,j,k,l} (E_{ij} \otimes E_{kl} + (u-v)^{-1}E_{il} \otimes E_{kj}) \otimes (t_{kl}(v)t_{ij}(u)) 
+}
+Similarly,
+\eq{
+R_{12}(u-v) T_1(u) T_2(v) &= \sum_{i,j,k,l,m,n} (E_{mn}E_{ij}) \otimes (s_{mn}(u-v) E_{kl}) \otimes (t_{ij}(u)t_{kl}(v)) \\
+&= \sum_{i,j,k,l,m,n} \delta_{ni}E_{mj} \otimes (\delta_{mn}E_{kl} + (u-v)^{-1}\delta_{km}E_{nl}) \otimes (t_{ij}(u)t_{kl}(v)) \\
+&= \sum_{i,j,k,l} (E_{ij} \otimes E_{kl} + (u-v)^{-1}E_{kj}\otimes E_{il}) \otimes (t_{ij}(u)t_{kl}(v))
+}
+This means we can write 
+\eq{
+R_{12}(u-v) T_1(u) T_2(v) - T_2(v)T_1(u)R_{12}(u-v) =& \sum_{i,j,k,l} 
+E_{ij} \otimes E_{kl} \otimes \comm[t_{ij}(u)]{t_{kl}(v)} \\
+&+ (u-v)^{-1} E_{ij} \otimes E_{kl} \otimes \psquare{t_{kj}(v)t_{il}(u) - t_{kj}(u)t_{il}(v)} \\
+\Rightarrow \comm[t_{ij}(u)]{t_{kl}(v)} + (u-v)^{-1}\psquare{t_{kj}(v)t_{il}(u) - t_{kj}(u)t_{il}(v)} =& \, 0 
+}
+This is an equality of Laurent series, so we can compare terms of order $u^{-r}v^{-s}$ to get constraints. We will assume $u > v$ to expand $(u-v)^{-1}$ in a convergent Laurent series, but we could equally assume $v > u$ and follow through the calculation, getting the same result. We don't let $u=v$ in order to have $R(u-v)$ finite. Now 
+\eq{
+(u-v)^{-1} = u^{-1}\pround{1-\frac{v}{u}}^{-1} = u^{-1}\sum_{m \geq 0} \pround{\frac{v}{u}}^m = \sum_{m \geq 0} v^m u^{-m-1}
+}
+Thus 
+\eq{
+\sum_{r,s \geq 0}\comm[t_{ij}^{(r)}]{t_{kl}^{(s)}} u^{-r} v^{-s} &= -\sum_{m\geq 0} v^m u^{-m-1} \sum_{r,s \geq 0 } u^{-r}v^{-s}\psquare{t_{kj}^{(s)} t_{il}^{(r)} - t_{kj}^{(r)} t_{il}^{(s)} } 
+}
+and so 
+\eq{
+\comm[t_{ij}^{(r)}]{t_{kl}^{(s)}} = -\sum_{m \geq 0} \psquare{t_{kj}^{(s+m)} t_{il}^{(r-m-1)} - t_{kj}^{(r-m-1)} t_{il}^{(s+m)}}
+}
+Using that for $m <0, \, t_{ij}^{(m)} = 0$, we may rewrite and re-index the sum ($m \mapsto m-s-1$) as 
+\eq{
+\comm[t_{ij}^{(r)}]{t_{kl}^{(s)}} = -\sum_{m=1}^{\min(r,s)} \psquare{ t_{kj}^{(m-1)}t_{il}^{(r+s-m)} - t_{jk}^{(r+s-m)} t_{il}^{(m-1)}}
+}
+An immediate corollary of this is (wlog taking $s <r$)
+\eq{
+\comm[t_{ij}^{(r+1)}]{t_{kl}^{(s)}} - \comm[t_{ij}^{(r)}]{t_{kl}^{(s+1)}} =& -\left\lbrace\sum_{m=1}^{\min(r+1,s)} \psquare{ t_{kj}^{(m-1)}t_{il}^{(r+s+1-m)} - t_{kj}^{(r+s+1-m)} t_{il}^{(m-1)}} \right.\\
+&- \left. \sum_{m=1}^{\min(r,s+1)} \psquare{ t_{kj}^{(m-1)}t_{il}^{(r+s+1-m)} - t_{kj}^{(r+s+1-m)} t_{il}^{(m-1)}} \right\rbrace \\
+=&  \sum_{m=s+1}^{s+1} \psquare{ t_{kj}^{(m-1)}t_{il}^{(r+s+1-m)} - t_{kj}^{(r+s+1-m)} t_{il}^{(m-1)}} \\
+=& t_{kj}^{(s)}t_{il}^{(r)} - t_{kj}^{(r)} t_{il}^{(s)}
+}
+
+\begin{remark}
+If we had instead used $R^\prime$ to generate the commutation relations, we would have an additional minus sign, giving
+\eq{
+\comm[t_{ij}^{(r)}]{t_{kl}^{(s)}} &= \sum_{m=1}^{\min(r,s)} \psquare{ t_{kj}^{(m-1)}t_{il}^{(r+s-m)} - t_{kj}^{(r+s-m)} t_{il}^{(m-1)}} \\
+\comm[t_{ij}^{(r+1)}]{t_{kl}^{(s)}} - \comm[t_{ij}^{(r)}]{t_{kl}^{(s+1)}} &= -\psquare{t_{kj}^{(s)}t_{il}^{(r)} - t_{kj}^{(r)} t_{il}^{(s)}}
+}
+For the purpose of the rest of the exercise sheet, these will be the relations that I adopt. \\
+We also now make a note that will be helpful later. Suppose $v = u- \delta$ s.t. $\abs{\frac{\delta}{u}} \ll 1$. Then we have that up to first order in $\frac{\delta}{u}$
+\eq{
+t_{ij}(v) &= \delta_{ij} + \sum_{k \geq 1} v^{-k} t_{ij}^{(k)} \\
+&= \delta_{ij} +\sum_{k \geq 1} u^{-k} \pround{1-\frac{\delta}{u}}^{-k} t_{ij}^{(k)} \\
+&= t_{ij}(u) + \frac{\delta}{u}\sum_{k \geq 1} kt_{ij}^{(k)} + \mc{O}\pround{\abs{\frac{\delta}{u}}^2}
+}
+Hence 
+\eq{
+\psquare{t_{kj}(v)t_{il}(u) - t_{kj}(u)t_{il}(v)} &= \frac{\delta}{u} \pround{ \sum_{r \geq 1}  r\psquare{t_{kj}^{(r)}t_{il}(u) -  t_{kj}(u) t_{il}^{(r)}}} + \mc{O}\pround{\abs{\frac{\delta}{u}}^2} =  \mc{O}\pround{\abs{\frac{\delta}{u}}}
+}
+writing 
+\eq{
+\sum_{r \geq 1}  r\psquare{t_{kj}^{(r)}t_{il}(u) -  t_{kj}(u) t_{il}^{(r)}} &= \sum_{r,s \geq 1} r u^{-s}\psquare{t_{kj}^{(r)}t_{il}^{(s)} - t_{kj}^{(s)}t_{il}^{(r)}} = \sum_{r,s \geq 1}t_{kj}^{(r)}t_{il}^{(s)}\psquare{ru^{-s} - su^{-r}}
+}
+As such, taking the limit $\delta \to 0$ we have 
+\eq{
+\comm[t_{ij}(u)]{t_{kl}(u)} = \frac{1}{u}\sum_{r,s \geq 1}t_{kj}^{(r)}t_{il}^{(s)}\psquare{ru^{-s} - su^{-r}}
+}
+
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 3.3}
+
+We now remind ourselves that in an associative unital algebra $H$ we have the commuting diagrams
+
+\begin{tkz}
+H \otimes H \arrow[d,"m"'] & H \otimes H \otimes H \arrow[l,"m \otimes \id"'] \arrow[d,"\id \otimes m"] \\ H & H\otimes H \arrow[l,"m"]
+\end{tkz}
+
+\begin{tkz}
+H \otimes H  \arrow[d,"m"'] & H \otimes \mbb{C} \arrow[l,"\id \otimes 1"'] \arrow[dl,"\sim"] \\ 
+H & 
+\end{tkz}
+\begin{tkz}
+H \otimes H  \arrow[d,"m"'] & \mbb{C} \otimes H  \arrow[l,"1 \otimes \id "'] \arrow[dl,"\sim"] \\ 
+H & 
+\end{tkz}
+
+$m$ is the product and $1$ the unit. These have a dual notion of coproduct $\Delta$ and co-unit $\eps$ which give commuting diagrams 
+\begin{tkz}
+H \otimes H \arrow[r,"\Delta \otimes \id"] & H \otimes H \otimes H \\ 
+H \arrow[u,"\Delta"] \arrow[r,"\Delta"] & H \otimes H \arrow[u,"\id \otimes \Delta"']
+\end{tkz}
+\begin{tkz}
+H \otimes H \arrow[r,"\id \otimes \eps"] & H \otimes \mbb{C} \\
+H \arrow[u,"\Delta"] \arrow[ur,"\sim"']
+\end{tkz}
+\begin{tkz}
+H \otimes H \arrow[r,"\eps \otimes \id"] & \mbb{C} \otimes H  \\
+H \arrow[u,"\Delta"] \arrow[ur,"\sim"']
+\end{tkz}
+
+we also have the notion of an antipode $S$ which gives commuting diagrams 
+
+\begin{tkz}
+H \otimes H \arrow[r,"S \otimes \id"] & H \otimes H \arrow[d,"m"] \\
+H \arrow[u,"\Delta"] \arrow[r,"1 \circ \eps"'] & H
+\end{tkz}
+
+\begin{tkz}
+H \otimes H \arrow[r,"\id \otimes S"] & H \otimes H \arrow[d,"m"] \\
+H \arrow[u,"\Delta"] \arrow[r,"1 \circ \eps"'] & H
+\end{tkz}
+
+\begin{definition}
+If $\Delta,\eps$ are algebra homomorphisms, and $S$ an algebra anti-homomorphism, then $H$ is a \bam{Hopf algebra}. 
+\end{definition}
+
+\begin{prop}
+The Yangian $Y = Y(\mf{gl}_n)$ is a Hopf algebra with maps 
+\eq{
+\Delta(t_{ij}(u)) &= \sum_a t_{aj}(u) \otimes t_{ia}(u) \\
+\eps(t_{ij}(u)) &= \delta_{ij} \\
+S(t_{ij}(u)) &= (T^{-1}(u))_{ij}
+}
+\end{prop}
+\begin{proof}
+We start by showing that the respective diagrams commute:
+\eq{
+((\Delta \otimes \id) \circ \Delta)(t_{ij}) &= (\Delta \otimes \id)\pround{\sum_a t_{aj} \otimes t_{ia}} \\
+&= \sum_{b,a} (t_{bj} \otimes t_{ab}) \otimes t_{ia} \\
+((\id \otimes \Delta) \circ \Delta)(t_{ij}) &= (\id \otimes \Delta)\pround{\sum_a t_{aj} \otimes t_{ia}} \\
+&= \sum_{a,b} t_{aj} \otimes (t_{ba} \otimes t_{ib})
+}
+and so we have $(\Delta \otimes \id) \circ \Delta = (\id \otimes \Delta) \circ \Delta$. Moreover
+\eq{
+((\id \otimes \eps) \circ \Delta) (t_{ij}) &= (\id \otimes \eps) \pround{\sum_a t_{aj} \otimes t_{ia}} \\
+&= \sum_a t_{aj} \otimes \delta_{ia} = t_{ij} \otimes 1 \\
+((\eps \otimes \id) \circ \Delta) (t_{ij}) &= (\eps \otimes \id) \pround{\sum_a t_{aj} \otimes t_{ia}} \\
+&= \sum_a \delta_{aj} \otimes t_{ia} = 1 \otimes t_{ij}
+}
+giving the correct commutation for co-unit. Finally 
+\eq{
+(m \circ (S \otimes \id) \circ \Delta) (t_{ij}) &= (m \circ (S \otimes \id)) \pround{\sum_a t_{aj} \otimes t_{ia}} \\
+&= m \pround{\sum_a (T^{-1})_{aj} \otimes t_{ia}} \\
+&= \delta_{ij}1 = (1 \circ \eps)(t_{ij}) \\
+(m \circ (\id \otimes S) \circ \Delta) (t_{ij}) &= (m \circ (\id \otimes S)) \pround{\sum_a t_{aj} \otimes t_{ia}} \\
+&= m \pround{\sum_a t_{aj} \otimes (T^{-1})_{ia}} \\
+&= \delta_{ij}1 = (1 \circ \eps)(t_{ij})
+}
+Note these last two results hold as by definition $(T)_{ij} = t_{ij}$, and $\sum_a (T)_{ia} (T^{-1})_{aj} = \delta_{ij}1$
+
+\begin{remark}
+Observe that for cleanliness of notation in the above we have omitted to make explicit the parameter $u$. From my previous remark, I am not certain whether I can say 
+\eq{
+\sum_a (T^{-1})_{aj}(T)_{ia} = \sum_a (T)_{ia} (T^{-1})_{aj}
+}
+Note this issue is avoided if we take the co-product to be 
+\eq{
+\Delta(t_{ij}(u)) = \sum_a t_{ia}(u) \otimes t_{aj}(u)
+}
+\end{remark}
+We now need to show that $\Delta,\eps$ are homomorphisms, while $S$ is an antihomomorphism.
+\begin{itemize}
+    \item $\eps$: $\eps$ is defined by $ \eps(t_{ij}^{(k)}) = \delta_{0k}\delta_{ij}$ and then as the unique extension to the whole algebra that is a homomorphism, so this is immediate.
+    \item $S$: Note that if we reverse the order of multiplication in $Y$ in the RTT relation it becomes 
+    \eq{
+    R_{12}(u-v)T_2(v) T_1(u) = T_1(u)T_2(v) R_{12}(u-v)
+    }
+    Hence to have $S$ and antihomomorphism we want 
+    \eq{
+    R_{12}(u-v) T_2(v)^{-1} T_1(u)^{-1} &= T_1(u)^{-1} T_2(v)^{-1} R_{12}(u-v)
+    }
+    but multiplying up gives 
+    \eq{
+    T_2(v) T_1(u)R_{12}(u-v) = R_{12}(u-v) T_1(u) T_2(v)
+    }
+    which is just the standard RTT relation. 
+    \item $\Delta$: Note that $Y \otimes Y$ inherits its operations from $Y$, and so to have $\Delta$ be a homomorphism we need that it obeys an RTT relation in $Y \otimes Y$. i.e. 
+    \eq{
+     \tilde{R}_{12}(u-v) \tilde{T}_1(u) \tilde{T}_2(v) = \tilde{T}_2(v) \tilde{T}_1(u) \tilde{R}_{12}(u-v)
+    }
+    where 
+    \eq{
+    \tilde{T}_1 &= \sum_{i,j} E_{ij} \otimes 1 \otimes \Delta(t_{ij}) = \sum_{i,j,a} E_{ij} \otimes 1 \otimes t_{aj} \otimes t_{ia}\\
+    \tilde{T}_2 &= \sum_{i,j} 1 \otimes E_{ij} \otimes \Delta(t_{ij}) = \sum_{i,j,a} 1 \otimes E_{ij} \otimes t_{aj} \otimes t_{ia} \\
+    \tilde{R}_{12} &= \sum_{i,j} E_{ij} \otimes s_{ij} \otimes 1 \otimes 1 
+    }
+    This however is immediate from the standard RTT relation, applying it to the third entry first, and then to the fourth. 
+\end{itemize}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 3.4}
+
+Restrict to $Y = Y(\mf{gl}_2)$ and recall the following definitions:
+
+\begin{definition}
+The \bam{evaluation homomorphism} is the embedding 
+\eq{
+\mc{U}(\mf{gl}_N) &\hookrightarrow Y(\mf{gl}_N) \\
+E_{ij} &\mapsto t_{ij}^{(1)}
+}
+\end{definition}
+
+\begin{definition}
+The \bam{quantum determinant} of $T(u) \in Y$ is 
+\eq{
+q\det T(u) = t_{11}(u) t_{22}(u) - t_{12}(u) t_{21}(u)
+}
+\end{definition}
+
+\begin{definition}
+The \bam{Bethe subaglebra} is $B \subset Y$ generated by the coefficients in the Laurent series of $q\det T(u) $ and $\tr T(u) = t_{11}(u) + t_{22}(u)$.
+\end{definition}
+
+\begin{prop}
+The Bethe subalgebra commutes with the image of the UEA under the evaluation homomorphism. 
+\end{prop}
+\begin{proof}
+Note from our previously worked out commutation relations we have 
+\eq{
+\comm[t_{11}^{(r)}+t_{22}^{(r)}]{t_{ij}^{(1)}} &= \sum_{m=1}^{\min(1,r)}\psquare{t_{i1}^{(m-1)}t_{1j}^{(r+1-m)} - t_{i1}^{(r+1-m)}t_{1j}^{(m-1)} +t_{i2}^{(m-1)}t_{2j}^{(r+1-m)} - t_{i2}^{(r+1-m)}t_{2j}^{(m-1)}} \\
+&=t_{i1}^{(0)}t_{1j}^{(r)} - t_{i1}^{(r)}t_{1j}^{(0)} +t_{i2}^{(0)}t_{2j}^{(r)} - t_{i2}^{(r)}t_{2j}^{(0)}
+}
+We can then simply check cases
+\eq{
+\comm[t_{11}^{(r)}+t_{22}^{(r)}]{t_{11}^{(1)}} &= t_{11}^{(r)} - t_{11}^{(r)} = 0 \\
+\comm[t_{11}^{(r)}+t_{22}^{(r)}]{t_{12}^{(1)}} &= t_{12}^{(r)} - t_{12}^{(r)} =0\\
+\comm[t_{11}^{(r)}+t_{22}^{(r)}]{t_{21}^{(1)}} &= - t_{21}^{(r)} +t_{21}^{(r)} =0\\
+\comm[t_{11}^{(r)}+t_{22}^{(r)}]{t_{22}^{(1)}} &=  t_{22}^{(r)} +t_{22}^{(r)}=0 
+}
+We are given that the quantum determinant lies in the centre of $Y$, and so necessarily commutes with the Bethe subalgebra
+\end{proof}
+
+\comment{
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 3.5}
+
+Consider now the evaluation module $M_n = \bigotimes_{j=1}^n V(\mu_j)$ where $V(\mu) = \mbb{C}^2$ has action
+\eq{
+t_{ij}(u) \cdot v= \psquare{\delta_{ij} + (u-\mu)^{-1} E_{ij}}v
+}
+We let $A(u,\mu),B(u,\mu),C(u,\mu),D(u,\mu)$ be the matrices corresponding to the action of $t_{11}(u), t_{21}(u), t_{12}(u), t_{22}(u)$ respectively in $V(\mu)$. We then have $A(u,\bm{\mu}),$ etc. correspond to the action on $M_n$. Letting $v = \begin{psmallmatrix} 1 \\ 0 \end{psmallmatrix} \in \mbb{C}^2$ set $\Omega = v^{\otimes n} \in M_n$. 
+
+\begin{prop}
+Let $v(\bm{\xi}) = B(\xi_1,\bm{\mu}) \cdots B(\xi_k,\bm{\mu})\Omega$ where the parameters $\bm{\xi}$ satisfy 
+\eq{
+\prod_{j=1}^n \frac{\xi_i -\mu_j - 1}{\xi_i - \mu_j} = \prod_{l \neq i}^k \frac{\xi_i - \xi_l + 1}{\xi_i - \xi_l - 1}
+}
+Then 
+\eq{
+\psquare{A(\lambda,\bm{\mu}) + D(\lambda,\bm{\mu})}v(\bm{\xi}) = \pround{\prod_{j=1}^n \frac{\lambda -\mu_j - 1}{\lambda - \mu_j} \prod_{l =1}^k \frac{\lambda - \xi_l + 1}{\lambda - \xi_l }+ \prod_{l=1 }^k \frac{\lambda - \xi_l - 1}{\lambda - \xi_l }} v(\bm{\xi})
+}
+\end{prop}
+\begin{proof}
+We will only prove this for $k=1,2$. We will now suppress the $\bm{\mu}$ notation. Note in $V(\mu)$
+\eq{
+A(\lambda) v &=  \psquare{1 + (\lambda - \mu)^{-1}}v\\
+\Rightarrow A(\lambda)B(\xi)v &= \psquare{1 + (\lambda - \mu)^{-1}E_{11}}(\xi - \mu)^{-1}E_{21}v \\
+&= (\xi-\mu)^{-1} E_{21}v \\
+&= \frac{(\lambda -\mu)^{-1}}{1 + (\lambda - \mu)^{-1}} B(\xi) A(\lambda)v \\
+&\phantom{=} 
+}
+\end{proof}
+}
+
+\end{document}

@@ -1,0 +1,140 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Groups Rings and Modules Example Sheet 2}
+\author{Linden Disney-Hogg}
+\date{December 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Definitions and Theorems}
+We will required the following definitions and theorems in order to do our questions: Let $R$ be our ring
+
+\begin{definition}
+The \bam{radical} of an ideal $I \vartriangleleft R$ is 
+\eq{
+\sqrt{I} \equiv \pbrace{ r \in R \, | \, \exists n \in \mbb{N} \text{ s.t. } r^n \in I} \,.
+}
+\end{definition}
+
+\begin{definition}
+The \bam{Jacobson radical} $\mc{J}(R)$ is the intersection of all maximal ideals of $R$. 
+\end{definition}
+
+\begin{theorem}
+Every non-unit is contained in a maximal ideal
+\end{theorem}
+
+\begin{theorem}[Nullstellensatz]
+Let $K$ be a field, $R = K[x_1, \dots x_n]$, and $J \vartriangleleft R$. Then 
+\eq{
+I(V(J)) = \sqrt{J}
+}
+where
+\eq{
+V(J) &= \pbrace{a \in K^n \, | \, \forall f \in R , \, f(a)=0 } \\
+I(V) &= \pbrace{f \in R \, | \, \forall a \in V , \, f(a)=0 }
+}
+\end{theorem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(a)}
+\begin{prop}
+\eq{
+r \in \mc{J}(R) \Leftrightarrow \forall s \in R , \, 1+rs \text{ a unit}
+}
+\end{prop}
+\begin{proof}
+($\Leftarrow$:) Suppose $\exists M \vartriangleleft R$ a maximal ideal that doesn't contain $r$. Let $S$ be a generating set for $M$. Then as $M$ is maximal, $R = (S,r)$. Specifically, 
+\eq{
+1 &= ra + \sum_{i=1}^n a_i s_i \\
+\Rightarrow 1-ra &= \sum_{i=1}^n a_i s_i
+}
+for some $a,a_1, \dots,a_n \in R$. Then as $1-ra$ is a unit (take $s=-a$), $M$ contains a unit $\Rightarrow M=R$, contradicting the existence of such a maximal $M$, so $r \in \mc{J}$ \\
+($\Rightarrow$:) $r \in \mc{J} \Rightarrow \forall s \in R, \, -rs \in \mc{J}$ as $\mc{J}$ is an ideal. Hence for $M \vartriangleleft R$ a maximal ideal, $1 \notin M \Rightarrow 1+rs \notin M$. Hence as $1+rs$ is contained in no maximal ideals, it must be a unit. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(b)}
+
+\begin{prop}
+$r$ nilpotent $\Rightarrow 1+r$ a unit 
+\end{prop}
+\begin{proof}
+Let $n \in \mbb{N}$ be such that $r^n = 0$. Then 
+\eq{
+(1+r)(1-r+r^2 - \dots + (-1)^{n-1}r^{n-1}) &= 1 + (-1)^n r^n = 1
+}
+so we have found the multiplicative inverse of $r$. 
+\end{proof}
+
+\begin{corollary}
+All nilpotent elements of $R$ are contained in $\mc{J}$.
+\end{corollary}
+\begin{proof}
+Note if $r\in R$ is nilpotent as above, then $\forall s \in R$ so is $rs$ as 
+\eq{
+(rs)^n = r^n s^n = 0 \cdot s^n = 0
+}
+As such $1+rs$ is invertible, and so $r \in \mc{J}$. 
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 4}
+Take the ring $R = \mbb{C}[x,y,z]$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(a)}
+
+Let $J = (x^2,xy) \vartriangleleft R$. We then have 
+\eq{
+V(J) = \pbrace{(0,y,z)}
+}
+and so 
+\eq{
+\sqrt{I} = (x)
+}
+$V(J)$ is exactly the $x=0$ plane. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(b)}
+
+Let $J = (xz,yz) \vartriangleleft R$. We then have 
+\eq{
+V(J) = \pbrace{(0,0,z), (x,y,0)}
+}
+We see from this that for a function to be 0 on both these values if must have a factor of both $z$ and either $x$ or $y$. This means 
+\eq{
+\sqrt{J} = J 
+}
+precisely. $V(J)$ is the union of the $z=0$ plane and the $z$-axis. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(c)}
+Let $J = (y^2 - 2x^2y + x^4) \vartriangleleft R$. Spotting the factorisation 
+\eq{
+y^2 - 2x^2y + x^4 = (y-x^2)^2 
+}
+and knowing $y-x^2$ is irreducible, we have 
+\eq{
+\sqrt{J} = (y-x^2)
+}
+The corresponding variety is 
+\eq{
+V(J) = \pbrace{y=x^2} = \pbrace{(x,x^2,z)}
+}
+
+\end{document}

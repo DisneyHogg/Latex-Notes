@@ -1,0 +1,248 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Symmetries, Fields, and Particles Example Sheet 4}
+\author{Linden Disney-Hogg}
+\date{December 2018}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 1} 
+The Cartan matrix for $B_2$ is 
+\eq{
+A = \begin{pmatrix} 2 & -2 \\ -1 & 2 \end{pmatrix}
+}
+so \eq{
+w_1 = \alpha_1 + \alpha_2 \\
+w_2 = \frac{1}{2} \alpha_1 + \alpha_2 
+}
+The fundamental representation is $R_{(1,0)}$
+Following the algorithm to generate the roots finds 
+\eq{
+R_{(1,0)} = \set{(1,0),(-1,2),(0,0), (1,-2),(-1,0)} \\
+R_{(0,1)} = \set{(0,1),(1,-1),(-1,1), (0,-1)}
+}
+For the adjoint representation $\Lambda = 2w_2$ (as adjoint representation is the highest weight representation) giving 
+\[
+R_{(0,2)} = \set{(0,2),(1,0),(-1,2),(2,-2),(0,0),(1,-2),(-2,2),(-1,),(0,-2)}
+\]
+Now the adjoint representation should have dimension 10 and we have seen $|R_{(0,2)}|=9$. Hence one root must be degenerate. However, as 
+\eq{
+ad_{H_i}(H_j) = 0 
+}
+and $\dim CSA  = 2$ it can be seen that the degeneracy is only for the zero root and so done. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 2}
+The idea is to demonstrate that in the basis shown, the indices in weight diagram exactly correspond to the isocharge and hyperspin. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 3}
+Consider $A_2$ with Cartan matrix 
+\eq{
+A = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}
+}
+so 
+\eq{
+w_1 = \frac{1}{3}(2\alpha_{(1)} + \alpha_{(2)})\\
+w_2 = \frac{1}{3}(\alpha_{(1)} + 2\alpha_{(2)}) 
+}
+giving 
+\eq{
+R_{(3,0)} = \set{(3,0),(1,1),(-1,2),(-3,3),(2,-1),(0,0),(-2,1),(1,-2),(-1,-1),(0,-3)}
+}
+This can be spotted to be 
+\eq{
+R_{(3,0)} = = \bm{4} \oplus \bm{3} \oplus \bm{2} \oplus \bm{1}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 4}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(i)}
+Take $A_2 = \mf{su}(2)_\mbb{C}$. Then 
+
+\eq{
+\bm{3}\otimes\bar{\bm{3}} &= \set{(1,0),(-1,1),(0,-1)} \times \set{(0,1),(1,-1),(-1,0)} \\ &=\set{(1,1,),(2,-1),(0,0)^3,(-1,2),(-2,1),(0,-2),(-1,1),(1,-2)}
+}
+then look at the rep with heighest weight (1,1) gets 
+\eq{
+\set{(1,1),(-1,2),(2,-1),(0,0)^2,(1,-2),(-2,1),(-1,1)}
+}
+so 
+\eq{
+\bm{3}\otimes\bar{\bm{3}} = 
+\set{(1,1),(-1,2),(2,-1),(0,0)^2,(1,-2),(-2,1),(-1,1)}
+ \cup \set{(0,0)} \\
+\Rightarrow \bm{3}\otimes\bar{\bm{3}} = \bm{8} \oplus \bm{1}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(ii)}
+Repeating for $\bm{3} \otimes \bm{3} \otimes \bm{3}$ gives
+\eq{
+\bm{3} \otimes \bm{3} &= \set{(1,0),(-1,1),(0,-1)} \times \set{(1,0),(-1,1),(0,-1)}  \\
+&= \set{(2,0),(0,1)(1,-1),(0,1),(-2,2),(-1,0),(1,-1),(-1,0),(0,-2)}
+}
+Now 
+\eq{
+\bm{6} = \set{(2,0),(0,1),(-2,2),(1,-1),(-1,0),(0,-2)} \\
+\bar{\bm{3}} = \set{(0,1),(1,-1),(-1,0)}
+}
+so 
+\eq{
+\bm{3} \otimes \bm{3} \otimes \bm{3} &= \bm{3} \otimes (\bm{6} \oplus \bar{\bm{3}} ) \\
+&= (\bm{3} \otimes \bm{6}) \oplus (\bm{3} \otimes \bar{\bm{3}})
+}
+Now it can be found $\bm{3}\otimes\bm{6} = \bm{10} \oplus \bm{8}$ so 
+\[
+\bm{3} \otimes \bm{3} \otimes \bm{3} = \bm{10} \oplus \bm{8} \oplus \bm{8} \oplus \bm{1} 
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 5}
+The non-trivial lowest dimension representation for $B_2$ is 
+\eq{
+R_{(0,1)}^2 = \sum{(0,2),(1,0),(-1,2),(0,0),(1,0),(2,-2),(0,0),(1,-2),(-1,2),(0,0),(-2,2),(-1,0),(0,0),(1,-2),(-1,0),(0,-2)}
+}
+and 
+\eq{
+R_{(0,2)} = \set{(0,2),(1,0),(2,-2),(-1,2),(0,0)^2,(-2,2),(1,-2),(0,-2),(-1,0)}
+}
+giving 
+\eq{
+R_{(0,1)}^2\setminus R_{(0,2)} = \set{(1,0),(-1,2),(0,0),(1,-2),(-1,0),(0,0)} = \bm{5} \oplus \bm{1}
+}
+so 
+\[
+\bm{4} \otimes \bm{4} = \bm{10} \oplus \bm{5} \oplus \bm{1}
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 6}
+Consider the gauge group $G$ with gague field 
+\eq{
+A_\mu : \mbb{R}^{3,1} \to \mf{g}
+}
+that transforms as 
+\eq{
+A_\mu \to A_\mu^\prime = g A_\mu g^{-1} - (\del_\mu g)g^{-1}
+}
+for 
+\eq{
+g : \mbb{R}^{3,1} \to G
+}
+Take $\eps \ll 1$. 
+\eq{
+\exp(\eps X ) \in G \text{ for } X \in \mf{g} \\
+\frac{d}{d\eps} \exp(\eps X ) |_{\eps=0} = X \in \mf{g} \\
+\frac{d}{d\eps} g\exp(\eps X )g^{-1} |_{\eps=0} = gXg^{-1} \in \mf{g} \\
+}
+Let $g(\eps)\in G$ with $g(0)=g_0$ then  
+\eq{
+\frac{d}{d\eps} g(\eps)g^{-1}_0 |_{\eps=0} = g^\prime(0)g_0^{-1} \in \mf{g}
+}
+So 
+\eq{
+A_\mu^\prime &= \exp(\eps X) A_\mu \exp(-\eps X) - \eps(\del_\mu X) \exp(\eps X)\exp(-\eps X) \\
+&= A_\mu - \eps (\comm[A_\mu]{X}-\del_\mu X) \text{ to order } \eps
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 7}
+Fundamental scalar fields transform as 
+\eq{
+\phi_F \to \phi_F^\prime = g\phi_F \\
+\phi_A \to \phi_A^\prime = g\phi_A g^{-1}
+}
+Now from lectures 
+\eq{
+D_\mu = \del_\mu + R(A_\mu) 
+}
+in some rep and $D_\mu \phi$ transforms as $\phi$. Hence 
+\eq{
+D_\mu^F \phi_F =\del_\mu \phi_F + A_\mu \phi_F \\
+D_\mu^A \phi_A  = \del_\mu \phi_A + \comm[A_\mu]{\phi_A}
+}
+So under a gauge transform 
+\eq{
+(D_\mu \phi_F)^\dagger D^\mu \phi_F \to &(g D_\mu \phi_F)^\dagger (g D_\mu \phi_F) \\
+&= (D_\mu \phi_F)^\dagger g^\dagger g D_\mu \phi_F \\
+&= (D_\mu \phi_F)^\dagger D_\mu \phi_F
+}
+So 
+\eq{
+\tr (D_\mu \phi_A)^\dagger D^\mu \phi_A  \to &\tr (gD_\mu \phi_A g^{-1})^\dagger g D^\mu \phi_A g^{-1} \\
+&= \tr g D_\mu \phi_A^\dagger g^\dagger g D_\mu \phi_A g^{-1} 
+&= \tr (D_\mu \phi_A)^\dagger D^\mu \phi_A 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 8}
+\eq{
+\comm[D_\mu]{D_\nu} \phi_A &= \comm[\del_\mu A_\mu - \del_\nu A_\mu]{ \phi_A} + \comm[A_\mu]{\comm[A_\nu]{\phi_A}} -  \comm[A_\nu]{\comm[A_\mu]{\phi_A}} \\
+&= \comm[\del_\mu A_\mu - \del_\nu A_\mu + {\comm[A_\mu]{A_\nu}}]{\phi_A} \\
+&= \comm[F_{\mu\nu}]{\phi_A}
+}
+Now under gauge transform 
+\eq{
+\comm[F_{\mu\nu}]{\phi_A} &= \comm[D_\mu]{D_\nu} \phi_A  \\
+&\to \comm[F^\prime_{\mu\nu}]{g \phi_A g^{-1}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 9}
+Recall 
+\eq{
+\kappa(X,Y) = \tr ad_X \circ ad_Y
+}
+and 
+\eq{
+\mc{L} \sim \kappa(F_{\mu\nu},F^{\mu\nu})
+}
+Notate $(X,Y) = \tr(X,Y)$. Then 
+\eq{
+\tr (\comm[X]{Y} Z) &= \tr(XYZ - YXZ) \\
+&= \tr(YZX-YXZ) \\
+&= \tr(Y\comm[Z,X])
+}
+so $\tr$ is ad-invariant. Now taking the bases 
+\eq{
+\set{(T_{ij})^a_b = \delta^a_i \delta_{bj}}
+}
+gives 
+\eq{
+ad_X(T_{ij}) = X^{li}T_{lj} - X^{jl}T_{il}
+}
+so 
+\eq{
+(ad_X \circ ad_Y)T_{ij} &= [(XY)^{ri}\delta_{sj} + (XY)^{js}\delta_{ri} - X^{ri}Y^{js}-X^{js}Y^{ri}]T_{rs} \\
+&= M^{rs,ij}T_{rs}
+}
+so 
+\eq{
+\tr ad_X \circ ad_Y &= M^{ij,ij} \\
+&= 2N \tr(XY) - 2\tr(x)\tr(Y)
+}
+Now $G=SU(N) \Rightarrow \tr(X)=0$, so 
+\eq{
+\tr ad_X \circ ad_Y = 2N \tr(XY) = \kappa(X,Y)
+}
+
+
+\end{document}

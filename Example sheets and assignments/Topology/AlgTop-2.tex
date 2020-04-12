@@ -1,0 +1,193 @@
+\documentclass{article}
+
+\usepackage{../../header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Algebraic Topology Example Sheet 2}
+\author{Linden Disney-Hogg}
+\date{November 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(i) and (ii)}
+\begin{prop}
+\eq{
+H_n(X \sqcup Y) \cong H_n(X) \oplus H_n(Y)
+}
+\end{prop}
+\begin{proof}
+Recall that we have universal properties defining the direct sum of $A,B$ abelian groups and the disjoint union of $X, Y$ topological spaces described by the diagrams:
+\begin{center}
+    \begin{tikzcd}
+    A \arrow[r,"i_A",hook] \arrow[dr,"\phi"'] & A \oplus B \arrow[d,"\phi \oplus \psi",dashed] & B \arrow[l,"i_B"',hook] \arrow[dl,"\psi"] \\ & C & 
+    \end{tikzcd}
+    \begin{tikzcd}
+    X \arrow[r,"i_X",hook] \arrow[dr,"f"'] & X \sqcup Y \arrow[d,"f \sqcup g",dashed] & Y \arrow[l,"i_Y"',hook] \arrow[dl,"g"] \\ & Z & 
+    \end{tikzcd}
+\end{center}
+Applying the map $H_n$, known to be a functor, to the right diagram gives 
+\begin{center}
+    \begin{tikzcd}
+    H_n(X) \arrow[r,"(i_X)_\ast",hook] \arrow[dr,"f_\ast"'] & H_n(X \sqcup Y) \arrow[d,"(f \sqcup g)_\ast",dashed] & H_n(Y) \arrow[l,"(i_Y)_\ast"',hook] \arrow[dl,"g_\ast"] \\ & H_n(Z) & 
+    \end{tikzcd}
+\end{center}
+As homology groups are abelian groups, by the universal property we are done.
+\end{proof}
+Moreover, as a result of the uniqueness of the maps in the universal property we have by setting $\phi =f_\ast, \psi = g_\ast$,
+\eq{
+(f \sqcup g)_\ast = f_\ast \oplus g_\ast
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(iii)}
+Now with the notation, recall
+\eq{
+\ker(\phi \oplus \psi) = \pbrace{(a,b) \in A \oplus B \, | \, \phi(a) + \psi(b) = 0_C}
+}
+Suppose $\psi$ is an isomorphism, then we may write 
+\eq{
+\ker(\phi \oplus \psi) = \pbrace{(a,\psi^{-1}(-\phi(a)))}
+}
+which given an immediate isomorphism between $A$ and $\ker(\phi \oplus \psi)$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(iv)}
+Let $X_+ = X \sqcup \pbrace{+}$. 
+\begin{prop}
+\eq{
+\tilde{H}_n(X_+) = H_n(X) 
+}
+\end{prop}
+\begin{proof}
+We have now developed the machinery to calculate this simply.
+We define 
+\eq{
+\tilde{H}_n(X_+) = \ker(\gamma^{X_+}_\ast : H_n(X_+) \to H_n(+)
+}
+where $\gamma^{X_+}:X_+ \to \pbrace{+}$ is the unique such continuous map. By our universal property we must have 
+\eq{
+\gamma^{X_+} &= \gamma^X \sqcup \gamma^+ \\
+\Rightarrow \gamma^{X_+}_\ast &= \gamma^X_ \ast \oplus \gamma^+_\ast
+}
+Now $\gamma^+ = \id_+ \Rightarrow \gamma^+_\ast = id_{H_n(+)}$, an isomorphism, so 
+\eq{
+\tilde{H}_n(X_+) \cong H_n(X)
+}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 2}
+Note the definition of a Moore space
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(i)}
+\begin{example}
+$S^n$ is a Moore space of type $(\mbb{Z},n)$
+\end{example}
+
+\begin{example}
+$S^n \cup e^{n+1}$, a CW complex where the $n+1$-cell is attached along a map of degree $k$ is a Moore space of type $(\mbb{Z}_k,n)$. 
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(ii)}
+To construct a general Moore space $M(G,n)$ for finitely generated $G$, we may use the following construction:
+\begin{enumerate}
+    \item Take $\pbrace{g_1, \dots g_i, g_{i+1}, \dots, g_{i+j}}$ a generating set for $G$ such that 
+    \eq{
+    ord(g_k) = \left\lbrace \begin{array}{cl} \infty & k = 1, \dots, i \\ d_{k-i} & k = i+1, \dots, i+j \end{array}\right.
+    }
+    That is,
+    \eq{
+    G \cong \mbb{Z}^i \oplus \mbb{Z}_{d_1} \oplus \cdots \oplus \mbb{Z}_{d_j}
+    }
+    Note this is always possible of finitely generated abelian groups (with maybe $i$ of $j$ being zero).
+    \item Recall $\tilde{H}_n(X \vee Y) = \tilde{H}_n(X) \oplus \tilde{H}_n(Y)$
+    \item Hence construct 
+    \eq{
+    X = \pround{\vee_{a=1}^i S^n} \vee (S^n \cup_{f_1} e^{n+1}) \vee \cdots \vee (S^n \cup_{f_j} e^{n+1})
+    }
+    where $f_k:S^n \to S^n$ are attaching maps with $\deg f_k = d_k $
+\end{enumerate}
+The constructed $X$ is Moore of type $(G,n)$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(iii)}
+
+\hl{For this question I do not have a correct answer, but effectively I know I somehow want to find a exact sequence like}
+\begin{center}
+    \begin{tikzcd}
+    \dots \arrow[r] & \tilde{H}_n(M(K,n)) \arrow[r,"\phi_\ast"] & \tilde{H}_n(M(G,n)) \arrow[r] & \tilde{H}_n(C_\phi) \arrow[r] & \tilde{H}_{n-1}(M(K,n)) \arrow[r] & \dots 
+    \end{tikzcd}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 3}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(i)}
+We want to calculate $H_n(\mbb{RP}^2)$, which we will do in two ways:
+
+\subsubsection{a)}
+Note that $\mbb{RP}^2 = S^1 \cup_f e^2$ where the attaching map $f:S^1 \to S^1$ has degree 2. We immediately see from previous results in cellular homology that $\mbb{RP}^2$ is a Moore space of type $(\mbb{Z}_2,1)$. As such 
+\eq{
+H_n(\mbb{RP}^2) = \left\lbrace \begin{array}{cc} \mbb{Z} & n= 0 \\ \mbb{Z}_2 & n = 1 \\ 0 & \text{otherwise}\end{array}\right.
+}
+
+\subsubsection{b)} Using the decomposition provided of $\mbb{RP}^2 = U \cup V$, let $A=\bar{U}, B = \bar{V}$ and consider the Mayer Vietoris sequence for reduced homology. $C = A \cap B$ is the dashed circle, so $\tilde{H}_n(C) = \tilde{H}_n(S^1)$, $A$ deformation retracts onto $S^1$, so $\tilde{H}_n(A) = \tilde{H}_n(S^1)$, and finally $B$ is contractible so $\tilde{H}_n(B)=0$. Hence the sequence looks like 
+\begin{center}
+    \begin{tikzcd}
+    \dots \arrow[r] & \tilde{H}_n(S^1) \arrow[r,"i_\ast"] & \tilde{H}_n(S^1) \arrow[r,"j_\ast"] & \tilde{H}_n(\mbb{RP}^2) \arrow[r,"\del"] & \tilde{H}_{n-1}(S^1) \arrow[r] & \dots 
+    \end{tikzcd}
+\end{center}
+Where $i:C \to A \to S^1, j:S^1 \to A \to \mbb{RP}^2$ are both inclusion composed with deformation retraction (or its inverse). This sequence is only interesting in the case $n=1$ in which we have 
+\begin{center}
+    \begin{tikzcd}
+     \mbb{Z} \arrow[r,"i_\ast"] & \mbb{Z} \arrow[r,"j_\ast"] & \tilde{H}_1(\mbb{RP}^2) \arrow[r,"\del"] & 0
+    \end{tikzcd}
+\end{center}
+Then we have 
+\eq{
+\image j_\ast &= \ker \del = \tilde{H}_n(\mbb{RP}^2) \\
+\ker j_\ast &= \image i_\ast = 2 \mbb{Z}
+}
+where the second follows from the fact that our $i$ ends up being degree 2, as the deformation retract onto $a$ is degree 2. We then have the same result as before (after 1st iso thm application) that 
+\eq{
+H_n(\mbb{RP}^2) = \left\lbrace \begin{array}{cc} \mbb{Z} & n= 0 \\ \mbb{Z}_2 & n = 1 \\ 0 & \text{otherwise}\end{array}\right.
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(ii)}
+We want to calculate $H_n(K)$, which we will do in two ways:
+\subsubsection{a)}
+Note that with the given construction we can write 
+\eq{
+K = S^1 \vee (S^1 \cup_f e^2)
+}
+as the attaching map to $a$ has degree 0, and $f$ is the attaching map corresponding to $f$, which is of degree 2. As such $K$ is a Moore space of type $(\mbb{Z} \oplus \mbb{Z}_2,1)$, so 
+\eq{
+H_n(K) = \left\lbrace \begin{array}{cc} \mbb{Z} & n= 0 \\ \mbb{Z} \oplus \mbb{Z}_2 & n = 1 \\ 0 & \text{otherwise}\end{array}\right.
+}
+
+\subsubsection{b)}
+By following similar procedure as in part i), we get the only interesting part of the Mayer Vietoris sequence to be 
+\begin{center}
+    \begin{tikzcd}
+     \mbb{Z} \arrow[r] & \mbb{Z} \oplus \mbb{Z} \arrow[r] & \tilde{H}_1(K) \arrow[r] & 0
+    \end{tikzcd}
+\end{center}
+
+This replicates our result from above.
+
+\end{document}

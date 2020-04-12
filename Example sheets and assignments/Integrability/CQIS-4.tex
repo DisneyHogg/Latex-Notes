@@ -1,0 +1,161 @@
+\documentclass{article}
+
+\usepackage{header-colourful}
+
+\geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Classical and Quantum Integrable Systems Example Sheet 4}
+\author{Linden Disney-Hogg}
+\date{March 2020}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 1}
+
+Pick $q \in \mbb{C}\setminus\pbrace{\pm1, 0}$, and consider $U_q(\hat{\mf{sl}}_2)$ with evaluation reps $V_z^{(n)}$. We want to find homomorphisms $\iota: V_z^{(2)} \to V_{zq^{-1}}^{(1)}\otimes V_{zq}^{(1)}$, $\tau : V_{zq^{-1}}\otimes V_{zq}^{(1)} \to V_z^{(0)}$, s.t. we have a SES
+\eq{
+0 \to V_z^{(2)} \overset{\iota}{\to} V_{zq^{-1}}^{(1)}\otimes V_{zq}^{(1)} \overset{\tau}{\to} V_{z}^{(0)} \to 0
+}
+To specify unique such maps, taking $\pbrace{v_i^{(n)} \, | \, i=0, \dots, n}$ to be a basis of $V_z^{(n)}$, we fix the normalisation 
+\eq{
+\iota(v_0^{(2)}) &= v_0^{(1)}\otimes v_0^{(1)} \\
+\tau(v_1^{(1)} \otimes v_0^{(1)}) &= v_0^{(0)}
+}
+
+\begin{remark}
+Note this isn't the normalisation asked for in the question, but seeing as $v_1^{(0)} \otimes v_0^{(1)} \notin V_{zq^{-1}}^{(1)}\otimes V_{zq}^{(1)}$ I am going to stick with this modified condition. 
+\end{remark}
+We will use the following facts, are defined or shown in lectures:
+
+\begin{fact}
+From $v_0^{(2)}$ we generate the other basis elements of $V_z^{(2)}$ as 
+\eq{
+v_1^{(2)} &= \pi^{(2)}(f)(v_0^{(2)}) \\
+v_2^{(2)} &= \frac{1}{q+q^{-1}} \pi^{(2)}(f)(v_1^{(2)})
+}
+\end{fact}
+This was a necessary definition for the following 
+\begin{fact}
+$V^{(1)} \otimes V^{(1)} \cong V^{(2)} \oplus V^{(0)}$ with the maps
+\eq{
+V^{(1)} \otimes V^{(1)} &\to V^{(2)} \\
+v_0^{(1)} \otimes v_0^{(1)} &\mapsto v_0^{(2)} \\
+q^{-1}v_1^{(1)} \otimes v_0^{(1)} + v_0^{(1)} \otimes v_1^{(1)} &\mapsto v_1^{(2)} \\
+v_1^{(1)} \otimes v_1^{(1)} &\mapsto v_2^{(2)}
+}
+and 
+\eq{
+V^{(1)} \otimes V^{(1)} &\to V^{(0)} \\
+q v_1^{(1)} \otimes v_0^{(1)} - v_0^{(1)} \otimes v_1^{(1)} &\mapsto v_0^{(0)}
+}
+\end{fact}
+
+As a result we know the map $\iota : V_z^{(2)} \to V_{zq^{-1}}^{(1)} \otimes V_{zq}^{(1)}$ given by 
+\eq{
+v_0^{(2)} & \mapsto v_0^{(1)} \otimes v_0^{(1)} \\
+v_1^{(2)} & \mapsto q^{-1}v_1^{(1)} \otimes v_0^{(1)} + v_0^{(1)} \otimes v_1^{(1)} \\
+v_2^{(2)} & \mapsto v_1^{(1)} \otimes v_1^{(1)}
+}
+satisfies $\iota \circ \pi^{(2)}_{z} (x) = (\pi^{(1)}_{zq^{-1}} \otimes \pi^{(1)}_{zq})(\Delta(x)) \circ \iota$ for $x = e_1, f_1, t_1$, as $\pi_z^{(n)} = \pi^{(n)} \circ  ev_z$, and restricted to the above $x$, $ev = \id$. We may also check, for example, 
+\eq{
+ \psquare{(\pi^{(1)}_{zq^{-1}} \otimes \pi^{(1)}_{zq})(\Delta(e_0)) \circ \iota}(v_0^{(2)}) &= \psquare{ (\pi^{(1)}_{zq^{-1}} \otimes \pi^{(1)}_{zq})(e_0 \otimes 1 + t_0 \otimes e_0)}(v_0^{(1)} \otimes v_0^{(1)}) \\
+ &= \psquare{zq^{-1} f \otimes 1 + t^{-1} \otimes zqf}(v_0^{(1)} \otimes v_0^{(1)}) \\
+ &= zq^{-1} v_1^{(1)} \otimes v_0^{(1)} + (q^{-1}zq)v_0^{(1)} \otimes v_1^{(1)}\\
+ &= z\iota(v_1^{(2)})\\
+ &= \psquare{\iota \circ \pi_z^{(2)}(e_0)}(v_0^{(2)}) 
+}
+The other cases are exactly similar calculations, and hence we have a homomorphism $\iota$. \\
+Similarly we know the map $\tau  : V_{zq^{-1}}^{(1)} \otimes V_{zq}^{(1)} \to V_z^{(0)}$ given by 
+\eq{
+v_0^{(1)} \otimes v_0^{(1)} &\mapsto 0 \\
+q^{-1}v_1^{(1)} \otimes v_0^{(1)} + v_0^{(1)} \otimes v_1^{(1)} &\mapsto 0 \\ 
+v_1^{(1)} \otimes v_1^{(1)} &\mapsto 0 \\
+v_1^{(1)} \otimes v_0^{(1)} - q^{-1}v_0^{(1)} \otimes v_1^{(1)} &\mapsto v_0^{(0)}
+}
+satisfies $ \pi^{(0)}_{z} (x) \circ \tau = \tau \circ (\pi^{(1)}_{zq^{-1}} \otimes \pi^{(1)}_{zq})(\Delta(x))$ for $x = e_1, f_1, t_1$ by the same reasoning as before. By construction, we see
+\eq{
+\tau \circ \iota &= 0 \\
+\tau(v_1^{(1)} \otimes v_0^{(0)}) &= \tau((v_1^{(1)} \otimes v_0^{(1)} - q^{-1}v_0^{(1)} \otimes v_1^{(1)}) + q^{-1}(q^{-1}v_1^{(1)} \otimes v_0^{(1)} + v_0^{(1)} \otimes v_1^{(1)}) \\
+&= \tau(v_1^{(1)} \otimes v_0^{(1)} - q^{-1}v_0^{(1)} \otimes v_1^{(1)}) + q^{-1} \tau (q^{-1}v_1^{(1)} \otimes v_0^{(1)} + v_0^{(1)} \otimes v_1^{(1)}) \\
+&= v_0^{(0)}
+}
+where we are relying on the fact that $\pbrace{v_0^{(1)} \otimes v_0^{(1)}, q^{-1}v_1^{(1)} \otimes v_0^{(1)} + v_0^{(1)} \otimes v_1^{(1)},v_1^{(1)} \otimes v_1^{(1)},v_1^{(1)} \otimes v_0^{(1)} - q^{-1}v_0^{(1)} \otimes v_1^{(1)}}$ forms a basis of $V_{zq^{-1}}^{(1)} \otimes V_{zq}^{(1)}$
+Further, we can check 
+\eq{
+\psquare{\tau \circ (\pi^{(1)}_{zq^{-1}} \otimes \pi^{(1)}_{zq})(\Delta(e_0))}(v_1^{(1)} \otimes v_0^{(1)} - q^{-1}v_0^{(1)} \otimes v_1^{(1)}) &= \tau \pround{\psquare{zq^{-1} f \otimes 1 + t^{-1} \otimes zqf}(v_1^{(1)} \otimes v_0^{(1)} - q^{-1}v_0^{(1)} \otimes v_1^{(1)})} \\
+&= \tau\pround{z(q^2 - q^{-2})v_1^{(1)} \otimes v_1^{(1)}} \\
+&= 0= \psquare{\pi^{(0)}_{z} (e_0) \circ \tau}(v_1^{(1)} \otimes v_0^{(1)} - q^{-1}v_0^{(1)} \otimes v_1^{(1)})
+}
+and again, the other case are similar. As, by construction, $\iota$ is injective and $\tau$ is surjective, we get the SES required. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 2}
+
+Let us set up some notation: Let
+\begin{itemize}
+    \item $H$ be a bialgebra whose coproduct is $\Delta$
+    \item $(\pi_z,V)$ be some representation on $H$ depending on $z\in\mbb{C}^\times$ 
+    \item $\check{R}(y,z)$ be an intertwiner of $H$-modules depending on $y,z \in \mbb{C}^\times$ s.t. $\forall h \in H$
+    \eq{
+    \check{R}(y,z)(\pi_y \otimes \pi_z)(\Delta(h)) = (\pi_z \otimes \pi_y)(\Delta(h)) \check{R}(y,z)
+    }
+    \item $C \subset H$ a subalgebra s.t. $\Delta(C) \subseteq H \otimes C$ 
+    \item $K(z)$ be an intertwiner of $C$-modules depending on $z \in \mbb{C}^\times$ s.t. $\forall c \in C$
+    \eq{
+    K(z) \pi_z(c) = \pi_{z^{-1}}(c) K(z)
+    }
+    \item the \bam{reflection equation} is 
+    \eq{
+    \check{R}(z^{-1},y^{-1})(\id \otimes K(y)) \check{R}(y,z^{-1})(\id \otimes K(z)) = (\id \otimes K(z))\check{R}(z,y^{-1})(\id \otimes K(y)) \check{R}(y,z)
+    }
+\end{itemize}
+
+We then prove the following results 
+
+\begin{theorem}
+Let $X$ be either the LHS or RHS of the reflection equation. Then $X$ is an intertwiner of $C$-modules s.t. 
+\eq{
+X(\pi_y \otimes \pi_z)(\Delta(c)) = (\pi_{y^{-1}} \otimes \pi_{z^{-1}})(\Delta(c)) X
+}
+\end{theorem}
+\begin{proof}
+Let $X = \check{R}(z^{-1},y^{-1})(\id \otimes K(y)) \check{R}(y,z^{-1})(\id \otimes K(z))$, and $\Delta(c) = h \otimes c^\prime$ where $h \in H, \, c^\prime \in C$. Then we check 
+\eq{
+(\id \otimes K(z))(\pi_y \otimes \pi_z)(\Delta(c)) &= (\id \otimes K(z))(\pi_y \otimes \pi_z)(h\otimes c^\prime) \\
+&= (\id \otimes K(z))(\pi_y(h) \otimes \pi_z(c^\prime)) \\
+&= (\pi_y(h) \otimes \pi_{z^{-1}}(c^\prime))(\id \otimes K(z)) \\
+&= (\pi_{y} \otimes \pi_{z^{-1}})(\Delta(c)) (\id \otimes K(z)) \\
+&\phantom{=} \\
+ \check{R}(y,z^{-1})(\pi_{y} \otimes \pi_{z^{-1}})(\Delta(c)) &= (\pi_{z^{-1}} \otimes \pi_{y})(\Delta(c))\check{R}(y,z^{-1}) \\
+ &\phantom{=} \\
+ (\id \otimes K(y))(\pi_{z^{-1}} \otimes \pi_{y})(\Delta(c)) &= (\pi_{z^{-1}} \otimes \pi_{y^{-1}})(\Delta(c)) (\id \otimes K(y)) \\
+ &\phantom{=} \\
+ \check{R}(z^{-1},y^{-1})(\pi_{z^{-1}} \otimes \pi_{y^{-1}})(\Delta(c)) &= (\pi_{y^{-1}} \otimes \pi_{z^{-1}})(\Delta(c)) \check{R}(z^{-1},y^{-1})
+}
+Hence we are done for the LHS. The RHS case is exactly the same kind of calculation, noting that at all times we have terms restricted to $C$ on the rhs of the tensor product, $\check{R}$ swaps the order of the $(y,z)$, and $K$ inverts the rhs symbol. That is we can think of moving the $\pi \otimes \pi$ terms through as changing the subscripts as 
+\eq{
+(y,z) \mapsto (y,z^{-1}) \mapsto (z^{-1},y) \mapsto (z^{-1},y^{-1}) \mapsto (y^{-1},z^{-1}) 
+}
+when considering the LHS $X$, or as 
+\eq{
+(y,z) \mapsto (z,y) \mapsto (z,y^{-1}) \mapsto (y^{-1},z) \mapsto (y^{-1},z^{-1})
+}
+when considering the RHS $X$. 
+\end{proof}
+
+\end{document}

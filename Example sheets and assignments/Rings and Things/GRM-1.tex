@@ -1,0 +1,147 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Groups Rings and Modules Example Sheet 1}
+\author{Linden Disney-Hogg}
+\date{November 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{1.2.1-15}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part a}
+We start by proving the following lemma:
+
+\begin{lemma}
+Every automorphism of the additive group $\mbb{Z}_n$ is of the form $f_m(x) = mx$, where $m \in \pbrace{1,\dots,n-1}$ and $\gcd(m,n)=1$. 
+\end{lemma}
+\begin{proof}
+Note that $\mbb{Z}_n = \pangle{1}$, and as such any automorphism $f$ is defined by $m = f(1)$. For $f$ to be a genuine automorphism, it is then necessary for $m$ to be a generator for $\mbb{Z}_n$, which is exactly the condition that $\gcd(m,n)=1$. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part b}
+
+We now seek to prove the following prop,
+
+\begin{prop}
+Let $p,q$ be primes s.t $p \rvert q-1$. Then there exists a non-abelian group of order $pq$. 
+\end{prop}
+\begin{proof}
+Motivated by the fact $pq = p \times q$ trivially, we look for a product of groups of order $p,q$, which are automatically $\mbb{Z}_p, \mbb{Z}_q$. This cannot be a direct product, as the results group would just be $\mbb{Z}_p \times \mbb{Z}_q \cong \mbb{Z}_{pq}$ which is abelian. As such we want to find a semi-direct product, the first ingredient of which is a homomorphism $\phi : \mbb{Z}_p \to \Aut(\mbb{Z}_q)$. Let $n = \frac{q-1}{p}$, an integer by the assumptions of the prop, and then let $\phi(k) = f_{n^k}$ using the notation of the above lemma (where perhaps we will need to take $n^k \mod q$). As $q$ prime we are guaranteed that $\gcd(n^k,q)=1$, and then this map is indeed a homomorphism as $f_{n^{k+l}} = f_{n^k} \circ f_{n^l}$. Hence we have constructed the non-abelian group of order $pq$, $\mbb{Z}_p \ltimes_\phi \mbb{Z}_q$
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{1.3.1-4}
+
+Define the set 
+\eq{
+U = \pbrace{\left.\begin{pmatrix}1 & a & b \\ 0 & 1 & c \\ 0 & 0 & 1 \end{pmatrix} \right\rvert a,b,c \in \mbb{F}}
+}
+for some field $\mbb{F}$. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part a}
+We start by proving the following results about $U$ with the inherited operation of matrix multiplication. 
+
+\begin{prop}
+$U \leq GL_3(\mbb{F})$
+\end{prop}
+\begin{proof}
+We check the conditions of identity, closure, and inverses.
+\begin{itemize}
+    \item Identity: $I \in U$ where $a = b = c = 0$.
+    \item Closure: $\begin{pmatrix} 1 & a & b \\ 0 & 1 & c \\ 0 & 0 & 1 \end{pmatrix}\begin{pmatrix} 1 & x & y \\ 0 & 1 & z \\ 0 & 0 & 1 \end{pmatrix} = \begin{pmatrix} 1 & a+x & b + az+y \\ 0 & 1 & c+z \\ 0 & 0 & 1 \end{pmatrix}$
+    \item Inverses: $\begin{pmatrix} 1 & a & b \\ 0 & 1 & c \\ 0 & 0 & 1 \end{pmatrix}^{-1} = \begin{pmatrix} 1 & -a & ac-b \\ 0 & 1 & -c \\ 0 & 0 & 1 \end{pmatrix}$
+\end{itemize}
+\end{proof}
+
+\begin{prop}
+$Z(U) \cong \mbb{F}$
+\end{prop}
+\begin{proof}
+\eq{
+\begin{pmatrix} 1 & a & b \\ 0 & 1 & c \\ 0 & 0 & 1 \end{pmatrix} \in Z(U) \Rightarrow & \forall x,y,z\in \mbb{F}, \, \begin{pmatrix} 1 & a+x & b + az+y \\ 0 & 1 & c+z \\ 0 & 0 & 1 \end{pmatrix} = \begin{pmatrix} 1 & x+a & y + xc+b \\ 0 & 1 & z+c \\ 0 & 0 & 1 \end{pmatrix} \\
+\Rightarrow & \forall x,z, \, az = xc \\
+\Rightarrow & a = 0 = c
+}
+Hence $Z(U) = \pbrace{\begin{pmatrix}1 & 0 & b \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}}$, which obviously isomorphic to $(\mbb{F},+)$ by looking at how the group operation on $U$ restricts to $Z(U)$. 
+\end{proof}
+
+\begin{prop}
+$\faktor{U}{Z(U)} \cong \mbb{F} \times \mbb{F}$, where $\mbb{F} = ( \mbb{F},+)$.
+\end{prop}
+\begin{proof}
+We can consider $U$ as triples $(a,b,c)$ with the operation $(a,b,c)\ast(x,y,z) = (a+x,b+ az+y,c+z)$. With this interpretation we can see that an element of the centre is $(0,b,0)$, and as such the cosets are $(a,\mbb{F},c)$ with the operation $(a,\mbb{F},c)\ast(x,\mbb{F},z) = (a+x,\mbb{F},c+z)\cong \mbb{F}^2$ with addition. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part b}
+With this above results we can immediately make the following observation
+
+\begin{theorem}
+If $\mbb{F} = \mbb{Z}_p$, $U$ is a non-abelian group of order $p^3$. 
+\end{theorem}
+\begin{proof}
+$Z(U) \neq U$, hence $U$ is not abelian. Moreover it can be seen that any element $(a,b,c)$ is unique for unique $a,b,c$, so we have that $U$ has order $p^3$. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{1.5.1-4}
+The following questions will look at the property of being \texit{characteristic}, that is $H \leq G$ is characteristic  $\forall \phi \in \Aut(G), \, \phi(H) \subseteq H$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part a}
+Let us work through the folowing propositions:
+\begin{prop}[i]
+A characteristic subgroup is always normal
+\end{prop}
+\begin{proof}
+Consider the conjugation automorphisms in $\Aut(G)$. A subgroup fixed by these is exactly a normal subgroup. 
+\end{proof}
+
+\begin{prop}\label{prop:GRM:characterstictransitivity}
+$K$ characteristic in $H$, in turn characteristic in $G$, gives $K$ characteristic in $G$. 
+\end{prop}
+\begin{proof}
+Any automorphism of $H$ gives an automorphism of $G$ which fixes $H$. Hence as $H$ fixed by all automorphisms of $G$, $K$ fixed by all autmorphisms too. 
+\end{proof}
+
+\begin{prop}
+$N$ normal in G and $H$ characteristic in $N$ gives $H$ normal in $G$.  
+\end{prop}
+\begin{proof}
+Conjugation automorphisms of $G$ restrict to automorphisms of $N$, which fix $H$, so $H$ normal. 
+\end{proof}
+
+\begin{prop}
+The derived subgroup of $G$, $G^\prime$, is characteristic. 
+\end{prop}
+\begin{proof}
+Automorphisms are homs, so the image of a commutator is a commutator. Hence as $G^\prime$ is exactly the subgroup generated by all commutators, so is $\phi(G^\prime)$. Inducting on \ref{prop:GRM:characterstictransitivity} gives in fact that every term in the derived series is characteristic in $G$. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part b}
+To show that this transitivity of characteristic subgroups is not a feature of simply normal subgroups, we present the triplet
+\eq{
+\pangle{(12)(34)} \triangleleft V \triangleleft A_4
+}
+Noting the normality of $V$ in $A_4$ is immediate, as conjugacy preserves cycle type. The first normality is immediate as it is a subgroup of index $2$, but normal doesn't carry through to $A_4$ as the conjugacy class is exactly $V$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{1.6.1-5}
+Consider the presentation given. Certainly it defines a 2-group, as Sylow's theorem say if not, it would contain a Sylow  p-subgroup for $p \neq 2$. This is a contradiction, as the presentation shows no element has odd order. Moreover, elements of the group are of the form $x^iy^j$, where $0 \leq i \leq 7, 0 \leq j \leq 1$, as any times we have an $x^8$ we can reduce it to 1, and any $y^2$ can be reduced to $x^4$. Hence the maximum order is $2 \times 8 = 16$. 
+
+\end{document}

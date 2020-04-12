@@ -1,0 +1,339 @@
+\documentclass{article}
+
+\usepackage{header-colourful}
+
+\geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Manifolds Example Sheet 1}
+\author{Linden Disney-Hogg}
+\date{February 2020}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exercise 1.10}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Construction}
+We wish to construct the complex manifold $\mbb{CP}^{n}$. We shall do so by taking $\pi : \mbb{C}^{n+1}\setminus\pbrace{0} \to \mbb{CP}^n $ be the natural quotient map $\bm{z} \mapsto [\bm{z}]$ associated with the equivalent relation $\sim$ where $\forall \lambda \in \mbb{C}\setminus\pbrace{0}, \, \bm{z} \sim \lambda \bm{z}$. Choosing now a fixed basis of $\mbb{C}^{n+1}$ take coordinates $\pbrace{z_i \, | \, i=0, \dots, n}$, and for convenience let $x_i = \real z_i,\, y_i = \Im z_i$. Taking the open neighbourhoods $U_i = \pi(\pbrace{z_i \neq 0}) \subset \mbb{CP}^{n}$ we can get charts on $\mbb{CP}^n$ by 
+\eq{
+\phi_i : U_i &\to \mbb{R}^{2n} \\
+[z_0 : \dots :z_{i-1}:1:z_{i+1}: \dots :z_{n}] &\mapsto \pround{x_0, y_0,\dots, y_{i-1}, x_{i+1}, \dots, y_{n} }
+}
+The $\phi_i$ are well defined, as each equivalence class in $U_i$ has a unique representation where $z_i = 1$ (as a homogenous coordinate). Moreover, the $\phi_i$ are clearly homeomorphisms onto their image. Letting $U_i \cap U_j = U_{ij}$, we now see that the transition functions are given by 
+\eq{
+(\phi_j \circ \phi_i^{-1}) : \phi_i(U_{ij}) &\to \phi_j(U_{ij}) \\
+\pround{x_0, y_0,  \dots, y_{n} } &\mapsto \frac{1}{x_j^2 + y_j^2}\pround{x_0x_j + y_0y_j, y_0 x_j - y_j x_0, \dots , y_{n}x_j - y_j x_{n}}
+}
+where $x_i = 1, \, y_i = 0$ on the RHS. We can see this is a diffeomorphism for $x_j, y_j \neq 0$. As such we have found a smooth atlas on $\mbb{CP}^n$.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Submanifold}
+We now want to consider the case $n=2$. Defining $F(z_0,z_1,z_2) = z_2 z_1^2 - z_0^3 + z_0^2 z_2 + z_0 z_2^2$ we take the subset $M = \pbrace{F(z_0,z_1,z_2) = 0} \subset \mbb{CP}^2$. Note that the condition $F = 0$ is well defined in homogeneous coordinates, as $F(\lambda \bm{z}) = \lambda^3 F(\bm{z})$. 
+
+\begin{prop}
+$M$ is a submanifold of real dimension $2$. 
+\end{prop}
+\begin{proof}
+We consider 
+\eq{
+M_0 &= M \cap U_0 = \pbrace{z_2 z_1^2 - 1 + z_2 + z_2^2= 0} \\
+M_1 &= M \cap U_1 = \pbrace{z_2 - z_0^3 + z_0^2 z_2 + z_0 z_2^2 = 0} \\
+M_2 &= M \cap U_2 = \pbrace{z_1^2 - z_0^3 + z_0^2 + z_0 = 0} 
+}
+Take $f_i : \phi_i(U_i) \to \mbb{R}^2 $ given by, for example, \eq{
+f_0(x_1,y_1,x_2,y_2) = (\Re F(1,x_1+iy_1,x_2 + iy_2),\Im F(1,x_1+iy_1,x_2 + iy_2))
+}
+We then have proved the proposition by the preimage theorem if we can show $df_i$ is non-singular on $M_i$. A key observation to simplify this process is to note that this is equivalent to $dF$ non-singular on $M$, taking the complex derivative. Now we have 
+\eq{
+\pd[F]{z_0} &= -3z_0^2 + 2z_0 z_2 + z_2^2 \\
+\pd[F]{z_1} &= 2z_1 z_2 \\
+\pd[F]{z_2} &= z_1^2 + z_0^2 + 2z_0z_2
+}
+A simple check confirms that these equations have no simultaneous solution in $\mbb{CP}^2$. Hence done. 
+\end{proof}
+
+\begin{remark}
+We can recognise that $M$ defines an elliptic curve, i.e. a non-singular cubic projective plane curve, and as such we identify $M$ as a genus one surface  
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exercise 2.13}
+We start with a definition of an equivalence relation $\sim$ on $\mbb{RP}^n \times \mbb{R}^{n+1}$ by $(l,v) \sim (l^\prime, v^\prime)$ if $l = l^\prime$ and $v-v^\prime \in l$. With this we define $Q = \faktor{(\mbb{RP}^n \times \mbb{R}^{n+1})}{\sim}$. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(i)}
+
+\begin{prop}
+$Q$ is a rank $n$ vector bundle over $\mbb{RP}^n$
+\end{prop}
+\begin{proof}
+Note we immediately get a projection have a projection $\varpi : Q \to \mbb{RP}^n, \, \varpi([(l,v)]) = l$. This is clearly well defined, surjective, and smooth. What remains is to construct a local trivilisation of $Q$. \\
+Give $\mbb{RP}^n$ homogenous coordinates $x_i$ s.t. $l(x_0, \dots, x_n) = \pbrace{\lambda(x_0, \dots, x_n)\in \mbb{R}^{n+1} \, | \, \mbb{R} \ni \lambda \neq 0}$ w.r.t some fixed cartesian basis $\pbrace{e_i}$. We will (similarly to the previous question) take $U_i = \pbrace{x_i \neq 0} \subset \mbb{RP}^n$ as charts. \\
+Further, note that the standard inner product gives a splitting $\mbb{R}^{n+1} = l \oplus l^\perp$, s.t. $\forall v \in \mbb{R}^{n+1}$ we can write $v=v_l + v^\perp$. This allows us to construct 
+\eq{
+\phi_i : \varpi^{-1}(U_i) &\to U_i \times l^\perp \\
+[(l,v)] &\mapsto (l,v^\perp)
+}
+which is well defined from how we built our splitting. Now for $l \in U_i$ let $n(l)\in \mbb{R}^{n+1}$ be s.t $l = \pbrace{\lambda n(l) \, | \, \lambda \neq 0}, \, \abs{n(l)} = 1, \, \pangle{n(l),e_i} > 0$. $n(l)$ is unique if it exists, and as we have restricted to $U_i$, we know that such an $n(l)$ will exists, so it can be seen that $n : U_i \to \mbb{R}^{n+1}$ is a smooth map. To then send $U_i \times l^\perp \to U_i \times \mbb{R}^n$ in a smooth way, we recognise that for $l \in U_i$ we have a basis of $\mbb{R}^n$ given by $S_{i}(l) = \pbrace{e_1, \dots, e_{i-1},n(l),e_{i+1}, \dots, e_n}$, and taking the components in these coordinates of $v^\perp \in l^\perp$ is a smooth assignment (Note it send $l^\perp \to \mbb{R}^n$ as we ignore the component in the $n(l)$ direction, which is 0). The concatenation with $\phi_i$ gives smooth maps $\psi_i : \varpi^{-1}(U_i) \to U_i \times \mbb{R}^n$ which obey $(pr_1 \circ \psi_i)([(l,v)]) = l = \varpi([(l,v)])$. \\
+For the $\psi_i$ to be local trivialisations now all we need are that the transition functions $\psi_{ji}$ are smooth maps $U_{ij} = U_i \cap U_j \to GL_n(\mbb{R})$. We can see this is true, as $\psi_{ij}$  will be (up to rearranging of rows/columns) a block diagonal matrix with blocks $I_{n-2}$ and the change of basis map $\pbrace{n(l),e_j}\to \pbrace{n(l),e_i}$. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(ii)}
+
+Let $E$ now be the tautological line bundle over $\mbb{RP}^n$ given by the quotient $\pi : \mbb{R}^{n+1} \setminus \pbrace{0} \to \mbb{RP}^n$, and consider $\Hom(E,Q) = \sqcup_{l \in \mbb{RP}^n} \Hom(l,\faktor{\mbb{R}^{n+1}}{l})$
+
+\begin{prop}
+$\Hom(E,Q)$ is a vector bundle over $\mbb{RP}^n$. 
+\end{prop}
+\begin{proof}
+Clearly the projection we want is $p: \Hom(E,Q) \to \mbb{RP}^n, \, p\pround{h\in \Hom\pround{l,\faktor{\mbb{R}^{n+1}}{l}}} = l$. We then proceed similarly to before, noting that a hom $l \to \faktor{\mbb{R}^{n+1}}{l}$ is given by a $n$ element vector if we have a basis of $\faktor{\mbb{R}^{n+1}}{l} \cong l^\perp$ (using $[v_l + v^\perp]\leftrightarrow v^\perp$). Hence we trivialise $\Hom(E,Q)$ locally over $U_i$ as
+\eq{
+\varphi_i : p^{-1}(U_i) &\to U_i \times \mbb{R}^n \\
+h \in \Hom\pround{l,\faktor{\mbb{R}^{n+1}}{l}} &\mapsto (l,\text{coordinates of $h(n(l))$ in basis $S_i(L)$})
+}
+Once again, transition functions correspond to a smooth change of basis, so we are done.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(iii)}
+
+\begin{prop}
+$T\mbb{RP}^n \cong \Hom(E,Q)$ as vector bundles over $\mbb{RP}^n$. 
+\end{prop}
+\begin{proof}
+We first note that $Q=T\mbb{RP}^n$. We then know immediately from previous calculations that we have a fibrewise isomorphism given by 
+\eq{
+\Hom\pround{l,\faktor{\mbb{R}^{n+1}}{l}} &\leftrightarrow  \faktor{\mbb{R}^{n+1}}{l} \\
+h &\mapsto h(n(l)) \\
+(h:\lambda n(l) \mapsto [\lambda v^\perp])  &\mapsfrom [v^\perp] 
+}
+This fibrewise isomorphism extends to a one on over $U_i$ naturally, and then by the existence of our local trivialisations this is giving a non-trivial isomorphism 
+\eq{
+F_i : \psi_i(\varpi^{-1}(U_i)) = U_i \times \mbb{R}^n \to U_i \times \mbb{R}^n = \varphi_i(p^{-1}(U_i))
+}
+Now as our transition functions are smooth  and at each point in $U_{ij}$ invertible we have that 
+\begin{tkz}
+U_{ij} \times \mbb{R}^n \arrow[d,"\psi_{ji}"'] \arrow[r,"F_i"] & U_{ij} \times \mbb{R}^n \arrow[d,"\varphi_{ji}"] \\
+U_{ij} \times \mbb{R}^n \arrow[r,"F_j"'] & U_{ij} \times \mbb{R}^n
+\end{tkz}
+commutes. Hence our local isomorphism extends to a global one. 
+\end{proof}
+
+\begin{remark}
+There was nothing special about our bundles here that was required in the proof, and so this generalises to a statement that any fibrewise vector bundle isomorphism gives a global vector bundle isomorphism. 
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exercise 3.8}
+Let $M$ be a manifold we local coordinates $\pbrace{x_i \, | \, i=1, \dots, n}$. Take $X,Y,Z$ to be vector fields on $M$. At $m \in M$ write $Z_m = Z_i(m) \ev{\pd{x_i}}{m}$ (summation convention assumed). 
+
+\begin{definition}
+The commutator of two vector fields $X,Y$, treated as derivations, is $\comm[X]{Y} = XY-YX$. 
+\end{definition}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(i)}
+
+\begin{prop}
+$\comm[X]{Y}_i(m) = d_m Y_i(X_m) = d_m X_i(Y_m)$
+\end{prop}
+\begin{prop}
+For notational convenience, we will drop the $m$, but it should not be forgotten that it is there. Then
+\eq{
+\comm[X]{Y} &= X_j \pd{x_j} \pround{Y_k \pd{x_k}} - Y_k \pd{x_k} \pround{X_j \pd{x_j}} \\
+&= X_j \pround{\pd[Y_k]{x_j} \pd{x_k} + Y_k \pd{x_k x_j} } - Y_k \pround{\pd[X_j]{x_k} \pd{x_j} + X_j \pd{x_k x_j} } \\
+&= \pround{X_j \pd[Y_k]{x_j} - Y_j \pd[X_k]{x_j}} \pd{x_k} \\
+\Rightarrow \comm[X]{Y}_i &= \pround{X_j \pd[Y_i]{x_j} - Y_j \pd[X_i]{x_j}} = dY_i(X) - dX_i(Y)
+}
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(ii)}
+
+\begin{prop}
+$\comm[{\comm[X]{Y}}]{Z} + \comm[{\comm[Z]{X}}]{Y} + \comm[{\comm[Y]{Z}}]{X}=0$
+\end{prop}
+\begin{proof}
+Using the above we have
+\eq{
+\comm[{\comm[X]{Y}}]{Z}_i &=  \pround{X_j \pd[Y_k]{x_j} - Y_j \pd[X_k]{x_j}} \pd[Z_i]{x_k} - Z_k \pd{x_k} \pround{X_j \pd[Y_i]{x_j} - Y_j \pd[X_i]{x_j}} \\
+&= \pround{X_j \pd[Y_k]{x_j} - Y_j \pd[X_k]{x_j}} \pd[Z_i]{x_k} - Z_k \pround{\pd[X_j]{x_k} \pd[Y_i]{x_j} + X_j \frac{\del^2 Y_i}{\del x_k \del x_j} - \pd[Y_j]{x_k} \pd[X_i]{x_j} - Y_j \frac{\del^2 X_i}{\del x_k \del x_j}} 
+}
+Calling $X = X^{(1)}, Y = X^{(2)}, Z = X^{(3)}$ we have 
+\eq{
+\frac{1}{2}\pbrace{\comm[{\comm[X]{Y}}]{Z}_i + \comm[{\comm[Z]{X}}]{Y}_i + \comm[{\comm[Y]{Z}}]{X}_i} =& \eps_{abc} \comm[{\comm[X^{(a)}]{X^{(b)}}}]{X^{(c)}}_i \\
+=& (\eps_{abc}-\eps_{bac} - \eps_{cab} + \eps_{cba}) X^{(a)}_j \pd[X^{(b)}_k]{x_j} \pd[X^{(c)}_i]{x_k} \\
+&+ (-\eps_{abc} + \eps_{cba}) X^{(a)}_a X^{(c)}_k \frac{\del^2 X^{(b)}_i}{\del x_j x_k} \\
+=& 0
+}
+using properties of the alternating tensor. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exercise 4.12}
+We will now let $\pi : S^n \to \mbb{RP}^n$ be the natural quotient. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(i)}
+
+\begin{prop}
+$\pi$ is a local diffeomorphism
+\end{prop}
+\begin{proof}
+Express $S^n = \pbrace{v \in \mbb{R}^{n+1} \, | \, \abs{v}=1}$. Taking an orthonormal basis $\pbrace{ e_i}$ of $\mbb{R}^{n+1}$ we can get an open cover of $S^n$ using $\pbrace{U_i^\pm}$ where 
+\eq{
+U_i^\pm = \pbrace{v \in S^n \, | \, \pm( v \cdot e_i) > 0} \, .
+}
+Note that $U_i^+ \cap U_i^- = \emptyset$ and $v \in U_i^+ \Rightarrow -v \in U_i^-$, so $v, -v$ never lie in the same $U_i^\pm$. We now state the (easily checked) fact 
+\begin{fact}
+$\pi(x) = \pi(x^\prime) \Leftrightarrow x = \pm x^\prime$. 
+\end{fact}
+Hence we know that $\pi : U_i^\pm \to \pi(U_i^\pm)$ is bijective. The projection is also clearly smooth, as the corresponding map of charts is diffeomorphic to the identity (see diagram).
+\begin{tkz}
+(x_0, \dots, x_n) \in U_i^\pm \arrow[r,"\pi"] \arrow[d,"\psi"'] & \pi(U_i^\pm) \ni [x_0: \dots: x_n] \arrow[d,"\phi"] \\
+(\frac{x_0}{x_i}, \dots,\hat{1}, \dots, \frac{x_n}{x_i}) \in U \subset \mbb{R}^{n}  \arrow[r,dashed," \id"] & \mbb{R}^n \supset U \ni (\frac{x_0}{x_i}, \dots, \hat{1} , \dots, \frac{x_n}{x_i}) 
+\end{tkz} 
+(here the hat on the 1 is to indicate its absence in the vector). Hence we are done by restricting an open set to lie in an $U_i^\pm$ in order to have $\ev{\pi}{U}$ a diffeo.
+\end{proof}
+\begin{corollary}
+$\forall x \in S^n, \, d_x\pi$ is an isomorphism
+\end{corollary}
+\begin{proof}
+The derivative of a diffeomorphism is an isomorphism as $\id = d_x(\id) = d_x(f^{-1} \circ f) = d_{f(x)}(f^{-1}) \circ d_xf$, so we have explicitly found an inverse for $d_xf$. Now as the derivative is a local property, is it sufficient that $\pi$ is a local diffeomorphism. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(ii)}
+
+We restate here the definition of a volume form:
+
+\begin{definition}
+A \bam{volume form} on $M$, an $n$ dimensional manifold, is $\omega \in \Gamma(\Lambda^n T^\ast M)$ that is nowhere vanishing
+\end{definition}
+
+\begin{prop}
+Let $\omega$ be a volume form for $\mbb{RP}^n$. Then $\pi^\ast \omega$ is a volume form on $S^n$. 
+\end{prop}
+\begin{proof}
+Let $x \in S^n$ and $X_1, \dots, X_n \in T_x S^n \setminus \pbrace{0}$. Then by def $\pi^\ast \omega \in \Gamma(\Lambda^n T^\ast S^n)$ is given by 
+\eq{
+(\pi^\ast \omega)_x(X_1, \dots X_n) = \omega_{\pi(x)}(d_x\pi(X_1), \dots, d_x\pi(X_n)) 
+}
+As $\omega_{\pi(x)}$ is not the zero form we may find $Y_1, \dots, Y_n$ s.t. $\omega_{\pi(x)}(Y_1, \dots, Y_n) \neq 0$, and then taking $X_k = (d_x\pi)^{-1}(Y_k)$ we get $(\pi^\ast \omega)_x(X_1, \dots, X_n) \neq 0$, i.e. $(\pi^\ast \omega)_x \neq 0$. As $x$ was generic, it must be the case that $\pi^\ast \omega$ is everywhere non-zero. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(iii)}
+
+\begin{prop}
+$\exists u : S^n \to \mbb{R}$ smooth and nowhere vanishing s.t. $\pi^\ast \omega = u \omega_0$, where $\omega_0$ is the standard volume form on $S^n$. 
+\end{prop}
+\begin{proof}
+Take $X_1, \dots X_n \in \Gamma(T S^n)$ s.t $\forall x \in S^n, \, X_1(x), \dots, X_n(x)$ form a basis of $T_x S^n$. Now define
+\eq{
+u : S^n &\to \mbb{R} \\
+x &\mapsto \frac{(\pi^\ast \omega)_x(X_1(x), \dots, X_n(x))}{(\omega_0)_x(X_1(x), \dots, X_n(x))}
+}
+\begin{claim}
+$u$ is well defined, smooth, and nowhere vanishing.
+\end{claim}
+\begin{proof}
+By choosing the $X_k$ s.t. the $X_k(x)$ are L.I, we know that the denominator is non-zero, as $\omega_0$ is nowhere zero, so $u$ is well defined and moreover smooth as $\omega_0, \pi^\ast \omega$ are. $u$ is also non-zero as $\pi^\ast \omega$ is nowhere vanishing. 
+\end{proof}
+We will now use the following linear algebra fact
+\begin{fact}
+If $f : V \to \mbb{R}$ is an alternating linear map on an $n$ dimensional vector space $V$, and $v_1, \dots, v_n, w_1, \dots, w_n \in V$ are related by the matrix $A$ s.t. $v_i = \sum_j A_{ij} w_j$, then $\alpha(v_1, \dots, v_n)=\det(A) \alpha(w_1, \dots, w_n)$
+\end{fact}
+Now taking arbitrary $Y_1, \dots, Y_n \in T_x S^n$ we must have $Y_k = \sum_{l} A_{kl} X_l(x) $ for some matrix $A$. Hence  
+\eq{
+(\pi^\ast \omega)_x(Y_1, \dots, Y_n) &= \det(A) (\pi^\ast \omega)_x(X_1(x), \dots, X_n(x)) \\
+&= \det(A) u(x) (\omega_0)_x(X_1(x), \dots, X_n(x)) \\
+&= u(x) (\omega_0)_x(Y_1, \dots, Y_n)
+}
+and so the $u$ constructed satisfies the conditions of the statement. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(iv)}
+
+Now let $a: S^n \to S^n, \, x \mapsto -x$, be the antipodal map. 
+
+\begin{prop}
+$a^\ast \omega_0 = (-1)^{n+1} \omega_0$
+\end{prop}
+\begin{proof}
+For $x \in S^n$ take $X_1, \dots, X_n \in T_xS^n$. Note $d_x \alpha = -\id$. Then 
+\eq{
+(a^\ast \omega_0)_x(X_1, \dots, X_n) &= (\omega_0)_{-x}(-X_1, \dots, -X_n) \\
+&= (-1)^{n+1} (\omega_0)_x (X_1, \dots, X_n) \\
+\Rightarrow a^\ast \omega_0 &= (-1)^{n+1}\omega_0
+}
+\end{proof}
+\begin{corollary}
+$\mbb{RP}^n$ is orientable iff $n$ is odd
+\end{corollary}
+\begin{proof}
+Using $\pi \circ a = \pi \Rightarrow a^\ast(\pi^\ast \omega) = \pi^\ast \omega$, we can see that the existence of a volume form on $\mbb{RP}^n$ implies that $n$ odd using the prop above. \\
+To show that $\mbb{RP}^n$ is orientable if $n$ is odd, we need to construct an $\omega$. We may define $\omega$ at $\pi(x) \in \mbb{RP}^n$ acting on $Y_1, \dots, Y_n \in T_{\pi(x)}\mbb{RP}^n$ by 
+\eq{
+\omega_{\pi(x)}(Y_1, \dots, Y_n) = (\omega_0)_x ((d_x\pi)^{-1}(Y_1), \dots, (d_x\pi)^{-1}(Y_n))
+}
+Note this involves a choice of preimage, but we can make the following claim:
+
+\begin{claim}
+If $n$ is odd, $\omega$ is well defined
+\end{claim}
+\begin{proof}
+Note $d_x\pi = d_x(\pi \circ a) = d_{a(x)} \pi \circ d_xa = -d_{(-x)}\pi$. Hence 
+\eq{
+(\omega_0)_{(-x)} ((d_{(-x)}\pi)^{-1}(Y_1), \dots, (d_{(-x)}\pi)^{-1}(Y_n)) &= (-1)^{n+1}(\omega_0)_x ((d_x\pi)^{-1}(Y_1), \dots, (d_x\pi)^{-1}(Y_n))
+}
+and so we are done. 
+\end{proof}
+\end{proof}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exercise 5.6}
+
+\begin{prop}
+$\forall 0 \leq k < n, \, H_c^k(\mbb{R}^n) = 0$
+\end{prop}
+\begin{proof}
+We first note the $k=0$ is simple, as $f$ a constant function having compact support means that $f=0$ everywhere, and so trivially $H_c^0(\mbb{R}^n) = 0$.\\
+To tackle the case $n > k >0$ we will quote that
+\eq{
+H_{dR}^k(\mbb{R}^n) &= \left \lbrace \begin{array}{cc}
+    \mbb{R} & k=0 \\
+    0 & k >0 
+\end{array}\right. \\
+H_{dR}^k(S^n) &= \left \lbrace \begin{array}{cc}
+    \mbb{R} & k=0,n \\
+    0 & k\neq 0,n 
+\end{array}\right.
+}
+We then let $\alpha \in \Omega^k_c(\mbb{R}^n)$ be s.t. $d\alpha = 0$. Considering $\alpha$ in $\Omega^k(\mbb{R}^n)$ we know $\exists \beta \in \Omega^{(k-1)}(\mbb{R}^n)$ s.t. $\alpha = d\beta$. Now let $R \in \mbb{R}_{>0}$ be s.t. $\supp \alpha \subset B_R \equiv U$. Now as $V \equiv \mbb{R}^n \setminus U $ is homotopic to $S^{n-1}$ and de Rham cohomology is homotopy invariant we can say $\exists \gamma \in \Omega^{(k-2)}(V)\ \,  \ev{\beta}{V}= d\gamma$. Now let $\phi : \mbb{R}^n \to \mbb{R}$. We have 
+\eq{
+d(\beta + d(\phi\gamma)) &= d\beta + d^2(\phi\gamma) = \alpha \\
+d(\phi \gamma) &= d\phi \wedge \gamma + \phi d\gamma
+}
+Now let $W= \mbb{R}^n \setminus B_{R+1}$. If we can find $\phi$ s.t. $\ev{\phi}{W} = -1, \, \ev{\phi}{U} = 0$ and $\phi$ is smooth inbetween then $\phi\gamma \in \Omega^{(k-2)}(\mbb{R}^n)$ is well defined and $\beta + d(\phi\gamma)$ has compact support, as on $W$ is is constructed to be 0. such a bump function $\phi$ must exist.
+\end{proof}
+
+\end{document}

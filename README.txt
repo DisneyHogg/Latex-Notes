@@ -8,7 +8,7 @@ The current architecture is as such:
 
 header.sty
 This is my big header file that I use in almost all my Latex documents (bar maybe my CV). 
-It has a modification (header-colourful) floating about (in 'Example sheets ...' and Notes) which adds some (what I think are pretty) colours to the notes. (COMBINE AND BRING UP A LEVEL) 
+It has a modification (header-colourful) which adds some (what I think are pretty) colours to the notes. 
 
 library.bib
 An out of date .bib file (DELETE IT) 

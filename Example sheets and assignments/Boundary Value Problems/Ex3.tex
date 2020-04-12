@@ -1,0 +1,245 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Boundary Value Problems in Linear PDEs Revision Notes}
+\author{Linden Disney-Hogg}
+\date{December 2018}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 1}
+Let 
+\begin{align} \label{eq:BVP:ex3:1}
+u_{xx} + u_{yy} + k^2 u = 0 
+\end{align}
+for $k>0$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(i)}
+Take the adjoint equation  
+\begin{align} \label{eq:BVP:ex3:2}
+v_{xx} + v_{yy} + k^2 v = 0
+\end{align}
+Combine \ref{eq:BVP:ex3:1} and \ref{eq:BVP:ex3:2} to give 
+\begin{align} \label{eq:BVP:ex3:3}
+u_{xx} v + u_{yy} v - v_{xx} u - v_{yy} u = 0 \\
+\Rightarrow (u_x v - v_x u)_x - (v_y u -u_y v)_y = 0
+\end{align}
+The wave like solutions are 
+\eq{
+v(x,y) = e^{k_1 x + k_2 y} \\
+\text{with} k_1^2 + k_2^2 +k^2 = 0
+}
+Write 
+\eq{
+k_1 = ik\sin \theta \\
+l_2 = ik \cos\theta \\
+\lambda = e^{i\theta} \\
+\Rightarrow k_1 = -\frac{k}{2} (\frac{1}{\lambda} - \lambda) \\
+\Rightarrow k_2 = \frac{ik}{2} (\frac{1}{\lambda} + \lambda)
+}
+So 
+\eq{
+v = e^{-\frac{k}{2} (\frac{1}{\lambda} - \lambda) x + \frac{ik}{2} (\frac{1}{\lambda} + \lambda) y }
+}
+Substituting this into \ref{eq:BVP:ex3:3} gives a divergence form which has parameter $\lambda \in \mbb{C}$. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(ii)}
+This looks like 
+\eq{
+Q_x - P_y = 0 \\
+\Rightarrow \int_{\del\Omega} Pdx + Qdy =0 \\
+\Rightarrow \int_{\del \Omega} e^{-\frac{k}{2} (\frac{1}{\lambda} - \lambda) x + \frac{ik}{2} (\frac{1}{\lambda} + \lambda) y }
+ \left\{ \left[ u_x + \frac{k}{2} (\frac{1}{\lambda} - \lambda)u \right] dy + \left[ -u_y + \frac{ik}{2} (\frac{1}{\lambda} + \lambda)u\right]dx \right\} = 0
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(iii)}
+Mapping $\lambda \to -\frac{1}{\lambda}$ determines a second GR from the first. 
+Note that for real $u$, the complex conjugation of the second global relation is equivalent to transforming the first under $\lambda \to \bar{\lambda}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 2}
+Consider 
+\eq{
+u_{xx}+u_{yy} = 0
+}
+on the quarter plane $\Omega=\set{(x,y) : x,y\in(0,\infty)}$. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(i)}
+Rewrite the equation as (taking $z=x+iy$)
+\eq{
+(u_z)_{\bar{z}} = 0 \\
+\Rightarrow (e^{-i\lambda z} u_z)_{\bar{z}} = 0 \\
+\Rightarrow \int_{\del\Omega} e^{-i\lambda z} u_z dz = 0 \\
+\text{and } \int_{\del\Omega} e^{-i\lambda \bar{z}} u_{\bar{z}} d\bar{z} = 0
+}
+The integral representation is then just 
+\eq{
+u_z = \frac{1}{2\pi} \sum_{j=1}^2 \int_{l_j} e^{i\lambda z} \hat{u}_j(\lambda) d\lambda
+}
+where 
+\eq{
+\hat{u}_j(\lambda) = \int_{z_j}^{z_{j+1}} e^{-i\lambda z} u_z dz
+}
+and 
+\eq{
+l_j = \set{\lambda : \arg \lambda = -\arg(z_{j+1} - z_j) }
+}
+The GR becomes 
+\eq{
+\hat{u}_1(\lambda) + \hat{u}_2(\lambda) = 0
+}
+for $\pi \leq \arg \lambda \leq \frac{3\pi}{2}$ (see later).
+\eq{
+\hat{u}_1(\lambda) = -\frac{1}{2} \int_0^\infty e^{\lambda y} \left[ u_x(0,y) + u_y(0,y) \right] dy \\
+\hat{u}_2(\lambda) = -\frac{1}{2} \int_0^\infty e^{-i\lambda x} \left[ u_x(x,0) + u_y(x,0) \right] dx
+}
+In order to have these well defined we need $\Re \lambda \leq 0 $ and $\Im \lambda \leq 0 $. Define 
+\eq{
+G_1(\lambda)  = -\frac{1}{2} \int_0^\infty e^{\lambda y} g_1(y) dy \\
+G_2(\lambda)  = -\frac{1}{2} \int_0^\infty e^{\lambda x} g_1(x) dx \\
+U_1(\lambda) = \frac{1}{2} \int_0^\infty e^{\lambda y} u_y(0,y)dy \\
+U_2(\lambda) = -\frac{1}{2} \int_0^\infty e^{\lambda x } u_x(x,0) dx 
+}
+The GR then takes the form 
+\eq{
+G_1(\lambda) + iU_1(\lambda) + G_2( -i\lambda) + i U_2( -i\lambda) = 0 \quad \arg\lambda \in [\pi,\frac{3\pi}{2}]
+}
+Taking the Schwarz conjugate 
+\eq{
+G_1(\lambda) - iU_1(\lambda) + G_2( i\lambda) - i U_2( i\lambda) = 0 \quad \arg\lambda \in [\frac{\pi}{2},\pi]
+}
+Together these give 
+\eq{
+iU_1(\lambda) = G_1(\lambda) + G_2( i\lambda) - i U_2( i\lambda) = 0 \quad \arg\lambda \in [\frac{\pi}{2},\pi] \\
+}
+and considering the transform $\lambda \to -\lambda$ in both gives 
+\eq{
+iU_2(-i\lambda) = iU_2(i\lambda) + 2G_1(i\lambda) +G_2(-i\lambda) \quad \lambda > 0
+}
+Hence 
+\eq{
+u_z &= \frac{1}{2\pi} \int_0^\infty e^{i\lambda z} \hat{u}_1(\lambda) d\lambda + \frac{1}{2\pi} \int_0^\infty e^{i\lambda z} \hat{u}_2 (\lambda) d\lambda \\
+&= \frac{i}{\pi} \int_0^\infty e^{i\lambda z} [2G_1(\lambda) + G_2(i\lambda) - iU_2(i\lambda)]d\lambda \\
+&+ \frac{i}{\pi} \int_0^\infty e^{i\lambda z} [2G_2(-i\lambda) + G_2(i\lambda) +2G_1(-\lambda)+ iU_2(i\lambda)]d\lambda
+}
+Using the fact that $e^{i\lambda z}U(i\lambda)$ is bounded and analytic on the first quadrant and $U_2(i\lambda) = \mc{O}(\frac{1}{\lambda})$ as $\lambda\to\infty$, Cauchy's theorem and Jordan's lemma yield the vanishing of the contribution in the IR. Hence the final IR is 
+\eq{
+u_z = \frac{i}{\pi} \int_0^\infty e^{i\lambda z} [2G_1(\lambda) + 2G_2(i\lambda) ]d\lambda + \frac{i}{\pi} \int_0^\infty e^{i\lambda z} [2G_1(-i\lambda) +2G_1(-\lambda)]d\lambda
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \subsection{(ii)}
+Taking 
+\eq{
+g_1(y) = ye^{-y} \\
+g_2(x) = xe^{-x}
+}
+gives 
+\eq{
+G_1(\lambda) = -\frac{1}{2} \frac{1}{(\lambda-1)^2} \\
+G_2(\lambda) = -\frac{1}{2} \frac{1}{(\lambda-1)^2}
+}
+so 
+\eq{
+u_z = -\frac{1}{2\pi} \left \{ \int_0^{i\infty} e^{i\lambda z} (\frac{1}{(\lambda-1)^2}   -\frac{1}{(\lambda+i)^2}  ) d\lambda + \int_0^{i\infty} e^{i\lambda z} (\frac{1}{(\lambda+1)^2}   -\frac{1}{(\lambda-1)^2}  ) d\lambda     \right\}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{(iii)}
+Now 
+\eq{
+\Re i\lambda z <0 \Rightarrow 0 < \arg \lambda + \arg z < \pi 
+}
+as $\arg z \in (0,\frac{\pi}{2})$, $\arg \lambda \in (0,\frac{\pi}{2}) \Rightarrow \Re i\lambda z <0$. Hence we can deform the contour to be along the ray $\set{re^{i\phi} : r\in\mbb{R}_{>0}}$ for some $\phi \in (0,\frac{\pi}{2})$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 3}
+Consider the equation 
+\eq{
+u_t = u_{xx} + \beta u_x
+}
+for $\beta > 0$. Deriving the GR through integration by parts as is standard gives 
+\eq{
+\hat{u}_t = e^{-i\lambda L} h_1(t) - g_1(t) + (\beta + i\lambda) e^{-i\lambda L}h_0(t) - (\beta+ i\lambda) g_0(t) - (\lambda^2 - i\beta \lambda) \hat{u}
+}
+Denote $\omega(\lambda) = \lambda^2 -i\beta\lambda$ and let 
+\eq{
+\tilde{q}(\lambda,t) = \int_0^t e^{\lambda\tau} q(\tau) d\tau
+}
+After integrating we obtain the GR
+\eq{
+e^{\omega(\lambda)t}\hat{u}(\lambda,t) &= \hat{u}_0(\lambda) + e^{-i\lambda L}\tilde{h}_1(\omega(\lambda),t) -\tilde{g}_1(\omega(\lambda),t) \\
+&+ (\beta + i\lambda) \left[ e^{-i\lambda L} \tilde{h}_0(\omega(\lambda),t) - \tilde{g}_0(\omega(\lambda),t)\right] \quad \lambda\in\mbb{C}
+}
+We can then invert the finite FT to obtain the IR 
+\eq{
+u(x,t) &= \frac{1}{2\pi} \int_{-\infty}^\infty e^{i\lambda x - \omega(\lambda)t} \hat{u}_0(\lambda) d\lambda - \frac{1}{2\pi} \int_{-\infty}^\infty e^{i\lambda x - \omega(\lambda)t} \left[ \tilde{g}_1 + (\beta+i\lambda)\tilde{g}_0 \right] d\lambda \\
+&+  \frac{1}{2\pi} \int_{-\infty}^\infty e^{-i\lambda(L-x) - \omega(\lambda)t} \left[ \tilde{h}_1 + (\beta+i\lambda) \tilde{h}-0\right]
+}
+Now $\Re \omega(\lambda) = \lambda_R^2 - \lambda_I^2 + \beta\lambda_I$. The condition $\Re \omega(\lambda) = 0$ hence defines a hyperbola which bounds the region along which the contour must pass for the integrand to remain bounded $\forall t$. Deforming onto these boundaries changes the IR to 
+\eq{
+u(x,t) &= \frac{1}{2\pi} \int_{-\infty}^\infty e^{i\lambda x - \omega(\lambda)t} \hat{u}_0(\lambda) d\lambda - \frac{1}{2\pi} \int_{\del D^+} e^{i\lambda x - \omega(\lambda)t} \left[ \tilde{g}_1 + (\beta+i\lambda)\tilde{g}_0 \right] d\lambda \\
+&-  \frac{1}{2\pi} \int_{\del D^-} e^{-i\lambda(L-x) - \omega(\lambda)t} \left[ \tilde{h}_1 + (\beta+i\lambda) \tilde{h}-0\right]
+}
+More GRs may then be found by transforming $\lambda \to \nu(\lambda)$ where $\nu(\lambda) satisfies $
+\eq{
+\omega(\nu(\lambda)) = \omega(\lambda) \\
+(\lambda - \nu)(\lambda + \nu) - i\beta(\lambda - \nu) = 0 \\
+(\lambda - \nu)(\lambda + \nu - i\beta) = 0 \\
+\Rightarrow \nu(\lambda) = i\beta - \lambda
+}
+Denoting 
+\eq{
+G(\lambda) = \hat{u}_0(\lambda) + e^{-i\lambda L} \tilde{h}_0(\omega(\lambda)) - \tilde{g}_1 ( \omega(\lambda))
+}
+the GR is 
+\eq{
+e^{\omega(\lambda)t}\hat{u}(\lambda,t) = G(\lambda) + (\beta + i\lambda) e^{-i\lambda L} \tilde{h}_0(\omega(\lambda)) - (\beta + i\lambda) \tilde{g}_0 (\omega(\lambda)) \quad \lambda\in\mbb{C}
+}
+and hence the extra GR is 
+\eq{
+e^{\omega(\lambda)t}\hat{u}(\beta-i\lambda,t) = G(\beta-i\lambda)  -i\lambda e^{(i\lambda+\beta) L} \tilde{h}_0(\omega(\lambda))  + i\lambda \tilde{g}_0 (\omega(\lambda)) \quad \lambda\in\mbb{C}
+}
+We solve this for $\tilde{h}_0$ and $\tilde{g}_0$. 
+\eq{
+(\beta + i\lambda) \tilde{h}_0 &= \frac{1}{i\lambda} \frac{1}{e^{-i\lambda L}-e^{(i\lambda+\beta)L}} \left\{ -\left[ i\lambda G(\lambda) + (\beta+i\lambda) G(i\beta-\lambda) \right] \right. \\
+&+ \left.\left[ i\lambda \hat{u}(\lambda,t) + (\beta + i\lambda) \hat{u}(i\beta-\lambda,t)\right]e^{\omega(\lambda)t} \right\}
+}
+The poles of this occur when $\lambda = 0$ and 
+\eq{
+e^{-i\lambda L}-e^{(i\lambda+\beta)L}=0 \\
+\Rightarrow e^{(\beta + 2i\lambda)L}=1 \\
+\lambda = i \frac{\beta}{2} + \frac{n\pi}{L} \quad n\in\mbb{Z}
+}
+However it can be shown the pole at $\lambda = 0$ is a removable singularity, so we need only slightly alter the $\del D^-$ contour away from the origin. 
+Also 
+\eq{
+(\beta + i\lambda) \tilde{g}_0 =& \frac{1}{i\lambda} \frac{1}{e^{-i\lambda L}-e^{(i\lambda+\beta)L}} \left\{ -\left[ i\lambda e^{i\lambda + \beta}G(\lambda) + (\beta+i\lambda) e^{-i\lambda L} G(i\beta-\lambda) \right] \right. \\
+&+ \left. \left[ i\lambda e^{(i\lambda+\beta)L}\hat{u}(\lambda,t) + (\beta + i\lambda) e^{-i\lambda L}\hat{u}(i\beta-\lambda,t)\right]e^{\omega(\lambda)t} \right\}
+}
+Substituting in to the IR, we see terms 
+\eq{
+\int_{\del D^+} e^{i\lambda x - \omega(\lambda)t} \frac{1}{i\lambda} \frac{1}{e^{-i\lambda L}-e^{(i\lambda+\beta)L}} i\lambda e^{(i\lambda+\beta)L}\hat{u}(\lambda,t) e^{\omega(\lambda)t} d\lambda \\
+= \int_{\del D^+} e^{i\lambda x }  \frac{1}{e^{-i\lambda L}-e^{(i\lambda+\beta)L}}  e^{(i\lambda+\beta)L}\hat{u}(\lambda,t)  d\lambda \\
+}
+As $\lambda \to \inf$ we see 
+\eq{
+e^{-i\lambda L} \sim e^{\lambda_I L} \\
+e^{(\beta+i\lambda)L} \sim e^{(\beta - \lambda_I)L}
+}
+so the whole integral term is 
+\eq{
+\sim \int_{\del D^+} e^{-\lambda_I x }  e^{-\lambda_I L}  e^{(\beta - \lambda_I)L} e^{i\lambda_I L}\frac{1}{\lambda}  d\lambda
+}
+so completing all the substitution we get that terms involving $\hat{u}$ are 0. Hence done. 
+\end{document}

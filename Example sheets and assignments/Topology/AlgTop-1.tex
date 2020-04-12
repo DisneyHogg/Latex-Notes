@@ -1,0 +1,295 @@
+\documentclass{article}
+
+\usepackage{header-colourful}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Algebraic Topology Example Sheet 1}
+\author{Linden Disney-Hogg}
+\date{November 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 1}
+Let $Y$ be a space and $\gamma$ a path in $Y$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part i)}
+We start by recalling the following definition:
+\begin{definition}[Basepoint homomorphism]
+Given $\gamma$ there is the associated map 
+\eq{
+\Phi_{[\gamma]} : \pi_1 \pround{Y,\gamma(1)} \to \pi_1 \pround{Y,\gamma(0)}
+}
+given by 
+\eq{
+\Phi_{[\gamma]}\pround{[p]} = [\gamma^{-1}\cdot p \cdot \gamma]
+}
+where $\cdot$ is the well understood operation of path composition, and $\gamma^{-1}$ is "travelling backwards" along $\gamma$. 
+\end{definition}
+Note that this is indeed a good definition, as if $p$ is a loop based at $\gamma(1)$, then $\gamma^{-1} \cdot p \cdot \gamma$ travels from $\gamma(0)$ along $\gamma$ to $\gamma(1)$, back to $\gamma(1)$ after travelling along $p$, and then back to $\gamma(0)$ on $\gamma^{-1}$. It is also clearly a homomorphism as
+\eq{
+(\gamma^{-1} \cdot p \cdot \gamma) \cdot (\gamma^{-1} \cdot q \cdot \gamma) = \gamma^{-1} \cdot (p \cdot q) \cdot \gamma
+}
+Moreover it has the well defined inverse given by $\Phi_{[\gamma^{-1}]}$, and so it is an iso. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part ii)}
+Now set $f,g : X \to Y$ with a homotopy between them $H$, and define $\gamma = H \rvert_{\pbrace{x_0} \times I}$ for basepoint $x_0 \in X$. Recall we can define 
+\eq{
+f_\ast : \pi_i(X,x_0) &\to \pi_i(Y,f(x_0)) \\
+ [p] &\mapsto [f \circ p]
+}
+\begin{lemma}
+for $i=1$, $f_\ast = \Phi_{[\gamma]} \circ g_\ast$
+\end{lemma}
+\begin{proof}
+Certainly we can see 
+\eq{
+\pi_1(X,x_0) \overset{g_\ast}{\to} \pi_1(Y,g(x_0)) \overset{\Phi_{[\gamma]}
+}{\to} \pi_1(Y,f(x_0))
+}
+by the previous part. Moreover, for $p:I \to X$ with endpoints at $x_0$, see $f\circ p, g \circ p : I \to Y$ are homotopic by the map 
+\eq{
+I \times I &\to Y \\
+(s,t) &\mapsto H((p(s),t))
+}
+so it must be the case that 
+\eq{
+[f \circ p] = [\gamma^{-1} \cdot (g \circ p) \cdot \gamma]
+}
+as based loops.  
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part iii)}
+Now let $H$ be a homotopy between $id_X$ and itself, and define $\gamma$ as before. 
+\begin{lemma}
+$[\gamma] \in Z\pround{\pi_1(X,x_0)}$
+\end{lemma}
+\begin{proof}
+By the above, we must have that $\Phi_{[\gamma]}$ acts as the identity on $\pi_1(X,x_0)$. As such we know 
+\eq{
+\forall p, \, [p] = [\gamma^{-1} \cdot p \cdot \gamma] = [\gamma]^{-1} [p] [\gamma]
+}
+i.e. $[\gamma]$ is in the centre. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part i)}
+We will start with a statement of the CW approximation theorem. For completeness we will recall a few necessary definitions.
+
+\begin{definition}[Weak homotopy equivalence]
+A map $f : X \to Y$ is a \bam{weak homotopy equivalence} if $\forall n \geq 0, x_0 \in X$, the map $f_\ast : \pi_n(X,x_0) \to \pi_n(Y,f(x_0))$ is an isomorphism.
+\end{definition}
+
+\begin{theorem}[CW approximation]
+$\forall X$ a space, $\exists Y$ a CW complex with $f:Y\to X$ a weak homotopy equivalence. 
+\end{theorem}
+\begin{proof}
+We will sketch the proof presented in Hatcher here for completeness. \\
+The first step is to note that, given a map from a CW complex $f:A\to X$ which a basepoint $a_i$ for each connected component of $A$ we can construct a new CW complex $B$ by attaching k-cells to $A$ such that $f_\ast$ is injective for $n=k-1$ and surjective for $n=k$, when $f$ is extended to $B$. This is construction is done by 
+\begin{itemize}
+    \item For $n=k-1$ s.t $f_\ast$ is not injective, take a set of generators for the kernel, indexed by $\alpha$. We may "fill in" the gaps that are causing non-trivial homotopies at each of these generators by choosing an attaching map $\phi_\alpha :(S^{k-1},s_0) \to (A,a_i)$, which intuitively will cover this cycle with a $D^k$, which will then be k-connected. 
+    \item For $n = k$ s.t $f_\ast$ is not surjective, choose generators of these cycles, indexed by $\beta$ which will be of the form $f_\beta : S^k \to X$ s.t. $f_\beta$ is not null homotopic. We can then attach k cells to $A$ indexed by $\beta$ and extend $f$ along them by the $f_\beta$. 
+\end{itemize}
+We now make the observation that if $f: A \to X$ being injective for $n < k-1$ or surjective for $n < k$ will not have changed by making the attachments, as the $\pi_n$ are trivial of $S^k$ for $k > n+1$, and adding cells cannot decrease surjectivity. As such starting with a CW complex with just 0-cells corresponding to the connected components of $X$, a CW complex on which all the $f_\ast$ are bijective can be built inductively. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+\subsection{Part ii)}
+We can now state the definition of an Eilenberg Maclane space sensibly:
+
+\begin{definition}[Eilenberg-Maclane]
+Given a group $G$, and $n\in\mbb{N}$, an \bam{Eilenberg Maclane space} of type $K(G,n)$ is a topological space $X$ with $\pi_n(X) \cong G$ and all other homotopy groups trivial. 
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+\subsection{Part iii)}
+Now let $X$ be a CW complex with 1 0-cell, $x_0$, and no $k$ cells for $0<k<n$. 
+
+\begin{prop}
+X can be embedded into $K(\pi_n(X,x_0),n)$ space.
+\end{prop}
+\begin{proof}
+Note first that we know $\pi_k(X,x_0)$ is trivial for $0 \leq k < n$ by the fact that $\pi_k(S^n)$ is. Then by the CW approximation theorem we can extend $X$ to $Z$ an approximation to the Eilenberg maclane space, adding $k\geq n$ cells to make higher homotopy groups trivial, and we get an immediate embedding by inclusion.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+\subsection{Part iv)}
+We now wish to construct $\pi_k(\mbb{RP}^n)$ for $n \geq 2, 1 \leq i \leq n$. It will be necessary to use the fact 
+\eq{
+\pi_k(S^n) = \left\lbrace \begin{array}{cc} 0 & k < n \\ \mbb{Z} & k = n \end{array}  \right.
+}
+We then know we can construct the fibre bundle $\mbb{Z}_2 \to S^n \to \mbb{RP}^n$, which is in fact a fibration as we have CW complexes, and so we have a long exact sequence 
+\eq{
+\cdots \to \pi_k(\mbb{Z}_2) \to \pi_k(S^n) \to \pi_k(\mbb{RP}^n) \to \pi_{k-1}(\mbb{Z}_2) \to \cdots \to \pi_0(\mbb{Z}_2) \to \pi_0(S^n)
+}
+Now identifying 
+\eq{
+\pi_k(\mbb{Z}_2) = \left\lbrace \begin{array}{cc} 0 & k \geq 1 \\ \mbb{Z}_2 & k = 0 \end{array}  \right.
+}
+we know that
+\eq{
+  \pi_1(S^n) \to \pi_1(\mbb{RP}^n) &\to \pi_0(\mbb{Z}_2) \to \pi_0(S^n) \\ 
+ 0 \to  \pi_1(\mbb{RP}^n) &\to \mbb{Z}_2 \to 0 \\ 
+ \pi_1(\mbb{RP}^n) &= \mbb{Z}_2 
+}
+and 
+\eq{
+  \pi_k(\mbb{Z}_2) \to \pi_k(S^n) \to \pi_k(\mbb{RP}^n) &\to \pi_{k-1}(\mbb{Z}_2)  \\ 
+ 0 \to \pi_k(S^n) \to \pi_k(\mbb{RP}^n) & \to 0 \\ 
+  \pi_k(S^n) = \pi_k(\mbb{RP}^n) &
+}
+for $k > 1$ giving 
+\eq{
+\pi_k(\mbb{RP}^n) = \left\lbrace \begin{array}{cc} \mbb{Z}_2 & k =1 \\ 0 & 1<k<n \\ \mbb{Z} & k=n \end{array}  \right.
+}
+Observing the above, we note that as per iii) an Eilenberg Maclane space $K(\mbb{Z}_2,1)$ into which $\mbb{RP}^n$ would embed and that would have the correct homotopy groups would be 
+\eq{
+\mbb{RP}^\infty \equiv \bigcup_{n=1}^\infty \mbb{RP}^n
+}
+We can recognise that this would not have nontrivial higher homotopy, as any such image of $S^k$ can be contracted to a point in the copy of $\mbb{RP}^{k+1}$ in the union. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 3}
+
+For completeness here we will state a definitions:
+
+\begin{definition}[Compact Open Topology]
+Denote $X^Y$ to be the set of maps $f:Y \to X$. The \bam{compact open topology} on this set is generated by the sets 
+\eq{
+M_{K,U} = \pbrace{f \rvert f(K) \subset U}
+}
+for $K \subset Y$ compact and $U \subset X$ open. $X^Y$ with the compact open topology is called the \bam{mapping space}. 
+\end{definition}
+
+The Mapping space has the following key property: given a fibration $i : B \to Y$, the induced map $i^\ast : X^Y \to X^B$ is a fibration (under suitable conditions on $B$ and $Y$ which for our purposes will be satisfied). 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part i)}
+\begin{lemma}
+$X^{\{0,1\}} \cong X \times X$
+\end{lemma}
+\begin{proof}
+We can clearly create the map
+\eq{
+X^{\{0,1\}} &\overset{\phi}{\to} X \times X \\
+f &\mapsto (f(0),f(1))
+}
+which is a bijection with inverse 
+\eq{
+X \times X &\to X^{\{0,1\}} \\
+(x,y) &\mapsto \left\lbrace \begin{array}{cc} 0 \mapsto x \\ 1 \mapsto y \end{array}\right\rbrace
+}
+As $\pbrace{0,1}$ was given the discrete topology, all subsets are compact and open. So given $U,V \subset X$ open we have 
+\eq{
+\phi^{-1}(U\times V) = M_{\pbrace{0},U} \cap M_{\pbrace{1},V}
+}
+hence open, giving $\phi$ continuous. Conversely
+\eq{
+(\phi^{-1})^{-1}(M_{K,U}) = \phi(M_{K,U}) = U \times U
+}
+again open, so we have that $\phi$ is a homeomorphism. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part ii)}
+With the above I can make the following proposition
+\begin{prop}
+The map $\pi_X : X^I \to X \times X$, $\pi_X(\gamma) = (\gamma(0),\gamma(1))$ is a fibration.  
+\end{prop}
+\begin{proof}
+Note that by above the is equivalent to saying that $X^I \to X^{\pbrace{0,1}}, \, \gamma \mapsto \gamma\rvert_{\pbrace{0,1}}$ is a fibration, and by our key property of the mapping space it is sufficient to ask whether $i:\pbrace{0,1} \to I$ is a cofibration. We now use general theory to recall that given a map $f:X \to Y$, the inclusion map $i:X \to M_f$, the mapping cylinder, is a cofibration.  Taking $f = c_0 :\pbrace{0,1} \to \pbrace{0}$, we see $M_f$ is homeomorphic to $I$, and so we are done. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part iii)}
+Let us now define the subspace of $X^I$ 
+\eq{
+PX = \pbrace{\gamma \rvert \gamma(0) = x_0}
+}
+for some $x_0 \in X$. 
+\begin{prop}
+The map 
+\eq{
+p_X : PX &\to X \\
+\gamma &\mapsto \gamma(1)
+}
+is a fibration. 
+\end{prop}
+\begin{proof}
+We will want to use the fact from exercises that given the commuting diagram \\
+\begin{center}
+\begin{tikzcd}
+A \times_B E \arrow[r, "\bar{f}"] \arrow[d, "q"]
+& E \arrow[d, "p"] \\
+ A \arrow[r, "f"]
+& B
+\end{tikzcd} 
+\end{center}
+for $f:A\to B$, $E\overset{p}{\to}B$ a fibration, $\bar{f},q$ the corresponding projections from 
+\eq{
+A\times_B E = \pbrace{(a,e) \, \rvert \, f(a) = p(e)}
+}
+then $q$ is also a fibration. Now note that this can be applied to the above forming the diagram \\
+\begin{center}
+    \begin{tikzcd}
+    X \times_{X\times X} X^I \arrow[r, "\bar{f}"] \arrow[d, "q"]
+& X^I \arrow[d, "\pi_X"] \\
+ X \arrow[r, "f"]
+& X\times X
+    \end{tikzcd}
+\end{center}
+If we choose $f(x) = (x_0,x)$ then we get that 
+\eq{
+X \times_{X\times X} X^I &= \pbrace{(x,\gamma) \, \rvert \, (x_0,x) = (\gamma(0),\gamma(1)), \, \gamma\in X^I} \\
+&= \pbrace{(\gamma(1),\gamma) \, \rvert \, \gamma \in PX}
+}
+As such we can see that $q : X \times_{X\times X} X^I \to X$ restricts exactly to $p_X$, and so we are done.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part iv)}
+We now want to  make the following claim:
+\begin{prop}
+$PX$ is contractible.
+\end{prop}
+\begin{proof}
+We provide a direct homotopy equivalent $PX \simeq \pbrace{c_{0}}$ the constant path at $x_0$. This is constructed as such: note we have the natural maps $PX \overset{c}{\to} \pbrace{c_{0}}$ and $\pbrace{c_{0}} \xhookrightarrow{i} PX$. $i \circ c = \id_\ast$ so we don't need no show any homotopy here. The content of the proof is then in showing 
+\eq{
+c \circ i \simeq \id_{PX}
+}
+We will construct this homotopy as such. 
+\eq{
+H: PX \times I &\to PX \\
+(\gamma,s) &\mapsto \gamma_s 
+}
+where 
+\eq{
+\gamma_s(t) = \gamma(ts)
+}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Part v)}
+Let us now think of the fibres of the map $p_X$ over $x$, which are paths in $X$ with endpoints $x_0,x$. It is important at this point to note that $c_0$ is part of the fibre over $x_0$. Now recall we can define the $n$th homotopy group by 
+\eq{
+\pi_n(X,x_0) = \psquare{(I^n,\del I^n),(X,x_0)}
+}
+Hence as we have that any map $I^n \to X$ can be written as $I^{n-1}\times I \to X$ or in other words as a map $I^{n-1} \to X^I$, the condition $\del I^n \mapsto x_0$ is equivalent to $\del I^{n-1} \mapsto c_0$, and so 
+\eq{
+\pi_n(X,x_0) \cong \pi_{n-1}(F,c_0)
+}
+
+\end{document}

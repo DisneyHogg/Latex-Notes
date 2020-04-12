@@ -1,0 +1,320 @@
+\documentclass{article}
+
+\usepackage{header-colourful}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Classical and Quantum Integrable Systems Example Sheet 1}
+\author{Linden Disney-Hogg}
+\date{January 2020}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 1}
+
+\begin{definition}
+We denote the group of unitary $2\times 2$ unitary matrices with unit determinant 1 as 
+\eq{
+\SU(2) = \pbrace{U \in M_{2\times 2}(\mbb{C}) \, | \, U^\dagger U = I, \, \det U = 1}
+}
+\end{definition}
+
+\begin{prop}
+\eq{
+\SU(2) = \pbrace{\begin{pmatrix} a & b \\ -\bar{b} & \bar{a} \end{pmatrix} \, \middle| \, a,b \in \mbb{C}, \, \abs{a}^2 + \abs{b}^2 = 1}
+}
+\end{prop}
+\begin{proof}
+Write $U \in \SU(2)$ as 
+\eq{
+U = \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+}
+Then $\det U = 1 \Rightarrow ad-bc = 1$ and then we have 
+\eq{
+\begin{pmatrix} d & -b \\ -c & a \end{pmatrix} = U^{-1} = U^\dagger = \begin{pmatrix} \bar{a} & \bar{c} \\ \bar{b} & \bar{d} \end{pmatrix}
+}
+This gives $d = \bar{a}, c = -\bar{b}$, and hence we certainly have that any $U \in \SU(2)$ can be written in the required form. To complete the proof we need that any matrix of the given form is in $\SU(2)$, but this is immediate from calculation. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 2}
+Recall that, for matrix groups $G$, we have that 
+\eq{
+X \in \mf{g} \Leftrightarrow \forall t \in \mbb{R}, \, \exp(tX) \in G
+}
+Moreover, note that 
+\eq{
+\ev{\frac{d}{dt} \exp(tX)}{t=0} = X
+}
+and 
+\eq{
+\det \exp (tX) = \exp\tr(X)
+}
+\begin{prop}
+\eq{
+\mf{su}(2) = \pbrace{\begin{pmatrix} it & z \\ -\bar{z} & -it \end{pmatrix} \, \middle| \, t\in \mbb{R}, \, z \in \mbb{C}}
+}
+\end{prop}
+\begin{proof}
+Write $\SU(2) \ni U = \exp(tX)$. Then 
+\eq{
+0 &= \ev{\frac{d}{dt} \psquare{\exp(tX)^\dagger \exp(tX)}}{t=0} = X^\dagger + X \\
+1 &= \det \exp(tX) = \exp \tr(X) \Rightarrow \tr(X) = 0 
+}
+Hence it is necessary that $X$ is traceless and skew-Hermitian. As before note that this is a sufficient condition too. Now writing 
+\eq{
+X = \begin{pmatrix} p & q \\ r & s \end{pmatrix} \Rightarrow \left\lbrace \begin{array}{r} \begin{psmallmatrix} \bar{p} & \bar{r} \\ \bar{q} & \bar{s} \end{psmallmatrix} + \begin{psmallmatrix} p & q \\ r & s\end{psmallmatrix} = 0 \\ p + s = 0 \end{array}\right.
+}
+These conditions give the result of the prop is necessary, and as before sufficient. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 3}
+
+\begin{definition}[Pauli Matrices]
+The \bam{Pauli matrices} are
+
+\begin{align*}
+\tau_1 &= \begin{pmatrix} 0 & 1 \\ 1 & 0\end{pmatrix}  \\
+\tau_2 &= \begin{pmatrix} 0 & -i \\ i & 0\end{pmatrix}  \\
+\tau_3 &= \begin{pmatrix} 1 & 0 \\ 0 & -1\end{pmatrix}  
+\end{align*}
+\end{definition}
+
+Note the Pauli matrices are all Hermitian and traceless, and so we can define a set of generators for $\mf{su}(2)$ by 
+\eq{
+t_j = -\frac{i}{2}\tau_j
+}
+
+\begin{fact}
+\be
+\tau_i \tau_j = \delta_{ij}I +i\epsilon_{ijk}\tau_k
+\ee
+\end{fact}
+This can be seen by direct calculation. It has the important corollary 
+\begin{corollary}
+$\comm[t_j]{t_k} = \eps_{ijk} t_i$
+\end{corollary}
+
+If we define $h=h(\alpha,\beta,\gamma) = e^{\alpha t_3}e^{\beta t_2} e^{\gamma t_3}\in \SU(2)$ we can define the form 
+\eq{
+\theta_h = h^{-1} dh = \sum \sigma_j t_j
+}
+
+\begin{prop}
+The forms $\sigma_j$ are left invariant.
+\end{prop}
+\begin{proof}
+Either note that $\theta$ is the Maurer-Cartan one form, so immediately we are done, or by direct calculating taking a fixed $g \in \SU(2)$ we have 
+\eq{
+(gh)^{-1} d(gh) = h^{-1}dh
+}
+Left invariant of $\theta$ gives us what we want, as the $t_i$ are independent over $\mbb{R}$.  
+\end{proof}
+
+\begin{prop}
+The forms $\sigma_j$ satisfy 
+\eq{
+d\sigma_i =  -\frac{1}{2}\eps_{ijk} \sigma_j \wedge \sigma_k
+}
+\end{prop}
+\begin{proof}
+As $\theta$ is the MC one form, we have the structure equation
+\eq{
+d\theta &= -\frac{1}{2} \comm[\theta]{\theta} \\
+\Rightarrow \sum t_i d\sigma_i &= -\frac{1}{2}\sum_{j,k} \comm[t_j]{t_k} \sigma_j \wedge \sigma_k \\
+&= -\frac{1}{2}\sum_{j,k} \eps_{ijk} t_i \sigma_j \wedge \sigma_k
+}
+and so result follows by independence of the $t_i$ over $\mbb{R}$.
+\end{proof}
+
+We now define $X_j$ to be the dual vector field to $\sigma_j$. 
+
+\begin{prop}
+The $X_j$ are left invariant and generate the right action 
+\eq{
+h \mapsto ht_j
+}
+\end{prop}
+\begin{proof}
+The $X_j$ immediately inherit left invariance from being dual to the $\sigma_j$. Now we know $\theta_h((X_j)_h) = t_j$ independent of $h \in \SU(2)$, so $X_j$ must generate the right action as above. 
+\end{proof}
+
+\begin{prop}
+$\comm[X_i]{X_j} = \eps_{ijk} X_k$
+\end{prop}
+\begin{proof}
+As the $X_j$ are LIVFs, we have that $\comm[X_i]{X_j}$ is LI too, and 
+\eq{
+\theta(\comm[X_i]{X_j}) = \comm[\theta(X_i)]{\theta(X_j)} \Rightarrow \theta_h(\comm[(X_i)]{(X_j)}_h) &= \comm[\theta_h((X_i)_h)]{\theta_h((X_j)_h)} \\
+&= \comm[t_i]{t_j} = \eps_{ijk} t_k
+}
+Hence by uniqueness of LIVFs with a given value at a point $h \in \SU(2)$, we must have $\comm[X_i]{X_j} = \eps_{ijk} X_k$. 
+\end{proof}
+
+We can further define the vector fields $X_\pm = X_1 \pm i X_2$. 
+
+\begin{prop}
+$\comm[iX_3]{X_\pm}=\pm X_\pm$
+\end{prop}
+\begin{proof}
+Immediate from the previous proposition. 
+\end{proof}
+
+also defining $\sigma_\pm$ similarly we get
+
+\begin{prop}
+$\sigma_\pm(X_\mp) = 2$
+\end{prop}
+\begin{proof}
+\eq{
+\sigma_\pm(X_\mp) &= (\sigma_1 \pm i \sigma_2)(X_1 \mp i X_2) = 1-i^2 =2
+}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 4}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{a)}
+
+Let $(M,\omega)$ be a symplectic manifold and let $G$ (here a matrix Lie group) act on $M$ symplectically, that is we have $\phi:G \to \Diff(M)$ s.t. $\forall g \in G, \, \phi_g^\ast \omega = \omega$. Taking $X \in \mf{g}$ and defining $f_t = \phi_{\exp(-tX)}$ we have 
+\eq{
+f_t^\ast \omega &= \omega \\
+\Rightarrow \mc{L}_{\lambda_X}\omega = \ev{\frac{d}{dt} f_t^\ast \omega}{t=0} &=\ev{\frac{d}{dt}  \omega}{t=0} = 0
+}
+where is the fundamental vector field corresponding to the flow $f_t$. 
+
+\begin{fact}[Cartan's identity]
+\eq{
+\mc{L}_\xi \omega = i_\xi d\omega + d(i_\xi \omega)
+}
+\end{fact}
+Hence we know that for the corresponding action, $\forall X \in \mf{g}$, 
+\eq{
+d(i_{\lambda_X} \omega) = 0
+}
+\begin{definition}
+The vector field $\xi$ is \bam{symplectic} if
+\eq{
+d(i_\xi \omega) = 0
+}
+Further, it is \bam{Hamiltonian} if $\exists f\in C^\infty(M)$ s.t. 
+\eq{
+i_\xi \omega = -df
+}
+\end{definition}
+
+\begin{lemma}
+Let $\xi,\eta \in \mf{X}(M), \, \alpha \in \Omega^k(M)$, then 
+\eq{
+\mc{L}_\xi i_\eta \alpha - i_\eta \mc{L}_\xi \alpha = i_{\comm[\xi]{\eta}}\alpha
+}
+\end{lemma}
+\begin{proof}
+We will proceed by induction. Consider first the case where $k=1$. Choose local coordinates s.t $\alpha = \alpha_a dx^a, \xi=\xi^a \del_a, \eta = \eta^a \del_a$. Then 
+\eq{
+\mc{L}_\xi i_\eta \alpha - i_\eta \mc{L}_\xi \alpha &= \xi(\alpha(\eta)) - i_\eta(i_\xi d\alpha) - i_\eta d(i_\xi \alpha) \\
+&=\xi^a \del_a(\alpha_b \eta^b) - \eta^b (\xi^a \del_a \alpha_b - \xi^b \del_b \alpha_a) - \eta^b \del_b (\xi^a \alpha_a) \\
+&= \xi^a \alpha_b \del_a \eta^b - \eta^b \alpha_a \del_b \xi^a \\
+&= (\xi^a \del_a \eta^b - \eta^a \del_a \xi^b) \alpha_b = i_{\comm[\xi]{\eta}} \alpha
+}
+Now supose $k >1$. Then write $\alpha = \alpha^\prime \wedge \beta$ where $\beta \in \Omega^1(M)$. Then 
+\eq{
+\mc{L}_\xi(\alpha^\prime \wedge \beta) = (\mc{L}_\xi \alpha^\prime) \wedge \beta + \alpha^\prime \wedge (\mc{L}_\xi \beta)
+}
+and 
+\eq{
+i_\xi(\alpha^\prime \wedge \beta) = (i_\xi \alpha^\prime) \wedge \beta + (-1)^{k-2} \alpha^\prime \wedge (i_\xi\beta )
+}
+Hence 
+\eq{
+\mc{L}_\xi i_\eta \alpha - i_\eta \mc{L}_\xi \alpha &= \mc{L}_\xi \psquare{(i_\eta \alpha^\prime) \wedge \beta + (-1)^{k-2} \alpha^\prime \wedge (i_\eta\beta )
+} - i_\eta \psquare{(\mc{L}_\xi \alpha^\prime) \wedge \beta + \alpha^\prime \wedge (\mc{L}_\xi \beta)} \\
+&= (\comm[\mc{L}_\xi]{i_\eta}\alpha^\prime) \wedge \beta + (-1)^{k-2} \alpha^\prime \wedge (\comm[\mc{L}_\xi]{i_\eta}\beta) \\
+&= i_{\comm[\xi]{\eta}} (\alpha^\prime \wedge \beta) = i_{\comm[\xi]{\eta}}\alpha
+}
+using the induction hypothesis.
+\end{proof}
+
+\begin{prop}
+Let $\xi,\eta$ be symplectic vector fields. Then 
+\eq{
+d (i_\xi i_\eta \omega) = i_{\comm[\xi]{\eta}}\omega
+}
+\end{prop}
+\begin{proof}
+Using the above, and knowing $\mc{L}_\xi \omega = 0, \, d(i_\eta \omega) = 0$ we have 
+\eq{
+i_{\comm[\xi]{\eta}}\omega &= i_\xi d(i_\eta \omega) + d( i_\xi i_\eta \omega) - i_\eta \mc{L}_\xi \omega\\
+&= d(i_\xi i_\eta \omega)
+}
+\end{proof}
+
+\begin{corollary}
+The commutator of two symplectic vector fields is Hamiltonian
+\end{corollary}
+
+\begin{theorem}
+Let $G$ be a Lie group such that the Lie algebra $\mf{g}$ satisfies $\mf{g} = \comm[\mf{g}]{\mf{g}}$ (i.e. the derived algebra is the whole Lie algebra). Then the action of $(M,\omega)$ is Hamiltonian
+\end{theorem}
+\begin{proof}
+If $\comm[\mf{g}]{\mf{g}} = \mf{g}$, then any vector field can be written as the sum of commutators, hence we can write any fundamental field of the group action as the sum of Hamiltonian vector fields (since the fundamental vector fields, which are symplectic, form a basis), so it is Hamiltonian. 
+\end{proof}
+
+\begin{corollary}
+The action of $SU(2)$ on $(M,\omega)$ is Hamiltonian
+\end{corollary}
+\begin{proof}
+From Question 3 we know that the commutators span, so we have the conditions from the previous theorem. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{b)}
+Now consider $M=S^2$  
+Recall we define the moment map for a Hamiltonian action by saying that for $X \in \mf{g}$
+\eq{
+i_{\lambda_X}\omega = - d\psi_X
+}
+for some function $\psi_X$. We then define $\psi : M \to \mf{g}^\ast$ by 
+\eq{
+\psi(a)(X) = \psi_X(a)
+}
+We now consider $S^2$ as the Riemann sphere parametrised by $z,\bar{z}$, with area element 
+\eq{
+\omega = dA = 2i\frac{dz \wedge d\bar{z}}{(1+z\bar{z})^2}
+}
+We let $SU(2)$ act on $S^2$ then by Mobius transform, which behaves as rotations. Explicitly, we have 
+\eq{
+\begin{pmatrix}a & b \\ -\bar{b} & \bar{a} \end{pmatrix} \cdot z = \frac{az+b}{\bar{a}-\bar{b}z}
+}
+We know that, as rotations are isometries, this preserves the area form and so immediately is a symplectic action. Now we may calculate
+\eq{
+e^{-\alpha t_1} &= \begin{pmatrix} \cos\frac{\alpha}{2} & i\sin\frac{\alpha}{2} \\ i\sin\frac{\alpha}{2} & \cos\frac{\alpha}{2} \end{pmatrix} \\
+e^{-\alpha t_2} &= \begin{pmatrix} \cos\frac{\alpha}{2} & \sin\frac{\alpha}{2} \\ -\sin\frac{\alpha}{2} & \cos\frac{\alpha}{2} \end{pmatrix} \\
+e^{-\alpha t_3} &= \begin{pmatrix} e^{\sfrac{i\alpha}{2}} & 0 \\ 0 & e^{\sfrac{-i\alpha}{2}} \end{pmatrix}
+}
+which finds, using $(\lambda_i)_z = \ev{\frac{d}{d\alpha}e^{-\alpha t_i} \cdot z}{\alpha = 0}$ 
+\eq{
+\lambda_1 &= \frac{i}{2} \psquare{(1-z^2)\del - (1-\bar{z}^2)\bar{\del}} \\
+\lambda_2 &= \frac{1}{2} \psquare{(1+z^2)\del + (1+\bar{z}^2)\bar{\del}} \\
+\lambda_3 &= i(z\del - \bar{z}\bar{\del})
+}
+From this we can get 
+\eq{
+i_{\lambda_1} \omega &= -\frac{\psquare{(1-z^2)d\bar{z} + (1-\bar{z}^2)dz}}{(1+z\bar{z})^2} = -d\psquare{\frac{\bar{z}+z}{1+z\bar{z}}} \\
+i_{\lambda_2} \omega &= i\frac{\psquare{(1+z^2)d\bar{z} - (1+\bar{z}^2)dz}}{(1+z\bar{z})^2} =  -d\psquare{\frac{i(\bar{z}-z)}{1+z\bar{z}}} \\
+i_{\lambda_3} \omega &= -2 \frac{zd\bar{z} +\bar{z} dz}{(1+z\bar{z})^2} = -d\psquare{\frac{-2}{1+z\bar{z}}}
+}
+This gives $\psi$ from linearity.
+\end{document}

@@ -1,0 +1,109 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Boundary Value Problems in Linear PDEs Example Sheet 2}
+\author{Linden Disney-Hogg}
+\date{December 2018}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Question 2}
+
+Let $q:[0,L] \times [0,T] \to \mbb{R}$ satisfy 
+\eq{
+q_t &= q_{xx} + \beta q_{x} \\
+q|_{t=0} &= q_0 \\
+q|_{x=0} &= g_0 \\
+q|_{x=L} &= h_0
+}
+Assume the boundary conditions are compatible, and that $q_0$ has sufficient decay.\\
+We start by deriving the global relation 
+\eq{
+\hat{q}_t = (h_1-g_1) +(i\lambda)(e^{-i\lambda L}h_0 - g_0) + (i\lambda)^2\hat{q} +\beta(e^{-i\lambda L}h_0 - g_0) + \beta(i\lambda) \hat{q}
+}
+Defining $\omega(\lambda) = -(i\lambda)^2 -\beta(i\lambda) = \lambda(\lambda-i\beta)$ we get 
+\eq{
+e^{\omega(\lambda) t} \hat{q}(\lambda,t) &= \hat{q}_0(\lambda) + e^{-i\lambda L}\psquare{\tilde{h}_1(\omega(\lambda),t) + (\beta+i\lambda) \tilde{h}_0(\omega(\lambda),t)} - \psquare{\tilde{g}_1(\omega(\lambda),t) + (\beta+i\lambda) \tilde{g}_0(\omega(\lambda),t)}
+}
+defined $\forall \lambda \in \mbb{C}$. Thus 
+\eq{
+q(x,t) =& \frac{1}{2\pi} \int_{\mbb{R}} e^{i\lambda x - \omega(\lambda)t} \hat{q}_0(\lambda) \, d\lambda + \frac{1}{2\pi} \int_{\mbb{R}} e^{-i\lambda(L-x) - \omega(\lambda)t} \psquare{\tilde{h}_1(\omega(\lambda),t) + (\beta+i\lambda) \tilde{h}_0(\omega(\lambda),t)} \, d\lambda \\
+& - \frac{1}{2\pi} \int_{\mbb{R}} e^{i\lambda x - \omega(\lambda)t} \psquare{\tilde{g}_1(\omega(\lambda),t) + (\beta+i\lambda) \tilde{g}_0(\omega(\lambda),t)} \, d\lambda
+}
+Defining the regions $D^+,D^-$ by 
+\eq{
+D &= \set{\lambda : \Re \omega(\lambda)\leq 0} \\
+D^+ &= D \cap \set{\Im \lambda \geq 0} \\
+D^- &= D \cap \set{\Im\lambda \leq 0}
+}
+we may deform, by the standard technique (see example sheet 1 question 1), the second contour onto $\del D^-$ and the third contour onto $\del D^+$. Note we must deform the $h$ terms down because of the - sign and the specifics of Jordan's lemma. We thus have, noting the sign of both $\del D^+, \del D^-$ chosen so they traverse the region anti clockwise is 
+\eq{
+q(x,t) =& \frac{1}{2\pi} \int_{\mbb{R}} e^{i\lambda x - \omega(\lambda)t} \hat{q}_0(\lambda) \, d\lambda - \frac{1}{2\pi} \int_{\del D^-} e^{-i\lambda(L-x) - \omega(\lambda)t} \psquare{\tilde{h}_1(\omega(\lambda),t) + (\beta+i\lambda) \tilde{h}_0(\omega(\lambda),t)} \, d\lambda \\
+& - \frac{1}{2\pi} \int_{\del D^+} e^{i\lambda x - \omega(\lambda)t} \psquare{\tilde{g}_1(\omega(\lambda),t) + (\beta+i\lambda) \tilde{g}_0(\omega(\lambda),t)} \, d\lambda
+}
+By the same argument as in sheet 1, q1, we can then write 
+\eq{
+\int_0^t \dots = \int_0^T \dots - \int_t^T \dots
+}
+and then demonstrate that the $\int_t^T$ terms will give 0 contribution, so 
+\eq{
+q(x,t) =& \frac{1}{2\pi} \int_{\mbb{R}} e^{i\lambda x - \omega(\lambda)t} \hat{q}_0(\lambda) \, d\lambda - \frac{1}{2\pi} \int_{\del D^-} e^{-i\lambda(L-x) - \omega(\lambda)t} \psquare{\tilde{h}_1(\omega(\lambda),T) + (\beta+i\lambda) \tilde{h}_0(\omega(\lambda),T)} \, d\lambda \\
+& - \frac{1}{2\pi} \int_{\del D^+} e^{i\lambda x - \omega(\lambda)t} \psquare{\tilde{g}_1(\omega(\lambda),T) + (\beta+i\lambda) \tilde{g}_0(\omega(\lambda),T)} \, d\lambda
+}
+We now seek to solve 
+\eq{
+\omega(\nu(\lambda)) &= \omega(\lambda) \\
+\nu(\lambda)^2 - i\beta \nu(\lambda) &= \lambda^2 - i\beta\lambda \\
+0 &= (\nu(\lambda) - \lambda)(\nu(\lambda) + \lambda - i\beta) 
+}
+Let $\nu = i\beta - \lambda$ be the nontrivial solution. Defining $G(\lambda) = \hat{q}_0(\lambda) + e^{-i\lambda L} (\beta+i\lambda)\tilde{h}_0(\omega(\lambda),T) - (\beta+i\lambda)\tilde{g}_0(\omega(\lambda),T)$, a known quantity, we then get the second global relation
+\eq{
+e^{\omega(\lambda) t} \hat{q}(\nu,T) &= G(\nu) + e^{-i\nu L}\tilde{h}_1(\omega(\lambda),T) - \tilde{g}_1(\omega(\lambda),T)
+}
+We now seek to express the unknown quantities $\tilde{h}_1$ and $\tilde{g}_1$ in terms of $\tilde{h}_0$ and $\tilde{g}_0$.
+\eq{
+(e^{i\lambda L} - e^{i\nu L}) \tilde{g}_1(\omega(\lambda,T)) &= \psquare{e^{i\lambda L}G(\lambda) - e^{i\nu L}G(\nu)} - e^{\omega(\lambda)t}\psquare{e^{i\lambda L}\hat{q}(\lambda,T) - e^{i\nu L}\hat{q}(\nu,T)} \\
+(e^{-i\lambda L} - e^{-i\nu L}) \tilde{h}_1(\omega(\lambda),T) &= e^{\omega(\lambda)t}\psquare{\hat{q}(\lambda,T) - \hat{q}(\nu,T)}- \psquare{G(\lambda) - G(\nu)}
+}
+and so 
+\eq{
+q(x,t) =& \frac{1}{2\pi} \int_{\mbb{R}} e^{i\lambda x - \omega(\lambda)t} \hat{q}_0(\lambda) \, d\lambda \\
+& - \frac{1}{2\pi} \int_{\del D^-} e^{-i\lambda(L-x) - \omega(\lambda)t} \psquare{e^{\omega(\lambda)t}\frac{\hat{q}(\lambda,T) - \hat{q}(\nu,T)}{e^{-i\lambda L} - e^{-i\nu L}}-\frac{G(\lambda) - G(\nu)}{e^{-i\lambda L} - e^{-i\nu L}} + (\beta+i\lambda) \tilde{h}_0(\omega(\lambda),T)} \, d\lambda \\
+& - \frac{1}{2\pi} \int_{\del D^+} e^{i\lambda x - \omega(\lambda)t} \psquare{\frac{e^{i\lambda L}G(\lambda) - e^{i\nu L}G(\nu)}{e^{i\lambda L} - e^{i\nu L}} - e^{\omega(\lambda)t}\frac{e^{i\lambda L}\hat{q}(\lambda,T) - e^{i\nu L}\hat{q}(\nu,T)}{e^{i\lambda L} - e^{i\nu L}} + (\beta+i\lambda) \tilde{g}_0(\omega(\lambda),T)} \, d\lambda
+}
+Note that the denominator of the fractions is 0 whenever 
+\eq{
+e^{i\lambda L} &= e^{i\nu L} \\
+\Rightarrow \lambda - \nu &= \frac{2n\pi}{L} \\
+\Rightarrow \lambda &= \frac{n\pi}{L} + \frac{i\beta}{2}
+}
+Observe 
+\eq{
+\omega\pround{\frac{n\pi}{L} + \frac{i\beta}{2}} = \pround{\frac{n\pi}{L} + \frac{i\beta}{2}}\pround{\frac{n\pi}{L} - \frac{i\beta}{2}} = \frac{n^2\pi^2}{L^2}+ \frac{\beta^2}{4} > 0
+}
+so none of the singularities lie on $\del D^\pm$. \\
+Now consider the $\hat{q}$ integrals. Along $\del D^-$, $\Im\lambda \leq 0$ and $\Im\nu\geq0$, so as $\abs{\lambda}\to\infty$, $e^{-i\nu L}\to\infty$ and $e^{-i\lambda L} \to 0$. Thus 
+\eq{
+\frac{\hat{q}(\lambda,T) - \hat{q}(\nu,T)}{e^{-i\lambda L} - e^{-i\nu L}} \to e^{i\nu L}\psquare{\hat{q}(\lambda,T) - \hat{q}(\nu,T)} = e^{i\nu L}\hat{q}(\lambda,T) - \int_0^L e^{i\nu(L-x)} q(x,T) \,dx
+}
+which is $\mc{O}\pround{\frac{1}{\nu}}$ as $\abs{\lambda} \to \infty$. Hence the $\hat{q}$ integral gives 0 contribution. A similar argument may be applied to the term from the $\del D^+$ integral. Hence we find 
+\eq{
+q(x,t) =& \frac{1}{2\pi} \int_{\mbb{R}} e^{i\lambda x - \omega(\lambda)t} \hat{q}_0(\lambda) \, d\lambda \\
+& - \frac{1}{2\pi} \int_{\del D^-} e^{-i\lambda(L-x) - \omega(\lambda)t} \psquare{-\frac{G(\lambda) - G(\nu)}{e^{-i\lambda L} - e^{-i\nu L}} + (\beta+i\lambda) \tilde{h}_0(\omega(\lambda),T)} \, d\lambda \\
+& - \frac{1}{2\pi} \int_{\del D^+} e^{i\lambda x - \omega(\lambda)t} \psquare{\frac{e^{i\lambda L}G(\lambda) - e^{i\nu L}G(\nu)}{e^{i\lambda L} - e^{i\nu L}} + (\beta+i\lambda) \tilde{g}_0(\omega(\lambda),T)} \, d\lambda
+}
+\end{document}

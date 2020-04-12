@@ -1,0 +1,362 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{String Theory Example Sheet 1}
+\author{Linden Disney-Hogg}
+\date{February 2019}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Question 1}
+\eq{
+G_{ab} = \del_a X6\mu \del_b X^\nu \eta_{\mu\nu} \\
+G = h^{ab} G_{ab}
+}
+
+\eq{
+T_{ab} = 0 \Rightarrow G_{ab} = \frac{1}{2} h_{ab} G \\
+\det G_{ab} = \frac{1}{4} G^2 h \\
+\Rightarrow S_{polyakov} &= -\frac{1}{4\pi \cst} \int_\Sigma d^2 \sigma \, \sqrt{-h} G \\
+&= - \frac{1}{2\pi \cst} \int_\Sigma d^2 \sigma \, \sqrt{-\det G_{ab}} = S_{NG}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Question 2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{(a)}
+\eq{
+\delta h = h h^{ab} \delta h_{ab} \\
+ \delta h^{ab} = - h^{ac}h^{bd} \delta h_{cd} \\
+ T_{ab} = \frac{4\pi}{\sqrt{-h}} \frac{\delta S}{\delta h^{ab}} \\
+ \Rightarrow T^{ab} =  -\frac{4\pi}{\sqrt{-h}} \frac{\delta S}{\delta h_{ab}} \\ 
+ \Rightarrow \delta S &= -\frac{1}{4\pi \cst} \int_\Sigma d^2 \sigma \, \delta \left( \sqrt{-h} h^{ab} G_{ab} \right) \\
+ &= - \frac{4\pi\cst} \int_\Sigma d^2 \sigma \, \left\{ - \frac{1}{2} \frac{hh^{ab}}{\sqrt{-h}} \delta h_{ab} h^{cd} G_{cd} - \sqrt{-h} G^{ab} \delta h_{ab} \right \} \\
+&= \frac{1}{4\pi \cst} \int_\Sigma d^2 \sigma \, \sqrt{-h} \delta h_{ab} \left( G^{ab} - \frac{1}{2}h^{ab} G \right) \\
+\Rightarrow T^{ab} = -\frac{1}{\cst} \left( G^{ab} - \frac{1}{2}h^{ab} G \right) 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{(b)}
+let 
+\eq{
+\sigma^\pm = \tau \pm \sigma 
+}
+then 
+\eq{
+ds^2 &= - d\tau ^2 + d\sigma^2 = - (d\tau - d\sigma) ( d\tau + d\sigma) \\
+&= - d\sigma^+ d\sigma 
+}
+\eq{
+h_{ab} = \begin{pmatrix} 0 & -\frac{1}{2} \\ - \frac{1}{2} & 0 \end{pmatrix} \\
+h^{ab} = \begin{pmatrix} 0 & -2 \\ - 2 & 0 \end{pmatrix}
+}
+Then 
+\eq{
+T_{\pm\pm} = -\frac{1}{\cst} \del_\pm X^\mu \del_\pm X_\mu
+}
+i.e 
+\eq{
+T_{+-} = -\frac{1}{\cst} ( G_{+-} - \frac{1}{2} (-\frac{1}{2}) (-4) G_{+-} ) = 0 
+}
+\footnote{vanishing trave is an indicator of conformal symmetry}
+now 
+\eq{
+\Box X^\mu = 0 \Rightarrow \del_+ \del_- X^\mu = 0  \\
+\Rightarrow \del_\mp T_{\pm\pm} = 0
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{(c)}
+Recall 
+\eq{
+X^\mu = x^\mu + \cst p^\mu \tau + i \sqrt{\frac{\cst}{2}} \sum_{m\neq 0 } \frac{1}{m} \left( \alpha_m^\mu e^{im(\tau-\sigma)} + \bar{\alpha}_m^\mu e^{-im(\tau+\sigma)} \right) 
+}
+so 
+\eq{
+\del_- X^\mu = \sqrt{\frac{\cst}{2}}  \sum_m \alpha_m^\mu e^{-im\sigma^-} \\
+\Rightarrow T_{--} = - \frac{1}{2} \sum_{m,n} \alpha_n^\mu \alpha_m^\nu e^{-i(m+n)\sigma^-} 
+}
+so define 
+\eq{
+T_{--} = -\sum_m l_m e^{im\sigma} \Rightarrow l_m = -\frac{1}{2\pi \cst} \int_0^{2\pi} d\sigma \, T_{--} e{^-im\sigma} \\
+\Rightarrow l_m = \frac{1}{2} \sum_n (\alpha_{m-n} \cdot \alpha_n)
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Question 3}
+Never use the variational derivatives definition of Poisson brackets, \bam{always} use canonical Poisson brackets . Note also 
+\eq{
+\pb[l_m]{\alpha_n^\mu } = in \alpha_{m+n}^\mu \\
+\pb[l_m]{l_n} = -i(m-n) l_{m-n}
+}
+so the first bracket has no ordering ambiguities but the second does. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Question 4}
+
+Take $\tau \to \tau_E = i\tau \Rightarrow \tau = -i\tau_E$. We are pedants about this minus sign because it has relevent physical meaning. Wick rotation originated in qft by rotating a contour in the complex plane and you may only rotate this contour if there are not poles in the region, which works for only one direction of rotation. \\
+
+\eq{
+z = e^{\tau - i \sigma} \\
+\bar{z} = e^{\tau + i \sigma}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{(a)}
+
+\eq{
+\tau = \frac{1}{2} \log z\bar{z} \\
+\sigma = \frac{i}{2} \log \frac{z}{\bar{z}}
+}
+so 
+\eq{
+ds^2 = d\tau^2 + d\sigma^2 = \frac{dz \, d\bar{z}}{z\bar{z}}
+}
+is a proper Euclidean metric. Writing $z = z_R + iz_I $
+\eq{
+ds^2 = \frac{1}{z_R^2 + z_I^2} ( dz_R^2 + dz_I^2 ) 
+}
+
+\begin{fact}
+To be clear, we have three different things 
+\begin{itemize}
+    \item Diffeomorphisms: $x \to x^\prime(x)$ 
+    \item Weyl transformation : $g_{\mu\nu} \to \Omega^2(x) g_{\mu\nu}(x)$
+    \item Conformal transformation : A map $x \to x^\prime(x)$  such that $g_{\mu\nu} \to \Omega^2(x^\prime) g_{\mu\nu}(x^\prime)$
+\end{itemize}
+A conformal transformation is a diffeomorphism that can be undone by a Weyl transformation. 
+\end{fact}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{(b)}
+
+The world sheet looks like a cylinder. The conformal transformation maps this cylinder to the complex plane (in real and imaginary parts) where $z=0$ corresponds to $\tau = -\infty$ and $z = \infty $ would correspond to $\tau = \infty$ (if we had $z = \infty$ in the complex plane). We may then use stereographic projection to see that this is the Riemann sphere missing the projection point nad its antipody 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{(c)}
+
+Now 
+\eq{
+X^\mu(\sigma,\tau) &= x^\mu + \cst p^\mu \tau + i \sqrt{\frac{\cst}{2}} \sum_{m\neq 0 } \frac{1}{m} \left( \alpha_m^\mu e^{-m(\tau-i\sigma)} + \bar{\alpha}_m^\mu e^{-m(\tau+i\sigma)} \right)  \\
+&=  x^\mu + \cst p^\mu \frac{1}{2} \log z\bar{z} + i \sqrt{\frac{\cst}{2}} \sum_{m\neq 0 } \frac{1}{m} \left( \alpha_m^\mu z^{-m} + \bar{\alpha}_m^\mu \bar{z}^{-m} \right)
+}
+\footnote{$\alpha,\bar{\alpha}$ are \emph{not} complex conjugates, this is just historic notation. Same for $X,\bar{X}$.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{(d)}
+
+Consider $|w| < |z|$. 
+\eq{
+\del_z X^\mu(z) & = -\frac{i}{2} \cst p^\mu \frac{1}{z} - i \sqrt{\frac{\cst}{2}} \sum_{m\neq 0 }  \alpha_m^\mu z^{-m-1} \\
+&= -i \sqrt{\frac{\cst}{2}} \sum_{m }  \alpha_m^\mu z^{-m-1}
+}
+Then 
+\eq{
+\braket{ 0 | \del_z X^\mu(z) \del_w X^\nu (w) | 0 } &= - \frac{\cst}{2} \sum_{m,n} z^{-m-1} w^{-n-1} \braket{0 | \alpha_m^\mu \alpha_n^\nu | 0} \\
+&= -\frac{\cst}{2} \sum_{m>0} m z^{-m-1} w^{m-1} \eta^{\mu\nu} \\
+&= -\frac{\cst}{2} \frac{1}{z^2} \sum_{m>0} \left( \frac{w}{z} \right)^{m-1} \eta^{\mu\nu} \\
+&= - \frac{\cst}{2} \frac{\eta^{\mu\nu}}{(z-w)^2} \\
+\Rightarrow \braket{ 0 |  X^\mu(z)  X^\nu (w) | 0 } &= - \frac{\cst}{2} \eta^{\mu\nu} \log (z-w) + F(z) + G(w) 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Question 5}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{(a)}
+
+
+Take the Polyakov action in conformal gauge 
+\eq{
+S = -\frac{1}{4\pi \cst} \int d^2\sigma \, \del_a X^\mu \del^a X_\mu 
+}
+and vary with respect to $X$. 
+\eq{
+\delta S = - \frac{1}{2\pi \cst} \int_\Sigma \del_a \delta X^\mu \del^a X_\mu \\
+&= e.o.m + time b.t. - \frac{1}{2\pi \cst} \int d\tau \left[ \delta X^\mu X_\mu^\prime \right]_{\sigma=0}^{\sigma=\pi}
+}
+So 
+\eq{
+\delta X^\mu |_{\sigma=0,\pi} = 0 \text{ or } {X^\prime}^\mu |_{\sigma=0,\pi} = 0 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{(b)}
+
+\eq{
+X^\mu = x^\mu + 2\cst p^\mu \tau + i \sqrt{\frac{\cst}{2}} \sum_{m\neq 0 } \frac{1}{m} \left( \alpha_m^\mu e^{-im\sigma^-} + \bar{\alpha}_m^\mu e^{-im\sigma^+} \right)
+}
+so 
+\eq{
+p_{cm}^\mu = \int_0^{2\pi} d\sigma \, p^\mu = \int_0^{\pi} d\sigma \, \frac{1}{2\pi\cst} \dot{X}^\mu = p^\mu 
+}
+(why we need the 2 factor). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Neumann}
+    \eq{
+    {X^\prime}^\mu(0,\tau) = \sqrt{\frac{\cst}{2}} \sum_{m\neq 0 } e^{-im\tau} ( \alpha_m^\mu - \bar{\alpha}_m^\mu ) 
+    }
+    and likewise at $\sigma=\pi \Rightarrow \alpha_m^\mu = \bar{\alpha}_m^\mu $
+    \eq{
+    \Rightarrow  X^\mu(\sigma,\tau) = x^\mu +2\cst p^\mu \tau + i \sqrt{2\cst} \sum_{m\neq 0 } \frac{e^{-im\tau}}{m} \alpha_m^\mu \cos m\sigma
+    }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Dirichlet}
+\eq{
+X^\mu(0,\sigma) = \text{ const} \\
+\Rightarrow \alpha_m^\mu = - \bar{\alpha}_m^\mu \\
+\Rightarrow X^\mu(\sigma,\tau) = x^\mu - \sqrt{2\cst}  \sum_{m\neq 0 } \frac{e^{-im\tau}}{m} \alpha_m^\mu \sin m\sigma
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{(c)}
+\eq{
+\comm[x^\mu ]{p^\nu} = i\eta^{\mu\nu} \\
+\comm[\alpha_m^\mu]{\alpha_n^\nu} = m \delta_{m, -n} \eta^{\mu\nu}
+}
+Now we do as in question 2, but now 
+\eq{
+l_m = -\frac{1}{\pi} \int_0^{2\pi} d\sigma \, \underbrace{T_{--}}_{-T_{++}}(\sigma) e^{-im\sigma} 
+}
+so we do not have any $\bar{l}$. Then if we define $\alpha_0^\mu = \sqrt{2\cst} p^\mu$ we get the same result as before. In the quantum theory 
+\eq{
+L_m = \frac{1}{2} \sum_{n} \alpha_{m-n} \cdot \alpha_n
+}
+Then set 
+\eq{
+\forall m > 0 \; L_m \ket{\phi} = 0 \\
+(L_0 - 1) \ket{\phi} = 0 \\
+L_0 = \cst p^2 + N 
+}
+so 
+\eq{
+\ket{k} = e^{ik\cdot x} \ket{0} \\
+\forall n > 0 \; \alpha_n^\mu \ket{0} = 0 \\
+\ket{T} = T(k) \ket{k} \\
+\Rightarrow (L_0 - 1) \ket{T} = (\cst k^2 - 1 ) \ket{T} = 0 \\
+\Rightarrow k^2 = \frac{1}{\cst} \Rightarrow M^2 = -\frac{1}{\cst} 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{(d)}
+Now 
+\eq{
+\ket{A} = A_\mu (k) \alpha_{-1}^\mu \ket{k} \\
+ \forall m \geq 2 \; L_m \ket{A} = 0 \\
+ (L_0 - 1) \ket{A} = (\cst k^2 +1 - 1 ) \ket{A} = 0 \Rightarrow k^2 = 1 \\
+ L_1 \ket{A} = \alpha_0 \cdots \alpha_1 \ket{A} = \alpha_0^\mu A_\mu \ket{k} \Rightarrow A_\mu k^\mu = 0 
+}
+Next let 
+\eq{
+\ket{\lambda} \lambda k_\mu \alpha_{-1}^\mu \ket{k}
+}
+so \eq{
+\braket{\lambda | \lambda} &= |\lambda|^2 k_\mu k^\nu \braket{ k | \alpha_1^\mu \alpha_{-1}^\nu | k} \\
+&= |\lambda|^2 k^2 \braket{k|k} = 0 
+}
+Hence in our Hilbert space we must associate 
+\eq{
+\ket{A} \sim \ket{A} + \ket{\lambda} \\
+\Rightarrow A_\mu \sim A_\mu + k_\mu \lambda \\
+\Rightarrow A_\mu(x) \sim A_\mu(x) + \del_\mu \lambda(x)
+}
+hence has $U(1)$ gauge invariance. This must be the photon. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Question 6}
+
+This question has an infinity that cannot be dealt with due to a typo
+\eq{
+\delta X ^ { \mu } ( \sigma ) = \left\{ X ^ { \mu } ( \sigma ) , \xi ^ { - } \left( \sigma ^ { - } \right) T _ { - - } ( \sigma ) \right\} _ { \mathrm { P.B. } }
+}
+which should be 
+\eq{
+\delta X ^ { \mu } ( \sigma ) = \left\{ X ^ { \mu } ( \sigma ) , \xi ^ { - } \left( \sigma ^ { - } \right) T _ { - - } ( \sigma^\prime ) \right\} _ { \mathrm { P.B. } }
+}.
+The point is that the energy momentum tensor generates conformal transformation. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Question 7}
+
+Impose 
+\eq{
+\comm[L_m]{L_n} = (m-n) K_{m+n} + A(m) \delta_{m+n,0}
+}
+but nothing else. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{(a)}
+
+\eq{
+\comm[L_0]{L_{\pm1}} = \mp L_{\pm 1} \\
+\comm[L_1]{L_{-1}} &= 2L_0 + A(1) \\
+&= \frac{1}{2} \comm[L_1]{\sum_m \alpha_{-1-m} \cdot \alpha_m} \\
+&= \frac{1}{2} \sum_m \alpha_{-1-m} \cdot \comm[L_1]{\alpha_m} + \comm[L_1]{\alpha_{-1-m}} \cdot \alpha_m \\
+&= = 2L_0
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{(b)}
+It can be shown 
+\eq{
+A(m) = Bm^3 + Cm
+}
+we know 
+\eq{
+A(1) = 0 = B+C
+}
+and taking 
+\eq{
+\braket{0 | \comm[L_2]{L_{-2}} | 0 } & = \frac{1}{4} \braket{0 | (\alpha_1 \cdot \alpha_1)(\alpha_{-1} \cdot \alpha_{-1}) | 0} \\
+&= \frac{1}{4} (D+D) = \frac{D}{2} = A(2) = 8B+2C
+}
+so 
+\eq{
+B = \frac{D}{12} = -C
+}
+
+The point of this is to see that, if we didn't have the contribution due to the ghosts, we would get breaking of gauge symmetry which is unphysical. Including ghosts we get 
+\eq{
+A(m) = \frac{D-26}{12} m(m^2-1)
+}
+so we should have $D=26$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Question 8}
+
+Taking 
+\eq{
+L_0^\dagger \ket{k} = \frac{\cst}{2} k^2 \ket{k}
+}
+
+\eq{
+\braket{\phi | L_0^\dagger -2 | \phi} &= \int dk \, dk^\prime \, \tilde{\phi}^\ast(k^\prime) (\frac{\cst}{2} k^2 - 2 ) \tilde{\phi}(k) \\
+&= \frac{\cst}{2} \int dx \, \left( - \del_\mu \phi^\ast \del^\mu \phi - M^2 \phi \right) 
+}
+here we have forgotten to account for the ghosts. 
+
+
+
+\end{document}
