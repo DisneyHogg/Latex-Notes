@@ -13,10 +13,12 @@ bib/
 This is a directory containing my bibliography created by Mendeley (library.bib), a manually created .bib file for when I need to work around Mendeley (manual.bib) and a custom bibliography style I created using makebst (insert linke here) (obviously named as custom-bib-style.bst)
 
 'Example sheets and assignments'/
-This is work I have typed up for any courses. I do not particularly use it often. 
+This is work I have typed up for any courses. I do not particularly use it often.
+I did not get 100% for these assignments, so don't trust that the answers are 100% correct.  
 
 Notes/ 
 Notes I have written on a bunch of topics. 
+The notes are not guaranteed to be correct, and any comments are welcomed.
 
 Teaching/
 Documents I have written to aid with teaching or presentations
