@@ -1,0 +1,62 @@
+\usepackage{/home/s1504632/Documents/Coding/Latex/header}
+\usepackage{mdframed}
+
+\mdfdefinestyle{defstyle}{%
+linecolor=black,linewidth=1pt,%
+backgroundcolor=blue!20,
+innertopmargin=.1\baselineskip,
+}
+\mdfdefinestyle{examplestyle}{%
+linecolor=black,linewidth=1pt,%
+backgroundcolor=green!20,
+innertopmargin=.1\baselineskip,
+}
+\mdfdefinestyle{factstyle}{%
+linecolor=black,linewidth=1pt,%
+backgroundcolor=red!20,
+innertopmargin=.1\baselineskip,
+}
+
+\mdfdefinestyle{proofstyle}{%
+linecolor=black,linewidth=1pt,%
+backgroundcolor=Cerulean!20,
+innertopmargin=.1\baselineskip,
+}
+
+\mdfdefinestyle{exstyle}{%
+linecolor=black,linewidth=1pt,%
+backgroundcolor=Dandelion!40,
+innertopmargin=.1\baselineskip,
+}
+
+\mdfdefinestyle{notestyle}{%
+linecolor=black,linewidth=1pt,%
+backgroundcolor=CadetBlue!20,
+innertopmargin=.1\baselineskip,
+}
+
+
+\surroundwithmdframed[style=proofstyle]{proof}
+\surroundwithmdframed[style=proofstyle]{prop}
+\surroundwithmdframed[style=proofstyle]{lemma}
+\surroundwithmdframed[style=proofstyle]{theorem}
+\surroundwithmdframed[style=proofstyle]{claim}
+\surroundwithmdframed[style=proofstyle]{corollary}
+
+\surroundwithmdframed[style=notestyle]{aside}
+\surroundwithmdframed[style=notestyle]{idea}
+\surroundwithmdframed[style=notestyle]{remark}
+
+\surroundwithmdframed[style=exstyle]{ex}
+\surroundwithmdframed[style=factstyle]{fact}
+\surroundwithmdframed[style=defstyle]{definition}
+\surroundwithmdframed[style=examplestyle]{example}
+
+
+
+\geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
