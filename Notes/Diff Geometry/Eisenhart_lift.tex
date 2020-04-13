@@ -9,8 +9,11 @@
 
 \maketitle
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The Eisenhart Lift}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The metric and equations of motion}
 Consider the $(d+2)$-dimensional line element,
 \begin{equation}
 \label{eislift}
@@ -43,7 +46,26 @@ $$A:=A_\mu dx\sp{\mu}=N_i dx\sp{i}-\Phi dt,\qquad
 F=dA=\frac12 (\partial_\mu A_\nu- \partial_\nu A_\mu)\, dx\sp\mu \wedge dx\sp\nu =\frac12 F_{\mu\nu}
 \, dx\sp\mu \wedge dx\sp\nu
 $$
-the equations of motion for $v$, $x\sp{i}$ and $t$ yield
+we get 
+\eq{
+F_{ij} &= \del_i N_j - \del_j N_i = -F_{ji} \\
+F_{it} &= -(\del_t N_i + \del_i \Phi) = -F_{ti}
+}
+and using that the equations of motion for $v$, $x\sp{i}$ and $t$ (from $\frac{d}{d\lambda}\pd[\mc{L}]{\dot{x^\mu}} = \pd[\mc{L}]{x^\mu}$) yield
+\eq{
+0 = \frac{d}{d\lambda} \dot{t} =\ddot{t}
+}
+(for $v$) then 
+\eq{
+	\frac{1}{2} (\del_ih_{jk}) \dot{x}^j \dot{x}^k - (\del_i\Phi) \dot{t}^2 + (\del_i N_j) \dot{x}^j \dot{t} &= \frac{d}{d\lambda} \pround{h_{ij} \dot{x}^j + N_i \dot{t}} \\
+	&=  h_{ij} \ddot{x}^j + (\del_kh_{ij}) \dot{x}^j\dot{x}^k + (\del_t h_{ij}) \dot{x}^j \dot{t} + (\del_j N_i) \dot{x}^j \dot{t}  +(\del_t N_i) \dot{t}^2 
+}
+(for $\dot{x}^i$) and 
+\eq{
+ \frac{1}{2}(\del_t h_{ij}) \dot{x}^i \dot{x}^j-(\del_t \Phi) \dot{t}^2 + (\del_t N_i) \dot{x}^i \dot{t} &= \frac{d}{d\lambda} \pround{\dot{v} - 2\Phi\dot{t} + N_i \dot{x}^i} \\
+ &= \ddot{v} -2(\del_i \Phi) \dot{t} \dot{x}^i -2(\del_t \Phi) \dot{t}^2 -2\Phi \ddot{t} + (\del_j N_i) \dot{x}^i \dot{x}^j + (\del_t N_i) \dot{x}^i \dot{t} + N_i \ddot{x}^i
+}
+we get (collating them together)
 \begin{align*}
 0&=\ddot t,\\
 0&= h_{ij}\,\ddot x\sp{j}+[jk,i]_h\, \dot x\sp{j} \dot x\sp{k} +
@@ -58,24 +80,16 @@ the equations of motion for $v$, $x\sp{i}$ and $t$ yield
 +\left[ -N\sp{k} (\partial_t h_{ki} -F_{ki}) -2\partial_i\Phi \right]\,\dot t \dot x\sp{i} 
 +\left(- \partial_t\Phi +N\sp{i}F_{it} \right)\, \dot t^2
 \end{align*}
-where we have substituted the earlier equations in the latter. Note that where the indec From these we read that
-the nonvanishing Christoffel symbols for $\hat g$ are
-\begin{align*}
-\hat \Gamma\sp{i}_{jk}&=  \Gamma\sp{i}_{jk},
-&\hat \Gamma\sp{i}_{jt}&=-\frac12 F\sp{i}_{\ j}+\frac12 h\sp{ik}\partial_t h_{kj},
-&\hat \Gamma\sp{i}_{tt}&=h\sp{ik} \left( \partial_t N_k +\partial_{k} \Phi \right)= -F\sp{i}_{\ t},
-\\
-\hat \Gamma\sp{v}_{tt}&=-\partial_t \Phi+N\sp{k}F_{ku}, 
-&\hat \Gamma\sp{v}_{ij}&=\frac14\left[\nabla\sp{(h)}_{i}N_{j}+\nabla\sp{(h)}_{j}N_{i}-\partial_u h_{ij}\right],
-&\hat \Gamma\sp{v}_{ti}&=-\frac12 N\sp{k} (\partial_t h_{ki} -F_{ki}) -\partial_i\Phi .
-\end{align*}
-Note that to raisethe index of $N$ has required we recognise that 
+where we have substituted $F$ in the latter, and use the notation
 \eq{
-N^i = \hat{g}^{ij} N_j = h^{ij} N_j
+[jk,i]_h = \frac{1}{2}\pround{\del_j h_{ki} + \del_k h_{ji} - \del_i h_{jk}}
 }
-In particular this means $\partial_s$ is parallel with respect to the Levi-Civita metric.
-
-
+Note that to raise the index of $N$ has required we recognise that 
+\eq{
+	N^i = \hat{g}^{ij} N_j = h^{ij} N_j
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Equivalence of equations of motion}
 The canonical momenta are given by $p_\mu =\partial \mc{L}/\partial \dot x\sp{\mu}=\hat{g}_{\mu\nu}\dot{x}^\nu$ giving
 $$p_v =\dot t,\qquad p_i=h_{ij} \dot x\sp{j} +N_i \dot t, \qquad p_t=\dot v- 2\Phi \dot t +N_i \dot x\sp{i},
 $$
@@ -88,23 +102,23 @@ $$\mathcal{H}=p_\mu \dot x\sp{\mu}-\mathcal{L} = \frac12 \hat{g}\sp{\mu\nu}\,p_{
 $$
 The equations of motion are
 \begin{align*}
-\frac{dt}{d\lambda}&=\frac{\partial \mathcal{H}}{\partial p_t}=p_v, &
-\frac{dv}{d\lambda}&=\frac{\partial \mathcal{H}}{\partial p_v},& 
-\frac{d x^i}{d\lambda}&=\frac{\partial \mathcal{H}}{\partial p_i}=h\sp{ij}\, (p_j-N_j p_v),
-\\
-\frac{d p_t}{d\lambda}&=-\frac{\partial \mathcal{H}}{\partial t},
-&
-\frac{d p_v}{d\lambda}&=-\frac{\partial \mathcal{H}}{\partial v}=0,&
-\frac{d p_i}{d\lambda}&=-\frac{\partial \mathcal{H}}{\partial x^i}.
+	\frac{dt}{d\lambda}&=\frac{\partial \mathcal{H}}{\partial p_t}=p_v, &
+	\frac{dv}{d\lambda}&=\frac{\partial \mathcal{H}}{\partial p_v},& 
+	\frac{d x^i}{d\lambda}&=\frac{\partial \mathcal{H}}{\partial p_i}=h\sp{ij}\, (p_j-N_j p_v),
+	\\
+	\frac{d p_t}{d\lambda}&=-\frac{\partial \mathcal{H}}{\partial t},
+	&
+	\frac{d p_v}{d\lambda}&=-\frac{\partial \mathcal{H}}{\partial v}=0,&
+	\frac{d p_i}{d\lambda}&=-\frac{\partial \mathcal{H}}{\partial x^i}.
 \end{align*}
 Because $v$ is a cyclic coordinate its conjugate momentum $p_v$ is conserved along geodesics:
 thus $p_v=m$ is a constant and we may write
 $$\mathcal{H}:=H+m\, p_t,\qquad H:=\frac12 h\sp{ij}\, (p_{i}-m N_i )(p_j-m N_j) +m^2\, \Phi.$$
 We observe that we have the geodesics have the conserved quantities,
 \begin{align*}
-\frac12 \hat g\sp{\mu\nu}\, p_\mu p_\nu&=m\left[ \frac{p\sp{i}p_i}{2m}- N\sp{i}p_i +m N\sp{i}N_i
-+p_t +m\Phi \right] :=- m E_0,\\
-\hat g\sp{\mu\nu}\, p_\mu \xi_\nu&=p_v=m.
+	\frac12 \hat g\sp{\mu\nu}\, p_\mu p_\nu&=m\left[ \frac{p\sp{i}p_i}{2m}- N\sp{i}p_i +m N\sp{i}N_i
+	+p_t +m\Phi \right] :=- m E_0,\\
+	\hat g\sp{\mu\nu}\, p_\mu \xi_\nu&=p_v=m.
 \end{align*}
 Following the identifications of \cite{Duval1991} we view $p_v=m$ as the mass, $-p_t=E$  as the energy,
 $E_0$ as the internal energy, and $m\Phi=V$ as the potential energy. Taking the internal energy to vanish in the nonrelativistic limit the null geodesics of $\hat g$ may be identified with the motion in the $d$-dimensional space with potential energy $V$. We note that two conformally related metrics have the same null geodesics, and so the $d$-dimensional world lines will be the same. For $m\ne 0$ the equations of motion for $t$ then give $dt/d\lambda=m$, whence $dt =m\,d\lambda$ and we may eliminate the affine geodesic parameter $\lambda$
@@ -112,15 +126,124 @@ for $t$. The equations of motion are then precisely those coming from the standa
 $$\tilde L= \frac12 h_{ij}\, \dot x\sp{i}\, \dot x\sp{j}+N_i \,\dot x\sp{i}-\Phi $$
 where $ \dot x\sp{i}$ is now the standard $d x\sp{i}/dt$ (and $\dot t = 1$). Now
 \begin{enumerate}[(a)]
-\item in the case of a non-null geodesic, if we parameterised the curve by arc length, $\lambda=s$ and $t =ms$, then from (\ref{eislift}) we have 
-$$\frac{dv}{dt}= \frac1{2m^2} -\tilde L.$$
-The equations of motion for $v$ follow from this and
-$$v=\frac{t}{2m^2}-\int \tilde L\, dt +b.$$
-\item in the case of a null geodesics we have
- $$\frac{dv}{dt}=  -\tilde L,\qquad  v=-\int \tilde L\, dt +b.$$
+	\item in the case of a non-null geodesic, if we parameterised the curve by arc length, $\lambda=s$ and $t =ms$, then from (\ref{eislift}) we have 
+	$$\frac{dv}{dt}= \frac1{2m^2} -\tilde L.$$
+	The equations of motion for $v$ follow from this and
+	$$v=\frac{t}{2m^2}-\int \tilde L\, dt +b.$$
+	\item in the case of a null geodesics we have
+	$$\frac{dv}{dt}=  -\tilde L,\qquad  v=-\int \tilde L\, dt +b.$$
 \end{enumerate}
 Thus we have for each $m\ne0$ and $b$ a bijection between the geodesics of $\hat g$ and the
 equations of motion of $\tilde L$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Connection and Curvature}
+From the equations of motion we read that the nonvanishing Christoffel symbols for $\hat g$ are
+\begin{align*}
+\hat \Gamma\sp{i}_{jk}&=  \Gamma\sp{i}_{jk},
+&\hat \Gamma\sp{i}_{jt}&=-\frac12 F\sp{i}_{\ j}+\frac12 h\sp{ik}\partial_t h_{kj},
+&\hat \Gamma\sp{i}_{tt}&=h\sp{ik} \left( \partial_t N_k +\partial_{k} \Phi \right)= -F\sp{i}_{\ t},
+\\
+\hat \Gamma\sp{v}_{tt}&=-\partial_t \Phi+N\sp{k}F_{kt}, 
+&\hat \Gamma\sp{v}_{ij}&=\frac14\left[\nabla\sp{(h)}_{i}N_{j}+\nabla\sp{(h)}_{j}N_{i}-\partial_t h_{ij}\right],
+&\hat \Gamma\sp{v}_{ti}&=-\frac12 N\sp{k} (\partial_t h_{ki} -F_{ki}) -\partial_i\Phi .
+\end{align*}
+Recall now the equation for the Riemann tensor 
+\eq{
+\hat{R}\indices{^\mu_\nu_\rho_\sigma} = \del_\rho \hat{\Gamma}^\mu_{\nu\sigma} - \del_\sigma \hat{\Gamma}^\mu_{\nu\rho} + \hat{\Gamma}^\mu_{\rho\lambda}\hat{\Gamma}^\lambda_{\nu\sigma} - \hat{\Gamma}^\mu_{\sigma\lambda}\hat{\Gamma}^\lambda_{\nu\rho}
+}
+We immediately notice 
+\eq{
+\hat{R}\indices{^i_j_k_l} = R\indices{^i_j_k_l} + \hat{\Gamma}^i_{kt}\hat{\Gamma}^t_{jl} - \hat{\Gamma}^i_{lt}\hat{\Gamma}^t_{jk} + \hat{\Gamma}^i_{kv}\hat{\Gamma}^v_{jl} -\hat{\Gamma}^i_{lv}\hat{\Gamma}^v_{jk} = R\indices{^i_j_k_l}
+}
+as there are non-vanishing Christoffel symbols with $v$ as lower index, or $t$ as an upper index. \\
+Further, as all Christoffel symbols are independent of $v$ (as the metric is) we can then say that $\hat{R}\indices{^\mu_\nu_v_\sigma} = 0$. As such $\hat{R}\indices{^\mu_\nu_\rho_\sigma}=0$ if any of $\nu,\rho,\sigma=v$. We can also see that $\hat{R}\indices{^t_\nu_\rho_\sigma}=0$ by the formula, so we now need only determine
+\begin{center}
+\begin{enumerate}
+	\item $R\indices{^v_i_j_k}$
+	\item $R\indices{^v_i_t_k}$
+	\item $R\indices{^v_t_j_k}$
+	\item $R\indices{^v_t_t_k}$
+\end{enumerate}
+\end{center}
+	 
+\subsection{The Frame}
+Given the metric (\ref{eislift}) we define the frame $\{ {\hat e}\sp{A}\}$,
+\begin{equation*}
+	ds^2=\hat g_{\mu\nu}\,dx\sp{\mu}\,dx\sp{\nu}
+	=h_{ij}\, dx\sp{i}\, dx\sp{j}+2dt \left( dv-\Phi dt+N_i dx\sp{i}\right)
+	= {\hat \eta}_{AB}\, {\hat e}\sp{A} {\hat e}\sp{B}
+	= \eta_{ab}\, e\sp{a} e\sp{b}+  {\hat e}\sp{+} {\hat e}\sp{-} +  {\hat e}\sp{-} {\hat e}\sp{+}.
+\end{equation*}
+Here $A\in \{+,-,a,b,\ldots\}$, $ {\hat \eta}_{+-}={\hat \eta}_{-+}=1$, and we take
+\begin{align*}
+	{\hat e}\sp{+}:= dt,\qquad
+	{\hat e}\sp{-} :=dv-\Phi\,dt +N_i\,dx\sp{i},\qquad
+	{\hat e}\sp{a} := {\hat e}\sp{a}_{\mu} dx\sp{\mu}= { e}\sp{a}_{i} dx\sp{i}= { e}\sp{a},
+\end{align*}
+and 
+$$e\sp{a}_i \eta_{ab} e\sp{b}_j =h_{ij}.$$
+The coframe  $\{ {\hat E}_{A}\}$ with ${\hat e}\sp{A}(  {\hat E}_{B})=\delta\sp{A}_B$ is given by
+\begin{align*}
+	{\hat E}_{+}:= \partial_t +\Phi\,\partial_v,\qquad
+	{\hat E}_{-} :=\partial_v,\qquad
+	{\hat E}_{a} := {E}_{a}- N_a\,\partial_v,
+\end{align*}
+where $N_a=N_i E_a\sp{i}$ and similarly
+$$ { e}\sp{a}(  { E}_{b})=\delta\sp{a}_b,\qquad { E}_{b}={ E}_{b}\sp{i}\,\partial_i.
+$$
+We emphasise that $N$, $\phi$ and $e\sp{a}$ may depend on $x\sp{i}$ \emph{and} $t$.
+
+Denoting the structure constants $[\hat E_B, \hat E_C]=c\sp{A}_{\ BC} \hat E_A$ we have from
+\begin{align*}
+	d\alpha (X,Y)&=X( \alpha(Y))-Y(\alpha(X))-\alpha([X,Y])
+	\intertext{for a one-form $\alpha$, then for the torsion free connection}
+	d \hat e\sp{A}&= -\hat \omega\sp{A}_{\ B}\wedge e\sp{B}= \hat \omega\sp{A}_{\ B C} e\sp{B}\wedge e\sp{C}
+	\intertext{we have}
+	d \hat e\sp{A}(\hat E_B,\hat E_C)&=\hat \omega\sp{A}_{\ B C}-\hat \omega\sp{A}_{\  C B}
+	= -\hat  e\sp{A}([\hat E_B,\hat  E_C])= -c\sp{A}_{\ BC},
+	\intertext{from which}
+	\hat \omega\sp{A}_{\ B C}&=\frac12 \hat \eta\sp{AF}( c_{CFB}+c_{BFC}-c_{FBC}).
+\end{align*}
+The $v$-independence of the metric means that
+$$[\hat E_-,   \hat E_B]=0,\qquad  c\sp{A}_{\ - B}=0$$
+while
+\begin{align*}
+	[\hat E_+,   \hat E_a]&= \partial_t E_a-  (\partial_t N_a) \partial_v -(E_a\Phi)  \partial_v\\
+	&=(\partial_t E_a\sp{j})[\partial_j -N_j \partial_v] - E_a\sp{j})[\partial_t N_j+\partial_j\Phi    ]\partial_v\\
+	&= (\partial_t E_a\sp{j} \, e\sp{b}_j)\, \hat E_b +F_{at}\, \hat E_-\\
+	%&= c\sp{b}_{\ +a}\, \hat E_b+ c\sp{-}_{\ +a}\, \hat E_- ,
+	\intertext{and}
+	[\hat E_a,   \hat E_b]&=[ E_a,   E_b] -(E_a N_b- E_b N_a)\,  \partial_v\\
+	&=  c\sp{f}_{\ ab}\, \hat E_f - F_{ab}\,\hat E_-
+\end{align*}
+giving the (possibly) non-vanishing structure constants as
+$$ c\sp{f}_{\ ab},\ \  c\sp{-}_{\ ab}=- F_{ab},\ \ c\sp{b}_{\ +a}= (\partial_t E_a\sp{j} \, e\sp{b}_j),\ \
+c\sp{-}_{\ +a}=F_{at}.$$
+Now
+\begin{align*}
+	d {\hat e}\sp{+}&= 0,\\
+	d {\hat e}\sp{-} &=\frac12 F_{ab}\, e\sp{a}\wedge e\sp{b} +F_{it}\, dx\sp{i}\wedge dt
+	=\frac12 F_{ab}\, {\hat e}\sp{a}\wedge {\hat e}\sp{b} +F_{at}\, {\hat e}\sp{a}\wedge {\hat e}\sp{+}, \\
+	d {\hat e}\sp{a} &=d\left(  {\hat e}\sp{a}_{\mu} dx\sp{\mu}\right)= { e}\sp{a}_{i} dx\sp{i}= { e}\sp{a}
+	=(\partial_j { e}\sp{a}_{i})\, dx\sp{j} \wedge dx\sp{i} +(\partial_t  { e}\sp{a}_{i})\, dt\wedge dx\sp{i}\\
+	&=\omega\sp{a}_{\ bc}\, e\sp{b}\wedge e\sp{c}-(E\sp{i}_b\,\partial_t  { e}\sp{a}_{i} )\,  dt\wedge{ e}\sp{b}
+	=\omega\sp{a}_{\ bc}\, e\sp{b}\wedge e\sp{c}+(\partial_t E\sp{i}_b\, { e}\sp{a}_{i} )\,  dt\wedge{ e}\sp{b},
+\end{align*}
+from which we see
+\begin{align*}
+	\hat \omega\sp{a}_{\ B C}\, {\hat e}\sp{B}\wedge {\hat e}\sp{C}&= \omega\sp{a}_{\ bc}\, e\sp{b}\wedge e\sp{c}+(\partial_t E\sp{i}_b\, { e}\sp{a}_{i} )\,  {\hat e}\sp{+}\wedge {\hat e}\sp{b},\\
+	\hat \omega\sp{-}_{\ B C}\, {\hat e}\sp{B}\wedge {\hat e}\sp{C}&= \frac12 F_{bc}\, {\hat e}\sp{b}\wedge {\hat e}\sp{c} +F_{at}\, {\hat e}\sp{a}\wedge {\hat e}\sp{+}.
+\end{align*}
+Set
+$$\alpha\sp{a}_{\ b}:= { e}\sp{a}_{i} \,\partial_t E\sp{i}_b=c\sp{a}_{\ +b},\ \
+\alpha_{ab}=-\alpha_{ba}, $$
+Using the antisymmetry of the connection then $0=\hat\omega_{++A}=\hat\omega\sp{-}_{\ +A}$
+and so
+$$\hat\omega\sp{-}_{\ a+}= F_{at},\ \  \hat\omega\sp{-}_{\ ab}= \frac12 F_{ab},\ \
+\hat\omega\sp{a}_{\ bc}=\omega\sp{a}_{\ bc}, \ \
+\hat\omega_{a b+}=-\frac12 F_{a b} -\frac12\left[ \partial_t E\sp{i}_a \,E_{ib}
+-  \partial_t E\sp{i}_b \,E_{ia}  \right]=-\frac12 F_{a b}+\alpha_{ab}.
+$$
 
 \subsection{Bargman Structures}
 A Bargmann structure $(B, \hat g, \xi)$ is a principal bundle $\pi:\, B\rightarrow M$, where $\dim B=\dim M+1$,
