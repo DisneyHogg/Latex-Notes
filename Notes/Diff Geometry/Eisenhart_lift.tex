@@ -80,9 +80,13 @@ we get (collating them together)
 +\left[ -N\sp{k} (\partial_t h_{ki} -F_{ki}) -2\partial_i\Phi \right]\,\dot t \dot x\sp{i} 
 +\left(- \partial_t\Phi +N\sp{i}F_{it} \right)\, \dot t^2
 \end{align*}
-where we have substituted $F$ in the latter, and use the notation
+where we have substituted $F$ in the latter, and usde the notation
 \eq{
-[jk,i]_h = \frac{1}{2}\pround{\del_j h_{ki} + \del_k h_{ji} - \del_i h_{jk}}
+[jk,i]_h = \frac{1}{2}\pround{\del_j h_{ki} + \del_k h_{ji} - \del_i h_{jk}} \, .
+}
+Recall 
+\eq{
+\Gamma^i_{jk}= h^{il}[jk,l]_h \, .
 }
 Note that to raise the index of $N$ has required we recognise that 
 \eq{
@@ -174,12 +178,66 @@ Further, as all Christoffel symbols are independent of $v$ (as the metric is) we
 Let us begin the slog:
 \eq{
 \hat{R}\indices{^i_j_t_l} &=\del_t \hat{\Gamma}^i_{jl} - \del_l \hat{\Gamma}^i_{jt} + \hat{\Gamma}^i_{t\mu}\hat{\Gamma}^\mu_{jl} - \hat{\Gamma}^i_{l\mu}\hat{\Gamma}^\mu_{jt}\\
-&= \Gamma^i_{jl,t} - \nabla_l \hat{\Gamma}^i_{jt}
+&= \Gamma^i_{jl,t} - \nabla_l^{(h)} \hat{\Gamma}^i_{jt} \\
+&= \Gamma^i_{jl,t} +\frac{1}{2}\nabla_l^{(h)}\psquare{h^{ik}\pround{F_{kj}-h_{kj,t}}} \\
+&= \Gamma^i_{jl,t} - \frac{1}{2}h^{ik}\nabla_l^{(h)}h_{kj,t} +\frac{1}{2}\nabla_l^{(h)}F\indices{^i_j} 
 }
+Now note 
 \eq{
-\hat{R}\indices{^i_t_k_l} &= \del_k \hat{\Gamma}^i_{lt} - \del_l \hat{\Gamma}^i_{kt} + \hat{\Gamma}^i_{k\mu}\hat{\Gamma}^\mu_{lt} - \hat{\Gamma}^i_{l\mu}\hat{\Gamma}^\mu_{kt}
+h^{ik}\nabla_l^{(h)} (\del_t h_{kj}) &= h^{ik} \psquare{h_{kj,tl} - \Gamma^m_{lk}h_{mk,t} - \Gamma^m_{lj} h_{km.t}} \\
+&= h^{ik} \psquare{h_{kj,lt} - \del_t (h_{mj}\Gamma^m_{lk}) + h_{mj}\Gamma^m_{lk,t} - \del_t(h_{km}\Gamma^m_{lj}) + h_{mk}\Gamma^m_{lj,t}} \\
+&= h^{ik} \psquare{\del_t(h_{kj,l}-[lk,j]_h - [lj,k]_h)+h_{mj}\Gamma^m_{lk,t}} + \Gamma^i_{lj,t}
 }
-	 
+Calculating
+\eq{
+h_{kj,l}-[lk,j]_h - [lj,k]_h = h_{kj,l}-\frac{1}{2}(h_{lj,k}+h_{kj,l}-h_{lk,j}) - \frac{1}{2}(h_{lk,j}+h_{jk,l}-h_{jl,k}) = 0
+}
+we have
+\eq{
+	\hat{R}\indices{^i_j_t_l} = \frac{1}{2}\psquare{\nabla_l^{(h)}F\indices{^i_j} + \Gamma^i_{jl,t} - h^{ik}h_{jm}\Gamma^m_{lk,t}}
+}
+Further
+\eq{
+\hat{R}\indices{^i_t_k_l} &= \del_k \hat{\Gamma}^i_{tl} - \del_l \hat{\Gamma}^i_{tk} + \hat{\Gamma}^i_{k\mu}\hat{\Gamma}^\mu_{tl} - \hat{\Gamma}^i_{l\mu}\hat{\Gamma}^\mu_{tk} \\
+&= 2\psquare{\nabla_{[k}^{(h)}\hat{\Gamma}^i_{l]t}+\Gamma^m_{[kl]}\hat{\Gamma}^i_{tm}} \\
+&= -\nabla_{[k}^{(h)}\pround{F\indices{^i_l_]} - h^{ij}h_{l]j,t}} \\
+&= h^{ij}h_{m[l}\Gamma^m_{k]j,t}-\nabla_{[k}^{(h)} F\indices{^i_l_]}
+}
+That is 
+\eq{
+\hat{R}\indices{^i_t_k_l} = 2\hat{R}\indices{^i_[_k_|_t_|_l_]} \, .
+}
+
+\eq{
+\hat{R}\indices{^i_t_t_l} &=  \del_t \hat{\Gamma}^i_{tl} - \del_l \hat{\Gamma}^i_{tt} + \hat{\Gamma}^i_{t\mu}\hat{\Gamma}^\mu_{tl} - \hat{\Gamma}^i_{l\mu}\hat{\Gamma}^\mu_{tt} \\
+&= -\frac{1}{2} \del_t \pround{F\indices{^i_l}-h^{ij}h_{jl,t}} +\frac{1}{4}\pround{F\indices{^i_j}-h^{ik}h_{kj,t}}\pround{F\indices{^j_l}-h^{jm}h_{ml,t}}  +\nabla_l^{(h)} F\indices{^i_t} \\
+&= -\frac{1}{2} \del_t \pround{F\indices{^i_l}-h^{ij}h_{jl,t}} +\frac{1}{4}\pround{F\indices{^i_j}+h\indices{^i^k_,_t}h_{kj}}\pround{F\indices{^j_l}-h^{jm}h_{ml,t}}  +\nabla_l^{(h)} F\indices{^i_t} \\
+&= -\frac{1}{2}  \pround{F\indices{^i_l_,_t}-h^{ij}h_{jl,tt}} +\frac{1}{4}\pround{F\indices{^i_j}F\indices{^j_l}-F^{ij}h_{jl,t} + F_{jl}h\indices{^i^j_,_t}+h\indices{^i^j_,_t}h_{jl,t}}  +\nabla_l^{(h)} F\indices{^i_t} 
+}
+
+\eq{
+\hat{R}\indices{^v_j_k_l} &= \del_k \hat{\Gamma}^v_{jl} - \del_l \hat{\Gamma}^v_{jk} + \hat{\Gamma}^v_{k\mu}\hat{\Gamma}^\mu_{jl} - \hat{\Gamma}^v_{l\mu}\hat{\Gamma}^\mu_{jk} \\
+&= 2\psquare{\nabla_{[k}^{(h)} \hat{\Gamma}^v_{l]j}+\Gamma^m_{[kl]}\hat{\Gamma}^v_{jm}} \\
+&= \frac{1}{2} \nabla_{[k}^{(h)} \psquare{\nabla\sp{(h)}_{l]}N_{j}+\nabla\sp{(h)}_{|j|}N_{l]}-h_{l]j,t}} \\
+&= -\frac{1}{4}R\indices{^i_j_k_l}N_i + \frac{1}{2}\psquare{-R\indices{^i_[_l_k_]_j} N_i + \nabla_j^{(h)}\nabla_{[k}^{(h)}N_{l]}} -\frac{1}{2}\psquare{h_{mj}\Gamma^m_{[kl],t}+h_{m[l}\Gamma^m_{k]j,t}}\\
+&= -\frac{1}{4}N_i \psquare{R\indices{^i_j_k_l} + R\indices{^i_l_k_j} - R\indices{^i_k_l_j}} + \frac{1}{4}\nabla_j^{(h)} F_{kl}  - \frac{1}{2} h_{m[l}\Gamma^m_{k]j,t}\\
+&= -\frac{1}{2}R\indices{^i_j_k_l}N_i +\frac{1}{2}\nabla_j^{(h)} F_{kl}  - \frac{1}{2} h_{m[l}\Gamma^m_{k]j,t}
+}
+	
+\eq{
+\hat{R}\indices{^v_j_t_l} &= \del_t \hat{\Gamma}^v_{jl} - \del_l \hat{\Gamma}^v_{jt} + \hat{\Gamma}^v_{t\mu}\hat{\Gamma}^\mu_{jl} - \hat{\Gamma}^v_{l\mu}\hat{\Gamma}^\mu_{jt} \\
+&= \frac{1}{4}\del_t\psquare{\nabla\sp{(h)}_{l}N_{j}+\nabla\sp{(h)}_{j}N_{l}-h_{lj,t}} + \nabla_l^{(h)} \psquare{\frac12 N\sp{k} (h_{kj,t} -F_{kj}) +\Phi_{,j}} \\
+&\phantom{=} +\frac{1}{2}\psquare{\nabla\sp{(h)}_{l}N_{i}+\nabla\sp{(h)}_{i}N_{l}-h_{li,t}}\psquare{F\sp{i}_{\ j} - h\sp{ik} h_{kj,t}} \\
+&= \text{\hl{improve this somehow}}
+}
+
+\eq{
+\hat{R}\indices{^v_t_t_l} &= \del_t \hat{\Gamma}^v_{tl} - \del_l \hat{\Gamma}^v_{tt} + \hat{\Gamma}^v_{t\mu}\hat{\Gamma}^\mu_{tl} - \hat{\Gamma}^v_{l\mu}\hat{\Gamma}^\mu_{tt} \\
+&= -\del_t \psquare{\frac12 N\sp{k} (h_{kl,t} -F_{kl}) +\Phi_{,l}} - \del_l\psquare{-\Phi_{,t}+N^kF_{kt}} +\frac{1}{2} \psquare{\frac12 N\sp{k} (h_{ki,t} -F_{ki}) +\Phi_{,i}}\psquare{F\sp{i}_{\ l}- h\sp{ik} h_{kl,t}} \\
+&\phantom{=} +F\indices{^i_t} \psquare{\nabla\sp{(h)}_{l}N_{i}+\nabla\sp{(h)}_{i}N_{l}-h_{li,t}}  \\
+&= \text{\hl{improve this somehow}}
+}
+	
 \subsection{The Frame}
 Given the metric (\ref{eislift}) we define the frame $\{ {\hat e}\sp{A}\}$,
 \begin{equation*}
