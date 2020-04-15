@@ -160,7 +160,7 @@ We immediately notice
 \hat{R}\indices{^i_j_k_l} = R\indices{^i_j_k_l} + \hat{\Gamma}^i_{kt}\hat{\Gamma}^t_{jl} - \hat{\Gamma}^i_{lt}\hat{\Gamma}^t_{jk} + \hat{\Gamma}^i_{kv}\hat{\Gamma}^v_{jl} -\hat{\Gamma}^i_{lv}\hat{\Gamma}^v_{jk} = R\indices{^i_j_k_l}
 }
 as there are non-vanishing Christoffel symbols with $v$ as lower index, or $t$ as an upper index. \\
-Further, as all Christoffel symbols are independent of $v$ (as the metric is) we can then say that $\hat{R}\indices{^\mu_\nu_v_\sigma} = 0$. As such $\hat{R}\indices{^\mu_\nu_\rho_\sigma}=0$ if any of $\nu,\rho,\sigma=v$. We can also see that $\hat{R}\indices{^t_\nu_\rho_\sigma}=0$ by the formula, so we now need only determine
+Further, as all Christoffel symbols are independent of $v$ (as the metric is) we can then say that $\hat{R}\indices{^\mu_\nu_v_\sigma} = 0$. As such $\hat{R}\indices{^\mu_\nu_\rho_\sigma}=0$ if any of $\nu,\rho,\sigma=v$. We can also see that $\hat{R}\indices{^t_\nu_\rho_\sigma}=0$ by the formula. so we now need only determine
 
 \begin{multicols}{2}
 \begin{enumerate}
@@ -175,6 +175,24 @@ Further, as all Christoffel symbols are independent of $v$ (as the metric is) we
 	\item $\hat{R}\indices{^v_t_t_l}$
 \end{enumerate}
 \end{multicols}
+Making the observation 
+\eq{
+\hat{R}\indices{^v_\nu_\rho_\sigma} = -h^{ik}N_k R_{i\nu\rho\sigma} + R_{t\nu\rho\sigma} 
+}
+and seeing that 
+\eq{
+	\hat{R}_{i\nu\rho\sigma} &= \hat{g}_{i\mu}\hat{R}\indices{^\mu_\nu_\rho_\sigma} \\
+	&= h_{ij}\hat{R}\indices{^j_\nu_\rho_\sigma}
+}
+we can simplify
+\eq{
+\hat{R}\indices{^v_j_\rho_\sigma} &= -N_i\hat{R}\indices{^i_j_\rho_\sigma}-h_{ji}\hat{R}\indices{^i_t_\rho_\sigma}
+}
+and
+\eq{
+\hat{R}\indices{^v_t_\rho_\sigma} = -N_i\hat{R}\indices{^i_t_\rho_\sigma}
+}
+This lets us get the seoncd column of terms immediately after we have the first. 
 Let us begin the slog:
 \eq{
 \hat{R}\indices{^i_j_t_l} &=\del_t \hat{\Gamma}^i_{jl} - \del_l \hat{\Gamma}^i_{jt} + \hat{\Gamma}^i_{t\mu}\hat{\Gamma}^\mu_{jl} - \hat{\Gamma}^i_{l\mu}\hat{\Gamma}^\mu_{jt}\\
@@ -214,7 +232,24 @@ That is
 &= -\frac{1}{2} \del_t \pround{F\indices{^i_l}-h^{ij}h_{jl,t}} +\frac{1}{4}\pround{F\indices{^i_j}+h\indices{^i^k_,_t}h_{kj}}\pround{F\indices{^j_l}-h^{jm}h_{ml,t}}  +\nabla_l^{(h)} F\indices{^i_t} \\
 &= -\frac{1}{2}  \pround{F\indices{^i_l_,_t}-h^{ij}h_{jl,tt}} +\frac{1}{4}\pround{F\indices{^i_j}F\indices{^j_l}-F^{ij}h_{jl,t} + F_{jl}h\indices{^i^j_,_t}+h\indices{^i^j_,_t}h_{jl,t}}  +\nabla_l^{(h)} F\indices{^i_t} 
 }
+With these three we can read off
+\eq{
+\hat{R}\indices{^v_j_k_l} &= -N_i R\indices{^i_j_k_l} -h_{ji}\psquare{h^{ia}h_{m[l}\Gamma^m_{k]a,t}-\nabla_{[k}^{(h)} F\indices{^i_l_]}} \\
+&= -N_iR\indices{^i_j_k_l}- h_{m[l}\Gamma^m_{k]j,t} + \nabla_{[k}^{(h)} F_{|j|l]} \\
+&\highlight{\overset{?}{=} -\frac{1}{2}R\indices{^i_j_k_l}N_i +\frac{1}{2}\nabla_j^{(h)} F_{kl}  - \frac{1}{2} h_{m[l}\Gamma^m_{k]j,t}}
+}
 
+\eq{
+\hat{R}\indices{^v_j_t_l} &= -\frac{1}{2}N_i\psquare{\nabla_l^{(h)}F\indices{^i_j} + \Gamma^i_{jl,t} - h^{ik}h_{jm}\Gamma^m_{lk,t}} - h_{ji}\left\lbrace-\frac{1}{2}  \pround{F\indices{^i_l_,_t}-h^{ik}h_{kl,tt}} \right. \\
+&\phantom{=}\left. +\frac{1}{4}\pround{F\indices{^i_k}F\indices{^k_l}-F^{ik}h_{kl,t} + F_{kl}h\indices{^i^k_,_t}+h\indices{^i^k_,_t}h_{kl,t}}  +\nabla_l^{(h)} F\indices{^i_t} \right\rbrace \\
+&= -\frac{1}{2}N_i\psquare{\nabla_l^{(h)}F\indices{^i_j} + \Gamma^i_{jl,t} - h^{ik}h_{jm}\Gamma^m_{lk,t}}+\frac{1}{2}\pround{h_{ji}F\indices{^i_l_,_t}+h_{jl,tt}} \\
+&\phantom{=} + \frac{1}{4} \pround{F_{jk}F\indices{^k_l} - F\indices{_j^k}h_{kl,t} + F_{kl}h_{ji}h\indices{^i^k_,_t} + h_{ji}h\indices{^i^k_,_t}h_{kl,t}} + \nabla_l^{(h)}F_{jt} \\
+&= -\frac{1}{2}N_i\psquare{\nabla_l^{(h)}F\indices{^i_j} + \Gamma^i_{jl,t} - h^{ik}h_{jm}\Gamma^m_{lk,t}}+\frac{1}{2}\pround{h_{ji}F\indices{^i_l_,_t}+h_{jl,tt}} \\
+&\phantom{=} + \frac{1}{4} \pround{F_{jk}F\indices{^k_l} - F\indices{_j^k}h_{kl,t} - F\indices{^i_l}h_{ji,t} + h_{ji}h\indices{^i^k_,_t}h_{kl,t}} + \nabla_l^{(h)}F_{jt}
+}
+
+\begin{remark}
+When I try to calculate $\hat{R}\indices{^v_j_k_l}$ directly, I get
 \eq{
 \hat{R}\indices{^v_j_k_l} &= \del_k \hat{\Gamma}^v_{jl} - \del_l \hat{\Gamma}^v_{jk} + \hat{\Gamma}^v_{k\mu}\hat{\Gamma}^\mu_{jl} - \hat{\Gamma}^v_{l\mu}\hat{\Gamma}^\mu_{jk} \\
 &= 2\psquare{\nabla_{[k}^{(h)} \hat{\Gamma}^v_{l]j}+\Gamma^m_{[kl]}\hat{\Gamma}^v_{jm}} \\
@@ -223,7 +258,10 @@ That is
 &= -\frac{1}{4}N_i \psquare{R\indices{^i_j_k_l} + R\indices{^i_l_k_j} - R\indices{^i_k_l_j}} + \frac{1}{4}\nabla_j^{(h)} F_{kl}  - \frac{1}{2} h_{m[l}\Gamma^m_{k]j,t}\\
 &= -\frac{1}{2}R\indices{^i_j_k_l}N_i +\frac{1}{2}\nabla_j^{(h)} F_{kl}  - \frac{1}{2} h_{m[l}\Gamma^m_{k]j,t}
 }
-	
+This does not (seemingly) agree with the previous calculation. \hl{Where is the error?}
+\end{remark}
+
+\begin{comment}	
 \eq{
 \hat{R}\indices{^v_j_t_l} &= \del_t \hat{\Gamma}^v_{jl} - \del_l \hat{\Gamma}^v_{jt} + \hat{\Gamma}^v_{t\mu}\hat{\Gamma}^\mu_{jl} - \hat{\Gamma}^v_{l\mu}\hat{\Gamma}^\mu_{jt} \\
 &= \frac{1}{4}\del_t\psquare{\nabla\sp{(h)}_{l}N_{j}+\nabla\sp{(h)}_{j}N_{l}-h_{lj,t}} + \nabla_l^{(h)} \psquare{\frac12 N\sp{k} (h_{kj,t} -F_{kj}) +\Phi_{,j}} \\
@@ -231,12 +269,14 @@ That is
 &= \text{\hl{improve this somehow}}
 }
 
+
 \eq{
 \hat{R}\indices{^v_t_t_l} &= \del_t \hat{\Gamma}^v_{tl} - \del_l \hat{\Gamma}^v_{tt} + \hat{\Gamma}^v_{t\mu}\hat{\Gamma}^\mu_{tl} - \hat{\Gamma}^v_{l\mu}\hat{\Gamma}^\mu_{tt} \\
 &= -\del_t \psquare{\frac12 N\sp{k} (h_{kl,t} -F_{kl}) +\Phi_{,l}} - \del_l\psquare{-\Phi_{,t}+N^kF_{kt}} +\frac{1}{2} \psquare{\frac12 N\sp{k} (h_{ki,t} -F_{ki}) +\Phi_{,i}}\psquare{F\sp{i}_{\ l}- h\sp{ik} h_{kl,t}} \\
 &\phantom{=} +F\indices{^i_t} \psquare{\nabla\sp{(h)}_{l}N_{i}+\nabla\sp{(h)}_{i}N_{l}-h_{li,t}}  \\
 &= \text{\hl{improve this somehow}}
 }
+\end{comment}
 	
 \subsection{The Frame}
 Given the metric (\ref{eislift}) we define the frame $\{ {\hat e}\sp{A}\}$,
