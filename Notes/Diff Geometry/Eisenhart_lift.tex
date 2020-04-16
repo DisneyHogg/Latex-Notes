@@ -148,7 +148,7 @@ From the equations of motion we read that the nonvanishing Christoffel symbols f
 &\hat \Gamma\sp{i}_{tt}&=h\sp{ik} \left( \partial_t N_k +\partial_{k} \Phi \right)= -F\sp{i}_{\ t},
 \\
 \hat \Gamma\sp{v}_{tt}&=-\partial_t \Phi+N\sp{k}F_{kt}, 
-&\hat \Gamma\sp{v}_{ij}&=\frac14\left[\nabla_{i}N_{j}+\nabla_{j}N_{i}-\partial_t h_{ij}\right],
+&\hat \Gamma\sp{v}_{ij}&=\frac12\left[\nabla_{i}N_{j}+\nabla_{j}N_{i}-\partial_t h_{ij}\right],
 &\hat \Gamma\sp{v}_{ti}&=-\frac12 N\sp{k} (\partial_t h_{ki} -F_{ki}) -\partial_i\Phi .
 \end{align*}
 Here we have used $\nabla_i$ for the Levi-Civita connection from the metric $h$. Recall now the equation for the Riemann tensor 
@@ -251,7 +251,14 @@ With these three we can read off
 \eq{
 \hat{R}\indices{^v_j_k_l} &= -N_i R\indices{^i_j_k_l} -h_{ji}\psquare{h^{ia}h_{m[l}\Gamma^m_{k]a,t}-\nabla_{[k} F\indices{^i_l_]}} \\
 &= -N_iR\indices{^i_j_k_l}- h_{m[l}\Gamma^m_{k]j,t} + \nabla_{[k} F_{|j|l]} \\
-&\highlight{\overset{?}{=} -\frac{1}{2}R\indices{^i_j_k_l}N_i +\frac{1}{2}\nabla_j F_{kl}  - \frac{1}{2} h_{m[l}\Gamma^m_{k]j,t}}
+&= -N_i R\indices{^i_j_k_l}  -  h_{m[l}\Gamma^m_{k]j,t} +\frac{1}{2} \nabla_j F_{kl}
+}
+using 
+\eq{
+	\nabla_{[k}F_{|j|l]} &= F_{j[l,k]}-F_{jm}\Gamma^m_{[kl]}-F_{m[l}\Gamma^m_{k]j} \\
+	&= N_{[l,|j|k]}-N_{j,[lk]}-F_{m[l}\Gamma^m_{k]j} \\
+	&= \frac{1}{2} \pround{F_{kl,j} - \Gamma^m_{kj}F_{ml}+\Gamma^m_{jl}F_{mk}} \\
+	&= \frac{1}{2}\nabla_j F_{kl}
 }
 
 \eq{
@@ -263,20 +270,16 @@ With these three we can read off
 &\phantom{=} + \frac{1}{4} \pround{F_{jk}F\indices{^k_l} - F\indices{_j^k}h_{kl,t} - F\indices{^i_l}h_{ji,t} + h_{ji}h\indices{^i^k_,_t}h_{kl,t}} + \nabla_lF_{jt}
 }
 
-\begin{remark}
-When I try to calculate $\hat{R}\indices{^v_j_k_l}$ directly, I get
+\begin{comment}
 \eq{
 \hat{R}\indices{^v_j_k_l} &= \del_k \hat{\Gamma}^v_{jl} - \del_l \hat{\Gamma}^v_{jk} + \hat{\Gamma}^v_{k\mu}\hat{\Gamma}^\mu_{jl} - \hat{\Gamma}^v_{l\mu}\hat{\Gamma}^\mu_{jk} \\
 &= 2\psquare{\nabla_{[k} \hat{\Gamma}^v_{l]j}+\Gamma^m_{[kl]}\hat{\Gamma}^v_{jm}} \\
-&= \frac{1}{2} \nabla_{[k} \psquare{\nabla_{l]}N_{j}+\nabla_{|j|}N_{l]}-h_{l]j,t}} \\
-&= -\frac{1}{4}R\indices{^i_j_k_l}N_i + \frac{1}{2}\psquare{-R\indices{^i_[_l_k_]_j} N_i + \nabla_j\nabla_{[k}N_{l]}} -\frac{1}{2}\psquare{h_{mj}\Gamma^m_{[kl],t}+h_{m[l}\Gamma^m_{k]j,t}}\\
-&= -\frac{1}{4}N_i \psquare{R\indices{^i_j_k_l} + R\indices{^i_l_k_j} - R\indices{^i_k_l_j}} + \frac{1}{4}\nabla_j F_{kl}  - \frac{1}{2} h_{m[l}\Gamma^m_{k]j,t}\\
-&= -\frac{1}{2}R\indices{^i_j_k_l}N_i +\frac{1}{2}\nabla_j F_{kl}  - \frac{1}{2} h_{m[l}\Gamma^m_{k]j,t}
+&=  \nabla_{[k} \psquare{\nabla_{l]}N_{j}+\nabla_{|j|}N_{l]}-h_{l]j,t}} \\
+&= -\frac{1}{2}R\indices{^i_j_k_l}N_i + \psquare{-R\indices{^i_[_l_k_]_j} N_i + \nabla_j\nabla_{[k}N_{l]}} -\psquare{h_{mj}\Gamma^m_{[kl],t}+h_{m[l}\Gamma^m_{k]j,t}}\\
+&= -\frac{1}{2}N_i \psquare{R\indices{^i_j_k_l} + R\indices{^i_l_k_j} - R\indices{^i_k_l_j}} + \frac{1}{2}\nabla_j F_{kl}  -  h_{m[l}\Gamma^m_{k]j,t}\\
+&= -R\indices{^i_j_k_l}N_i +\frac{1}{2}\nabla_j F_{kl}  -  h_{m[l}\Gamma^m_{k]j,t}
 }
-This does not (seemingly) agree with the previous calculation. \hl{Where is the error?}
-\end{remark}
-
-\begin{comment}	
+	
 \eq{
 \hat{R}\indices{^v_j_t_l} &= \del_t \hat{\Gamma}^v_{jl} - \del_l \hat{\Gamma}^v_{jt} + \hat{\Gamma}^v_{t\mu}\hat{\Gamma}^\mu_{jl} - \hat{\Gamma}^v_{l\mu}\hat{\Gamma}^\mu_{jt} \\
 &= \frac{1}{4}\del_t\psquare{\nabla\sp{(h)}_{l}N_{j}+\nabla\sp{(h)}_{j}N_{l}-h_{lj,t}} + \nabla_l \psquare{\frac12 N\sp{k} (h_{kj,t} -F_{kj}) +\Phi_{,j}} \\
