@@ -148,10 +148,10 @@ From the equations of motion we read that the nonvanishing Christoffel symbols f
 &\hat \Gamma\sp{i}_{tt}&=h\sp{ik} \left( \partial_t N_k +\partial_{k} \Phi \right)= -F\sp{i}_{\ t},
 \\
 \hat \Gamma\sp{v}_{tt}&=-\partial_t \Phi+N\sp{k}F_{kt}, 
-&\hat \Gamma\sp{v}_{ij}&=\frac14\left[\nabla\sp{(h)}_{i}N_{j}+\nabla\sp{(h)}_{j}N_{i}-\partial_t h_{ij}\right],
+&\hat \Gamma\sp{v}_{ij}&=\frac14\left[\nabla_{i}N_{j}+\nabla_{j}N_{i}-\partial_t h_{ij}\right],
 &\hat \Gamma\sp{v}_{ti}&=-\frac12 N\sp{k} (\partial_t h_{ki} -F_{ki}) -\partial_i\Phi .
 \end{align*}
-Recall now the equation for the Riemann tensor 
+Here we have used $\nabla_i$ for the Levi-Civita connection from the metric $h$. Recall now the equation for the Riemann tensor 
 \eq{
 \hat{R}\indices{^\mu_\nu_\rho_\sigma} = \del_\rho \hat{\Gamma}^\mu_{\nu\sigma} - \del_\sigma \hat{\Gamma}^\mu_{\nu\rho} + \hat{\Gamma}^\mu_{\rho\lambda}\hat{\Gamma}^\lambda_{\nu\sigma} - \hat{\Gamma}^\mu_{\sigma\lambda}\hat{\Gamma}^\lambda_{\nu\rho}
 }
@@ -192,17 +192,28 @@ and
 \eq{
 \hat{R}\indices{^v_t_\rho_\sigma} = -N_i\hat{R}\indices{^i_t_\rho_\sigma}
 }
-This lets us get the seoncd column of terms immediately after we have the first. 
+This lets us get the seoncd column of terms immediately after we have the first. \\
+The Bianchi identity also tells us that 
+\eq{
+\hat{R}\indices{^\mu_\nu_\rho_\sigma} = -\hat{R}\indices{^\mu_\rho_\sigma_\nu} - \hat{R}\indices{^\mu_\sigma_\nu_\rho}
+}
+This means 
+\eq{
+\hat{R}\indices{^i_t_k_l} &= -\hat{R}\indices{^t_k_l_t} - \hat{R}\indices{^i_l_k_t} \\
+&= 2\hat{R}\indices{^i_[_k_|_t_|_l_]}
+}
+and so we just need to work out 1 and 3. \\
 Let us begin the slog:
 \eq{
 \hat{R}\indices{^i_j_t_l} &=\del_t \hat{\Gamma}^i_{jl} - \del_l \hat{\Gamma}^i_{jt} + \hat{\Gamma}^i_{t\mu}\hat{\Gamma}^\mu_{jl} - \hat{\Gamma}^i_{l\mu}\hat{\Gamma}^\mu_{jt}\\
-&= \Gamma^i_{jl,t} - \nabla_l^{(h)} \hat{\Gamma}^i_{jt} \\
-&= \Gamma^i_{jl,t} +\frac{1}{2}\nabla_l^{(h)}\psquare{h^{ik}\pround{F_{kj}-h_{kj,t}}} \\
-&= \Gamma^i_{jl,t} - \frac{1}{2}h^{ik}\nabla_l^{(h)}h_{kj,t} +\frac{1}{2}\nabla_l^{(h)}F\indices{^i_j} 
+&= \Gamma^i_{jl,t} - \nabla_l \hat{\Gamma}^i_{jt} \\
+&= \Gamma^i_{jl,t} +\frac{1}{2}\nabla_l\psquare{h^{ik}\pround{F_{kj}-h_{kj,t}}} \\
+&= \Gamma^i_{jl,t} - \frac{1}{2}h^{ik}\nabla_lh_{kj,t} +\frac{1}{2}\nabla_lF\indices{^i_j} 
 }
+(This form  will be useful to give coherence with \cite{Duval1991}).
 Now note 
 \eq{
-h^{ik}\nabla_l^{(h)} (\del_t h_{kj}) &= h^{ik} \psquare{h_{kj,tl} - \Gamma^m_{lk}h_{mk,t} - \Gamma^m_{lj} h_{km.t}} \\
+h^{ik}\nabla_l (\del_t h_{kj}) &= h^{ik} \psquare{h_{kj,tl} - \Gamma^m_{lk}h_{mj,t} - \Gamma^m_{lj} h_{km.t}} \\
 &= h^{ik} \psquare{h_{kj,lt} - \del_t (h_{mj}\Gamma^m_{lk}) + h_{mj}\Gamma^m_{lk,t} - \del_t(h_{km}\Gamma^m_{lj}) + h_{mk}\Gamma^m_{lj,t}} \\
 &= h^{ik} \psquare{\del_t(h_{kj,l}-[lk,j]_h - [lj,k]_h)+h_{mj}\Gamma^m_{lk,t}} + \Gamma^i_{lj,t}
 }
@@ -212,51 +223,55 @@ h_{kj,l}-[lk,j]_h - [lj,k]_h = h_{kj,l}-\frac{1}{2}(h_{lj,k}+h_{kj,l}-h_{lk,j}) 
 }
 we have
 \eq{
-	\hat{R}\indices{^i_j_t_l} = \frac{1}{2}\psquare{\nabla_l^{(h)}F\indices{^i_j} + \Gamma^i_{jl,t} - h^{ik}h_{jm}\Gamma^m_{lk,t}}
+	\hat{R}\indices{^i_j_t_l} = \frac{1}{2}\psquare{\nabla_lF\indices{^i_j} + \Gamma^i_{jl,t} - h^{ik}h_{jm}\Gamma^m_{lk,t}}
 }
+Hence
+\eq{
+	\hat{R}\indices{^i_t_k_l} = 2\hat{R}\indices{^i_[_k_|_t_|_l_]} &= \nabla_{[l} F\indices{^i_k_]} - h^{ij}h_{m[k}\Gamma^m_{l]j,t} \\
+	\text{or } &=  \nabla_{[l} F\indices{^i_k_]} - \nabla_{[l} h^{ij}h_{k]j,t}
+}
+\begin{comment}
 Further
 \eq{
 \hat{R}\indices{^i_t_k_l} &= \del_k \hat{\Gamma}^i_{tl} - \del_l \hat{\Gamma}^i_{tk} + \hat{\Gamma}^i_{k\mu}\hat{\Gamma}^\mu_{tl} - \hat{\Gamma}^i_{l\mu}\hat{\Gamma}^\mu_{tk} \\
-&= 2\psquare{\nabla_{[k}^{(h)}\hat{\Gamma}^i_{l]t}+\Gamma^m_{[kl]}\hat{\Gamma}^i_{tm}} \\
-&= -\nabla_{[k}^{(h)}\pround{F\indices{^i_l_]} - h^{ij}h_{l]j,t}} \\
-&= h^{ij}h_{m[l}\Gamma^m_{k]j,t}-\nabla_{[k}^{(h)} F\indices{^i_l_]}
+&= 2\psquare{\nabla_{[k}\hat{\Gamma}^i_{l]t}+\Gamma^m_{[kl]}\hat{\Gamma}^i_{tm}} \\
+&= -\nabla_{[k}\pround{F\indices{^i_l_]} - h^{ij}h_{l]j,t}} \\
+&= h^{ij}h_{m[l}\Gamma^m_{k]j,t}-\nabla_{[k} F\indices{^i_l_]}
 }
-That is 
-\eq{
-\hat{R}\indices{^i_t_k_l} = 2\hat{R}\indices{^i_[_k_|_t_|_l_]} \, .
-}
-
+\end{comment}
+Further
 \eq{
 \hat{R}\indices{^i_t_t_l} &=  \del_t \hat{\Gamma}^i_{tl} - \del_l \hat{\Gamma}^i_{tt} + \hat{\Gamma}^i_{t\mu}\hat{\Gamma}^\mu_{tl} - \hat{\Gamma}^i_{l\mu}\hat{\Gamma}^\mu_{tt} \\
-&= -\frac{1}{2} \del_t \pround{F\indices{^i_l}-h^{ij}h_{jl,t}} +\frac{1}{4}\pround{F\indices{^i_j}-h^{ik}h_{kj,t}}\pround{F\indices{^j_l}-h^{jm}h_{ml,t}}  +\nabla_l^{(h)} F\indices{^i_t} \\
-&= -\frac{1}{2} \del_t \pround{F\indices{^i_l}-h^{ij}h_{jl,t}} +\frac{1}{4}\pround{F\indices{^i_j}+h\indices{^i^k_,_t}h_{kj}}\pround{F\indices{^j_l}-h^{jm}h_{ml,t}}  +\nabla_l^{(h)} F\indices{^i_t} \\
-&= -\frac{1}{2}  \pround{F\indices{^i_l_,_t}-h^{ij}h_{jl,tt}} +\frac{1}{4}\pround{F\indices{^i_j}F\indices{^j_l}-F^{ij}h_{jl,t} + F_{jl}h\indices{^i^j_,_t}+h\indices{^i^j_,_t}h_{jl,t}}  +\nabla_l^{(h)} F\indices{^i_t} 
+&= -\frac{1}{2} \del_t \pround{F\indices{^i_l}-h^{ij}h_{jl,t}} +\frac{1}{4}\pround{F\indices{^i_j}-h^{ik}h_{kj,t}}\pround{F\indices{^j_l}-h^{jm}h_{ml,t}}  +\nabla_l F\indices{^i_t} \\
+&= -\frac{1}{2} \del_t \pround{F\indices{^i_l}-h^{ij}h_{jl,t}} +\frac{1}{4}\pround{F\indices{^i_j}+h\indices{^i^k_,_t}h_{kj}}\pround{F\indices{^j_l}-h^{jm}h_{ml,t}}  +\nabla_l F\indices{^i_t} \\
+&= -\frac{1}{2}\psquare{\del_t \pround{F\indices{^i_l}-h^{ij}h_{jl,t}}-\frac{1}{2}\pround{F^{ij}+h\indices{^i^j_,_t}}\pround{F_{jl}-h_{jl,t}}-2\nabla_l F\indices{^i_t}} \quad \text{(useful to give coherence with \cite{Duval1991})}\\
+&= -\frac{1}{2}  \pround{F\indices{^i_l_,_t}-h^{ij}h_{jl,tt}} +\frac{1}{4}\pround{F\indices{^i_j}F\indices{^j_l}-F^{ij}h_{jl,t} + F_{jl}h\indices{^i^j_,_t}+h\indices{^i^j_,_t}h_{jl,t}}  +\nabla_l F\indices{^i_t} 
 }
 With these three we can read off
 \eq{
-\hat{R}\indices{^v_j_k_l} &= -N_i R\indices{^i_j_k_l} -h_{ji}\psquare{h^{ia}h_{m[l}\Gamma^m_{k]a,t}-\nabla_{[k}^{(h)} F\indices{^i_l_]}} \\
-&= -N_iR\indices{^i_j_k_l}- h_{m[l}\Gamma^m_{k]j,t} + \nabla_{[k}^{(h)} F_{|j|l]} \\
-&\highlight{\overset{?}{=} -\frac{1}{2}R\indices{^i_j_k_l}N_i +\frac{1}{2}\nabla_j^{(h)} F_{kl}  - \frac{1}{2} h_{m[l}\Gamma^m_{k]j,t}}
+\hat{R}\indices{^v_j_k_l} &= -N_i R\indices{^i_j_k_l} -h_{ji}\psquare{h^{ia}h_{m[l}\Gamma^m_{k]a,t}-\nabla_{[k} F\indices{^i_l_]}} \\
+&= -N_iR\indices{^i_j_k_l}- h_{m[l}\Gamma^m_{k]j,t} + \nabla_{[k} F_{|j|l]} \\
+&\highlight{\overset{?}{=} -\frac{1}{2}R\indices{^i_j_k_l}N_i +\frac{1}{2}\nabla_j F_{kl}  - \frac{1}{2} h_{m[l}\Gamma^m_{k]j,t}}
 }
 
 \eq{
-\hat{R}\indices{^v_j_t_l} &= -\frac{1}{2}N_i\psquare{\nabla_l^{(h)}F\indices{^i_j} + \Gamma^i_{jl,t} - h^{ik}h_{jm}\Gamma^m_{lk,t}} - h_{ji}\left\lbrace-\frac{1}{2}  \pround{F\indices{^i_l_,_t}-h^{ik}h_{kl,tt}} \right. \\
-&\phantom{=}\left. +\frac{1}{4}\pround{F\indices{^i_k}F\indices{^k_l}-F^{ik}h_{kl,t} + F_{kl}h\indices{^i^k_,_t}+h\indices{^i^k_,_t}h_{kl,t}}  +\nabla_l^{(h)} F\indices{^i_t} \right\rbrace \\
-&= -\frac{1}{2}N_i\psquare{\nabla_l^{(h)}F\indices{^i_j} + \Gamma^i_{jl,t} - h^{ik}h_{jm}\Gamma^m_{lk,t}}+\frac{1}{2}\pround{h_{ji}F\indices{^i_l_,_t}+h_{jl,tt}} \\
-&\phantom{=} + \frac{1}{4} \pround{F_{jk}F\indices{^k_l} - F\indices{_j^k}h_{kl,t} + F_{kl}h_{ji}h\indices{^i^k_,_t} + h_{ji}h\indices{^i^k_,_t}h_{kl,t}} + \nabla_l^{(h)}F_{jt} \\
-&= -\frac{1}{2}N_i\psquare{\nabla_l^{(h)}F\indices{^i_j} + \Gamma^i_{jl,t} - h^{ik}h_{jm}\Gamma^m_{lk,t}}+\frac{1}{2}\pround{h_{ji}F\indices{^i_l_,_t}+h_{jl,tt}} \\
-&\phantom{=} + \frac{1}{4} \pround{F_{jk}F\indices{^k_l} - F\indices{_j^k}h_{kl,t} - F\indices{^i_l}h_{ji,t} + h_{ji}h\indices{^i^k_,_t}h_{kl,t}} + \nabla_l^{(h)}F_{jt}
+\hat{R}\indices{^v_j_t_l} &= -\frac{1}{2}N_i\psquare{\nabla_lF\indices{^i_j} + \Gamma^i_{jl,t} - h^{ik}h_{jm}\Gamma^m_{lk,t}} - h_{ji}\left\lbrace-\frac{1}{2}  \pround{F\indices{^i_l_,_t}-h^{ik}h_{kl,tt}} \right. \\
+&\phantom{=}\left. +\frac{1}{4}\pround{F\indices{^i_k}F\indices{^k_l}-F^{ik}h_{kl,t} + F_{kl}h\indices{^i^k_,_t}+h\indices{^i^k_,_t}h_{kl,t}}  +\nabla_l F\indices{^i_t} \right\rbrace \\
+&= -\frac{1}{2}N_i\psquare{\nabla_lF\indices{^i_j} + \Gamma^i_{jl,t} - h^{ik}h_{jm}\Gamma^m_{lk,t}}+\frac{1}{2}\pround{h_{ji}F\indices{^i_l_,_t}+h_{jl,tt}} \\
+&\phantom{=} + \frac{1}{4} \pround{F_{jk}F\indices{^k_l} - F\indices{_j^k}h_{kl,t} + F_{kl}h_{ji}h\indices{^i^k_,_t} + h_{ji}h\indices{^i^k_,_t}h_{kl,t}} + \nabla_lF_{jt} \\
+&= -\frac{1}{2}N_i\psquare{\nabla_lF\indices{^i_j} + \Gamma^i_{jl,t} - h^{ik}h_{jm}\Gamma^m_{lk,t}}+\frac{1}{2}\pround{h_{ji}F\indices{^i_l_,_t}+h_{jl,tt}} \\
+&\phantom{=} + \frac{1}{4} \pround{F_{jk}F\indices{^k_l} - F\indices{_j^k}h_{kl,t} - F\indices{^i_l}h_{ji,t} + h_{ji}h\indices{^i^k_,_t}h_{kl,t}} + \nabla_lF_{jt}
 }
 
 \begin{remark}
 When I try to calculate $\hat{R}\indices{^v_j_k_l}$ directly, I get
 \eq{
 \hat{R}\indices{^v_j_k_l} &= \del_k \hat{\Gamma}^v_{jl} - \del_l \hat{\Gamma}^v_{jk} + \hat{\Gamma}^v_{k\mu}\hat{\Gamma}^\mu_{jl} - \hat{\Gamma}^v_{l\mu}\hat{\Gamma}^\mu_{jk} \\
-&= 2\psquare{\nabla_{[k}^{(h)} \hat{\Gamma}^v_{l]j}+\Gamma^m_{[kl]}\hat{\Gamma}^v_{jm}} \\
-&= \frac{1}{2} \nabla_{[k}^{(h)} \psquare{\nabla\sp{(h)}_{l]}N_{j}+\nabla\sp{(h)}_{|j|}N_{l]}-h_{l]j,t}} \\
-&= -\frac{1}{4}R\indices{^i_j_k_l}N_i + \frac{1}{2}\psquare{-R\indices{^i_[_l_k_]_j} N_i + \nabla_j^{(h)}\nabla_{[k}^{(h)}N_{l]}} -\frac{1}{2}\psquare{h_{mj}\Gamma^m_{[kl],t}+h_{m[l}\Gamma^m_{k]j,t}}\\
-&= -\frac{1}{4}N_i \psquare{R\indices{^i_j_k_l} + R\indices{^i_l_k_j} - R\indices{^i_k_l_j}} + \frac{1}{4}\nabla_j^{(h)} F_{kl}  - \frac{1}{2} h_{m[l}\Gamma^m_{k]j,t}\\
-&= -\frac{1}{2}R\indices{^i_j_k_l}N_i +\frac{1}{2}\nabla_j^{(h)} F_{kl}  - \frac{1}{2} h_{m[l}\Gamma^m_{k]j,t}
+&= 2\psquare{\nabla_{[k} \hat{\Gamma}^v_{l]j}+\Gamma^m_{[kl]}\hat{\Gamma}^v_{jm}} \\
+&= \frac{1}{2} \nabla_{[k} \psquare{\nabla_{l]}N_{j}+\nabla_{|j|}N_{l]}-h_{l]j,t}} \\
+&= -\frac{1}{4}R\indices{^i_j_k_l}N_i + \frac{1}{2}\psquare{-R\indices{^i_[_l_k_]_j} N_i + \nabla_j\nabla_{[k}N_{l]}} -\frac{1}{2}\psquare{h_{mj}\Gamma^m_{[kl],t}+h_{m[l}\Gamma^m_{k]j,t}}\\
+&= -\frac{1}{4}N_i \psquare{R\indices{^i_j_k_l} + R\indices{^i_l_k_j} - R\indices{^i_k_l_j}} + \frac{1}{4}\nabla_j F_{kl}  - \frac{1}{2} h_{m[l}\Gamma^m_{k]j,t}\\
+&= -\frac{1}{2}R\indices{^i_j_k_l}N_i +\frac{1}{2}\nabla_j F_{kl}  - \frac{1}{2} h_{m[l}\Gamma^m_{k]j,t}
 }
 This does not (seemingly) agree with the previous calculation. \hl{Where is the error?}
 \end{remark}
@@ -264,7 +279,7 @@ This does not (seemingly) agree with the previous calculation. \hl{Where is the 
 \begin{comment}	
 \eq{
 \hat{R}\indices{^v_j_t_l} &= \del_t \hat{\Gamma}^v_{jl} - \del_l \hat{\Gamma}^v_{jt} + \hat{\Gamma}^v_{t\mu}\hat{\Gamma}^\mu_{jl} - \hat{\Gamma}^v_{l\mu}\hat{\Gamma}^\mu_{jt} \\
-&= \frac{1}{4}\del_t\psquare{\nabla\sp{(h)}_{l}N_{j}+\nabla\sp{(h)}_{j}N_{l}-h_{lj,t}} + \nabla_l^{(h)} \psquare{\frac12 N\sp{k} (h_{kj,t} -F_{kj}) +\Phi_{,j}} \\
+&= \frac{1}{4}\del_t\psquare{\nabla\sp{(h)}_{l}N_{j}+\nabla\sp{(h)}_{j}N_{l}-h_{lj,t}} + \nabla_l \psquare{\frac12 N\sp{k} (h_{kj,t} -F_{kj}) +\Phi_{,j}} \\
 &\phantom{=} +\frac{1}{2}\psquare{\nabla\sp{(h)}_{l}N_{i}+\nabla\sp{(h)}_{i}N_{l}-h_{li,t}}\psquare{F\sp{i}_{\ j} - h\sp{ik} h_{kj,t}} \\
 &= \text{\hl{improve this somehow}}
 }
@@ -277,6 +292,38 @@ This does not (seemingly) agree with the previous calculation. \hl{Where is the 
 &= \text{\hl{improve this somehow}}
 }
 \end{comment}
+
+Now we have constructed Riemann curvature tensors, we can go on to calculate the Ricci tensor given by 
+\eq{
+\hat{R}_{\nu\sigma}= \hat{R}\indices{^\mu_\nu_\mu_\sigma}
+}
+As before, we said that we can never have $t$ as the first upper index, or a $v$ as the lower indices, so we know that 
+\eq{
+\hat{R}_{v\mu} = 0
+}
+and that this formula reduces to 
+\eq{
+	\hat{R}_{\nu\sigma}= \hat{R}\indices{^i_\nu_i_\sigma}
+}
+We straight away recognise that the spatial part is the same as for the spatial manifold, i.e. 
+\eq{
+\hat{R}_{ij} = R_{ij}
+}
+All that's left to calculate is $\hat{R}_{ti} = \hat{R}_{it}, \, \hat{R}_tt$, which are given by
+\eq{
+\hat{R}_{tl} &= \hat{R}\indices{^i_t_i_l} \\
+&= \nabla_{[l} F\indices{^i_k_]} - \nabla_{[l} h^{ij}h_{i]j,t} \\
+&= \frac{1}{2} \psquare{\nabla_{l} F\indices{^i_i} -\nabla_{i} F\indices{^i_l} - \del_l \pround{h^{ij}h_{ij,t}} +\nabla_i h^{ij}h_{jl,t} } \\
+&= -\frac{1}{2}\psquare{\nabla^i \pround{F\indices{_i_l} - h_{il,t}}+ \del_l \pround{h^{ij}h_{ij,t}}} \quad \text{(compare to  \cite{Duval1991})}
+}
+
+\eq{
+\hat{R}_{tt} &= \hat{R}\indices{^i_t_i_t} \\
+&= \frac{1}{2}\psquare{\del_t \pround{F\indices{^i_i}-h^{ij}h_{ji,t}}-\frac{1}{2}\pround{F^{ij}+h\indices{^i^j_,_t}}\pround{F_{ji}-h_{ji,t}}-2\nabla_i F\indices{^i_t}} \\
+&= -\frac{1}{2}\psquare{\del_t \pround{h^{ij}h_{ij,t}}-\frac{1}{2}\pround{F^{ji}-h\indices{^j^i_,_t}}\pround{F_{ji}-h_{ji,t}}+2\nabla_i F\indices{^i_t} }\quad \text{(compare to \cite{Duval1991})}\\
+&= -\frac{1}{2} \psquare{\del_t \pround{h^{ij}h_{ij,t}} - \frac{1}{2}\pround{F^{ij}F_{ij} + F^{ij}h_{ij,t}+h\indices{^i^j_,_t}F_{ij}+h\indices{^i^j_,_t}h_{ij,t}}+2\nabla^iF_{it}} \\
+&= -\frac{1}{2} \psquare{\del_t \pround{h^{ij}h_{ij,t}} - \frac{1}{2}\pround{F^{ij}F_{ij} - 2F_{ij,t}h^{ij} + h\indices{^i^j_,_t}h_{ij,t}}+ 2\nabla^iF_{it}}  
+}
 	
 \subsection{The Frame}
 Given the metric (\ref{eislift}) we define the frame $\{ {\hat e}\sp{A}\}$,
