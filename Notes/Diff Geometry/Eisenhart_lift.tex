@@ -312,7 +312,8 @@ We straight away recognise that the spatial part is the same as for the spatial 
 \eq{
 \hat{R}_{ij} = R_{ij}
 }
-All that's left to calculate is $\hat{R}_{ti} = \hat{R}_{it}, \, \hat{R}_tt$, which are given by
+All that's left to calculate is $\hat{R}_{ti} = \hat{R}_{it}, \, \hat{R}_{tt}
+$, which are given by
 \eq{
 \hat{R}_{tl} &= \hat{R}\indices{^i_t_i_l} \\
 &= \nabla_{[l} F\indices{^i_k_]} - \nabla_{[l} h^{ij}h_{i]j,t} \\
@@ -329,26 +330,27 @@ All that's left to calculate is $\hat{R}_{ti} = \hat{R}_{it}, \, \hat{R}_tt$, wh
 }
 	
 \subsection{The Frame}
+An alternative way to get this result is using the frame field formulation. \\
 Given the metric (\ref{eislift}) we define the frame $\{ {\hat e}\sp{A}\}$,
 \begin{equation*}
-	ds^2=\hat g_{\mu\nu}\,dx\sp{\mu}\,dx\sp{\nu}
-	=h_{ij}\, dx\sp{i}\, dx\sp{j}+2dt \left( dv-\Phi dt+N_i dx\sp{i}\right)
-	= {\hat \eta}_{AB}\, {\hat e}\sp{A} {\hat e}\sp{B}
-	= \eta_{ab}\, e\sp{a} e\sp{b}+  {\hat e}\sp{+} {\hat e}\sp{-} +  {\hat e}\sp{-} {\hat e}\sp{+}.
+ds^2=\hat g_{\mu\nu}\,dx\sp{\mu}\,dx\sp{\nu}
+=h_{ij}\, dx\sp{i}\, dx\sp{j}+2dt \left( dv-\Phi dt+N_i dx\sp{i}\right)
+= {\hat \eta}_{AB}\, {\hat e}\sp{A} {\hat e}\sp{B}
+= \eta_{ab}\, e\sp{a} e\sp{b}+  {\hat e}\sp{+} {\hat e}\sp{-} +  {\hat e}\sp{-} {\hat e}\sp{+}.
 \end{equation*}
 Here $A\in \{+,-,a,b,\ldots\}$, $ {\hat \eta}_{+-}={\hat \eta}_{-+}=1$, and we take
 \begin{align*}
-	{\hat e}\sp{+}:= dt,\qquad
-	{\hat e}\sp{-} :=dv-\Phi\,dt +N_i\,dx\sp{i},\qquad
-	{\hat e}\sp{a} := {\hat e}\sp{a}_{\mu} dx\sp{\mu}= { e}\sp{a}_{i} dx\sp{i}= { e}\sp{a},
+{\hat e}\sp{+}:= dt,\qquad
+{\hat e}\sp{-} :=dv-\Phi\,dt +N_i\,dx\sp{i},\qquad
+{\hat e}\sp{a} := {\hat e}\sp{a}_{\mu} dx\sp{\mu}= { e}\sp{a}_{i} dx\sp{i}= { e}\sp{a},
 \end{align*}
 and 
 $$e\sp{a}_i \eta_{ab} e\sp{b}_j =h_{ij}.$$
 The coframe  $\{ {\hat E}_{A}\}$ with ${\hat e}\sp{A}(  {\hat E}_{B})=\delta\sp{A}_B$ is given by
 \begin{align*}
-	{\hat E}_{+}:= \partial_t +\Phi\,\partial_v,\qquad
-	{\hat E}_{-} :=\partial_v,\qquad
-	{\hat E}_{a} := {E}_{a}- N_a\,\partial_v,
+{\hat E}_{+}:= \partial_t +\Phi\,\partial_v,\qquad
+{\hat E}_{-} :=\partial_v,\qquad
+{\hat E}_{a} := {E}_{a}- N_a\,\partial_v,
 \end{align*}
 where $N_a=N_i E_a\sp{i}$ and similarly
 $$ { e}\sp{a}(  { E}_{b})=\delta\sp{a}_b,\qquad { E}_{b}={ E}_{b}\sp{i}\,\partial_i.
@@ -357,44 +359,47 @@ We emphasise that $N$, $\phi$ and $e\sp{a}$ may depend on $x\sp{i}$ \emph{and} $
 
 Denoting the structure constants $[\hat E_B, \hat E_C]=c\sp{A}_{\ BC} \hat E_A$ we have from
 \begin{align*}
-	d\alpha (X,Y)&=X( \alpha(Y))-Y(\alpha(X))-\alpha([X,Y])
-	\intertext{for a one-form $\alpha$, then for the torsion free connection}
-	d \hat e\sp{A}&= -\hat \omega\sp{A}_{\ B}\wedge e\sp{B}= \hat \omega\sp{A}_{\ B C} e\sp{B}\wedge e\sp{C}
-	\intertext{we have}
-	d \hat e\sp{A}(\hat E_B,\hat E_C)&=\hat \omega\sp{A}_{\ B C}-\hat \omega\sp{A}_{\  C B}
-	= -\hat  e\sp{A}([\hat E_B,\hat  E_C])= -c\sp{A}_{\ BC},
-	\intertext{from which}
-	\hat \omega\sp{A}_{\ B C}&=\frac12 \hat \eta\sp{AF}( c_{CFB}+c_{BFC}-c_{FBC}).
+d\alpha (X,Y)&=X( \alpha(Y))-Y(\alpha(X))-\alpha([X,Y])
+\intertext{for a one-form $\alpha$, then for the torsion free connection}
+d \hat e\sp{A}&= -\hat \omega\sp{A}_{\ B}\wedge e\sp{B}= \hat \omega\sp{A}_{\ B C} e\sp{B}\wedge e\sp{C}
+\intertext{we have}
+d \hat e\sp{A}(\hat E_B,\hat E_C)&=\hat \omega\sp{A}_{\ B C}-\hat \omega\sp{A}_{\  C B}
+= -\hat  e\sp{A}([\hat E_B,\hat  E_C])= -c\sp{A}_{\ BC},
+\intertext{from which}
+\hat \omega\sp{A}_{\ B C}&=\frac12 \hat \eta\sp{AF}( c_{CFB}+c_{BFC}-c_{FBC}).
 \end{align*}
 The $v$-independence of the metric means that
 $$[\hat E_-,   \hat E_B]=0,\qquad  c\sp{A}_{\ - B}=0$$
 while
 \begin{align*}
-	[\hat E_+,   \hat E_a]&= \partial_t E_a-  (\partial_t N_a) \partial_v -(E_a\Phi)  \partial_v\\
-	&=(\partial_t E_a\sp{j})[\partial_j -N_j \partial_v] - E_a\sp{j})[\partial_t N_j+\partial_j\Phi    ]\partial_v\\
-	&= (\partial_t E_a\sp{j} \, e\sp{b}_j)\, \hat E_b +F_{at}\, \hat E_-\\
-	%&= c\sp{b}_{\ +a}\, \hat E_b+ c\sp{-}_{\ +a}\, \hat E_- ,
-	\intertext{and}
-	[\hat E_a,   \hat E_b]&=[ E_a,   E_b] -(E_a N_b- E_b N_a)\,  \partial_v\\
-	&=  c\sp{f}_{\ ab}\, \hat E_f - F_{ab}\,\hat E_-
+[\hat E_+,   \hat E_a]&= \partial_t E_a-  (\partial_t N_a) \partial_v -(E_a\Phi)  \partial_v\\
+&=(\partial_t E_a\sp{j})[\partial_j -N_j \partial_v] - E_a\sp{j})[\partial_t N_j+\partial_j\Phi    ]\partial_v\\
+&= (\partial_t E_a\sp{j} \, e\sp{b}_j)\, \hat E_b +F_{at}\, \hat E_-\\
+%&= c\sp{b}_{\ +a}\, \hat E_b+ c\sp{-}_{\ +a}\, \hat E_- ,
+\intertext{and}
+[\hat E_a,   \hat E_b]&=[ E_a,   E_b] -(E_a N_b- E_b N_a)\,  \partial_v\\
+&=  c\sp{f}_{\ ab}\, \hat E_f - F_{ab}\,\hat E_-
 \end{align*}
 giving the (possibly) non-vanishing structure constants as
 $$ c\sp{f}_{\ ab},\ \  c\sp{-}_{\ ab}=- F_{ab},\ \ c\sp{b}_{\ +a}= (\partial_t E_a\sp{j} \, e\sp{b}_j),\ \
 c\sp{-}_{\ +a}=F_{at}.$$
 Now
 \begin{align*}
-	d {\hat e}\sp{+}&= 0,\\
-	d {\hat e}\sp{-} &=\frac12 F_{ab}\, e\sp{a}\wedge e\sp{b} +F_{it}\, dx\sp{i}\wedge dt
-	=\frac12 F_{ab}\, {\hat e}\sp{a}\wedge {\hat e}\sp{b} +F_{at}\, {\hat e}\sp{a}\wedge {\hat e}\sp{+}, \\
-	d {\hat e}\sp{a} &=d\left(  {\hat e}\sp{a}_{\mu} dx\sp{\mu}\right)= { e}\sp{a}_{i} dx\sp{i}= { e}\sp{a}
-	=(\partial_j { e}\sp{a}_{i})\, dx\sp{j} \wedge dx\sp{i} +(\partial_t  { e}\sp{a}_{i})\, dt\wedge dx\sp{i}\\
-	&=\omega\sp{a}_{\ bc}\, e\sp{b}\wedge e\sp{c}-(E\sp{i}_b\,\partial_t  { e}\sp{a}_{i} )\,  dt\wedge{ e}\sp{b}
-	=\omega\sp{a}_{\ bc}\, e\sp{b}\wedge e\sp{c}+(\partial_t E\sp{i}_b\, { e}\sp{a}_{i} )\,  dt\wedge{ e}\sp{b},
+d {\hat e}\sp{+}&= 0,\\
+d {\hat e}\sp{-} &=\frac12 F_{ab}\, e\sp{a}\wedge e\sp{b} +F_{it}\, dx\sp{i}\wedge dt
+=\frac12 F_{ab}\, {\hat e}\sp{a}\wedge {\hat e}\sp{b} +F_{at}\, {\hat e}\sp{a}\wedge {\hat e}\sp{+}, \\
+d {\hat e}\sp{a} &=d\left(  {\hat e}\sp{a}_{\mu} dx\sp{\mu}\right)= { e}\sp{a}_{i} dx\sp{i}= { e}\sp{a}
+=(\partial_j { e}\sp{a}_{i})\, dx\sp{j} \wedge dx\sp{i} +(\partial_t  { e}\sp{a}_{i})\, dt\wedge dx\sp{i}\\
+&=\omega\sp{a}_{\ bc}\, e\sp{b}\wedge e\sp{c}-(E\sp{i}_b\,\partial_t  { e}\sp{a}_{i} )\,  dt\wedge{ e}\sp{b}
+=\omega\sp{a}_{\ bc}\, e\sp{b}\wedge e\sp{c}+(\partial_t E\sp{i}_b\, { e}\sp{a}_{i} )\,  dt\wedge{ e}\sp{b},
 \end{align*}
 from which we see
 \begin{align*}
-	\hat \omega\sp{a}_{\ B C}\, {\hat e}\sp{B}\wedge {\hat e}\sp{C}&= \omega\sp{a}_{\ bc}\, e\sp{b}\wedge e\sp{c}+(\partial_t E\sp{i}_b\, { e}\sp{a}_{i} )\,  {\hat e}\sp{+}\wedge {\hat e}\sp{b},\\
-	\hat \omega\sp{-}_{\ B C}\, {\hat e}\sp{B}\wedge {\hat e}\sp{C}&= \frac12 F_{bc}\, {\hat e}\sp{b}\wedge {\hat e}\sp{c} +F_{at}\, {\hat e}\sp{a}\wedge {\hat e}\sp{+}.
+\hat \omega\sp{a}_{\ B C}\, {\hat e}\sp{B}\wedge {\hat e}\sp{C}&=
+\omega\sp{a}_{\ bc}\, e\sp{b}\wedge e\sp{c}+(\partial_t E\sp{i}_b\, { e}\sp{a}_{i} )\,  {\hat e}\sp{+}\wedge
+{\hat e}\sp{b},\\
+\hat \omega\sp{-}_{\ B C}\, {\hat e}\sp{B}\wedge {\hat e}\sp{C}&=
+\frac12 F_{bc}\, {\hat e}\sp{b}\wedge {\hat e}\sp{c} +F_{at}\, {\hat e}\sp{a}\wedge {\hat e}\sp{+}.
 \end{align*}
 Set
 $$\alpha\sp{a}_{\ b}:= { e}\sp{a}_{i} \,\partial_t E\sp{i}_b=c\sp{a}_{\ +b},\ \
@@ -406,6 +411,17 @@ $$\hat\omega\sp{-}_{\ a+}= F_{at},\ \  \hat\omega\sp{-}_{\ ab}= \frac12 F_{ab},\
 \hat\omega_{a b+}=-\frac12 F_{a b} -\frac12\left[ \partial_t E\sp{i}_a \,E_{ib}
 -  \partial_t E\sp{i}_b \,E_{ia}  \right]=-\frac12 F_{a b}+\alpha_{ab}.
 $$
+From the structure of the connection we see that $\hat R\sp{A}_{\ B}\in\{\hat R\sp{-}_{\ a}, 
+\hat R\sp{a}_{\ +}, \hat R\sp{a}_{\ b} \}$ and so $\widehat \Ric_{AB}=\hat R\sp{F}_{\ AFB}=
+\hat R\sp{f}_{\ AfB}$. Thus the (possible) non-vanishing components of the Ricci tensor
+are
+$$\widehat \Ric_{++}=\hat R\sp{f}_{\ +f+},\quad 
+\widehat \Ric_{a+}=\hat R\sp{f}_{\ af+},\quad 
+\widehat \Ric_{ab}=\hat R\sp{f}_{\ afb}.
+$$
+Now because $\hat g_{++}=0$ then $(B, \hat g)$ is Einstein if and only if it is Ricci flat. Thus if
+$(B, \hat g)$ is Einstein it has vanishing scalar curvature.
+
 
 \subsection{Bargman Structures}
 A Bargmann structure $(B, \hat g, \xi)$ is a principal bundle $\pi:\, B\rightarrow M$, where $\dim B=\dim M+1$,

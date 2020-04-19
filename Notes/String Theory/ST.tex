@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage{header}
+\usepackage{../../header}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Preamble
 
@@ -54,6 +54,7 @@ The need for a new theory can be explained by
 ST "seems" to be perturbation theory around classical solutions to a unique quantum theory. We imagine replacing particles with strings. Harmonics of the strings the correspond to different particles, including the graviton. We assume we are close to some well understood solution with metric $\eta^{\mu\nu}$ and take \[
 g_{\mu\nu}(x) = \eta_{\mu\nu}+h_{\mu\nu}(x)+\dots
 \]
+We will take the convention that $\eta_{\mu\nu} = \diag(-1,1,\dots,1)$.
 \subsection{Interactions}
 We will consider 
 \begin{itemize}
@@ -138,7 +139,7 @@ As a string moves through some spacetime $\mc{M}$ with metric $\eta_{\mu\nu}$ it
 \[
 X^\mu (\sigma,\tau)
 \]
-We will call the $X^\mu$ "embedding fields. 
+We will call the $X^\mu$ "embedding fields". 
 \[
 X : \Sigma \to \mc{M}
 \]
@@ -146,40 +147,88 @@ The area of $\Sigma$ may be given by
 \[
 A = -\frac{1}{2\pi \cst} \int d\tau d\sigma \sqrt{-\det{\eta_{\mu\nu}\del_a X^\mu \del_b X^\nu}}
 \]
-where $\del_a = \pd{\sigma^a}$, $\sigma^a = (\tau, \sigma)$. , and $\cst$ is a free parameter. \\
-We often refer to the \bam{string length} 
-\[
-l_s = 2 \pi \sqrt{\cst}
-\]
-or the \bam{Tension} 
-\[
-T = \frac{1}{2\pi \cst}
-\]
+where $\del_a = \pd{\sigma^a}$, $\sigma^a = (\tau, \sigma)$, and $\cst$ is a free parameter.
+
+\begin{definition}
+	Related to $\cst$ we have the \bam{string length}
+	\[
+	l_s = 2 \pi \sqrt{\cst}
+	\]
+	and
+	the \bam{tension} 
+	\[
+	T = \frac{1}{2\pi \cst}
+	\]
+\end{definition}
+\begin{definition}[Nambu-Goto action]
 The object 
 \[
 G_{ab} = \eta_{\mu\nu}\del_a X^\mu \del_b X^\nu
 \]
 is an induced metric on $\Sigma$. $S[X]$ is called the \bam{Nambu-Goto action}.
+\end{definition}
 
 \subsection{Polyakov Action}
-Consider instead the action 
+\begin{definition}[Polyakov action]
+The action 
 \[
-S[X,h] = -\frac{1}{4\pi \cst} \int_\Sigma d^2\sigma \sqrt{-h} h^{ab} \eta_{\mu\nu} \del_a X^\mu \del_b X^\nu
+S[X,h] = -\frac{1}{4\pi \cst} \int_\Sigma d^2\sigma \, \sqrt{-h} h^{ab} \eta_{\mu\nu} \del_a X^\mu \del_b X^\nu
 \]
+is the \bam{Polyakov action}.
+\end{definition}
 \begin{idea}
 This looks like free Klein Gordon field theory in two dimensions.
 \end{idea}
-This action is classically equivalent to the Nambu-Goto action. The $h_{ab}$ equations of motion are given by
+The following proposition allows us to use this action over the Nambu-Goto.
+\begin{prop}
+This action is classically equivalent to the Nambu-Goto action.
+\end{prop}
+
+\begin{definition}
+	The \bam{stress tensor} is 
+	\eq{
+T_{ab} = \frac{-2\pi}{\sqrt{-h}}\frac{\delta S}{\delta h^{ab}}	
+}
+\end{definition}
+
+\begin{lemma}
+	The stress tensor has the formula 
+\[
+T_{ab} = -\frac{1}{\cst} \left( \del_a X^\mu \del_b X_\mu - \frac{1}{2}h_{ab} \del_c X^\mu \del_d X_\mu h^{cd} \right) 
+\]
+and so is traceless. 
+\end{lemma}
+\begin{proof}
+We have 
+\eq{
+\sqrt{-h} &= \exp\pround{\frac{1}{2}\log(-\det h_{ab})} \\
+&= \exp\pround{\frac{1}{2}\log\det h^{ab}} \\
+&= \exp\pround{\frac{1}{2}\tr\log h^{ab}} 
+}
+Now if $h_{ab}\mapsto h_{ab}+\delta h_{ab}$, $h^{ab} \mapsto h^{ab}-h^{ac}h^{bd}\delta h_{cd}$, and so we get (to leading order)
+\eq{
+\sqrt{-h} &\mapsto \sqrt{-h}\exp\pround{\frac{1}{2}\tr\log(\delta^b_c + h^{bd}\delta h_{cd})} \\
+&= \sqrt{-h}\exp\pround{\frac{1}{2}\tr h^{bd}\delta h_{cd}} \\
+&= \sqrt{-h}\pround{1+\frac{1}{2}h^{ab}\delta h_{ab}}
+}
+As such, to leading order 
+\eq{
+S[X,h+\delta h] &= \frac{-1}{4\pi\cst} \int_\Sigma d^2\sigma \, \sqrt{-h}\pround{1+\frac{1}{2}h^{ab}\delta h_{ab}}\pround{h^{ab}-h^{ac}h^{bd}\delta h_{cd}} \eta_{\mu\nu} \del_a X^\mu \del_b X^\nu \\
+&= S[X,h] + \frac{-1}{4\pi\cst}\int_\Sigma d^2\sigma \, \sqrt{-h}\pround{\frac{1}{2}h^{ab} \del_c X^\mu \del_d X_\mu h^{cd}-\del^a X^\mu \del^b X_\mu} \delta h_{ab}
+}
+The result follows by keeping track of factors. To show that $T$ is then traceless, we see 
+\eq{
+ \del^a X^\mu \del_a X_\mu - \frac{1}{2}h^a_a \del^c X^\mu \del_c X_\mu= 0
+}
+as $h^a_a = 2$. \hl{Does this only work in flat $3+1$-dimensional spacetime?}
+\end{proof}
+The $h_{ab}$ equations of motion are now given by
 \[
 -\frac{2\pi}{\sqrt{-h}} \frac{\delta S}{\delta h^{ab}} = 0
 \]
-These e.o.m give the vanishing of the \bam{stress tensor} 
+i.e. these e.o.m give the vanishing of the stress tensor. 
 \[
 T_{ab}= 0 
-\]
-where
-\[
-T_{ab} = -\frac{1}{\cst} \left( \del_a X^\mu \del_b X_\mu - \frac{1}{2}h_{ab} \del_c X^\mu \del_d X_\mu h^{cd} \right) 
 \]
 Note
 \begin{itemize}
@@ -1938,16 +1987,16 @@ Under an infinitesimal $SL(2,\mbb{C})$ transformation
 z_i \to a_1 + a_2 z_i + a_3 z_3^2
 }
 We can relate an integral over the $a_i$ to an integral over the locations of 3 punctures $z_i$ as 
-%\eq{
-%\abs{\mc{J}}^2 d^2a_1 \, s^2a_2 \, s_^2 a_3 = d^2z_1 \, d^2 z_2 \, d^2z_3
-%}
+\eq{
+\abs{\mc{J}}^2 d^2a_1 \, d^2a_2 \, d^2 a_3 = d^2z_1 \, d^2 z_2 \, d^2z_3
+}
 where the Jacobian is 
 %\eq{
 %\mc{J} = \det \abs{\pd[z_i]{a_j}} = \begin{bmatrix} 1 & z_1 & z_1^2 \\ 1 & z_2 & z_2^2 \\ 1 & z_3 & z_3^2 \end{bmatrix} = (z_1 - z_2)(z_2 - z_3)(z_3 - z_1)
 %}
-So we interpret the $\frac{1}{\abs{SL(2;\mbb{C})}$ factor as 
+So we interpret the $\frac{1}{\abs{SL(2;\mbb{C})}}$ factor as 
 \eq{
-A_n = g_c^{n-2} \iny d^2z_4 \dots d^2z_n \braket{\prod_{i=1}^3 c(z_i) \bar{c}(\bar{z}_i)}_{bc} \braket{\phi_1(z_1,\bar{z}_1) \dots \phi_n(z_n,\bar{z}_n)}
+A_n = g_c^{n-2} \int d^2z_4 \dots d^2z_n \braket{\prod_{i=1}^3 c(z_i) \bar{c}(\bar{z}_i)}_{bc} \braket{\phi_1(z_1,\bar{z}_1) \dots \phi_n(z_n,\bar{z}_n)}
 }
 i.e. we integrate over $n-3$ of the punctures. 
 \begin{remark}
@@ -1969,19 +2018,22 @@ Introduce a source term
 S_J[X] = \int_\Sigma d^2z \, J_\mu X^\mu
 }
 then 
+
 \eq{
-S[X]+S_J[X] &= \frac{1}{2\pi\cst} \int_\Sigma d^2z \, X^\mu \box X_\mu + \int_\Sigma d^2z \, J_\mu X^\mu  \\
-&= \frac{1}{2\pi\cst} \int_\Sigma d^2z \, \tilde{X}^\mu \box \tilde{X}_\mu + \int_\Sigma d^2z \, J_\mu \tilde{X}^\mu +\int_\Sigma d^2z \, x^\mu J_\mu(z) \quad \tilde{X} = X-x \\
-&= \frac{1}{2\pi\cst} \int_\Sigma d^2z \, Y^\mu \box Y_\mu + \frac{1}{2} \int_{\Sigma \times \Sigma} d^2z \, d^2w J^\mu(z) G(z,w) J_\mu(w) + x^\mu \int_\Sigma d62z \, J_\mu(z)
+S[X]+S_J[X] &= \frac{1}{2\pi\cst} \int_\Sigma d^2z \, X^\mu \square X_\mu + \int_\Sigma d^2z \, J_\mu X^\mu  \\
+&= \frac{1}{2\pi\cst} \int_\Sigma d^2z \, \tilde{X}^\mu \square \tilde{X}_\mu + \int_\Sigma d^2z \, J_\mu \tilde{X}^\mu +\int_\Sigma d^2z \, x^\mu J_\mu(z) \quad \tilde{X} = X-x \\
+&= \frac{1}{2\pi\cst} \int_\Sigma d^2z \, Y^\mu \square Y_\mu + \frac{1}{2} \int_{\Sigma \times \Sigma} d^2z \, d^2w J^\mu(z) G(z,w) J_\mu(w) + x^\mu \int_\Sigma d^2z \, J_\mu(z)
 }
+
 where 
 \eq{
 G(z,w) = -\frac{\cst}{2} \log \abs{z-w}^2
 }
 satisfies 
 \eq{
--\frac{1}{\pi\cst}\box_z G(z,w) = \delta^2(z-w)
+-\frac{1}{\pi\cst}\square_z G(z,w) = \delta^2(z-w)
 }
+
 We can integrate out the $Y^\mu$ if we define 
 \eq{
 Z[J] = \int \mc{D}X \, e^{-S[X]-S_J[X]}
@@ -2019,7 +2071,7 @@ We also have
 }
 and so 
 \eq{
-\exp \frac{1}{2}\int_{\Sigma \times \Sigma} d^2z \, d^2w \, J^\mu(q) G(z,w) J_\mu(w) = \prod_{i\neq j} \ans{z_i - z_j}^{\frac{\cst k_i \cdot k_j}{2}} = \prod_{i<j} \abs{z_i - z_j}^{\cst k_i \cdot k_j}
+\exp \frac{1}{2}\int_{\Sigma \times \Sigma} d^2z \, d^2w \, J^\mu(q) G(z,w) J_\mu(w) = \prod_{i\neq j} \abs{z_i - z_j}^{\frac{\cst k_i \cdot k_j}{2}} = \prod_{i<j} \abs{z_i - z_j}^{\cst k_i \cdot k_j}
 }
 We find 
 \eq{
