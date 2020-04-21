@@ -419,10 +419,36 @@ $$\widehat \Ric_{++}=\hat R\sp{f}_{\ +f+},\quad
 \widehat \Ric_{a+}=\hat R\sp{f}_{\ af+},\quad 
 \widehat \Ric_{ab}=\hat R\sp{f}_{\ afb}.
 $$
-Now because $\hat g_{++}=0$ then $(B, \hat g)$ is Einstein if and only if it is Ricci flat. Thus if
-$(B, \hat g)$ is Einstein it has vanishing scalar curvature.
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Einstein metrics}
+Now because $\hat g_{tv}=1$ and $\hat{R}_{tv}=0$, then $(B, \hat g)$ is Einstein if and only if it is Ricci flat. With this we can follow the paper \cite{Brinkmann1925} to try and derive conditions on the functions $N_i,\Phi$. \\
+\hl{Insert lead in - left out to get calculation of after (43) done quicker}\\
+Define
+\eq{
+H_{ij} &= h_{ij,t} \\
+H &= h^{ij} H_{ij} \\
+f_j &= \nabla_i H^i_j - \nabla_j H  \, ,
+}
+then 
+\eq{
+f^i &=  \nabla_j H^{ij} - h^{ij} \nabla_j H \\
+&= (h^{ik}h^{jl} - h^{ij}h^{kl}) \nabla_j H_{kl} \, .
+}
+We have shown previously 
+\eq{
+\nabla_j H_{kl} &= h_{mk}\Gamma^m_{lj,t}+h_{ml}\Gamma^m_{kj,t} \\
+\Rightarrow f^i &= h^{jl} \Gamma^i_{lj,t} + h^{ik} \Gamma^j_{kj,t}  - 2h^{ij}\Gamma^l_{jl,t} \\
+&= h^{jk} \Gamma^i_{jk,t} - h^{ij}\Gamma^k_{jk,t} \, .
+}
+Hence 
+\eq{
+\nabla_i f^i &= h^{jk}\nabla_i \Gamma^i_{jk,t} - h^{ij}\nabla_i\Gamma^k_{jk,t} \\
+&= h^{ij}\psquare{\nabla_k \Gamma^k_{ij,t} - \nabla_i\Gamma^k_{jk,t}} \\
+&= h^{ij} \psquare{\Gamma^k_{ij,tk} + \Gamma^k_{kl}\Gamma^l_{ij,t} - \Gamma^l_{ki}\Gamma^k_{lj,t} - \Gamma^l_{kj}\Gamma^k_{il,t} - \Gamma^k_{jk,ti} + \Gamma^l_{ij}\Gamma^k_{lk,t}} \\
+&= h^{ij}\psquare{\del_t \pround{\Gamma^k_{ij,k}-\Gamma^k_{jk,i}+\Gamma^k_{kl}\Gamma^l_{ij}-\Gamma^k_{il}\Gamma^l_{jk}}+\Gamma^k_{il}\Gamma^l_{jk,t} - \Gamma^l_{ki}\Gamma^k_{lj,t}} \\
+&= h^{ij} R\indices{^k_j_k_i_,_t} = h^{ij} R_{ij,t}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Bargman Structures}
 A Bargmann structure $(B, \hat g, \xi)$ is a principal bundle $\pi:\, B\rightarrow M$, where $\dim B=\dim M+1$,
 equipped with a Lorentzian metric $\hat g$ and nowhere vanishing null vector field $\xi$ such that with respect to the usual Levi-Civita connection $\hat \nabla \xi=0$. Then $M:=B/\mathbb{R}\xi$ is equipped with
