@@ -13,20 +13,63 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The Eisenhart Lift}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The metric and equations of motion}
+\subsection{The metric}
 Consider the $(d+2)$-dimensional line element,
 \begin{equation}
 \label{eislift}
 ds^2=\hat g_{\mu\nu}\,dx\sp{\mu}\,dx\sp{\nu}
 =h_{ij}\, dx\sp{i}\, dx\sp{j}+2dt \left( dv-\Phi dt+N_i dx\sp{i}\right),
 \end{equation}
-where $i,j=1,\ldots,d$, $x\sp{d+1}=t$,  $x\sp{d+2}=v$ and $\Phi$, $N_i$ and $h_{ij}$ are independent of the coordinate $v$. Then
-$\xi = \partial_v$ is a Killing vector.
+where $i,j=1,\ldots,d$, $x\sp{d+1}=t$,  $x\sp{d+2}=v$ and $\Phi$, $N_i$ and $h_{ij}$ are independent of the coordinate $v$. Then $\xi = \partial_v$ is a Killing vector. 
 We have
-$$\hat g=\begin{pmatrix}h_{ij}&N_i&0\\ N_j&-2\Phi&1\\ 0&1&0\end{pmatrix},\qquad
-\hat g\sp{-1}=\begin{pmatrix}h\sp{ij}&0&-h\sp{ik}N_k\\ 0&0&1\\ -h\sp{jk}N_k &1&2 \Phi+ N_i h\sp{ij} N_j\end{pmatrix},
+$$(\hat{g}_{\mu\nu})=\begin{pmatrix}h_{ij}&N_i&0\\ N_j&-2\Phi&1\\ 0&1&0\end{pmatrix},\qquad
+(\hat{g}^{\mu\nu})=\begin{pmatrix}h\sp{ij}&0&-h\sp{ik}N_k\\ 0&0&1\\ -h\sp{jk}N_k &1&2 \Phi+ N_i h\sp{ij} N_j\end{pmatrix},
 $$
-where $h\sp{ij}$ is the inverse of $h_{ij}$. The geodesic Lagrangian is
+where $(h\sp{ij})$ is the inverse of $(h_{ij})$. \\
+Note that if we make the coordinate change 
+\eq{
+x^i &\mapsto \tilde{x}^i = X^i(x^j,t) \, ,\\
+t &\mapsto \tilde{t} = t \, , \\
+v &\mapsto \tilde{v} = v + V(x^j,t) \, ,
+}
+the metric transforms as 
+\eq{
+\hat{g} &= h^{ij}\del_i \otimes \del_i -h^{ij}N_j (\del_i \otimes \del_v + \del_v \otimes \del_i) + (\del_t \otimes \del_v + \del_v \otimes \del_t) + (2\Phi + h^{ij}N_i N_j) \del_v \otimes \del_v \\
+&= h^{ij}\pround{\pd[X^k]{x^i}\tilde{\del}_k + \pd[V]{x^i}\tilde{\del}_v}\otimes\pround{\pd[X^l]{x^j}\tilde{\del}_l + \pd[V]{x^j}\tilde{\del}_v}-h^{ij}N_j \psquare{\pround{\pd[X^k]{x^i}\tilde{\del}_k + \pd[V]{x^i}\tilde{\del}_v} \otimes \tilde{\del}_v + \tilde{\del}_v \otimes \pround{\pd[X^k]{x^i}\tilde{\del}_k + \pd[V]{x^i}\tilde{\del}_v}} \\
+&\phantom{=} \psquare{\pround{\pd[X^k]{t}\tilde{\del}_k + \tilde{\del}_t + \pd[V]{t}\tilde{\del}_v} \otimes \tilde{\del}_v + \tilde{\del}_v \otimes \pround{\pd[X^k]{t}\tilde{\del}_k + \tilde{\del}_t + \pd[V]{t}\tilde{\del}_v}}+ (2\Phi + h^{ij}N_i N_j)\tilde{\del}_v \otimes \tilde{\del}_v \\
+&= \psquare{h^{ij}\pd[X^k]{x^i}\pd[X^l]{x^j}}\tilde{\del}_k \otimes \tilde{\del}_l -\psquare{h^{ij}N_j \pd[X^k]{x^i}-h^{ij}\pd[X^k]{x^i}\pd[V]{x^j}-\pd[X^k]{t}}(\tilde{\del}_k \otimes \tilde{\del}_v + \tilde{\del}_v \otimes \tilde{\del}_k) +(\tilde{\del}_t \otimes \tilde{\del}_v + \tilde{\del}_v \otimes \tilde{\del}_t) \\
+&\phantom{=} + \psquare{2\Phi + h^{ij}\pround{N_i-\pd[V]{x^i}} \pround{N_j-\pd[V]{x^j}} + 2\pd[V]{t}}(\tilde{\del}_v \otimes \tilde{\del}_v + \tilde{\del}_v \otimes \tilde{\del}_v)
+}
+We can see this is a metric of the same type where we have 
+\eq{
+	\tilde{h}^{kl} &= h^{ij}\pd[X^k]{x^i}\pd[X^l]{x^j} \\
+	\tilde{h}^{kl}\tilde{N}_l &= h^{ij}N_j \pd[X^k]{x^i}-h^{ij}\pd[X^k]{x^i}\pd[V]{x^j}-\pd[X^k]{t} \\
+	2\tilde{\Phi} + \tilde{h}^{kl}\tilde{N}_k \tilde{N}_l &= 2\Phi + h^{ij}\pround{N_i-\pd[V]{x^i}} \pround{N_j-\pd[V]{x^j}} + 2\pd[V]{t}
+}
+We can, in principle, solve these pdes to be able to set $\tilde{N}_l = 0 = \tilde{\Phi}$. 
+
+\begin{comment}
+A line element 
+\eq{
+ds^2 = \tilde{h}_{ij}dX^i dX^j + 2dt(dv - \tilde{\Phi}dt + \tilde{N}_i dX^i)
+}
+becomes 
+\eq{
+ds^2 &= \tilde{h}_{ij} \psquare{\pd[X^i]{x^k}\pd[X^j]{x^l}dx^k dx^l + 2\pd[X^i]{x^k}\pd[X^j]{t}dx^k dt + \pd[X^i]{t}\pd[X^j]{t}(dt)^2} \\
+&\phantom{=} +2dt \pround{dv + \pd[V]{x^k}dx^k + \pd[V]{t}dt - \tilde{\Phi}dt + \tilde{N}_i\psquare{\pd[X^i]{x^k}dx^k + \pd[X^i]{t}dt}} \\
+&= \psquare{\tilde{h}_{ij}\pd[X^i]{x^k}\pd[X^j]{x^l}}dx^k dx^l + 2dt \left( dv -\psquare{\tilde{\Phi}-\tilde{h}_{ij}\pd[X^i]{t}\pd[X^j]{t}-\tilde{N}_i \pd[X^i]{t}-\pd[V]{t}}dt \right. \\
+&\phantom{=} \left. +\psquare{\tilde{N}_i \pd[X^i]{x^k}+\tilde{h}_{ij}\pd[X^i]{x^k}\pd[X^j]{t}+\pd[V]{x^k}}dx^k \right)
+}
+This is equal to the original line element if we have 
+\eq{
+h_{kl} &=  \tilde{h}_{ij}\pd[X^i]{x^k}\pd[X^j]{x^l} \\
+N_k &= \tilde{N}_i \pd[X^i]{x^k}+\tilde{h}_{ij}\pd[X^i]{x^k}\pd[X^j]{t}+\pd[V]{x^k} \\
+\Phi &= \tilde{\Phi}-\tilde{h}_{ij}\pd[X^i]{t}\pd[X^j]{t}-\tilde{N}_i \pd[X^i]{t}-\pd[V]{t}
+}
+\end{comment}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Equations of motion}
+The geodesic Lagrangian is
 $$\mathcal{ L}=\frac12 \hat  g_{\mu\nu}\,\dot x\sp{\mu}\,\dot x\sp{\nu}=
 \frac12 h_{ij}\, \dot x\sp{i}\, \dot x\sp{j}+\dot t \dot v-\Phi {\dot t}^2+N_i \,\dot x\sp{i}\dot t
 := \tilde{L}+\dot t \dot v  ,
@@ -39,7 +82,7 @@ $$\hat \Gamma\sp{\mu}_{\, \nu \rho}=\frac12 \hat g\sp{\mu \delta}\left(
 :=  \hat g\sp{\mu \delta}[ \nu \rho,\delta]_{\hat g}.
 $$
 and the equations of motion are
-$$ 0=\ddot x\sp{\mu}+ \hat \Gamma\sp{\mu}_{\, \nu \rho} \dot x\sp{\mu}\dot x\sp{\rho}.
+$$ 0=\ddot x\sp{\mu}+ \hat \Gamma\sp{\mu}_{\, \nu \rho} \dot x\sp{\nu}\dot x\sp{\rho}.
 $$
 Setting
 $$A:=A_\mu dx\sp{\mu}=N_i dx\sp{i}-\Phi dt,\qquad
@@ -92,8 +135,6 @@ Note that to raise the index of $N$ has required we recognise that
 \eq{
 	N^i = \hat{g}^{ij} N_j = h^{ij} N_j
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Equivalence of equations of motion}
 The canonical momenta are given by $p_\mu =\partial \mc{L}/\partial \dot x\sp{\mu}=\hat{g}_{\mu\nu}\dot{x}^\nu$ giving
 $$p_v =\dot t,\qquad p_i=h_{ij} \dot x\sp{j} +N_i \dot t, \qquad p_t=\dot v- 2\Phi \dot t +N_i \dot x\sp{i},
 $$
@@ -475,7 +516,13 @@ Hence
 &= h^{ij} R\indices{^k_j_k_i_,_t} = h^{ij} R_{ij,t}
 }
 \end{proof}
-Provided we then solve for $N_i$, we can substitute into the second Einstein condition. Along with the information of the time derivative of the metric $H_{ij}$, this gives an equation for $\Phi$, namely Poisson's equation.
+Provided we then solve for $N_i$, we can substitute into the second Einstein condition. Along with the information of the time derivative of the metric $H_{ij}$, this gives an equation for $\Phi$, namely Poisson's equation. \\
+If we now do as we said was possible, and make a coordinate change s.t. $N_i = 0 = \Phi$, we get the Einstein conditions 
+\eq{
+\nabla_i H^i_j - \nabla_jH &= 0 \\
+H_{,t} -\frac{1}{2}H^{ji}H_{ji} &= 0 
+} 
+\hl{sign disagreement with }\cite{Brinkmann1925}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Bargman Structures}
 A Bargmann structure $(B, \hat g, \xi)$ is a principal bundle $\pi:\, B\rightarrow M$, where $\dim B=\dim M+1$,
