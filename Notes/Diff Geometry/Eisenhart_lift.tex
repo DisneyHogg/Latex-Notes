@@ -328,7 +328,8 @@ $, which are given by
 &= -\frac{1}{2} \psquare{\del_t \pround{h^{ij}h_{ij,t}} - \frac{1}{2}\pround{F^{ij}F_{ij} + F^{ij}h_{ij,t}+h\indices{^i^j_,_t}F_{ij}+h\indices{^i^j_,_t}h_{ij,t}}+2\nabla^iF_{it}} \\
 &= -\frac{1}{2} \psquare{\del_t \pround{h^{ij}h_{ij,t}} - \frac{1}{2}\pround{F^{ij}F_{ij} - 2F_{ij,t}h^{ij} + h\indices{^i^j_,_t}h_{ij,t}}+ 2\nabla^iF_{it}}  
 }
-	
+\hl{I have slightly different answers to} \cite{Brinkmann1925,Duval1991}. \hl{I should check this.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The Frame}
 An alternative way to get this result is using the frame field formulation. \\
 Given the metric (\ref{eislift}) we define the frame $\{ {\hat e}\sp{A}\}$,
@@ -421,19 +422,44 @@ $$\widehat \Ric_{++}=\hat R\sp{f}_{\ +f+},\quad
 $$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Einstein metrics}
-Now because $\hat g_{tv}=1$ and $\hat{R}_{tv}=0$, then $(B, \hat g)$ is Einstein if and only if it is Ricci flat. With this we can follow the paper \cite{Brinkmann1925} to try and derive conditions on the functions $N_i,\Phi$. \\
+Now because $\hat g_{tv}=1$ and $\hat{R}_{tv}=0$, then $(B, \hat g)$ is Einstein if and only if it is Ricci flat, i.e. that $\hat{R}_{\mu\nu} = 0$. This immediately forces $R_{ij}=0$. Assuming this, we can follow the paper \cite{Brinkmann1925} to try and derive conditions on the functions $N_i,\Phi$. \\
 \hl{Insert lead in - left out to get calculation of after (43) done quicker}\\
 Define
 \eq{
 H_{ij} &= h_{ij,t} \\
 H &= h^{ij} H_{ij} \\
-f_j &= \nabla_i H^i_j - \nabla_j H  \, ,
+h &= \abs{\det{(h_{ij})}}  \, .
 }
-then 
+With this notation we have 
 \eq{
-f^i &=  \nabla_j H^{ij} - h^{ij} \nabla_j H \\
+\hat{R}_{tl} &= -\frac{1}{2}\psquare{\nabla^i (F_{il} - H_{il})+ H_{,l}} \\
+\hat{R}_{tt} &= -\frac{1}{2}\psquare{H_{,t}- \frac{1}{2}\pround{F^{ji}-H^{ji}}\pround{F_{ji}-H_{ji}}+2\nabla_iN^i_{,t}+\Delta\Phi} \, ,
+}
+such that the conditions for the metric to be Einstein become
+\eq{
+ \nabla^i (F_{il} - H_{il})+ H_{,l} &= 0 \\
+ H_{,t}- \frac{1}{2}\pround{F^{ji}-H^{ji}}\pround{F_{ji}-H_{ji}}+2\nabla_iN^i_{,t}+\Delta\Phi &= 0 \, . 
+} 
+The first condition contains no $N_i$ terms directly (only derivatives) and so we can write it as
+\eq{
+h^{ij} \nabla_j (N_{k,i} - N_{i,k}) &= f_k \\
+\Rightarrow \frac{1}{\sqrt{h}} \del_j \psquare{\sqrt{h} h^{ij} h^{kl} \pround{N_{k,i} - N_{i,k}}} &= f^l \, ,
+}
+where 
+\eq{
+f_k &= \nabla_i H^i_k - \nabla_k H \\
+\Rightarrow f^i &=  \nabla_j H^{ij} - h^{ij} \nabla_j H \\
 &= (h^{ik}h^{jl} - h^{ij}h^{kl}) \nabla_j H_{kl} \, .
 }
+By contraction of symmetric and antisymmetric tensors we see it is necessary that 
+\eq{
+\del_l \pround{\sqrt{h}f^l} = 0 \, .
+}
+Moreover, \cite{Brinkmann1925} says (\hl{and I do not understand why - he says "the only differential relations between the left hand side of (42) lead to (43)". This is effectively arguing that therefore the condition forces involutivity of the algebra of differential operators?}) that this is in fact sufficient for the integrability of the first Einstein condition to find $N_i$. 
+
+\begin{lemma} $\hat{R}_{ij}=0 \Rightarrow \del_l \pround{\sqrt{h}f^l} = 0 $
+\end{lemma}
+\begin{proof}
 We have shown previously 
 \eq{
 \nabla_j H_{kl} &= h_{mk}\Gamma^m_{lj,t}+h_{ml}\Gamma^m_{kj,t} \\
@@ -442,12 +468,14 @@ We have shown previously
 }
 Hence 
 \eq{
-\nabla_i f^i &= h^{jk}\nabla_i \Gamma^i_{jk,t} - h^{ij}\nabla_i\Gamma^k_{jk,t} \\
+\frac{1}{\sqrt{h}} \del_i \pround{\sqrt{h} f^i} = \nabla_i f^i &= h^{jk}\nabla_i \Gamma^i_{jk,t} - h^{ij}\nabla_i\Gamma^k_{jk,t} \\
 &= h^{ij}\psquare{\nabla_k \Gamma^k_{ij,t} - \nabla_i\Gamma^k_{jk,t}} \\
 &= h^{ij} \psquare{\Gamma^k_{ij,tk} + \Gamma^k_{kl}\Gamma^l_{ij,t} - \Gamma^l_{ki}\Gamma^k_{lj,t} - \Gamma^l_{kj}\Gamma^k_{il,t} - \Gamma^k_{jk,ti} + \Gamma^l_{ij}\Gamma^k_{lk,t}} \\
 &= h^{ij}\psquare{\del_t \pround{\Gamma^k_{ij,k}-\Gamma^k_{jk,i}+\Gamma^k_{kl}\Gamma^l_{ij}-\Gamma^k_{il}\Gamma^l_{jk}}+\Gamma^k_{il}\Gamma^l_{jk,t} - \Gamma^l_{ki}\Gamma^k_{lj,t}} \\
 &= h^{ij} R\indices{^k_j_k_i_,_t} = h^{ij} R_{ij,t}
 }
+\end{proof}
+Provided we then solve for $N_i$, we can substitute into the second Einstein condition. Along with the information of the time derivative of the metric $H_{ij}$, this gives an equation for $\Phi$, namely Poisson's equation.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Bargman Structures}
 A Bargmann structure $(B, \hat g, \xi)$ is a principal bundle $\pi:\, B\rightarrow M$, where $\dim B=\dim M+1$,
