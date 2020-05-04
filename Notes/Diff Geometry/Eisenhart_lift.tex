@@ -37,13 +37,13 @@ the metric transforms as
 \hat{g} &= h^{ij}\del_i \otimes \del_i -h^{ij}N_j (\del_i \otimes \del_v + \del_v \otimes \del_i) + (\del_t \otimes \del_v + \del_v \otimes \del_t) + (2\Phi + h^{ij}N_i N_j) \del_v \otimes \del_v \\
 &= h^{ij}\pround{\pd[X^k]{x^i}\tilde{\del}_k + \pd[V]{x^i}\tilde{\del}_v}\otimes\pround{\pd[X^l]{x^j}\tilde{\del}_l + \pd[V]{x^j}\tilde{\del}_v}-h^{ij}N_j \psquare{\pround{\pd[X^k]{x^i}\tilde{\del}_k + \pd[V]{x^i}\tilde{\del}_v} \otimes \tilde{\del}_v + \tilde{\del}_v \otimes \pround{\pd[X^k]{x^i}\tilde{\del}_k + \pd[V]{x^i}\tilde{\del}_v}} \\
 &\phantom{=} \psquare{\pround{\pd[X^k]{t}\tilde{\del}_k + \tilde{\del}_t + \pd[V]{t}\tilde{\del}_v} \otimes \tilde{\del}_v + \tilde{\del}_v \otimes \pround{\pd[X^k]{t}\tilde{\del}_k + \tilde{\del}_t + \pd[V]{t}\tilde{\del}_v}}+ (2\Phi + h^{ij}N_i N_j)\tilde{\del}_v \otimes \tilde{\del}_v \\
-&= \psquare{h^{ij}\pd[X^k]{x^i}\pd[X^l]{x^j}}\tilde{\del}_k \otimes \tilde{\del}_l -\psquare{h^{ij}N_j \pd[X^k]{x^i}-h^{ij}\pd[X^k]{x^i}\pd[V]{x^j}-\pd[X^k]{t}}(\tilde{\del}_k \otimes \tilde{\del}_v + \tilde{\del}_v \otimes \tilde{\del}_k) +(\tilde{\del}_t \otimes \tilde{\del}_v + \tilde{\del}_v \otimes \tilde{\del}_t) \\
+&= \psquare{h^{ij}\pd[X^k]{x^i}\pd[X^l]{x^j}}\tilde{\del}_k \otimes \tilde{\del}_l -\psquare{h^{ij} \pd[X^k]{x^i}\pround{N_j - \pd[V]{x^j}}-\pd[X^k]{t}}(\tilde{\del}_k \otimes \tilde{\del}_v + \tilde{\del}_v \otimes \tilde{\del}_k) +(\tilde{\del}_t \otimes \tilde{\del}_v + \tilde{\del}_v \otimes \tilde{\del}_t) \\
 &\phantom{=} + \psquare{2\Phi + h^{ij}\pround{N_i-\pd[V]{x^i}} \pround{N_j-\pd[V]{x^j}} + 2\pd[V]{t}}(\tilde{\del}_v \otimes \tilde{\del}_v + \tilde{\del}_v \otimes \tilde{\del}_v)
 }
 We can see this is a metric of the same type where we have 
 \eq{
 	\tilde{h}^{kl} &= h^{ij}\pd[X^k]{x^i}\pd[X^l]{x^j} \\
-	\tilde{h}^{kl}\tilde{N}_l &= h^{ij}N_j \pd[X^k]{x^i}-h^{ij}\pd[X^k]{x^i}\pd[V]{x^j}-\pd[X^k]{t} \\
+	\tilde{h}^{kl}\tilde{N}_l &= h^{ij} \pd[X^k]{x^i}\pround{N_j - \pd[V]{x^j}}-\pd[X^k]{t} \\
 	2\tilde{\Phi} + \tilde{h}^{kl}\tilde{N}_k \tilde{N}_l &= 2\Phi + h^{ij}\pround{N_i-\pd[V]{x^i}} \pround{N_j-\pd[V]{x^j}} + 2\pd[V]{t}
 }
 We can, in principle, solve these pdes to be able to set $\tilde{N}_l = 0 = \tilde{\Phi}$. 
@@ -474,13 +474,29 @@ h &= \abs{\det{(h_{ij})}}  \, .
 With this notation we have 
 \eq{
 \hat{R}_{tl} &= -\frac{1}{2}\psquare{\nabla^i (F_{il} - H_{il})+ H_{,l}} \\
-\hat{R}_{tt} &= -\frac{1}{2}\psquare{H_{,t}- \frac{1}{2}\pround{F^{ji}-H^{ji}}\pround{F_{ji}-H_{ji}}+2\nabla_iN^i_{,t}+\Delta\Phi} \, ,
+\hat{R}_{tt} &= -\frac{1}{2}\psquare{H_{,t}- \frac{1}{2}\pround{F^{ji}-H^{ji}}\pround{F_{ji}-H_{ji}}-2\nabla_iN^i_{,t}-2\Delta\Phi} \, ,
 }
 such that the conditions for the metric to be Einstein become
 \eq{
  \nabla^i (F_{il} - H_{il})+ H_{,l} &= 0 \\
- H_{,t}- \frac{1}{2}\pround{F^{ji}-H^{ji}}\pround{F_{ji}-H_{ji}}+2\nabla_iN^i_{,t}+\Delta\Phi &= 0 \, . 
+ H_{,t}- \frac{1}{2}\pround{F^{ji}-H^{ji}}\pround{F_{ji}-H_{ji}}-2\nabla_iN^i_{,t}-\Delta\Phi &= 0 \, . 
 } 
+
+\begin{remark}
+	If we use the notation from Brinkmann's paper \cite{Brinkmann1925} we have 
+	\eq{
+F_{\lambda\mu} &\leftrightarrow H_{ij} - F_{ij} \\
+G &\leftrightarrow H \\	
+m &\leftrightarrow -2\Phi \\
+\varphi &\leftrightarrow t \\
+M_\lambda &\leftrightarrow N_{i,t}
+}
+so 
+\eq{
+\hat{R}_{\varphi\varphi} = -\frac{1}{2}\psquare{G_{,\varphi}-\frac{1}{2}F^{\lambda\mu}F_{\lambda\mu}-2\nabla_\lambda M^\lambda + \Delta m}
+}
+\end{remark}
+
 The first condition contains no $N_i$ terms directly (only derivatives) and so we can write it as
 \eq{
 h^{ij} \nabla_j (N_{k,i} - N_{i,k}) &= f_k \\

@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage{header}
+\usepackage{../../header}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Preamble
 
@@ -85,6 +85,81 @@ This is at \emph{most} an asymptotic series. If it were to converge it would hav
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{SUSY in d=0 dimensions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Super vector spaces}
+Let us start with a slightly formal introduction to the algebra that will underpin supersymmetry. 
+
+\begin{definition}
+	A $\mbb{Z}_2-$\bam{graded vector space} (or \bam{super vector space}) is a vector space (over $\mbb{F}= \mbb{C}/\mbb{R}$) $V = V_0 \oplus V_1$ with a parity operation $\abs{\cdot}$  s.t. the \bam{parity} of a vector is 
+	\eq{
+\abs{v} = \left\lbrace \begin{array}{cc} 0 & v \in V_0 \\ 1 & v \in V_1 \end{array} \right.	
+}  
+Vectors that lie purely in $V_0$ or $V_1$ are called \bam{homogeneous}. Elements in $V_0 / V_1$ are called \bam{even/odd} or \bam{bosonic/fermionic}. If $\dim V_{0}=p, \, \dim V_1 = q$, we write $\dim V = p | q$.
+\end{definition}
+
+\begin{definition}
+	The \bam{dual of a super vector space} $V$ is the super vector space $V^\ast = \End(V,\mbb{F})$ with 
+	\eq{
+(V^\ast)_0 &= (V_1)^0 \\
+(V^\ast)_1 &= (V_0)^0 	
+}
+where $W^0$ is the annihilator of a subspace $W$. 
+\end{definition}
+
+\begin{definition}
+	The \bam{direct sum of two super vector spaces} $V, \, W$ is $V \oplus W$ with
+	\eq{
+		(V \oplus W)_0 &= V_0 \oplus W_0 \\
+		(V \oplus W)_1 &= V_1 \oplus W_1 
+	}
+The \bam{direct product of two super vector spaces} is $V \otimes W$ with 
+\eq{
+(V \otimes W)_0 &= (V_0 \otimes W_0) \oplus (V_1 \otimes W_1) \\
+(V \otimes W)_1 &= (V_0 \otimes W_1) \oplus (V_1 \otimes W_0) 
+} 
+\end{definition}
+
+\begin{definition}
+	Given two vector spaces $A, \, B$ and an exchange operation $s : A \otimes B \to B \otimes A$ the \bam{symmetric and antisymmetric powers} are respectively defined as 
+	\eq{
+A \odot B &= A \otimes B + s(A \otimes B) \\
+	A \wedge B &= A \otimes B - s(A \otimes B)
+}
+\end{definition}
+
+\begin{example}
+	For standard vector spaces with no grading we typically take 
+	\eq{
+s : A \otimes B &\to B \otimes A \\
+a \otimes b &\mapsto b \otimes a	
+}
+This recovers the standard definitions of the symmetric and wedge product of vectors. 
+\end{example}
+
+\begin{definition}
+	For super vector spaces $V, \, W$ the exchange operation is defined on homogeneous vectors as 
+	\eq{
+	s(v \otimes w) = (-1)^{\abs{v}\abs{w}}(w \otimes v)
+}
+\end{definition}
+
+\begin{remark}
+	A consequence of the above definition is that 'swapping' fermions introduces a minus sign. Hence 
+	\eq{
+	\Sym^k V_1 \cong \wedge^k V_1	
+}
+\end{remark}
+
+\begin{definition}
+	A \bam{superalgebra} is a super vector space equipped $\mc{A}$ with a bilinear multiplication map s.t. for $a,b, \in \mc{A}$
+	\eq{
+\abs{a \cdot b} = \abs{a} + \abs{b}	
+} 
+\end{definition}
+
+\begin{definition}
+	A superalgebra is \bam{supercommutative} if $\forall a,b \in \mc{A}, \, ab = (-1)^{\abs{a}\abs{b}}ba$.
+\end{definition}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Grassmann variables}
 These are a set of $n$ elements $\psi^a$ obeying the algebra 
@@ -1247,7 +1322,7 @@ where $f(t)$ must be holomorphic in t, and regular as $t \to 0$ and $\frac{f(t)}
 \eq{
 W_{eff}(\Phi,M,\Lambda) = \frac{1}{2}M\Phi^2 + \frac{1}{3}\Lambda\Phi^3
 }
-Finally, we freeze the superfield $(M,\Lambda)$ so their VEVs $(m,\lamdba)$ be sending $\eps \to 0$ in the kinetic terms 
+Finally, we freeze the superfield $(M,\Lambda)$ so their VEVs $(m,\lambda)$ be sending $\eps \to 0$ in the kinetic terms 
 \eq{
 \frac{1}{\eps}\bar{M} M + \frac{1}{\eps}\bar{\Lambda}\Lambda
 }
@@ -1331,7 +1406,7 @@ where ${T_p^\ast}^{(1,0)}M $vis the dual vector space to $T_p^{(1,0)}M$ for each
 }
 where
 \eq{
-\eta \in \Omega^{(p,q)}(M) \Leftrightarrow \eta(z,\bar{z}) = \eta_{a_1 \dots a_p \bar{b}_1 \dot \bar{b}_q}(z,\bar{z}) \, dz^{a_1} \wedge \dots \wedge dz^{a_p} \wedge d\bar{z}^{\bar{b}_1} \wedge \dots \wedge d\bar{z}^{\bar{b}_q}
+\eta \in \Omega^{(p,q)}(M) \Leftrightarrow \eta(z,\bar{z}) = \eta_{a_1 \dots a_p \bar{b}_1 \dots \bar{b}_q}(z,\bar{z}) \, dz^{a_1} \wedge \dots \wedge dz^{a_p} \wedge d\bar{z}^{\bar{b}_1} \wedge \dots \wedge d\bar{z}^{\bar{b}_q}
 }
 We also have $d : \Omega^k \to \Omega^{k+1}$ and so on a ocmplex manifold split as $d = \del + \bar{\del}$ where 
 \eq{
