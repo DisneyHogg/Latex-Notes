@@ -86,7 +86,7 @@ This is at \emph{most} an asymptotic series. If it were to converge it would hav
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{SUSY in d=0 dimensions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Super vector spaces}
+\subsection{Super vector spaces and Grassman variables}
 Let us start with a slightly formal introduction to the algebra that will underpin supersymmetry. 
 
 \begin{definition}
@@ -96,6 +96,10 @@ Let us start with a slightly formal introduction to the algebra that will underp
 }  
 Vectors that lie purely in $V_0$ or $V_1$ are called \bam{homogeneous}. Elements in $V_0 / V_1$ are called \bam{even/odd} or \bam{bosonic/fermionic}. If $\dim V_{0}=p, \, \dim V_1 = q$, we write $\dim V = p | q$.
 \end{definition}
+
+\begin{example}
+	The basic example is $\mbb{R}^{p|q}$.
+\end{example}
 
 \begin{definition}
 	The \bam{dual of a super vector space} $V$ is the super vector space $V^\ast = \End(V,\mbb{F})$ with 
@@ -160,19 +164,70 @@ This recovers the standard definitions of the symmetric and wedge product of vec
 \begin{definition}
 	A superalgebra is \bam{supercommutative} if $\forall a,b \in \mc{A}, \, ab = (-1)^{\abs{a}\abs{b}}ba$.
 \end{definition}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Grassmann variables}
-These are a set of $n$ elements $\psi^a$ obeying the algebra 
-\[
-\acomm[\psi^a]{\psi^b} = 0
-\]
-In particular, $(\psi^a)^2=0$. We call the elements \bam{Grassmann variables} or \bam{fermions}. If $x^b$ is a bosonic variable, $\comm[\psi^a]{x^b}=0$.\footnote{Note $\acomm[\psi^\alpha(\bm{x})]{\psi^\beta(\bm{y})} = 0$ for the Dirac field in QFT. Further, the exterior product on differential forms is antisymmetric: $dx^a \wedge dx^b = -dx^b \wedge dx^a$} \\
+
+\begin{example}
+	We can make $\mbb{R}^{p|q}$ into a superalgebra by calling $x^i \in \mbb{R}^{p|0}$ the bosonic variables, $\psi^a \in \mbb{R}^{0|q}$ the fermionic variables, and imposing 
+	\eq{
+\comm[x^i]{x^j} &= 0 \\
+\comm[\psi^a]{x^j} &= 0 \\
+\acomm[\psi^a]{\psi^b} &= 0	
+}
+In particular note this implies $(\psi^a)^2 =0$. We call the $\psi$ \bam{Grassman variables}. 
+\end{example}
+
+\begin{example}
+	Note $\acomm[\psi^\alpha(\bm{x})]{\psi^\beta(\bm{y})} = 0$ for the Dirac field in QFT. Further, the exterior product on differential forms is antisymmetric: $dx^a \wedge dx^b = -dx^b \wedge dx^a$
+\end{example}
+
+\begin{definition}
+	A \bam{Lie superalgebra} is a super vector space $\mf{g} = \mf{g}_0 \oplus \mf{g}_1$ with a bracket $\comm[\cdot]{\cdot} : \mf{g}\otimes \mf{g} \to \mf{g}$ satisfying:
+	\begin{itemize}
+		\item the graded antisymmetry rule, i.e. $\forall X,Y \in \mf{g}$ 
+		\eq{
+	\comm[X]{Y} = -(-1)^{\abs{X}\abs{Y}}\comm[Y]{X}	
+	}
+\item the graded Jacobi identity, i.e. $\forall X,Y,Z \in \mf{g}$, 
+\eq{
+(-1)^{\abs{X}\abs{Z}}\comm[X]{\comm[Y]{Z}} + (-1)^{\abs{Y}\abs{X}}\comm[Y]{\comm[Z]{X}} + (-1)^{\abs{Z}\abs{Y}}\comm[Z]{\comm[X]{Y}} = 0
+}
+	\end{itemize}
+\end{definition}
+
+\begin{prop}
+	Let $V = V_0 \oplus V_1$ be a superalgebra. The space of $V$-valued vector fields with Lie bracket 
+	\eq{
+\comm[X]{Y}(f) = X(Y(f)) - (-1)^{\abs{X}\abs{Y}} Y(X(f))	
+}
+is a Lie superalgebra.
+\end{prop}
+\begin{proof}
+	The bracket trivially satisfies the graded antisymmetry rule, so we just need to show the graded jacobi rule. This is an exercise in paitence. Note we have $\abs{\comm[Y]{Z}} = \abs{Y}+\abs{Z}$. Hence
+	\eq{
+\comm[X]{\comm[Y]{Z}}f &= X(\comm[Y]{Z}f) - (-1)^{\abs{X}(\abs{Y}+\abs{Z})}\comm[Y]{Z}(Xf) \\
+&= X\psquare{Y(Zf)-(-1)^{\abs{Y}\abs{Z}}Z(Yf)} \\
+&\phantom{=} - (-1)^{\abs{X}(\abs{Y}+\abs{Z})}\psquare{Y(Z(Xf))-(-1)^{\abs{Y}\abs{Z}}Z(Y(Xf))} \\
+\Rightarrow (-1)^{\abs{X}\abs{Z}}\comm[X]{\comm[Y]{Z}}f&= (-1)^{\abs{X}\abs{Z}}X(Y(Zf)) - (-1)^{\abs{Z}(\abs{Y}+\abs{X})}X(Z(Yf)) \\
+& \phantom{=} - (-1)^{\abs{X}\abs{Y}}Y(Z(Xf)) + (-1)^{\abs{Y}(\abs{X}+\abs{Z})}Z(Y(Xf))
+}
+It can then be clearly seen that by cycling all terms will cancel.
+\end{proof}
 If we take a function of the Grassmann variables, it has an expansion that must eventually terminate: 
 \[
 F(\psi) = f + e_a \psi^a + \phi_{ab} \psi^a \psi^b + \dots +g \psi^1\psi^2\dots\psi^n
 \]
 Once we have all $n$ fermions, any other term will give zero contribution. (Note $\phi_{ab} = -\phi_{ba}$). \\
-If $F(\psi)$ is \emph{bosonic} (i.e. commuting) then $f$, $\phi_{ab},\dots$ (coefficients of even powers) must also be bosonic, whereas $e_a,\dots$ (coefficients of odd powers) must be fermionic. \\
+If $F(\psi)$ is \emph{bosonic} (i.e. commuting) then $f$, $\phi_{ab},\dots$ (coefficients of even powers) must also be bosonic, whereas $e_a,\dots$ (coefficients of odd powers) must be fermionic. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Differentiation and integration}
+
+\begin{definition}
+	A \bam{derivation} of a commutative superalgebra $\mc{A}$ is a linear map $D : \mc{A} \to \mc{A}$ satisfying 
+	\eq{
+D(ab) = (Da)b + (-1)^{\abs{a}\abs{D}}a(Db)	
+}
+where $\abs{D}$ is defined the \bam{degree} of the derivation. 
+\end{definition}
+Let us develop calculus on $\mbb{R}^{p|q}$, out prototypical commutative superalgebra. \\
 We define derivatives by:
 \[
 \pd{\psi^a}\left(\psi^b \dots \right) = \delta^b_a ( \dots) - \psi^b \pd{\psi^a} (\dots) \; \text{(Negative Leibniz rule)}
@@ -202,11 +257,10 @@ Now let ${\psi^\prime}^a=N^a_b \psi^b$ for $N\in GL(n)$. We have
     &= N^a_e N^b_f \dots N^d_g \eps^{ef\dots g} = \det N \eps^{ab\dots d} \\
     &= \det N \int {\psi^\prime}^a {\psi^\prime}^b \dots {\psi^\prime}^d \, d^n \psi^\prime 
 \end{align*}
-Hence we see $d^n \psi^\prime = \frac{1}{\det N} d^n \psi$ (opposite way round to usual).
-
-In QFT, we will often need Gaussian integral. Suppose $\psi^1, \psi^2$ are fermions and let $S(\psi^a) = \frac{1}{2}\psi^1 M \psi^2$. Then 
+Hence we see $d^n \psi^\prime = \frac{1}{\det N} d^n \psi$ (opposite way round to usual). \\
+In QFT, we will often need the Gaussian integral. Suppose $\psi^1, \psi^2$ are fermions and let $S(\psi^a) = \frac{1}{2}\psi^1 M \psi^2$. Then 
 \[
-\int e^{-iS(\psi^a)} d\psi^1 d\psi^2 = \int \left( 1- \frac{1}{2} \psi^1 M \psi^2 \right) \, d\psi^1 d\psi^2 = \frac{1}{2}M
+\int e^{-S(\psi^a)} d\psi^1 d\psi^2 = \int \left( 1- \frac{1}{2} \psi^1 M \psi^2 \right) \, d\psi^1 d\psi^2 = \frac{1}{2}M
 \]
 More generally for $2m$ fermions we action $S(\psi^a) = \frac{1}{2} \psi^a M_{ab} \psi^b$ ($M_{ab}=-M_{ba})$. 
 \begin{align*}
