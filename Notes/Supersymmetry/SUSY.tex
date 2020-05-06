@@ -74,7 +74,7 @@ z = \int_\mbb{R} e^{-\frac{S(X)}{\hbar}} dX
 Suppose $S(X) = \frac{1}{2}mX^2 + \frac{1}{6}\lambda X^4 +\frac{1}{6!} gX^6$, say. Even with this simple form of the integral, the integral is hard for the choice of $S$. \\
 As $\hbar \to 0$, taking the semi classical limit, we can obtain an asymptotic series as $\hbar \to 0^+$: 
 \[
-z \sim \frac{e^{-\frac{S[X_0]}{\hbar}}}{\sqrt{\pds[S]{X}(X_0)}}(1+A\hbar + B\hbar^2+\dots)
+z \sim \sqrt{2\pi\hbar}\frac{e^{-\frac{S[X_0]}{\hbar}}}{\sqrt{\pds[S]{X}(X_0)}}(1+A\hbar + B\hbar^2+\dots)
 \]
 where $S$ has an isolated minimum at $X_0\in\mbb{R}$, where isolated $\Rightarrow \pds[S]{X}(X_0) \neq0$. We find (in AQFT) that the term \[
 \frac{e^{-\frac{S[X_0]}{\hbar}}}{\sqrt{\pds[S]{X}(X_0)}}
@@ -102,6 +102,14 @@ Vectors that lie purely in $V_0$ or $V_1$ are called \bam{homogeneous}. Elements
 \end{example}
 
 \begin{definition}
+	Given a super vector space $V$ we have the \bam{parity reversion} $\Pi V$ also a super vector space with 
+	\eq{
+(\Pi V)_0 &= V_1 \\
+(\Pi V)_1 &= V_0 	
+}
+\end{definition}
+
+\begin{definition}
 	The \bam{dual of a super vector space} $V$ is the super vector space $V^\ast = \End(V,\mbb{F})$ with 
 	\eq{
 (V^\ast)_0 &= (V_1)^0 \\
@@ -122,6 +130,58 @@ The \bam{direct product of two super vector spaces} is $V \otimes W$ with
 (V \otimes W)_1 &= (V_0 \otimes W_1) \oplus (V_1 \otimes W_0) 
 } 
 \end{definition}
+
+\begin{definition}
+ Given $V$ a super vector space and $M \in \End(V)$ decompose $M$ as 
+\eq{
+	M = \begin{pmatrix} A & B \\ C & D \end{pmatrix} 
+}
+Then define the \bam{supertrace} of $M$ by $\str(M) = \tr(A) - \tr(D)$. 	
+\end{definition}
+
+\begin{prop}
+	The supertrace satisfies 
+	\begin{itemize}
+		\item $\str(MN) = (-1)^{\abs{M}\abs{N}}\str(NM)$
+		\item $\str(NMN^{-1}) = \str(M)$, i.e. it is basis independent
+		\item $\str(M^T) = \str(M)$
+	\end{itemize}
+\end{prop}
+
+\begin{definition}
+	Given $V$ a super vector space and $M \in GL(V)$ define the \bam{superdeterminant} of $M$ by 
+	\eq{
+\delta \psquare{\log \sdet(M)} &= \str(M^{-1} \delta M)	\\
+\sdet(I) &= 1
+}
+where $\delta M$ is an arbitrary variation of $M$. 
+\end{definition}
+We are going to work out a general formula for the superdet, but we will need a few lemmas first
+\begin{lemma}
+	$\sdet(MN) = \sdet(M) \sdet(N)$.
+\end{lemma}
+\begin{proof}
+	We have 
+	\eq{
+\delta \psquare{\log \sdet(MN)} &= 	\str((MN)^{-1} \delta (MN)) \\
+&= \str(N^{-1}M^{-1} \psquare{(\delta M)N + M(\delta N)}) \\
+&= \str(M^{-1} \delta M) + \str(N^{-1} \delta N) \\
+&= \delta \psquare{\log \sdet(M)} + \delta \psquare{\log \sdet(N)} \\
+&= \delta \psquare{\log(\sdet(M)\sdet(N))}
+}
+\end{proof}
+
+\begin{prop}
+	We have 
+	\eq{
+\sdet \psquare{\begin{pmatrix} A & B \\ C & D \end{pmatrix}} = 
+}
+\end{prop}
+\begin{proof}
+	
+\end{proof}
+
+
 
 \begin{definition}
 	Given two vector spaces $A, \, B$ and an exchange operation $s : A \otimes B \to B \otimes A$ the \bam{symmetric and antisymmetric powers} are respectively defined as 
@@ -227,11 +287,18 @@ D(ab) = (Da)b + (-1)^{\abs{a}\abs{D}}a(Db)
 }
 where $\abs{D}$ is defined the \bam{degree} of the derivation. 
 \end{definition}
-Let us develop calculus on $\mbb{R}^{p|q}$, out prototypical commutative superalgebra. \\
-We define derivatives by:
+Let us develop calculus on $\mbb{R}^{p|q}$, out prototypical commutative superalgebra.
+\begin{definition}
+We define fermionic derivatives by:
 \[
 \pd{\psi^a}\left(\psi^b \dots \right) = \delta^b_a ( \dots) - \psi^b \pd{\psi^a} (\dots) \; \text{(Negative Leibniz rule)}
 \]
+\end{definition}
+This gives us the total set of rules for differentiation on $\mbb{R}^{p|q}$ as 
+\eq{
+\pd[x^j]{x^i} &= \delta^i_j, & \pd[\psi^b]{x^i} &= 0, &
+\pd[x^j]{\psi^a} &= 0, & \pd[\psi^b]{\psi^a} &= 0, &  \pd{\psi^a}(\psi^b \psi^c) &= \delta^b_a \psi^c - \delta^a_a \psi^b 
+}
 We can also define integration simply by defining $\int 1 d\psi$ and $\int \psi d\psi$. We want our integral to be translation invariant, i.e 
 \[
 \int (\psi + \eta) \, d\psi = \int \psi \, d\psi
@@ -272,17 +339,23 @@ More generally for $2m$ fermions we action $S(\psi^a) = \frac{1}{2} \psi^a M_{ab
 (c.f. for bosons we have $\int e^{-\frac{1}{2} x^a M_{ab} x^b} \, d^{2m} x = \frac{(2\pi)^m}{\sqrt{\det M}} $)
 
 \subsection{Supersymmetric Integrals and Localisation}
-Consider a $d=0$ theory of one bosonic variable, and 2 fermions  $\psi^1,\psi^2$. Take $S(x,\psi) = V(x)-\psi^1 \psi^2 U(x)$ as our action. Even in $d=0$, for generic $V,U$ the integral $\int e^{-S(x,\psi^i)}\, dx \, d\psi^1 d\psi^2$ is difficult. \\
-However, suppose we choose a polynomial $W(x)$ and take $S(x,\psi) = \frac{1}{2} (\del W)^2 - \bar{\psi} \psi \del^2 W$ (taking $\psi = \psi^1 + i \psi^2, \bar{\psi} = \psi^1 -i \psi^2$. This $S(x,\psi,  \bar{\psi})$ is invariant under 
+Consider a $d=0$ theory of one bosonic variable, and 2 fermions  $\psi^1,\psi^2$. In this case the configuration space is $\mc{C} = \mbb{R}^{1|2}$.  Take $S(x,\psi) = V(x)-\psi^1 \psi^2 U(x)$ as our action. Even in $d=0$, for generic $V,U$ the integral $\int e^{-S(x,\psi^i)}\, dx \, d\psi^1 d\psi^2$ is difficult. We can do better using supersymmetry.\\
+However, suppose we choose a polynomial $W(x)$ and take $S(x,\psi) = \frac{1}{2} (\del W)^2 - \bar{\psi} \psi \del^2 W$ (taking $\psi = \psi^1 + i \psi^2, \bar{\psi} = \psi^1 -i \psi^2$). 
+\begin{lemma}
+	This $S(x,\psi,  \bar{\psi})$ is invariant under 
 \begin{align*}
 \delta x &= \eps \psi - \bar{\eps} \bar{\psi} \\
 \delta \psi &= \bar{\eps} \del W \\
 \delta \bar{\psi} &= \eps \del W 
 \end{align*}
-where $\eps,\bar{\eps}$ are fermionic parameters. Check that 
-\[
-\delta_\eps S = \del W \del^2 W \eps \psi-\eps\del W \psi \del^2 W - \bar{\psi}\psi(\eps \psi \del^3 W) = 0 
-\]
+where $\eps,\bar{\eps}$ are fermionic parameters.
+\end{lemma}
+\begin{proof}
+We check that
+\eq{
+	\delta_\eps S &= \psquare{(\del W) (\del^2 W) - \psi\bar{\psi}\del^3 W}(\eps \psi - \bar{\eps} \bar{\psi}) - \psquare{\bar{\psi}\del^2 W}\bar{\eps}\del W - \eps \del W\psquare{\psi \del^2 W} = 0 
+} 
+\end{proof}
 We write $\delta = \eps Q + \bar{\eps} \bar{Q}$ where $Q,\bar{Q}$ are called \emph{supercharges}
 \begin{align*}
     Qx = \psi &\qquad \bar{Q}x = -\bar{\psi} \\
@@ -294,35 +367,82 @@ Or
     Q &= \psi \pd{x} + \del W \pd{\bar{\psi}} \\
     \bar{Q} &= -\bar{\psi} \pd{x} + \del W \pd{\psi}
 \end{align*}
-These Generators obey $\acomm[Q]{\bar{Q}}=0$. Note $H=0$ in $d=0$ so this is a supersymmetry algebra.
-
-The supersymmetric 'path' integral $\int e^{-S(x,\psi,\bar{\psi})} \, dx \, d\psi d\bar{\psi}$ in fact \bam{localises}. Suppose we rescale $W \to \lambda W $ for $\lambda \in \mbb{R}_{\geq 0}$ both $S \to S_\lambda$ and in the susy transform $Q\to Q_\lambda, \bar{Q} \to \bar{Q}_\lambda $. Then 
-\[
-I(\lambda) = \int e^{-S_\lambda(x,\psi,\bar{\psi})} \, dx \, d^2 \psi
-\]
-actually obeys $\frac{dI}{d\lambda}=0$
-\begin{proof}
-\begin{align*}
-    \frac{dI}{d\lambda} &= \int \pd{\lambda} e^{-S_\lambda} dx d^2\psi \\
-    &= -\int \left[ \lambda (\del W)^2 - \bar{\psi}\psi \del^2 W \right] e^{-S_\lambda} dx d^2\psi \\
-    &= -\int \bar{Q}_\lambda (\del W \psi) e^{-S_\lambda} dx d^2 \psi \\
-    &= -\int \bar{Q}_\lambda (\del W \psi e^{-S_\lambda}) dx d^2 \psi \\
-\end{align*}
-Since $\bar{Q}_\lambda = \bar{\psi} \pd{x} + (\lambda \del W) \pd{\psi}$, this vanishes. 
-\end{proof}
-Thus $I(1) = \lim_{\lambda \to \infty} I(\lambda)$. As $\lambda \to \infty$, $e^{-\frac{\lambda^2}{2}(\del W)^2}$ suppresses the integral except near where $\del W = 0$. The integral thus localises to critical points of $W(x)$. 
-
-Suppose we have a group $G$ acting freely\footnote{A group $G$ acts on a set $X$ freely if $\forall x \in X \; g(x)=x \Rightarrow g=e=id_G$, i.e. all the stabilisers are trivial.} on our space of fields, and suppose the action and integration measure are $G$-invariant. 
-
-\begin{example}
+\begin{prop}
+These Generators obey 
 \eq{
-\int_{\mbb{R}^2 \setminus \set{0} } e^{-S(x,y)} \, dxdy 
+	\acomm[Q]{Q} &= 2(\del^2 W) \psi \pd{\bar{\psi}} \\
+	\acomm[\bar{Q}]{\bar{Q}} &= -2(\del^2 W)\bar{\psi} \pd{\psi} \\
+	\acomm[Q]{\bar{Q}}&=(\del^2 W)\pround{\psi \pd{\psi} - \bar{\psi} \pd{\bar{\psi}}}
 }
-with $G=SO(2)$ and $S$ just a function of $r=\sqrt{x^2+y^2}$. 
+\end{prop}
+\begin{proof}
+	Calculate 
+	\eq{
+Q^2 x &= Q\psi = 0 \\
+Q^2 \psi &= Q0 = 0 \\
+Q^2 \bar{\psi} &= Q(\del W) = (\del^2 W)\psi 	
+}
+Hence 
+\eq{
+Q^2 = \del^2 W \psi \pd{\bar{\psi}} \Rightarrow \acomm[Q]{Q} = 2(\del^2 W) \psi \pd{\bar{\psi}}
+}
+The same calculation can be done for $\bar{Q}^2, \, Q\bar{Q},$ and $\bar{Q}Q$ to get
+\eq{
+\bar{Q}^2 x &= 0 & Q\bar{Q}x &= -\del W & \bar{Q}Qx &= \del W \\
+\bar{Q}^2 \psi &= -\del^2 W \bar{\psi} & Q \bar{Q} \psi &= \del^2 W \psi & \bar{Q} Q \psi &= 0 \\
+\bar{Q}^2 \bar{\psi} &= 0 & Q \bar{Q} \bar{\psi} &= 0 & \bar{Q}Q \bar{\psi} &= -\del^2\bar{\psi} W  
+}
+\end{proof}
+\begin{remark}
+	This is a Lie superalgebra, and is a symmetry algebra of the theory.
+\end{remark}
+\begin{remark}
+	The 'equations of motion' that come from varying $S$ wrt $\psi$(or $\bar{\psi}$) give $\del^2 W=0$. Hence 'on-shell' all anti-commutators are 0. 
+\end{remark}
+We will now use this machinery to show that the supersymmetric 'path' integral $\int e^{-S(x,\psi,\bar{\psi})} \, dx \, d\psi d\bar{\psi}$ in fact \bam{localises}. Suppose we rescale $W \mapsto \lambda W $ for $\lambda \in \mbb{R}_{\geq 0}$. Under this transform say $S \mapsto S_\lambda$ and $Q\mapsto Q_\lambda, \bar{Q} \mapsto \bar{Q}_\lambda $. 
+\begin{prop}
+	Define
+\[
+I(\lambda) = \frac{1}{\sqrt{2\pi}}\int e^{-S_\lambda(x,\psi,\bar{\psi})} \, dx \, d^2 \psi
+\]
+Then $\frac{dI}{d\lambda}=0$
+\end{prop}
+\begin{proof}
+We have 
+\eq{
+S_\lambda = \frac{\lambda^2}{2}(\del W)^2 - \lambda \bar{\psi}\psi \del^2 W \Rightarrow \pd{\lambda}S_\lambda = \lambda (\del W)^2 - \bar{\psi}\psi \del^2 W 
+}
+Further as $\bar{Q}(S)=0, \, \bar{Q}_\lambda (S_\lambda) = 0$. Hence 
+\begin{align*}
+    \frac{dI}{d\lambda} &= \frac{1}{\sqrt{2\pi}}\int \pd{\lambda} e^{-S_\lambda} dx d^2\psi \\
+    &= -\frac{1}{\sqrt{2\pi}}\int \left[ \lambda (\del W)^2 - \bar{\psi}\psi \del^2 W \right] e^{-S_\lambda} dx d^2\psi \\
+    &= -\frac{1}{\sqrt{2\pi}}\int \bar{Q}_\lambda (\del W \psi) e^{-S_\lambda} dx d^2 \psi \\
+    &= -\frac{1}{\sqrt{2\pi}}\int \bar{Q}_\lambda (\del W \psi e^{-S_\lambda}) dx d^2 \psi \\
+\end{align*}
+Since $\bar{Q}_\lambda = \bar{\psi} \pd{x} + (\lambda \del W) \pd{\psi}$, this integral has two contributions, which can be seen to be either a total derivative or zero after Berexin integration. 
+\end{proof}
+\begin{corollary}
+$I(1) = \lim_{\lambda \to \infty} I(\lambda)$
+\end{corollary}
+As $\lambda \to \infty$, $e^{-\frac{\lambda^2}{2}(\del W)^2}$ suppresses the integral except near where $\del W = 0$. The integral thus localises to critical points of $W(x)$. \\
+In general, suppose we have a group $G$ acting freely\footnote{A group $G$ acts on a set $X$ freely if for $g \in G$,  $(\exists x \in X, \; g(x)=x) \Rightarrow g=e=id_G$, i.e. all the stabilisers are trivial.} on our space of fields, and suppose the action and integration measure are $G$-invariant. In this case decompose $\mc{C}$ as $G \times \faktor{\mc{C}}{G}$, and integrate over $G$ to obtain a factor of $\vol G$. 
+\begin{example}
+Consider
+	\eq{
+		\int_{\mbb{R}^2 \setminus \set{0} } e^{-S(x,y)} \, dxdy 
+	}
+	with $G=SO(2)$ and $S$ just a function of $r=\sqrt{x^2+y^2}$. Then the integral can be written as 
+	\eq{
+\int_{\mbb{R}_{\geq 0}} e^{-S(r)} \cdot 2\pi dr	
+}
+where 
+\eq{
+2\pi = \int_{SO(2)}d\theta = \vol(SO(2))
+}
+and $r$ is a coordinate on $\mbb{R}_{\geq 0} \cong \faktor{\mbb{R}^2}{SO(2)}$.
 \end{example}
-In this case decompose $\mc{C}$ as $G \times \faktor{\mc{C}}{G}$ and integrate over $G$ to obtain $\vol G$. \\
-If $G$ is a fermionic group, then $\vol G = 0$ since $0 = \int_G 1 \, d^{\dim G} \theta$.\\
-More generally, if $G \circlearrowleft \mc{C}$ has some fixed points, we can only get contributions from a neighbourhood of these fixed points. In our case $\delta \psi = \bar{\eps} \del W, \delta \bar{\psi} = -\eps \del W$ so fixed points of our SUSY are critical points of $W(x)$. Away from such critical points define 
+If $G$ is a fermionic group, then $\vol G = 0$ since $0 = \int_G 1 \, d^{\dim G} \theta$ by Berezin integration, and we would get no contribution. If $G$ acts freely everywhere except at some fixed subset of the configuration space $\mc{C}_0 \subset \mc{C}$ we can decompose the integral to some neighbourhood of $\mc{C}_0$, $U$, and its complement $U^c$. The integral over $U^c$ is then 0 as is has a fermionic group acting on it freely, and the total integral receives only a contribution from a neighbourhood of $\mc{C}_0$.  \\
+In our case $\delta \psi = \bar{\eps} \del W, \delta \bar{\psi} = -\eps \del W$ so fixed points of our SUSY are critical points of $W(x)$. Away from such critical points define 
 \eq{
 y &= x - \frac{\bar{\psi}\psi}{\del W} \\
 \chi &= \psi \sqrt{\del W} \\
@@ -346,18 +466,18 @@ Hence
 \eq{
 \int_{U^c} e^{-S(x,\psi,\bar{\psi})} dx d^2\psi = \int e^{-S(y,0,0)} \sqrt{\del W(y)} dy d^2\chi = 0
 }
-where $U$ is an open neighbourhood of $\set{ \del W = 0}$ and $U^c = \mc{C}\setminus U$. Near any isolated critical point $x_\ast$ such that 
+where $U$ is an open neighbourhood of $\set{ \del W = 0}$ and $U^c = \mc{C}\setminus U$, as there are no fermionic variables in the integrand and Berezin integration gives 0. Near any isolated critical point $x_\ast$ of second order write  
 \eq{
 W(x) = W(x_\ast) + \frac{c_\ast}{2} (x-x_\ast)^2 +\dots
 }
-the higher order terms will be irrelevant, so 
+where $c_\ast = \del^2W(x_\ast)\neq 0$. The higher order terms will be irrelevant, so we only need consider contribution from
 \eq{
 S^{(2)}(x,\psi,\bar{\psi}) = \frac{c_\ast^2}{2}(x-x_\ast)^2 - \bar{\psi}\psi c_\ast
 }
 Hence 
 \eq{
-I &= \int e^{-S(x,\psi,\bar{\psi})} \frac{dx}{\sqrt{2\pi}} d\psi \\
-&= \int e^{-\frac{c_\ast^2}{2}(x-x_\ast)^2} (-1 + \bar{\psi}\psi c_\ast ) dx d^2\psi \\
+I &= \frac{1}{\sqrt{2\pi}}\int e^{-S(x,\psi,\bar{\psi})} dx d\psi^2 \\
+&= \frac{1}{\sqrt{2\pi}}\int e^{-\frac{c_\ast^2}{2}(x-x_\ast)^2} (-1 + \bar{\psi}\psi c_\ast ) dx d^2\psi \\
 &= \frac{c_\ast}{\sqrt{2\pi}} \int_\mbb{R} e^{-\frac{c_\ast^2}{2}(x-x_\ast)^2} dx = \frac{c_\ast}{|c_\ast|} = \pm 1
 }
 If $W$ has several critical points the 
@@ -377,7 +497,8 @@ Now take $z\in\mbb{C}$ and two fermions $\psi_1,\psi_2$. Choose a holomorphic $W
 \eq{
 S(z,\psi) = |\del W|^2 + \del^2 W \psi_2 \psi_2 - \bar{\del^2 W} \bar{\psi_1} \bar{\psi_2}
 }
-This is invariant under 
+\begin{prop}
+The action is invariant under 
 \eq{
 \delta z &= \eps_1 \psi_1 + \eps_2 \psi_ 2 \\
 \delta \psi_1 &= \eps_2 \bar{\del W } \\
@@ -391,7 +512,16 @@ and
 \bar{\delta} z &= 0 = \bar{\delta} \psi_i \\
 \delta \bar{z} &= 0 =\delta \bar{\psi}_i
 }
-You may check $\acomm[Q_i]{\bar{Q}_j}=0$ and $\acomm[Q_i]{Q_j}=0=\acomm[\bar{Q}_i]{\bar{Q}_j}$ only holds "on shell", i.e. $\del^2 W = 0 = \bar{\del^2 W}$.\\
+or equivalently with supercharges
+\eq{
+	Q_1 &= \psi_1 \pd{z} + \bar{\del W} \pd{\psi_2} & \bar{Q}_1 &= \bar{\psi}_1 \pd{\bar{z}} + \del W \pd{\bar{\psi}_2} \\
+	Q_2 &= \psi_2 \pd{z}- \bar{\del W} \pd{\psi_1} & \bar{Q}_2 &= \bar{\psi}_2 \pd{\bar{z}}- \del W \pd{\bar{\psi}_1}
+	}
+so $\delta= \eps_1 Q_1 + \bar{\eps}_1 \bar{Q}_1 + \dots$. 
+\end{prop}
+\begin{prop}
+ $\acomm[Q_i]{\bar{Q}_j}=0$ and $\acomm[Q_i]{Q_j}=0=\acomm[\bar{Q}_i]{\bar{Q}_j}$ only holds "on shell", i.e. $\del^2 W = 0 = \bar{\del^2 W}$.
+ \end{prop}
 Again by rescaling $W \to \lambda W$ for $\lambda \in \mbb{R}_{\geq 0}$, localise $I = \int e^{-S} d^2z d^4\psi$ to its critical points of $W$ where 
 \eq{
 W(z) = W(z_\ast) + \frac{\alpha_\ast}{2} (z-z_\ast)^2 + \dots
@@ -402,58 +532,146 @@ S^{(2)}(z,\psi_i) = |\alpha_\ast|^2 |z-z_\ast|^2 + \alpha_\ast \psi_1 \psi_2 - \
 so 
 \eq{
 I &= \frac{1}{2\pi} \int e^{-S} \, d^2z \, d^4\psi \\
-&= \sum_{z_\ast} \frac{1}{2\pi} \int e^{-|\alpha_\ast (z-z_ast)|^2} |\alpha_\ast|^2 \psi_1 \psi_2 \bar{\psi}_1 \bar{\psi}_2 \, d^2z \, d^4\psi \\
+&= \sum_{z_\ast} \frac{1}{2\pi} \int e^{-|\alpha_\ast (z-z_\ast)|^2} |\alpha_\ast|^2 \psi_1 \psi_2 \bar{\psi}_1 \bar{\psi}_2 \, d^2z \, d^4\psi \\
 &= \sum_{z_\ast} \frac{|\alpha_\ast|^2}{|\alpha_\ast|^2} = \sum_{z_\ast} 1
 }
 counting the critical points. More generally let $f(z)$ be any holomorphic functions, then 
 \eq{
 \braket{f(z)} = \int e^{-S} f(z) d^2z d^4\psi
 }
-is still invariant under $\bar{\delta}$ transform, to again localise to critical points of $\bar{W}$. Then 
+is still invariant under $\bar{\delta}$ transform, so again localises to critical points of $\bar{W}$. Then 
 \eq{
 \braket{f(z)} &= \sum_{z_\ast} f(z_\ast) \frac{1}{2\pi} \int e^{-S^{(2)}} d^2z d^4\psi \\
 &= \sum_{z_\ast} f(z_\ast) 
 }
-the sum of the values at critical points. The key fact was $\bar{\delta}f=0$. Since $\bar{Q}_i^2=0$, one way to construct a $\bar{Q}_i$-invariant function is to take $\bar{Q}_i \Lambda(z,\bar{z},\psi_i,\bar{\psi}_j)$ for some general $\Lambda$ . However, if $F=\bar{Q}\Lambda$, 
+the sum of the values at critical points. The key fact was $\bar{\delta}f=0$. Since $\bar{Q}_i^2=0$, one way to construct a $\bar{Q}_i$-invariant function is to take $f=\bar{Q}_i \Lambda(z,\bar{z},\psi_i,\bar{\psi}_j)$ for some general $\Lambda$ . However, if $F=\bar{Q}\Lambda$, 
 \eq{
 \braket{F} &= \braket{ \bar{Q}\Lambda } \\
 &= \int (\bar{Q}\Lambda) e^{-S} \frac{d^2z \, d^4\psi}{2\pi} \\
 &= \int \bar{Q} (\Lambda e^{-S} ) \frac{d^2z \, d^4\psi}{2\pi} = 0
 }
-So interesting functions are in 
+So interesting functions (i.e.those with non-trivial but easily computable correlation functions) are in 
 \eq{
 H_{\bar{Q}} = \faktor{\ker \bar{Q}}{\image \bar{Q}}
 }
-\footnote{$H_{\bar{Q}}$ represents the fact that $\bar{Q}\bar{Q}\Lambda = 0$, so $\image \bar{Q} \leq \ker \bar{Q}$, and moreover $\braket{F + \bar{Q} \Lambda} =  \braket{F}$ so we extract the relevant information by quotienting out (under addition) this subspace.} Now 
-\eq{
-\braket{F + \bar{Q} \Lambda} = \braket{F} + \braket {\bar{Q} \Lambda} = \braket{F} 
-}
-and supposing $F_1 = \bar{Q} \Lambda$
+\begin{definition}
+	$H_{\bar{Q}} = \faktor{\ker \bar{Q}}{\image \bar{Q}}$ is called the $\bm{\bar{Q}}$\bam{-cohomology}. In the context of supersymmetry it is called the \bam{chiral ring}.
+\end{definition}
+\begin{prop}
+	The chiral ring is indeed a ring with addition and multiplication as for operators. 
+\end{prop}
 
+\footnote{$H_{\bar{Q}}$ represents the fact that $\bar{Q}\bar{Q}\Lambda = 0$, so $\image \bar{Q} \leq \ker \bar{Q}$, and moreover $\braket{F + \bar{Q} \Lambda} =  \braket{F}$ so we extract the relevant information by quotienting out (under addition) this subspace.} 
+\begin{prop}
+	Correlation functions of sums and products of $\bar{Q}$-invariant operators detect only the $\bar{Q}$-cohomology class of the operators.
+\end{prop}
+\begin{proof}
+	Take $\bar{Q}$-invariant functions $F_i$. Then
 \eq{
-\braket{\prod_{i=1}^n F_i } &= \braket{\bar{Q} \Lambda \prod_{i=2}^n F_i } \\
-&= \braket{\bar{Q} (\Lambda \prod_{i=2}^n F_i )}=0
+\braket{F_1 + \bar{Q} \Lambda + \sum_{i=2}^n F_i} = \braket{\sum_{i=1}^n F_i} + \braket {\bar{Q} \Lambda} = \braket{\sum_i F_i } 
+}
+and 
+\eq{
+\braket{(F_1+ \bar{Q}\Lambda)\prod_{i=2}^n F_i } &= \braket{\prod_{i=1}^n F_i} +  \braket{\bar{Q} \Lambda \prod_{i=2}^n F_i } =\braket{\prod_{i} F_i} +  \braket{\bar{Q} (\Lambda \prod_{i=2}^n F_i )}=\braket{\prod_{i} F_i}
 }
 
-Non trivial correlators from $O \in H_{\bar{Q}}$
-\eq{
-\braket{(\bar{Q}\Lambda) \prod_i O_i } = \braket{ \bar{Q} (\Lambda \prod_i O_i)}
-}
+\end{proof} 
 
 \begin{example}
-
- the transform $\bar{\delta}\bar{\psi}_i = \bar{\eps}_i \del W$ shows that $\delta W$ is itself $\bar{Q}(\dots)$. Hence if our operator contain $\delta W$ as a factor, their correlators vanish 
-
-For example $W(z) = \frac{1}{n+1} z^{n+1}-az$, $\del W = z^n - a$
-
-Then we have non trivial $\bar{Q}$ invariant operators that are polynomials subject to $z^n = a$. Hence the operators form a \bam{ring} generated by $\set{1,z,\dots,z^n}$. 
-
-The ring of non trivial supersymmetric operators is often called the \bam{chiral ring}. 
-
+ the transform $\bar{\delta}\bar{\psi}_i = \bar{\eps}_i \del W$ shows that $\del W \in \bar{Q}$. Hence if our operator contain $\delta W$ as a factor, its correlators vanish. As such the chiral ring is 
+ \eq{
+\mc{R} = \faktor{\mbb{C}[z]}{\pangle{\del W}} 
+} If  $W(z) = \frac{1}{n+1} z^{n+1}-az$, $\del W = z^n - a$
+Then we have non trivial $\bar{Q}$ invariant operators that are polynomials subject to $z^n = a$. Hence the chiral ring is generated by $\set{1,z,\dots,z^{n-1}}$. 
 \end{example}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Duistermaat-Heckmann localisation formula}
+Take $(M,\omega)$ to be a compact $2n$-dimensional symplectic maniold without boundary, and take coordinates $x^a$ locally on $M$. 
+\begin{definition}
+	Writing $\omega = \omega_{ab}dx^a \wedge dx^b$ the \bam{Liouville measure} on $M$ is 
+	\eq{
+\omega^n = \det(\omega_{ab}) dx^1 \wedge \dots \wedge dx^{2n}	
+}
+\end{definition}
+Let us assume we have a Hamiltonian flow given by function $H$, i.e. vector field $X = \acomm[\cdot]{H}$, and lets further assume the vector field generates a $U(1)$ action on $M$, with non-degenerate isolated fixed points $\pbrace{x_\ast}$. 
 
-
+\begin{theorem}
+The Fourier transform of the measure localises, i.e. 
+\eq{
+	\int_m \frac{\omega^n}{n!} e^{i\alpha H} = \pround{\frac{2\pi}{i\alpha}}^n \sum_{\substack{{x_\ast \in M} \\ {X(x_\ast)=0}}} \frac{e^{i\alpha H(x_\ast)}}{\prod_i k_i(x_\ast)}
+}
+where the $k_i$ are weights of the $U(1)$ action. 
+\end{theorem}
+\begin{proof}
+As makes sense for these notes we will use a supersymmetry approach. Take $x^a$ to be bosonic fields, and then $2n$ fermionic fields $\psi^a$ which will transform as tangent vectors to $M$. (Technically $\mc{C} = \Pi TM$, the parity-reversed tangent bundle). A generic function of the fields can be written as 
+\eq{
+F(x,\psi) = f(x) + \rho_{a_1}(x)\psi^{a_1} + \dots + r_{a_1 \dots a_{2n}} \psi^{a_1} \dots \psi^{a_{2n}}
+}
+As such we can identify $C^\infty(\Pi TM) \cong \Omega^{\bullet}(M)$. \\
+We now build an action: Let 
+\eq{
+S_0(x,\psi) = -i\alpha\psquare{H(x) + \omega_{ab}(x)\psi^a\psi^b}
+}
+and 
+\eq{
+Q = \psi^a \pd{x^a} + X^a(x) \pd{\psi^a}
+}
+which we view under the identification with multiforms as $d + \iota_X$. We can calculate 
+\eq{
+Q S_0 = -i\alpha (d+\iota_X)\psquare{H + \omega} = -i\alpha (dH + \iota_X \omega) = 0
+}
+as $X$ is the Hamiltonian vector field corresponding to $H$. Further 
+\eq{
+Q^2 = d \iota_X + \iota_X d = \mc{L}_X 
+}
+and so, restricted to forms constant on the orbits of the flow, $Q^2 = 0$. \\
+Pick now a positive definite metric $\bm{g}$ on $M$ that has $X$ as a Killing vector (\hl{is this possible?}), s.t. wrt the coordinates $x^a$ it has components $g_{ab}$. Write $g(\psi,X) = g_{ab}\psi^a X^b$. Then as a multiform $g(\psi,X)=\iota_X \bm{g}$, and 
+\eq{
+\mc{L}_X \iota_X \bm{g} = \iota_X \mc{L}_X \bm{g} + \comm[\mc{L}_X]{\iota_X}\bm{g} = \iota_{\comm[X]{X}}\bm{g} = 0  \Rightarrow Q^2 g(\psi,X) = 0
+}
+As such if we deform from $S_0$ to the action
+\eq{
+S_\lambda = S_0 + \lambda Q(g(\psi,X))
+}
+we retain the SUSY, i.e. $Q(S_\lambda) = 0$. The partition function us now 
+\eq{
+Z = \int_{\Pi TM} e^{-S_\lambda(x,\psi)} \, d^{2n}x \, d^{2n}\psi
+}
+Note the measure here is the canonical measure on $\Pi TM$ invariant under orientation-preserving diffeomorphisms, as the bosonic and fermionic measures trasnform oppositely. As we have done previously we find 
+\eq{
+\pd{\lambda} \int_{\Pi TM} e^{-S_\lambda(x,\psi)} \, d^{2n}x \, d^{2n}\psi = -\int_{\Pi TM} Q\psquare{g(\psi,X)e^{-S_\lambda(x,\psi)}} \, d^{2n}x \, d^{2n}\psi = 0
+}
+i.e the integral is independent of $\lambda$. Evaluating at $\lambda=0$ we get 
+\eq{
+Z &= \int_{\Pi TM} e^{-S_0(x,\psi)} \, d^{2n}x \, d^{2n}\psi \\
+&= \int_{\Pi TM} e^{i \alpha H(x)}\psquare{1 + i\alpha \omega_{a_1 b_1}\psi^{a_1} \psi^{b_1} + \dots +\frac{(i\alpha)^n}{n!}\omega_{a_1 b_1} \cdots \omega_{a_n b_n} \psi^{a_1} \psi^{b_1} \cdots \psi^{a_n} \psi^{b_n}} \, d^{2n}x \, d^{2n}\psi \\
+&= \frac{(i\alpha)^n}{n!} \int_M e^{i\alpha H(x)} \eps^{a_1 b_1 \dots a_n b_n} \omega_{a_1 b_1} \cdots \omega_{a_n b_n}\, d^{2n}x = \frac{(i\alpha)^n}{n!} \int_M e^{i\alpha H(x)} \omega^n
+}
+Now we rewrite 
+\eq{
+Q(g(\psi,X)) &= g_{ab}X^a X^b - \psi^a \psi^b \del_b(g_{ac}X^c) \\
+&= g(X,X) - \psi^a \psi^b \del_b X_a 
+}
+where $X_a = g_{ac}X^c$. As the metric is positive definite, $g_{ab}X^a X^b \geq 0$, with equality only where $X=0$. Hence taking $Z$ in the limit $\lambda \to \infty$ we get contributions only where $X = 0$. Hence taking the leading order term of the asymptotic expansion gained from the method of steepest descent.
+\eq{
+Z = \frac{(2\pi)^n}{n!} \sum_{\substack{{x_\ast \in M} \\ {X(x_\ast)=0}}} e^{i\alpha H(x_\ast)} \ev{\frac{\eps^{a_1 b_1 \dots a_n b_n}(\del_{a_1}X_{b_1})\dots (\del_{a_n}X_{b_n})}{\sqrt{\det(\del_a \del_b g(X,X))}}}{x_\ast}
+}
+We may simplify this term further: around each $x_\ast$ choose Darboux coordinates s.t. we can write 
+\eq{
+X = \sum_{i=1}^n k_i \pround{q^i \pd{p_i} - p_i \pd{q^i}}
+}
+An invariant choice of metric is then $\bm{g} = q^2 + dp^2$. If we did this in the case $n=1$ we would then find 
+\eq{
+\eps^{ab} \del_a (g_{bc}X^c) &= 2k \\
+\sqrt{\det(\del_a\del_b g(X,X))} &= 2k^2
+} 
+so in the case of general $n$ we get
+\eq{
+ \ev{\frac{\eps^{a_1 b_1 \dots a_n b_n}(\del_{a_1}X_{b_1})\dots (\del_{a_n}X_{b_n})}{\sqrt{\det(\del_a \del_b g(X,X))}}}{x_\ast} = \prod_i \frac{1}{k_i(x_\ast)}
+}
+The result follows. 
+\end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Supersymmetric Quantum Mechanics}
