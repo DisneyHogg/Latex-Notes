@@ -62,6 +62,7 @@ $\Rightarrow$ all states have non-negative energy. There is equality iff the gro
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Path Integrals in QFT}
+\hl{Consolidate this section into something} \\
 In QFT, we are interested in computing 
 \[
 z = \int_\mc{C} e^{-\frac{S[X]}{\hbar}} \mc{D}X \; \text{(Euclidean signature)}
@@ -172,13 +173,60 @@ We are going to work out a general formula for the superdet, but we will need a 
 \end{proof}
 
 \begin{prop}
-	We have 
+Let 
 	\eq{
-\sdet \psquare{\begin{pmatrix} A & B \\ C & D \end{pmatrix}} = 
+M = \begin{pmatrix} A & B \\ C & D \end{pmatrix}
+}
+where $D$ is invertible. Then 
+\eq{
+\sdet(M) = \frac{\det(A - BD^{-1}C)}{\det(D)}
 }
 \end{prop}
 \begin{proof}
-	
+We first consider the case where $B=0=C$. Then 
+\eq{
+M^{-1} &= \begin{pmatrix} A^{-1} & 0 \\ 0 & D^{-1} \end{pmatrix} \\
+\delta M &= \begin{pmatrix} \delta A & 0 \\ 0 & \delta D \end{pmatrix}
+} 
+(Note that the assumption that $M,D$ are invertible forces $A$ invertible.) Hence We can see 
+\eq{
+\delta \psquare{\log \sdet(M)} = \tr(A^{-1}\delta A) - \tr(D^{-1}\delta D) = \delta \log \det A - \delta \log \det D
+ = \delta \log \frac{\det A}{\det D}
+}
+Hence evaluating when $A=I=D$ sets the constant to 1 and 
+\eq{
+\sdet M = \frac{\det A}{\det D}
+}
+Now consider the case where $A = I = D$, $C = 0$. Then 
+\eq{
+M^{-1} &= \begin{pmatrix}
+	I & -B \\ 0 & I
+\end{pmatrix} \\
+\delta M &= \begin{pmatrix}
+	0 & \delta B \\ 0 & 0 
+\end{pmatrix} 
+}
+and 
+\eq{
+\delta \log \sdet M = 0 
+}
+so evaluating when $B=0$ gives 
+\eq{
+\sdet M = 1
+}
+Finally, writing 
+\eq{
+\begin{pmatrix}
+	A & B \\ C & D
+\end{pmatrix} = \begin{pmatrix}
+I & BD^{-1} \\ 0 & I
+\end{pmatrix}\begin{pmatrix}
+A-BD^{-1}C & 0 \\ 0 & D 
+\end{pmatrix}\begin{pmatrix}
+I & 0 \\ D^{-1}C & I
+\end{pmatrix}
+}
+gives the answer. 
 \end{proof}
 
 
@@ -340,7 +388,7 @@ More generally for $2m$ fermions we action $S(\psi^a) = \frac{1}{2} \psi^a M_{ab
 
 \subsection{Supersymmetric Integrals and Localisation}
 Consider a $d=0$ theory of one bosonic variable, and 2 fermions  $\psi^1,\psi^2$. In this case the configuration space is $\mc{C} = \mbb{R}^{1|2}$.  Take $S(x,\psi) = V(x)-\psi^1 \psi^2 U(x)$ as our action. Even in $d=0$, for generic $V,U$ the integral $\int e^{-S(x,\psi^i)}\, dx \, d\psi^1 d\psi^2$ is difficult. We can do better using supersymmetry.\\
-However, suppose we choose a polynomial $W(x)$ and take $S(x,\psi) = \frac{1}{2} (\del W)^2 - \bar{\psi} \psi \del^2 W$ (taking $\psi = \psi^1 + i \psi^2, \bar{\psi} = \psi^1 -i \psi^2$). 
+Suppose we choose a polynomial $W(x)$ and take $S(x,\psi) = \frac{1}{2} (\del W)^2 - \bar{\psi} \psi \del^2 W$ (taking $\psi = \psi^1 + i \psi^2, \bar{\psi} = \psi^1 -i \psi^2$). 
 \begin{lemma}
 	This $S(x,\psi,  \bar{\psi})$ is invariant under 
 \begin{align*}
@@ -356,6 +404,9 @@ We check that
 	\delta_\eps S &= \psquare{(\del W) (\del^2 W) - \psi\bar{\psi}\del^3 W}(\eps \psi - \bar{\eps} \bar{\psi}) - \psquare{\bar{\psi}\del^2 W}\bar{\eps}\del W - \eps \del W\psquare{\psi \del^2 W} = 0 
 } 
 \end{proof}
+\begin{remark}
+	Note that in order to have the variation in $x$ be bosonic, we multiply together two fermionic variables, the fermionic $\eps$ and the fermion fields. 
+\end{remark}
 We write $\delta = \eps Q + \bar{\eps} \bar{Q}$ where $Q,\bar{Q}$ are called \emph{supercharges}
 \begin{align*}
     Qx = \psi &\qquad \bar{Q}x = -\bar{\psi} \\
@@ -675,18 +726,34 @@ The result follows.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Supersymmetric Quantum Mechanics}
-There are 2 perspectives: canonical frameworks and path integral framework. \\
-Take a worldline theory of a single bosonic field $x(t)$ and a single $\mbb{C}$- fermion $\psi(t)$
-, and choose the action 
+There are 2 perspectives of quantum mechanics: canonical frameworks and path integral framework. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{SQM with a potential}
+Take a worldline theory of a single bosonic field $x(t)$ and a single $\mbb{C}$-fermion $\psi(t)$, and choose the action 
 \eq{
-S[x,\psi,\bar{\psi}] = \int \frac{1}{2}\dot{x}^2 + \frac{1}{2}(\bar{\psi} \dot{\psi} - \dot{\bar{\psi}} \psi) - \frac{1}{2}(\del h)^2 - \bar{\psi}\psi \del^2 h 
+S[x,\psi,\bar{\psi}] = \int \psquare{\frac{1}{2}\dot{x}^2 + \frac{i}{2}(\bar{\psi} \dot{\psi} - \dot{\bar{\psi}} \psi) - \frac{1}{2}(\del h)^2 - \bar{\psi}\psi \del^2 h }\, dt
 }
-where $h=h(x(t))$ plays the role of a potential. $S$ is invariant under 
+where $h=h(x(t))$ plays the role of a potential. 
+\begin{prop}
+$S$ is invariant under 
 \eq{
 \delta x &= \eps \bar{\psi} - \bar{\eps} \psi \\
-\delta \psi &= \eps (i\dot{x} + \delta h) \\
+\delta \psi &= \eps (i\dot{x} + \del h) \\
 \delta \bar{\psi} &= \bar{\eps} ( -i\dot{x} + \del h)
 }
+\end{prop}
+\begin{proof}
+Explicitly calculating we get 
+\eq{
+	\delta S &= \int \left[ \dot{x}\pround{\eps \dot{\bar{\psi}} - \bar{\eps}\dot{\psi}}+ \frac{i}{2}\pbrace{\bar{\eps} ( -i\dot{x} + \del h)\dot{\psi} + \bar{\psi} \eps (i\ddot{x} + \dot{x}\del^2 h) - \bar{\eps} ( -i\ddot{x} + \dot{x}\del ^2h)\psi - \dot{\bar{\psi}}\eps (i\dot{x} + \del h)}  \right. \\
+	&\phantom{=} \left.  - (\del h)(\del^2 h) (\eps \bar{\psi} - \bar{\eps} \psi) -\bar{\eps} ( -i\dot{x} + \del h)\psi \del^2 h - \bar{\psi}\eps (i\dot{x} + \del h)\del^2 h - \bar{\psi}\psi (\del^3 h)(\eps \bar{\psi} - \bar{\eps} \psi) \right] \, dt \\
+	&= \int \left[ \eps \pbrace{\dot{x}\dot{\bar{\psi}}-\frac{i}{2}(i\ddot{x}+\dot{x}\del^2 h)\bar{\psi}+\frac{i}{2}(i\dot{x}+\del h)\dot{\bar{\psi}} - (\del h)(\del^2h)\bar{\psi}+(i\dot{x}+\del h)(\del^2 h)\bar{\psi}} \right. \\
+	&\phantom{=} + \left.\bar{\eps}\pbrace{-\dot{x}\dot{\psi} + \frac{i}{2}(-i\dot{x}+\del h)\dot{\psi} - \frac{i}{2}(-i\ddot{x}+\dot{x}\del^2 h)\psi + (\del h)(\del^2 h)\psi  - (-i\dot{x} + \del h)(\del^2 h)\psi} \right]\, dt
+}
+\end{proof}
+\begin{remark}
+This is a natural generalisation of the first model we considered 
+\end{remark}
 By the Noether procedure, promoting $\eps \to \eps(t)$. find that 
 \eq{
 \delta S = -i \int (\dot{\eps} Q + \dot{\bar{\eps}} \bar{Q})
