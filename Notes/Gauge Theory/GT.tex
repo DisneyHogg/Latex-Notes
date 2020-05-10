@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage{../../header}
+\usepackage{../../header-colourful}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Preamble
 
@@ -433,7 +433,7 @@ If $G$ is proper, any continuous group action is proper.
 \end{prop}
 
 \begin{lemma}
-If $G \lact M$ is smooth, free, and proper. Then $\faktor{M}{G}$ axists and is a smooth manifold
+If $G \lact M$ is smooth, free, and proper. Then $\faktor{M}{G}$ exists and is a smooth manifold
 \end{lemma}
 
 \begin{definition}
@@ -453,7 +453,7 @@ G \arrow[r] & P \arrow[d,"\pi"] \\ & M
 By $G$-equivariance $\pi^{-1}(U_\alpha)$ are all $G$-orbits, and moreover the action is free and proper. This means we have $M \cong \faktor{P}{G}$. As such a $G$-principal bundle is given by a smooth, free, and proper action $P \ract G$. 
 \end{remark}
 
-If $U_\alpha,U_\beta$ are part of the open cover s.t $U_{\alpha\beta} \equiv U_\alpha \cap U_\beta \neq \empty$ then we can ask about the diagram
+If $U_\alpha,U_\beta$ are part of the open cover s.t $U_{\alpha\beta} \equiv U_\alpha \cap U_\beta \neq \emptyset$ then we can ask about the diagram
 \begin{center}
 \begin{tikzpicture}[commutative diagrams/every diagram]
 \node (P0) at (90:1cm) {$\pi^{-1}(U_{\alpha\beta})$};
@@ -590,7 +590,7 @@ There is a 1:1 correspondence
 \end{prop}
 
 \begin{example}
-If $E$ is a rank $r$ bundle, and $\Lambda^2 E$ as a line bundle. Then $\Lambda^2 E$ is the vector bundle associated to $\Fr_E$ with $GL(2,k) \overset{\det}{\to} k^\times$. Hence we get a $k^\times$-principal bundle by extension. 
+If $E$ is a rank $r$ bundle, and $\Lambda^2 E$ is a line bundle. Then $\Lambda^2 E$ is the vector bundle associated to $\Fr_E$ with $GL(2,k) \overset{\det}{\to} k^\times$. Hence we get a $k^\times$-principal bundle by extension. 
 \end{example}
 
 \begin{example}
@@ -662,7 +662,7 @@ A: \psi &\mapsto (f: p \mapsto g \text{ if } \psi(p) = pg) \\
 }
 we may check 
 \eq{
-\psi(p\cdot\tilde{g}) = \psi(p)\cdot \tilde{g} = pg \tilde{g} = (p\tilde{g}) (\tilde{g}^{-1} p \tilde{g})
+\psi(p\cdot\tilde{g}) = \psi(p)\cdot \tilde{g} = pg \tilde{g} = (p\tilde{g}) (\tilde{g}^{-1} g \tilde{g})
 }
 so $f$ obeys the necessary condition. We then have 
 \eq{
@@ -821,6 +821,44 @@ Further, the space of sections of $E$ is the space of $G$-equivariant functions 
 \begin{corollary}
 A splitting of the Atiyah sequence gives a Kozul connection. 
 \end{corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The space of all connections}
+
+\begin{definition}
+If $P \to M$ is a $G$-principal bundle we can denote the \bam{space of all connections on $P$} as $\mc{C}_P$
+\end{definition} 
+
+\begin{prop}
+	$\mc{C}_P$ is an affine space modelled on the vector space $\Gamma(T^\ast M \otimes \ad(P))$. 
+\end{prop}
+
+\begin{remark}
+	$\mc{C}_P$ is not a vector space, but this is the next best thing. This means that $\Gamma(T^\ast M \otimes \ad(P))$ acts as an additive group on $\mc{C}_P$ freely and transitively, i.e. $\mc{C}_P$ is a torsor for the additive group. Alternatively this can be seen as saying that the difference between two connections gives an element of $\Gamma(T^\ast M \otimes \ad(P))$. 
+\end{remark}
+
+Let us try and understand this result in terms of the three ways to view a connection. 
+\begin{enumerate}
+	\item \bam{Splitting of the Atiyah sequence}: We can think of a section of $T^\ast M \otimes \ad(P)$ as a $C^\infty(M)$-linear map from $TM$ to $\ad(P)$. 
+	\begin{tkz}
+		0 \arrow[r] & \ad(P) \arrow[r] & \faktor{TP}{G} \arrow[r] & TM \arrow[r] \arrow[ll,dashed, bend left=20] & 0 
+	\end{tkz}
+$\ad(P)$ is a vector sub-bundle of $\faktor{TP}{G}$, and as it is exactly the kernel of $\faktor{TP}{G} \to TM$ we can add it to any splitting of such to get a new splitting. Similarly, given any two splittings of $\faktor{TP}{G} \to TM$ the difference has to be in the kernel of the map, i.e. takes values in $\ad(P)$, so gives a well defined map $TM \to \ad(P)$. 
+\item \bam{Distribution on $TP$}: Take a vector space $V=V_1 \oplus V_2$. Then any linear map $f:V_1 \to V_2$ gives a linear subspace of $V$ 
+\eq{
+\text{graph}(f) = \pbrace{v \oplus f(v) \, | \, v \in V_1}
+}
+with $\dim \text{graph}(f) = \dim V_1$. This subspace lets us write 
+\eq{
+V = \text{graph}(f) \oplus V_2
+}
+Now suppose we have a distribution $H \subset TP$ and a section of $T^\ast M \otimes \ad(P)$. The latter can be pulled back to $P$ and using $H$ and using $H$ it gives a $G$-invariant linear map from $H$ to the vertical tangent space. This means we have $TP = H \oplus V$ and a linear map $H \to V$. As such we get a new distribution from $\text{graph}(H \to V)$. 
+\item \bam{$\mf{g}$-valued one-from on $P$}: Let $\omega$ be the connection one-form and $\gamma:TP \to \ad(P)$ be the section of $T^\ast M \otimes \ad(P)$. From $\gamma$ we can build $\tilde{\gamma} = \gamma \circ d\pi : TP \to \mf{g}$. $\tilde{\gamma} + \omega$ is a new connection one-form. 
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Curvature and local expressions}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

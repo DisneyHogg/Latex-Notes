@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage{../header-colourful}
+\usepackage{../../header-colourful}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Preamble
 
@@ -760,7 +760,7 @@ $\nabla^\phi$ is an affine connection
 &= \phi \cdot \pround{ \phi^{-1} \cdot f \nabla_{\phi^{-1}\cdot X}(\phi^{-1}\cdot Y} \\
 &= (\phi \cdot \phi^{-1}f) (\phi \cdot \nabla_{\phi^{-1}X}(\phi^{-1}\cdot Y) \\
 &= f \nabla_X^\phi Y \\
-\nabla+X^\phi (fY) &= \phi \cdot \pround{\nabla_{\phi^{-1}\cdot X}\phi^{-1}(fY)} \\
+\nabla_X^\phi (fY) &= \phi \cdot \pround{\nabla_{\phi^{-1}\cdot X}\phi^{-1}(fY)} \\
 &= \phi  \cdot \pround{\nabla_{\phi^{-1}\cdot X}(\phi^{-1}f)(\phi^{-1}Y)} \\
 &= \phi \cdot \pround{(\phi^{-1}X)(\phi^{-1}f) (\phi^{-1}Y) + (\phi^{-1}f) \nabla_{\phi^{-1}X}(\phi^{-1}Y)} \\
 &= (\phi \cdot \phi^{-1} \cdot X(f))(\phi \cdot \phi^{-1} \cdot Y) + (\phi \cdot \phi^{-1} \cdot f) \nabla_{\phi^{-1}X}(\phi^{-1}Y) \\
@@ -1271,7 +1271,7 @@ We can now give the standard definition of a Cartan geometry modelled on a Klein
 A \bam{Cartan geometry} $(P,\omega)$ on $M$ modelled on $\faktor{G}{H}$ consists of the following:
 \begin{enumerate}
     \item a principal $H$-bundle $P \to M$
-    \item $\omega \in \Omega^(P;\mf{g})$ satisfying 
+    \item $\omega \in \Omega^1(P;\mf{g})$ satisfying 
     \begin{enumerate}
         \item $\forall p \in P\, \omega_p : T_pP \to \mf{g}$ is a vector space isomorphism 
         \item $\forall h \in H, \, r_h^\ast \omega = \Ad(h^{-1}) \omega$
@@ -1313,7 +1313,7 @@ Hence
 \eq{
 \omega_p(f_\ast v) &= \omega_p(v) + \vartheta_H(\psi_\ast v) = \omega_p(v) - \omega_p(v) = 0 \\
 \Rightarrow f_\ast v &= 0 \\
-\Rightarrow \Omega(u,v) &= \Omega(f_\ast u, f_\ast v) = \Omega(f_\ast u,0) &= 0
+\Rightarrow \Omega(u,v) &= \Omega(f_\ast u, f_\ast v) = \Omega(f_\ast u,0) = 0
 }
 \end{proof}
 It follows that $\Omega$ defines a 2-form on $\faktor{TP}{\ker \pi_\ast} \cong \pi^\ast  TM$. \\

@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage{header-colourful}
+\usepackage{../../header-colourful}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Preamble
 
@@ -1079,11 +1079,11 @@ Let $(\Gamma(A), \comm[\cdot]{\cdot})$ be a derivative Lie algebra as above. The
 }
 with the following identities: 
 \begin{itemize}
-    \item $\Lambda^\sharp(df \otimes a)[g] \cdot b = - \Lambda^\sharp(dg \otimes b)[f] \cdot a$ ($Rightarrow$ defines $\Lambda\in \Gamma(\wedge^2(TM \otimes A^\ast)\otimes A)$)
+    \item $\Lambda^\sharp(df \otimes a)[g] \cdot b = - \Lambda^\sharp(dg \otimes b)[f] \cdot a$ ($\Rightarrow$ defines $\Lambda\in \Gamma(\wedge^2(T^\ast M \otimes A^\ast)\otimes A)$)
     \item $\lambda_{\comm[a]{b}} = \comm[\lambda_a]{\lambda_b}$ 
     \item $\lambda_{f\cdot A} = f \cdot \lambda_a + \Lambda^\sharp(df \otimes a)$
     \item $\comm[\lambda_a]{\Lambda^\sharp(df \otimes b)} = \Lambda^\sharp(d(\lambda_a[f]) \otimes b + df \otimes \comm[a]{b})$ 
-    \item $\Lambda(df \otimes a,\pround{\highlight{\cdots}}$
+    \item $\Lambda\pround{df \otimes a,d\pround{\Lambda^\sharp(dg \otimes b)[h]) \otimes c}} + \text{cyclic} = \lambda_b[f] \cdot \Lambda(dg \otimes a, dh \otimes c) + \text{cyclic}$
 \end{itemize}
 \end{prop}
 
@@ -1146,6 +1146,9 @@ A \bam{Lie algebroid} is a derivative Lie algebra with anchor
 A \bam{Jacobi structure} is a local (derivative) Lie algebra of rank 1. 
 \end{definition}
 
+\begin{remark}
+	We are motivated to study Jacobi structres as they are the only local Lie algebras which are note Lie algebroids
+\end{remark}
 
 \begin{remark}
 Let us now spend a little bit of time thinking about Jacobi structures. Suppose we have a line bundle $L \to M$, and then our Jacobi structure is $(\Gamma(L), \acomm[\cdot]{\cdot})$. We want to get a good idea of what is a morphism of Jacobi structures
@@ -1165,9 +1168,159 @@ B^\ast (f \cdot s) = b^\ast f \cdot B^\ast s
 We say $B$ is a \bam{Jacobi morphism} when $B^\ast$ is a Lie morphism. Then what we should think about is that a line bundle is a natural generalisation of manifolds, and moreover the "Poisson flavour" on manifolds generalises directly to Jacobi structure. 
 \end{remark}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Jacobi Geometry}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Unit-free Classical Mechanics}
+In classical mechanics, we identify classical observables with $\mbb{R}$-valued elements of $C^\infty(M)$. We assume we have chosen a fixed set of units, and we are working with the values of the functions in these units. We might wonder whether we can find a theory of mechanics of unit-free observables on phase spaces. From the point of view of kinematics we want configuration spaces, phase spaces, and observables that are unit free. The answer will look as such 
+
+\begin{center}
+\begin{tabular}{cc}
+	Unit-less & Unit-free \\
+	\hline \hline 
+	$\mbb{R}$ & $L$ ($\dim = 1$ vector space) \\
+	$M$ & $L \to M$ (Line bundle) \\
+	$C^\infty(M)$ & $\Gamma(L)$ \\
+	$TM$ & $DL$ \\
+	$T^\ast M$ & $J^1 L$  \\
+	$(M,\acomm[]{})$ Poisson & $(L,\acomm[]{})$ Jacobi
+\end{tabular}
+\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Category of Lines}
+
+\begin{definition}
+	We define the \bam{Category of lines} to be the category $Line$ with objects given by $\dim=1$ $\mbb{R}$-vector spaces $L$ (Lines), and morphisms given by invertibles linear maps $B : L \to  L^\prime$ (factors)
+\end{definition}
+
+\begin{definition}
+	A \bam{choice of units} is $u \in L^\times$, i.e a choice of basis giving $L \cong \mbb{R}$. 
+\end{definition}
+
+\begin{definition}
+	The \bam{category of Line-vector spaces} $LVect$ is cartesion product $Vect \times Line$. The morphisms look like 
+	\eq{
+	\phi^B : V^L \to W^{L^\prime}
+} 
+where $\phi$ is a linear map, $V,W$ vector spaces, $B$ a factor, $L,L^\prime$ lines. 
+\end{definition}
+
+We are going to take the "L-rooted approach" to developing linear algebra here where we avoid taking tensor powers of $L$. 
+
+\begin{definition}
+	The \bam{L-direct sum} of $V^L, \, W^{L}$ is $(V \oplus W)^L$.  
+\end{definition}
+
+\begin{definition}
+	We define \bam{subspaces and quotients} as $(U \subset V)^L$ and $(\faktor{V}{U})^L$. 
+\end{definition}
+
+\begin{definition}
+	We define \bam{L-duality} as $V^{\ast L} = (V^\ast \otimes L)^L$, $\phi^{\ast B} : W^{\ast L^\prime} \to V^{\ast L}$. 
+\end{definition}
+
+\begin{ex}
+Write $\phi^{\ast B}$ explicitly. 
+\end{ex}
+
+\begin{ex}
+	Show $(V^{\ast L})^{\ast L} \cong V^L$ as line-vector spaces. 
+\end{ex}
+
+\begin{ex}
+	Define the L-annihilator of $U^L \subset V^L$ and show
+	\eq{
+U^{\ast L} \cong \faktor{V^{\ast L}}{U^{0L}}	
+}
+\end{ex}
+
+\begin{definition}
+	We define \bam{L-tensors} as elements of 
+	\eq{
+\mc{T}^r(V^L) &\equiv (\mc{T}^r_0(V))^L \\
+\mc{T}_q(V^L) &\equiv (\mc{T}^0_q(V) \otimes L)^L
+}
+We then have
+\eq{
+\mc{T}^\bullet(V^L) = \bigoplus_{n \geq 0} \mc{T}^n (V^L)
+}
+and likewise for $\mc{T}_\bullet(V^L)$. 
+\end{definition}
+
+\begin{example}
+	Note $\mc{T}^0(V^L) = \mbb{R}, \, \mc{T}_0(V^L) = L$.
+\end{example}
+
+\begin{definition}
+	For $\phi^B : V^L \to W^{L^\prime}$ we define the \bam{pushforward} as $(\phi^B)_\ast = (\phi_\ast)^B$ and the \bam{pullback} as the generalisation of $\phi^{\ast B}$ to a map $\mc{T}_\bullet(W^{L^\prime}) \to \mc{T}_\bullet(V^L)$.  
+\end{definition}
+
+We can also define a tensor product for covariant tensors by taking for $\omega \in \mc{T}_q(V^L), \, \alpha \in \mc{T}_p(V^L)$
+\eq{
+(\omega \otimes \alpha) (v_1, \dots, v_{p+q}) = \omega(v_1, \dots, v_q) \alpha(v_{q+1}, \dots, v_{p+q})
+}
+This makes $\mc{T}_\bullet(V^L)$ into a $\mc{T}_\bullet(V^L)$-module and we have 
+\eq{
+\phi^{\ast L}(\alpha + \beta) &= \phi^{\ast L}(\alpha) + \phi^{\ast L}(\beta) \\
+\phi^{\ast L}(\omega \otimes \beta) = \phi^{\ast L} \omega \otimes \phi^{\ast L}\beta
+}
+We can similarly define \bam{L-multivectors} and \bam{L-forms}. 
+
+\begin{remark}
+Not taking the rooted approach (i.e. allowing for tensor poewrs of lines) will take us to two-dimensional objects 
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Category of Line bundles}
+
+\begin{definition}
+	The category $Line_{Man}$ is the \bam{category of line bundles} with rank 1 vector vendles over smooth manifolds ($L\to M$ line bundles) as objects and fibre-wise invertible vector bundle morphisms as the morphisms , i.e. 
+\begin{tkz} 
+	b : L \arrow[r] \arrow[d] & L^\prime \arrow[d] \\ 
+	\phi : M \arrow[r] & N 
+\end{tkz}
+\end{definition}
+
+\begin{prop}
+	Take submanifold $i : S \hookrightarrow M$ and bundle $L \to M$. Then get diagram
+	\begin{tkz}
+		L_S \arrow[r] \arrow[d] & L \arrow[d] \\
+		S \arrow[r,"i"] & M 
+	\end{tkz}
+where $L_S = i^\ast L$. 
+\end{prop}
+
+\begin{prop}
+	If $G \lact L$ via factors, covering $G \lact M$ free and proper and we have 
+	\begin{tkz}
+		L \arrow[r] \arrow[d] & \faktor{L}{G} \arrow[d] \\ M \arrow[r] & \faktor{M}{G} 
+	\end{tkz}
+\end{prop}
+
+\begin{prop}
+	Given two line bundles $L_i \to M_i$ we construct the \bam{base product} as 
+	\eq{
+M_1 \btimes M_2 = \pbrace{\text{fibre to fibe factors }}
+}
+from this we construct the \bam{line product} as 
+\begin{tkz}
+
+	L_1 \arrow[d] & L_1 \utimes L_2 \arrow[l,"P_1"'] \arrow[d] \arrow[r,"P_2"] & L_2 \arrow[d] \\	M_1 & M_1 \btimes M_2 \arrow[l,"p_1"] \arrow[r,"p_2"'] & M_2  
+\end{tkz}
+so $(Line_{Man},\utimes)$ is a categorical product
+\end{prop}
+\begin{proof}
+	
+\end{proof}
+
+\begin{definition}
+	We define the \bam{category of line vector bundles} as $LVect_{Man}$ which has pairs of vector bundles and line bundles over the same manifold for objects ($A^L \to M$), and paris of vb morphisms and factors covering the same smooth map as morphisms ($F^b$) 
+\end{definition}
 
 
 \end{document}
+
 
 
 

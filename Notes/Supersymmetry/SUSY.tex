@@ -543,7 +543,7 @@ Hence
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{d=0 Landua Ginzburg Theory}
+\subsection{d=0 Landau Ginzburg Theory}
 Now take $z\in\mbb{C}$ and two fermions $\psi_1,\psi_2$. Choose a holomorphic $W(z)$
 \eq{
 S(z,\psi) = |\del W|^2 + \del^2 W \psi_2 \psi_2 - \bar{\del^2 W} \bar{\psi_1} \bar{\psi_2}
@@ -712,7 +712,7 @@ We may simplify this term further: around each $x_\ast$ choose Darboux coordinat
 \eq{
 X = \sum_{i=1}^n k_i \pround{q^i \pd{p_i} - p_i \pd{q^i}}
 }
-An invariant choice of metric is then $\bm{g} = q^2 + dp^2$. If we did this in the case $n=1$ we would then find 
+An invariant choice of metric is then $\bm{g} = dq^2 + dp^2$. If we did this in the case $n=1$ we would then find 
 \eq{
 \eps^{ab} \del_a (g_{bc}X^c) &= 2k \\
 \sqrt{\det(\del_a\del_b g(X,X))} &= 2k^2
@@ -749,15 +749,19 @@ Explicitly calculating we get
 	&\phantom{=} \left.  - (\del h)(\del^2 h) (\eps \bar{\psi} - \bar{\eps} \psi) -\bar{\eps} ( -i\dot{x} + \del h)\psi \del^2 h - \bar{\psi}\eps (i\dot{x} + \del h)\del^2 h - \bar{\psi}\psi (\del^3 h)(\eps \bar{\psi} - \bar{\eps} \psi) \right] \, dt \\
 	&= \int \left[ \eps \pbrace{\dot{x}\dot{\bar{\psi}}-\frac{i}{2}(i\ddot{x}+\dot{x}\del^2 h)\bar{\psi}+\frac{i}{2}(i\dot{x}+\del h)\dot{\bar{\psi}} - (\del h)(\del^2h)\bar{\psi}+(i\dot{x}+\del h)(\del^2 h)\bar{\psi}} \right. \\
 	&\phantom{=} + \left.\bar{\eps}\pbrace{-\dot{x}\dot{\psi} + \frac{i}{2}(-i\dot{x}+\del h)\dot{\psi} - \frac{i}{2}(-i\ddot{x}+\dot{x}\del^2 h)\psi + (\del h)(\del^2 h)\psi  - (-i\dot{x} + \del h)(\del^2 h)\psi} \right]\, dt \\
-	&= \int \left[ \eps \frac{d}{dt} \pbrace{\frac{1}{2}(\ddot{x}+i\dot{x}\del^2h)\bar{\psi}+ }\right.
+	&= \frac{1}{2}\int \left[ \eps \frac{d}{dt} \pbrace{(\dot{x}+i\del h)\bar{\psi}} + \bar{\eps} \frac{d}{dt}\pbrace{(-\dot{x}+i\del h)\psi}\right] \, dt \\
+	&= \frac{1}{2}\int \pbrace{\frac{d}{dt}\psquare{\eps(\dot{x} + i \del h)\bar{\psi} + \bar{\eps}(-\dot{x} + i \del h)\psi} - \psquare{\dot{\eps}(\dot{x} + i \del h)\bar{\psi} + \dot{\bar{\eps}}(-\dot{x} + i \del h)\psi}} \, dt
 }
+As $\eps,\bar{\eps}$ are constant this is a total derivative and so assuming field decay in time (neccessary for a finite action) $\delta S =0$. 
 \end{proof}
 \begin{remark}
 This is a natural generalisation of the first model we considered 
 \end{remark}
-By the Noether procedure, promoting $\eps \to \eps(t)$. find that 
+By the Noether procedure, promoting $\eps \to \eps(t)$, we now find that 
 \eq{
-\delta S = -i \int (\dot{\eps} Q + \dot{\bar{\eps}} \bar{Q})
+\delta S &= \int -\frac{1}{2}\psquare{\dot{\eps}(\dot{x} + i \del h)\bar{\psi} + \dot{\bar{\eps}}(-\dot{x} + i \del h)\psi} + \dot{x}(\dot{\eps}\bar{\psi}-\dot{\bar{\eps}}\psi) + \frac{i}{2}\psquare{\bar{\psi}\dot{\eps}(i\dot{x}+\del h)-\dot{\bar{\eps}}(-i\dot{x}+\del h)\psi} \, dt\\
+&= \int \dot{\eps}\bar{\psi} \psquare{-\frac{1}{2}(\dot{x} + i\del h) + \dot{x} - \frac{i}{2}(i\dot{x} + \del h)} + \dot{\bar{\eps}}\psi\psquare{-\frac{1}{2}(-\dot{x}+i \del h) - \dot{x} -\frac{i}{2}(-i\dot{x} + \del h)} \, dt\\ 
+&= -i \int (\dot{\eps} Q + \dot{\bar{\eps}} \bar{Q}) \, dt
 }
 where the charges are 
 \eq{
@@ -772,25 +776,28 @@ and they obey
 &= -2i\dot{x} \\
 \acomm[Q]{\bar{Q}} \psi &= \bar{Q}(i\dot{x} + \del h) \\
 &= -i\dot{\psi} - \psi \del^2 h \\
-&= -2i\dot{\psi} \; \text{on e.o.m } \dot{\psi} = - i \psi \del^2 h \\
+&\approx -2i\dot{\psi} \quad  \text{ as on e.o.m } \dot{\psi} = - i \psi \del^2 h \\
 \acomm[Q]{\bar{Q}} \bar{\psi} &\approx -2i\dot{\bar{\psi}}
 }
-Then, up to fermionic e.o.m, the anticommutator of the supercharges generates time translation, so must be $\propto H$. \\
+(the symbol $\approx$ here means "equals on-shell"). Then, up to fermionic e.o.m, the anticommutator of the supercharges generates time translation as $\acomm[Q]{\bar{Q}} \approx -2i \del_t$, so must be $\propto H$. \\
 To canonically quantise, have 
 \eq{
-p = \frac{\delta L}{\delta \dot{x}} = \dot{x} \\
-\pi = \frac{\delta L }{\delta \dot{\psi}} = i\bar{\psi}
+p &= \frac{\delta L}{\delta \dot{x}} = \dot{x} \\
+\pi &= \frac{\delta L }{\delta \dot{\psi}} = i\bar{\psi}
 }
 so 
 \eq{
 H = p\dot{x} + \pi \dot{\psi} - L = \frac{1}{2}p^2 + (\del h )^2 + \frac{1}{2}\del^2 h (\bar{\psi}\psi - \psi \bar{\psi})
 }
+\begin{remark}
+	Note a choice of ordering has been made here, that is inequivalent quantum mechanically due to the choice $\pi = i\bar{\psi}$. 
+\end{remark}
 From quantisation, we have 
 \eq{
 \comm[\hat{x}]{\hat{p}} &= i \\
-\acomm[\hat{\psi}]{\hat{\bar{\psi}}} &= 1
+\acomm[\hat{\psi}]{\hat{\pi}} &= i
 }
-For $x$ as usual take the Hilbert space $\mc{H} = L^2 ( \mbb{R}, dx)$ in which case $\hat{x} \Psi(x) = x\Psi(x)$ and $\hat{p} \Psi(x) = -i \pd[\Psi]{x}$. The relations $\acomm[\hat{\psi}]{\hat{\bar{\psi}}}$ are reminiscent of $\comm[a]{a^\dagger}=1$ in a SHO. Let's define a fermionic number operator $\hat{F} = \hat{\bar{\psi}}\hat{\psi}$. Then 
+(note we have set $\hbar=1$). For $x$ as usual take the Hilbert space $\mc{H} = L^2 ( \mbb{R}, dx)$ in which case $\hat{x} \Psi(x) = x\Psi(x)$ and $\hat{p} \Psi(x) = -i \pd[\Psi]{x}$. The relations $\acomm[\hat{\psi}]{\hat{\bar{\psi}}}$ are reminiscent of $\comm[a]{a^\dagger}=1$ in a SHO, where the Hamiltonian is determined by the number operator $N=a^\dagger a$. Let's define a fermionic number operator $\hat{F} = \hat{\bar{\psi}}\hat{\psi}$. Then 
 \eq{
 \comm[\hat{F}]{\hat{\psi}} &= -\hat{\psi} \\
 \comm[\hat{F}]{\hat{\bar{\psi}}} &= \hat{\bar{\psi}}
