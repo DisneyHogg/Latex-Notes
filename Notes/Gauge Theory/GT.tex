@@ -320,6 +320,7 @@ We also have an adjoint rep of $\mf{g}$ acting on $\mf{g}$ by
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Riemannian and Symplectic Geometry}
+\hl{Combine this section with the previous and neaten up }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The main stuff}
 
@@ -413,6 +414,7 @@ If $f \in C^\infty(M)$ we get associated Hamiltonian vector fields $X^f$. We the
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Bundles}
+\hl{Neaten up this section}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Principle Bundles}
 \begin{definition}
@@ -511,9 +513,7 @@ A \bam{section} of $P \overset{\pi}{\to}M$ is a right inverse to $\pi$, i.e $s:M
 A PB has a global section iff is is trivial. 
 \end{lemma}
 
-\begin{example}
-Frame bundle of vector bundles. 
-\end{example}
+
 
 \begin{definition}
 A \bam{vector bundle} $E \to M$ is a (smooth) morphism s.t. all the fibres are vector spaces of the same dimension $r\equiv\rank E$. 
@@ -524,7 +524,7 @@ If $E \to M$ is a vector bundle, the associated \bam{frame bundle} is
 \eq{
 P \equiv \Fr_E =\pbrace{\text{bases of fibres of $E$}}
 }
-This is a $GL(r,\mbb{R})$ bundle. The action is given by 
+This is a $GL(r,\mbb{R})$-bundle. The action is given by 
 \eq{
 (\bm{\sigma}_1, \dots, \bm{\sigma}_r) \mapsto  (\bm{\sigma}_1, \dots, \bm{\sigma}_r) \cdot A = (\bm{\sigma}_1A, \dots, \bm{\sigma}_rA)
 }
@@ -640,7 +640,7 @@ Note both $G$ and $\mc{G}(P)$ act on $P$ by right and left action respectively.
 \begin{theorem}
 There are canonical group isomorphisms 
 \eq{
-\mc{G}(P) \cong \Gamma(\Ad(P)\to M) \cong \pbrace{f:P \to G \, | \, f \text{ smooth }, \, f(p \cdot g) = g^{-1}f(p) g}
+\mc{G}(P) \cong \Gamma(\Ad(P)) \cong \pbrace{f:P \to G \, | \, f \text{ smooth }, \, f(p \cdot g) = g^{-1}f(p) g}
 }
 \end{theorem}
 \begin{proof}
@@ -721,8 +721,19 @@ X(\pangle{s_1, s_2}) = \pangle{\nabla_X s_1, s_2} + \pangle{s_1, \nabla_X s_2}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Ehresmann connections}
-Let $G \to P \overset{\pi}{\to} M$ be a $G$-principal bundle. Denote the fibre through $p \in P$ by $F_p = p\cdot G$. We then get the inclusion $T_p F_p \hookrightarrow T_p P$, and this then splits an exact sequence to have $\faktor{T_pP}{T_p F_p} \cong T_{\pi(p)}M$. 
+Let $G \to P \overset{\pi}{\to} M$ be a $G$-principal bundle. Denote the fibre through $p \in P$ by $F_p = p\cdot G$. 
 
+\begin{definition}
+	We call $T_p F_p = \ker d\pi_p$ the \bam{subspace of vertical tangent vectors at $p \in P$} and denote it by $V_p$. The collection of $V_p$ gives a smooth distribution. 
+\end{definition}
+
+\begin{definition}
+	A differential form on $P$ is called \bam{horizontal} if it is zero on $V$. 
+\end{definition}
+
+\begin{definition}
+	A form on $P$ is called \bam{basic} if it is horizontal and $G$-invariant 
+\end{definition}
 
 \begin{definition}
 An \bam{Ehresmann connection} on $P$, $H$, is a smooth choice of complement $H_p \hookrightarrow T_pP$ s.t. 
@@ -731,15 +742,21 @@ An \bam{Ehresmann connection} on $P$, $H$, is a smooth choice of complement $H_p
     \item $\forall p \in P, \, T_pP = T_p F_p \oplus H_p$
     \item $H$ is $G$-equivariant, i.e. $dR_g H_p = H_{p \cdot g}$
 \end{itemize}
+The distrubution is called \bam{horizontal}.
 \end{definition}
 
 \begin{remark}
-$d\pi_p : T_p P \to T_{\pi(p)}M$ gives a isomorphism $T_{\pi(p)} M \overset{\cong}{\to} H_p$
+$d\pi_p : T_p P \to T_{\pi(p)}M$ gives a isomorphism $T_{\pi(p)} M \overset{\cong}{\to} H_p$, or equivalently a splitting of the SES
+\eq{
+0 \to T_p F_p \to T_pP \to T_{\pi(p)} M \to 0
+}
 \end{remark}
 
 \begin{remark}
 Smooth connections always exists. This is as they certainly exist on local trivialisations, and then they can be glued with partitions of unity. 
 \end{remark}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Holonomy}
@@ -801,7 +818,7 @@ Now, if we have a principal bundle $G \to P \to M$, the \bam{Atiyah sequence} as
 \eq{
 0 \to \ad(P) \to \faktor{TP}{G} \to TM \to 0 \, .
 }
-This is split my the map $\pround{\ev{d\pi}{H_p}}^{-1}:TM \to \faktor{TP}{G}$, given by an Ehresmann connection. Now with $G \lact V$ via a representation, we have the follwing result:
+This is split by the map $\pround{\ev{d\pi}{H_p}}^{-1}:TM \to \faktor{TP}{G}$, given by an Ehresmann connection. Now with $G \lact V$ via a representation, we have the follwing result:
 
 \begin{prop}
 $\forall U \subset M$ we have 
@@ -821,6 +838,14 @@ Further, the space of sections of $E$ is the space of $G$-equivariant functions 
 \begin{corollary}
 A splitting of the Atiyah sequence gives a Kozul connection. 
 \end{corollary}
+
+\begin{remark}[On the Atiyah sequence]
+	We can send $P \times \mf{g} \to TP$ by sending $(p,\xi)$ to the vector field whose value at $p$ is given by that generated by the action of $G$ on $P$. As this action is fibre-wise, the vector field in the image must lie in the vertical component $\ker d\pi$. This gives the SES 
+	\eq{
+0 \to P \times \mf{g} \to TP \to TM \to 0	
+}
+As all these maps are $G$ invariant we can quotient out by the action of $G$ to get the Atiyah sequence. 
+\end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The space of all connections}
@@ -858,8 +883,378 @@ Now suppose we have a distribution $H \subset TP$ and a section of $T^\ast M \ot
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Curvature and local expressions}
+\subsection{Curvature}
 
+To any connection on $P$ we can associate a curvature - a section of $\wedge^2 T^\ast M \otimes \ad(P)$. To aid in the definition we need the following lemma:
+
+\begin{lemma}
+	If $E\to M$ is a vector bundle then a rule that assigns a section og $E$ to each $r$-tuple of vector fields $X^1, \dots, X^r$ which is alternating in the $X^i$ and $C^\infty(M)$-linear corresponds to a section of $\wedge^r T^\ast M \otimes E$. 
+\end{lemma}
+
+Now suppose we have a Kozul connection $\nabla$ on $E$
+
+\begin{lemma}
+	Given $s \in \Gamma(E), \, X,Y \in \Gamma(TM)$, the expression 
+	\eq{
+	\nabla_X \nabla_Y s - \nabla_Y \nabla_X s - \nabla_{\comm[X]{Y}}s
+}
+is 
+\begin{itemize}
+	\item $C^\infty$ linear in $s,X,Y$ 
+	\item alternating in $X,Y$
+\end{itemize}
+\end{lemma}
+\begin{proof}
+	\hl{Exercise}
+\end{proof}
+
+\begin{corollary}
+	The expression corresponds to $F_\nabla \in \Gamma(\wedge^2 T^\ast M \otimes \End(E))$ given by 
+	\eq{
+F_\nabla(X,Y)(s) = \nabla_X \nabla_Y s - \nabla_Y \nabla_X s - \nabla_{\comm[X]{Y}}s 	
+}
+\end{corollary}
+
+We can again interpret this three ways via the different ways of thinking about a connection. We will need the following definition:
+
+\begin{definition}
+	Given a connection on $P$ given by a distribution $H \subset TP$, for $X \in \Gamma(TP)$ write $X^H$ for the horizontal component. Now for $\phi \in \Omega^r(P) \otimes V$, where $V$ is a vector space, define the \bam{covariant derivative} of $\phi$ to be the $V$-valued $(r+1)$-form $D\phi$ given by
+	\eq{
+D\phi(X_0, \dots, X_r) = d\phi(X_0^H, \dots, X_r^H)	
+} 
+\end{definition}
+\begin{enumerate}
+	\item \bam{Splitting of the Atiyah sequence}: Given $U\subset M$ open we can form the exact sequence 
+	\begin{tkz}
+		0 \arrow[r] & \Gamma(U,\ad(P)) \arrow[r] & \Gamma\pround{U,\faktor{TP}{G}} \arrow[r] &TU \arrow[r] & 0 
+	\end{tkz}
+This is in fact an exact sequence of Lie algebra - bunldes where the maps in the sequence respect the bracket structure. If we let $\gamma : TM \to \faktor{TP}{G}$ be the map that splits the Atiyah sequence then we define $F$ by 
+\eq{
+F(X,Y) = \comm[\gamma(X)]{\gamma(Y)} - \gamma(\comm[X]{Y})
+}
+As the Lie algebra structure is respected by the exact sequence we must have that $F(X,Y) \mapsto 0 \in TM$, and we have by exactness that is must take values in $\ad(P)$. 
+	\item \bam{Distribution on $TP$}: Given a choice of horizontal subspace $H_p \subset T_pP$ we can lift $X \in \Gamma(TM)$ to a horizontal $\tilde{X} \in \Gamma(TP)$. Given $Y\in \Gamma(TM)$ we then get $\tilde{F}$ defined by 
+	\eq{
+	\tilde{F}(X,Y) = \comm[\tilde{X}]{\tilde{Y}} - \tilde{\comm[X]{Y}}
+}
+$\tilde{F}(X,Y) \in \Gamma(TP)$, and moreover $\tilde{F}(X,Y) \in \ker d\pi$, so it is vertical. Further $G$-invariance under the adjoint action means that $\tilde{F}$ to $F \in \Gamma(\wedge^2 T^\ast M \otimes \ad(P))$ a section on $M$ (it is clear that $F$ is alternating in $X,Y$ and is $C^\infty(M)$-linear). 
+	\item \bam{$\mf{g}$-valued one-form on $P$}: Let $\omega$ be the connection one-form, with corresponding distribution $H$. We then get the cruvature $\tilde{F} \in \Gamma(\wedge^2 T^\ast P \otimes \mf{g})$ by 
+	\eq{
+\tilde{F} = D \omega	
+}
+One can check (\hl{exercise}) that $\tilde{F}$ is $G$-equivariant in the sense that 
+\eq{
+R_g^\ast \tilde{F} = \Ad_{g^{-1}} \tilde{F} 
+}
+Becuase of the equivariance this descends to a section $F \in \Gamma(\wedge^2 T^\ast M \otimes \ad(P))$. 
+\end{enumerate}
+
+\begin{prop}
+	In terms of just the connection one-form we can write 
+	\eq{
+\tilde{F}(X,Y) = d\omega(X,Y) + \comm[\omega(X)]{\omega(Y)}	
+}
+We often write this as the short hand 
+\eq{
+\tilde{F} = d\omega + \omega \wedge \omega 
+}
+which is \bam{Cartan's structure equation}. 
+\end{prop}
+
+\begin{theorem}[Bianchi identity]
+	$D \tilde{F} = 0$
+\end{theorem}
+\begin{proof}
+	We have
+	\eq{
+D \tilde{F}(X_1, X_2, X_3) &= d \tilde{F}(X_1^H, X_2^H, X_3^H) \\
+&= d^2 \omega (X_1^H, X_2^H, X_3^H) + d\omega \wedge \omega (X_1^H, X_2^H, X_3^H) - \omega \wedge d\omega (X_1^H, X_2^H, X_3^H) \\
+&= 0
+}
+as $d^2 = 0$ and $H=\ker \omega$ so $\omega(X^H)=0$. 
+\end{proof}
+
+\begin{definition}
+	A connection is \bam{flat} (or \bam{integrable}) if its curvature is 0. 
+\end{definition}
+
+\begin{theorem}
+	If $P$ is a $G$-principal bundle equipped with a flat connection then there exist local trivialisations such that all transition functions are constant. 
+\end{theorem}
+\begin{proof}
+	\hl{exercise}
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Local expressions}
+
+Recall that a bundle is trivial iff it has a global section $\sigma : M \to P$. This gives a canonical choice of connection given by 
+\eq{
+H = \ker(p_2 : M \times G \to G)
+}
+We refer to this induced connection as $d^\sigma$. \\
+Now any two connections differ by a section of $T^\ast M \otimes \ad(P)$, and $\ad(P)$ is alo trivialised as $\ad(P) \cong M \times \mf{g}$ if $P$ is, we can write any other connection as 
+\eq{
+d^\sigma + A
+}
+If the connection is given by one-form $\omega$ we have $A = \sigma^\ast \omega$. \\
+Suppose we have expressed our $G$-principal bundle $P$ in terms of local trivialisations - that is we have written $M = \cup_\alpha U_\alpha$, taken $\Psi_\alpha : \pi^{-1}(U_\alpha) \overset{\cong}{\to} U_\alpha \times G$ with transition maps $\phi_{\alpha\beta}:U_{\alpha\beta} \to G$, and we have expressed this data as a collection of local sections $\sigma_\alpha : U_\alpha \to P$. In this case we may carry out the proceedure as before to write a connection locally as 
+\eq{
+d^{\sigma_\alpha} + A^\alpha
+}
+These are related according to the following results:
+\begin{theorem}[compatibiltity conditions]
+	Let $\theta$ be the LI MC one-form. Then 
+	\eq{
+A^\beta = \Ad_{\phi_{\beta\alpha}}(A^\alpha) + \phi_{\alpha\beta}^\ast \theta	
+}
+\end{theorem}
+\begin{proof}
+\hl{exercise}
+\end{proof}
+
+\begin{corollary}
+	If $G$ is a matrix group, we have 
+	\eq{
+A^\beta = \phi_{\beta\alpha} A^{\alpha} \phi_{\beta\alpha}^{-1} + \phi_{\beta\alpha} d\phi_{\beta\alpha}	
+}
+\end{corollary}
+
+\begin{remark}
+	Physicists often refer to the $A^\alpha$ as \bam{local gauge potentials}. 
+\end{remark}
+
+\begin{prop}
+	In terms of the local gauge potentials the cruvature is given by 
+	\eq{
+F = dA^\alpha + A^\alpha \wedge A^\alpha	
+}
+\end{prop}
+
+
+Recall we know there is a group isomorphism between $\mc{G}(P)$, the group of gauge transformations, and $\Gamma(\Ad(P))$, the group of section of the bundle $\Ad(P)$. If we trivialise $P$ we trivialse $\Ad(P)$ making the sections into $G$-valued functions. The local trivialisations, $G$-valued functions $\psi_\alpha$, are related by 
+\eq{
+\psi_\beta = \phi_{\beta\alpha} \psi_\alpha \phi_{\beta\alpha}^{-1}
+}
+\begin{prop}
+$\mc{G}(P)$ then acts locally by the compatibility condition on the space of all connections as 
+\eq{
+A^\alpha \mapsto \Ad_{\psi_\alpha} A^\alpha + \psi_\alpha^\ast \theta
+}
+\end{prop}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Yang-Mills Theory}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Implicitly used results}
+
+\hl{Maybe move this earlier}
+We will first start by spelling out explicitly some results that we have been using but not making clear:
+
+\begin{lemma}
+	If $P \to M$ is a $G$-principal bundle, $V \to P$ is a vector bundle equipped with a linear lift of the action $P \ract G$ then $\faktor{V}{G}$ is a vector bundle over $M$ of the same rank as $V$ over $P$. 
+\end{lemma}
+
+\begin{lemma}
+	Sections of the bundle $\faktor{V}{G} \to M$ correspond exactly to $G$-equivarant sections of $V \to P$, i.e. sections $s:V\to P$ s.t. 
+	\begin{tkz}
+	V \arrow[r,"g"] \arrow[d] & V \arrow[d] \\ P \arrow[r,"g"'] \arrow[u,bend left=20,"s"] & P \arrow[u,bend right=20, "s"']
+	\end{tkz} 
+\end{lemma}
+
+\begin{lemma}
+	pull-backs of sections of $\wedge^2 T^\ast M \otimes \faktor{(P \times V)}{G}$ are exactly basic $V$-valued forms on $P$. 
+\end{lemma}
+
+The reason we have made these explicit is as it's important to realise it is the case with $V= \mf{g}$ that is necessary for us, as it means we can descends $\tilde{F} \in \Gamma(\wedge^2 T^\ast P \otimes \mf{g})$ (a $\mf{g}$-valued form on $P$) to $F\in \Gamma(\wedge^2 T^\ast M \otimes \ad(P))$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Hodge star operator}
+\hl{Maybe move this to the Riemannian geometry section}
+
+\begin{definition}
+	A \bam{volume form} of a differentiable manifold $M$ is a top-degree form (i.e. form of degree $\dim M$). 
+\end{definition}
+
+\begin{definition}
+	An \bam{oriented} manifold is one equipped with a nowhere-vanishing volume form. 
+\end{definition}
+
+\begin{lemma}
+	Every Riemannian manifold $(M,g)$ has a canonical choice of volume form given in local coordinates $x^1, \dots, x^n$ by 
+	\eq{
+	\omega_{vol} = \sqrt{\abs{g}} dx^1 \wedge \dots \wedge dx^n
+} 
+\end{lemma}
+
+\begin{definition}
+	If $M$ is a $n$-dimensional Riemannian manifold, the \bam{Hodge star} is the operator $\star : \Omega^r(M) \to \Omega^{n-r}(M)$ given by 
+	\eq{
+	\alpha \wedge (\star \beta) = \pangle{\alpha,\beta} \omega_{vol}
+}
+for $\alpha,\beta \in \Omega^r(M)$, where $\pangle{\cdot,\cdot}$ is the Euclidean structure on $\Omega^r(M)$. 
+\end{definition}
+
+\begin{lemma}
+	This property defines $\star$ completely. 
+\end{lemma}
+\begin{proof}
+	\hl{exercise}
+	\end{proof}
+
+\begin{prop}
+	If $M$ has determinantal sign $\Delta$ of the inner product, then 
+	\eq{
+\star \star \alpha = (-1)^{r(n-r)} \Delta \alpha	
+}
+\end{prop}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Yang-Mills functional}
+We are now going to restrict our mathematical picture. We will make the following assumptions:
+\begin{itemize}
+	\item $M$ is an oriented (pseudo-)Riemannian manifold
+	\item $\mf{g}$ has a Euclidean inner product invariant under the adjoint action $G \lact \mf{g}$. (This gives a Eulidean structure on the bundle $\ad(P)$). 
+\end{itemize}
+
+\begin{remark}
+For compact, semi-simple Lie groups an $\ad$-invariant Euclidean inner product on $\mf{g}$ is given by the Killing form. For other compact Lie groups we can take a faithful representation $\rho : G \to GL(V)$ and then have 
+\eq{
+\pangle{X,Y} = -\tr(d\rho(X) \circ d\rho(Y))
+}
+For simplicity we will notate this as 
+\eq{
+\pangle{X,Y} = -\tr(X,Y)
+}
+\end{remark}
+
+What we have gained is that the bundle which the curvature takes values in has a Euclidean structure, as such we can make the following definition:
+
+\begin{definition}
+	The \bam{Yang-Mills function} is the functional $S_{YM}:\mc{C}_P \to \mbb{R}$ given by 
+	\eq{
+	S_{YM} = \int_M \abs{F}^2 \omega_{vol}
+}
+where $F$ is the curvature associated to the connection the functional is evalutated at. 
+\end{definition}
+
+\begin{lemma}
+	$S_{YM}$ is invariant under the action of the gauge group $\mc{G}(P)$. 
+\end{lemma}
+
+\begin{corollary}
+	The functional becomes a well-defined function $S_{YM} : \faktor{\mc{C}_P}{\mc{G}(P)} \to \mbb{R}$. 
+\end{corollary}
+
+\begin{lemma}
+	The Yang-Mills functional can be written as
+	\eq{
+S_{YM} = \int_M -\tr(F \wedge \star F)	
+}
+\end{lemma}
+
+\begin{remark}
+	If $M$ is compact, the integration over $M$ is always fine. If not, we need to restrict to connections for which $S_{YM}$ is well-defined. 
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Yang-Mills equations}
+
+We now want to derive equations that give us the stationary points for the action (as is standard for an action theory). We will work with a local trivialisation, and then for notation simplicity omit the index $\alpha$. For some generic $\tau \in \Gamma(T^\ast M \otimes \ad(P))$ we want to find $A$ s.t.  
+\eq{
+\ev{\frac{d}{dt}S_{YM}(A+t\tau)}= 0
+}
+We can calculate the associated curvature to this new connection is 
+\eq{
+F_t &= d(A + t\tau)+ (A + t\tau) \wedge (A + t\tau) \\
+&= F + t\pround{d\tau + A \wedge \tau + \tau \wedge A} + t^2 \tau \wedge \tau
+}
+We now need the following lemma
+\begin{lemma}
+	The covariant derivative descends to an operator 
+	\eq{
+	d^A : \Gamma(\wedge^r T^\ast M \otimes \ad(P)) \to \Gamma(\wedge^{r+1}T^\ast M \otimes \ad(P))
+}
+\end{lemma}
+\begin{proof}
+	By the definition that for $\phi \in \Gamma(\wedge r T^\ast P \otimes V)$ 
+	\eq{
+D\phi (X_0, \dots, X_r) = d\phi(X_0^H, \dots, X_r^H)	
+}
+we can see that $D\phi$ is horizontal. It is also $G$-invariant if $\phi$ is, and as such $D$ maps basic forms to basic forms. As such it descends as previously discussed.
+\end{proof}
+
+\begin{corollary}
+	The Bianchi identity descends to $d^A F = 0$. 
+\end{corollary}
+
+Now using that $d^A \tau  = d\tau + A \wedge \tau$ we get 
+\eq{
+F_t &= F + t d^A \tau + t^2 \tau \wedge \tau \\
+\Rightarrow \abs{F_t}^2 &= \abs{F}^2 + t \pangle{d^A \tau, F} + \mc{O}(t^2)
+}
+Hence the Yang-Mills equation is equivalent to 
+\eq{
+\int_M \pangle{d^A \tau, F} \omega_{vol} = 0
+}
+Using the formal adjoint $(d^A)^\ast$ adn realising $\tau$ is generic we get 
+\eq{
+(d^A)^\ast F = 0
+}
+We make use of the following lemma:
+\begin{lemma} Up to a sign 
+	$\star \pround{(d^A)^\ast F} = d^A (\star F) $
+\end{lemma}
+\begin{proof}
+\hl{Not happy about this - look into it}
+\end{proof}
+As such we get the \bam{Yang-Mills equation}
+\eq{
+d^A(\star F) = 0
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Gauge theory in 4d - Abelian gauge theory and electromagnetism}
+
+Recall Maxwell's equations for electromagnetism 
+\eq{
+\bm{\nabla} \cdot \bm{E} &= 4\pi\rho \\
+\curl \bm{B} &= \frac{4\pi}{c} \bm{J} + \frac{1}{c} \del_t \bm{E} \\
+\curl \bm{E} &= -\frac{1}{c} \del_t \bm{B} \\
+\bm{\nabla} \cdot \bm{B} &= 0 
+}
+We are going to see how this can be derived as a Yang-Mills gauge theory. \\
+Restricting to the vacuum Maxwell equations where $\rho = 0, \, \bm{J} = 0$, we can build a two form 
+\eq{
+F = \tilde{B} - c dt \wedge E
+}
+where 
+\eq{
+E &= E_x dx + E_y dy + E_z dz \\
+B &= B_x dx + B_y dy + B_z dz \\
+ \tilde{B} = \star_3 B &= B_x dy \wedge dz + B_y dz \wedge dx + B_z dx \wedge dy 
+}
+are the natural one and two forms associated to a vector in 3d (using the 3d Hodge star to get the two form) written in cartesian coordinates. Now consider a $U(1)$-principal bundle $P$ over $\mbb{R}^4$ with Lorentzian signaure. As the Lie group is abelian, the commutator in the Lie algebra is 0 and $d^A = d$ is the standard differential for any connection. We now calculate
+\eq{
+dF &= d\tilde{B} + c dt \wedge dE \\
+&= (\bm{\nabla}\cdot \bm{B})dx \wedge dy \wedge dz + \psquare{\del_t B_x + c(\del_y E_z - \del_z E_y)}dt \wedge dy \wedge dz \\
+&\phantom{=} + \psquare{\del_t B_y + c(\del_z E_x - \del_x E_z) } dt \wedge dz \wedge dx + \psquare{\del_t B_z + c(\del_x E_y - \del_y E_x )} 
+}
+so this gives us two of the Maxwell equations, namely $\bm{\nabla} \cdot \bm{B}= 0$ and $\curl \bm{E} = -\frac{1}{c} \del_t \bm{B}$. Then
+\eq{
+\star_4 F &= c \tilde E + dt \wedge B
+}
+We can then see the duality between $E$ and $B$ and we get the other two equations from $d(\star F)=0$. \\
+As the base manifold is simply connected it has trivial cohomology, and any closed two-form is exact. Hence $\exists \mc{A}$ s.t. $F = d\mc A$. Write 
+\eq{
+\mc A = -\phi dt + A
+} 
+where $A$ is the one form that corresponds to a vector $\bm{A}$ in 3d. We then recover the formula from electromagnetism that 
+\eq{
+\bm{B} &= \curl \bm{A} \\
+\bm{E} &= - \grad\phi - \del_t \bm{A}
+}
+$\mc{A}$ is the connection for which $F$ is the curvature, and so we know we are free to apply a gauge transformation, under which (if $\phi_{\beta\alpha}=e^{i\psi}$) we get 
+\eq{
+\mc{A} \mapsto \mc{A} - i \, d\psi
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{../../bib/custom-bib-style}
