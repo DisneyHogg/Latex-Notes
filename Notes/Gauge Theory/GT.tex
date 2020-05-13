@@ -1122,7 +1122,7 @@ For compact, semi-simple Lie groups an $\ad$-invariant Euclidean inner product o
 }
 For simplicity we will notate this as 
 \eq{
-\pangle{X,Y} = -\tr(X,Y)
+\pangle{X,Y} = -\tr(XY)
 }
 \end{remark}
 
@@ -1147,7 +1147,7 @@ where $F$ is the curvature associated to the connection the functional is evalut
 \begin{lemma}
 	The Yang-Mills functional can be written as
 	\eq{
-S_{YM} = \int_M -\tr(F \wedge \star F)	
+S_{YM} = \int_M \tr(F \wedge \star F)	
 }
 \end{lemma}
 
@@ -1255,6 +1255,77 @@ $\mc{A}$ is the connection for which $F$ is the curvature, and so we know we are
 \eq{
 \mc{A} \mapsto \mc{A} - i \, d\psi
 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Gauge theory in 4d - Instantons}
+
+We now want to consider $M=\mbb{R}^4$ with Euclidean signature (in practice this might be achieved though a Wick rotation of a Lorentzian metric if necessary). We will, as previously stated, being considering configurations which decay sufficiently quickly to infinity. This means we can add the point at infinity to $M$ to obtain $S^4$.
+
+\begin{remark}
+	Altough $\mbb{R}^4$ does not have an isometric embedding into $S^4$, it does have a conformal embedding, and this will turn out to be sufficient, because the defining conditions (namely the seul duality ones) are conformally invariant.  
+\end{remark}
+
+Let us now use some useful results in 4d: 
+
+\begin{lemma}
+	In 4d, $(\star)^2 = 1$, so $\star$ has eigenvalues $\pm 1$. 
+\end{lemma}
+
+\begin{definition}
+	Decompose, as eigenspaces of $\star$, $\Omega^2(M) = \Omega^2_+(M) \oplus \Omega^2_-(M)$. We call these the \bam{self-dual} and \bam{anti-self-dual} parts.
+\end{definition}
+
+\begin{lemma}
+	Elements of $\Omega^2_+(M), \, \Omega^2_-(M)$ are orthogonal. 
+\end{lemma}
+\begin{proof}
+	We have 
+	\eq{
+\pangle{\omega_+, \omega_-}\omega_{vol} &= \omega_+ \wedge \star \omega_- = -\omega_+ \wedge \omega_- \\
+\pangle{\omega_-,\omega_+} \omega_{vol} &= \omega_- \wedge \omega_+ = \omega_+ \wedge \omega_-
+}
+but $\pangle{\omega_+, \omega_-} = \pangle{\omega_-, \omega_+}$ so must be 0. 
+\end{proof}
+
+As such we can decompose the Yang-Mills functional as 
+\eq{
+S_{YM} = \int_M \abs{F}^2 \omega_{vol} = \int_M \abs{F_+}^2 \omega_{vol} + \int_M \abs{F_-}^2 \omega_{vol} 
+}
+
+Now we make the following definition
+\begin{definition}
+	We call 
+	\eq{
+c = \int_M \tr(F \wedge F)	
+}
+the \bam{second Chern number}
+\end{definition}	
+	
+\begin{prop}
+	$c$ depends only on the principal bundle and not the choice of connection. 
+\end{prop}
+	
+\begin{lemma}
+	$c = \int_M \abs{F_+}^2 \omega_{vol} - \int_M \abs{F_-}^2 \omega_{vol}$
+\end{lemma}
+\begin{proof}
+Expanding $F = F_+ + F_-$ and using $\tr(F \wedge \star F) = abs{F}^2 \omega_{vol}$ gives the result. 
+\end{proof}
+	
+Hence we get the inequality 
+\eq{
+S_{YM} \geq \abs{c}
+}
+with equality iff either $F= F_+$ or $F=F_-$. Note in either case the Yang-Mills equations are trivially satisfied as 
+\eq{
+d^A (\star F) = \pm d^A  = 0 \quad \text{by the Bianchi identity}
+}
+
+\begin{definition}
+	An instanton is a solution to the (anti-)self-dual euqations which can be extended to $S^4$. 
+\end{definition}
+
+We want to understand instantons up to gauge transformation, and the space parameterising these is the \bam{moduli space of instantons}. 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{../../bib/custom-bib-style}

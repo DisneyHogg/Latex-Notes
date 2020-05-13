@@ -555,6 +555,46 @@ A metric is \bam{Einstein} if $\exists \lambda \in \mbb{R}, \, \Ric = \lambda g$
 
 It is perhaps an interesting question to ask what kinds of Einstein metrics can be separated. We should possibly ask for some motivation that these two could be related to start with. 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Motivation - Kerr-NUT-(A)dS metrics}
+We are now going to cover the essential results about a motivatin example of the Kerr-NUT-(A)dS metrics. See \cite{Frolov2017} and references therein for the origin of this.
+
+\begin{definition}
+	The canonical metric describinig the Kerr-NUT-(A)dS geometry in $D=2n+\eps$ ($\eps=0,1$) dimensions is \eq{
+g = \sum_{\mu =1}^n \psquare{\frac{U_\mu}{X_\mu} dx_\mu^2 + \frac{X_\mu}{U_\mu}\pround{\sum_{j=0}^{n-1} A_\mu^{(j)}d\psi_j}^2} + \eps \frac{c}{A^{(n)}} \pround{\sum_{k=0}^n A^{(k)} d\psi_k}^2	
+}
+where 
+\eq{
+A^{(k)} &= \sum_{\substack{{\nu_1, \dots, \nu_k = 1} \\ {\nu_1 < \dots < \nu_k}}}^n x_{\nu_1}^2 \cdots x_{\nu_k}^2 & A^{(k)}_\mu &= \sum_{\substack{{\nu_1, \dots, \nu_k = 1} \\ {\nu_1 < \dots < \nu_k} \\ {\nu_i \neq \mu}}}^n x_{\nu_1}^2 \cdots x_{\nu_k}^2 & U_\mu &= \prod_{\substack{{\nu=1} \\ {\nu \neq \mu}}}^n (x_\nu^2 - x_\mu^2)
+}
+and $X_\mu = X_\mu(x_\mu)$. $c$ is a free scalar parameter. 
+\end{definition}
+
+It is not too hard to see this metric is in St\"ackel form. The corresponing linear and quadratic constants of motion are given by 
+\eq{
+L_j &= p_{\psi_j} \\
+K_j &= \sum_\mu A_\mu^{(j)} \psquare{\frac{X_\mu}{U_\mu}p_{x_\mu}^2 + \frac{U_\mu}{X_\mu} \pround{\sum_{k=0}^{n-1+\eps}\frac{(-x_\mu^2)^{n-1-k}}{U_\mu}p_{\psi_k}}^2} + \eps \frac{A^{(j)}}{c A^{(n)}} p_{\psi_n}^2
+}
+
+\begin{prop}
+	The metric satisfies the Einstein equations $R_{ab} - \frac{1}{2}R g_{ab} + \Lambda g_{ab} =0$ iff 
+	\eq{
+X_\mu = \left \lbrace \begin{array}{cc}
+	-2b_\mu x_\mu + \sum_{k=0}^n c_k x_\mu^{2k} & \eps = 0 \\
+	-\frac{c}{x_\mu^2} - 2b_\mu + \sum_{k=1}^n c_k x_\mu^{2k} & \eps = 1
+\end{array}\right.	
+}
+where $\bm{b},\bm{c}$ are free vector parameters with $c_n$ fixed by 
+\eq{
+\Lambda = \frac{1}{2}(-1)^n (D-1)(D-2)c_n
+}
+\end{prop}
+
+This shows that we can generate large classes of metric which are separable that involve both first and second class coordinates. The metrics need not always satisfy the Einstein equations, but we can find conditions on the metric functions such that this holds. The structure that achieves this in the case of the Kerr-NUT-(A)dS metric is the \bam{principal tensor}. Such a principal tensor immedately gives a separability structure of an algebra of Killing tensors and vectors which is sufficient for separability. The principal tensor has the added benefit that it gives a canonical frame basis in which the Ricci tensor and metric are immediately diagonal. This gives the Einstein conditions as DEs for the metric components. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The general question}
+
 \begin{example}
 We note that in \cite{Kalnins1986} it is shown that the Riemannian manifolds of constant curvature all admit metrics which can be separated in (often multiple) coordinates system. It is a known fact that all of these manifolds are Einstein, so we are perhaps given initial hope that this isn't a foolish question. 
 \end{example}
@@ -575,10 +615,10 @@ As previously mentioned, and immediately useful question to ask is whether trans
 \end{enumerate}
 
 \begin{prop}
-Separable transformations preserve the Einstein property \hl{maybe, this is a placeholder while I do the calculation}
+Separable transformations preserve the Einstein property
 \end{prop}
 \begin{proof}
-Take a separable metric, which we know must be of the form $\bm{g} = g^{aa} \del_a \otimes \del_a + g^{a\alpha}\del_a \otimes \del_\alpha + g^{\alpha a}\del_\alpha \otimes \del_a + g^{\alpha\beta} \del_\alpha \otimes \del_\beta$.  
+The Einstein equation is tensorial, so is diffeomorphism invariant. 
 \end{proof}
 
 
