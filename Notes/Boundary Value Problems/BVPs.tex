@@ -1,0 +1,786 @@
+\documentclass{article}
+
+\usepackage{header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Boundary Value Problems in Linear PDEs Revision Notes}
+\author{Linden Disney-Hogg}
+\date{December 2018}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+A brief overview of some key ideas, concepts, and facts that I find useful in revising BVPs. \\
+The general problem considered will be a linear partial differential equation for some function $u$ on $\Omega$ with some general boundary conditions. In a typical problem only one linear combination of $u, \pd[u]{n}$ will be provided on the boundary. The cases are 
+\begin{itemize}
+    \item \bam{Dirichlet boundary conditions} : $u$ specified. 
+    \item \bam{Neumann boundary conditions} : $\pd[u]{n}$ specified.
+    \item \bam{Robin boundary conditions} : $\pd[u]{n} - \gamma u$ specified. 
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Prerequisites}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Complex Tools}
+
+\begin{lemma}[Cauchy Riemann Equations]
+Let $f = u+iv$ be a complex analytic function of $z = x+iy$. Then $u,v$ obey the \bam{Cauchy Riemann equations} 
+\eq{
+\pd[u]{x} = \pd[v]{y} \,, \quad \pd[v]{x} = -\pd[u]{y}
+}
+\end{lemma}
+
+\begin{definition}[Schwarz Conjugation]
+Given a complex function $F$ of complex variable $z$ the \bam{Schwarz conjugate} of $F(z)$ is $\overline{F(\bar{z})}$, where $\bar{\phantom{z}}$ is the usual complex conjugation. 
+\end{definition}
+
+\begin{lemma}[Jordan's Lemma]\label{lemma:BVP:JordansLemma}
+Let $\gamma_R$ be the contour in $\mbb{C}$ for $R\in\mbb{R}_{geq 0}$
+\eq{
+& \gamma_R : [0,\pi] \to \mbb{C} \\
+& \gamma_R(t) = Re^{it}
+}
+Then for $f:\mbb{C}\to\mbb{C}$ a holomorphic function satisfying 
+\eq{
+\forall z\in \gamma_R \quad |f(z)| < K(R) 
+}
+for some $K(R)$ s.t. $\lim_{R\to\infty} K(R) = 0$ then 
+\eq{
+\forall \alpha \in \mbb{R}_{>0} \quad  \lim_{R\to\infty} \int_{\gamma_R} e^{i\alpha z} f(z) \, dz = 0
+}
+An analogous result hold for $\alpha <0$ for a semicircular contour in the LHP. 
+\end{lemma}
+
+\begin{theorem}\label{thm:BVP:AnalyticIntegral}
+Let $f : \mbb{C} \times \mbb{C} \to \mbb{C}, f=f(z,t)$ and $\gamma$ a contour in $\mbb{C}$. Define
+\eq{
+& F : \mbb{C} \to \mbb{C} \\
+& F(z) = \int_\gamma f(z,t) \, dt
+}
+Then the conditions for $F$ to be defined and analytic in $D \subset \mbb{C}$ are 
+\begin{itemize}
+    \item $f$ is continuous in $z,t$,
+    \item $F$ converges uniformly in $D$,
+    \item $\forall t \; f(z,t)$ is analytic in $z$. 
+\end{itemize}
+\end{theorem}
+
+\begin{theorem}[Cauchy's Theorem]\label{thm:BVP:Cauchy}
+Suppose $D\subset\mbb{C}$ is a open region with  $\del D = C$ and $f:D \to \mbb{C}$ is an analytic function. Then 
+\eq{
+\oint_C f(z) \, dz = 0
+}
+\end{theorem}
+
+\begin{theorem}[Residue theorem]
+Suppose $D\subset\mbb{C}$ is a open region with  $\del D = C$ a simple closed curve and $f:D \to \mbb{C}$ is a meromorphic function with singularities $z_1, \dots, z_n \in D$. Then 
+\eq{
+\oint_C f(z) \, dz = 2\pi i \sum_{i=1}^n \res\pround{f,z_i}
+}
+\end{theorem}
+
+\begin{theorem}\label{thm:BVPs:AccumulatingZeros}
+Let $F(z)$ be defined by 
+\eq{
+F(z) = e^z + a_1 e^{\lambda_1 z} + \dots + a_n e^{\lambda_n z}
+}
+for $a_i, \lambda_i \in \mbb{C}$. Assume the polygon $\subset \mbb{C}$ with vertices $\set{1,\lambda_i}$ is non-degenerate. Then the zeros of $F$ are clustered along the rays form the original orthogonal to the edges off the polygon. Further, these zeros accumulate at infinity along these rays. 
+\end{theorem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Transforms}
+
+\begin{definition}[Sine Transform]
+Given a suitable real function $f : \mbb{R}_{>0} \to \mbb{R}_{>0}$ the \bam{sine transform} is 
+\eq{
+&\hat{f}_s :  \mbb{R}_{>0} \to \mbb{R}_{>0} \\
+&\hat{f}_s(\lambda) = \int_0^\infty \sin(\lambda x) f(x) \, dx
+}
+which has the inverse transform 
+\eq{
+f(x) = \frac{2}{\pi} \int_0^\infty \sin(\lambda x)\hat{f}_s(\lambda) \, d\lambda
+}
+\end{definition}
+
+\begin{definition}[Fourier Transform]
+Given some suitable function $f:I \to \mbb{C}$ for $I \subset \mbb{R}$ that is $L_1$ and $L_2$, its \bam{Fourier transform} is 
+\eq{
+& \hat{f} : D \to \mbb{C} \\
+& \hat{f}(\lambda) = \int_\Omega e^{-i\lambda x} f(x) \, dx
+}
+and the inverse transform is 
+\[
+f(x) = \frac{1}{2\pi} \int_\mbb{R} e^{i\lambda x} \hat{f}(\lambda) \, d\lambda
+\]
+$D\subset \mbb{C}$ is determined by requiring that the integral giving $\hat{f}$ is well defined, i.e $\sup_{x \in \Omega } \abs{e^{i\lambda x}} < \infty$. It can be seen from this that $\mbb{R} \subset D$, meaning the inverse transform is well defined. Some specific examples are shown below.
+\begin{table}[ht]
+\centering 
+\begin{tabular}{c|c} 
+$I$ & $D$ \\ [0.5ex] 
+\hline\hline 
+$\mbb{R}$ &  $\mbb{R}$ \\
+\hline % inserting body of the table
+$\mbb{R}_{>0}$ & LHP \\
+\hline
+$[0,L]$ & $\mbb{C}$ \\ [1ex] %
+\end{tabular}
+\end{table}
+
+\end{definition}
+
+\begin{lemma}
+\eq{
+\frac{d^n \hat{f}}{d\lambda^n}(\lambda) &= (-i\lambda)^n \hat{f}(\lambda) \\
+\widehat{\frac{d^n f}{dx^n}}(\lambda) &= (i\lambda)^n \hat{f}(\lambda)
+}
+\end{lemma}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Heat Equation}
+In this section the standard approach to a PDE 1st order in time, and higher order in space is discussed. At all points the heat equation will be used as the "lab rat" PDE the method will be tried out on. \\
+\begin{definition}[Heat Equation]
+The \bam{heat equation} is the partial differential equation for $u:\Omega \to \mbb{R}$ $u=u(x,t)$
+\[
+u_t = u_{xx}
+\]
+Typical domains $\Omega$ are products of some spatial domain and a time domain. The spatial domains are often 
+\begin{itemize}
+    \item The real line $\mbb{R}$
+    \item The half line $[0,\infty)$
+    \item The finite interval $[0,L]$ for $L\in\mbb{R}_{>0}$
+\end{itemize}
+The problem will come with conditions on the boundary $\del \Omega$. Standard notation is 
+\eq{
+u(x,0) &= u_0(x) \\
+(\del_x)^j u(0,t) &= g_j(t) \\
+(\del_x)^j u(L,t) &= h_j(t) \\
+g_1 - \gamma g_0 &= g_R
+}
+and it is always assumed that for fixed $t$, $u$ decays at spatial infinity.
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Real Line}
+Taking the Fourier transform of the heat equation with respect to $x$ gives 
+\eq{
+\hat{u}_t(\lambda,t) &= (i\lambda)^2 \hat{u}(\lambda,t) \\ 
+\Rightarrow \hat{u}(\lambda,t) &= \hat{u}_0(\lambda) e^{-\lambda^2 t} \\
+\Rightarrow u(x,t) &= \frac{1}{2\pi} \int_{-\infty}^\infty e^{i\lambda x - \lambda^2 t} \hat{u}_0(\lambda) \, d\lambda
+}
+verification of this solution is easy as all $x,t$ dependence is in the exponential term, and evaluation at $t=0$ is just the inverse Fourier transform. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Half Line}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Classical Method}
+On the half line we may apply the sine transform to reduce the PDE to 
+\eq{
+\pd[\hat{u}_s]{t} + \lambda^2 \hat{u}_s = \lambda g_0
+}
+Solving this gives 
+\eq{
+e^{\lambda^2 t} \hat{u}_s(\lambda,t) &= \hat{u}_0^2(\lambda) + \lambda \int_0^t e^{\lambda^2 \tau} g_0(\tau) \, d\tau \\ 
+\Rightarrow u(x,t) &= \frac{2}{\pi} \int_0^\infty \sin(\lambda x) e^{-\lambda^2 t} \psquare{\hat{u}_0^2(\lambda) + \lambda \int_0^t e^{\lambda^2 \tau} g_0(\tau) \, d\tau} \, d\lambda
+}
+\begin{remark}
+In verifying this solution, we run into the fact that substituting in $x=0$ into the RHS does not give $g_0(t)$. Hence the integral and limit $x\to 0$ cannot be exchanged. This is evidence that the integral is not uniformly convergent, which makes numerical solutions unstable. It is also not as simple to check that the solution obeys the PDE.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Unified transform}
+\begin{theorem}
+The solution to the heat equation on the half line with boundary conditions $g_1, g_0$ and initial condition $u_0$ specified is 
+\be\label{eq:HeatEqnSolGeneral}
+u ( x , t ) = \frac { 1 } { 2 \pi } \int _ { - \infty } ^ { \infty } e ^ { i \lambda x - \lambda ^ { 2 } t } \hat { u } _ { 0 } ( \lambda ) d \lambda - \frac { 1 } { 2 \pi } \int _ { \partial D ^ { + } } e ^ { i \lambda x - \lambda ^ { 2 } t } \left[ \tilde { g } _ { 1 } \left( \lambda ^ { 2 } , t \right) + i \lambda \tilde { g } _ { 0 } \left( \lambda ^ { 2 } , t \right) \right] \, d \lambda
+\ee
+where 
+\begin{itemize}
+    \item 
+    \eq{
+    \hat{u}_0(\lambda) &= \int_0^\infty e^{-i\lambda x}u_0(x) \, dx
+    }
+    \item 
+    \eq{
+    \tilde{g}_j(\lambda,t) &= \int_0^t e^{\lambda\tau} g_j(\tau) \, d\tau
+    }
+    \item 
+    \eq{
+    D^+ = \set{\lambda : \Im \lambda \geq 0, \Re \lambda^2 < 0 }
+    }
+\end{itemize}
+\end{theorem}
+\begin{proof}
+By assuming sufficient "niceness" of the initial and boundary conditions, we apply Theorem \ref{thm:BVP:AnalyticIntegral} to see
+\begin{itemize}
+    \item As the range of the integral is finite, $\tilde{g}_j(\lambda,t)$ is analytic $\forall \lambda,t$. 
+    \item As the integral for $\hat{u}_0$ is over all $x\in\mbb{R}$, for uniform convergence of the integral we require 
+    \eq{
+    \left| e ^ { - i \lambda x } \right| = \left| e ^ { - i \lambda _ { R } x + \lambda _ { I } x } \right| = e ^ { \lambda _ { I } x }
+    }
+    to remain bounded, which means
+    \eq{
+    \Im \lambda \leq 0 \,,
+    }
+    so $\hat{u}_0$ is analytic in the LHP. 
+\end{itemize}
+Now, we may utilise integration by parts to get 
+\eq{
+\hat{u}_t &= \int_0^\infty e^{-i\lambda x} u_t \, dx \\
+&= \int_0^\infty e^{-i\lambda x} u_{xx} \, dx \\
+&= \psquare{u_x e^{-i\lambda x} }_0^\infty - \int_0^\infty -i\lambda e^{-i\lambda x}u_x \, dx \\
+&= \psquare{u_x e^{-i\lambda x} }_0^\infty +i\lambda \psquare{ u e^{-i\lambda x}}_0^\infty - i\lambda\int_0^\infty -i\lambda e^{-i\lambda x}u \, dx\\
+&= \psquare{u_x e^{-i\lambda x} }_0^\infty +i\lambda \psquare{ u e^{-i\lambda x}}_0^\infty - \lambda^2 \hat{u} }
+and so 
+\eq{
+\Rightarrow&& \hat{u}_t + \lambda^2 \hat{u} &= -g_1 -i\lambda g_0 \\
+\Rightarrow&& (\hat{u} e^{\lambda^2 t} )_t &= -e^{\lambda^2 t} [g_1 +i\lambda g_0] \\
+\Rightarrow&&  e^{\lambda^2 t}\hat{u}(\lambda,t) &= \hat{u}_0(\lambda) - \int_0^t e^{\lambda^2 \tau} [g_1(\tau) +i\lambda g_0(\tau)] \, d\tau \\
+\Rightarrow&& e^{\lambda^2 t}\hat{u}(\lambda,t) &= \hat{u}_0(\lambda) - \psquare{\tilde{g}_1(\lambda^2,t) +i\lambda \tilde{g}_0(\lambda^2,t)}
+}
+This expression is called the \bam{Global Relation (GR)}, valid when $\Im \lambda \leq 0$. \\
+The GR can be inverted then to find 
+\eq{
+u(x,t) = \frac{1}{2\pi}\int_\mbb{R} e^{i\lambda x - \lambda^2 t}\hat{u}_0(\lambda) \, d\lambda - \frac{1}{2\pi} \int_\mbb{R} e^{i\lambda x - \lambda^2 t} \psquare{\tilde{g}_1(\lambda^2,t) +i\lambda \tilde{g}_0(\lambda^2,t)} \, d\lambda
+}
+We are now nearly done, except for the contour on the second integral.
+First consider 
+\eq{
+e^{i\lambda x - \lambda^2 t}\tilde{g}_1(\lambda^2,t) &= e^{i\lambda x - \lambda^2 t}\int_0^t e^{\lambda^2 \tau} g_1(\tau) \, d\tau \\
+&= e^{i\lambda x} \int_0^t e^{-\lambda^2 (t-\tau)} g_1(\tau) \, d\tau \\
+\Rightarrow \; \abs{e^{i\lambda x - \lambda^2 t}\tilde{g}_1(\lambda^2,t)} &\leq e^{-x \Im \lambda }  \abs{\int_0^t g_1(\tau) \, d\tau} \sup_{\tau \in [0,t]} \pround{e^{- (t-\tau)\Re\lambda^2}}
+}
+It can be seen that, if $\Im \lambda \geq 0$ and $\Re \lambda^2 \geq 0$, then the term will be bounded as $\abs{\lambda} \to \infty$. Then integrating by parts
+\eq{
+\int_0^t e^{-\lambda^2 (t-\tau)} g_1(\tau) \, d\tau &=   \psquare{\frac{e^{-\lambda^2 (t-\tau)}}{\lambda^2} g_1(\tau)}_{\tau = 0}^{\tau = t}-\frac{1}{\lambda^2}\int_0^t e^{-\lambda^2 (t-\tau)} g_1^\prime(\tau) \\
+&= \frac{g_1(t) - g_1(0)e^{-\lambda^2 t}}{\lambda^2} - \psquare{\frac{e^{-\lambda^2 (t-\tau)}}{\lambda^4} g_1^\prime(\tau)}_{\tau = 0}^{\tau = t} + \frac{1}{\lambda^4}\int_0^t e^{-\lambda^2 (t-\tau)} g_1^{\prime\prime}(\tau) \\
+&\sim \frac{g_1(t)}{\lambda^2} \quad \text{as } \abs{\lambda}\to\infty
+}
+By the same argument, $e^{i\lambda x - \lambda^2 t} \cdot i\lambda\tilde{g}_0(\lambda^2,t)$ is bounded and has asymptotic expansion $\frac{ig_0(t)}{\lambda}$ as $\abs{\lambda}\to\infty$. We can now apply \ref{lemma:BVP:JordansLemma} and \ref{thm:BVP:Cauchy} taking 
+\eq{
+f(z) = e^{-z^2 t} \tilde{g}_1(z^2,t)
+}
+or 
+\eq{
+f(z) = e^{-z^2 t} \cdot iz\tilde{g}_0(z^2,t)
+}
+and considering the integral of $f$ over the contour 
+\eq{
+C_R^+ = [0,R] \cup \pbrace{z = Re^{i\theta} : \theta \in \psquare{0,\frac{\pi}{4}}} \cup \pbrace{z = re^{\frac{i\pi}{4}} : r \in [0,R]} \\
+C_R^- = [-R,0] \cup \pbrace{z = Re^{i\theta} : \theta \in \psquare{\frac{3\pi}{4},\pi}} \cup \pbrace{z = re^{\frac{3i\pi}{4}} : r \in [0,R]}
+}
+in the limit $R \to \infty$. Identifying 
+\eq{
+\del D^+ = \pbrace{z = re^{\frac{i\pi}{4}} : r \in [0,\infty]} \cup \pbrace{z = re^{\frac{3i\pi}{4}} : r \in [0,\infty]}
+}
+completes the proof. Not that the direction of integration is set by requiring that $D^+$ lies to the left of $\del D^+$ when moving along the contour. 
+\end{proof}
+
+\begin{idea}
+Note we deformed onto a new contour. The reason for this is that, when only some boundary conditions are given, this contour will be necessary for a substitution. See below. 
+\end{idea}
+Recall the global relation for the problem
+\eq{
+e^{\lambda^2 t}\hat{u}(\lambda,t) = \hat{u}_0(\lambda) - \psquare{\tilde{g}_1(\lambda^2,t) +i\lambda \tilde{g}_0(\lambda^2,t)} \; \text{valid for } \Im\lambda \leq 0
+}
+Note that the argument of the $\tilde{g}_j$ is invariant under the transform $\lambda \to -\lambda$, which allows for the $\tilde{g}$ to be solved for using the second global relation 
+\eq{
+e^{\lambda^2 t}\hat{u}(-\lambda,t) = \hat{u}_0(-\lambda) - \psquare{\tilde{g}_1(\lambda^2,t) -i\lambda \tilde{g}_0(\lambda^2,t)} \text{valid for } \Im\lambda \geq 0
+}
+. Written in terms of $g_R$ this is
+\eq{
+e ^ { \lambda ^ { 2 } t } \hat { u } ( - \lambda , t ) = \hat { u } _ { 0 } ( - \lambda ) + ( i \lambda - \gamma ) \tilde { g } _ { 0 } \left( \lambda ^ { 2 } , t \right) - \tilde { g } _ { R } \left( \lambda ^ { 2 } , t \right)
+}
+Together these give 
+\eq{
+\tilde{g}_1(\lambda^2,t)+i\lambda \tilde{g}_0(\lambda^2,t) &= \left\lbrace \begin{array}{cc} \hat{u}_0(-\lambda) + 2i\lambda \tilde{g}_0(\lambda^2,t) - e^{\lambda^2 t}\hat{u}(-\lambda,t) & \text{in terms of } g_0 \\ -\hat{u}_0(-\lambda) + 2 \tilde{g}_1(\lambda^2,t) + e^{\lambda^2 t}\hat{u}(-\lambda,t) & \text{in terms of } g_1 \\ \frac{1}{\lambda + i\gamma} \left\{ 2 \lambda \tilde { g } _ { R } \left( \lambda ^ { 2 } , t \right) + ( \lambda - i \gamma ) \left[ e ^ { \lambda ^ { 2 } t } \hat { u } ( - \lambda , t ) - \hat { u } _ { 0 } ( - \lambda ) \right] \right\} & \text{in terms of } g_R \end{array}\right.
+}
+The $\hat{u}$ term will contribute an integral 
+\eq{
+\int_{\del D^+} e^{i\lambda x} \hat{u}(-\lambda,t) \, d\lambda 
+}
+Applying the integration by parts technique from the proof gives 
+\eq{
+\hat{u}(-\lambda,t) \sim \frac{u(0,t)}{i\lambda} \; \text{as } \abs{\lambda}\to\infty
+}
+when $\Im \lambda \geq 0$, so \ref{lemma:BVP:JordansLemma} and \ref{thm:BVP:Cauchy} can again be applied in the case of Dirichlet or Neumann conditions, giving that this contribution is 0. In the case of Robin boundary conditions, there is a singularity at $\lambda = -i\gamma$. The case $\gamma > 0$ can be argued as before as the singularity will give no contribution to the contour integral. \\
+In the case $\gamma <0$, the singularity is removable, so it is fine to continue with the integral, and the contribution of the $\hat{u}$ term can be calculated to be the residue
+\eq{
+-\frac{1}{2\pi}\int_{\del D^+}e^{i\lambda x} \frac{\lambda - i\gamma}{\lambda + i\gamma} \hat{u}(-\lambda,t) \, d\lambda  &= -\frac{2\pi i}{2\pi} e^{\gamma x} \cdot -2i\gamma \cdot \hat{u}(i\gamma,t) \\
+&= -2\gamma e^{\gamma x + \gamma^2 t} \left[ \hat { u } _ { 0 } ( i \gamma ) - \tilde { g } _ { R } \left( - \gamma ^ { 2 } , t \right) \right]
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Equivalence of methods}
+Writing the unified transform solution in terms of $g_0$ gives 
+\eq{
+u ( x , t ) = \frac { 1 } { 2 \pi } \int _ { - \infty } ^ { \infty } e ^ { i \lambda x - \lambda ^ { 2 } t } \hat { u } _ { 0 } ( \lambda ) d \lambda - \frac { 1 } { 2 \pi } \int _ { \partial D ^ { + } } e ^ { i \lambda x - \lambda ^ { 2 } t } \left[ \hat{u}_0(-\lambda) + 2i\lambda \tilde{g}_0(\lambda^2,t) \right] \, d \lambda
+}
+
+Integration by parts shows $\hat{u}_0(-\lambda)$ is bounded and $\mc{O}\pround{\frac{1}{\lambda}}$ in the UHP, and $e^{-\lambda^2 t}$ is bounded outside $D^+$ in the UHP. Hence we may deform the contour on the $\hat{u}_0$ term to the real line by Jordan's lemma and Cauchy's theorem. We have already shown this for the $g_0$ term so 
+\eq{
+\Rightarrow u ( x , t ) &= \frac { 1 } { 2 \pi } \int _ { - \infty } ^ { \infty } e ^ { i \lambda x - \lambda ^ { 2 } t } \psquare{ \hat{u}_0(\lambda) - \hat{u}_0(-\lambda) } \, d\lambda - \frac{i}{\pi} \int_{-\infty}^\infty \lambda e^{ i \lambda x - \lambda ^ { 2 } t } \tilde{g}_0(\lambda^2,t) \, d \lambda
+}
+Now 
+\eq{
+\hat{u}_0(\lambda) - \hat{u}_0(-\lambda) &= \int_0^\infty \psquare{e^{-i\lambda x} - e^{i\lambda x}} u_0(x) \, dx \\
+&= -2i \hat{u}_0^s (\lambda) 
+}
+and we may split the real integral at 0 so 
+\eq{
+u(x,t) =& \frac{-i}{\pi} \int_0^\infty e^{i\lambda x - \lambda^2 t } \hat{u}_0^s( \lambda) \, d\lambda - \frac{i}{\pi} \int_{0}^\infty \lambda e^{ i \lambda x - \lambda ^ { 2 } t } \tilde{g}_0(\lambda^2,t) \, d \lambda \\
+& -\frac{-i}{\pi} \int_{0}^\infty e^{-i\lambda x - \lambda^2 t } \hat{u}_0^s( \lambda) \, d\lambda - \frac{i}{\pi} \int_{0}^\infty -\lambda e^{ -i \lambda x - \lambda ^ { 2 } t } \tilde{g}_0(\lambda^2,t) \, d \lambda \\
+=& \frac{2}{\pi} \int_0^\infty \sin(\lambda x) e^{-\lambda^2 t} \psquare{ \hat{u}_0^s(\lambda) + \lambda \tilde{g}_0(\lambda^2, t)} \, d\lambda
+}
+recreating the classical solution. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Verification}
+Taking the form with only $u_0,g_0$ dependence, evaluating at $t=0$, and noting $\tilde{g}_0(\lambda^2,0)=0$ gives 
+\eq{
+u(x,0) = \frac{1}{2\pi} \int_{-\infty}^\infty e^{i\lambda x} \hat{u}_0(\lambda) \, d\lambda - \frac{1}{2\pi} \int_{\del D^+} e^{i\lambda x} \hat{u}_0(-\lambda) \, d\lambda
+}
+We may apply Jordan's lemma to close the contour integral in the second term, and then Cauchy's theorem gives that the contribution is 0. 
+\eq{
+\Rightarrow u(x,0) = u_0(x)
+}
+as required. \\
+Conversely, evaluating at $x=0$ gives 
+\eq{
+u(0,t) = \frac{1}{2\pi} \int_{-\infty}^\infty e^{-\lambda^2 t} \hat{u}_0(\lambda) \, d\lambda - \frac{1}{2\pi} \int_{\del D^+} e^{-\lambda^2 t} \psquare{\hat{u}_0(-\lambda) + 2i\lambda \tilde{g}_0(\lambda^2,t)} \, d\lambda
+}
+By deformation of the contour from $\del D^+$ to $\mbb{R}$ the first two terms cancel and 
+\eq{
+u(0,t) = -\frac{1}{2\pi} \int_{\del D^+} 2 i \lambda e^{-\lambda^2 t} \int_0^t e^{\lambda^2 \tau} g_0(\tau) \, d\tau \, d\lambda
+}
+Parametrising $\del D^+$ by $\lambda^2 = is$ gives 
+\eq{
+u(0,t) = \frac{1}{2\pi}\int_{-\infty}^\infty e^{-ist} \int_0^t e^{is\tau} g_0(\tau) \, d\tau \, ds = g_0(t)  
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Finite Time Interval}
+In the event that we restrict the time domain to $t \in [0,T]$ for some $T \in \mbb{R}_{>0}$, we may consider the transform 
+\eq{
+\tilde { g } _ { 0 } ( \lambda , t ) \longrightarrow \tilde { g } _ { 0 } ( \lambda ) = \tilde { g } _ { 0 } ( \lambda , T ) , \quad \tilde { g } _ { 1 } ( \lambda , t ) \longrightarrow \tilde { g } _ { 1 } ( \lambda ) = \tilde { g } _ { 1 } ( \lambda , T )
+}
+Note 
+\eq{
+\tilde{g}_0(\lambda^2,t) = \tilde{g}_0(\lambda^2)- \int_t^T e^{\lambda^2 \tau} g_0(\tau) \, d\tau
+}
+and likewise for $\tilde{g}_1$. Hence 
+\begin{align}
+ u ( x , t ) =& \frac { 1 } { 2 \pi } \int _ { - \infty } ^ { \infty } e ^ { i \lambda x - \lambda ^ { 2 } t } \hat { u } _ { 0 } ( \lambda ) d \lambda - \frac { 1 } { 2 \pi } \int _ { \partial D ^ { + } } e ^ { i \lambda x - \lambda ^ { 2 } t } \left[ \tilde { g } _ { 1 } \left( \lambda ^ { 2 }  \right) + i \lambda \tilde { g } _ { 0 } \left( \lambda ^ { 2 }  \right) \right] \, d \lambda   \\
+ & +\frac{1}{2\pi} \int_{\del D^+} e^{i\lambda x} \psquare{\int_t^T e^{\lambda^2(\tau-t)} u_x(0,\tau) \, d\tau + i\lambda \int_t^T e^{\lambda^2(\tau-t)} u(0,\tau) \, d\tau}
+\end{align}
+
+Applying the standard argument of integrating by parts, applying Jordan's lemma and Cauchy's theorem gives that the final terms give 0 contribution. This is useful, as it makes the verification of the solution very easy, as the only $x$ or $t$ dependence is in the exponential terms. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Finite Space Interval}
+Now in the restricted case of $x \in [0,L]$ the global relation is 
+\eq{
+e ^ { \lambda ^ { 2 } t } \hat { u } ( \lambda , t ) = \hat { u } _ { 0 } ( \lambda ) - \psquare{\tilde { g } _ { 1 } \left( \lambda ^ { 2 } , t \right) + i \lambda \tilde { g } _ { 0 } \left( \lambda ^ { 2 } , t \right)} + e ^ { - i \lambda L } \left[ \tilde { h } _ { 1 } \left( \lambda ^ { 2 } , t \right) + i \lambda \tilde { h } _ { 0 } \left( \lambda ^ { 2 } , t \right) \right]
+}
+where the $e^{-i\lambda L} \tilde{h}_j(\lambda^2,t)$ come from evaluating the by part terms at the upper limit.  As 
+\eq{
+\hat{u}(\lambda,t) = \int_0^L e^{-i\lambda x} u(x,t) \, dx
+}
+the integral converges $\forall \lambda \in \mbb{C}$, so the global relation is valid in all $\mbb{C}$. The GR may be inverted to give 
+\eq{
+u(x,t) =& \frac{1}{2\pi}\int_\mbb{R} e^{i\lambda x - \lambda^2 t}\hat{u}_0(\lambda) \, d\lambda - \frac{1}{2\pi} \int_\mbb{R} e^{i\lambda x - \lambda^2 t} \psquare{\tilde{g}_1(\lambda^2,t) +i\lambda \tilde{g}_0(\lambda^2,t)} \, d\lambda \\
+& + \frac{1}{2\pi} \int_\mbb{R} e^{-i\lambda (L - x) - \lambda^2 t} \psquare{\tilde{h}_1(\lambda^2,t) +i\lambda \tilde{h}_0(\lambda^2,t)} \, d\lambda
+}
+Now defining 
+\eq{
+D^+ = \set{\lambda : \Im \lambda \leq 0, \Re \lambda^2 < 0 } \,,
+}
+by the same arguments as before we may apply integration by parts to say the $h$ integrands are $\mc{O}\pround{\frac{1}{\lambda}}$ and so we may apply Jordan's lemma and Cauchy's theorem to deform the contour of integration from $\mbb{R}$ to $\del D^-$. Hence 
+\eq{
+u(x,t) =& \frac{1}{2\pi}\int_\mbb{R} e^{i\lambda x - \lambda^2 t}\hat{u}_0(\lambda) \, d\lambda - \frac{1}{2\pi} \int_{\del D^+} e^{i\lambda x - \lambda^2 t} \psquare{\tilde{g}_1(\lambda^2,t) +i\lambda \tilde{g}_0(\lambda^2,t)} \, d\lambda \\
+& - \frac{1}{2\pi} \int_{\del D^-} e^{-i\lambda (L - x) - \lambda^2 t} \psquare{\tilde{h}_1(\lambda^2,t) +i\lambda \tilde{h}_0(\lambda^2,t)} \, d\lambda
+}
+Not the change of sign of the $h$ term integral, which comes from parametrising $\del D^-$ such that $D^-$ is the interior. \\
+In this equation we have 4 boundary conditions, and through the symmetry $\lambda \to -\lambda$ we have two equations valid in $D^+$ and $D^-$. Hence we require two of the boundary conditions to be provided to full determine the answer. It can be shown\footnote{how?} that for a regular solutions, one boundary condition must be specified at each end. The answer is then obtained by substitution.  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Dirichlet Problem}
+Consider the case where $g_0$ and $h_0$ are given. The global relations are 
+\eq{
+e^{\lambda^2 t} \hat{u}(\lambda,t) &= G(\lambda,t) - \tilde{g}_1(\lambda^2,t) + e^{-i\lambda L} \tilde{h}_1(\lambda^2,t) \\
+e^{\lambda^2 t} \hat{u}(-\lambda,t) &= G(-\lambda,t) - \tilde{g}_1(\lambda^2,t) + e^{i\lambda L} \tilde{h}_1(\lambda^2,t)
+}
+where 
+\eq{
+G(\lambda,t) = \hat{u}_0(\lambda) - i\lambda \tilde{g}_0(\lambda^2,t) + i\lambda e^{-i\lambda L} \tilde{h}_0(\lambda^2,t)
+}
+is a known quantity. These equations can be written as the matrix equation 
+\eq{
+\begin{pmatrix} 1 & -e^{-i\lambda L}\\ 1 & -e^{i\lambda L} \end{pmatrix} \begin{pmatrix} \tilde{g}_1(\lambda^2,t)  \\ \tilde{h}_1(\lambda^2,t) \end{pmatrix} = \begin{pmatrix} G(\lambda,t) - e^{\lambda^2 t} \hat{u}(\lambda,t)  \\ G(-\lambda,t) - e^{\lambda^2 t} \hat{u}(-\lambda,t) \end{pmatrix} 
+}
+This will not be invertible where the determinant of the matrix $\Delta(\lambda) = 0$, which occurs when $\lambda = \frac{n\pi}{L}$. This lies outside $D^+$ expect at $\lambda = 0$, which is a removable singularity as it is known that the boundary data is well behaved. Hence the solution requires inverting the matrix equation, and noting that, as has been argued before, the $\hat{u}$ terms will give 0 contribution in the UHP. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Global Relation}
+The global relation can be derived alternatively by considering the \bam{adjoint} of the heat equation 
+\eq{
+-v_t = v_{xx}
+}
+which corresponds to replace each derivative with its negative. This equation can be combined with the heat equation to get 
+\eq{
+(uv)_t = (vu_x - uv_x)_x
+}
+The particular solution for $v$ is 
+\eq{
+v(x,t) = e^{-i\lambda x + \lambda^2 t}
+}
+so substituting 
+\eq{
+\pround{e^{-i\lambda x + \lambda^2 t} u}_t - \psquare{e^{-i\lambda x + \lambda^2 t}\pround{u_x + i \lambda u}}_x = 0
+}
+We now apply Green's theorem to give 
+\eq{
+\int_{\del \Omega} \pround{e^{-i\lambda x + \lambda^2 t} u} \, dx + \int_{\del \Omega } \psquare{e^{-i\lambda x + \lambda^2 t}\pround{u_x + i \lambda u}} \, dt = 0
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Generalisation 
+\subsection{Generalisation}
+There are two natural extension of the heat equation which can be considered and treated similarly. Here we will discuss these. 
+
+%%%%%%%%%
+\subsubsection{Inhomogeneous Heat Equation}
+The heat equation on the half line can be modified to include a source term 
+\eq{
+u_t(x,t) - u_{xx}(x,t) = f(x,t)
+}
+This modifies the global relation to become 
+\eq{
+e^{\lambda^2 t}\hat{u}(\lambda,t) = \hat{u}_0(\lambda) - \psquare{\tilde{g}_1(\lambda^2,t) + i\lambda\tilde{g}_0(\lambda^2,t) } + \int_0^\infty e^{-i\lambda x} \int_0^t e^{\lambda^2 \tau} f(x,\tau) \, d\tau \, dx
+}
+Hence, if we replace $\hat{u}_0$ with  
+\eq{
+\hat{v}(\lambda,t) = \hat{u}_0(\lambda,t) + \int_0^\infty e^{-i\lambda x} \int_0^t e^{\lambda^2 \tau} f(x,\tau) \, d\tau \, dx
+}
+in the formula for the homogeneous problem, we get the correct solution. For different spatial domains, the term is different, but the process is similar. 
+%%%%%%%%%%%%
+\subsubsection{Higher Order Homogeneous PDEs}
+Alternatively, the method can be extended in general for a PDE
+\eq{
+u_t &= \psquare{\sum_{j=0}^N c_j (\del_x)^j} u
+}
+$c_N \neq 0$. Defining 
+\eq{
+\omega(\lambda) = -\sum_{j=0}^N c_j (i\lambda)^j
+}
+we see that the solution on the real line is 
+\eq{
+u(x,t) = \int_{-\infty}^\infty e^{i\lambda x - \omega(\lambda ) t} \hat{u}_0(\lambda) \, d\lambda
+}
+under the condition $\forall \lambda \in \mbb{R} \,, \Re \omega(\lambda) \leq 0 $. \\
+Alternatively, on the half line we may derive the global relation,
+\eq{
+\hat{u}_t = -\omega(\lambda) \hat{u} - \sum_{j=0}^{N-1} \psquare{\sum_{k=j}^{N-1} c_{k+1} (i\lambda)^{k-j}} g_j
+}
+valid in the LHP as before, and invert it on the real line. It will be of the form 
+\eq{
+u(x,t) = \frac{1}{2\pi} 
+\int_{\mbb{R}} e^{i\lambda x - \omega(\lambda) t} \hat{u}_0(\lambda) \, d\lambda - \frac{1}{2\pi} \int_{\mbb{R}} e^{i\lambda x - \omega(\lambda) t} \psquare{\underbrace{\text{ $\tilde{g}_j(\omega(\lambda),t)$ terms }}_{g(\lambda,t)}} \, d\lambda
+}
+As with the heat equation we can then use integration by parts, Jordan's lemma, and Cauchy's theorem to deform the second real contour to $\del D^+$ where
+\eq{
+D^+ = \set{\lambda : \Im \lambda \geq 0, \Re \omega(\lambda) \geq 0 }
+}
+Now, $\omega(\lambda)$ will a degree $N$ polynomial, so the equation $\omega(\nu(\lambda)) = \omega(\lambda)$ will have $N$ solutions, one of which is $\nu(\lambda) = \lambda$. Thus if we call the solutions $\nu_i(\lambda)$, we have $N-1$ more global relations by substituting $\lambda \to \nu_i(\lambda)$. This substituting will preserve the form of the $\tilde{g}_j(\omega(\lambda),t)$ in the GR, hence as we have $N$ boundary conditions we can solve for $g(\lambda,t)$ in terms of 1 given boundary condition. This will introduce $\hat{u}$ terms into the solution, but by the same argument as before, now that we are in the UHP these terms will have 0 contribution. \\
+Finally, on a finite spatial domain, we proceed as before to get an expression 
+\eq{
+u(x,t) =& \frac{1}{2\pi}\int_\mbb{R} e^{i\lambda x \omega(\lambda) t}\hat{u}_0(\lambda) \, d\lambda - \frac{1}{2\pi} \int_{\del D^+} e^{i\lambda x + \omega(\lambda) t} \psquare{\text{ $\tilde{g}_j(\omega(\lambda),t)$ terms }} \, d\lambda \\
+& - \frac{1}{2\pi} \int_{\del D^-} e^{-i\lambda (L - x) + \omega(\lambda) t} \psquare{\text{ $\tilde{h}_j(\omega(\lambda),t)$ terms }} \, d\lambda
+}
+When using the global relations to substitute in for known boundary conditions, again we will get a matrix that is generally invertible except at a few isolated zeros of its determinant. The determinant will be similar to the form 
+\eq{
+\Delta(\lambda) \sim e^{-i\lambda L} + a_1 e^{-i\nu_1(\lambda)L} + \dots +a_{N-1}e^{-i\nu_{N-1}(\lambda)L}
+}
+and so we may apply \ref{thm:BVPs:AccumulatingZeros} to argue that the equations will be invertible inside $D^\pm$, as the rays will lie outside these regions, except perhaps a removable singularity at the origin. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Modified Helmholtz Equation}
+
+\begin{definition}[Modified Helmholtz Equation]
+The \bam{modified Helmholtz equation} is the PDE
+\eq{
+u_{xx}+u_{yy}-k^2 u = 0
+}
+for some function $u = u(x,y)$, $k\in\mbb{R}_{\geq0}$. 
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Laplace's Equation}
+
+\begin{definition}[Laplace's Equation]
+The special case of the modified Helmholtz equation with $k=0$ is called \bam{Laplace's equation}
+\eq{
+u_{xx} + u_{yy} = 0
+}
+A function that satisfies Laplace's equation is called \bam{harmonic}. 
+\end{definition}
+
+\begin{prop}
+The real and imaginary parts of an analytic function satisfy Laplace's equation
+\end{prop}
+\begin{proof}
+Follows immediately from the Cauchy Riemann equations. 
+\end{proof}
+
+\begin{prop}
+A function $u$ is harmonic iff $u_z$ is analytic.
+\end{prop}
+\begin{proof}
+Recall 
+\eq{
+\pd{z} &= \frac{1}{2}\pround{\pd{x}-i\pd{y}} \\
+\pd{\bar{z}} &= \frac{1}{2}\pround{\pd{x}+i\pd{y}} \\
+\Rightarrow \frac{\del^2}{\del \bar{z} \del z} &= \frac{1}{4}\pround{\pds{x}+\pds{y}}
+}
+so, as $f$ analytic $\Leftrightarrow f_{\bar{z}}=0$, $u_{z}$ analytic $\Leftrightarrow u_{xx}+u_{yy} = 0$. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Global Relation}
+The GR for Laplace's equation may be derived by the adjoint method. Laplace's equation is self adjoint, and so the equations can be combined to give the conservation form 
+\eq{
+(vu_x-uv_x)_x +(vu_y - uv_y)_y = 0
+}
+Now $v$ has two particular solutions 
+\eq{
+v(x,y) &= e^{\mp i\lambda x + \lambda y} 
+}
+obtained from one another by Schwarz conjugation, giving two conservation forms for $u$
+\eq{
+\int_{\del \Omega} e^{-i\lambda x + \lambda y}\psquare{\pround{u_x+i\lambda u} \, dy - \pround{u_y - \lambda u} \, dx} &= 0 \\
+\int_{\del \Omega} e^{i\lambda x + \lambda y}\psquare{\pround{u_x-i\lambda u} \, dy - \pround{u_y - \lambda u} \, dx} &= 0
+}
+We seek to reqrite this in terms of $u$ and $u_\omega$\footnote{I prefer $\pd[u]{n}$ for this notation, but as $u_\omega$ is more compact we will follow that convention}, the normal to the boundary. 
+\begin{claim}
+\eq{
+\int_{\del \Omega} e^{-i\lambda z}\psquare{u_\omega  + \lambda u  \frac{dz}{ds}}ds &= 0  \\
+\int_{\del \Omega} e^{i\lambda \bar{z}}\psquare{u_\omega  + \lambda u  \frac{d\bar{z}}{ds}}ds &= 0
+}
+where $s$ parametrises $\del \Omega$ by arclength. 
+\end{claim}
+\begin{proof}
+Write $u_T$ for the derivative of $u$ tangent to the boundary. Then 
+\eq{
+u_x \, dx + u_y \, dy = u_T \, ds 
+}
+The outward normal to $(dx, dy)$ is $(dy, -dx)$, so it must be that  
+\eq{
+u_x \, dy - u_y \, dx = u_\omega \, ds
+}
+and so we may substitute and rearrange. 
+\end{proof}
+These global relations may similarly be derived by noting 
+\eq{
+u_{z\bar{z}} &= 0 \\
+\Rightarrow \pround{e^{-i\lambda z} u_z}_{\bar{z}} &= 0 \\
+\Rightarrow \int_{\del \Omega} e^{-i\lambda z} u_z \, dz &=0
+}
+by Cauchy's theorem. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Polygonal Domain}
+Let $\Omega$ be the complex polygon with vertices $\set{z_1,\dots, z_n, z_{n+1} = z_1}$. Label the edges $L_j = z_{j+1}-z_j$. Define the transform of the Dirichlet and Neumann boundary conditions
+\eq{
+\hat{D}_j &= \int_{L_j} e^{-i\lambda z}  u \frac{dz}{ds} \, ds \\
+\hat{W}_j &= \int_{L_j} e^{-i\lambda z} u_\omega \, ds 
+}
+Then the global relation is 
+\eq{
+\sum_{j=1}^n \hat{W}_j + \lambda \hat{D}_j = 0
+}
+Suppose now that $\Omega$ is convex. Write 
+\eq{
+\hat{u}_j(\lambda) = \int_{L_j} e^{-i\lambda z} u_z \, dz 
+}
+This is defined for $\lambda$ where
+\eq{
+\forall t \in [0,1] \,, \quad \Im\pround{\lambda\psquare{z_j + tL_j}} \leq 0
+}
+Certainly the ray 
+\eq{
+l_j = \set{\arg\lambda = -\arg L_j = -\arg\pround{z_{j+1}-z_j}}
+}
+is contained in this domain, as then 
+\eq{
+\pi < \arg z_j -\arg(z_{j+1}-z_j)<\arg\pround{\lambda\psquare{z_j + tL_j}} 
+}
+Hence it is possible to write the global relation as 
+\eq{
+\sum_{j=1}^n \hat{u}_j(\lambda) = 0
+}
+which can be inverted to give
+\eq{
+u_z(z) = \frac{1}{2\pi} \sum_{j=1}^n \int_{l_j} e^{i\lambda z} \hat{u}_j(\lambda) \, d\lambda
+}
+
+\begin{example}[Quarter Plane]
+Consider the polygonal with three vertices, $z_1 = i\infty, z_2 = 0, z_3 = \infty$. The solution is then 
+\eq{
+u_z(z) = \frac{1}{2\pi}\int_0^{i\infty} e^{i\lambda z} \hat{u}_1(\lambda) \, d\lambda + \frac{1}{2\pi}\int_0^\infty e^{i\lambda z} \hat{u}_2(\lambda) \, d\lambda 
+}
+where 
+\eq{
+\hat{u}_1(\lambda) &= \int_{i\infty}^0 e^{-i\lambda z} u_z \, dz \\
+&= \int_{\infty}^0 e^{\lambda y} \frac{1}{2}\psquare{u_x(0,y) - iu_y(0,y)} \, idy \\
+&= -\frac{1}{2} \int_0^\infty e^{\lambda y} \psquare{iu_x(0,y) + u_y(0,y)} \, dy
+}
+for $\Re \lambda \leq 0 $ and 
+\eq{
+\hat{u}_2(\lambda) = \frac{1}{2} \int_0^\infty e^{-i\lambda x} \psquare{ u_x(x,0) -i u_y(x,0)} \, dx
+}
+for $\Im \lambda \leq 0$. 
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Oblique Boundary Conditions}
+Consider Laplace's equation on the quarter plane. Suppose the boundary conditions are prescribed at an angle $\beta$ to the boundary, as opposed to normal, so 
+\eq{
+u_x(0,y) \sin\beta + u_y(0,y) \cos\beta &= g_1(y) \\
+-u_y(x,0)\sin\beta + u_x(x,0)\cos\beta &= g_2(x)
+}
+
+\begin{theorem}
+The solution to Laplace's equation on the quarter plane with the oblique boundary conditions specified is 
+\eq{
+u_z = \frac{1}{\pi}\int_0^{i\infty} e^{i\lambda z} e^{i\beta} \psquare{G_1(\lambda) + G_2(i\lambda)} \, d\lambda + \frac{1}{\pi}\int_0^\infty e^{i\lambda z} e^{i\beta} \psquare{G_1(-\lambda) + G_2(-i\lambda)} \, d\lambda
+}
+where
+\eq{
+G_1(\lambda) &= - \frac{1}{2} \int_0^\infty e^{\lambda y} g_1(y) \, dy \\
+G_2(\lambda) &= \frac{1}{2} \int_0^\infty e^{\lambda x} g_2(x) \, dx
+}
+for $\Re \lambda \leq 0$
+\end{theorem}
+\begin{proof}
+Let $u_1(y),u_2(x)$ be the unknown derivatives in the direction normal to that on which the boundary conditions are specified. Then 
+\eq{
+u_y(0,y) \sin\beta - u_x(0,y) \cos\beta &= u_1(y) \\
+u_x(x,0)\sin\beta + u_y(x,0)\cos\beta &= u_2(x)
+}
+which solving yields
+\eq{
+u_x(0,y) &= g_1(y)\sin\beta - u_1(y) \cos\beta \\
+u_y(0,y) &= g_1(y) \cos\beta + u_1(y) \sin\beta \\
+u_x(x,0) &= g_2(x) \cos\beta + u_2(x)\sin\beta \\
+u_y(x,0) &= -g_2(x) \sin\beta + u_2(x) \cos\beta 
+}
+and so 
+\eq{
+iu_x(0,y) + u_y(0,y) &= e^{i\beta} \psquare{g_1(y) -i u_1(y)} \\
+u_x(x,0) - iu_y(x,0) &= e^{i\beta}\psquare{g_2(x) -i u_2(x)} \\
+\Rightarrow \; \hat{u}_1(\lambda) &= e^{i\beta} \psquare{G_1(\lambda) + iU_1(\lambda)} \\
+\Rightarrow \; \hat{u}_2(\lambda) &= e^{i\beta} \psquare{G_2(-i\lambda) + iU_2(-i\lambda)}
+}
+where 
+\eq{
+U_1(\lambda) &=  \frac{1}{2} \int_0^\infty e^{\lambda y} u_1(y) \, dy \\
+U_2(\lambda) &= -\frac{1}{2} \int_0^\infty e^{\lambda x} u_2(x) \, dx
+}
+for $\Re\lambda \leq 0$. (note the opposite sign to the definition of $G$, this is intentional). $\hat{u}_1$ and $\hat{u}_2$ are defined simultaneously on the region $\set{\Re\lambda \leq 0, \Im\lambda \leq 0} = \set{\arg\lambda \in [\pi , \frac{3\pi}{2}]}$, and the global relation in this region is 
+\eq{
+G_1(\lambda) + iU_1(\lambda) + G_2(-i\lambda) + iU_2(-i\lambda) &= 0
+}
+Taking the Schwarz conjugate of this equation gives 
+\eq{
+G_1(\lambda) - iU_1(\lambda) + G_2(i\lambda) - iU_2(i\lambda) &= 0
+}
+on the domain $\set{\arg\lambda\in[\frac{\pi}{2},\pi]}$
+We now wish to eliminate the $U_1$ and $U_2$ terms from the integral representation. As the problem is defined in the quarter plane, work with $U_2(i\lambda)$ which is analytic in this region (Could also use $U_1(-\lambda)$, but have to be consistent). We find $iU_1(\lambda)$ on $\arg\lambda = \frac{\pi}{2}$ to be  
+\eq{
+U_1(\lambda) &= -iU_2(i\lambda) + G_2(i\lambda) + G_2(\lambda) \\
+\Rightarrow \hat{u}_1(\lambda) &= e^{i\beta} \psquare{2G_1(\lambda) + G_2(i\lambda) -iU_2(i\lambda)}
+}
+Similarly we find 
+\eq{
+2G_1(\lambda) + G_2(i\lambda) + G_2(-i\lambda) + iU_2(-i\lambda)-iU_2(i\lambda) = 0
+}
+on $\arg\lambda = \pi$ so  
+\eq{
+iU_2(-i\lambda) &= 2G_1(-\lambda) + G_2(i\lambda) + G_2(-i\lambda) + iU_2(i\lambda) \\
+\Rightarrow \hat{u}_2(\lambda) &= e^{i\beta} \psquare{2G_1(-\lambda) + G_2(i\lambda) + 2G_2(-i\lambda) + iU_2(i\lambda)}
+}
+on $\arg\lambda = 0$. So we can write 
+\eq{
+u_z =& \frac{1}{2\pi}\int_0^{i\infty} e^{i\lambda z}e^{i\beta} \psquare{2G_1(\lambda) + G_2(i\lambda) -iU_2(i\lambda)} \, d\lambda \\
+& + \frac{1}{2\pi} \int_0^\infty e^{i\lambda z} e^{i\beta} \psquare{2G_1(-\lambda) + G_2(i\lambda) + 2G_2(-i\lambda) + iU_2(i\lambda)} \, d\lambda
+}
+As $U_2(i\lambda)$ is analytic in the quarter plane, and is $\mc{O}\pround{\frac{1}{\lambda}}$ as $\abs{\lambda}\to\infty$, we may apply Jordan's lemma and deform the contours of the $U_2(i\lambda)$ integrals together, so that they cancel. Furthermore, we may apply the same treatment to the $G_2(i\lambda)$ term in the second integral to move it to the first integral. Hence 
+\eq{
+u_z = \frac{1}{\pi}\int_0^{i\infty} e^{i\lambda z} e^{i\beta} \psquare{G_1(\lambda) + G_2(i\lambda)} \, d\lambda + \frac{1}{\pi}\int_0^\infty e^{i\lambda z} e^{i\beta} \psquare{G_1(-\lambda) + G_2(-i\lambda)} \, d\lambda
+}
+\end{proof}
+
+\begin{example}
+If 
+\eq{
+g_1(y) &= e^{-a_1 y} \\
+g_2(x) &= e^{-a_2 x}
+}
+for $a_1,a_2 \in \mbb{R}_{>0}$, then 
+\eq{
+G_1(\lambda) &= \frac{1}{2(\lambda - a_1)} \\
+G_2(\lambda) &= \frac{-1}{2(\lambda - a_2)}
+}
+and 
+\eq{
+u_z = \frac{e^{i\beta}}{2\pi}\psquare{\int_0^{i\infty} e^{i\lambda z} \pround{\frac{1}{\lambda - a_1} -\frac{1}{i\lambda - a_2}} \,d\lambda - \int_0^{\infty} e^{i\lambda z} \pround{\frac{1}{\lambda + a_1} -\frac{1}{i\lambda + a_2}} \,d\lambda }
+}
+Noting 
+\eq{
+\abs{e^{i\lambda z}} = e^{-\abs{\lambda}\abs{z}\sin(\arg\lambda + \arg z)}
+}
+we see that we are guaranteed analyticity of $u_z$ if $\arg\lambda + \arg z \in (0,\pi)$. So as $\arg z \in \psquare{0,\frac{\pi}{2}}$, choosing a ray $\arg\lambda = \phi \in \pround{0,\frac{\pi}{2}}$ gives 
+\eq{
+u_z = \frac{e^{i\beta}}{\pi}\int_0^{e^{i\phi}\infty} e^{i\lambda z}\pround{\frac{a_1}{\lambda^2-a_1^2}+\frac{a_2}{\lambda^2+a_2^2}}
+}
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{General Equation}
+Note now the modified Helmholtz equation can be written as 
+\eq{
+u_{z\bar{z}} - \frac{k^2}{4}u = 0
+}
+Combining a solution the equation with its adjoint as before, and taking the particular solution 
+\eq{
+v(x,y) = e^{k_1 x + k_2 y}
+}
+where 
+\eq{
+k_1^2 + k_2^2 = k^2 \\
+}
+gives 
+\eq{
+\left\{ e ^ { i \frac { k } { 2 } \left( \frac { 1 } { \lambda } - \lambda \right) x + \frac { k } { 2 } \left( \frac { 1 } { \lambda } + \lambda \right) y } \left[ u _ { x } + i \frac { k } { 2 } \left( \lambda - \frac { 1 } { \lambda } \right) u \right] \right\} _ { x } = \left\{ e ^ { i \frac { k } { 2 } \left( \frac { 1 } { \lambda } - \lambda \right) x + \frac { k } { 2 } \left( \frac { 1 } { \lambda } + \lambda \right) y } \left[ - u _ { y } + \frac { k } { 2 } \left( \lambda + \frac { 1 } { \lambda } \right) u \right] \right\} _ { y }
+}
+where 
+\eq{
+k_1 &= k\sin a \\
+k_2 &= k\cos a \\
+\lambda &= e^{ia}
+}
+On $\lambda \in \mbb{C}\setminus\set{0}$. Considering a polygonal domain, we can apply Green's theorem to yield the global relation 
+\eq{
+\sum_{j=1}^n \hat{u}_j(\lambda) = 0
+}
+where 
+\eq{
+\hat{u}_j(\lambda) = i \int_{L_j} e ^ { i \frac { k } { 2 } \left( \frac { 1 } { \lambda } - \lambda \right) x + \frac { k } { 2 } \left( \frac { 1 } { \lambda } + \lambda \right) y } \psquare{\left( u _ { x } + i \frac { k } { 2 } \left( \lambda - \frac { 1 } { \lambda } \right) u \right) d y  + \left( - u _ { y } + \frac { k } { 2 } \left( \lambda + \frac { 1 } { \lambda } \right) u \right) d x}
+}
+A second global relation can be obtained by sending $\lambda \to \frac{1}{\lambda}$. The solution can then be found to be 
+\eq{
+u(z,\bar{z}) = \frac{1}{4\pi i} \sum_{j=1}^n \int_{l_j} e ^ { i \frac { k } { 2 } \left( \lambda z - \frac { \overline { z } } { \lambda } \right) } \hat { u } _ { j } ( \lambda ) \frac { d \lambda } { \lambda }
+}
+\end{document}
