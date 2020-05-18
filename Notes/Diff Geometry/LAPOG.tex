@@ -1319,6 +1319,66 @@ so $(Line_{Man},\utimes)$ is a categorical product
 \end{definition}
 
 
+\begin{definition}
+	A \bam{unit} is a $u \in \Gamma^(L^\times)$ defined on open $U \subset M$. This is equivalent to a local trivialisation. Note we have $\Gamma(\ev{L}{U})= C^\infty(U) \cdot u$.
+\end{definition}
+
+\begin{definition}
+	A \bam{directional derivation} is an element of the \bam{der bundle}
+	\eq{
+D_xL = \pbrace{a_x : \Gamma(L) \to L_x \, | \, a_x \text{ $\mbb{R}$-linear}, \, a_x(f \cdot s) = f(x) a_x(s) + \delta(a_x)[f](x) \cdot s(x)}	
+}
+where $\delta:DL \to TM$. 
+\end{definition}
+
+We gave that for $a,b \in DL, \, s \in \Gamma(L)$. 
+\eq{
+a[s](x) &= a(x)(s) \\
+\comm[a]{b} = a[b[s]] = b[a[s]]
+}
+
+\begin{prop}
+	As Lie algebras
+	\eq{
+\Gamma(DL) \cong \Der(L)	
+}
+\end{prop}
+
+\begin{prop}
+	The map $D : Line_{Man} \to LVect_{Man}$ is functorial. 
+\end{prop}
+
+\begin{remark}
+	We get the \bam{der sequence}
+	\eq{
+0 \to \mbb{R}_M \to DK \overset{\delta}{\to} TM \to 0	
+}
+This has the \bam{jet sequence} 
+\eq{
+0 \leftarrow L \leftarrow (DL)^{\ast L} \overset{i}{\leftarrow} T^{\ast L}M \leftarrow 0 
+}
+where $i = \delta^{\ast \id_L}$. This gives $J^1(L) \cong (DL)^{\ast L}$.  
+\end{remark}
+
+We can now develop all the machinery we usually do on manifolds with the fololowing definitions:
+
+\begin{definition}
+	We can define \bam{multiderivations} and \bam{L-forms} as 
+	\eq{
+\mf{X}^\bullet(M) &= \Gamma(\wedge^\bullet (DL)) \\
+\Omega^\bullet(M) &= \Gamma(\wedge^\bullet (DL)^\ast \otimes L)	
+}
+\end{definition}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Jacobi Manifolds}
+
+
+
+
+
+
 \end{document}
 
 
