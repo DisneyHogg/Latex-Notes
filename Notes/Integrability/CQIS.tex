@@ -2091,7 +2091,10 @@ The \bam{tensor algebra} of $\mf{g}$ is
 \eq{
 \mc{T}(\mf{g}) = \bigoplus_{k \geq 0} \mf{g}^{\otimes k}
 }
-where we define $\mf{g}^{\otimes 0} = \mbb{C}$. 
+where we define $\mf{g}^{\otimes 0} = \mbb{C}$. We have multiplication $m:\mc{T} \otimes \mc{T} \to \mc{T}$ given simply by taking the tensor product of the elements in the algebra, that is 
+\eq{
+m(X,Y) = X \otimes Y 
+}
 \end{definition}
 
 \begin{definition}[Universal Enveloping Algebra]
@@ -2452,6 +2455,53 @@ H \arrow[u,"\Delta"] \arrow[r,"1 \circ \eps"'] & H
 
 commute
 \end{definition}
+
+\begin{example}
+	As shown the group algebra is a Hopf algebra
+\end{example}
+
+\begin{example}
+The tensor algebra $\mc{T}(V)$ of a vector space $V$ (over $\mbb{C}$) is a Hopf algebra. To show this let us build the necessary maps. Define $\Delta : V \to \mc{T}(V) \otimes \mc{T}(V)$ by 
+\eq{
+\Delta(v) &= v \otimes 1 + 1 \otimes v \\
+\Delta(1) &= 1 \otimes 1
+}
+and extend linearly. By the universal property of the tensor product this map extends uniquely  
+We take the counit simply defined by 
+\eq{
+\eps : V &\to \mbb{C} \\
+v &\mapsto 0 \\
+1 &\mapsto 1
+}
+and then extend it so it is an algebra homomorphism, again using the universal property of $\mc{T}$. We can see 
+\eq{
+(\Delta \otimes \id)(v \otimes 1 + 1 \otimes v) &= v \otimes 1 \otimes 1 + 1 \otimes v \otimes 1 + 1 \otimes 1 \otimes 1 \\
+&= (\id \otimes \Delta)(v \otimes 1 + 1 \otimes v) \\
+(\Delta \otimes \id) (1 \otimes 1) &= 1 \otimes 1 \otimes 1 \\
+&= (\id \otimes \Delta)(1 \otimes 1)
+}
+So comultiplication is associative. Further 
+\eq{
+(\id \otimes \eps)(v \otimes 1 + 1 \otimes v) = v \otimes 1 + 1 \otimes 0 &= v \otimes 1 \\
+(\id \otimes \eps)(1 \otimes 1) &= 1 \otimes 1 
+}
+and by symmetry the other $\eps$ diagram commutes. Hence we have multiplicative inverse. 
+Finally lets introduce an antipode by 
+\eq{
+S : \mc{T} &\to \mc{T} \\
+v &\mapsto -v \\
+1 &\mapsto 1 
+}
+and extend to an algebra antihomoomrphism. Then 
+\eq{
+m((S \otimes \id)(v \otimes 1 + 1 \otimes v)) &= m(-v \otimes 1 + 1 \otimes v) \\
+&= -v + v = 0 = \eps(v)  \\
+m((S \otimes \id)(1 \otimes 1)) &= m(1 \otimes 1) \\
+&= 1 = \eps(1) 
+}
+gives commutation of the first antipode diagram, and the second follows similarly. Hence we are done. 
+\end{example}
+
 
 \begin{theorem}
 The Yangian is a Hopf algebra with 
