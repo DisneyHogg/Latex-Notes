@@ -727,6 +727,95 @@ The result follows.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Supersymmetric Quantum Mechanics}
 There are 2 perspectives of quantum mechanics: canonical frameworks and path integral framework. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Path integrals in QM}
+
+\subsubsection*{Path integrals for bosons}
+Consider a free particle travelling on $\mbb{R}$, Time evolution operator $e^{-iHt}$ becomes $e^{-H\tau}$ under Wick rotation $t\to -i\tau$. If our particle is located at $y_0$ at $\tau=0$ the amplitude to find the particle at $y_1$ at $\tau=\beta$ is 
+\eq{
+	\braket{y_1 | e^{-\beta H} | y_0 } = K_\beta(y_1,y_0) = \frac{1}{\sqrt{2\pi\beta}} \exp \left( - \frac{(y_1-y_0)^2}{2\beta} \right)
+}
+We break this evolution into steps of length $\Delta \tau = \frac{\beta}{N}$ 
+\eq{
+	\braket{y_1 | e^{-\beta H} | y_0 } &= \int \braket{y_1 | e^{-\Delta \tau H} | x_{N-1} }\braket{x_{N-1} | e^{-\Delta \tau H} | x_{N-2} }\dots \braket{x_1 | e^{-\Delta \tau H} | y_0 } \, d^{N-1}x \\
+	&= \int K_{\Delta \tau}(y_1,x_{N-1}) \dots K_{\Delta \tau}(x_1,y_0) \, d^{N-1}x \\
+	&= \frac{1}{\sqrt{2\pi \Delta \tau}} \int \exp \left[ -\sum_{i=0}^N \frac{\Delta \tau}{2} \left( \frac{x_{i+1} - x_i}{\Delta \tau}\right)^2 \right] \prod_{i=1}^{N-1} \frac{dx_i}{\sqrt{2\pi\Delta \tau}} \\
+}
+Taking the limit as $N\to\infty$, $\Delta \tau \to 0$
+\eq{
+	\exp \left[ -\sum_{i=0}^N \frac{\Delta \tau}{2} \left( \frac{x_{i+1} - x_i}{\Delta \tau}\right)^2 \right] \to \exp \left(  -\int_0^\beta \frac{1}{2} \dot{x}^2 d\tau \right)
+}
+Then we heuristically obtain the \emph{path integral representation}
+\eq{
+	\braket{y_1 | e^{-\beta H} | y_0 } = \int_{\mc{C}_\beta[y_1,y_0]} e^{-\int_0^\beta \frac{1}{2} \dot{x}^2 d\tau} \, \mc{D}x
+}
+where $\mc{C}_\beta \lbrack y_1 , y_0 \rbrack $ is the space of all continuous maps $ x : \lbrack 0,\beta \rbrack \to \mbb{R} $ such that $x(0)=y_0$, $x(\beta)=y_1$. Note we can show the derivation also works for
+\eq{
+	H = \frac{p^2}{2}+V(x)
+}
+in which case 
+\eq{
+	S = \int \frac{1}{2} \dot{x}^2+ V(x) d\tau
+}
+The \bam{partition function} $Z(\beta)$ is closely related to the heat kernel 
+\eq{
+	Z(\beta) = \tr_{\mc{H}} \left( e^{-\beta H} \right) &= \int_\mbb{R} \braket{y | e^{-\beta H} | y} dy \\
+	&= \int \left[ \int_{\mc{C}_\beta[y,y]} e^{-S[x]} \, \mc{D}x \right] dy \\
+	&= \int_{\mc{C}_{S^1}} e^{-S[x]} \, \mc{D}x
+}
+\begin{example}
+	Here we go through in detail the example of a free quantum particle on a circle \hl{DO THIS}. 
+\end{example}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Path integrals for fermions}
+We now want to construct the idea of a path integral for fermions. To start, we define fermionic coherent states
+\eq{
+	\ket{\eta} &= e^{\hat{\bar{\psi}}\eta}\ket{0} \\
+	\bra{\bar{\eta}} &= \bra{0} e^{\hat{\psi}\bar{\eta}} 
+} 
+\begin{prop}
+	These states satisfy 
+	\begin{itemize}
+		\item $\hat{\psi}\ket{\eta} = \eta\ket{\eta}$ and $\bra{\bar{\eta}}\hat{\bar{\psi}} = \bra{\bar{\eta}} \bar{\eta}$
+		\item $1_\mc{H} = \int e^{-\bar{\eta}\eta} \ket{\eta}\bra{\bar{\eta}} \, d^2\eta$ 
+		\item $\tr(\hat{A}) = \int \braket{-\bar{\eta}|\hat{A}|\eta} e^{-\bar{\eta}\eta} \, d^2 \eta$
+		\item $S\tr(\hat{A}) = \tr_\mc{H} \left( (-1)^F \hat{A} \right) = \int \braket{\bar{\eta}|\hat{A}|\eta} e^{-\bar{\eta}\eta} \, d^2 \eta$
+	\end{itemize}
+\end{prop}
+Using these and following the same procedure as for bosons we have 
+\eq{
+	\braket{\bar{\chi}^\prime | e^{-\beta H} | \chi} = \int \braket{\bar{\chi}^\prime | e^{-\Delta \tau H} | \eta_{N-1}}\dots \braket{\bar{\eta_1} | e^{-\Delta \tau H} | \chi} \prod_{i=1}^{N-1} e^{-\bar{\eta}_i \eta_i } d^2 \eta_i
+}
+Let's order the Hamiltonian so that all $\hat{\psi}$s appear to the RHS of all $\hat{\bar{\psi}}$s. Then 
+\eq{
+	\lim_{\Delta\tau\to 0} \braket{\bar{\eta}_{i+1} | e^{-\Delta \tau H} | \eta_i} &= \braket{\bar{\eta}_{i+1} | 1-\Delta \tau H(\hat{\bar{\psi}},\hat{\psi}) | \eta_i} \\
+	&= \braket{\bar{\eta}_{i+1} | 1-\Delta \tau H(\bar{\eta}_{i+1},\eta_i) | \eta_i}
+}
+so 
+\eq{
+	\braket{\bar{\eta}_{i+1} | e^{-\Delta \tau H(\hat{\bar{\psi}},\bar{\psi})} | \eta_i} = e^{-\Delta \tau H(\bar{\eta}_{i+1},\eta_i)} e^{\bar{\eta}_{i+1}\eta_i}
+}
+using this we have 
+\eq{
+	\braket{\bar{\chi}^\prime | e^{-\beta H} | \chi } &= \lim_{N\to \infty} \int \exp \left( \sum_{k=1}^N \bar{\eta}_k \eta_{k-1} - \Delta \tau H(\bar{\eta}_k, \eta_{k-1}) \right) \prod_{k=1}^{N-1} e^{-\bar{\eta}_k \eta_k} d^2 \eta_k \\
+	&=\lim_{N\to \infty} \int \exp \left( -\sum_{k=1}^N \left[ \bar{\eta}_k \frac{\eta_k - \eta_{k-1}}{\Delta \tau} + H(\bar{\eta}_k,\eta_{k-1})\right] \Delta \tau \right) e^{\bar{\eta}_N \eta_N} \prod_{k=1}^{N-1} d^2\eta_k \\
+	&= \int e^{-S[\bar{\eta},\eta]} e^{\bar{\eta}(\beta) \eta(\beta)} \, \mc{D}\eta \, \mc{D} \bar{\eta}
+}
+where $\eta(0) = \chi$, $\eta(\beta)= \chi^\prime$, and 
+\eq{
+	S[\bar{\eta},\eta] = \int_0^\beta \bar{\eta} \dot{\eta} + H(\bar{\eta},\eta) \, d\tau
+}
+so 
+\eq{
+	Z(\beta) = \tr_\mc{H} ( e^{-\beta H} ) &= \int \braket{-\bar{\chi}^\prime | e^{-\beta H} | \chi } e^{-\bar{\chi}\chi} d^2\chi \\
+	&= \underbrace{\int \exp\left( - S[\bar{\psi},\psi] \right) \, \mc{D} \psi \, \mc{D} \bar{\psi}}_{\text{antiperiodic boundary conditions}}
+}
+and 
+\eq{
+	S\tr  ( e^{-\beta H} ) = \tr_\mc{H} ( (-1)^F e^{-\beta H} ) &= \int \int \braket{\bar{\chi}^\prime | e^{-\beta H} | \chi } e^{-\bar{\chi}\chi} d^2\chi \\
+	&= \underbrace{\int \exp\left( - S[\bar{\psi},\psi] \right) \, \mc{D} \psi \, \mc{D} \bar{\psi}}_{\text{periodic boundary conditions}}
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{SQM with a potential}
 Take a worldline theory of a single bosonic field $x(t)$ and a single $\mbb{C}$-fermion $\psi(t)$, and choose the action 
@@ -768,7 +857,13 @@ where the charges are
 Q &= \bar{\psi} (i\dot{x} + \del h ) \\
 \bar{Q} &= \psi ( -i \dot{x} + \del h ) 
 }
-and they obey
+
+
+\begin{lemma}
+	On shell $\acomm[Q]{\bar{Q}} = -2i\del_t$. 
+\end{lemma}
+\begin{proof}
+The charges obey
 \eq{
 \acomm[Q]{\bar{Q}} x &= (Q\bar{Q} + \bar{Q} Q )x \\
 &= -Q \psi + \bar{Q} \bar{\psi} \\
@@ -779,7 +874,9 @@ and they obey
 &\approx -2i\dot{\psi} \quad  \text{ as on e.o.m } \dot{\psi} = - i \psi \del^2 h \\
 \acomm[Q]{\bar{Q}} \bar{\psi} &\approx -2i\dot{\bar{\psi}}
 }
-(the symbol $\approx$ here means "equals on-shell"). Then, up to fermionic e.o.m, the anticommutator of the supercharges generates time translation as $\acomm[Q]{\bar{Q}} \approx -2i \del_t$, so must be $\propto H$. \\
+(the symbol $\approx$ here means "equals on-shell"). Then, up to fermionic e.o.m, the anticommutator of the supercharges generates time translation as $\acomm[Q]{\bar{Q}} \approx -2i \del_t$.
+\end{proof}
+
 To canonically quantise, have 
 \eq{
 p &= \frac{\delta L}{\delta \dot{x}} = \dot{x} \\
@@ -797,11 +894,18 @@ From quantisation, we have
 \comm[\hat{x}]{\hat{p}} &= i \\
 \acomm[\hat{\psi}]{\hat{\pi}} &= i
 }
-(note we have set $\hbar=1$). For $x$ as usual take the Hilbert space $\mc{H} = L^2 ( \mbb{R}, dx)$ in which case $\hat{x} \Psi(x) = x\Psi(x)$ and $\hat{p} \Psi(x) = -i \pd[\Psi]{x}$. The relations $\acomm[\hat{\psi}]{\hat{\bar{\psi}}}$ are reminiscent of $\comm[a]{a^\dagger}=1$ in a SHO, where the Hamiltonian is determined by the number operator $N=a^\dagger a$. Let's define a fermionic number operator $\hat{F} = \hat{\bar{\psi}}\hat{\psi}$. Then 
-\eq{
-\comm[\hat{F}]{\hat{\psi}} &= -\hat{\psi} \\
-\comm[\hat{F}]{\hat{\bar{\psi}}} &= \hat{\bar{\psi}}
-}
+(note we have set $\hbar=1$). For $x$ as usual take the Hilbert space $\mc{H} = L^2 ( \mbb{R}, dx)$ in which case $\hat{x} \Psi(x) = x\Psi(x)$ and $\hat{p} \Psi(x) = -i \pd[\Psi]{x}$. The relations $\acomm[\hat{\psi}]{\hat{\bar{\psi}}}=1$ are reminiscent of $\comm[a]{a^\dagger}=1$ in a SHO, where the Hamiltonian is determined by the number operator $N=a^\dagger a$. As such let's make the following definition:
+\begin{definition}
+	The \bam{Fermionic number operator} is $\hat{F} = \hat{\bar{\psi}}\hat{\psi}$
+\end{definition}
+\begin{prop}
+	$\hat{F}$ obeys the relations 
+	\eq{
+		\comm[\hat{F}]{\hat{\psi}} &= -\hat{\psi} \\
+		\comm[\hat{F}]{\hat{\bar{\psi}}} &= \hat{\bar{\psi}}
+	}
+\end{prop}
+
 We also let the vacuum of the fermionic system be $\ket{0}$ defined by $\hat{\psi}\ket{0}=0$. The 1st excited state is $\hat{\bar{\psi}}\ket{0} = \ket{1}$, but since $\acomm[\hat{\bar{\psi}}]{\hat{\bar{\psi}}}=0$, there are no other excited states. Hence 
 \eq{
 \mc{H} &= L^2(\mbb{R},dx) \ket{0} \oplus L^2(\mbb{R},dx)\ket{1} \\
@@ -814,27 +918,35 @@ In the quantum theory, we have
 \hat{H} &= \frac{1}{2}\hat{p}^2 + (\del h )^2 + \frac{1}{2} \del^2 h (\hat{\bar{\psi}} \hat{\psi} - \hat{\psi} \hat{\bar{\psi}} )
 }
 We have immediately, (dropping hats from now on )
+\begin{lemma} Our sQM has the algebra 
 \eq{
-\acomm[Q]{Q} = 0 = \acomm[\bar{Q}]{{\bar{Q}}}
+	\acomm[Q]{Q} &= 0 = \acomm[\bar{Q}]{\bar{Q}} \\
+	\acomm[Q]{{\bar{Q}}} &= 2H
 }
-but 
-\eq{
-\acomm[Q]{{\bar{Q}}}=2H
-}
+\end{lemma}
+\begin{proof}
+	This first part follows immediately from the fact that $\acomm[\psi]{\psi} = 0 = \acomm[\bar{\psi}]{\bar{\psi}}$. The second part is an \hl{exercise}
+\end{proof}
 
-\begin{ex}
-Prove this result
-\end{ex}
+\begin{corollary}
+	$\comm[H]{Q} = 0 = \comm[H]{\bar{Q}}$. 
+\end{corollary}
 
+\begin{remark}
 This is why we chose the particular ordering in $H$. 
+\end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Supersymmetric ground state}
-As before $\braket{\Psi|H|\Psi}\geq 0$ with equality iff $Q\ket{\Psi}=0=\bar{Q}\ket{\Psi}$, so a ground state of zero energy in SQM must be supersymmetrically invariant and will then be a ground state. If we represent 
+\subsection{Supersymmetric ground states and the Witten index}
+We start with the following result:
+\begin{prop}
+	 $\braket{\Psi|H|\Psi}\geq 0$ with equality iff $Q\ket{\Psi}=0=\bar{Q}\ket{\Psi}$
+\end{prop}
+Hence a ground state of zero energy in SQM must be supersymmetrically invariant. If we represent 
 \[
 \ket{0} = \begin{pmatrix} 1 \\ 0 \end{pmatrix} \quad \ket{1} = \begin{pmatrix} 0 \\ 1 \end{pmatrix}
 \]
-Then 
+Then the conditions for a ground state become 
 \eq{
 Q\ket{\Psi} &= \begin{pmatrix} 0 & 0 \\ \frac{d}{dx} + \del h & 0 \end{pmatrix}\begin{pmatrix} f(x) \\ g(x) \end{pmatrix} = 0\\
 \bar{Q}\ket{\Psi} &= \begin{pmatrix} 0 & -\frac{d}{dx} + \del h  \\ 0 & 0 \end{pmatrix}\begin{pmatrix} f(x) \\ g(x) \end{pmatrix} = 0
@@ -849,9 +961,8 @@ We want a normalisable state, so
     \item $\lim_{|x|\to\infty} h(x) = -\infty \Rightarrow A=0 \Rightarrow \ket{\Psi} = \begin{pmatrix} 0 \\ B e^{h(x)} \end{pmatrix}$ 
     \item $\lim_{x\to\infty} h(x) = \pm\infty$ and $\lim_{x\to -\infty} h(x) = \mp\infty\Rightarrow A=0=B \Rightarrow \ket{\Psi} = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$ 
 \end{itemize}
-In the third case the is no zero energy state, so the ground state will have higher energy and SUSY is \bam{spontaneously broken}. 
-
-Excite state $E>0$ come in pairs. If $\mc{H} = \bigoplus \mc{H}_n$ where 
+In the third case the is no zero energy state, so the ground state will have higher energy and SUSY is \bam{spontaneously broken}. \\
+Excited states $E>0$ come in pairs. If $\mc{H} = \bigoplus \mc{H}_n$ where 
 \eq{
 \forall \ket{\Psi_n} \in \mc{H}_n \quad H \ket{\Psi_n} = E_n \ket{\Psi_n}
 }
@@ -859,11 +970,19 @@ then we can further split each $\mc{H}_n$ into bosonic and fermionic states
 \eq{
 \mc{H}_n = \mc{H}_{B,n} \oplus \mc{H}_{F,n}
 }
-In particular 
+\begin{prop}
+	We have
+	\eq{
+		\mc{H}_{F,n} \cong \mc{H}_{B,n} \; \text{for} \; n>0
+	}
+\end{prop}
+\begin{proof}
+We have in particular 
 \eq{
-Q : \mc{H}_{F,n} \to \mc{H}_{B,n}
+Q : \mc{H}_{F,n} \to \mc{H}_{B,n}, \quad Q(\mc{H}_{B,n}) = 0 \\
+\bar{Q} : \mc{H}_{B,n} \to \mc{H}_{F,n}, \quad \bar{Q}(\mc{H}_{F,n}) = 0
 }
-and annihilates $\mc{H}_{B,n}$. Thus, given $\ket{b} \in \mc{H}_{B,n}$ we have 
+Thus, given $\ket{b} \in \mc{H}_{B,n}$ we have 
 \eq{
 2E_n \ket{b} = (Q\bar{Q} + \bar{Q} Q ) \ket{b} = Q ( \bar{Q} \ket{b} ) 
 }
@@ -875,89 +994,21 @@ Similarly, every state in $\mc{H}_{F,n}$ with $n>0$ can be written as $\bar{Q} \
 \eq{
 \mc{H}_{F,n} \cong \mc{H}_{B,n} \; \text{for} \; n>0
 }
-and each excited state comes in pairs with a bosonic and fermionic partner. Hence define the \bam{Witten Index} to be 
+and each excited state comes in pairs with a bosonic and fermionic partner. 
+\end{proof}
+Hence  we can make the following definition: 
+\begin{definition}
+	The \bam{Witten Index} is 
+	\eq{
+		I_w = \dim \mc{H}_{B,0} - \dim\mc{H}_{F,0} = \tr_{\mc{H}} (-1)^F = \tr_\mc{H} \left( (-1)^F e^{-\beta H} \right)
+	}
+	where the last two expression follows because excited states come in pairs so cancel out. The final expression is thus independent of $\beta$. We include it to regularise the trace and to make the connection to the path integral. 
+\end{definition} 
+We can now use our fermionic path integral to write the Witten index as 
 \eq{
-I_w = \dim \mc{H}_{B,0} - \dim\mc{H}_{F,0} = \tr_{\mc{H}} (-1)^F = \tr_\mc{H} \left( (-1)^F e^{-\beta H} \right)
+\int \exp(-S_E[\bar{\psi},\psi]) \mc{D}\psi \, \mc{D}\bar{\psi}
 }
-where the last two expression follows because excited states come in pairs so cancel out. The final expression is thus independent of $\beta$. We include it to regularise the trace and to make the connection to the path integral. 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection*{Path integrals in QM}
-Consider a free particle travelling on $\mbb{R}$, Time evolution operator $e^{-iHt}$ becomes $e^{-H\tau}$ under Wick rotation $t\to -i\tau$. If our particle is located at $y_0$ at $t=0$ the amplitude to find the particle at $y_1$ at $t=\beta$ is 
-\eq{
-\braket{y_1 | e^{-\beta H} | y_0 } = K_\beta(y_1,y_0) = \frac{1}{\sqrt{2\pi\beta}} \exp \left( - \frac{(y_1-y_0)^2}{2\beta} \right)
-}
-We break this evolution into steps of length $\Delta \tau = \frac{\beta}{N}$ 
-\eq{
-\braket{y_1 | e^{-\beta H} | y_0 } &= \int \braket{y_1 | e^{-\Delta \tau H} | x_{N-1} }\braket{x_{N-1} | e^{-\Delta \tau H} | x_{N-2} }\dots \braket{x_1 | e^{-\Delta \tau H} | y_0 } \, d^{N-1}x \\
-&= \int K_{\Delta \tau}(y_1,x_{N-1}) \dots K_{\Delta \tau}(x_1,y_0) \, d^{N-1}x \\
-&= \frac{1}{\sqrt{2\pi \Delta \tau}} \int \exp \left[ -\sum_{i=0}^N \frac{\Delta \tau}{2} \left( \frac{x_{i+1} - x_i}{\Delta \tau}\right)^2 \right] \prod_{i=1}^{N-1} \frac{dx_i}{\sqrt{2\pi\Delta \tau}} \\
-}
-Taking the limit as $N\to\infty$, $\Delta \tau \to 0$
-\eq{
-\lim_{N\to \infty} \prod_{i=1}^{N-1} \frac{dx_i}{\sqrt{2\pi\Delta \tau}} \exp \left[ -\sum_{i=0}^N \frac{\Delta \tau}{2} \left( \frac{x_{i+1} - x_i}{\Delta \tau}\right)^2 \right] = \exp \left(  -\int_0^\beta \frac{1}{2} \dot{x}^2 d\tau \right)
-}
-Then we heuristically obtain the \emph{path integral representation}
-\eq{
-\braket{y_1 | e^{-\beta H} | y_0 } = \int_{\mc{C}[y_1,y_0]} e^{-\int_0^\beta \frac{1}{2} \dot{x}^2 d\tau} \, \mc{D}x
-}
-where $\mc{C} \lbrack y_1 , y_0 \rbrack $ is the space of all continuous maps $ x : \lbrack 0,\beta \rbrack \to \mbb{R} $ such that $x(0)=y_0$, $x(\beta)=y_1$. Note we can show the derivation also works for
-\eq{
-H = \frac{p^2}{2}+V(x)
-}
-in which case 
-\eq{
-S = \int \frac{1}{2} \dot{x}^2+ V(x) d\tau
-}
-The \bam{partition function} $Z(\beta)$ is closely related to the heat kernel 
-\eq{
-Z(\beta) = \tr_{\mc{H}} \left( e^{-\beta H} \right) &= \int_\mbb{R} \braket{y | e^{-\beta H} | y} dy \\
-&= \int \left[ \int_{\mc{C}[y,y]} e^{-S[x]} \, \mc{D}x \right] dy \\
-&= \int_{\mc{C}_{S^1}} e^{-S[x]} \, \mc{D}x
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection*{Path integrals for fermions}
-Have Fermion coherent state $\ket{\eta} = e^{\hat{\bar{\psi}}\eta}\ket{0}$ obeying $\hat{\psi}\ket{\eta} = \eta\ket{\eta}$ which satisfy 
-\eq{
-1_\mc{H} &= \int e^{-\bar{\eta}\eta} \ket{\bar{\eta}}\bra{\eta} \, d^2\eta \\
-\tr(\hat{A}) &= \int \braket{-\bar{\eta}|\hat{A}|\eta} e^{-\bar{\eta}\eta} \, d^2 \eta \\
-S\tr(A) &= \tr_\mc{H} \left( (-1)^F A \right) = \int \braket{\bar{\eta}|\hat{A}|\eta} e^{-\bar{\eta}\eta} \, d^2 \eta
-}
-Using these and following the same procedure as for bosons we have 
-\eq{
-\braket{\bar{\chi}^\prime | e^{-\beta H} | \chi} = \int \braket{\bar{\chi}^\prime | e^{-\Delta \tau H} | \eta_{N-1}}\dots \braket{\bar{\eta_1} | e^{-\Delta \tau H} | \chi} \prod_{i=1}^{N-1} e^{-\bar{\eta}_i \eta_i } d^2 \eta_i
-}
-Let's order the Hamiltonian so that all $\hat{\psi}$s appear to the RHS of all $\hat{\bar{\psi}}$s. Then 
-\eq{
-\lim_{\Delta\tau\to 0} \braket{\bar{\eta}_{i+1} | e^{-\Delta \tau H} | \eta_i} &= \braket{\bar{\eta}_{i+1} | 1-\Delta \tau H(\hat{\bar{\psi}},\hat{\psi}) | \eta_i} \\
-&= \braket{\bar{\eta}_{i+1} | 1-\Delta \tau H(\bar{\eta}_{i+1},\eta_i) | \eta_i}
-}
-so 
-\eq{
-\braket{\bar{\eta}_{i+1} | e^{-\Delta \tau H(\hat{\bar{\psi}},\bar{\psi})} | \eta_i} = e^{-\Delta \tau H(\bar{\eta}_{i+1},\eta_i)} e^{\bar{\eta}_{i+1}\eta_i}
-}
-using this we have 
-\eq{
-\braket{\bar{\chi}^\prime | e^{-\beta H} | \chi } &= \lim_{N\to \infty} \int \exp \left( \sum_{k=1}^N \bar{\eta}_k \eta_{k-1} - \Delta \tau H(\bar{\eta}_k, \eta_{k-1}) \right) \prod_{k=1}^{N-1} e^{-\bar{\eta}_k \eta_k} d^2 \eta_k \\
-&=\lim_{N\to \infty} \int \exp \left( -\sum_{k=1}^N \left[ \bar{\eta}_k \frac{\eta_k - \eta_{k-1}}{\Delta \tau} - H(\bar{\eta}_k,\eta_{k-1})\right] \Delta \tau \right) e^{\bar{\eta}_N \eta_N} \prod_{k=1}^{N-1} d^2\eta_k \\
-&= \int e^{-S[\bar{\eta},\eta]} e^{\bar{\eta}(\beta) \eta(\beta)} \, \mc{D}\eta \, \mc{D} \bar{\eta}
-}
-where $\eta(0) = \chi$, $\eta(\beta)= \chi^\prime$, and 
-\eq{
-S[\bar{\eta},\eta] = \int_0^\beta \bar{\eta} \dot{\eta} - H(\bar{\eta},\eta) \, d\tau
-}
-so 
-\eq{
-Z(\beta) = \tr_\mc{H} ( e^{-\beta H} ) &= \int \braket{-\bar{\chi}^\prime | e^{-\beta H} | \chi } e^{-\bar{\chi}\chi} d^2\chi \\
-&= \underbrace{\int \exp\left( - S[\bar{\psi},\psi] \right) \, \mc{D} \psi \, \mc{D} \bar{\psi}}_{\text{antiperiodic boundary conditions}}
-}
-and 
-\eq{
-I_w S\tr  ( e^{-\beta H} ) = \tr_\mc{H} ( (-1)^F e^{-\beta H} ) &= \int \int \braket{\bar{\chi}^\prime | e^{-\beta H} | \chi } e^{-\bar{\chi}\chi} d^2\chi \\
-&= \underbrace{\int \exp\left( - S_E[\bar{\psi},\psi] \right) \, \mc{D} \psi \, \mc{D} \bar{\psi}}_{\text{periodic boundary conditions}}
-}
-is the path integral for the Witten index, where 
+where 
 \eq{
 S_E = \oint \left[ \frac{1}{2} \dot{x}^2 + \bar{\psi} \dot{\psi} + \frac{1}{2} (\del h)^2 + \del^2 h \bar{\psi} \psi \right] d\tau 
 }
@@ -967,11 +1018,13 @@ is the Euclidean action, that is invariant under the SUSY transform
 \delta \psi &= \eps( - \dot{x} + \del h) \\
 \del \bar{\psi} &= \bar{\eps}(\dot{x} + \del h)
 }
+\begin{remark}
+	These look different to before as now we are using the $\dot{\phantom{x}} = \frac{d}{d\tau}$ which is Wick rotated.
+\end{remark}
 Note these transformations only make sense globally on $S^1$, since $(x,\psi,\bar{\psi})$ are all periodic. and $\eps,\bar{\eps}$ constants. \\
-
 Let's now compute $I_w$ using the path integral. As in $d=0$ consider rescaling $h \to \lambda h$ for $\lambda \in \mbb{R}_{>0}$. Then 
 \eq{
-\frac{d}{d\lambda} I_w ( \lambda) = - \int_P \left[ \oint_{S^1} \lambda (\del h)^2 + \del^2 h \bar{\psi} \psi \right] e^{-S_E[x,\psi,\bar{\psi}]} \, \mc{D}x \, \mc{D} \psi \, \mc{D} \bar{\psi}
+\frac{d}{d\lambda} I_w ( \lambda) = - \int_P \left[ \oint_{S^1} \lambda (\del h)^2 + \del^2 h \bar{\psi} \psi \, d\tau \right] e^{-S_E[x,\psi,\bar{\psi}]} \, \mc{D}x \, \mc{D} \psi \, \mc{D} \bar{\psi}
 }
 However 
 \eq{
@@ -982,10 +1035,10 @@ so this insertion is Q-exact and we conclude
 \eq{
 \frac{dI_w}{d\lambda}(\lambda) = 0 
 }
-as expected from the canonical calculation. In particular, as $\lambda \to \infty$ the term $\exp\left( -\frac{\lambda}{2} \oint (\del h)^2 d\tau \right)$ suppresses all maps $x:S^2\to\mbb{R}$ except in a neighbourhood of constant maps to critical point of $h$. \\
+as expected from the canonical calculation. In particular, as $\lambda \to \infty$ the term $\exp\left( -\frac{\lambda}{2} \oint (\del h)^2 d\tau \right)$ suppresses all maps $x:S^1\to\mbb{R}$ except in a neighbourhood of constant maps to critical point of $h$. \\
 Near such critical points, we expand $x(\tau) = x_\ast + \delta x (\tau)$. Then to quadratic order 
 \eq{
-S_E^{(2)} = \oint \frac{1}{2}\delta x \left( -\frac{d^2}{dx^2} + h^{\prime\prime}(x_\ast)^2 \right) \delta x + \bar{\psi}\left( \frac{d}{d\tau} + h^{\prime\prime}(x_\ast) \right)\psi d\tau 
+S_E^{(2)} = \oint \psquare{\frac{1}{2}\delta x \left( -\frac{d^2}{d\tau^2} + h^{\prime\prime}(x_\ast)^2 \right) \delta x + \bar{\psi}\left( \frac{d}{d\tau} + h^{\prime\prime}(x_\ast) \right)\psi} d\tau 
 }
 Since $\delta x(\tau)$ and the fermions must each be periodic, can expand as a Fourier series
 \eq{
@@ -995,36 +1048,49 @@ Since $\delta x(\tau)$ and the fermions must each be periodic, can expand as a F
 we $\delta x_n = (\delta x_n)^\ast $ since $\delta x \in \mbb{R}$. We now find near a critical point 
 \eq{
 \int e^{S_E^{(2)}} \, \mc{D} \delta x \, \mc{D} \psi \, \mc{D} \bar{\psi} &= \frac{\det(\del_\tau+h^{\prime\prime}(x_\ast))}{\sqrt{\det(-\del_\tau^2 + +h^{\prime\prime}(x_\ast)^2)}} \\
-&= \frac{\prod_{m\in\mbb{Z}}(\frac{2\pi i n }{\beta}+h^{\prime\prime}(x_\ast))}{\sqrt{\prod_{m\in\mbb{Z}}((\frac{2\pi n}{\beta})^2+h^{\prime\prime}(x_\ast)^2)}} \\
+&= \frac{\prod_{n\in\mbb{Z}}(\frac{2\pi i n }{\beta}+h^{\prime\prime}(x_\ast))}{\sqrt{\prod_{n\in\mbb{Z}}((\frac{2\pi n}{\beta})^2+h^{\prime\prime}(x_\ast)^2)}} \\
 &= \frac{h^{\prime\prime}(x_\ast)}{|h^{\prime\prime}(x_\ast)|} \; \text{(only $n=0$ terms don't cancel)}
 }
 Hence 
 \eq{
-I_w = \sum_{x_\ast : \del h(x_\ast)=0}  \frac{h^{\prime\prime}(x_\ast)}{|h^{\prime\prime}(x_\ast)|}
+I_w = \sum_{x_\ast : h^\prime(x_\ast)=0}  \frac{h^{\prime\prime}(x_\ast)}{|h^{\prime\prime}(x_\ast)|}
 }
 \footnote{A zero Witten index indicates that your symmetry is spontaneously broken \hl{(why?)}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Non Linear Sigma Models}
-In the bosonic case we let out field $x$ define a map $x:M\to N$ from our worldline $M$ to a compact Riemannian manifold $(N,g)$. We often let $x^a$ be coordinates on $U\subset N$ open and $x^a(\tau)$ be the corresponding field. Choose an actions 
+\section{Non-Linear Sigma Models}
+We now let our bosonic field $x$ define a map $x:M\to N$ from our worldline $M$ to a compact $n$-dimensional Riemannian manifold $(N,g)$. We call $N$ the \bam{target space}. We often let $x^a$ be coordinates on $U\subset N$ open and $x^a(\tau)$ be the corresponding field. Choose the following action:
+\begin{definition}
+	The \bam{Non-Linear Sigma Model (NLSM) action} is 
+	\eq{
+		S[x] = \int_M \frac{1}{2} g_{ab}(x) \dot{x}^a \dot{x}^b \, d\tau
+	}
+where we pullback the metric $g$. 
+\end{definition} 
+This is an interacting worldline QFT. Varying $S[x]$ we get the following proposition:
+\begin{prop}
+	The Euler-Lagrange equations for the NLSM actions are the geodesic equations on $N$ 
+	\eq{
+		\frac{d^2 x^a}{d\tau^2} + \Gamma^a_{bc} \dot{x}^b \dot{x}^c = 0
+	}
+where 
 \eq{
-S[x] = \int \frac{1}{2} g_{ab}(x) \dot{x}^a \dot{x}^b d\tau
+\Gamma^a_{bc} = \frac{1}{2} g^{ad}\psquare{\del_b g_{cd} + \del_c g_{bd} - \del_d g_{bc}}
 }
-This is an interacting worldline QFT. Varying $S[x]$
+\end{prop}
+\begin{proof}
 \eq{
 \delta S &= \int_M [ g_{ab} \dot{x}^a \frac{d(\delta x^b)}{d\tau} + \frac{1}{2} \del_c g_{ab} \dot{x}^a \dot{x}^b \delta x^c] d\tau \\
-&= \int [-\frac{d}{d\tau} (g_{ab} \ddot{x}^a + \frac{1}{2} \del_c g_{ab} \dot{x}^b \dot{x}^c)\delta x^c] d\tau + g_{ab}(x) \dot{x}^a \delta x^b |_{\delta M}
+&= \int_M \left[-\frac{d}{d\tau} \left( g_{ab} \dot{x}^a \right) + \frac{1}{2} \del_c g_{ab} \dot{x}^b \dot{x}^c   \right] \delta x^c d\tau + g_{ab}(x) \dot{x}^a \delta x^b |_{\delta M}
 }
 The equation of motion are thus the geodesic equations 
-\eq{
-\frac{d^2 x}{d\tau^2} + \Gamma^a_{bc} \dot{x}^b \dot{x}^c = 0
-}
-To quantise, notices 
+\end{proof}
+To quantise take
 \eq{
 p_a = \frac{\delta L}{\delta \dot{x}^a} = g_{ab} \dot{x}^b
 }
-so we have canonical quantisation relations 
+and then we have the usual canonical quantisation relations 
 \eq{
 \comm[\hat{x}^a]{\hat{p}_b} = i \delta^a_b
 }
@@ -1040,11 +1106,10 @@ but there's an ordering ambiguity in turning this into a quantum operator on $L^
 \end{itemize}
 There's a 1 parameter family of such $\hat{H}$s given by 
 \eq{
-\hat{H} &= \frac{1}{2} \left[ \underbrace{\frac{1}{\sqrt{g}} \pd{x^a}\left( g^{ab}\sqrt{g} \pd{x^b} \right)}_{\text{usual Laplacian in curved space}} + \alpha R[g] \right] \quad \text{for $\alpha \in \mbb{R}$} \\
-&= \highlight{-\frac{1}{2}  \underbrace{\frac{1}{\sqrt{g}} \pd{x^a}\left( g^{ab}\sqrt{g} \pd{x^b} \right)}_{\text{usual Laplacian in curved space}} + \alpha R[g] } \\
-&= -\frac{1}{2} \nabla^a \nabla_a + \alpha R_g
+\hat{H} &= -\frac{1}{2}  \underbrace{\frac{1}{\sqrt{g}} \pd{x^a}\left( g^{ab}\sqrt{g} \pd{x^b} \right)}_{\text{usual Laplacian in curved space}} + \alpha R[g] \quad \text{for $\alpha \in \mbb{R}$} \\
+&= -\frac{1}{2} \nabla^a \nabla_a + \alpha R
 }
-where $R[g]=R_g$ is the Ricci scalar. There's no preferred choice of $\alpha$ and different ways to regularise the path integral $\Rightarrow$ different values of $\alpha$. 
+where $R[g]=R_g=R$ is the Ricci scalar. There's no preferred choice of $\alpha$ and different ways to regularise the path integral $\Rightarrow$ different values of $\alpha$. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Supersymmetric NLSM}
