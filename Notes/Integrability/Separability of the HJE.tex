@@ -319,6 +319,74 @@ so the LCSCs are
 }
 \end{proof}
 
+\begin{remark}
+We can consider adding a term $p_i A^i$ to a natural Hamiltonian. This modifies the LCSCs to give 
+\begin{align*}
+	0&=\left(g\sp{ir} g\sp{js}\partial_{ij} g\sp{kl} - g\sp{ir}\partial_{i} g\sp{js} \partial_{j}  g\sp{kl}
+	- g\sp{js}\partial_{j} g\sp{ir} \partial_{i}  g\sp{kl} +\frac12 g\sp{ij}\partial_{i} g\sp{kl}\partial_{j} g\sp{rs}
+	\right)p_k p_l p_r p_s\\
+	0&=\left( 2 g\sp{ir} g\sp{js}\partial_{ij} A\sp{k} 
+	+  A\sp{i} g\sp{jk} \partial_{ij} g\sp{rs} + A\sp{j} g\sp{ik} \partial_{ij} g\sp{rs} +
+	g\sp{ij} \partial_{i}  g\sp{rs}  \partial_{j} A\sp{k} + g\sp{ij} \partial_{j}  g\sp{rs}  \partial_{i} A\sp{k}
+	\right.\\
+	&\qquad  \left. 
+	- g\sp{ik} \partial_i A\sp{j} \partial_j g\sp{rs} - g\sp{jk} \partial_j A\sp{i} \partial_i g\sp{rs}
+	- A\sp{i}  \partial_{i}  g\sp{jk } \partial_j g\sp{rs} 
+	\right.\\
+	&\qquad \qquad  \left.
+	- A\sp{j}  \partial_{j}  g\sp{ik } \partial_i g\sp{rs}
+	- 2 g\sp{ir}\partial_i g\sp{js}\partial_j A\sp{k}  -2 g\sp{jr}\partial_j g\sp{is}\partial_i A\sp{k} 
+	\right)p_k  p_r p_s\\
+	0&=\left( g\sp{ir} \partial_i g\sp{js} \partial_i V +g\sp{jr} \partial_j g\sp{js} \partial_j V
+	- g\sp{ir} g\sp{js}\partial_{ij} V
+	-\frac12 g\sp{ij} \partial_i g\sp{rs} \partial_j V -\frac12 g\sp{ij} \partial_j g\sp{rs} \partial_i V
+	\right. \\
+	&\qquad 
+	+g\sp{ir} \partial_i A\sp{j} \partial_j A\sp{s} +g\sp{jr} \partial_j A\sp{i} \partial_i A\sp{s}
+	- g\sp{ir} A\sp{j} \partial_{ij} A\sp{s} - g\sp{jr} A\sp{i} \partial_{ij} A\sp{s}
+	-\frac12 A\sp{i}  A\sp{j}   \partial_{ij} g\sp{rs}
+	\\
+	&\qquad \qquad \left.
+	+ A\sp{i} \partial_{i} g\sp{jr} \partial_{j} A\sp{s}+ A\sp{j} \partial_{j} g\sp{ir} \partial_{i} A\sp{s}
+	+A\sp{i} \partial_{i} A\sp{j}  \partial_{j}  g\sp{rs} +A\sp{j} \partial_{j} A\sp{i}  \partial_{i}  g\sp{rs}
+	- g\sp{ij} \partial_i A\sp{r} \partial_j A\sp{s} \right) p_r p_s
+	\\
+	0&= g\sp{ij} \partial_i A\sp{k} \partial_j V+g\sp{ij} \partial_j A\sp{k} \partial_i V
+	+ A\sp{i} g\sp{jk} \partial_{ij} V + A\sp{j} g\sp{ik} \partial_{ij} V + A\sp{i} A\sp{j} \partial_{ij} A\sp{k}
+	\\
+	&\qquad  
+	- g\sp{ik} \partial_i A\sp{j} \partial_j V  - g\sp{jk} \partial_j A\sp{i} \partial_i V
+	-A\sp{i} \partial_i g\sp{jk} \partial_j V  -A\sp{j} \partial_j g\sp{ik} \partial_i V
+	-A\sp{i} \partial_i A\sp{j} \partial_j A\sp{k}   -A\sp{j} \partial_j A\sp{i} \partial_i A\sp{k}
+	\\
+	0&= A\sp{i} \partial_i A\sp{j}\partial_j V+ A\sp{j} \partial_j A\sp{i}\partial_i V -
+	A\sp{i}A\sp{j}\partial_{ij} V -g\sp{ij}\partial_i V\sp{j}\partial_j V
+\end{align*}
+To see this now note (using compact notation for the derivative)
+\eq{
+\del_i H &= \frac{1}{2} g^{kl}_{,i} p_k p_l + p_k A^k_{,i} + V_{,i} \\
+\del^i H &= g^{ik} p_k + A^i \\
+\del_i \del_j H &= \frac{1}{2} g^{kl}_{,ij} p_k p_l + p_k A^k_{,ij} + V_{,ij} \\
+\del_i \del^j H &= g^{jk}_{,i} p_k + A^j_{,i} \\
+\del^i \del^j H &= g^{ij}
+}
+So the LCSCs in their full gory detail are 
+\eq{
+0 &= g^{ij}\pround{\frac{1}{2} g^{kl}_{,i} p_k p_l + p_k A^k_{,i} + V_{,i}}\pround{\frac{1}{2} g^{rs}_{,j} p_r p_s + p_r A^r_{,j} + V_{,j}} + \pround{\frac{1}{2} g^{kl}_{,ij} p_k p_l + p_k A^k_{,ij} + V_{,ij}}\pround{g^{ir} p_r + A^i}\pround{g^{js} p_s + A^j} \\
+&\phantom{=} - \pround{g^{js}_{,i} p_s + A^j_{,i}}\pround{g^{ir} p_r + A^i}\pround{\frac{1}{2} g^{kl}_{,j} p_k p_l + p_k A^k_{,j} + V_{,j}} - \pround{g^{ir}_{,j} p_r + A^i_{,j}}\pround{g^{js} p_s + A^j}\pround{\frac{1}{2} g^{kl}_{,i} p_k p_l + p_k A^k_{,i} + V_{,i}}
+}
+To split these up we do as before, separating them by order of $p$ in the terms. We will then use that the values of $p$ are arbitrary to set the coefficient to be $0$. As we will have many free indices to be summed over we need to symmetrise over these indices. Do not forget that the indices $i,j$ are not summed over. We can also use the symmetry in $i\leftrightarrow j$ in the two negative terms to compactify the formula more. This process gives:
+\eq{
+0 &= \frac{1}{2} g^{ij} g^{(kl}_{,i} g^{rs)}_{,j} + g^{i(r}g^{kl}_{,ij} g^{s)j} -  \psquare{g^{i(r}g^{kl}_{,j} g^{s)j}_{,i} + g^{i(r}_{,j}g^{kl}_{,i} g^{s)j}} \\
+0 &= g^{ij}g^{(kl}_{(,i}A^{r)}_{,j)} + A^{(j}g^{i)(r}g^{kl)}_{,ij}+ g^{i(r}A^k_{,ij}g^{l)j} - \frac{1}{2}\psquare{g^{i(r}g^{kl)}_{,j}A^j_{,i} +A^i_{,j}g^{(kl}_{,i}g^{r)j} } \\
+&\phantom{=} -\frac{1}{2} \psquare{A^i g^{(kl}_{,j}g^{r)j}_{,i} + g^{i(r}_{,j} g^{kl)}_{,i}A^j} - \psquare{g^{i(r}A^k_{,j}g^{l)j}_{,i} + g^{i(r}_{,j} A^k_{,i} g^{l)j}} \\
+0 &= g^{ij} \psquare{g^{kl}_{(,i} V_{,j)}+A^{k}_{(,i}A^{l}_{,j)}} + \frac{1}{2}g^{kl}_{,ij}A^i A^j + 2A^{(j}g^{i)(l}A^{k)}_{,ij} + V_{,ij}g^{k(i}g^{j)l} - \frac{1}{2}\psquare{A^i g^{kl}_{,j} A^j_{,i} + A^i_{,j} g^{kl}_{,i}A^j}\\
+&\phantom{=}  - \psquare{A^i A^{(k}_{,j}g^{l)j}_{,i}+g^{i(l}A^{k)}_{,j}A^j_{,i} + g^{i(l}_{,j} A^{k)}_{,i}A^j + A^i_{,j} A^{(k}_{,i} g^{l)j}} - \psquare{V_{,j}g^{i(k}g^{l)j}_{,i} + V_{,i}g^{i(k}_{,j}g^{l)j}}\\
+0 &= 2g^{ij}A^k_{(,i}V_{,j)} + A^k_{,ij}A^i A^j + 2A^{(j}g^{i)k}V_{,ij} - \psquare{A^i A^k_{,j}A^j_{,i} + A^i_{,j} A^k_{,i} A^j} \\
+&\phantom{=} - \psquare{V_{,j}\pround{g^{ik}A^j_{,i} + A^ig^{jk}_{,i}}+V_{,i}\pround{g^{ik}_{,j}A^j + A^i_{,j}g^{jk}}} \\
+0 &= g^{ij}V_{,i}V_{,j} +V_{,ij}A^i A^j -\psquare{A^i V_{,j}A^j_{,i} + A^i_{,j} V_{,i} A^j}}
+\end{remark}
+
 \begin{prop}
 The general solution of the LCSCs in a standard coordinate system is 
 \eq{
