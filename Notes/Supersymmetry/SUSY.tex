@@ -1408,18 +1408,20 @@ We take $\dim N = n = 2m$. We can then restrict $\psi^a$ to be real (i.e. $\psi=
 \eq{
 S[x, \psi] = \oint \frac{1}{2} g_{ab} \dot{x}^a \dot{x}^b + \frac{1}{2} g_{ab} \psi^a \nabla_\tau \psi^b \, d\tau 
 }
-since $R_{a[bcd]}=0$ (Bianchi). \\
-This action is still invariant under susy transforms with $ \eps = - \bar{\eps}$ and 
+since $R_{a[bcd]}=0$ (this is the algebraic Bianchi identity). 
+\begin{prop}
+This action is invariant under SUSY transforms with $ \eps = - \bar{\eps}$ and 
 \eq{
 \delta x^a = \eps \psi^a \\ 
 \delta \psi^a = - \eps \dot{x}^a
 }
+\end{prop}
 (This is sometimes called $\mc{N}=\frac{1}{2}$ SUSY). We have momenta 
 \eq{
-p_a = \frac{\delta L}{\delta \dot{x}^a} = g_{ab}\dot{x}^b + \frac{i}{2} \psi_c \Gamma^c_{ab} \psi^b \\ 
-\pi_a = \frac{\delta L}{\delta \dot{\psi}^a} = g_{ab} \psi^b 
+p_a &= \frac{\delta L}{\delta \dot{x}^a} = g_{ab}\dot{x}^b + \frac{i}{2} \psi_c \Gamma^c_{ab} \psi^b \\ 
+\pi_a &= \frac{\delta L}{\delta \dot{\psi}^a} = g_{ab} \psi^b 
 }
-Thus we canonical commutation relations $\comm[\hat{x}^a]{\hat{p}_b} = i \delta^a_b$, $\acomm[\hat{\psi}^a]{\hat{\psi}^b} = 2g^{ab}$. 
+Thus we impose canonical commutation relations $\comm[\hat{x}^a]{\hat{p}_b} = i \delta^a_b$, $\acomm[\hat{\psi}^a]{\hat{\psi}^b} = 2g^{ab}$. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1428,79 +1430,95 @@ THe Dirac $\gamma$ matrices obey $(\gamma^i)^\dagger = \gamma^i$ and $\acomm[\ga
 \eq{
 \gamma_\pm^I = \frac{1}{2} \left( \gamma^{2I} \pm i \gamma^{2I-1} \right)
 }
-These obey 
+\begin{lemma}
+These raising and lowering operators obey 
 \eq{
-\acomm[\gamma^I_+]{\gamma^J_-} = \delta^{IJ} \\
-\acomm[\gamma^I_+]{\gamma^J_+} = 0=\acomm[\gamma^I_-]{\gamma^J_-} 
+\acomm[\gamma^I_+]{\gamma^J_-} &= \delta^{IJ} \\
+\acomm[\gamma^I_+]{\gamma^J_+} &= 0=\acomm[\gamma^I_-]{\gamma^J_-} 
 }
-Starting from a spinor $\chi$ that obeys $\forall I \; \gamma_-^I \chi = 0$ we construct a basis of the space $S$ of spinors by acting with any combination of the $\gamma_+^I$. Since $(\gamma_+^I)^2 = 0$, each component can act at most once, so $\dim S = 2^{\frac{n}{2}} = 2^m$. The group $Spin(n)$, the double cover of $SO(n)$, acts on these spinors via the generators $\Sigma^{ij} = -\frac{1}{4} \comm[\gamma^i]{\gamma^j}$ which obey 
+\end{lemma}
+\begin{proof}
+	\hl{exercise}
+\end{proof}
+Starting from a spinor $\chi$ that obeys $\forall I \; \gamma_-^I \chi = 0$ we construct a basis of the space $S$ of spinors by acting with any combination of the $\gamma_+^I$. Since $(\gamma_+^I)^2 = 0$, each component can act at most once, so $\dim S = 2^{\frac{n}{2}} = 2^m$. The group $Spin(n)$, the double cover of $SO(n)$, acts on these spinors via the generators $\Sigma^{ij} = -\frac{1}{4} \comm[\gamma^i]{\gamma^j}$.
+\begin{lemma}
+The generators $\Sigma^{ij}$ have the comutation relations 
 \eq{
 \comm[\Sigma^{ij}]{\Sigma^{kl}} = i \left( \delta^{ik} \Sigma^{jl} + \delta^{jl}\Sigma^{ik} - \delta^{jk} \Sigma^{il} - \delta^{il} \Sigma^{jk} \right]
 }
-This representation is not irreducible. To see this let $\gamma^{n+1} = i^{\frac{n}{2}} \gamma^1 \gamma^2 \dots \gamma^n$. This obeys 
+\end{lemma}
+\begin{prop}
+This representation is not irreducible.
+\end{prop}
+\begin{proof}
+	 To see this let $\gamma^{n+1} = i^{\frac{n}{2}} \gamma^1 \gamma^2 \dots \gamma^n$. This obeys 
 \eq{
 (\gamma^{n+1})^2 = 1 \\
 \acomm[\gamma^{n+1}]{\gamma^i} = 0 \\ 
 \comm[\gamma^{n+1}]{\Sigma^{ij}} = 0 
 }
-We can thus decompose $S = S^+ \oplus S^-$ where $S^\pm$ are the $\pm1$ eigenspaces of $\gamma^{n+1}$, and correspond to states constructed from an even/odd number of raising operators.  \\
-The Dirac operator $i \slashed{\del} $ anticommutes with $\gamma^{n+1}$ and thus decomposes into 
+We can thus decompose $S = S^+ \oplus S^-$ where $S^\pm$ are the $\pm1$ eigenspaces of $\gamma^{n+1}$, and correspond to states constructed from an even/odd number of raising operators.
+\end{proof}
+The Dirac operator $\slashed{\del} $ anticommutes with $\gamma^{n+1}$ and thus decomposes into 
 \eq{
-i \slashed{\del} = \begin{pmatrix} 0 & \del^+ \\ \del^- & 0 \end{pmatrix}
+\slashed{\del} = \begin{pmatrix} 0 & \del^+ \\ \del^- & 0 \end{pmatrix}
 }
-where $\del^\pm : S^\pm \to S^\mp$. Note that $\delta^\pm$ annihilates $S^\mp$, so $(\del^\pm)^2 = 0$. We define 
+where $\del^\pm : S^\pm \to S^\mp$. Note that $\del^\pm$ annihilates $S^\mp$, so $(\del^\pm)^2 = 0$.
+\begin{definition}
+	The \bam{index} of the chiral Dirac operator $\del^+$ is  
 \eq{
-\ind(i\slashed{\del}) = \dim \ker (\del^+) - \dim \ker (\del^-)
+\ind(\del^+) = \dim \ker (\del^+) - \dim \ker (\del^-)
 }
+\end{definition}
+
+\begin{remark}
+	You may, like me, be wondering why we are not asking what the index of $\slashed{\del}$ is. It turns out that general theory says that it is always zero, so it is not too interesting, but in even dimensions this splitting of the spinor bundle into chiral parts lets us say something interestin about $\del^\pm$. 
+\end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Susy QM}
 In our quantisation of $S = \int \frac{1}{2} g_{ab} \dot{x}^a \dot{x}^b + \frac{i}{2} g_{ab} \psi^a \nabla_\tau \psi^b \, d\tau$
-the Hilbert space is thus naturally $L^2(S(N),\sqrt{g} \, d^n x)$, and the supercharge 
+the Hilbert space is thus naturally $L^2(S(N),\sqrt{g} \, d^n x)$ (square integrable section of the spin bundle on $N$), and the supercharge 
 \eq{
 Q = \psi^a \left( i g_{ab} \dot{x}^b + \underbrace{\psi_c \Gamma^{c}_{ab} \psi^b}_{=\frac{1}{2}\Gamma^c_{ab} g_{cd} \comm[\psi^c]{\psi^d}}  \right)
 }
 corresponds to the covariant Dirac operator $i \slashed{\nabla}$. The Witten index $\tr \left( (-1)^F e^{-\beta H} \right) = \dim \ker (\nabla^+) - \dim \ker (\nabla^-)$
-The path integral is again independent of circumference $\beta$, Splitting 
+The path integral is again independent of circumference $\beta$, and it can be shown in the limit $\beta \to 0$ it is localised at constant fields. Hence we expand perturbatively
 \eq{
-x^a (\tau) = x^a_0 \delta x^a(\tau) \\
-\psi^a(\tau) = \psi^a_0 + \delta \psi^a(\tau) 
+x^a (\tau) &= x^a_0 + \delta x^a(\tau) \\
+\psi^a(\tau) &= \psi^a_0 + \delta \psi^a(\tau) 
 }
 with $\oint \delta x \, dt = 0$. We use Riemann normal coordinate near $x_0 \in N$ to write 
 \eq{
-g_{ab}(x) = \delta_{ab} = \frac{1}{3} R_{abcd}\delta x^c \delta x^d + \mc{O}(\delta x^2) \\
-\Gamma^a_{bc} (x) = \del_d \Gamma^a_{bc}(x_0) \delta x^d = - \frac{1}{3} \left[ R\indices{^a_b_c_d} (x_0) + R\indices{^a_c_b_d}(x_0) \right] \delta x^d + \mc{O}(\delta x^2)
+g_{ab}(x) &= \delta_{ab} - \frac{1}{3} R_{abcd}(x_0)\delta x^c \delta x^d + \mc{O}(\delta x^3) \\
+\Gamma^a_{bc} (x) &= \del_d \Gamma^a_{bc}(x_0) \delta x^d + \mc{O}(\delta x^2) = - \frac{1}{3} \left[ R\indices{^a_b_c_d} (x_0) + R\indices{^a_c_b_d}(x_0) \right] \delta x^d + \mc{O}(\delta x^2)
 }
 To second order in the fluctuations, the actions becomes 
 \eq{
-S^{(2)}[x_0, \psi_0, \delta x, \delta \psi] = \oint - \frac{1}{2} \delta x_a \frac{d^2}{dt^2} \delta x^a + \frac{1}{2} \delta \psi_a \frac{d}{dt} \delta \psi^a - \frac{1}{4} R_{abcd} \psi_0^a \psi_0^b \delta x^c \delta \dot{x}^d \, dt
+S^{(2)}[x_0, \psi_0, \delta x, \delta \psi] = \oint - \frac{1}{2} \delta x_a \frac{d^2}{dt^2} \delta x^a + \frac{1}{2} \delta \psi_a \frac{d}{d\tau} \delta \psi^a - \frac{1}{4} R_{abcd} \psi_0^a \psi_0^b \delta x^c \delta \dot{x}^d \, d\tau
 }
-For any fixed values of $(x_0,\psi_0)$ this is a free action, so the path integral over fluctuations gives 
+(raising and lowering indices with the flat metric). For any fixed values of $(x_0,\psi_0)$ this is a free action, so the path integral over fluctuations gives 
 \eq{
-\int e^{-S[x_0,\psi_0,\delta x, \delta \psi]} \, \mc{D}(\delta x) \, \mc{D}(\delta \psi) = \frac{\sqrt{\det^\prime ( \del_t \delta_b^a)}}{\sqrt{\det^\prime\pround{-\del_t^2 - \mc{R}\indices{^a_b}(x_0,\psi_0) \del_t}}}
+\int e^{-S[x_0,\psi_0,\delta x, \delta \psi]} \, \mc{D}(\delta x) \, \mc{D}(\delta \psi) = \frac{\sqrt{\det^\prime ( \del_\tau \delta_b^a)}}{\sqrt{\det^\prime\pround{-\del_\tau^2 + \mc{R}\indices{^a_b}(x_0,\psi_0) \del_\tau}}} = \frac{1}{\sqrt{\det^\prime \pround{-\del_\tau \delta^a_b + \mc{R}\indices{^a_b}}}}
 }
-where $\mc{R}\indices{^a_b}(x_0,\psi_0) = R\indices{^a_b_c_d}(x_0) \psi_0^c \psi_0^d$ and $\det^\prime$ indicates the determinant without the zero modes. 
-
-\eq{
-&= \frac{\sqrt{\det^\prime ( \del_t \delta_b^a)}}{\sqrt{\det^\prime ( \del_t \delta_b^a)} \sqrt{\det^\prime \pround{-\delta_a^b \del_t - \mc{R}_a^b}}}  
-}
+where $\mc{R}\indices{^a_b}(x_0,\psi_0) = R\indices{^a_b_c_d}(x_0) \psi_0^c \psi_0^d$ and $\det^\prime$ indicates the determinant without the zero modes. \\
 The matrix $ \mc{R}\indices{^a_b}$ is an antisymmetric $n\times n$ matrix, and $n=2m$. We decompose the tangent space $T_{x_0} N$ into 2-dimensional subspaces on which 
 \eq{
 \mc{R}\indices{^a_b}|_i = \begin{pmatrix} 0 & \omega_i \\ -\omega_i & 0 \end{pmatrix} \quad i = 1, \dots, m
 }
-Let $-D_i$ be the restriction of $-\delta^a_b \del_t - \mc{R}\indices{^a_b}$ to the i\textsuperscript{th} subsapce. We expand 
+Let $-D_i$ be the restriction of $-\delta^a_b \del_\tau + \mc{R}\indices{^a_b}$ to the i\textsuperscript{th} subsapce. We expand 
 \eq{
-\delta x^a(t) = \sum_{k \neq 0} \delta x_k^a e^{2\pi i k t}
+\delta x^a(t) = \sum_{k \neq 0} \delta x_k^a e^{2\pi i k \tau}
 }
-Then the eigen values of $-D_i$ on this subspace are $-2\pi i k \pm \omega_i$ for $k\in \mbb{Z}\setminus\set{0}$. THerefor 
+Then the eigenvalues of $-D_i$ on this subspace are $-2\pi i k \pm \omega_i$ for $k\in \mbb{Z}\setminus\set{0}$. Therefore 
 \eq{
-\det (-D_i) &= \prod_{k \neq 0} (-2\pi i k + \omega_i )(-2\pi i k - \omega_i ) \\
+\det^\prime(-D_i) &= \prod_{k \neq 0} (-2\pi i k + \omega_i )(-2\pi i k - \omega_i ) \\
 &= \prod_{k \neq 0} \psquare{-(2\pi k)^2 - \omega_i^2} \\
 &= \prod_{k = 1}^{\infty} (2\pi k)^4 \prod_{k = 1}^\infty \psquare{1 + \frac{\omega_i^2}{(2\pi k)^2}}^2 
 }
 This is clearly divergent. We can regularise this this by using zeta function regularisation 
 \eq{
-\prod_{k=1}^\infty (2\pi k)^4 = (4\pi^2)^{2\zeta(0)} e^{-2 \zeta^\prime(0)} = 1 
+\prod_{k=1}^\infty (2\pi k)^4 = (4\pi^2)^{\zeta(0)} e^{-2 \zeta^\prime(0)} = 1 
 }
 Hence the important factor is 
 \eq{
@@ -1508,20 +1526,28 @@ Hence the important factor is
 }
 we recall 
 \eq{
-\sinh(z) = \prod_{k = 1}^\infty \psquare{1 + \frac{z^2}{\pi^2 k^2}}^2
+\sinh(z) = z\prod_{k = 1}^\infty \psquare{1 + \frac{z^2}{\pi^2 k^2}}
 }
 so we have 
 \eq{
-\sqrt{\det^\prime ( -D_i)} = \frac{\sinh\pround{\frac{\omega_i}{2}}}{\pround{\frac{\omega_i}{2}}}
+\sqrt{\det^\prime ( -D_i)} = \frac{\sinh\pround{\sfrac{\omega_i}{2}}}{\pround{\sfrac{\omega_i}{2}}}
 }
-Hence the whole regularised path integral gives 
+\begin{theorem}
+	The \bam{Atiyah-Singer Index Theorem} says that 
+	\eq{
+\ind(D^+) = \int_N \det \pround{\frac{\sfrac{\mc{R}}{2}}{\sinh \sfrac{\mc{R}}{2}}}	
+}
+where $D^+$ is the chiral Dirac operator on $N$ and $\mc{R}\indices{^a_b} = R\indices{^a_b_c_d} dx^c \wedge dx^d$
+\end{theorem}
+\begin{proof}
+The whole regularised path integral gives 
 \eq{
-I_w = \ind(\underbrace{\slashed{\nabla}}_{\substack{\text{Dirac op} \\ \text{on N}}}) &= \int \prod_{i=1}^m \frac{\pround{\frac{\omega_i}{2}}}{\sinh\pround{\frac{\omega_i}{2}}} \\
-&= \int \det \pround{\frac{\frac{\mc{R}\indices{^a_b}(x_0,\psi_0)}{2}}{\sinh\pround{\frac{\mc{R}\indices{^a_b}(x_0,\psi_0)}{2}}}} \, d^nx_0 \, d^n\psi_0 \\
-&= \int_N \det \pround{\frac{\frac{\mc{R}}{2}}{\sinh \frac{\mc{R}}{2}}}
+I_w = \ind(D^+) &= \int \prod_{i=1}^m \frac{\pround{\sfrac{\omega_i}{2}}}{\sinh\pround{\sfrac{\omega_i}{2}}} \\
+&= \int \det \pround{\frac{\sfrac{\mc{R}\indices{^a_b}(x_0,\psi_0)}{2}}{\sinh\pround{\sfrac{\mc{R}\indices{^a_b}(x_0,\psi_0)}{2}}}} \, d^nx_0 \, d^n\psi_0 \\
+&= \int_N \det \pround{\frac{\sfrac{\mc{R}}{2}}{\sinh \sfrac{\mc{R}}{2}}}
 }
-where $\mc{R}\indices{^a_b} = R\indices{^a_b_c_d} dx^c \wedge dx^d$
-This is the \bam{Atiyah Singer Index Theorem}. 
+\end{proof}  
+ 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
