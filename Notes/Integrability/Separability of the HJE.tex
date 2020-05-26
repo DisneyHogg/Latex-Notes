@@ -21,7 +21,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Bookkeeping}
 These are notes I am writing to set into concrete my thoughts on separability and the works of Eisenhart, Kalnins, and Benenti. This work will also hopefully tie into the work of St\"ackel. \\
-Indices will be flying all over the place, and I will try to uniformise this with my KYT notes afterwards to keep their ranges standard, but be prepared to be on your toes. Moreover, I will switch back and forth between using summation notation and not in a blas\'e manner. To work out if I am or not, assume not, and then sum over any indices which would otherwise not be explained. 
+Indices will be flying all over the place, and I will try to uniformise this with my KYT notes afterwards to keep their ranges standard, but be prepared to be on your toes. \hl{Moreover, I will switch back and forth between using summation notation and not in a blas\'e manner. To work out if I am or not, assume not, and then sum over any indices which would otherwise not be explained.} I will try to use \textit{n.s.} to indicate that an equation should not be summed over the contracted indices.  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Motivation}
 The purpose of this subsection will be to motivate the Hamilton Jacobi equation, and then to give a reason as to why we would want to study its separability. \\
@@ -161,7 +161,7 @@ To understand separability we now want to consider the partial differential equa
 \eq{
 \mc{H}(q,u,u_i, u_{ij}, \dots, u_{ij \cdots h}) = E
 }
-for the function $u = u(q)$, where $u_{ij \cdot h} = \del_h \dots \del_j \del_i u$, $E$ is a constant, and $\mc{H}$ is a smooth function of the up to the $l$th partials of $u$. 
+for the function $u = u(q)$, where $u_{ij \cdots h} = \del_h \cdots \del_j \del_i u$, $E$ is a constant, and $\mc{H}$ is a smooth function of the up to the $l$th partials of $u$. 
 
 \begin{definition}
 A \bam{separable solution} to the pde is a solution of the form 
@@ -182,11 +182,11 @@ Note that technically $\mc{H}_s$ is a different function from $\mc{H}$ (being a 
 
 Taking the total derivative we get 
 \eq{
-\pd[\mc{H}]{q^i} + \pd[\mc{H}]{u} u_i + \dots + \pd[\mc{H}]{u_i^{(l)}} u_i^{(l+1)} = 0
+\pd[\mc{H}]{q^i} + \pd[\mc{H}]{u} u_i + \dots + \pd[\mc{H}]{u_i^{(l)}} u_i^{(l+1)} = 0 \quad \text{(n.s.)}
 }
 and so under the assumption $\pd[\mc{H}]{u_i^{(l)}} \neq 0$ we may define 
 \eq{
-R_i = -\pround{\pd[\mc{H}]{u_i^{(l)}}}^{-1} \pround{\pd[\mc{H}]{q^i} + \pd[\mc{H}]{u} u_i + \dots + \pd[\mc{H}]{u_i^{(l-1)}} u_i^{(l)}}
+R_i = -\pround{\pd[\mc{H}]{u_i^{(l)}}}^{-1} \pround{\pd[\mc{H}]{q^i} + \pd[\mc{H}]{u} u_i + \dots + \pd[\mc{H}]{u_i^{(l-1)}} u_i^{(l)}} \quad \text{(n.s.)}
 }
 so 
 \eq{
@@ -195,9 +195,9 @@ u_i^{(l+1)} = R_i
 and we get
 \eq{
 \del_i u &= u_i^{(1)} \\
-\del_i u_i^{(1)} &= u_i^{(2)} \\
+\del_i u_i^{(1)} &= u_i^{(2)} \quad \text{(n.s.)} \\
 \dots &= \dots \\
-\del_i u_i^{(l)} &= R_i \\
+\del_i u_i^{(l)} &= R_i  \quad \text{(n.s.)}\\
 \del_j u_i^{(k)} &= 0 , \; i \neq j
 }
 To connect this with our previous theorem, we consider the $N = nl+1$ functions $u,u^{(1)}, \dots, u^{(l)}$ as coordinates on a space $Z$, i.e 
@@ -206,7 +206,7 @@ z = (u,u^{(1)}, \dots, u^{(l)})
 }
 and then we have the equations for tangent integral manifolds for generators 
 \eq{
-D_i = \del_i + u_i^{(1)} \pd{u} + u_i^{(2)} \pd{u_i^{(1)}} + \dots + R_i \pd{u_i^{(l)}}
+D_i = \del_i + u_i^{(1)} \pd{u} + u_i^{(2)} \pd{u_i^{(1)}} + \dots + R_i \pd{u_i^{(l)}} \quad \text{(n.s.)}
 }
 This gives us a characterisation of complete separability:
 
@@ -239,14 +239,14 @@ H(q,\del_i S) = E
 }
 where we have identified $\mc{H}=H$, $u=S, u_i^{(1)} = \del_i S, z = (u_i) = (p_i)$. The differential system is then 
 \eq{
-\del_i p_i &= R_i = -\frac{\del_i H}{\del^i H} \\
-\del_j p_i &= 0
+\del_i p_i &= R_i = -\frac{\del_i H}{\del^i H} \quad \text{(n.s.)} \\
+\del_j p_i &= 0 \phantom{= -\frac{\del_i H}{\del^i H}} \quad (i \neq j)
 }
 where we have used $\del^i = \pd{p_i}$. 
 \begin{theorem}
 The HJE is completely separable in coordinates $q$ iff the \bam{Levi-Civita separability conditions (LCSCs)}
 \eq{
-\forall i \neq j , \; (\del^i \del^jH) (\del_i H)( \del_j H) + (\del_i \del_j H)( \del^i H)( \del^j H) - (\del^i \del_j H) (\del_i H) (\del^j H) - (\del_i \del^jH) (\del^i H) (\del_j H) = 0
+\forall i \neq j , \; (\del^i \del^jH) (\del_i H)( \del_j H) + (\del_i \del_j H)( \del^i H)( \del^j H) - (\del^i \del_j H) (\del_i H) (\del^j H) - (\del_i \del^jH) (\del^i H) (\del_j H) = 0 \quad \text{(n.s.)} 
 }
 are satisfied identically.
 \end{theorem}
@@ -284,13 +284,13 @@ A \bam{standard coordinate system} is a coordinate system $q = (q^i) = (q^a, q^\
 The coordinates $(q^a)$ are called \bam{essential}.
 \end{definition}
 
-Making the definition\footnote{Note here that $\del_i \log g^{jj} = \frac{\del_i g^{jj}}{g^{jj}}$ for $g^{jj} < 0$. Here we know $g^{jj} \neq 0$ as throughout we assume a non-degenerate metric.} that for $f \in C^\infty(M)$
+Making the definition\footnote{Note here that $\del_i \log g^{jj} = \frac{\del_i g^{jj}}{g^{jj}}$ for $g^{jj} < 0$. Here we only deal with metrics for which $g^{jj} \neq 0$ by assumption. It is further important to note that this definition is dependent on the metric.} that for $f \in C^\infty(Q)$
 \eq{
-S_{ij}(f) &= \del_i \del_j f - (\del_i \log g^{jj}) (\del_j f) - (\del_j \log g^{ii}) (\del_i f)
+S_{ij}(f) &= \del_i \del_j f - (\del_i \log g^{jj}) (\del_j f) - (\del_j \log g^{ii}) (\del_i f) \quad \text{(n.s.)} 
 }
 we have the following result
 
-\begin{prop}
+\begin{prop}\label{prop:SHJE:LCSCs}
 In a standard coordinate system for a natural Hamiltonian the LCSCs are 
 \eq{
 S_{ab}(g^{cc}) &= 0\\
@@ -304,7 +304,7 @@ S_{ij}(V) &= 0
 }
 \end{prop}
 \begin{proof}
-For completeness we reproduce the beginning of the proof here. Clearly the 3 contributions from $g^{aa}, g^{\alpha\beta},V$ will separate due to the order of the momenta in these terms. Hence we will show this initially just for the $g^{aa}$ term. As the $q^\alpha$ are ignorable we do not need to think about $\del_\alpha$ terms. Hence we get
+For completeness we reproduce the beginning of the proof here. Clearly the 3 contributions from $g^{aa}, g^{\alpha\beta},V$ will separate due to the order of the momenta in these terms. Hence we will show this initially just for the $g^{aa}$ term. As the $q^\alpha$ are ignorable we do not need to think about $\del_\alpha$ terms. Hence we get (summing over $c$ only)
 \eq{
 \del_a H &= \frac{1}{2}(\del_a g^{cc}) p_c^2 \\
 \del^a H &= g^{ac}p_c = g^{aa}p_a \\
@@ -312,7 +312,7 @@ For completeness we reproduce the beginning of the proof here. Clearly the 3 con
 \del_a \del^b H &= (\del_a g^{bc}) p_c = (\del_a g^{bb})p_b \\
 \del^a \del^b H &= g^{ab} = 0 
 }
-so the LCSCs are 
+so the LCSCs are (agin summing over $c$ only)
 \eq{
 \frac{1}{2} (\del_a \del_b g^{cc})g^{aa}g^{bb}p_a p_b p_c^2 - \frac{1}{2}(\del_b g^{aa})(\del_a g^{cc}) g^{bb} p_a p_b p_c^2 - \frac{1}{2}(\del_a g^{bb})(\del_b g^{cc})g^{aa} p_a p_b p_c^2  &= 0 \\
 \Rightarrow \frac{1}{2}g^{aa} g^{bb} p_a p_b p_c^2 S_{ab}(g^{cc}) &= 0
@@ -362,7 +362,7 @@ We can consider adding a term $p_i A^i$ to a natural Hamiltonian. This modifies 
 	0&= A\sp{i} \partial_i A\sp{j}\partial_j V+ A\sp{j} \partial_j A\sp{i}\partial_i V -
 	A\sp{i}A\sp{j}\partial_{ij} V -g\sp{ij}\partial_i V\sp{j}\partial_j V
 \end{align*}
-To see this now note (using compact notation for the derivative)
+To see this now note (using compact notation for the derivative, and never summing over $i,j$)
 \eq{
 \del_i H &= \frac{1}{2} g^{kl}_{,i} p_k p_l + p_k A^k_{,i} + V_{,i} \\
 \del^i H &= g^{ik} p_k + A^i \\
@@ -481,16 +481,16 @@ Every separable system is equivalent to a separable system in which all first cl
 \begin{proof}
 For the first class coordinates write
 \eq{
-\del_\alpha p_\alpha = B_\alpha^i p_i
+R_\alpha = \del_\alpha p_\alpha = B_\alpha^i p_i \quad \text{(sum over $i$ only)}
 }
 The Frobenius integrability condition gives that 
 \eq{
-\comm[\del_i + R_i \del^i]{\del_j + R_j \del^j} &= 0 \\
-\Rightarrow \del_i R_j + (\del^j R_j) R_i &= 0 
+\comm[\del_i + R_i \del^i]{\del_j + R_j \del^j} &= 0 \quad \text{(n.s.)}\\
+\Rightarrow \del_i R_j + (\del^i R_j) R_i  &= 0 
 }
 and so we find 
 \eq{
-\del_a (B_\alpha^i p_i)  + B_\alpha^a R_a  \quad \text{(no sum over $a$)}
+\del_a (B_\alpha^i p_i)  + B_\alpha^a R_a = 0  \quad \text{(no sum over $a$)}
 }
 Hence $R_a$ is linear in momenta ($\contradiction$) unless $B_\alpha^a=0$, which forces $\del_a B_\alpha^i = 0$. This gives an autonomous subsystem in first class coordinates given by 
 \eq{
@@ -672,8 +672,15 @@ We can now consider the simplest example of a diagonal metric $\bm{g} = g^{aa} \
 4R_{ab} &= \sum_{c \neq a,b} \psquare{(\del_a \log g_{bb} - \del_a)\del_b \log g_{cc} + (b \leftrightarrow a) - (\del_a \log g_{bb})(\del_b \log g_{aa})} \\
 4 R_{aa} &= \left(\partial_{a} \log g_{aa}-2 \partial_{a}\right) \partial_{a} \log \frac{g}{g_{aa}}-\sum_{c \neq a}\left[\left(\partial_{a} \log g_{cc}\right)^{2}+\left(\partial_{c} \log \frac{g}{g_{aa}^{2}}+2 \partial_{c}\right) g^{cc} \partial_{c} g_{aa}\right]
 }
-Immediately, we know that a general diagonal metric is non-Einstein, as the Ricci tensor is not diagonal. \\
-Recall we know $S_{ab}(g^{cc}) = 0$, \hl{can this be used to simplify $R_{ab}$?}
+\hl{Alternatively}, for the metric $\bm{g} = g^{aa}\del_a \otimes \del_a + g^{\alpha\beta}\del_\alpha \otimes \del_\beta$ \cite{Benenti1980} gives the form of the Ricci tensor as 
+\eq{
+R_{ab} = \frac{3}{4} \pround{\sum_{c \neq a,b} \del_a \del_b \log g^{cc} + \del_a \del_b \log \det \abs{g^{\alpha\beta}}} \quad (a \neq b)
+}
+\begin{ex}
+	\hl{Show these are equivalent}
+\end{ex}
+
+We know that the $g_{\alpha\beta}$ terms are non-zero, so any Einstein solutions must have $R=0 \Rightarrow R_{ab} = 0$. 
 
 
 As previously mentioned, and immediately useful question to ask is whether transforms that preserve the separability property preserve the Einstein property. By our discussion above, we see that we need only consider two types of transform 
@@ -689,8 +696,117 @@ Separable transformations preserve the Einstein property
 The Einstein equation is tensorial, so is diffeomorphism invariant. 
 \end{proof}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Conformal Transformation}
+A separate question we might like to ask is what conformal transforms preserve both the separability property and the Einstein property. We start by reminding ourselves on results about conformal metrics and separability from \cite{Benenti2005}:
 
-A separate question we might like to ask is what conformal transforms preserve both the separability property and the Einstein property. Suppose we make the transform $H \to \tilde{H} = e^{2f}H$ for $f \in C^\infty(Q)$, the LCSCs become (using the notation $\del_j f = f_{j}, \ ,\del_i\del_j f = f_{ij}, \, \del^iH = H^i, \dots$)
+\begin{lemma}[Properties of $S_{ij}$]
+We have the following rules for $S_{ij}$:
+\begin{itemize}
+	\item $\forall c \in \mbb{R}, \, S_{ij}(c) = 0$
+	\item $\forall A,B \in C^\infty(Q)$,
+	\eq{
+	S_{ij}(A+B) &= S_{ij}(A) + S_{ij}(B) \\
+	S_{ij}(AB) &= A S_{ij}(B) + B S_{ij}(A) + (\del_i A)(\del_j B) + (\del_j A)(\del_i B) \\
+	S_{ij}(A^{-1}) &= 2A^{-3} (\del_i A)(\del_j A) - A^{-2} S_{ij}(A)
+}
+\item If $\bar{S}_{ij}$ is the function corresponding to the metric $\bar{g}^{ii} = \frac{1}{\sigma} g^{ii}$ where $\sigma\in  C^\infty(Q)$ is non-zero, then 
+\eq{
+\bar{S}_{ij}(A) &= S_{ij}(A) - \sigma^{-3} \psquare{(\del_i \sigma)(\del_j A) + (\del_i A)(\del_j \sigma)} \\
+\bar{S}_{ij}(\bar{g}^{kk}) &= \sigma^{-1} S_{ij}(g^{kk}) - g^{kk} \sigma^{-2} S_{ij}(\sigma) \\
+&= \frac{g^{kk}}{\sigma} \psquare{\frac{1}{g^{kk}}S_{ij}(g^{kk}) - \frac{1}{\sigma}S_{ij}(\sigma)}
+}
+\end{itemize}	
+\end{lemma}
+
+\begin{lemma}
+	If $g = (g^{ii})$ is an orthogonal St\"ackel metric then so are $\pround{\frac{g^{ii}}{g^{11}}},\dots, \pround{\frac{g^{ii}}{g^{nn}}}$
+\end{lemma}
+\begin{proof}
+	Use the results of \ref{prop:SHJE:LCSCs} and the above lemma with $\sigma = g^{jj}$ for each fixed $j$. 
+\end{proof}
+
+\begin{prop}
+	An orthogonal metric $(g^{ii})$ is conformal to a St\"ackel metric iff for each fixed $j$ $\pround{\frac{g^{ii}}{g^{jj}}}$ is St\"ackel.
+\end{prop}
+\begin{proof}
+	Use the above lemma and the fact $\frac{\bar{g}^{ii}}{\bar{g}^{jj}} = \frac{g^{ii}}{g^{jj}}$.
+\end{proof}
+Now suppose we can state the following lemma:
+
+\begin{lemma}
+Let $H$ be a natural Hamiltonian with no potential term coming from a metric $g$. Moreover assume the HJE is separable for $H$ (i.e. it solves the LCSCs). Under a conformal transform of a metric $g_{ij} \mapsto \bar{g}_{ij} = \sigma g_{ij}$ for $\sigma \in C^\infty(Q)$ positive, the LCSCs for the new HJE to be separable are
+\eq{
+	0 &= H^i H^j (f_{ij} - f_i f_j) + H^{ij} \pround{f_i H_j + f_j H_i + f_i f_j H} - \pround{f_i H^j H^i_j + f_j H^i H^j_i} \quad (i\neq j, \, \text{n.s.})
+}
+where $f = \log\sigma$. 
+\end{lemma}
+\begin{proof}
+Under the conformal transform $H \mapsto \bar{H} =\sigma H$. The LCSCs for $\bar{g}$ are now (using the notation $\del_j \sigma = \sigma_{j}, \ ,\del_i\del_j \sigma = \sigma_{ij}, \, \del^iH = H^i, \dots$ and again not summing over $i,j$)
+\eq{
+0&= \bar{H}^i \bar{H}^j \bar{H}_{ij} + \bar{H}_i \bar{H}_j \bar{H}^{ij} - \bar{H}^i \bar{H}_j \bar{H}_i^j - \bar{H}_i \bar{H}^j \bar{H}^i_j \\
+&= \sigma^2 H^i H^j \pround{\sigma H_{ij} + \sigma_i H_j + \sigma_j H_i + \sigma_{ij} H} + \sigma H^{ij} \pround{\sigma H_i + \sigma_i H}\pround{\sigma H_j + \sigma_j H} \\
+&\phantom{=} - \sigma H^i \pround{\sigma H_j + \sigma_j H}\pround{\sigma H_i^j + \sigma_i H^j} - \sigma H^j \pround{\sigma H_i + \sigma_i H} \pround{\sigma H^i_j + \sigma_j H^i} \\
+&= \sigma^3 \left\lbrace \psquare{H^i H^j H_{ij} + H_i H_j H_{ij} - H^i H_j H^j_i - H_i H^j H^i_j} \right. \\
+&\phantom{=}+ H^i H^j \psquare{(\sigma^{-1}\sigma_i) H_j + (\sigma^{-1}\sigma_j) H_i + (\sigma^{-1}\sigma_{ij}) H}  \\
+&\phantom{=} \left. +H^{ij}H\psquare{(\sigma^{-1}\sigma_i )H_j+(\sigma^{-1}\sigma_j )H_i + (\sigma^{-1}\sigma_i )(\sigma^{-1}\sigma_j )H}  \right. \\
+&\phantom{=}  - H^i \psquare{(\sigma^{-1}\sigma_i )H_j H^j + (\sigma^{-1}\sigma_j )HH^j_i + (\sigma^{-1}\sigma_i )(\sigma^{-1}\sigma_j )HH^j} \\
+&\phantom{=} \left. - H^j \psquare{(\sigma^{-1}\sigma_j )H_i H^i + (\sigma^{-1}\sigma_i )HH^i_j + (\sigma^{-1}\sigma_i )(\sigma^{-1}\sigma_j )HH^i} \right\rbrace
+}
+Let $f = \log \sigma$. Then $\sigma^{-1}\sigma_i = f_i$ and $\sigma^{-1}\sigma_{ij} = f_{ij} + f_i f_j$. We assumed the LCSCs were satisfied for $H$, and get rid of the $\sigma^3$ factor, giving 
+\eq{
+0 &= H^i H^j H (f_{ij} - f_i f_j) + H^{ij}H \pround{f_i H_j + f_j H_i + f_i f_j H} - H\pround{f_i H^j H^i_j + f_j H^i H^j_i}
+}
+\end{proof}
+
+\begin{lemma}
+	Let $(g^{ii})$ be a St\"ackel metric and $H = \frac{1}{2}g^{ii}p_i^2$ a corresponding natural Hamiltonian. The conditions for a conformally HJE to be separable is 
+\eq{
+S_{ij}(f) &= f_i f_j
+}
+\end{lemma}
+\begin{proof}
+	We have, recall, 
+	\eq{
+H^i &= g^{ii}p_i \quad \text{(n.s.)} \\
+H^i_j &= (\del_j g^{ii})p_i \\
+H^{ij} &= g^{ij} 
+}
+so the condition of the above becomes 
+\eq{
+0 &= g^{ii} g^{jj} p_i p_j \psquare{f_{ij} - f_i f_j} - \psquare{f_i g^{jj} p_j (\del_j g^{ii}) p_i + f_j g^{ii}p_i (\del_i g^{jj}) p_j } \\
+&= g^{ii} g^{jj}p_i p_j \psquare{f_{ij} - f_i f_j - f_i \del_j \log g^{ii} - f_j \del_i \log g^{jj} } \\
+ &= g^{ii} g^{jj}p_i p_j \psquare{S_{ij}(f) - f_i f_j}
+}
+\end{proof}
+
+We can generalise this result to include ignorable coordinates, where now the function $f$ can depend on these coordinates. 
+
+\begin{prop}
+	Let $\bm{g}$ be a metric whose geodesic HJE in a standard coordinate system $(q^a,q^\alpha)$ is separable. The conditions for a conformally HJE to be separable is 
+	\eq{
+S_{ab}(f) &= f_a f_b 	
+}
+\end{prop}
+\begin{proof}
+	The condition $S_{ab}(f) = f_a f_b$ follows by the same calculation as above. We also have the conditions 
+	\eq{
+0 &= H^a H^\alpha (f_{a\alpha} - f_a f_\alpha) -f_\alpha H^a H^\alpha_a \\
+0&= H^\alpha H^\beta (f_{\alpha\beta} - f_\alpha f_\beta) + H^{\alpha\beta} f_\alpha f_\beta H 	
+}
+We have $H^\alpha = g^{\alpha\gamma}p_\gamma$ so these conditions become 
+\eq{
+0 &= p_\gamma \psquare{g^{\alpha\gamma}(f_{a\alpha} - f_a f_\alpha) - f_\alpha \del_a g^{\alpha\gamma}}
+}
+which is equivalently $S_{a\alpha}(f) = f_a f_\alpha$, and 
+\eq{
+0 &= p_\gamma p_\delta g^{\alpha\gamma}g^{\beta\delta}(f_{\alpha\beta}-f_\alpha f_\beta)+ g^{\alpha\beta}f_{\alpha} f_{\beta}\psquare{\frac{1}{2}g^{aa}p_a^2 + g^{\gamma\delta}p_\gamma p_\delta}
+}
+which gives $f_{\alpha\beta}=f_\alpha f_\beta$ and $g^{\alpha\beta}f_{\alpha} f_\beta=0$.
+\end{proof}
+
+\begin{comment}
+Suppose we make the transform $H \to \tilde{H} = e^{2f}H$ for $f \in C^\infty(Q)$, the LCSCs become (using the notation $\del_j f = f_{j}, \ ,\del_i\del_j f = f_{ij}, \, \del^iH = H^i, \dots$ and again not summing over $i,j$) (\hl{is this correct?}).
 \eq{
 0 =& e^{6f}\left\lbrace H^{ij}(H_{i} + Hf_{i})(H_{j} + Hf_{j}) + (H f_i f_j + Hf_{ij} + H_i f_j + H_j f_i + H_{ij})H^i H^j \right.\\
 & \left. - (H^i_j + H^i f_j)(H_i + Hf_i)H^j - (H^j_i + H^j f_i)(H_j + Hf_j)H^i \right\rbrace \\
@@ -702,6 +818,7 @@ If we have a diagonal separable metric $g^{aa}$ s.t. $H = \frac{1}{2} g^{aa} p_a
 \eq{
 0 &= \pbrace{ f_{ab} - f_a f_b - (\del_b \log g^{aa} + \del_a \log g^{bb})} g^{aa}g^{bb}p_a p_b
 }
+\end{comment}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -868,6 +985,13 @@ A \bam{separable Killing algebra} is a pair $(D,\mc{K})$ where
 \end{definition}
 
 All the previous characterisations now generalise, in the sense that separability of the HJE is now equivalent to the existence of a separable Killing algebra. We remark that, moreover, we can quotient $Q$ by the orbits of $D$ to get $\tilde{Q}$, which is now an $m$-dimensional manifold with metric $\tilde{\bm{g}} = (g^{ab})$. As a consequence of the $D$ invariance of $\mc{K}$ in the separable Killing algebra, it projects onto a KSA $\tilde{\mc{K}}$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Lax pair formulation}
+Here we discuss the paper by Tsiganov \cite{Tsiganov1999} which constructs a Lax pair for a class of St\"ackel systems, and how we might generalise it. 
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
