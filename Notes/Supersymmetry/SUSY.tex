@@ -65,17 +65,17 @@ $\Rightarrow$ all states have non-negative energy. There is equality iff the gro
 \hl{Consolidate this section into something} \\
 In QFT, we are interested in computing 
 \[
-z = \int_\mc{C} e^{-\frac{S[X]}{\hbar}} \mc{D}X \; \text{(Euclidean signature)}
+Z = \int_\mc{C} e^{-\frac{S[X]}{\hbar}} \mc{D}X \; \text{(Euclidean signature)}
 \]
 where $X$ is some field and $\mc{C}$ is the space of all field configurations. This integral is \emph{not} well defined, and is formidably hard to compute. 
 As a toy, suppose the whole universe is just a single point: $\mc{M} = \set{pt}$. Then a field is a map $X:\set{pt} \to \mbb{R}$, and the integral is now just 
 \[
-z = \int_\mbb{R} e^{-\frac{S(X)}{\hbar}} dX
+Z = \int_\mbb{R} e^{-\frac{S(X)}{\hbar}} dX
 \]
 Suppose $S(X) = \frac{1}{2}mX^2 + \frac{1}{6}\lambda X^4 +\frac{1}{6!} gX^6$, say. Even with this simple form of the integral, the integral is hard for the choice of $S$. \\
 As $\hbar \to 0$, taking the semi classical limit, we can obtain an asymptotic series as $\hbar \to 0^+$: 
 \[
-z \sim \sqrt{2\pi\hbar}\frac{e^{-\frac{S[X_0]}{\hbar}}}{\sqrt{\pds[S]{X}(X_0)}}(1+A\hbar + B\hbar^2+\dots)
+Z \sim \sqrt{2\pi\hbar}\frac{e^{-\frac{S[X_0]}{\hbar}}}{\sqrt{\pds[S]{X}(X_0)}}(1+A\hbar + B\hbar^2+\dots)
 \]
 where $S$ has an isolated minimum at $X_0\in\mbb{R}$, where isolated $\Rightarrow \pds[S]{X}(X_0) \neq0$. We find (in AQFT) that the term \[
 \frac{e^{-\frac{S[X_0]}{\hbar}}}{\sqrt{\pds[S]{X}(X_0)}}
@@ -1057,6 +1057,11 @@ I_w = \sum_{x_\ast : h^\prime(x_\ast)=0}  \frac{h^{\prime\prime}(x_\ast)}{|h^{\p
 }
 \footnote{A zero Witten index indicates that your symmetry is spontaneously broken \hl{(why?)}}
 
+\begin{remark}
+	Note we have been lazy here and ignored the necessary factors of $\sqrt{2\pi}$ needed to normalise the path integral to make the Witten index indeed an integer. \hl{Be careful about this}. 
+\end{remark}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Non-Linear Sigma Models}
@@ -1535,16 +1540,17 @@ so we have
 \begin{theorem}
 	The \bam{Atiyah-Singer Index Theorem} says that 
 	\eq{
-\ind(D^+) = \int_N \det \pround{\frac{\sfrac{\mc{R}}{2}}{\sinh \sfrac{\mc{R}}{2}}}	
+\ind(D^+) = \int_N \det^\frac{1}{2} \pround{\frac{\sfrac{\mc{R}}{4\pi}}{\sinh \sfrac{\mc{R}}{4\pi}}}	
 }
 where $D^+$ is the chiral Dirac operator on $N$ and $\mc{R}\indices{^a_b} = R\indices{^a_b_c_d} dx^c \wedge dx^d$
 \end{theorem}
 \begin{proof}
 The whole regularised path integral gives 
 \eq{
-I_w = \ind(D^+) &= \int \prod_{i=1}^m \frac{\pround{\sfrac{\omega_i}{2}}}{\sinh\pround{\sfrac{\omega_i}{2}}} \\
-&= \int \det \pround{\frac{\sfrac{\mc{R}\indices{^a_b}(x_0,\psi_0)}{2}}{\sinh\pround{\sfrac{\mc{R}\indices{^a_b}(x_0,\psi_0)}{2}}}} \, d^nx_0 \, d^n\psi_0 \\
-&= \int_N \det \pround{\frac{\sfrac{\mc{R}}{2}}{\sinh \sfrac{\mc{R}}{2}}}
+I_w = \ind(D^+) &= \frac{1}{(2\pi)^m}\int \prod_{i=1}^m \frac{\pround{\sfrac{\omega_i}{2}}}{\sinh\pround{\sfrac{\omega_i}{2}}}  \, d^nx_0 \, d^n\psi_0 \\ 
+&=\int \prod_{i=1}^m \frac{\pround{\sfrac{\omega_i}{4\pi}}}{\sinh\pround{\sfrac{\omega_i}{4\pi}}}  \, d^nx_0 \, d^n\psi_0 \\
+&= \int \det \pround{\frac{\sfrac{\mc{R}\indices{^a_b}(x_0,\psi_0)}{4\pi}}{\sinh\pround{\sfrac{\mc{R}\indices{^a_b}(x_0,\psi_0)}{4\pi}}}} \, d^nx_0 \, d^n\psi_0 \\
+&= \int_N \det \pround{\frac{\sfrac{\mc{R}}{4\pi}}{\sinh \sfrac{\mc{R}}{4\pi}}}
 }
 \end{proof}  
  

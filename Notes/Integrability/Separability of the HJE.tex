@@ -805,6 +805,45 @@ which is equivalently $S_{a\alpha}(f) = f_a f_\alpha$, and
 which gives $f_{\alpha\beta}=f_\alpha f_\beta$ and $g^{\alpha\beta}f_{\alpha} f_\beta=0$.
 \end{proof}
 
+What can we do with this information? Well let's first write down some results that will be important. 
+
+\begin{lemma}
+	Consider a conformal transform $g \mapsto \bar{g}= e^f g$ and let $(q^i)$ be a standard coordinate system. Assume $f$ is not a function of the ignorable coordinates $q^\alpha$, i.e. they remain ignorable for the transformed metric. Then the Ricci tensor transforms as  
+	\eq{
+\bar{R}_{ab} &= R_{ab} - \frac{3(n-2)}{4}f_{ab} \quad (a \neq b)
+}
+\end{lemma}
+\begin{proof}
+	Using 
+	\eq{
+	R_{ab} = \frac{3}{4}\psquare{\pround{\sum_{c \neq a,b} \del_a \del_b \log g^{cc}} + \del_a \del_b \log \det \abs{g^{\alpha\beta}}}
+}
+we get 
+\eq{
+\bar{R}_{ab} &=  \frac{3}{4}\psquare{\pround{\sum_{c \neq a,b} \del_a \del_b \log e^{-f} g^{cc}} + \del_a \del_b \log \det \abs{e^{-f}g^{\alpha\beta}}} \\
+&=R_{ab} + \frac{3}{4}\psquare{\pround{\sum_{c \neq a,b} \del_a \del_b \log e^{-f}} + \del_a \del_b \log  e^{-rf}} \\
+&= R_{ab} + \frac{3}{4}(n-r-2 + r)f_{ab}
+}
+\end{proof}
+
+A way to think about generalising this result is to use the following definition:
+
+\begin{definition}
+	In dimensions $n \geq 3$ the \bam{conformal Laplacian} is the operator $L$ defined by 
+	\eq{
+Lu = -4\frac{n-1}{n-2} \Delta u + Ru	
+}
+where $R$ is the Ricci scalar. 
+\end{definition}
+
+\begin{lemma}
+	If $u\in C^\infty(M)$ is a positive function then the the conformally related metric $\bar{g} = u^{\frac{4}{n-2}}g$ has Ricci scalar 
+	\eq{
+\bar{R} = u^{-\frac{n+2}{n-2}} Lu	
+}
+\end{lemma}
+
+
 \begin{comment}
 Suppose we make the transform $H \to \tilde{H} = e^{2f}H$ for $f \in C^\infty(Q)$, the LCSCs become (using the notation $\del_j f = f_{j}, \ ,\del_i\del_j f = f_{ij}, \, \del^iH = H^i, \dots$ and again not summing over $i,j$) (\hl{is this correct?}).
 \eq{
