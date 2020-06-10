@@ -135,7 +135,7 @@ We want to now try to see if we can expand upon this result. Note that our first
 The algebra elements 
 \eq{
 L(\bm{\zeta}) &= \sum_{i=1}^n p_i H_i + W_i X_i + \zeta_iY_i \\
-M &= \frac{1}{2} (\del_i W_i) Y_i 
+M &= \frac{1}{2}  W_i^\prime Y_i 
 }
 form a Lax pair for the evolution of the Hamiltonian 
 \eq{
@@ -155,6 +155,35 @@ We have the following theorem that says that in 2d, considering Liouville form i
 \begin{theorem}
 	On a $2d$ Riemannian manifold, any separable metric can be written locally in Liouville form. 
 \end{theorem}
-
+\begin{proof}
+	Historically, this predates St\"ackel's theorem, but using St\"ackel the proof becomes very easy. Write the St\"ackel matrix as 
+	\eq{
+U &= \begin{pmatrix}
+	\sfrac{\lambda_1}{\sigma_1} & -\sfrac{1}{\sigma_1} \\ 
+		\sfrac{\lambda_2}{\sigma_2} & \sfrac{1}{\sigma_2}
+\end{pmatrix} \\
+\Rightarrow U^{-1} &= \frac{1}{\lambda}\begin{pmatrix}
+	\sigma_1 & \sigma_2 \\ -\lambda_2\sigma_1 & \lambda_1 \sigma_2
+\end{pmatrix}
+}
+We can then read off the top row. 
+\end{proof}
+Hamilton's equations for a Liouville system can be read off as 
+\eq{
+\dot{q}^i &= \frac{\sigma_i p_i}{\lambda} \\
+\dot{p}_i &= \frac{\lambda_i^\prime}{\lambda}\mc{H} - \frac{1}{\lambda}\psquare{\frac{1}{2}\sigma_i^\prime p_i^2 + V_i^\prime}
+}
+Suppose we naively tried to port our Lax pair from the 1d system using the rough scaling argument, that is have 
+\eq{
+L(\bm{\zeta}) &= \sum_{i=1}^2 \sqrt{\frac{\sigma_i}{\lambda}}p_i H_i +\frac{1}{\sqrt{\lambda}}W_i X_i + \zeta_i Y_i \\
+M &= \sum_{i=1}^2 \frac{1}{2}\frac{\sqrt{\sigma_i}}{\lambda}\pround{W_i^\prime-\frac{\lambda_i^\prime}{2\lambda}W_i} Y_i 
+}
+To calculate the terms in $\dot{L}$ it is necessary to calcualte
+\eq{
+\frac{d}{dt}\sqrt{\frac{\sigma_i}{\lambda}} &= \sqrt{\frac{\sigma_i}{\lambda}}\pbrace{\frac{\sigma_i p_i}{\lambda}\psquare{\frac{\sigma_i^\prime}{2\sigma_i} - \frac{\lambda_i^\prime}{2\lambda}}- \sum_{j \neq i}\frac{\sigma_j p_j \lambda_j^\prime}{2\lambda^2}} \\
+\Rightarrow \frac{d}{dt}p_i\sqrt{\frac{\sigma_i}{\lambda}} &= \sqrt{\frac{\sigma_i}{\lambda}}\pbrace{\frac{\sigma_i p_i^2}{\lambda}\psquare{\frac{\sigma_i^\prime}{2\sigma_i} - \frac{\lambda_i^\prime}{2\lambda}}- p_i\sum_{j \neq i}\frac{\sigma_j p_j \lambda_j^\prime}{2\lambda^2} + \dot{p}_i} \\
+&= \frac{1}{\lambda} \sqrt{\frac{\sigma_i}{\lambda}}\pbrace{\sigma_i p_i^2\psquare{\frac{\sigma_i^\prime}{2\sigma_i} - \frac{\lambda_i^\prime}{2\lambda}}- p_i\sum_{j \neq i}\frac{\sigma_j p_j \lambda_j^\prime}{2\lambda} + \lambda_i^\prime \mc{H} -\psquare{\frac{1}{2}\sigma_i^\prime p_i^2 + V_i^\prime}} \\
+&= \frac{1}{\lambda} \sqrt{\frac{\sigma_i}{\lambda}}\pbrace{\psquare{\frac{1}{2\lambda}\sum_{j \neq i }\sigma_j p_j (\lambda_i^\prime p_j- \lambda_j^\prime p_i)} + \frac{\lambda_i^\prime}{\lambda}\sum_j V_j - V_i^\prime } 
+}
 
 \end{document}
