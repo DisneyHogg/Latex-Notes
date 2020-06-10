@@ -21,7 +21,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Bookkeeping}
 These are notes I am writing to set into concrete my thoughts on separability and the works of Eisenhart, Kalnins, and Benenti. This work will also hopefully tie into the work of St\"ackel. \\
-Indices will be flying all over the place, and I will try to uniformise this with my KYT notes afterwards to keep their ranges standard, but be prepared to be on your toes. \hl{Moreover, I will switch back and forth between using summation notation and not in a blas\'e manner. To work out if I am or not, assume not, and then sum over any indices which would otherwise not be explained.} I will try to use \textit{n.s.} to indicate that an equation should not be summed over the contracted indices.  
+In these notes, I will endeavour to have the index $i$ range from $1$ to $n$, where $n$ is the dimension of the configuration space. In a standard coordinate system $(q^i=q^a, q^\alpha)$ (see later) I will have $a=1, \dots, m, \, \alpha = m+1, \dots, n$, and $n=m-r$. I will try to use \textit{n.s.} to indicate that an equation should not be summed over the contracted indices.  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Motivation}
 The purpose of this subsection will be to motivate the Hamilton Jacobi equation, and then to give a reason as to why we would want to study its separability. \\
@@ -537,7 +537,7 @@ See \cite{Benenti1991}. The proof is not replicated here as it currently does no
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Generality of standard coordinate systems}
 
-In this section, we will build upon the results of equivalent coordinate systems to find the most general separable HJE for a natural Hamiltonian, and then show it is equivalent to the a standard coordinate system. A question we will eventually want to ask is what separable systems correspond to Einstein manifolds, and \hl{it is then necessary to know whether if a system is Einstein whether equivalent systems are also Einstein}\footnote{Are we inclined to think this is the case? Consider conformal equivalences at least in the next section}.
+In this section, we will build upon the results of equivalent coordinate systems to find the most general separable HJE for a natural Hamiltonian, and then show it is equivalent to the a standard coordinate system.
 
 \begin{prop}
 In a separable system $(q^i) = (q^a, q^\alpha)$, the second class coordinates are orthogonal
@@ -621,7 +621,7 @@ We start by recalling what an Einstein metric is:
 A metric is \bam{Einstein} if $\exists \lambda \in \mbb{R}, \, \Ric = \lambda g$. 
 \end{definition}
 
-It is perhaps an interesting question to ask what kinds of Einstein metrics can be separated. We should possibly ask for some motivation that these two could be related to start with. 
+It is perhaps an interesting question to ask what kinds of Einstein metrics can give rise to separable HJEs. We should possibly ask for some motivation that these two could be related to start with. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Motivation - Kerr-NUT-(A)dS metrics}
@@ -667,35 +667,64 @@ This shows that we can generate large classes of metric which are separable that
 We note that in \cite{Kalnins1986} it is shown that the Riemannian manifolds of constant curvature all admit metrics which can be separated in (often multiple) coordinates system. It is a known fact that all of these manifolds are Einstein, so we are perhaps given initial hope that this isn't a foolish question. 
 \end{example}
 
-We can now consider the simplest example of a diagonal metric $\bm{g} = g^{aa} \del_a \otimes \del_a$. We will assume $g^{aa} > 0$. We have from \cite{Win1996} that the off-diagonal and diagonal components of the Ricci tensor are separately given by 
+We can now consider the simplest example of a diagonal metric $\bm{g} = g^{ii} \del_i \otimes \del_i$. We will assume $g^{ii} > 0$. We have from \cite{Win1996} that the off-diagonal and diagonal components of the Ricci tensor are separately given by 
 \eq{
-4R_{ab} &= \sum_{c \neq a,b} \psquare{(\del_a \log g_{bb} - \del_a)\del_b \log g_{cc} + (b \leftrightarrow a) - (\del_a \log g_{bb})(\del_b \log g_{aa})} \\
-4 R_{aa} &= \left(\partial_{a} \log g_{aa}-2 \partial_{a}\right) \partial_{a} \log \frac{g}{g_{aa}}-\sum_{c \neq a}\left[\left(\partial_{a} \log g_{cc}\right)^{2}+\left(\partial_{c} \log \frac{g}{g_{aa}^{2}}+2 \partial_{c}\right) g^{cc} \partial_{c} g_{aa}\right]
+4R_{ij} &= \sum_{k \neq i,j} \psquare{(\del_i \log g_{jj} - \del_i)\del_j \log g_{kk} + (j \leftrightarrow i) - (\del_i \log g_{kk})(\del_j \log g_{kk})} \quad (i \neq j) \\
+4 R_{ii} &= \left(\partial_{i} \log g_{ii}-2 \partial_{i}\right) \partial_{i} \log \frac{g}{g_{ii}}-\sum_{k \neq i}\left[\left(\partial_{i} \log g_{kk}\right)^{2}+\left(\partial_{k} \log \frac{g}{g_{ii}^{2}}+2 \partial_{k}\right) g^{kk} \partial_{k} g_{ii}\right] \quad (\text{n.s. over }i)
 }
-\hl{Alternatively}, for the metric $\bm{g} = g^{aa}\del_a \otimes \del_a + g^{\alpha\beta}\del_\alpha \otimes \del_\beta$ \cite{Benenti1980} gives the form of the Ricci tensor as 
+where $g = \prod_{i=1}^n g_{ii} = \det(g_{ii})$. Alternatively, for the metric $\bm{g} = g^{aa}\del_a \otimes \del_a + g^{\alpha\beta}\del_\alpha \otimes \del_\beta$ \cite{Benenti1980}, \cite{Benenti2002} gives the form of the Ricci tensor as 
 \eq{
-R_{ab} = \frac{3}{4} \pround{\sum_{c \neq a,b} \del_a \del_b \log g^{cc} + \del_a \del_b \log \det \abs{g^{\alpha\beta}}} \quad (a \neq b)
+R_{ab} &= \frac{3}{4} \pround{\sum_{c \neq a,b} \del_a \del_b \log g^{cc} + \del_a \del_b \log \det \abs{g^{\alpha\beta}}} \quad (a \neq b) \\
+R_{a \alpha} &= 0
 }
-\begin{ex}
-	\hl{Show these are equivalent}
-\end{ex}
-
-We know that the $g_{\alpha\beta}$ terms are non-zero, so any Einstein solutions must have $R=0 \Rightarrow R_{ab} = 0$. 
-
-
-As previously mentioned, and immediately useful question to ask is whether transforms that preserve the separability property preserve the Einstein property. By our discussion above, we see that we need only consider two types of transform 
-\begin{enumerate}
-    \item Separable transformations, i.e. $\pd[\bar{q}^{\bar{\imath}}]{q^i} = \delta_i^{\bar{\imath}}\xi^i(q^i)$
-    \item Transformation of first class coordinates of the form $dx^\alpha = A^\alpha_i(q^i) dq^i $
-\end{enumerate}
-
-\begin{prop}
-Separable transformations preserve the Einstein property
-\end{prop}
+if the LCSCs are imposed. 
+\begin{lemma}
+	These are consistent formulae. 
+\end{lemma}
 \begin{proof}
-The Einstein equation is tensorial, so is diffeomorphism invariant. 
+To show this I will show that imposing the LCSCs on the formula for $R_{ij}$ recreates the necessary part of the formula for $R_{ab}$. 
+We first write $R_{ij}$ in terms of the inverse metric, that is 
+\eq{
+4R_{ij} = \sum_{k \neq i,j} \psquare{(\del_i \log g^{jj} + \del_i)\del_j \log g^{kk} + (j \leftrightarrow i) - (\del_i \log g^{kk})(\del_j \log g^{kk})}
+}
+To do this we have used 
+\eq{
+\del_i \log g_{jj} +\del_i \log g^{jj} &= \del_i \log g_{jj}g^{jj} \quad (\text{n.s. over }j)\\
+&= 0 \\
+\Rightarrow \del_i \log g_{jj} &= - \del_i \log g^{jj}
+}
+Note now that $\del_i \log g^{kk} = \frac{\del_i g^kk}{g^{kk}}, \, \del_i \del_j \log g^{kk} = \frac{\del_i \del_j g^{kk} }{g^{kk}} - \frac{ (\del_i g^{kk})(\del_j g^{kk})}{(g^{kk})^2}$, and so 
+\eq{
+(\del_i \log g^{jj})(\del_j \log g^{kk}) + (\del_j \log g^{ii})(\del_i \log g^{kk}) - (\del_i \log g^{kk})(\del_j \log g^{kk}) &= \frac{\del_i \del_j g^{kk} - S_{ij}(g^{kk})}{g^{kk}} - \frac{ (\del_i g^{kk})(\del_j g^{kk})}{(g^{kk})^2} \\
+&= \del_i \del_j \log g^{kk}
+}
+imposing the LCSCs  $S_{ij}(g^{kk})=0$. Hence 
+\eq{
+R_{ij} = \frac{3}{4} \sum_{k \neq i,j} \del_i \del_j \log g^{kk}
+}
 \end{proof}
-
+ 
+\begin{remark}
+	The property of being Einstein is tensorial, and so doesn't depend on the coordinate system we are in. This is important, as it means that we can just ask whether the metric is Einstein in a separable coordinate system.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Explicit calculations}
+To make progress in general on this question is, in its full generality, very difficult (according to  \cite{Benenti1979}). However, with many Killing vectors the form of a metric in separable coordinates simplifies significantly \cite{Benenti1981}. \\
+Let us first consider the case of an $n$ or $n-1$ separability structure. These are shown to trivially be flat, and so Einstein. \\
+The first non-trivial case we can consider is when $n=3$ and we have a $1$-separability structure. In this case we can write the metric in a standard coordinate system as 
+\eq{
+g^{aa} &= \frac{\psi_a }{\phi_1 + \phi_2} \quad (a=1,2)\\
+g^{33} &= \frac{\Psi_1 + \Psi_2}{\phi_1 + \phi_2}
+}
+where $\psi_a, \Psi_a, \phi_a$ are functions of $q^a$ only. Here we can calculate
+\eq{
+R_{12} &= \frac{3}{4} \del_1 \del_2 \log \pround{\frac{\Psi_1 + \Psi_2}{\phi_1 + \phi_2}} \\
+&= \frac{3}{4} \del_1 \del_2 \psquare{\log(\Psi_1 + \Psi_2) - \log(\phi_1 + \phi_2)} \\
+&= \frac{3}{4}\psquare{\frac{\phi_1^\prime \phi_2^\prime}{(\phi_1 + \phi_2)^2} - \frac{\Psi_1^\prime \Psi_2^\prime}{(\Psi_1 + \Psi_2)^2}} \\
+R_{33} &= -\frac{1}{4}\sum_a \pround{\del_a \log \frac{g}{g_{aa}^2} + 2\del_a}\pround{g^{aa} \del_a g_{33}} \\
+&= -\frac{1}{4} \left\lbrace \pround{\del_1 \log \frac{\psi_1(\phi_1 + \phi_2)}{\psi_2(\Psi_1 + \Psi_2)} + 2\del_1}\pround{\frac{\psi_1}{\phi_1 + \phi_2} \del_1 \frac{\phi_1 + \phi_2}{\Psi_1 + \Psi_2}}\right.
+}
+\hl{This does indeed look like it gets impossibly tricky}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Conformal Transformation}
 A separate question we might like to ask is what conformal transforms preserve both the separability property and the Einstein property. We start by reminding ourselves on results about conformal metrics and separability from \cite{Benenti2005}:
@@ -859,6 +888,8 @@ If we have a diagonal separable metric $g^{aa}$ s.t. $H = \frac{1}{2} g^{aa} p_a
 }
 \end{comment}
 
+\hl{It would be good to bring a nice conclusion to this discussion}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Geometric Characterisation}
@@ -1016,7 +1047,7 @@ and $\del_\alpha \rho_a = 0 = \del_\alpha T^{\beta \gamma}$.
 \end{definition}
 
 \begin{definition}
-A \bam{separable Killing algebra} is a pair $(D,\mc{K})$ where 
+A \bam{separable Killing algebra} or \bam{r-separability structure} is a pair $(D,\mc{K})$ where 
 \begin{itemize}
     \item $D$ is a $r$ dimensional linear space of commuting Killing vectors 
     \item $\mc{K}$ is a $D$-invariant, $(n-r)$-dimensional vector space of Killing two tensors with $m=n-r$ normal simultaneous eigenvectors orthogonal to $D$. 
