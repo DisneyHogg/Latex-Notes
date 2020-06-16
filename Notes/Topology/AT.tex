@@ -1,0 +1,516 @@
+\documentclass{article}
+
+\usepackage{../../header-colourful}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Algebraic Topology}
+\author{Linden Disney-Hogg}
+\date{June 2020}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+In every mathematical physicist's life there comes a point when they need to know some algebraic topology, and there are many great resources to learn this from. These will be my personal notes which will accumulate many resources, which I will try to reference, though I doub't I will give when each one was used. The current list is 
+\begin{itemize}
+	\item Diferential Forms in Algebraic Topology (Bott, Tu)
+	\item nlab
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Preliminaries}
+This section will contain small, relatively self-contained bits of knowledge which will be useful to know throughout. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Differential Topology}
+
+\begin{definition}
+	A map of topological spaces $f:X \to Y$ is \bam{proper} if $\forall K \subset Y$ compact, $f^{-1}(K)\subset X$ is compact. 
+\end{definition}
+
+\begin{prop}
+	The image of a proper map in a locally-compact Hausdorff space is closed
+\end{prop}
+
+\begin{definition}
+	A \bam{critical point} of a smooth map of manifolds $f:M\to N$ is $p \in M$ s.t. $(f_\ast)_p:T_pM \to T_{f(p)}N$ is not surjective. A \bam{critical value} is the image of a critical point
+\end{definition}
+
+\begin{theorem}[Sard]
+	The set of critical values of a smooth map has measure 0.
+\end{theorem}
+
+\begin{definition}
+An \bam{open cover} of a manifold is a collection of open sets $U_\alpha \subset M$ s.t. $M = \bigcup_\alpha U_\alpha$
+\end{definition}
+
+\begin{definition}
+	A \bam{good cover} of an $n$-dimensional manifold is an open cover where all finite intersections $U_{\alpha_0} \cap \dots \cap U_{\alpha_p}$ are diffeomorphic to $\mbb{R}^n$. A manifold with a good cover is said to be of \bam{finite type}. 
+\end{definition}
+
+\begin{theorem}
+	Every manifold is of finite type, and moreover if it is compact, the cover can be chosen to be finite. 
+\end{theorem}
+\begin{proof}
+	Use a cover provided by taking geodesic balls at each point. The second point follows from the definition of compact.
+\end{proof}
+
+\begin{definition}
+	A \bam{partition of unity} on a manifold $M$ is a collection of non-negative $C^\infty$ functions $\pbrace{\rho_\alpha}$ s.t. 
+	\begin{itemize}
+		\item Each $p \in M$ has a neighbourhood where $\sum \rho_\alpha$ is a finite sum
+		\item $\sum \rho_\alpha$
+	\end{itemize}
+\end{definition}
+
+\begin{definition}
+	Given a manfiold with open cover $\pbrace{U_\alpha}$, a partition of unity $\pbrace{\rho_\alpha}$ s.t $\supp(\rho_\alpha) \subset U_\alpha$ is called \bam{subordinate} to $\pbrace{U_\alpha}$. 
+\end{definition}
+
+\begin{prop}
+	Given a manfiold with open cover $\pbrace{U_\alpha}$:
+	\begin{itemize}
+		\item $\exists$ a partition of unity subordinate to it.
+		\item $\exists$ a partition of unity $\pbrace{\rho_\beta}$ s.t. each $\rho_\beta$ has compact support and $\exists \alpha \, s.t. \, \supp(\rho_\beta) \subset U_\alpha$ 
+	\end{itemize}
+\end{prop}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Category Theory}
+Here we will cover the basic category theory required to be able to provide a slightly general formalism to many of the concepts in topology. 
+
+\begin{definition}
+	A \bam{Category} $\mc{C}$ is a collection of objects $\text{Obj}\mc{C}$ s.t $\forall A,B \in  \text{Obj}\mc{C}$ (for simplicity we will often write $A,B \in \mc{C}$) there is a set of morphisms $\Hom(A,B)$ under the conditions
+	\begin{itemize}
+		\item $\forall f \in \Hom(A,B), \, g \in \Hom(B,C), \, \exists g \circ f \in \Hom(A,C)$
+		\item the composition $\circ$ is associative with identity $1_A \in \Hom(A,A)$
+	\end{itemize}
+\end{definition}
+
+\begin{example}
+	There is a category whose objects are Euclidean spaces $\pbrace{\mbb{R}^n}$, and whose morphisms are smooth maps. It is denoted $\text{CartSp}_{\text{smooth}}$
+\end{example}
+
+\begin{example}
+	The category of differential commutative-graded algebras (DGCAs) with homomorphisms for morphisms exists. Recall a graded algebra $A$ has a map $\deg : A \to \mbb{Z}$, and to be graded-commutative means 
+	\eq{
+\forall a,b \in A, \, ab = (-1)^{\deg(a) \deg(b)}ba	
+}
+The diferenial means we have a map $d:A \to A$ s.t. 
+\eq{
+d(ab) = (da)b + (-1)^{\deg(a)}a(db)
+}
+and $d$ is compatible with the grading.
+\end{example}
+
+\begin{definition}
+	A \bam{covariant functor} is a map between categories $F: \mc{C} \to \mc{D}$ in the sense that for $A \in \mc{C}, \, F(A) \in \mc{D}$, and $f \in \Hom(A,B)$ for $A,B \in \mc{C}$ gives $F(f) \in \Hom(F(A), F(B))$ obeying 
+	\begin{itemize}
+		\item $F(g \circ f) = F(g) \circ ~F(f)$ 
+		\item $F(1_A) = 1_{F(a)}$
+	\end{itemize}
+A \bam{contravariant functor} is a map $F:\mc{C} \to \mc{D}$ s.t. for $f \in \Hom(A,B), \, F(f) \in \Hom(F(B),F(A))$
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Orientation and Integration}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{de-Rham Theory}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{General Cohomology}
+We will start with some basic definitions and results, with very few proofs for now. 
+
+\begin{definition}
+	A direct sum of vector spaces $C = \oplus_{k \in \mbb{Z}} C^k$ is called a \bam{differential complex} if there are homomorphisms
+	\eq{
+		\dots \to C^{k-1} \overset{d}{\to} C^k \overset{d}{\to} C^{k+1} \to \dots	
+	}
+	s.t. $d^2=0$
+\end{definition}
+
+\begin{definition}
+	The \bam{cohomology} of $C$ is $H(C) = \oplus_{k \in \mbb{Z}} H^k(C)$ where 
+	\eq{
+		H^k(X) = \faktor{\pround{\ker d \cap C^k}}{\pround{\image d \cap C^k}}	
+	}
+\end{definition}
+
+\begin{definition}
+	A (linear) map $f:A \to B$ between two differential complexes is called a \bam{chain map} if it commutes with the differential operator, i.e. $f \circ d_A = d_B \circ f$. 	
+\end{definition}
+
+\begin{prop}
+	A short exact sequence of chain maps 
+	\eq{
+		0 \to A \overset{f}{\to} B \overset{g}{\to} C \to 0	
+	}
+	induces a long exact sequence of cohomology 
+	\begin{center}
+		\begin{tikzcd}
+			\dots \arrow[r] & H^k(A) \arrow[r,"f^\ast"]
+			& H^k(B) \arrow[r,"g^\ast"]
+			\arrow[d, phantom, ""{coordinate, name=Z}]
+			& H^k(C) \arrow[dll,
+			"d^\ast",
+			rounded corners,
+			to path={ -- ([xshift=2ex]\tikztostart.east)
+				|- (Z) [near end]\tikztonodes
+				-| ([xshift=-2ex]\tikztotarget.west)
+				-- (\tikztotarget)}] \\
+			& H^{k+1}(A) \arrow[r]
+			& \dots 
+			& 
+		\end{tikzcd}
+	\end{center}
+\end{prop}
+\begin{proof}
+	Consider the diagram obtained 
+	\begin{center}
+		\begin{tkz}
+			\phantom{}& \vdots & \vdots & \vdots &\phantom{} \\
+			0 \arrow[r] & A^{k+1} \arrow[r,"f"] \arrow[u] & B^{k+1} \arrow[r,"g"] \arrow[u] & C^{k+1} \arrow[r] \arrow[u] & 0 \\
+			0 \arrow[r] & A^{k} \arrow[r,"f"] \arrow[u,"d_A"] & B^{k} \arrow[r,"g"] \arrow[u,"d_B"] & C^{k} \arrow[r] \arrow[u,"d_C"] & 0 \\
+			\phantom{}& \vdots \arrow[u] & \vdots \arrow[u] & \vdots \arrow[u] &\phantom{}
+		\end{tkz}
+	\end{center}
+	$f$ induces a well defined map on the cohomology $f^\ast$ as $f(a+d_A\omega) = f(a) + (f \circ d_A)(\omega) = f(a) + (d_B \circ f)(\omega)$, so $[f(a)] = [f(a+d_A\omega)]$ in $H^\bullet(B)$.	Likewise for $g$. \\
+	Pick $c \in C^k$, then by surjectivity of $g$, $\exists b \in B^k, \, g(b)=c$. If $dc=0$, we can say $g(db) = dg(b) = dc=0$, so by exactness $db = f(a)$ for some $a \in A^{k+1}$. As such we define $d^\ast : H^k(C) \to H^{k+1}(A)$ by $d^\ast[c] = [a]$. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The de-Rham complex}
+\hl{I have seen a lot of de-Rham definitions in the past, so I will come back and fill this in when I have time.}
+
+
+\begin{definition}
+	The \bam{de-Rham complex} $\Omega^\bullet_{dR}$ is a differential complex where $C^k = \Omega^k_{dR}$ are the $k$-forms and $d$ is the exterior derivative. 
+\end{definition}
+
+
+\begin{remark}
+		The de-Rham complex for Euclidean spaces admits a functorial description as $\Omega^\bullet$ is the unique contravariant functor from Euclidean spaces with smooth maps to commutative differential graded algebras s.t. $\Omega^0$ is the pullback of functions. The fact that the de-Rham complex admits this functorial description tells us that pullback commutes with the exterior derivative. This definition can be extended to the category of differentiable manifolds. 
+\end{remark}
+
+\begin{remark}
+	As there a no $k$ forms on a manifold $M$ when $k > \dim M$, $H^k_{dR}(M)=0$.
+\end{remark}
+
+\begin{example}
+	The cohomology of the de-Rham complex is sometimes denoted as $H^k_{dR}$. When the context makes clear that we are consider the de-Rham cohomology we omit the dR. \\
+	Consider the point space $\ast$. Functions on $\ast$ are specified by points in $\mbb{R}$, and are all constant, so closed. There can be no cohomology higher than the dimension of the space, so we get 
+	\eq{
+H^k_{dR}(\ast) = \left\lbrace\begin{array}{cc}
+	\mbb{R} & k=0 \\ 0 & k > 0 
+\end{array}	\right.
+}
+	Closed $0$-forms on $\mbb{R}$ are again constant functions. Further, any one form $\omega = g(x)dx$ can be written as $df$ for $f(x) = \int_0^x g(u) du$ so we get 
+	\eq{
+	H^k_{dR}(\mbb{R}) = \left\lbrace\begin{array}{cc}
+		\mbb{R} & k=0 \\ 0 & k > 0 
+	\end{array}	\right.
+}
+	If $U\subset \mbb{R}$ is a union of $m$ dijoint open intervals in $\mbb{R}$ we have 
+	\eq{
+	H^k_{dR}(U) = \left\lbrace\begin{array}{cc}
+		\mbb{R}^m & k=0 \\ 0 & k > 0 
+	\end{array}	\right.
+}
+\end{example}
+
+\begin{definition}
+The \bam{de-Rham complex with compact support} is the differential complex of the k-forms with compact support, denoted $\Omega_c^\bullet(M)$. The cohomology is denotes $H_c^\bullet(M)$.
+\end{definition}
+
+\begin{prop}
+	If $M$ is compact, $H_c^k(M) = H_{dR}^k(M)$.
+\end{prop}
+
+\begin{example}
+ We can consider the same cohomologies as above to get 
+	\eq{
+H^k_c(\ast)&= \left\lbrace\begin{array}{cc}
+	\mbb{R} & k=0 \\ 0 & k > 0 
+\end{array}	\right. \\
+}
+as all functions on $\ast$ are constant. \\
+There are no constant functions on $\mbb{R}$ with compact support except for the zero map, so $H^0_c(\mbb{R})=0$. The only other non-trivial cohomolgy is $H^1_c(\mbb{R})$. Our previous construction (starting the integral at $-\infty$ which we can do as $g$ has compact support) of an $f$ s.t. $df = g(x)dx$ works iff $f$ gets compact support, and this happens where the integral $\int_{\mbb{R}} g(x) \, dx = 0$ so 
+\eq{
+H_c^1(\mbb{R}) = \faktor{\Omega^1_c(\mbb{R})}{\ker\smallint_\mbb{R}}
+}
+\end{example}
+
+\begin{remark}
+$\Omega_c^\bullet$ also admits a functorial description, but we must restrict from all smooth maps as pullbacks of functions with compact support might not have compact support. $\Omega_c^\bullet$ can be made either as 
+\begin{itemize}
+	\item a contravariant functor when maps are restricted to be proper
+	\item a covariant functor when maps are restricted to be inclusions of open sets.
+\end{itemize}	
+\end{remark}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Poicar\'e lemma}
+We will now build up a bit of theory culminating in a full understanding of de-Rham cohomology of $\mbb{R}^n$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Mayer-Vietoris}
+
+Write $M = U \cup V$ where $M$ is a manifold and $U,V \subset M$ are open. We then get the inclusions 
+\begin{tkz}
+	M & U\coprod V \arrow[l,hook] & U \cap V \arrow[l,shift left, hook, "i_U"] \arrow[l, shift right, hook, "i_V"']
+\end{tkz}
+Applying the functor $\Omega^\bullet$ to this yields
+\begin{tkz}
+	\Omega^\bullet(M) \arrow[r] & \Omega^\bullet(U) \oplus \Omega^\bullet(V) \arrow[r,shift left, "i_U^\ast"] \arrow[r, shift right, "i_V^\ast"'] & \Omega^\bullet(U \cap V) 
+\end{tkz}
+
+\begin{definition}
+	The \bam{Mayer-Vietoris sequence} is the that obtained using the difference of the above two maps, that is 
+	\eq{
+0 \to \Omega^\bullet(M) \to \Omega^\bullet(U) \oplus \Omega^\bullet(V) &\to \Omega^\bullet(U \cap V) \to 0	\\
+(\omega,\tau) &\mapsto \tau - \omega
+} 
+\end{definition}
+
+\begin{prop}
+The Mayer-Vietoris sequence is exact	
+\end{prop}
+\begin{proof}
+	\hl{do this eventually, requires partitions of unity}
+\end{proof}
+
+\begin{prop}
+	The Mayer-Vietoris sequence induces a long exact sequence of cohomology
+		\begin{center}
+		\begin{tikzcd}
+			\dots \arrow[r] & H^k(M) \arrow[r]
+			& H^k(U) \oplus H^k(V) \arrow[r]
+			\arrow[d, phantom, ""{coordinate, name=Z}]
+			& H^k(U \cap V) \arrow[dll,
+			"d^\ast",
+			rounded corners,
+			to path={ -- ([xshift=2ex]\tikztostart.east)
+				|- (Z) [near end]\tikztonodes
+				-| ([xshift=-2ex]\tikztotarget.west)
+				-- (\tikztotarget)}] \\
+			& H^{k+1}(M) \arrow[r]
+			& \dots 
+			& 
+		\end{tikzcd}
+	\end{center}
+\end{prop}
+
+Let us now see some uses of the machinery we have just developed:
+
+\begin{example}
+Consider a circle $S^1$ and cover it with two open sets (north and south, slightly overlapping). The part of the sequence we care about is 
+			\begin{center}
+		\begin{tikzcd}
+			0 \arrow[r] & H^0(S^1) \arrow[r]
+			& \mbb{R} \oplus \mbb{R} \arrow[r]
+			\arrow[d, phantom, ""{coordinate, name=Z}]
+			& \mbb{R} \oplus \mbb{R} \arrow[dll,
+			"d^\ast",
+			rounded corners,
+			to path={ -- ([xshift=2ex]\tikztostart.east)
+				|- (Z) [near end]\tikztonodes
+				-| ([xshift=-2ex]\tikztotarget.west)
+				-- (\tikztotarget)}] \\
+			& H^{1}(S^1) \arrow[r]
+			& 0 \arrow[r]  
+			& 0
+		\end{tikzcd}
+	\end{center}
+Calling the map $\mbb{R} \oplus \mbb{R} \to \mbb{R} \oplus \mbb{R}$ $\delta$, we can see under $\delta, \, (\omega,\tau) \mapsto (\omega-\tau,\omega-\tau)$. Hence $\dim \image \delta = 1 \Rightarrow \dim \ker \delta = 1$. Counting dimensions of the maps we see 
+\eq{
+H^0(S^1) \cong \mbb{R} \cong H^1(S^1)
+}
+We can extend this to calculate for any sphere. Covering $S^n$ with $U,V$ the north/south hemisphere respectively extended so they cover the equator, we get $U\cap V$ is homotopic to $S^{n-1}$, and $U,V$ are contractible. Hence in the Mayer-Vietoris we get a sequence
+			\begin{center}
+	\begin{tikzcd}
+		\dots \arrow[r] & H^k(S^n) \arrow[r]
+		& (\delta_{k0})(\mbb{R} \oplus \mbb{R}) \arrow[r]
+		\arrow[d, phantom, ""{coordinate, name=Z}]
+		& H^{k}(S^{n-1}) \arrow[dll,
+		"d^\ast",
+		rounded corners,
+		to path={ -- ([xshift=2ex]\tikztostart.east)
+			|- (Z) [near end]\tikztonodes
+			-| ([xshift=-2ex]\tikztotarget.west)
+			-- (\tikztotarget)}] \\
+		& H^{k+1}(S^n) \arrow[r]
+		& \dots  
+		& 
+	\end{tikzcd}
+\end{center}
+This means that we have for $k>0, \, H^k(S^{n-1})\cong H^{k+1}(S^{n})$ and
+			\begin{center}
+	\begin{tikzcd}
+		0 \arrow[r] & H^0(S^n) \arrow[r]
+		& \mbb{R} \oplus \mbb{R} \arrow[r]
+		\arrow[d, phantom, ""{coordinate, name=Z}]
+		& H^{0}(S^{n-1}) \arrow[dll,
+		"d^\ast",
+		rounded corners,
+		to path={ -- ([xshift=2ex]\tikztostart.east)
+			|- (Z) [near end]\tikztonodes
+			-| ([xshift=-2ex]\tikztotarget.west)
+			-- (\tikztotarget)}] \\
+		& H^{1}(S^n) \arrow[r]
+		& 0  
+		& 
+	\end{tikzcd}
+\end{center}
+We can then prove by induction that for $n \geq 1$ $H^k(S^n) = \mbb{R}$ if $k=0,n$ and 0 otherwise. 
+\end{example}
+
+\begin{prop}
+	If a manifold has a finite good cover, then its cohomology is finite dimensional.
+\end{prop}
+\begin{proof}
+	
+\end{proof}
+
+We can also build a Mayer-Vietoris sequence for the functor $\Omega_c^\bullet$ taken to be covariant when restricted to inclusions. The image of the inclusion $j:U \hookrightarrow M$ under the functor is $j_\ast : \Omega_c^\bullet(U) \to \Omega_c^\bullet(M)$ which extends a form by 0. This gives the sequence 
+\begin{tkz}
+	\Omega_c^\bullet(M) & \arrow[l,"\text{sum}"] \Omega_c^\bullet(U) \oplus \Omega_c^\bullet(V) & \arrow[l,"-j_\ast \oplus j_\ast"] \Omega_c^\bullet(U \cap V) 
+\end{tkz}
+
+\begin{prop}
+	The Mayer-Vietoris sequence with compact support
+	\begin{tkz}
+		0 & \arrow[l] \Omega_c^\bullet(M) & \arrow[l] \Omega_c^\bullet(U) \oplus \Omega_c^\bullet(V) & \arrow[l] \Omega_c^\bullet(U \cap V) & \arrow[l] 0
+	\end{tkz}
+	 is exact	
+\end{prop}
+
+\begin{remark}
+	This is in the opposite direction to our other Mayer-Vietories sequence for standard de-Rham cohomology. The difference is from the functor being covariant. 
+\end{remark}
+
+\begin{prop}
+	The Mayer-Vietoris sequence with compact support induces a long exact sequence of cohomology
+	\begin{center}
+		\begin{tikzcd}
+			\dots \arrow[r] & H_c^k(U \cap V) \arrow[r]
+			& H^k_c(U) \oplus H^k_c(V) \arrow[r]
+			\arrow[d, phantom, ""{coordinate, name=Z}]
+			& H^k_c(M) \arrow[dll,
+			"d^\ast",
+			rounded corners,
+			to path={ -- ([xshift=2ex]\tikztostart.east)
+				|- (Z) [near end]\tikztonodes
+				-| ([xshift=-2ex]\tikztotarget.west)
+				-- (\tikztotarget)}] \\
+			& H^{k+1}_c(U \cap V) \arrow[r]
+			& \dots 
+			& 
+		\end{tikzcd}
+	\end{center}
+\end{prop}
+
+\begin{example}
+	We can use this Mayer-Vietoris sequence to calculte $H_c^\bullet(S^1)$, which we can check against $H^\bullet_{dR}(S^1)$ as they must be the same. \\
+	Using the same cover as before we get the same part of the sequence 
+	\eq{
+0 \to H_c^0(S^1) \to \mbb{R} \oplus \mbb{R} \to \mbb{R} \oplus \mbb{R} \to H_c^1(S^1) \to 0	
+}
+and again the image and kernel in $\mbb{R} \oplus \mbb{R}$ are 1 dimensional. 
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Results}
+
+We will now list some useful properties of de-Rham cohomology:
+
+
+
+\begin{prop}
+	Let $M$ be a manifold and $\pbrace{U_\alpha}$ a collection of open subsets. Then 
+	\eq{
+		H_{dR}^k\pround{\coprod_\alpha U_\alpha} = \prod_\alpha H_{dR}^k(U_\alpha)	
+	}
+\end{prop}
+
+The following results will have a useful trail of logic:
+
+\begin{lemma}
+	$H_{dR}^k(M \times \mbb{R}) \cong H^k_{dR}(M)$
+\end{lemma}
+\begin{proof}
+	Take maps $\pi:M \times \mbb{R} \to M$ projection and $s:M \to M \times \mbb{R}$ the zero section. It turns out \hl{and can be proved} that $\pi^\ast, s^\ast$ are isomorphisms and inverses $H^K(M \times \mbb{R}) \leftrightarrow H^k(M)$
+\end{proof}
+
+\begin{corollary}
+	Homotopic maps induce the same cohomology map. 
+\end{corollary}
+\begin{proof}
+	$f,g : M \to N$ are homotopic if $\exists F:M \times I \to N$ restricting to $f,g$ at either end of the interval. Extend to a map $M \times \mbb{R}$, construct $f,g$ from $F$ using sections and pullback. 
+\end{proof}
+
+\begin{corollary}
+	The de-Rham cohomology is homotopy invariant. 
+\end{corollary}
+
+\begin{corollary}[Poincar\'e lemma]
+	We have 
+	\eq{
+		H_{dR}^k(\mbb{R}^n) = \left\lbrace\begin{array}{cc}
+			\mbb{R} & k=0 \\ 0 & k > 0 
+		\end{array}	\right.
+	}	
+\end{corollary}
+
+A similar result holds for compact de-Rham cohomology:
+
+\begin{lemma}
+	$H^{k+1}_c(M \times \mbb{R}) \cong H^k_c(M)$
+\end{lemma}
+
+\begin{corollary}[Poincar\'e lemma for compact support]
+	We have 
+	\eq{
+		H_{c}^k(\mbb{R}^n) = \left\lbrace\begin{array}{cc}
+			\mbb{R} & k=0,n \\ 0 & \text{otherwise} 
+		\end{array}	\right.
+	}	
+\end{corollary}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Chern Classes}
+
+We start by recalling a definition:
+
+\begin{definition}
+	A \bam{complex line bundle} is a complex vector bundle of rank 1.
+\end{definition}
+
+\begin{remark}
+	Analogously to how real vector bundles have reduction of structure group $GL(r,\mbb{R}) \to O(r)$, complex vector bundles have reduction $GL(r,\mbb{C})\to U(\mbb{C})$
+\end{remark}
+
+\begin{lemma}
+	There is a bijection between complex line bundles  and oriented rank-2 real vector bundles.
+\end{lemma}
+\begin{proof}
+	Every rank-$r$ $\mbb{C}$-vector space $E$ corresponds to a rank-$2r$ $\mbb{R}$-vector space $E_{\mbb{R}}$  by forgetting the complex structure. Then as $U(1) \cong SO(2)$ each complex line bundle in the case $r=1$ this is a bijection if we give an orientation to the real bundle, which picks out $SO(2) \subset O(2)$.
+\end{proof}
+
+\begin{definition}
+	The \bam{first Chern class} of a complex line bundle $L$ with base $M$ is the Euler class of $L_{\mbb{R}}$, that is 
+	\eq{
+c_1(L) = e(L_\mbb{R}) \in H^2(M)	
+} 
+\end{definition}
+
+\end{document}
