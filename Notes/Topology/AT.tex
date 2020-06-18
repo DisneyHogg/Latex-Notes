@@ -78,6 +78,16 @@ An \bam{open cover} of a manifold is a collection of open sets $U_\alpha \subset
 	\end{itemize}
 \end{definition}
 
+\begin{remark}
+	It can be, on occasion, useful to know at least one bump function which can be argued can be put into a partition of unity. My favourite is $f: \mbb{R} \to \mbb{R}$ given by  
+	\eq{
+f(x) = \left \lbrace \begin{array}{cc}
+	e^{\frac{-1}{1-x^2}} & \abs{x} <1 \\
+	0 & \abs{x} \geq 1
+\end{array}\right.
+}
+\end{remark}
+
 \begin{definition}
 	Given a manfiold with open cover $\pbrace{U_\alpha}$, a partition of unity $\pbrace{\rho_\alpha}$ s.t $\supp(\rho_\alpha) \subset U_\alpha$ is called \bam{subordinate} to $\pbrace{U_\alpha}$. 
 \end{definition}
@@ -167,6 +177,34 @@ If $\omega$ is an $(n-1)$-form with compact support on an oriented $n$-dimension
 }
 \end{theorem}
 
+\begin{prop}
+	Given a diffeomorphim $T: \mbb{R}^n \to \mbb{R}^n$ and $\omega\in \Omega^n(\mbb{R}^n)$ 
+	\eq{
+\int_{\mbb{R}^n} T^\ast \omega = \sign{J(T)}\int_{\mbb{R}^n} \omega	
+}
+where $J(T)$ is the determinant of the Jacobian of the transform. 
+\end{prop}
+
+\begin{remark}
+	Note the above prop makes sense, as if $T$ is invertible, then $\sign J(T)$ never changes sign as it cannot be 0. 
+\end{remark}
+
+\begin{definition}
+	A diffeomorphism for which $\sign J(T)=1$ is call \bam{orientation preserving}
+\end{definition}
+
+\begin{definition}
+	Let $M$ be a smooth manifold with atlas $\pbrace{(U_\alpha,\phi_\alpha)}$. We call the atlas \bam{oriented} if all the transition functions $g_{\alpha\beta}=\phi_\alpha \circ \phi_\beta^{-1}$ are orientation preserving. A manifold is called \bam{orientable} if it has an oriented atlas. 
+\end{definition}
+
+\begin{prop}
+	An $n$-dimensional manifold is orientable iff it has a global nowhere-vanishing $n$-form. 
+\end{prop}
+
+\begin{example}
+	$\mbb{R}^n$ is orientable as it has the global non-vanishing $n$-form $dx_1 \wedge \dots \wedge dx_n$ where $\pbrace{x_i}$ are cartesian coordinates.  
+\end{example}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Bundle Theory}
 \begin{definition}
@@ -232,9 +270,38 @@ As $g^{\ast}E$ is a bundle over a point it is necessarily trivial, and so $f^{\a
 \end{proof}
 
 \begin{example}
-	We want to work out $\Vect_k(S^1)$. Intuition might tell us that $Vect_1(S^1) = \mbb{Z}$ (number of twists of a mobius like band, where 0 is the trivial bundle) so we have a starting point. This will not turn out to be the case \\
+	We want to work out $\Vect_k(S^1)$. Intuition might tell us that $Vect_1(S^1) = \mbb{Z}$ (number of twists of a mobius like band, where 0 is the trivial bundle) so we have a starting point. This will not turn out to be the case. \\
 	To specify a isomorphism class of rank $k$-vector bundles, we can take the cover of $S^1$ with only two open sets and then an element of $\Vect_k(S^1)$ is specified by two elements $g,h \in GL(k,\mbb{R})$ up to conjugation. We can use a reduction of structure bundle to only ask about elements of $O(k)$. 
 \end{example}
+
+\begin{definition}
+	Given $S \subset M$ a $k$-dimsneionsal submanifold of an oriented $n$-dimensional manifold $M$, a \bam{tubular neighbourhood} of $S$ in $M$ is $U$ an open neighbourhood of $S$ in $M$ diffeomorphic to a rank-$(n-k)$ vector bundle over $S$. 
+\end{definition}
+
+\begin{example}
+	The 'namesake' example is when $S$ is a line in $M=\mbb{R}^3$, then we can attach an open disk to each point on $S$ so the disk is normal to $S$. The union of these disks forms a 'tube' whose centre line is $S$. 
+\end{example}
+
+\begin{definition}
+Given $S \subset M$ a submanifold, the \bam{normal bundle} of $S$ in $M$ is $N = N_{S/M}$ defined by the exact sequence 
+\eq{
+0 \to TS \to \ev{TM}{S} \to N \to 0
+}
+We may also notate the normal bundle as $T^\perp S$.
+\end{definition}
+
+\begin{example}
+	The normal bundle to the bases of a vector bundle (injected via the zero section) is the bundle itself.
+\end{example}
+
+\begin{theorem}
+	Every submanifold has a tubular neighbourhood $T$ and $T$ is diffeomorphic to the normal bundle. 
+\end{theorem}
+
+We can give every real vector bundle $E \to M$ a Riemmanian metric as follows: Let $\pbrace{U_\alpha}$ be an open cover of $M$ which trivialises $E$, on each $U_\alpha$ choose a frame of $\ev{E}{U_\alpha}$ and declare it to be orthonormal (givng a Riemannian metric $\pangle{\cdot,\cdot}_\alpha$ here) and then given a partition of unity subordinate to $U_\alpha$, take 
+\eq{
+\pangle{\cdot,\cdot} = \sum_\alpha \pangle{\cdot,\cdot}_\alpha
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -695,35 +762,7 @@ so if $n$ odd
 }
 As $n$ odd, $1+(-1)^n=0$.
 \end{proof}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The Poincar\'e Dual and Thom Isomorphism. }
-The concept can be extended to the idea of a Poincar\'e dual:
 
-\begin{definition}
-	Given $M$ an $n$-dimensional oriented manifold, and $i:S \hookrightarrow M$ a closed $k$-dimensional oriented submanifold, the \bam{(closed) Poincar\'e dual} to $S$ is $[\eta_S]\in H^{n-k}(M)$ given by 
-	\eq{
-\int_S i^\ast \omega = \int_M \omega \wedge \eta_S	
-} 
-for any $\omega \in H_c^k(M)$. 
-\end{definition}
-
-Let us unpack this definition: Given such an $\omega$, $\supp(\ev{\omega}{S}) = \supp(\omega) \cap S$ is closed and compact, and as pullback an $d$ commute we know $\int_S i^\ast \omega$ indeed exists and is well defined. Then by Poincar'e duality the map $H_c^k(M) \to \mbb{R}, \ ,\omega \mapsto \int_S i^\ast \omega$ (which is a linear functional) corresponds to a unique element of $H^{n-k}(M)$. \\
-We can define the related notion 
-\begin{definition}
-	Given $M$ an $n$-dimensional oriented manifold, and $i:S \hookrightarrow M$ a compact $k$-dimensional oriented submanifold, the \bam{(compact) Poincar\'e dual} to $S$ is $[\eta_S^\prime]\in H^{n-k}_c(M)$ given by 
-\eq{
-	\int_S i^\ast \omega = \int_M \omega \wedge \eta_S^\prime	
-} 
-for any $\omega \in H^k(M)$. 	
-\end{definition}
-
-\begin{remark}
-	As manifolds are Hausdorff, any compact submanifold is also closed. Hence a compact submanifold has both an associated closed Poincar\'e dual and an associated compact Poincar\'e dual. These are in general different and so need specifying. 
-\end{remark}
-
-\begin{example}
-	Consider $M= \mbb{R}^n$ with compact submanifold $P=\ast$. Note $H^n(\mbb{R}^n)=0$ so $[\eta_P]=[0]$. Contrastingly, $[\eta_P^\prime]$ must generate $H^n_c(\mbb{R}^n)\cong \mbb{R}$, and as closed $0$-forms are constant functions, all we require is that $\int_{\mbb{R}^n} \eta_P^\prime=1$, which can be achieved by a normalised bump function. 
-\end{example}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Cohomology of Bundles}
 
@@ -761,16 +800,20 @@ H^k(E) \cong H^k(M) \otimes \mbb{R}\pbrace{e_1, \dots, e_r} \cong H^k(M) \otimes
 \end{remark}
 
 \begin{prop}
-	Let $E \to M$ be a rank-$k$ vector bundle, where $E,M$ are orientable and of finite type. Then $H_c^p(E) \cong H^{p-k}_c(M)$. 
+	Let $E \to M$ be a rank-$k$ vector bundle, where $E,M$ are orientable and of finite type. Then $H_c^{p+k}(E) \cong H^{p}_c(M)$. 
 \end{prop}
 \begin{proof}
 	Let $\dim M = n$. Then 
 	\eq{
 H_c^p(E) &\cong \pround{H^{n+k-p}(E)}^\ast \quad \text{(Poincar\'e duality)} \\
 &\cong \pround{H^{n+k-p}(M)}^\ast \quad \text{(homotopy invariance)} \\
-&\cong H_c^{p-n}(M) \quad \text{(Poincar\'e duality)}
+&\cong H_c^{p-k}(M) \quad \text{(Poincar\'e duality)}
 }
 \end{proof}
+
+\begin{remark}
+	This result can be generalised to remove the orientability assumption on $M$, using more machinery. 
+\end{remark}
 
 In vector bundles there is an additional type of de-Rham cohomology we can look at 
 
@@ -778,11 +821,33 @@ In vector bundles there is an additional type of de-Rham cohomology we can look 
 	The \bam{de-Rham complex with compact vertical support} is the differential complex $\Omega_{cv}^\bullet$. of $k$-forms with compact support in the fibres. The associated cohomology is notated as $H^\bullet_{cv}$
 \end{definition}
 
+\begin{definition}
+We define the \bam{integration along the fibre} map for a rank-$k$ vector bundle $\pi: E \to M$ to be 
+\eq{
+\pi_\ast : \Omega_{cv}^{p+k}(E) &\to \Omega^p(M) \\
+(\pi^\ast \phi)\wedge f(x,t)dt_{i_1} \wedge \dots \wedge dt_{i_r} &\mapsto 0 \quad (r < k) \\
+(\pi^\ast \phi) \wedge f(x,t) dt_1 \wedge \dots \wedge dt_n &\mapsto \phi \int_{\mbb{R}^n} f(x,t) dt_1 \dots dt_n
+}
+where $t_i$ are coordinates on the fibre, and $\phi \in \Omega^\bullet(M)$, so $\pi^\ast \phi$ is the pullback to $E$. 
+\end{definition}
+
+\begin{prop}[Projection Formula]
+Let $\pi:E \to M$ be an oriented rank-$k$ vector bundle, $\tau \in \Omega^p(M)$ and $\omega \in \Omega^q_{cv}(E)$. Then 
+\eq{
+\pi_\ast \pround{(\pi^\ast \tau) \wedge \omega} = \tau \wedge \pi_\ast \omega
+}
+Moreover, if $p+q=\dim E$, then 
+\eq{
+\int_E (\pi^\ast \tau) \wedge \omega = \int_M \tau \wedge \pi_\ast \omega 
+}
+\end{prop}
+
 \begin{theorem}[Thom Isomorphism]
 	If $E \to M$ is an orientable rank-$k$ vector bundle with base manifold of finite type then 
 	\eq{
 	H^{p+k}_{cv}(E) \cong H^{p}(M)
 }
+where the isomorphism $H^{p+k}_{cv}(E) \to H^{p}(M)$ is $\pi_\ast$, and the isomorphism $\mc{T}:H^p(M) \to H^{p+k}_{cv}(E)$ is called the \bam{Thom isomorphism}. 
 \end{theorem}
 
 \begin{remark}
@@ -790,8 +855,157 @@ In vector bundles there is an additional type of de-Rham cohomology we can look 
 \end{remark}
 
 \begin{definition}
-	The image of the constant function $1 \in H^0(M)$ under the Thom isomorphism $\mc{T} : H^p(M) \overset{\cong}{\to} H^{p+k}_{cv}(E)$ is called the \bam{Thom class} of the oriented vector bundle $E$
+	The image of the constant function $1 \in H^0(M)$ under the Thom isomorphism $\mc{T} : H^p(M) \overset{\cong}{\to} H^{p+k}_{cv}(E)$ is called the \bam{Thom class} of the oriented vector bundle $E$. We write it as $\Phi = \Phi(E)$. 
 \end{definition}
+
+\begin{lemma}
+The Thom isomorphism is given explicitly by 
+\eq{
+\mc{T} \omega = \pi^\ast \omega \wedge \Phi
+}	
+for $\omega \in H^p(M)$.
+\end{lemma}
+\begin{proof}
+	Using the projection formula and that $\pi_\ast \Phi =1$ we get 
+	\eq{
+\pi_\ast \pround{(\pi^\ast \omega)\wedge \Phi} = \omega \wedge \pi_\ast \Phi = \omega	
+}
+\end{proof}
+
+\begin{prop}
+	The Thom class $\Phi$ of a rank-$k$ vector bundle $E$ can be uniquely characterised as the cohomology class in $H_{cv}^n(E)$ which restricts to the generator of $H_c^k(F)$ on each fibre. 
+\end{prop}
+\begin{proof}
+	Since $\pi_\ast \Phi =1$, $\ev{\Phi}{F}$ is a bump form that integrates to $1$, and any such $\Phi$ satisfies 
+	\eq{
+\pi_\ast \pround{(\pi^\ast \omega)\wedge \Phi} = \omega \wedge \pi_\ast \Phi = \omega	
+}
+\end{proof}
+
+\begin{prop}
+	If we have two oriented vector bundles $E,F \to M$ with projections $\pi_E, \pi_F$ then 
+	\eq{
+\Phi(E \oplus F) = \pi_E^\ast \Phi(E) \wedge \pi_F^\ast \Phi (F)	
+}
+\end{prop}
+\begin{proof}
+	Note 
+	\eq{
+H_c^{k+l}(\mbb{R}^k \times \mbb{R}^l) \cong H_c^k(\mbb{R}^k) \otimes H_c^l(\mbb{R}^l)	
+}
+and this isomorphism is given by the wedge products of the generators. 
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Poincar\'e Dual and Thom Isomorphism. }
+The concept of Poinar\'e duality can be extended to the idea of a Poincar\'e dual:
+
+\begin{definition}
+	Given $M$ an $n$-dimensional oriented manifold, and $i:S \hookrightarrow M$ a closed $k$-dimensional oriented submanifold, the \bam{(closed) Poincar\'e dual} to $S$ is $[\eta_S]\in H^{n-k}(M)$ given by 
+	\eq{
+		\int_S i^\ast \omega = \int_M \omega \wedge \eta_S	
+	} 
+	for any $\omega \in H_c^k(M)$. 
+\end{definition}
+
+Let us unpack this definition: Given such an $\omega$, $\supp(\ev{\omega}{S}) = \supp(\omega) \cap S$ is closed and compact, and as pullback an $d$ commute we know $\int_S i^\ast \omega$ indeed exists and is well defined. Then by Poincar'e duality the map $H_c^k(M) \to \mbb{R}, \ ,\omega \mapsto \int_S i^\ast \omega$ (which is a linear functional) corresponds to a unique element of $H^{n-k}(M)$. \\
+We can define the related notion 
+\begin{definition}
+	Given $M$ an $n$-dimensional oriented manifold, and $i:S \hookrightarrow M$ a compact $k$-dimensional oriented submanifold, the \bam{(compact) Poincar\'e dual} to $S$ is $[\eta_S^\prime]\in H^{n-k}_c(M)$ given by 
+	\eq{
+		\int_S i^\ast \omega = \int_M \omega \wedge \eta_S^\prime	
+	} 
+	for any $\omega \in H^k(M)$. 	
+\end{definition}
+
+\begin{remark}
+	As manifolds are Hausdorff, any compact submanifold is also closed. Hence a compact submanifold has both an associated closed Poincar\'e dual and an associated compact Poincar\'e dual. These are in general different and so need specifying. 
+\end{remark}
+
+\begin{example}
+	Consider $M= \mbb{R}^n$ with compact submanifold $P=\ast$. Note $H^n(\mbb{R}^n)=0$ so $[\eta_P]=[0]$. Contrastingly, $[\eta_P^\prime]$ must generate $H^n_c(\mbb{R}^n)\cong \mbb{R}$, and as closed $0$-forms are constant functions, all we require is that $\int_{\mbb{R}^n} \eta_P^\prime=1$, which can be achieved by a normalised bump function. 
+\end{example}
+
+We can now make the following link between a the Poincar\'e dual and the Thom isomorphism:
+
+\begin{prop}
+Let $M$ be an orientable $n$-dimensional manifold, and $S \subset M$ and orientable $k$-dimensional submanifold. Then 
+\eq{
+\eta_S = j_\ast \Phi(N_S)
+}
+where $j:N_S \hookrightarrow M$ is the injection so $j_\ast$ is extension of forms by 0. 
+\end{prop}
+\begin{proof}
+	Consider the diagram 
+	\eq{
+H^p(S) \overset{\mc{T}}{\to} H_{cv}^{p+n-k}(T)\overset{j_\ast}{\to} H^{p+n-k}(M)	
+}
+where $T$ is a tubular 
+\end{proof}
+
+\begin{corollary}
+	If $E\to M$ is an oriented vector bundle over an oriented bsae then 
+	\eq{
+\eta_{s_0(M)} = j_\ast \Phi(E)	
+}
+where $s_0:M\to E$ is the zero section. 
+\end{corollary}
+
+\begin{corollary}[Localisation Principle]
+	The support of $\eta_S$ for $S\subset M$ can be shrunk to any tubular neighbourhood of $S$.
+\end{corollary}
+\begin{proof}
+	Any tubular neighbourhood is diffeomorphic to the normal bundle. 
+\end{proof}
+
+\begin{prop}
+	Under Poincar\' duality, transversal intersection of oriented submanifolds corresponds to the wedge product of forms, i.e 
+	\eq{
+\eta_{R \cap S} = \eta_R \cap \eta_S	
+}
+\end{prop}
+\begin{proof}
+	If $R,S$ are oriented submanifolds that intersect transversally, then $N_{R\cap S} = N_R \oplus N_S$, and so 
+	\eq{
+\eta_{R \cap S} &= j_\ast \Phi(N_{R \cap S}) \\
+&= j_\ast \Phi\pround{N_R \oplus N_S} \\
+&= j_\ast \pround{\pi_R^\ast \Phi(N_R) \wedge \pi_S^\ast \Phi(N_S)} \\
+&= \eta_R \wedge \eta_S
+}
+\end{proof}
+
+\begin{prop}
+	If $f:N \to M$ is an orientation-preserving map of oriented manifolds, $S \subset M$ a closed oriented submanifold s.t. $f^{-1}(S)\subset N$ is closed, then
+	\eq{
+\eta_{f^{-1}(S)} = f^\ast \eta_S	
+}
+\end{prop}
+\begin{proof}
+	Suppose $\dim S = k, \, \dim M = m, \, \dim N = n$. Consider the diagram 
+	\begin{tkz}
+		H^p(S) \arrow[r,"\mc{T}"] \arrow[d,"f^\ast"'] & H_{cv}^{p+m-k}(T) \arrow[r,"j_\ast"] \arrow[d,"f^\ast"'] & H^{p+m-k}(M) \arrow[d,"f^\ast"'] \\ 
+		H^{p}(f^{-1}S ) \arrow[r,"\mc{T}"] & H_{cv}^{p+m-k}(f^{-1}T) \arrow[r,"j_\ast"] & H^{p+n-k}(N) 
+	\end{tkz}
+where $T$ is a tubular neighbourhood of $S$. This diagram commutes, and so following the image of the generator $1$ in $H^0(f^{-1}S)$ gives the result. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Angular Form and Euler Class}
+We now want to go through the proces of calculating a Thom class explicitly. We will start by constructing a generator of $H_c^n(\mbb{R}^n)$ from $H^{n-1}(S^{n-1})$ from: 
+\begin{definition}
+	Given an orientation on an $n$-dimensional manifold $M$ specified by $\omega \in \Omega^n(M)$, $\tau \in \Omega^n(M)$ is called \bam{positive} if $[\omega] = [\tau] \in H^n(M)$. 
+\end{definition} 
+We define positive orientation on $S^{n-1}$ to be compatible with the standard orientation on $\mbb{R}^n$, that is the generator $[\sigma]\in H^{n-1}(S^{n-1})$ is positive if $dr \wedge \pi^\ast \sigma$ is positive on $\mbb{R}^n\setminus\pbrace{0}$. Here, $r$ is the radial coordinate, and $\pi:\mbb{R}^n \setminus \pbrace{0} \to S^{n-1}$ is the deformation retraction onto the sphere along radius. 
+
+\begin{example}
+	If we consider $S^1$, then using $\pi:\mbb{R}^2\setminus\pbrace{0} \to S^1$ we have $\pi^\ast (d\theta) = d\theta$, and as $dx \wedge dy = rdr \wedge d\theta$. the form $d\theta$ is positive giving orientation to $S^1$.
+\end{example}
+
+\begin{definition}
+Letting $[\sigma]\in H^{n-1}(S^{n-1})$ be the positive generator, the form $\psi \in \pi^\ast \sigma$ is called the \bam{angular form} on $\mbb{R}^2 \setminus \pbrace{0}$.
+\end{definition}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Chern Classes}
