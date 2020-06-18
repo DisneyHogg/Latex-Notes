@@ -4,7 +4,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Preamble
 
-\title{Algebraic Topology}
+\title{Algebraic Topology: \\ All the results - None of the proofs }
 \author{Linden Disney-Hogg}
 \date{June 2020}
 
@@ -18,18 +18,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
-In every mathematical physicist's life there comes a point when they need to know some algebraic topology, and there are many great resources to learn this from. These will be my personal notes which will accumulate many resources, which I will try to reference, though I doub't I will give when each one was used. The current list is 
+In every mathematical physicist's life there comes a point when they need to know some algebraic topology, and there are many great resources to learn this from. These will be my personal notes which will accumulate many resources, which I will try to reference, though I doubt I will give when each one was used. The current list is 
 \begin{itemize}
-	\item Diferential Forms in Algebraic Topology (Bott, Tu)
+	\item \textit{Diferential Forms in Algebraic Topology} (Bott, Tu)
 	\item nlab
-\end{itemize}
-
+	\item \textit{Algebraic Topology} and \textit{Vector Bundles and K-Theory} (Hatcher) 
+\end{itemize} 
+I hope to come back some day and fill in all the proofs, but in the name of current expedience I will avoid this. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Preliminaries}
 This section will contain small, relatively self-contained bits of knowledge which will be useful to know throughout. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Differential Topology}
+\subsection{General Topology}
 
 \begin{definition}
 	A map of topological spaces $f:X \to Y$ is \bam{proper} if $\forall K \subset Y$ compact, $f^{-1}(K)\subset X$ is compact. 
@@ -38,6 +39,13 @@ This section will contain small, relatively self-contained bits of knowledge whi
 \begin{prop}
 	The image of a proper map in a locally-compact Hausdorff space is closed
 \end{prop}
+
+\begin{prop}
+	A compact subspace of a Hausdorff space is closed. 
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Differential Topology}
 
 \begin{definition}
 	A \bam{critical point} of a smooth map of manifolds $f:M\to N$ is $p \in M$ s.t. $(f_\ast)_p:T_pM \to T_{f(p)}N$ is not surjective. A \bam{critical value} is the image of a critical point
@@ -82,6 +90,9 @@ An \bam{open cover} of a manifold is a collection of open sets $U_\alpha \subset
 	\end{itemize}
 \end{prop}
 
+\begin{prop}
+	Every manifold is paracompact.
+\end{prop}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Category Theory}
@@ -120,8 +131,110 @@ and $d$ is compatible with the grading.
 A \bam{contravariant functor} is a map $F:\mc{C} \to \mc{D}$ s.t. for $f \in \Hom(A,B), \, F(f) \in \Hom(F(B),F(A))$
 \end{definition}
 
+\begin{definition}
+	Given objects $X,Y,Z$ and two morphisms $f:X\to Z, \, g:Y \to Z$, the \bam{pullback} of the morphisms is an object $P$ with morphisms $p_1:P \to X, \, p_2 :P \to Y$ s.t. the diagram
+\begin{tkz}
+	P \arrow[r,"p_2"] \arrow[d,"p_1"'] & Y \arrow[d,"g"] \\
+	X \arrow[r,"f"'] & Z
+\end{tkz} 
+commutes, and moreover that the pullback is universal wrt to this diagram i.e. 
+\begin{tkz}
+Q \arrow[drr,"q_2", bend left=15] \arrow[ddr,"q_1"', bend right=15] \arrow[dr, dashed, "\exists ! u"]& & \\
+	& P \arrow[r,"p_2"] \arrow[d,"p_1"'] & Y \arrow[d,"g"] \\
+& X \arrow[r,"f"'] & Z	
+\end{tkz}
+The pullback is often denoted as $P=X \times_Z Y$
+\end{definition}
+
+\begin{lemma}[Five Lemma]
+	Given a commutative diagram of abelian groups 
+\begin{tkz}
+\dots \arrow[r] & A \arrow[r] \arrow[d,"\alpha"] & B \arrow[r] \arrow[d,"\beta"] & C \arrow[r] \arrow[d,"\gamma"] & D \arrow[r] \arrow[d,"\delta"] & E \arrow[r] \arrow[d,"\eps"] & \dots \\
+\dots \arrow[r] & A^\prime \arrow[r] & B^\prime \arrow[r] & C^\prime \arrow[r] & D^\prime \arrow[r] & E^\prime \arrow[r] & \dots
+\end{tkz}
+where the rows are exact, if $\alpha, \beta, \delta, \eps$ are isomorphisms, then so is $\gamma$. 
+\end{lemma}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Orientation and Integration}
+
+We may use partitions of unity to define the integral of a top form over a manifold $M$. 
+
+\begin{theorem}[Stokes' Threom]
+If $\omega$ is an $(n-1)$-form with compact support on an oriented $n$-dimensional manifold $M$
+	\eq{
+\int_M d\omega = \int_{\del M}\omega	
+}
+\end{theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Bundle Theory}
+\begin{definition}
+	Given manifolds $M,N$, fibre bundle $E \to M$, and map $f:N \to M$, we define the \bam{pullback bundle of E by f} to be 
+	\eq{
+f^{\ast}E \equiv \pbrace{(n,e) \, | \, f(n) = \pi(e)} \subset N \times E	
+}
+the bundle with base $N$, with the natural projection onto the first component $p_1$. 
+\end{definition}
+
+\begin{lemma}
+The pullback bundle is the unique maximal subset of $N \times E$ s.t. 
+\begin{tkz}
+	f^{\ast} E \arrow[r,"p_2"] \arrow[d,"p_1"'] & E \arrow[d,"\pi"] \\
+	N \arrow[r,"f"'] & M
+\end{tkz} 
+commutes.
+\end{lemma}
+
+\begin{ex}
+	Look at how this relates to the categorical concept of a pullback. 
+\end{ex}
+
+\begin{example}
+	The pullback by the identity map is isomorphic to the bundle itself, i.e. 
+	\eq{
+	\id^{\ast} E &\leftrightarrow E \\
+	(\pi(e), e) &\leftrightarrow e
+}
+\end{example}
+
+\begin{lemma}
+Given $g:M^{\prime\prime}\to M^{\prime}, \, f:M^\prime \to M$, $(f \circ g)^{\ast}E = g^{\ast}\pround{f^{\ast}E}$.
+\end{lemma}
+
+\begin{lemma}
+	The pullback of a trivial bundle is trivial. i.e. If $E =F \times M$, then for $f:N \to M$, $f^{\ast}E = N \times F$.
+\end{lemma}
+
+\begin{remark}
+	If we let $\Vect_k(M)$ be the isomorphism classes of rank-$k$ real vector bundles, and $\Vect_k(f) = f^{\ast}$ be the pullback of vector bundles along $f$, then we get a contravariant functor from manifolds with smooth maps to pointed sets with basepoint preserving maps, where the basepoint of $\Vect_k(M)$ is the trivial bundle over $M$.
+\end{remark}
+
+\begin{prop}
+	If $f,g : M \to N$ are homotopic then $f^{\ast}E$ and $g^{\ast}E$ are isomorphic.
+\end{prop}
+\begin{remark}
+	This result holds true more generally for a  paracompact topological space $M$. As all manifolds are paracompact, this holds in our case.
+\end{remark}
+\begin{corollary}
+	A bundle with contractible base is trivial.
+\end{corollary}
+\begin{proof}
+	Suppose we have 
+	\begin{tkz}
+		M \arrow[r,"f",shift left] & \ast \arrow[l,"g",shift left]
+	\end{tkz}
+s.t. $g \circ f$ is homotopic to $\id_M$. Then 
+\eq{
+E \cong (g\circ f)^{\ast}E  = f^{\ast}\pround{g^{\ast}E}
+}
+As $g^{\ast}E$ is a bundle over a point it is necessarily trivial, and so $f^{\ast}(g^{\ast}E)$ is also.
+\end{proof}
+
+\begin{example}
+	We want to work out $\Vect_k(S^1)$. Intuition might tell us that $Vect_1(S^1) = \mbb{Z}$ (number of twists of a mobius like band, where 0 is the trivial bundle) so we have a starting point. This will not turn out to be the case \\
+	To specify a isomorphism class of rank $k$-vector bundles, we can take the cover of $S^1$ with only two open sets and then an element of $\Vect_k(S^1)$ is specified by two elements $g,h \in GL(k,\mbb{R})$ up to conjugation. We can use a reduction of structure bundle to only ask about elements of $O(k)$. 
+\end{example}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -259,8 +372,76 @@ $\Omega_c^\bullet$ also admits a functorial description, but we must restrict fr
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The Poicar\'e lemma}
-We will now build up a bit of theory culminating in a full understanding of de-Rham cohomology of $\mbb{R}^n$. 
+\subsection{The Poincar\'e lemma}
+We will now build up a bit of theory culminating in a full understanding of de-Rham cohomology of $\mbb{R}^n$. We start by considering the maps 
+\begin{tkz}
+\mbb{R}^n \times \mbb{R} \arrow[r,shift left, "\pi"] & \mbb{R}^n \arrow[l,shift left, "s"]	
+\end{tkz}
+given by $\pi(x,t) = x, \, s(x) = (x,0)$. Under the functor $\Omega^\bullet$ we get 
+\begin{tkz}
+	\Omega^\bullet(\mbb{R}^n \times \mbb{R}) \arrow[r,shift right, "s^\ast"'] & \Omega^\bullet(\mbb{R}^n) \arrow[l,shift right, "\pi^\ast"']	
+\end{tkz}
+
+\begin{prop}
+	The induced maps on cohomology
+\begin{tkz}
+	H_{dR}^k(\mbb{R}^n \times \mbb{R}) \arrow[r,shift right, "s^\ast"'] & H_{dR}^k(\mbb{R}^n) \arrow[l,shift right, "\pi^\ast"']	
+\end{tkz}	
+	 are inverse isomorphisms. 
+\end{prop}
+\begin{proof}
+	Certainly $\pi \circ s = \id_{\mbb{R}^n} \Rightarrow s^\ast \circ \pi^\ast = \id_{\Omega^\bullet(\mbb{R}^n)} \Rightarrow s^\ast \circ \pi^\ast = \id_{H_{dR}^\bullet(\mbb{R}^n)}$. It remains to show $\pi^\ast \circ s^\ast = \id$ in cohomoloy. Note that it is not the identity on the complex, as for example $(\pi^\ast \circ s^\ast)f(x,t) = f(x,0)$. However it is sufficient to show $\exists K:\Omega^k(\mbb{R}^n \times \mbb{R}) \to \Omega^{k-1}(\mbb{R}^n \times \mbb{R})$
+	\eq{
+1 - \pi^\ast \circ s^\ast = \pm(d\circ K \pm K\circ d)
+} 
+As the RHS maps closed forms to exact ones, it induces $0$ on the cohomology. \hl{finish constructing K}. 
+\end{proof}
+
+\begin{corollary}[Poincar\'e lemma]
+	We have 
+	\eq{
+		H_{dR}^k(\mbb{R}^n) = \left\lbrace\begin{array}{cc}
+			\mbb{R} & k=0 \\ 0 & k > 0 
+		\end{array}	\right.
+	}	
+\end{corollary}
+
+\begin{corollary}
+	Applying the proposition to an atlas for a manifold $M$ we get 
+	\eq{
+H_{dR}^k(M \times \mbb{R}) \cong H^k(M)	\Rightarrow H^k(M \times \mbb{R}^n) \cong H^k(M)
+}
+
+\end{corollary}
+
+\begin{corollary}
+	Homotopic maps induce the same cohomology map. 
+\end{corollary}
+\begin{comment}
+\begin{proof}
+	$f,g : M \to N$ are homotopic if $\exists F:M \times I \to N$ restricting to $f,g$ at either end of the interval. Extend to a map $M \times \mbb{R}$, construct $f,g$ from $F$ using sections and pullback. 
+\end{proof}
+\end{comment}
+
+\begin{corollary}
+	The de-Rham cohomology is homotopy invariant. 
+\end{corollary}
+
+A similar result holds for compact de-Rham cohomology, namely
+
+\begin{lemma}
+	$H^{k+1}_c(M \times \mbb{R}) \cong H^k_c(M) \Rightarrow H^{k+l}(M \times \mbb{R}^l) \cong H^k(M)$
+\end{lemma}
+
+\begin{corollary}[Poincar\'e lemma for compact support]
+	We have 
+	\eq{
+		H_{c}^k(\mbb{R}^n) = \left\lbrace\begin{array}{cc}
+			\mbb{R} & k=0,n \\ 0 & \text{otherwise} 
+		\end{array}	\right.
+	}	
+\end{corollary}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Mayer-Vietoris}
@@ -378,8 +559,31 @@ We can then prove by induction that for $n \geq 1$ $H^k(S^n) = \mbb{R}$ if $k=0,
 	If a manifold has a finite good cover, then its cohomology is finite dimensional.
 \end{prop}
 \begin{proof}
-	
+We will use proof by induction on the cardinality of the good cover, noting that if $M$ is diffeomorphic to $\mbb{R}^n$ then we have a cover given by $M$, and the result is true by the Poincar\' lemma. \\ 
+We now note from the part of the Mayer-Vietoris sequence for $U\cup V$ 
+	\eq{
+\dots \to H^{k-1}(U \cap V) \overset{d^\ast}{\to} H^k(U \cup V)	\overset{r}{\to} H^k(U) \oplus H^k(V) \to \dots
+}
+that 
+\eq{
+H^k(U \cup V) \cong \ker r \oplus \image r \cong \image d^\ast \oplus \image r
+}
+(this is just the first isomorphisms theorem and exactness). Hence, if $H^k(U), H^k(V), $ and $H^k(U \cap V)$ are f.d. then so is $H^k(U \cup V)$. \\
+Now suppose $M$ has good cover $\pbrace{U_0, \dots, U_p}$. Then $(U_0 \cup \dots \cup U_{p-1}) \cap U_p$ has a good cover 
+\eq{
+\pbrace{U_0 \cap U_p, \dots, U_{p-1} \cap U_p}
+}
+By the induction hypothesis $(U_0 \cup \dots \cup U_{p-1}) \cap U_p$ has f.d. cohomology, and so does $M$ from the Mayer-Vietoris (taking $U = U_0 \cup \dots \cup U_{p-1}, \, V = U_p$).
 \end{proof}
+
+With this results, we can define a related quantity
+
+\begin{definition}
+	On an $n$-dimensional manifold with f.d. cohomology, the \bam{Euler characterstic} of $M$ is 
+	\eq{
+\chi(M) = \sum_{k=0}^n (-1)^k \dim	H^k_{dR}(M)
+} 
+\end{definition}
 
 We can also build a Mayer-Vietoris sequence for the functor $\Omega_c^\bullet$ taken to be covariant when restricted to inclusions. The image of the inclusion $j:U \hookrightarrow M$ under the functor is $j_\ast : \Omega_c^\bullet(U) \to \Omega_c^\bullet(M)$ which extends a form by 0. This gives the sequence 
 \begin{tkz}
@@ -428,63 +632,166 @@ We can also build a Mayer-Vietoris sequence for the functor $\Omega_c^\bullet$ t
 and again the image and kernel in $\mbb{R} \oplus \mbb{R}$ are 1 dimensional. 
 \end{example}
 
+Many of our other results have compact support analogues, e.g. 
+\begin{prop}
+	If a manifold has a finite good cover, then its compact-support cohomology is finite dimensional. 
+\end{prop}
+
+We can say more about the relation between cohomology using that integration descends to cohomology, giving on oriented $n$-dimensional manifolds $M$ a pairing
+\eq{
+\int : H^k(M) \otimes H^{n-k}_c(M) &\to \mbb{R} 
+}
+given by $(\omega, \tau) \mapsto \int_M \omega \wedge \tau$
+\begin{lemma}
+	The two Mayer-Vietoris sequences may be paired to gether to form the diagram 
+	\begin{tkz}
+	 \arrow[r] & H^k(U \cup V) \arrow[r] & H^k(U) \oplus H^k(V) \arrow[r] & H^k(U \cap V) \arrow[r] & H^{k+1}(U \cup V) \arrow[r] & \phantom{\dots} \\
+		& \otimes & \otimes & \otimes & \otimes & \\
+		\phantom{\dots} & \arrow[l] H_c^{n-k}(U \cup V) \arrow[d,"\int_{U\cup V}"] & \arrow[l] H_c^{n-k}(U) \arrow[d,"\int_U + \int_V"] \oplus H^{n-k}_c(V)  & \arrow[l] H_c^{n-k}(U \cap V) \arrow[d,"\int_{U\cap V}"] & \arrow[l] H_c^{n-k-1}(U \cup V) \arrow[d,"\int_{U\cup V}"] &  \arrow[l] \\
+		& \mbb{R} & \mbb{R} & \mbb{R} & \mbb{R}& 
+	\end{tkz}
+sign-commutative in the sense that 
+\eq{
+\int_{U \cap V} \omega \wedge d_\ast \tau = \pm \int_{U \cup V} (d^\ast \omega) \wedge \tau
+}
+\end{lemma}
+
+\begin{remark}
+	The above lemma is equivalent to saying we get the sign-commutative diagram
+\begin{tkz}
+	\arrow[r] & H^k(U \cup V) \arrow[r] \arrow[d] & H^k(U) \oplus H^k(V) \arrow[r] \arrow[d] & H^k(U \cap V) \arrow[r] \arrow[d] & \phantom{\dots} \\
+	\arrow[r] & \pround{H_c^{n-k}(U \cup V)}^\ast \arrow[r] & \pround{H_c^{n-k}(U)}^\ast \oplus \pround{H_c^{n-k}( V)}^\ast \arrow[r] & \pround{H_c^{n-k}(U \cap V)}^\ast \arrow[r] & \phantom{\dots}
+\end{tkz}
+\end{remark}
+
+\begin{prop}[Poincar\'e duality]
+If $M$ is an $n$-dimensional orientable manifold and has a finite good cover, 
+\eq{
+H^k(M) \cong \pround{H^{n-k}_c(M)}^\ast
+}	
+\end{prop}
+\begin{proof}
+	Again proceed by induction on the size of the good cover, noting it is true for $\mbb{R}^n$. The above lemma used with the five lemma gives that if Poincar\'e duality holds for $U,V,U\cap V$ then it holds for $U \cup V$. 
+\end{proof}
+
+\begin{remark}
+	This result can be extended to any orientable manofolds 
+\end{remark}
+
+\begin{corollary}
+The Euler characteristic any odd-dimensional, compact, orientable manifold is 0
+\end{corollary}
+\begin{proof}
+If $M$ is compact orientable $n$-dimensional, then 
+\eq{
+\dim H^k(M) &= \dim H_c^{n-k}(M) = \dim H^{n-k}(M)
+}
+so if $n$ odd
+\eq{
+\chi(M) &= \sum_{k=0}^n (-1)^k \dim H^k(M) \\
+&= \sum_{k=0}^{\frac{n-1}{2}} (-1)^k \dim H^k(M) + \sum_{k=\frac{n+1}{2}}^n (-1)^k \dim H^{n-k}(M) \\
+&= \sum_{k=0}^{\frac{n-1}{2}} (-1)^k \dim H^k(M) + \sum_{k=\frac{n-1}{2}}^{0} (-1)^{n-k} \dim H^{k}(M) \\
+&= \psquare{1+(-1)^n}\sum_{k=0}^{\frac{n-1}{2}} (-1)^k \dim H^k(M)
+}
+As $n$ odd, $1+(-1)^n=0$.
+\end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Results}
+\subsection{The Poincar\'e Dual and Thom Isomorphism. }
+The concept can be extended to the idea of a Poincar\'e dual:
 
-We will now list some useful properties of de-Rham cohomology:
+\begin{definition}
+	Given $M$ an $n$-dimensional oriented manifold, and $i:S \hookrightarrow M$ a closed $k$-dimensional oriented submanifold, the \bam{(closed) Poincar\'e dual} to $S$ is $[\eta_S]\in H^{n-k}(M)$ given by 
+	\eq{
+\int_S i^\ast \omega = \int_M \omega \wedge \eta_S	
+} 
+for any $\omega \in H_c^k(M)$. 
+\end{definition}
 
+Let us unpack this definition: Given such an $\omega$, $\supp(\ev{\omega}{S}) = \supp(\omega) \cap S$ is closed and compact, and as pullback an $d$ commute we know $\int_S i^\ast \omega$ indeed exists and is well defined. Then by Poincar'e duality the map $H_c^k(M) \to \mbb{R}, \ ,\omega \mapsto \int_S i^\ast \omega$ (which is a linear functional) corresponds to a unique element of $H^{n-k}(M)$. \\
+We can define the related notion 
+\begin{definition}
+	Given $M$ an $n$-dimensional oriented manifold, and $i:S \hookrightarrow M$ a compact $k$-dimensional oriented submanifold, the \bam{(compact) Poincar\'e dual} to $S$ is $[\eta_S^\prime]\in H^{n-k}_c(M)$ given by 
+\eq{
+	\int_S i^\ast \omega = \int_M \omega \wedge \eta_S^\prime	
+} 
+for any $\omega \in H^k(M)$. 	
+\end{definition}
 
+\begin{remark}
+	As manifolds are Hausdorff, any compact submanifold is also closed. Hence a compact submanifold has both an associated closed Poincar\'e dual and an associated compact Poincar\'e dual. These are in general different and so need specifying. 
+\end{remark}
+
+\begin{example}
+	Consider $M= \mbb{R}^n$ with compact submanifold $P=\ast$. Note $H^n(\mbb{R}^n)=0$ so $[\eta_P]=[0]$. Contrastingly, $[\eta_P^\prime]$ must generate $H^n_c(\mbb{R}^n)\cong \mbb{R}$, and as closed $0$-forms are constant functions, all we require is that $\int_{\mbb{R}^n} \eta_P^\prime=1$, which can be achieved by a normalised bump function. 
+\end{example}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cohomology of Bundles}
 
 \begin{prop}
 	Let $M$ be a manifold and $\pbrace{U_\alpha}$ a collection of open subsets. Then 
 	\eq{
-		H_{dR}^k\pround{\coprod_\alpha U_\alpha} = \prod_\alpha H_{dR}^k(U_\alpha)	
+		H_{dR}^k\pround{\coprod_\alpha U_\alpha} &= \prod_\alpha H_{dR}^k(U_\alpha)	\\
+		H_c^k \pround{\coprod_\alpha U_\alpha} &= \bigoplus_\alpha H_c^k(U_\alpha)
 	}
 \end{prop}
 
-The following results will have a useful trail of logic:
+\begin{prop}[K\"unneth Formula]
+	$H^k(M \times F) = \oplus_{p+q=k} H^p(M) \otimes H^q(F)$
+\end{prop}
 
-\begin{lemma}
-	$H_{dR}^k(M \times \mbb{R}) \cong H^k_{dR}(M)$
-\end{lemma}
+With this result we can start to develop more specialised results for cohomology on bundles. For important definitions on bundles look at my EKC of Gauge theory notes. \\
+The K\"unneth formula has a specialisation for fibre bundles. 
+
+\begin{theorem}[Leray-Hirsch]
+Let $E\to M$ be a fibre bundle with fibre $F$. If there are global cohomology classes $e_1, \dots, e_r$ on $E$ which, restricted to each fibre, freely generate the cohomology of $F$, then $H^k(M)$ is a free module over $H^k(M)$ i.e 
+\eq{
+H^k(E) \cong H^k(M) \otimes \mbb{R}\pbrace{e_1, \dots, e_r} \cong H^k(M) \otimes H^k(F)
+} 	
+\end{theorem}
+
+\begin{prop}
+	If $E\to M$ is a vector bundle, then $	H^k(E) \cong H^k(M)$.
+\end{prop}
 \begin{proof}
-	Take maps $\pi:M \times \mbb{R} \to M$ projection and $s:M \to M \times \mbb{R}$ the zero section. It turns out \hl{and can be proved} that $\pi^\ast, s^\ast$ are isomorphisms and inverses $H^K(M \times \mbb{R}) \leftrightarrow H^k(M)$
+	Deformation retract onto the zero section of the bundle and then use homotopy invariance of cohomolgy
 \end{proof}
 
-\begin{corollary}
-	Homotopic maps induce the same cohomology map. 
-\end{corollary}
+\begin{remark}
+	\hl{how does this agree with Leray Hirsch?}
+\end{remark}
+
+\begin{prop}
+	Let $E \to M$ be a rank-$k$ vector bundle, where $E,M$ are orientable and of finite type. Then $H_c^p(E) \cong H^{p-k}_c(M)$. 
+\end{prop}
 \begin{proof}
-	$f,g : M \to N$ are homotopic if $\exists F:M \times I \to N$ restricting to $f,g$ at either end of the interval. Extend to a map $M \times \mbb{R}$, construct $f,g$ from $F$ using sections and pullback. 
+	Let $\dim M = n$. Then 
+	\eq{
+H_c^p(E) &\cong \pround{H^{n+k-p}(E)}^\ast \quad \text{(Poincar\'e duality)} \\
+&\cong \pround{H^{n+k-p}(M)}^\ast \quad \text{(homotopy invariance)} \\
+&\cong H_c^{p-n}(M) \quad \text{(Poincar\'e duality)}
+}
 \end{proof}
 
-\begin{corollary}
-	The de-Rham cohomology is homotopy invariant. 
-\end{corollary}
+In vector bundles there is an additional type of de-Rham cohomology we can look at 
 
-\begin{corollary}[Poincar\'e lemma]
-	We have 
+\begin{definition}
+	The \bam{de-Rham complex with compact vertical support} is the differential complex $\Omega_{cv}^\bullet$. of $k$-forms with compact support in the fibres. The associated cohomology is notated as $H^\bullet_{cv}$
+\end{definition}
+
+\begin{theorem}[Thom Isomorphism]
+	If $E \to M$ is an orientable rank-$k$ vector bundle with base manifold of finite type then 
 	\eq{
-		H_{dR}^k(\mbb{R}^n) = \left\lbrace\begin{array}{cc}
-			\mbb{R} & k=0 \\ 0 & k > 0 
-		\end{array}	\right.
-	}	
-\end{corollary}
+	H^{p+k}_{cv}(E) \cong H^{p}(M)
+}
+\end{theorem}
 
-A similar result holds for compact de-Rham cohomology:
+\begin{remark}
+	The theorem is actually true for arbitrary manifolds. 
+\end{remark}
 
-\begin{lemma}
-	$H^{k+1}_c(M \times \mbb{R}) \cong H^k_c(M)$
-\end{lemma}
-
-\begin{corollary}[Poincar\'e lemma for compact support]
-	We have 
-	\eq{
-		H_{c}^k(\mbb{R}^n) = \left\lbrace\begin{array}{cc}
-			\mbb{R} & k=0,n \\ 0 & \text{otherwise} 
-		\end{array}	\right.
-	}	
-\end{corollary}
+\begin{definition}
+	The image of the constant function $1 \in H^0(M)$ under the Thom isomorphism $\mc{T} : H^p(M) \overset{\cong}{\to} H^{p+k}_{cv}(E)$ is called the \bam{Thom class} of the oriented vector bundle $E$
+\end{definition}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Chern Classes}
