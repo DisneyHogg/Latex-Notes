@@ -279,7 +279,7 @@ We make now start procedurally:
 	\eq{
 	\frac{e_0 - e_1}{e_0 - e_3}\frac{e_2 - e_3}{e_2 - e_1} = \frac{4k}{(1+k)^2}
 }
-The distinctness of the $e$ means that the cross ratio is not $0,1,\infty$ and so $k \neq 0, \pm 1$.
+The distinctness of the $e$ means that the cross ratio is not $0,1,\infty$ and so $k \neq 0, \pm 1$. \hl{There is clearly a choice involved in k here, can it be shown that this choice does not matter, for example in simple cases?}
 \item Write $R(x) = R_1(x^2) + xR_2(x^2)$ and note 
 \eq{
 \int \frac{xR_2(x^2)}{\sqrt{(1-x^2)(1-k^2x^2)}} dx  = \frac{1}{2} \int \frac{R_2(x^2)}{\sqrt{(1-x^2)(1-k^2x^2)}} d(x^2)
@@ -324,7 +324,7 @@ f(z) = \frac{az+b}{cz+d}
 }
 Then if we make the substitution $t = \frac{ax+b}{cx+d}$ we have 
 \eq{
-Q(x) = \prod(x-e_i) = \frac{(1-t^2)(1-k^2t^2)}{(a-ct)^4 \prod (ce_i+d)^{-1}}
+Q(x) = \prod(x-e_i) = \frac{(1-t^2)(1-k^2t^2)}{k^2(a-ct)^4 \prod (ce_i+d)^{-1}}
 }
 and 
 \eq{
@@ -342,7 +342,7 @@ x-e_i &= \frac{(dt-b) - e_i(a-ct)}{a-ct} \\
 &= \frac{(ce_i+d)t-(ae_i+b)}{a-ct} \\
 &= \frac{t - f(e_i)}{(a-ct)(ce_i+d)^{-1}}
 }
-The first part then follows by taking the product and knowing that the $f(e_i)$ are the roots of $(1-x^2)(1-k^2x^2)$. For the second part we directly calculate. 
+The first part then follows by taking the product and knowing that the $f(e_i)$ are the roots of $(1-x^2)(1-k^2x^2)$, and mathching up the coefficient of $t^4$. For the second part we directly calculate. 
 \eq{
 dx &= \frac{d }{a-ct}(dt) +  \frac{dt-b}{(a-ct)^2}c(dt) \\
 &= \frac{ad-bc}{(a-ct)^2} \, (dt)
@@ -352,8 +352,9 @@ dx &= \frac{d }{a-ct}(dt) +  \frac{dt-b}{(a-ct)^2}c(dt) \\
 \begin{corollary}
 	We have
 	\eq{
-\int \frac{dx}{\sqrt{(x-e_0)(x-e_1)(x-e_2)(x-e_3)}}= \frac{ad-bc}{\prod \sqrt{ce_i + d}} \int \frac{dt}{\sqrt{(1-t^2)(1-k^2t^2)}}	
+\int \frac{dx}{\sqrt{(x-e_0)(x-e_1)(x-e_2)(x-e_3)}}= \pm \frac{k(ad-bc)}{\prod \sqrt{ce_i + d}} \int \frac{dt}{\sqrt{(1-t^2)(1-k^2t^2)}}	
 }
+where the $\pm$ fixes the correct choice of sign. 
 \end{corollary}
 
 \begin{lemma}
@@ -387,7 +388,7 @@ This corresponds to a value of $k=\frac{i}{2}$. We want to construct a map sendi
 \eq{
 z \mapsto \frac{z+b}{cz+d}
 }
-Imposing the conditions finds $b=d=-(1+c) = -\frac{3}{4}$. We can, without changing our answer, rescale all of these to integers to make out answer easier. For this transform we find $ad-bc=-15$. Further
+Imposing the conditions finds $b=d=-(1+c) = -\frac{3}{4}$. We can, without changing our answer, rescale all of these to integers (namely $a=4, b=-3, c=-1, d=-3$) to make the calculations easier. For this transform we find $ad-bc=-15$. Further
 \eq{
 - 0 -3&= -3 \\
 - 2 -3&= - 5 \\
@@ -400,14 +401,17 @@ giving
 }
 so after the transform 
 \eq{
-I = \frac{-15}{2}\times \frac{2}{15\sqrt{3}} \int_1^{-1} \frac{dt}{\sqrt{-(1-t^2)(1-k^2t^2)}} = \frac{2}{\sqrt{3}}K\pround{\frac{i}{2}}
+I = \frac{-15i}{4}\times \frac{2}{15\sqrt{3}} \int_1^{-1} \frac{dt}{\sqrt{-(1-t^2)(1-k^2t^2)}} = \frac{1}{\sqrt{3}}K\pround{\frac{i}{2}}
 }
-for $k=\frac{i}{2}$. \hl{plus a factor of i I have missed.} Using 
+for $k=\frac{i}{2}$. Using 
 \eq{
 K(ik) &= \frac{1}{\sqrt{1+k^2}} K\pround{\frac{k}{\sqrt{1+k^2}}} \\
 \Rightarrow K\pround{\frac{i}{2}} &= \frac{2}{\sqrt{5}} K \pround{\frac{1}{\sqrt{5}}}
 }
-\hl{answer off by a factor of 4i}
+we get 
+\eq{
+I = \int_0^2 \frac{1}{\sqrt{(2x-x^2)(4x^2+9)}} dx = \frac{2}{\sqrt{15}}K\pround{\frac{1}{\sqrt{5}}}
+}
 \end{example}
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
