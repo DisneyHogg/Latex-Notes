@@ -1,0 +1,323 @@
+\documentclass{article}
+\usepackage{../../header}
+
+\title{Jordan Normal Form}
+\author{Linden Disney-Hogg}
+\date{June 2020}
+
+\begin{document}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+The purpose of this document is to ask about the density of the Jordan normal form of matrices in the space of matrices. This is motivated by the following result:
+\begin{theorem}
+	The subset of diagonalisable matrices is dense in $M_n(\mbb{C})$. 
+\end{theorem}
+Before proving this, we note that I have not told you what topology to take on $M_n(\mbb{C})$. We take the metric topology induced by having a norm $\norm{\cdot}$. That this is well defined requires a bit of theory\footnote{I will assume that you know what a norm is, what the $l_p$-norm is, and what the triangle inequality is. }
+
+\begin{definition}
+	Let $V$ be a real or complex vector space. Two norms $\norm{\cdot}_a, \norm{\cdot}_b$ are \bam{equivalent} if $\exists C_1, C_2 \in \mbb{R}_{>0}$ s.t. 
+	\eq{
+\forall v \in V, \, \left\lbrace \begin{array}{c} \norm{v}_a \leq C_1 \norm{v}_b \\ \norm{v}_b \leq C_2 \norm{v}_a \end{array} \right.	
+} 
+\end{definition}
+
+\begin{lemma}
+	Equivalence of norms is an equivalence relation. 
+\end{lemma}
+
+\begin{lemma}
+	Let $V$ be a f.d. vector space. Any norm is continuous with respect to the $l_1$-norm
+\end{lemma}
+\begin{proof}
+Taking a basis $\pbrace{e_i}_{i=1}^n$. We can calculate
+	\eq{
+\forall v \in V, \, \norm{v} &= \norm{v_1 e_1 + \dots +v_n e_n} \\
+&\leq \norm{e_1}\abs{v_1} +\dots +\norm{e_n}\abs{v_n} \\
+& \leq C \norm{v}_1  \text{ where } C= \max \norm{e_i} \\
+\Rightarrow \abs{\norm{v} - \norm{w}} &\leq \norm{v-w} \leq C \norm{v-w}_1
+}
+\end{proof}
+
+This has the corollary
+
+\begin{theorem}
+	If $V$ is a real or complex finite-dimensional vector space, then any two norms on $V$ are equivalent 
+\end{theorem}
+\begin{proof}
+It is sufficient to show that any norm is equivalent to $l_1$. Consider $S_1 = \pbrace{v \in V \, | \, \norm{v}_1=1}\subset V$ and the image of the norm $\norm{\cdot}$ acting on $S_1$. As $S_1$ is compact and $\norm{\cdot}$ is continuous we must have that the image is comapct in $\mbb{R}$, so has a maximmum and minimun obtained $C_1, C_2$. Hence 
+\eq{
+\forall v \in V, \, C_2 \leq \norm{\frac{v}{\norm{v}_1}} &\leq C_1 \\
+\Rightarrow C_2 \norm{v}_1 \leq \norm{v} &\leq C_1 \norm{v}_1
+} 
+and so we are done. 
+\end{proof}
+Now we can get to the proof of the theorem we care about
+\begin{proof}[Proof of Theorem 1.1]
+	The theorem is trivial is $n=1$ so we assume $n\geq 2$. \\
+	Let us call $X$ the subset of diagonalisable matrices. Note we have $Y\subset X$ where $Y$ is the set of matrices with distinct eigenvalues. It will suffice to show $Y \subset M_n(\mbb{C})$ is dense. \\
+	We now construct the map 
+	\eq{
+		p:M_n(\mbb{C}) &\to P_n, \\ A &\mapsto p_A
+	} from matrices into polynomials of degree $n$ where $p_A$ is the characteristic polynomial defined by 
+	\eq{
+p_A(t) = \det (tI-A)	
+}
+This map is continuous (viewing $P_n$ inside the vector space of polynomials of degree $\leq  n$, and inheriting the metric). We also have the continuous map $\Delta : P_n \to \mbb{R}$ given by the discriminant. Moreover, the composed map $\Delta \circ p : M_n(\mbb{C})\to \mbb{R}$ is a non-constant polynomial in the components, and so cannot be locally constant. Recall that the discriminant of a polynomial is 0 iff it has a repeated root, and a repeated root in a characteristic polynomials corresponds to a an eigenvalue with algebraic multiplicity $>1$ of the original matrix. Hence we have 
+\eq{
+\forall A \in M_n(\mbb{C}) \setminus Y, \,  (\Delta \circ p)(A) = 0 
+}
+and if $U\ni A$ is an open neighbourhood 
+\eq{
+	\exists d \in (\Delta \circ p)(U), \, d \neq 0
+}
+We thus know any neighbourhood of $A$ intersects $Y$ non-trivially, and so $Y$ is dense. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Jordan normal form}
+We now want to see if we can extend this idea to ask about when we know an eigenvalue has algebraic multiplicity $\geq 1$, whether there is a subset of these matrices that is dense in the matrices with a given multiplicity. 
+
+\begin{theorem}
+ The Jordan normal form of a matrix exists and is unique up to reordering of jordan blocks. 
+\end{theorem}
+We can define an equivalence relation on Jordan form matrices if they are the same up to a reordering of block.
+We can then fix notation to let $J:M_n(\mbb{C}) \to M_n(\mbb{C})$ be the map that sends a matrix to it's Jordan normal form equivalence class. That such a map exists and is well defined is a result of the above theorem. We can then biject between the image of $J$ and the cosets of $M_n(\mbb{C})$ quotiented by $GL_n(\mbb{C})$ acting by conjugation. \\
+We will also fix notation as such: 
+\begin{definition}
+The \bam{Jordan block of size m} for $m \geq 2$ is the $m \times m$ matrix given by  
+\eq{
+J_m(\lambda) = \lambda I_{m \times m} + E_{12} + \dots + E_{m-1,m} 
+}
+where $E_{ij}$ is the standard basis of $M_m(\mbb{R})$
+\end{definition}
+A definition we will also want that will be useful is 
+\begin{definition}
+	The \bam{centraliser} of a matrix $A \in M_n(\mbb{C})$ is 
+	\eq{
+C(A) = \pbrace{B \in M_n(\mbb{C}) \, | \, \comm[A]{B}=0}	
+}
+\end{definition}
+
+\begin{lemma}
+	$B \in C(A)\cap GL_n(\mbb{C}) \Leftrightarrow B^{-1}AB = A$
+\end{lemma}
+
+\begin{lemma}
+	$C(A) \cap GL_n(\mbb{C}) \leq GL_n(\mbb{C})$
+\end{lemma}
+
+I will often consider the restriction of the centraliser to the invertible elements, as this will be important from here on in with regards to Jordan normal form.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\secmath{n=2}}
+Let us start with an easy question we can make traction on, the case of $2 \times 2$ matrices. We can split the Jordan normal form of such matrices into three groups 
+\begin{center}
+	$
+	\begin{array}{ccc}
+		A & p_A & m_A \\
+		\hline \hline 
+	 	\begin{psmallmatrix} \lambda & 0 \\ 0 & \lambda \end{psmallmatrix} & (t-\lambda)^2 & (t-\lambda) \\
+	 			\begin{psmallmatrix} \lambda & 1 \\ 0 & \lambda \end{psmallmatrix} & (t-\lambda)^2 & (t-\lambda)^2 \\
+	 					\begin{psmallmatrix} \lambda & 0 \\ 0 & \mu \end{psmallmatrix} & (t-\lambda)(t-\mu) & (t-\lambda)(t-\mu)
+	\end{array}
+	$
+\end{center}
+Here we have also shown the characteristic polynomial $p_A$ and the minimal polynomial $m_A$. We see what we know to be true, that the characteristic polynomial is not sufficient to distinguish between all cases of Jordan normal form
+
+\begin{remark}
+In the $2 \times 2$ case the minimal polynomial along is sufficient to characterise, that is there is a bijection between $m_A \leftrightarrow J(A)$. In the $3 \times 3$ case there is a bijection $(m_A,p_A) \leftrightarrow J(A)$. In higher cases you need more information that the minimal and characteristic polynomial. 
+\end{remark}
+
+In this case we see that, if we fix the diagonal to be $\lambda, \lambda$, then there is only one matrix with the Jordan normal form $\begin{psmallmatrix} \lambda & 0 \\ 0 & \lambda \end{psmallmatrix}$ (namely $\begin{psmallmatrix} \lambda & 0 \\ 0 & \lambda \end{psmallmatrix}$ itself, as it is invariant under conjugation). Contrastingly, the only matrices which preserve $\begin{psmallmatrix} \lambda & 1 \\ 0 & \lambda \end{psmallmatrix}$ under conjugation are those that commute with it. Let's calculate these conditions:
+\eq{
+\begin{pmatrix} a & b \\ c & d \end{pmatrix} \begin{pmatrix} \lambda & 1 \\ 0 & \lambda \end{pmatrix}&= \begin{pmatrix} \lambda & 1 \\ 0 & \lambda \end{pmatrix}\begin{pmatrix} a & b \\ c & d \end{pmatrix} \\
+\Rightarrow \begin{pmatrix} \lambda a & a+\lambda b \\ \lambda c  & c+\lambda d \end{pmatrix}&= \begin{pmatrix} c+ \lambda a & d + \lambda b \\ \lambda c & \lambda d \end{pmatrix} \\
+\Rightarrow c &= 0, \, d = a
+}
+The condition that the matrix $\begin{psmallmatrix} a & b \\ c & d \end{psmallmatrix}$ is invertible then gives 
+\eq{
+C\pround{\begin{psmallmatrix} \lambda & 1 \\ 0 & \lambda \end{psmallmatrix}} = \pbrace{\begin{psmallmatrix} a & b \\ 0 & a \end{psmallmatrix} \, | \, a,b \in \mbb{C}, \, a \neq 0}
+}
+Note here that the centraliser of the Jordan block is independent of the value on the diagonal. This is in fact general
+
+\begin{prop}
+	$C(J_m(\lambda)) = C(J_m(0))$
+\end{prop}
+In order to think about matrices with a fixed set of eigenvalues, we need to understand isospectral deformations. 
+
+
+
+
+
+
+
+
+\section{What Harry Says}
+
+
+
+\subsubsection{Some Linear Algebra}
+
+Its useful to gather some properties of commutators of matrices in Jordan form. Let
+$\tilde L=\diag(J_{\mu_1}(\lambda_1),\ldots, J_{\mu_t}(\lambda_t) )$ be written in Jordan form. Here
+$J_{\mu_i}(\lambda_1)$ is a $\mu_i\times\mu_i$ Jordan block with diagonal $\lambda_i$ and $1$'s just 
+above the diagonal and we are not assuming the $\lambda_i$ distinct. In considering the matrix
+$[{\tilde L},{\tilde M}]$ we will write $\tilde M$ as $\mu_i\times \mu_j$ blocks and denote by $M'$ the $i$-th diagonal block of $\tilde M$. We wish to solve
+\begin{align}
+[{\tilde L},{\tilde M}]&=0.
+\end{align}
+First, we
+see for the $i$-th diagonal block $[J_{\mu_1}(\lambda_1),M']=0$. Solving this we see $M'$ is upper triangular with constant value along the $M'_{i,i+k}$ diagonals ($k=0,\dots,n-1$); for example with $\mu_i=3$,
+$$M'=\begin{pmatrix}x&y&z\\ 0&x&y\\ 0&0&x \end{pmatrix}.$$
+For the off-diagonal blocks of $\tilde M$ consider $J_{\mu_i}(\lambda_i)B-
+B J_{\mu_j}(\lambda_j)=0$, where $B$ is a $\mu_i\times \mu_j$ matrix. There are two cases.
+If $\lambda_i\ne \lambda_j$ then starting with the $\mu_i$-th row and $1$-st column we find
+$B_{\mu_i1}(\lambda_i- \lambda_j)=0$ and so $B_{\mu_i1}=0$; recursively substituting we find
+$B=0$. If $\lambda_i= \lambda_j$ we get a block of forms
+$$\begin{pmatrix}0&0&x&y&z\\ 0&0&0&x&y\\ 0&0&0&0&x \end{pmatrix},\quad
+\begin{pmatrix}x&y&z\\ 0&x&y\\ 0&0&x\\ 0&0&0\\  0&0&0\end{pmatrix},
+$$
+depending on whether $\mu_i<\mu_j$ or $\mu_j<\mu_i$ respectively. 
+In either case we find this space has dimension $\min(\mu_i,\mu_j)$.
+Note that when we have the
+$m$ Jordan blocks of size $1$ associated with the same eigenvalue these combine to give a $m\times m$ matrix.
+
+\noindent{\textbf {Example}:}
+
+
+$$
+\begin{pmatrix} \lambda&0&0&0&0&0&0&0&0
+\\ \noalign{\medskip}0&\lambda&0&0&0&0&0&0&0\\ \noalign{\medskip}0&0&\lambda&1&0&0
+&0&0&0\\ \noalign{\medskip}0&0&0&\lambda&1&0&0&0&0\\ \noalign{\medskip}0&0&0
+&0&\lambda&0&0&0&0\\ \noalign{\medskip}0&0&0&0&0&\lambda&1&0&0
+\\ \noalign{\medskip}0&0&0&0&0&0&\lambda&1&0\\ \noalign{\medskip}0&0&0&0&0&0
+&0&\lambda&1\\ \noalign{\medskip}0&0&0&0&0&0&0&0&\lambda
+\end{pmatrix},
+\qquad
+\begin{pmatrix}m_{{1,1}}&m_{{1,2}}&0&0&a&0&0&0&e
+\\ \noalign{\medskip}m_{{2,1}}&m_{{2,2}}&0&0&b&0&0&0&f
+\\ \noalign{\medskip}c&d&x_{{1}}&x_{{2}}&x_{{3}}&0&\alpha&\beta&\gamma
+\\ \noalign{\medskip}0&0&0&x_{{1}}&x_{{2}}&0&0&\alpha&\beta
+\\ \noalign{\medskip}0&0&0&0&x_{{1}}&0&0&0&\alpha\\ \noalign{\medskip}
+g&h&\rho&\sigma&\tau&y_{{1}}&y_{{2}}&y_{{3}}&y_{{4}}
+\\ \noalign{\medskip}0&0&0&\rho&\sigma&0&y_{{1}}&y_{{2}}&y_{{3}}
+\\ \noalign{\medskip}0&0&0&0&\rho&0&0&y_{{1}}&y_{{2}}
+\\ \noalign{\medskip}0&0&0&0&0&0&0&0&y_{{1}}
+\end{pmatrix}.
+$$
+
+First recall that a matrix $A$ is similar to the matrix $J$ if and only if there exists an invertible
+matrix $T$ such that $A=T J T\sp{-1}$. Then if $A=T J T\sp{-1}=T_1 J T_1\sp{-1}$ we have
+$S:=T_1\sp{-1} T$ satisfies $S J=JS$, giving
+\begin{lemma} If $A=T J T\sp{-1}$ then $A=T_1 J T_1\sp{-1}$ if and only if $S:=T_1\sp{-1} T$ and
+	\begin{equation}
+	S J=JS.
+	\end{equation}
+	Further,
+	\begin{equation}
+	\dim\{A\,|\, A=T J T\sp{-1}\}=\dim\{T\,|\, TT\sp{-1}=1\}-
+	\dim\{S\,|\, SS\sp{-1}=1,\ SJ=JS\}.
+	\end{equation}
+\end{lemma}
+This may be used 
+to calculate the dimensions of various standard classes of matrices.
+
+Let us work over $\mathbb{C}$ for simplicity. Here the dimension of the space of invertible matrices is
+$n^2=\dim\{T\,|\, T\in M_n(\mathbb{C}),\ TT\sp{-1}=1\}$ and the dimension of the set of matrices with distinct eigenvalues of  specified multiplicities  $\mu_i$ ($i=1,\ldots,t$) has dimension $t$.
+
+\begin{lemma} The set of diagonalizable matrices in $M_n(\mathbb{C})$ with (specified) distinct eigenvalues
+	$(\lambda_1,\ldots,\lambda_t)$ of multiplicities $\mu_i$ ($i=1,\ldots,t$) has (complex) dimension
+	$$n^2 - \sum_{i=1}\sp{t} \mu_i^2.$$
+	The dimension of the set of matrices with distinct eigenvalues of  specified multiplicities 
+	$\mu_i$ ($i=1,\ldots,t$) has (complex) dimension
+	$$n^2 - \sum_{i=1}\sp{t}( \mu_i^2-1).$$
+\end{lemma}
+
+We have seen when discussing matrices that commute with a matrices in Jordan form that if
+$B$ is a $\mu_i\times \mu_j$ matrix such that $J_{\mu_i}(\lambda_i)B-
+B J_{\mu_j}(\lambda_j)=0$, then $B=0$ if $\lambda_i\ne \lambda_j$. Thus when counting
+the dimension of matrices commuting with a matrix in  Jordan form  we can restrict attention to those matrices with a common eigenvalue, and then sum over the distinct eigenvalues. Let
+$$J=\diag(J_{\mu_1}(\lambda),\ldots, J_{\mu_k}(\lambda) ),\quad \mu_1\ge\mu_2\ge\ldots\ge \mu_k,
+$$ 
+have $k$ Jordan blocks with common eigenvalue $\lambda$. Then we have
+$$\dim\{S\,|\, SS\sp{-1}=1,\ SJ=JS\}= \sum_{i,j=1}\sp{k} \min(\mu_i,\mu_j)
+= \sum_{j=1}\sp{k} (2j-1)\mu_j.
+$$
+Now suppose that a matrix has Jordan form $J$ with $p$ distinct eigenvalues $\lambda_a$ of
+multiplicities $n_a$ ($a=1,\ldots,p$) each of which is formed of formed from $N_a$ blocks of size
+$\mu_{aj}$,
+\begin{equation}\label{jformdim}
+J=\diag(J_{\mu_{a1}}(\lambda_a),\ldots, J_{\mu_{aN_a}}(\lambda_a) ),\quad
+\mu_{a1}\ge\mu_{a2}\ge\ldots\ge \mu_{aN_a}, \quad
+\sum_{i=1}\sp{N_a}  \mu_{ai}=n_a.
+\end{equation}
+Set $N\sp\ast=\max_a n_a$ and $\mu_{al}=0$ for  $l>N_a$. Then
+$$\dim\{S\,|\, SS\sp{-1}=1,\ SJ=JS\} 
+=\sum_{a=1}\sp{p} \sum_{j=1}\sp{N_a} (2j-1)\mu_{aj}
+= \sum_{j=1}\sp{N\sp\ast} (2j-1)\sum_{a=1}\sp{p}\mu_{aj}
+$$
+\begin{lemma} The set of complex $n\times n$ matrices $A$ with Jordan form (\ref{jformdim}) and prescribed (distinct) eigenvalues $\lambda_a$ is
+	\begin{align}
+	\dim \{A\,|\, p, \lambda_a N_a,\mu_{aj}\}= n^2- \sum_{a=1}\sp{p} \sum_{j=1}\sp{N_a} (2j-1)\mu_{aj}
+	= n^2- \sum_{j=1}\sp{N\sp\ast} (2j-1)\sum_{a=1}\sp{p}\mu_{aj}.
+	\intertext{The complex dimension of matrices $A$ with these properties and any 
+		(distinct) eigenvalues $\lambda_a$ is}
+	\dim \{A\,|\, p,N_a,\mu_{aj} \}= n^2- \sum_{a=1}\sp{p} \sum_{j=1}\sp{N_a} (2j-1)\mu_{aj}+p
+	= n^2- \sum_{j=1}\sp{N\sp\ast} (2j-1)\sum_{a=1}\sp{p}\mu_{aj}+p.
+	\end{align}
+\end{lemma}
+
+\begin{enumerate}[(a)]
+	\item When all the eigenvalues of $A$ are simple and distinct then $p=n$, $n_a=N_a=\mu_{1j}=1$,
+	$$\dim \{A\,|\, p=n,\   n_1=N_1=1,\  \mu_{11}=1   \}= n^2,$$
+	
+	\item When  $A$  has one Jordan block with $n$-fold eigenvalue
+	then $p=1$, $n_1=n$, $N_1=1$, $\mu_{11}=n$,
+	$$\dim \{A\,|\, p=1,\   n_1=n,\ N_1=1,\  \mu_{11}=n    \}= n^2-n+1,$$
+	
+	\item When  $A$  has one Jordan block with $n$-fold eigenvalue and $n$ blocks
+	then $p=1$, $n_1=n$, $N_1=n$, $\mu_{11}=1$,
+	$$\dim \{A\,|\, p=1,\   n_1=n,\ N_1=1,\  \mu_{11}=1    \}= 1.$$
+	
+	\item When  $A$  has $n-1$ distinct eigenvalues and one nontrivial Jordan block with $2$-fold eigenvalue
+	then $p=n-1$, $n_1=2$, $N_1=1$, $\mu_{11}=2$,  $1=n_j=N_j=\mu_{j1}$ ($j>1$),
+	$$\dim \{A\,|\, p=n-1,\ n_1=2,\ N_1=1,\ \mu_{11}=2,\ 1=n_j=N_j=\mu_{j1}\ (j>1)   \}= n^2-1,$$
+	
+	\item When  $A$  is diagonalizable with $n-1$ distinct eigenvalues $p=n-1$, $n_1=2$, $N_1=2$, $\mu_{11}=\mu_{12}=1$,  $1=n_j=N_j=\mu_{j1}$ ($j>1$),
+	$$\dim \{A\,|\, p=n-1,\ n_1=2,\ N_1=2,\ \mu_{11}=\mu_{12}=1,\ 1=n_j=N_j =\mu_{j1}\ (j>1)   \}= n^2-3.$$
+	
+\end{enumerate}
+
+We see that when two eigenvalues coincide that the generic situation is for a Jordan block of codimension $1$; the diagonalizable case is of codimension $3$.
+
+\noindent{\textbf {Example}:}
+Consider the matrix 
+$$\begin{pmatrix}0&1-\epsilon^2\\ -b^2 &2b\end{pmatrix}=\Lambda.
+\begin{pmatrix}b+\epsilon b&0\\ 0&b-\epsilon b \end{pmatrix}\Lambda\sp{-1},\quad
+\Lambda=\begin{pmatrix}1-\epsilon&1+\epsilon\\  b&b\end{pmatrix}.
+$$
+As $\epsilon\rightarrow0$ this has Jordan form
+$$\begin{pmatrix}b&1\\0&b\end{pmatrix}.$$
+
+\noindent{\textbf {Example}:}
+For $3\times3$ matrices we have for distinct $\lambda_i$ that 
+\begin{enumerate}[(i)]
+	\item $\dim\diag(\lambda_1,\lambda_2,\lambda_3)=9$,
+	\item $\dim\diag( J_2(\lambda_1), \lambda_2)=8$, 
+	\item $\dim\diag( J_3(\lambda_1))=7$,
+	\item $\dim\diag(\lambda_1,\lambda_1,\lambda_2)=6$,
+	\item $\dim\diag(\lambda_1,\lambda_1,\lambda_1)=1$.
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{../../bib/custom-bib-style}
+\bibliography{../../bib/library,../../bib/manual}
+
+\end{document}

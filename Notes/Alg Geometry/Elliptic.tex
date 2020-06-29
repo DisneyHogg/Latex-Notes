@@ -25,6 +25,7 @@ Elliptic integrals are hard to solve and make little sense. Fortunately, algebra
 	\item often wikipedia
 	\item nlab
 	\item \textit{Algebraic Curves and Riemann Surfaces} (Miranda)
+	\item \textit{Arithmetic of Elliptic Curves} (Silverman)
 \end{itemize}
 These books may use different conventions, but I will keep mine uniform (\hl{unless I make an error, in which case please do let me know}). 
 
@@ -35,6 +36,15 @@ We should hopefully not need too many preliminaries in these notes, but those th
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Algebraic Geometry}
+
+I will fix some notation with a definition:
+
+\begin{definition}
+	Denote the \bam{Upper Half Plane (UHP)} in $\mbb{C}$ as 
+	\eq{
+H = \pbrace{z \in \mbb{C} \, | \, \Im z > 0}	
+}
+\end{definition}
 
 Recall that for any distinct $z_1, z_2, z_3 \in \mbb{C}$ we have a Mobius transform that sends them to $0,1,\infty$ given by 
 \eq{
@@ -136,6 +146,12 @@ and all these zeros are simple.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Jacobi Elliptic Functions}
 
+\begin{definition}
+	The \bam{sinus amplitudinus} function is $sn:\mbb{C} \to \mbb{C}$ given by 
+	\eq{
+	x = \int_0^{sn(x,k)} \frac{dy}{\sqrt{(1-y^2)(1-k^2 y^2)}}
+}
+\end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -159,31 +175,53 @@ Let us start by stating our assumptions of this section, namely:
 We make the following definition:
 
 \begin{definition}
-	\bam{Jacobi's incomplete elliptic integral of the first kind} is the map $\mbb{H}\to \mbb{C}$
+	\bam{Jacobi's incomplete elliptic integral of the first kind} is the map $H\to \mbb{C}$
 	\eq{
 x \mapsto \int_0^x \frac{1}{\sqrt{(1-t^2)(1-k^2t^2)}} dt	
 }
 where the integrand is taken to be real and positive for $t \in (-1,1)$, and at the branch points $\pm 1, \pm \frac{1}{k}$ the contour should take an infinitesimal circle above the point (i.e remaining in the UHP). 
 \end{definition}
 
-
-
 \begin{definition}
 	The \bam{complete elliptic integral of the first kind } is 
-\eq{
-	K = K(k) = \int_0^1 \frac{1}{\sqrt{(1-t^2)(1-k^2t^2)}} \in \mbb{R}
-}
-and the \bam{complementary integral of the first kind } is 
-\eq{
-K^\prime = K^\prime(k) = \int_1^\frac{1}{k} \frac{1}{\sqrt{(t^2-1)(1-k^2t^2)}} \in \mbb{R}
-}
+	\eq{
+		K = K(k) = \int_0^1 \frac{dt}{\sqrt{(1-t^2)(1-k^2t^2)}} \in \mbb{R}
+	}
+	and the \bam{complementary integral of the first kind } is 
+	\eq{
+		K^\prime = K^\prime(k) = \int_1^\frac{1}{k} \frac{dt}{\sqrt{(t^2-1)(1-k^2t^2)}} \in \mbb{R}
+	}
 \end{definition}
 
 \begin{prop}
-	$K(-k) = K(k)$ and $K(ik) = \frac{1}{\sqrt{1+k^2}}K\pround{\frac{k}{\sqrt{1+k^2}}}$
+	We have the following results about $K(k)$:
+	\begin{enumerate}
+		\item $K(-k) = K(k)$
+		\item $\lim_{k \to 0^+} K(k) = \frac{\pi}{2}$
+		\item $K(ik) = \frac{1}{\sqrt{1+k^2}}K\pround{\frac{k}{\sqrt{1+k^2}}}$
+		\item $K(i) = \frac{1}{4}B\pround{\frac{1}{4},\frac{1}{2}}$ ($B$ the beta function)
+		\item $K^\prime(k) = K(k^\prime)$ where $k^\prime = \sqrt{1-k^2}$
+		\item $K(k) = (1+k_1) K(k_1)$ for $k_1 = \frac{1-k^\prime}{1+k^\prime}$
+		\item $K(k) = \frac{\pi}{2} \prod_{n=1}^\infty (1+k_n)$ for $k_{n+1} = \frac{1-k_n^\prime}{1+k_n^\prime}$
+		\item 	$K(k)  = \frac{1}{1+k} K \pround{\frac{2\sqrt{k}}{1+k}}$ (Landen's Transformation)
+	\end{enumerate}
 \end{prop}
+\begin{proof}
+	We will complete the proof in parts:
+\begin{enumerate}
+	\item Trivial 
+	\item say something about convergence, and then $\int_0^1 \frac{dt}{\sqrt{1-t^2}} = \frac{\pi}{2}$ is a trig integral. 
+	\item  consider the transform $	t \mapsto \frac{t}{\sqrt{1+k^3(1-t^2)}}$
+	\item $K(i) = \int_0^1 \frac{dt}{\sqrt{1-t^4}} = \frac{1}{4} \int_0^1 t^{-\frac{3}{4}}(1-t)^{-\frac{1}{2}} \, dt$ making the substitution $t\mapsto t^\frac{1}{4}$.
+	\item do the calculation
+	\item do the calculation
+	\item Iterate, observe $k_{n+1} < k_n$ (one can show $k_{n+1}<k_n^2$), and argue about convergence. 
+	\item (Legendre 1811) Using the substitution $t \mapsto \frac{(1+k^\prime)x\sqrt{1-t^2}}{1-k^2 t^2}$ find $K(k_1) = \frac{1+k^\prime}{2}K(k)$ and the use Landen's transform.  
+\end{enumerate}
+\end{proof}
 
-These definitions make sense for the following result:
+
+These definitions of the complete integral make sense for the following result:
 
 \begin{prop}
 	The incomplete elliptic integral of the first kind has the following straight line segements for ranges:
@@ -198,23 +236,38 @@ These definitions make sense for the following result:
 	The image of the UHP under the elliptic integral of the first kind is the interior of the rectangle with corners $\pbrace{K,-K,K+iK^\prime, -K+iK^\prime}$, with the boundary of the rectangle being the image of the boundary of the UHP.
 \end{corollary}
 
-\begin{prop}
-	$K^\prime(k) = K(k^\prime)$ where $k^\prime = \sqrt{1-k^2}$
-\end{prop}
-
-
-
 \begin{definition}
-	The \bam{incomplete elliptic integral of the second kind} is \eq{
-x \mapsto \int^x \sqrt{\frac{1-k^2 t^2}{1-t^2}} dt 	
+	The \bam{incomplete elliptic integral of the second kind} is the map $H\to \mbb{C}$ \eq{
+x \mapsto \int^x_0 \sqrt{\frac{1-k^2 t^2}{1-t^2}} dt 	
 }
+using the contour above branch points.
 \end{definition}
 
 \begin{definition}
-	The \bam{incomplete elliptic integral of the second kind} is
+	The \bam{complete elliptic integral of the first kind } is 
+	\eq{
+		E = E(k) = \int_0^1 \sqrt{\frac{1-k^2t^2}{1-t^2}}\, dt \in \mbb{R}
+	}
+	and the \bam{complementary integral of the first kind } is 
+	\eq{
+		E^\prime = E^\prime(k) =  \int_1^\frac{1}{k} \sqrt{\frac{1-k^2t^2}{t^2-1}}\, dt \in \mbb{R}
+	}
+\end{definition}
+
+\begin{prop}
+	We have the following results about $E(k)$:
+	\begin{enumerate}
+		\item $E^\prime(k) = K(k^\prime) - E(k^\prime)$
+		\item (Legendre 1825) $KE^\prime + EK^\prime - KK^\prime = \frac{\pi}{2}$
+	\end{enumerate}
+\end{prop}
+
+\begin{definition}
+	The \bam{incomplete elliptic integral of the third kind} is the map $H \to \mbb{C}$ 
 	\eq{
 x \mapsto \int^x \frac{1}{(t^2-c^2)\sqrt{(1-t^2)(1-k^2t^2)}}	dt
 }
+using the contour above branch points.
 \end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -413,6 +466,17 @@ we get
 I = \int_0^2 \frac{1}{\sqrt{(2x-x^2)(4x^2+9)}} dx = \frac{2}{\sqrt{15}}K\pround{\frac{1}{\sqrt{5}}}
 }
 \end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Connection to Elliptic Functions}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part{Curves}
+
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
