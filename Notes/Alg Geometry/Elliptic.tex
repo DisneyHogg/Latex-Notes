@@ -35,7 +35,7 @@ These books may use different conventions, but I will keep mine uniform (\hl{unl
 We should hopefully not need too many preliminaries in these notes, but those that we do will form two main categories: algebraic geometry and Riemann surfaces. I desire to eventually make notes about these subjects, but in the interim this will suffice. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Algebraic Geometry}
+\subsection{Complex Analysis}
 
 I will fix some notation with a definition:
 
@@ -61,15 +61,76 @@ Given distinct $z_0, z_1, z_2, z_3 \in \mbb{C}$ the \bam{cross ratio} is
 Distinct $z_0, z_1, z_2, z_3 \in \mbb{C}$ lie on a circline iff their cross-ratio is real. 
 \end{prop}
 
+\begin{definition}
+	The \bam{modular group} is 
+	\eq{
+\Gamma = PSL(2,\mbb{Z}) = \faktor{SL(2,\mbb{Z})}{\pbrace{\pm I}}	
+}
+\end{definition}
+
+\begin{theorem}[Liouville]
+	A bounded entire function $f:\mbb{C} \to \mbb{C}$ is constan. 
+\end{theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Algebraic Geometry}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Riemann Surfaces}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Riemann Sphere}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Smooth Projective Plane Curves}
+
+\begin{definition}
+	A $\mbb{C}$-polynomial $F(\bm{x})=F(x_1, \dots, x_n)$ is \bam{homogeneous of degree d} if 
+	\eq{
+\forall \lambda \in \mbb{C}, \, F(\lambda \bm{x}) = \lambda^d F(\bm{x})	
+}
+\end{definition}
+
+\begin{definition}
+	The \bam{projective plane curve} defined by the homogeneous polynomial $F:\mbb{C}^3 \to \mbb{C}$ is the closed subset
+	\eq{
+X = \pbrace{[x:y:z] \in \mbb{P}^2 \, | \, F(x,y,z) = 0}	\subset \mbb{P}^2
+}
+\end{definition}
+
+\begin{remark}
+	Note that this is well defined as $F(x,y,z) = 0 \Leftrightarrow \lambda^d F(x,y,z)=F(\lambda x, \lambda y, \lambda z)=0$
+\end{remark}
+
+\begin{definition}
+	A homogeneous polynomial $F:\mbb{C}^n \to \mbb{C}$ is \bam{singular} at $\bm{x}$ (i.e. $\bm{x}$ is a \bam{singular point}) if $\forall 1 \leq i \leq n$
+	\eq{
+\ev{\pd[F]{x_i}}{\bm{x}} = 0 	
+}
+The polynomial is said to be \bam{non-singular} if it has no singular points
+\end{definition}
+
+\begin{prop}
+	The projective plane curve corresponding to a non-singular homogeneous polynomial is a compact Riemann surface. 
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Complex Tori}
+
+\begin{definition}
+	A map between Riemann surfaces $f:X \to Y$ is called an \bam{isomorphism} iff the induced maps on open subsets of $\mbb{C}$ is bijective and analytic. If there is an isomorphism between $X,Y$, they are said to be isomorphic.  
+\end{definition}
 
 \begin{definition}
 	Fix $\omega_1, \omega_2 \in \mbb{C}$ linearly independent over $\mbb{R}$ and let 
 	\eq{
-L = L(\omega_1, \omega_2) = \mbb{Z}\omega_1 + \mbb{Z}\omega_2 \subset \mbb{C}
+L = L(\omega_1, \omega_2) = \mbb{Z}\omega_1 \oplus \mbb{Z}\omega_2 \subset \mbb{C}
 }
-The \bam{complex tori with lattice $\bm{L}$} is $X = \faktor{\mbb{C}}{L}$. 
+The \bam{complex tori with lattice $\bm{L}$} is $X = \faktor{\mbb{C}}{L}$. The corresponding \bam{fundamental cell} is 
+\eq{
+\mf{F} = \mf{F}(X) = \pbrace{\alpha \omega_1+ \beta \omega_2 \, | \, \alpha,\beta \in [0,1)}
+}
 \end{definition}
 
 \begin{prop}
@@ -77,8 +138,127 @@ The \bam{complex tori with lattice $\bm{L}$} is $X = \faktor{\mbb{C}}{L}$.
 \end{prop}
 
 \begin{prop}
+	Two complex tori with lattices $L(\omega_1, \omega_2), \, L(\omega_1^\prime, \omega_2^\prime)$ are isomorphic iff $\exists$ a fractional linear transformation sending $\frac{\omega_2}{\omega_1} \mapsto \frac{\omega_2^\prime}{\omega_1^\prime}$
+\end{prop}
+
+\begin{prop}
 	Every complex tori can be written with a lattice the form $L(1,\tau)$ where $\Im\tau > 0$
 \end{prop}
+
+\begin{remark}
+	From the above results we can view the orbits of the modular group acting on the UHP as a list of all possible complex structures on the topological torus. We will always assume $\frac{\omega_2}{\omega_1}$ has positive imaginary part.  
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Degree of a Map}
+
+\begin{definition}
+	Let $f:\mbb{C} \to \mbb{C}$ be meromorphic at $z_0 \in \mbb{C}$ about which it's Laurent series $\sum_n c_n (z-z_0)^n$. The \bam{order} of $f$ at $z_0$ is 
+	\eq{
+\ord_{z_0}(f) = \min\pbrace{n \, | \, c_n \neq 0}	
+}
+\end{definition}
+
+\begin{remark}
+	This definition naturally extends to maps between Riemann surfaces by taking local coordinates around the points. 
+\end{remark}
+
+\begin{lemma}
+	Let $f,g : X \to \mbb{C}$ be non-zero meromorphic functions and $p  \in X$. Then 
+	\begin{itemize}
+		\item $\ord_p(fg) = \ord_p(f) + \ord_p(g)$
+		\item $\ord_p\pround{\frac{1}{f}} = -\ord_p(f)$
+		\item $\ord_p\pround{\frac{f}{g}} = \ord_p(f) - \ord_p(g)$
+	\end{itemize}
+\end{lemma}
+\begin{proof}
+	The first results follows from multiplying together the Laurent series. The second and third then follow. 
+\end{proof}
+
+\begin{lemma}
+	Let $X$ be a Riemann surface and $f:X \to \mbb{C}$ a non-constant meromorphic function. The set
+	\eq{
+\pbrace{p \in X, \, \ord_p(f) \neq 0} \subset X	
+} 
+is discrete.
+\end{lemma}
+\begin{proof}
+	If the set of poles of $f$ had an accumulation point, around this point $f$ would have no Laurent series. A similar argument gives no accumulation point for zeros. 
+\end{proof}
+
+\begin{corollary}
+Let $X$ be a  compact Riemann surface and $f:X \to \mbb{C}$ a non-constant meromorphic function. The set
+\eq{
+	\pbrace{p \in X, \, \ord_p(f) \neq 0} \subset X	
+}
+is finite.
+\end{corollary}
+
+\begin{definition}
+	Let $F:X \to Y$ be a map between Riemann surfaces holomorphic at $p \in X$. The \bam{multiplicity} of $F$ at $p$ is $\mult_p(F)=m$ the unique integer s.t. in local coordinates around $p$ $F$ is represented by 
+	\eq{
+	h(z) = h(z_0) + \sum_{i \geq m} c_i (z-z_0)^i
+}
+\end{definition}
+
+\begin{definition}
+Let $F:X \to Y$ be a non-constant holomorphic map of Riemann surfaces. $p \in X$ is called a \bam{ramification point} if $\mult_p(F) \geq 2$. $y\in Y$ is called a \bam{branch point} if $y=F(p)$ for some ramification point $p$. 
+\end{definition}
+
+\begin{remark}
+	The thing to note here is that, generically, $\mult_p(F) = 1$ 
+\end{remark}
+
+\begin{prop}
+	Let $f:X \to \mbb{C}$ be a meromorphic function and $F:X \to \mbb{C}_\infty$ the associated holomorphic map. Then 
+	\begin{enumerate}
+		\item If $p \in X$ is a zero of $f$, $\mult_p(F) = \ord_p(f)$
+		\item If $p \in X$ is a pole of $f$, $\mult_p(F) = -\ord_p(f)$
+		\item If $p \in X$ is neither a zero or a pole, $\mult_p(F) = \ord_p(f-f(p))$
+	\end{enumerate}
+\end{prop}
+
+\begin{prop}
+	Let $F:X \to Y$ be a holomorphic non-constant map of Riemann surfaces and consider the map $d_{\cdot}(F):Y \to \mbb{Z}$ 
+	\eq{
+d_y(F) = \sum_{p \in F^{-1}(y)} \mult_p(F)	
+}
+The map $d$ is constant. 
+\end{prop}
+
+\begin{definition}
+Let $F:X \to Y$ be a holomorphic non-constant map of Riemann surfaces. The \bam{degree} of $F$ is 
+\eq{
+\deg(F) = d_y(F) \text{ for some $y \in Y$}
+}
+\end{definition}
+
+\begin{prop}
+	Let $X$ be a compact Riemann surface and $f:X \to \mbb{C}$ a non-constant meromorphic function. Then 
+	\eq{
+\sum_{p \in X} \ord_p(f) = 0	
+}
+\end{prop}
+\begin{proof}
+	Consider the corresponding map $F: X \to \mbb{C}_\infty$. Let $\pbrace{x_i} = F^{-1}(0), \ ,\pbrace{y_j} = F^{-1}(\infty)$. Then 
+	\eq{
+\sum_p \ord_p(f) &= \sum_i \ord_{x_i}(f) + \sum_j \ord_{y_j}(f) \\
+&= \sum_i \mult_{x_i}(F) - \sum_j \mult_{y_j}(F) \\
+&= d_0(F) - d_\infty(F) = 0	
+}
+\end{proof}
+
+\begin{remark}
+	As $f$ can only have finitely many poles and zeros, for all but finitely many $p \in X$ we have $\ord_p(f) = 0$ so the sum makes sense. 
+\end{remark}
+
+\begin{theorem}[Hurwitz Formula]
+	Let $F:X \to Y$ be a non-constant holomorphic map between compact Riemann surfaces. Then 
+	\eq{
+g(X) - 1 = \deg(F) \psquare{g(Y)-1} + \frac{1}{2} \sum_{p \in X} \psquare{\mult_p(F)-1}	
+}
+where $g$ is the genus of the underlying topological surface. 
+\end{theorem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -86,6 +266,99 @@ The \bam{complex tori with lattice $\bm{L}$} is $X = \faktor{\mbb{C}}{L}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \part{Functions}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Periodic Functions}
+We will start with some general results about periodic complex functions. We fix $f:\mbb{C} \to \mbb{C}$ to be a non-constant meromorphic single valued function. 
+
+\begin{lemma}
+	The periods of $f$ form a $\mbb{Z}$-module $L$ 
+\end{lemma}
+
+\begin{prop}
+	$L$ is either 
+	\begin{itemize}
+		\item trivial, ($=0$)
+		\item rank 1, ($=\omega \mbb{Z}$)
+		\item rank 2, ($=\omega_1 \mbb{Z} \oplus \omega_2 \mbb{Z}$)
+	\end{itemize}
+\end{prop}
+
+\begin{definition}
+	A function with rank-2 $L$ is called an \bam{elliptic function} and $L$ is called the \bam{period lattice}. 
+\end{definition}
+
+\begin{definition}
+	Given a period lattice $L$, a choice of $\omega_1, \omega_2$ s.t.  $L = \omega_1 \mbb{Z} \oplus \omega_2 \mbb{Z}$ is called a \bam{primitive pair}. For a primitive pair we call $\tau = \frac{\omega_2}{\omega_1}$ the \bam{period ratio}. 
+\end{definition}
+
+It is common, as we will do now, to restrict the period ratio to have real imaginary part
+
+\begin{prop}
+	Any pairs of primitive pairs are related by a fractional linear transform $\in SL(2,\mbb{R})$. The corresponding period ratios are related by a map in the modular group
+\end{prop}
+
+\begin{definition}
+	An \bam{elliptic function field} is the class $K =K(X)$ of functions of rational character on the complex torus $X$
+\end{definition}
+
+\begin{remark}
+	Idefintifying $X$ with $\faktor{\mbb{C}}{L}$ is equivalent to identifying $K(X)$ with double periodic functions on the universal cover of $X$, $\mbb{C}$.
+\end{remark}
+
+\begin{prop}
+	$K(X)$ is a differential field with differential $\frac{d}{dz}$ inherited from the coordinate $z$ on the universal cover.  
+\end{prop}
+
+\begin{prop}
+$\deg f = 0$ iff $f$ is constant
+\end{prop}
+\begin{proof}
+	$\deg(f) = 0$ iff $f$ has no poles. Pulling back to a doubly periodic function on $\mbb{C}$, it is a bounded entire function, so constant by Liouville's theorem. 
+\end{proof}
+
+\begin{lemma}
+	Let $f \in K(X)$. Then 
+	\eq{
+\oint_{\del \mf{F}(X)} f(z) \, dz = 0 	
+}
+\end{lemma}
+\begin{proof}
+	Use periodicity of the function. 
+\end{proof}
+
+\begin{remark}
+	This can be used to show $\sum_{p\in X} \ord_p(f)=0$ for $X$ a complex torus, by considering the integral of $\frac{1}{2\pi i}\frac{f^\prime}{f} \in K(X)$
+\end{remark}
+
+This result has some powerful corollaries, which we will see here now:
+
+\begin{prop}
+	$\forall f \in K(X), \, \deg f \neq 1$.
+\end{prop}
+\begin{proof}
+	If $\deg f = 1$ then the residue at the pole is 
+	\eq{
+\frac{1}{2\pi i} \oint_{\del \mf{F}(X)} f(z) \, dz = 0	
+}
+so there is no pole. 
+\end{proof}
+
+\begin{prop}
+Take $f \in K(X)$ and let $p_1, \dots, p_d$ be the zeros, $q_1, \dots, q_d$ the poles. Then 
+\eq{
+\sum p_i  - q_i \in L
+} 
+\end{prop}
+\begin{proof}
+Let $L = L(\omega_1, \omega_2)$
+\eq{
+\sum p_i  - q_i &= \frac{1}{2\pi i}\oint z d(\log f(z)) \\
+&= \frac{1}{2\pi i} \pbrace{\int_0^{\omega_1} \psquare{z - (z+\omega_2)}d(\log f(z)) - \int_0^{\omega_2} \psquare{z - (z+\omega_1)} d(\log f(z)) } \\
+&= \omega_1 \underbrace{\psquare{\frac{1}{2\pi i}\int_0^{\omega_2} d(\log f(z))}}_{\in \mbb{Z}} - \omega_2  \underbrace{\psquare{\frac{1}{2\pi i}\int_0^{\omega_1} d(\log f(z))}}_{\in \mbb{Z}}
+}
+where we know the integrals are integer values as $f$ takes the same values at the corners, so the argument must differ by an element of $2\pi i \mbb{Z}$
+\end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -153,6 +426,54 @@ and all these zeros are simple.
 }
 \end{definition}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\secmath{\text{The Weierstrass $\wp$ Function}}}
+
+From our discussion of doubly-periodic functions, we know the minimal degree of a non-constand function is 2, so the simplest possible cases are 
+\begin{itemize}
+	\item two simple poles
+	\item one double pole
+\end{itemize}
+We will construct the latter case.
+
+\begin{definition}
+	Pick a complex torus $X$ with lattice $L$. The corresponding \bam{Weierstrass function} is $\wp:\mbb{C} \to \mbb{C}$ 
+	\eq{
+\wp(z) = \wp(z | L) = \frac{1}{z^2} + \sum_{\omega \in L\setminus 0} \psquare{\frac{1}{(z-\omega)^2} - \frac{1}{\omega^2}}
+} 
+\end{definition}
+
+\begin{prop}
+	The infinite sum is convergent and hence the $\wp$ function is well defined.
+\end{prop}
+
+\begin{prop}
+	$\wp$ has the following properties:
+	\begin{itemize}
+		\item Even, i.e. $\wp(z) = \wp(-z)$.
+		\item Double periodic with period lattice $L$
+		\item $\deg \wp = 2$ as a map $\faktor{\mbb{C}}{L} \to \mbb{P}^1$, with only one double pole at $z=0$
+		\item $\forall c \in \mbb{C}^\times, \, \wp(cz | cL) = \wp(z | L)$
+		\item $\wp^\prime(z) = -2\sum_{\omega \in L} (z-\omega)^{-3}$
+		\item $\wp^\prime$ is odd
+		\item $\forall \omega \in L, \, \wp^\prime(\sfrac{\omega}{2}) =0$ and the half periods are the only roots. 
+		\item Let $\omega_1, \omega_2$ be the primitive roots and $e_1 = \wp(\sfrac{\omega_1}{2}), \, e_2 = \wp(\sfrac{\omega_1}{2} + \sfrac{\omega_2}{2}), \, e_3 = \wp(\sfrac{\omega_2}{2})$. Then $e_1, e_2, e_3$ are distinct.
+	\end{itemize}
+\end{prop}
+
+\begin{prop}
+	$\wp$ satisfies the differential equations 
+	\eq{
+\pround{\wp^\prime}^2 &= 4(\wp-e_1)(\wp-e_2)(\wp-e_3) \\
+&= 4\wp^3 -g_2 \wp -g_3	
+}
+where 
+\eq{
+g_2 &= 60\sum_{\omega \in L \setminus 0} \omega^{-4} \\
+g_3 &= 140\sum_{\omega \in L \setminus 0} \omega^{-6}
+}
+\end{prop}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -470,6 +791,25 @@ I = \int_0^2 \frac{1}{\sqrt{(2x-x^2)(4x^2+9)}} dx = \frac{2}{\sqrt{15}}K\pround{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Connection to Elliptic Functions}
 
+Recall that when we defined the incomplete elliptic integrals,
+
+Because of the differential equation for $\wp$ we have the following result:
+
+\begin{prop}
+We have 
+\eq{
+z-z_0 = \frac{1}{2} \int_{\wp(z_0)}^{\wp(z)} \frac{dt}{\sqrt{(t-e_1)(t-e_2)(t-e_3)}} \quad \mod L
+}
+where the each value of the integral depends on the contour chosen. 
+\end{prop}
+
+\begin{example}
+	Choosing the correct sign of the radicals, we have 
+	\eq{
+\omega_1 &= \int_{\infty}^{e_1} \frac{dt}{\sqrt{(t-e_1)(t-e_2)(t-e_3)}} \\
+ \omega_2 &= \int_{e_1}^{e_2} \frac{dt}{\sqrt{(t-e_1)(t-e_2)(t-e_3)}}
+}
+\end{example}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
