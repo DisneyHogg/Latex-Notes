@@ -75,6 +75,40 @@ Distinct $z_0, z_1, z_2, z_3 \in \mbb{C}$ lie on a circline iff their cross-rati
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Algebraic Geometry}
 
+\begin{definition}
+	A \bam{field extension} if a pair of fields $K \subseteq L$ s.t. the operations of $K$ are those of the restriction of $L$. It is denoted $L / K$
+\end{definition}
+
+\begin{example}
+	The set 
+	\eq{
+\mbb{Q}(\sqrt{2}) = \pbrace{a+b\sqrt{2} \, | \, a,b \in \mbb{Q}}	
+}
+is a field extension of $\mbb{Q}$. 
+\end{example}
+
+\begin{prop}
+	If $L/K$ is a field extension, $L$ is \ $K$-vector space. 
+\end{prop}
+
+\begin{definition}
+	The \bam{degree} of a field extension $L/K$ is the dimension of $L$ as a $K$-vector space. It is denoted $[L:K]$.
+\end{definition}
+
+\begin{example}
+	$[\mbb{Q}(\sqrt{2}):\mbb{Q}] = 2$ as it has basis $\pbrace{1,\sqrt{2}}$
+\end{example}
+
+\begin{definition}
+	The \bam{transcendence degree} of a field extension $L/K$ is the maximum cardinality of an algebraic independent subset of $L$ over $K$. 
+\end{definition}
+
+\begin{example}
+	$\mbb{Q}(\sqrt{2},e)/\mbb{Q}$ has transcendence degree 1.
+\end{example}
+
+\hl{replace these examples with more C oriented ones. }
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Riemann Surfaces}
@@ -260,6 +294,81 @@ g(X) - 1 = \deg(F) \psquare{g(Y)-1} + \frac{1}{2} \sum_{p \in X} \psquare{\mult_
 where $g$ is the genus of the underlying topological surface. 
 \end{theorem}
 
+\begin{example}
+	An example that will be important to example later is that of a projective plane curve $X$ given by 
+	\eq{
+X = \pbrace{[x:y:z] \, | \, P(x,y,z)=0} \subset \mbb{P}^2	
+}
+where $F: \mbb{C}^3 \to \mbb{C}$ is the homogeneous polynomial 
+\eq{
+P(x,y,z) = y^2z - x^3 + xz^2 -z^3
+}
+We note we can write 
+\eq{
+X = \pbrace{[x:y:1] \, | \, y^2 = x^3-x+1} \cup \pbrace{[0:1:0]}
+}
+We consider a map $F:X \to \mbb{P}^1$ by taking a coordinate on the curve. On the patch $z \neq 0$ we can choose $x$, and around $z=0=x$ we can choose $1/x$. We find that a generic point has two preimages except at the roots of $x^3-x+1$ or at 'infinity' ($z=0=x$) as at all these points there is only one value of $y$. Hence 
+\eq{
+g(X) = 1 + 2\psquare{0-1} + \frac{1}{2} \times 4\psquare{2-1} = 1
+}
+so topologically this curve is a torus.
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Field of Functions}
+
+\begin{definition}
+	Let $X$ be a Riemann surface. The set of all meromorphic functions $X \to \mbb{C}$ is called the \bam{field of functions} of $X$ and is denoted $K(X)$. 
+\end{definition}
+
+\begin{example}
+	$K(\mbb{P}^1) \cong \mbb{C}(x)$
+\end{example}
+
+\begin{prop}
+	$K(X)$ is a field extension of $\mbb{C}$. 
+\end{prop}
+
+\begin{prop}
+	If $X$ is a compact Riemann surface then $K(X)/\mbb{C}$ is a field extension of transcendence degree 1.  
+\end{prop}
+
+\begin{definition}
+	Let $X, Y$ be Riemann surfaces and $p : X \to Y$ a branched covering map. A \bam{deck
+	transformation} is a fiber preserving biholomorphic map, that is, a map f such that the diagram
+	\begin{tkz}
+		X \arrow[r,"f"] \arrow[d,"p"'] & X \arrow[dl,"p"]\\
+		Y &
+	\end{tkz}
+	commutes. We denote the set of them  $\text{Deck}(X/Y)$
+\end{definition}
+
+\begin{prop}
+	The set of deck transformations form a group under composition
+\end{prop}
+
+\begin{theorem}
+	Let $X,Y$ be compact Riemann surfaces and $p:X \to Y$ a $n$-fold branched covering. Then $K(X)/p^\ast K(Y)$ is a degree-$n$ field extension. \\
+	Conversely let $Y$ be a Riemann surface and $L/K(Y)$ a degree-$n$ field extension. Then $\exists X$ a Riemann surface, $p:X \to Y$ an $n$-sheeted branched covering map, and $f \in K(X)$ s.t. $L\cong K(X)=p^\ast K(Y)(f)$. \\
+	In both cases, $\text{Deck}(X/Y) \cong \Aut(K(X) / p^\ast K(Y))$  
+\end{theorem}
+
+\begin{corollary}
+	Let $X,Y$ be compact Riemann surfaces, then $X\cong Y$ iff $K(X) \cong K(Y)$. 
+\end{corollary}
+
+\begin{remark}
+	We can view this final remark from the point of view of category theory. We can let $R$ be the category of compact Riemann surfaces with morphisms given by holomorphic maps. We then give the contravariant functor 
+	\eq{
+K:R \to \text{Sets}	
+}
+sending a compact Riemann surface $X$ to its function field $K(X)$, and sending morphisms to their pullback. This is a representable functor as 
+\eq{
+K(X) = \Hom(X,\mbb{P}^1)
+}
+Hence that $X \cong Y \Leftrightarrow K(X) \cong K(Y)$ is a consequence of the Yoneda lemma. 
+\end{remark}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -359,6 +468,35 @@ Let $L = L(\omega_1, \omega_2)$
 }
 where we know the integrals are integer values as $f$ takes the same values at the corners, so the argument must differ by an element of $2\pi i \mbb{Z}$
 \end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Automorphisms}
+
+\begin{prop}
+	Complex torus $X$ always have bijective automorphisms $z \mapsto z+c, \, z \mapsto -z$. The only involutions are the reflection $z \mapsto -z$ and addition of half periods. 
+\end{prop}
+
+\begin{remark}
+	Note that every complex torus $X$ admits the bijective automorphism descending from the map $\mbb{C} \to \mbb{C}, \ ,z \mapsto n z$ for $n \in \mbb{Z}\setminus 0$
+\end{remark}
+
+\begin{definition}
+	The complex torus $X$ with primitive periods $\omega_1, \omega_2$ is said to \bam{admit complex multiplication} if $\exists f$ an automorphism $f(z) = cz$ for some $c \in \mbb{C}\setminus\mbb{Z}$. In this we have $i,j,k,l \in \mbb{Z}$ s.t.
+	\eq{
+c \omega_2 &= i \omega_2 + j \omega_1 \\
+c \omega_1 &= k \omega_2 + l \omega_1	
+}
+i.e. $\frac{\omega_2}{\omega_1}$ is a fixed points of the fractional linear transform $\begin{psmallmatrix} i & j \\ k & l \end{psmallmatrix}$. 
+\end{definition}
+
+\begin{lemma}
+	The period ratio is a quadratic irrationality from the field $\mbb{Q}[\sqrt{(i+l)^2 - 4(il-jk)}]$
+\end{lemma}
+
+\begin{prop}
+	Suppose $X$ is a complex torus admiitting complex multiplication via a bijective automorphisms, then the period ratio is either $i$ or $e^{\frac{\pi i}{3}}$. 
+\end{prop}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -470,10 +608,68 @@ We will construct the latter case.
 }
 where 
 \eq{
-g_2 &= 60\sum_{\omega \in L \setminus 0} \omega^{-4} \\
+g_2  &= 60\sum_{\omega \in L \setminus 0} \omega^{-4} \\
 g_3 &= 140\sum_{\omega \in L \setminus 0} \omega^{-6}
 }
+are the \bam{invariant of the cubic}
 \end{prop}
+
+\begin{remark}
+	It is shown in the proof of the above proposition that 
+	\eq{
+g_2 &= -4(e_1 e_2 + e_2 e_3 + e_3 e_1) \\
+g_3 &= 4e_1 e_2 e_3	
+}
+and 
+\eq{
+e_1 + e_2 + e_3 = 0
+}
+\end{remark}
+
+\begin{remark}
+We will sometimes use the notation $\wp(z) = \wp(z | g_2, g_3)$
+\end{remark}
+
+\begin{lemma}
+	$g_2^3 - 27g_3^2 = 16(e_1 - e_2)^2(e_2 - e_3)^2 (e_3 - e_1)^2$
+\end{lemma}
+\begin{proof}
+	Consider the polynomial $y^2 = x^3 - \pround{\sfrac{g_2}{4}}x - \pround{\sfrac{g_3}{4}} = (x-e_1)(x-e_2)(x-e_3)$. The discriminant of this cubic is 
+	\eq{
+\Delta &= 4 \pround{\sfrac{g_2}{4}}^3 - 27\pround{\sfrac{g_3}{4}}^2 \\
+&= \frac{1}{16} \pround{g_2^3 - 27 g_3^2}
+}
+However, we also know 
+\eq{
+\Delta = \prod_{i < j} (e_i - e_j)^2
+}
+\end{proof}
+
+
+\begin{corollary}
+	$\wp^{\prime \prime} = 6\wp^2 - \frac{1}{2}g_2
+$\end{corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Addition Theorems}
+
+\begin{prop}
+	$\wp(z+w) = \frac{1}{4} \psquare{\frac{\wp^\prime(z) - \wp^\prime(w)}{\wp(z) - \wp(w)}}^2 - \wp(z) - \wp(w)$
+\end{prop}
+\begin{corollary}
+	$\wp(z + \sfrac{\omega_1}{2}) = e_1 + \frac{(e_1 - e_2)(e_1 - e_3)}{\wp(z) - e_1}$ and similar equations for cycles 
+\end{corollary}
+\begin{proof}
+	Start by noting 
+	\eq{
+\wp(z+\sfrac{\omega_1}{2}) + \wp(z) + e_1 = \frac{1}{4} \psquare{\frac{\wp^\prime(z)}{\wp(z)-e_1}}^2	
+}
+\end{proof}
+
+
+\begin{corollary}[Duplication Formula]
+	$\wp(2z) = \frac{1}{4} \psquare{\frac{\wp^{\prime \prime}(z)}{\wp^\prime(z)}}^2 - 2\wp(z)$
+\end{corollary}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -534,7 +730,7 @@ where the integrand is taken to be real and positive for $t \in (-1,1)$, and at 
 	\item say something about convergence, and then $\int_0^1 \frac{dt}{\sqrt{1-t^2}} = \frac{\pi}{2}$ is a trig integral. 
 	\item  consider the transform $	t \mapsto \frac{t}{\sqrt{1+k^3(1-t^2)}}$
 	\item $K(i) = \int_0^1 \frac{dt}{\sqrt{1-t^4}} = \frac{1}{4} \int_0^1 t^{-\frac{3}{4}}(1-t)^{-\frac{1}{2}} \, dt$ making the substitution $t\mapsto t^\frac{1}{4}$.
-	\item do the calculation
+	\item Use the substitution $s = \psquare{1-(k^\prime)^2 t^2}^{-\frac{1}{2}}$ to transform $K(k^\prime)$ to $K^\prime(k)$.
 	\item do the calculation
 	\item Iterate, observe $k_{n+1} < k_n$ (one can show $k_{n+1}<k_n^2$), and argue about convergence. 
 	\item (Legendre 1811) Using the substitution $t \mapsto \frac{(1+k^\prime)x\sqrt{1-t^2}}{1-k^2 t^2}$ find $K(k_1) = \frac{1+k^\prime}{2}K(k)$ and the use Landen's transform.  
@@ -811,12 +1007,44 @@ where the each value of the integral depends on the contour chosen.
 }
 \end{example}
 
+We can also use the Weierstrass function to solve elliptic integrals.
+
+\begin{example}
+	Consider the integral 
+	\eq{
+I(x) = \int_{\infty}^x \frac{dt}{\sqrt{t^4 + 6at^2 + b^2}}	
+}
+for $a,b \in \mbb{R}$. Make the substitution $s=t^2$ to get 
+\eq{
+I(x) = \frac{1}{2} \int_{\infty}^{x^2} \frac{ds}{\sqrt{s^3+ 6as^2 + b^2 s }} 
+}
+To put this bottom cubic in Weierstrass form we need to remove the $s^2$ term, which can be achieved by making the translation $u = s+2a$. Then 
+\eq{
+I(x) &= \frac{1}{2}\int_{\infty}^{x^2+2a} \frac{du}{\sqrt{u^3 - (12a^2-b^2)u - 2a(b^2-8a^2)}} \\
+&= \int_{\infty}^{x^2+2a} \frac{du}{\sqrt{4u^3 - 4(12a^2-b^2)u - 8a(b^2-8a^2)}}
+}
+This is in Weierstrass form with $g_2 = 4(12a^2-b^2), \, g_3 = 8a(b^2-8a^2)$. The final result is 
+\eq{
+I(x) =  \wp^{-1}(x^2+2a \, | \, 4(12a^2-b^2), \, 8a(b^2-8a^2))
+} 
+
+\end{example}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \part{Curves}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Abel's Inversion Theorem}
+
+We start by noting to following connection, a complex torus $X = \faktor{\mbb{C}}{L}$ with $e_1, e_2. e_3$ given, has the behaviour 
+\eq{
+[\wp^\prime]^2 = 4(\wp-e_1)(\wp-e_2)(\wp-e_3)
+}
+in it's function field. 
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
