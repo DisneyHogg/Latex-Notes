@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage{header}
+\usepackage{../../header-colourful}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Preamble
 
@@ -18,13 +18,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
-These are some notes, based on \cite{BeisertIntroductionNotes}, for me to cement in example my thoughts on Lax pairs and spectral curves. 
+These are some notes, based on \cite{Beisert} and \cite{Babelon2003}, for me to cement in example my thoughts on Lax pairs and spectral curves. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{'Theory' and discussion}
 
-As usual we will fix a phase space $M$, dimensions $2n$, with some Hamiltonian flow giving some time evolution 
+As usual we will fix a $2n$-dimensional phase space $M$, with some Hamiltonian flow giving some time evolution. 
 
 \begin{definition}
 A \bam{Lax pair} is a pair of two $n \times n$ matrices, functions on $M$, obeying 
@@ -41,28 +41,42 @@ I_k \equiv \tr L^k
 are conserved quantities, of which at most $n$ are independent. Equivalently $L$ is isospectral. 
 \end{prop}
 
-Recall for integrability we need not only conserved quantities, but that these quantities be involution. This condition can be encoded in the existence of a \bam{classical r matrix}, which is $r_{12} \in \End(\mbb{C}^n \otimes \mbb{C}^n)$ such that 
-\eq{
-\pbrace{L_1,L_2} = \comm[r_{12}]{L_1} - \comm[r_{21}]{L_2}
-}
-where 
-\eq{
-L_1 &= L \otimes 1 \\
-L_2 &= 1 \otimes L \\
-r_{21} &= (r_{12})^T
-}
+Recall for integrability we need not only conserved quantities, but that these quantities be involution. We make the following definition:
+
+\begin{definition}
+	A \bam{classical r matrix} is $r_{12} \in \End(\mbb{C}^n \otimes \mbb{C}^n)$ such that 
+	\eq{
+		\pbrace{L_1,L_2} = \comm[r_{12}]{L_1} - \comm[r_{21}]{L_2}
+	}
+	where 
+	\eq{
+		L_1 &= L \otimes 1 \\
+		L_2 &= 1 \otimes L \\
+		r_{21} &= (r_{12})^T
+	}
+\end{definition}
+
+This is a useful definition for the following result:
+
+\begin{prop}
+	The involution property of the eigenvalues of $L$ is equivalent to the existence of a classical r-matrix.
+\end{prop}
 
 We can now extend the Lax pair to include a spectral parameter $u$. Suppose $L(u)$ is holomorphic on $\mbb{C}_\infty$. The eigenvalues of $L$, $\pbrace{\lambda_k(u)}$, are given by the zeros of the equation 
 \eq{
 \det(L(u) - \lambda I) = 0
 }
-This defines a spectral curve $\tilde{\Sigma}=\pbrace{(u,\lambda)}$. We can label the points of degeneracy of these eigenvalues as $\hat{u}_k$, and then we have an $n$-sheeted cover of $\mbb{C}_\infty$ given by the $\lambda_k$, with branch points at the $\hat{u}_k$ where the sheets coincide. We can instead reinterpret this as a single valued function $\lambda(z)$ defined on a Riemann surface $\Sigma$ with the singularities resolved, which projects onto $\tilde{\Sigma}$.
-\begin{center}
-    \begin{tikzcd}
-    \Sigma \arrow[r] & \tilde{\Sigma} \arrow[d,"u"] \\ & \mbb{C}_\infty
-    \end{tikzcd}
-\end{center}
 
+\begin{definition}
+	The \bam{spectral curve} associated with a Lax pair is the algebraic curve $\tilde{\Sigma}=\pbrace{(u,\lambda)} \subset \mbb{C}^2$ defined by 
+	\eq{
+\det(L(u) - \lambda I) = 0	
+}
+\end{definition}
+
+\begin{prop}
+Associated to $\tilde{\Sigma}$ there is a Riemann surface $\Sigma$, an $n$-sheeted cover of $\mbb{P}^1$ with branchg points at $\hat{u}_k$, the points of degeneracy of the eigenvalues.
+\end{prop}
 
 \begin{example}
 Consider the case $n=2$ and the matrix 
@@ -86,24 +100,92 @@ where
 \alpha^2 = \ev{\psquare{\frac{1}{2}(a-d)(a^\prime - d^\prime) + bc^\prime + b^\prime c}}{u= \hat{u}}
 }
 \end{example}
-The spectral curve will give information on the conserved quantities of the system - equivalently the action - but does not give any dynamical information. We will need machinery to give us this. \\
-Suppose at a given branch point $\hat{u}$, two eigenvectors coincide, i.e. the geometric multiplicity of the eigenspace drops to 1 even as the algebraic multiplicity remains at two. This can be seen to occur in the $2 \times 2$ case, as if the geometric multiplicity was still 2 we could diagonalise wrt to a basis of eigenvectors and so 
+
+In order to work with the spectral curve effectively we need to understand its genus.
+\begin{prop}
+	Let $\pbrace{u_k}$ be the locations of the poles of $L$ and $n_k$ their multiplicity. Then the genus of the spectral curve is  
+	\eq{
+	g(\Sigma) = 1-n+\frac{1}{2}n(n-1) \sum_k n_k
+	}
+\end{prop}
+\begin{proof}
+ We use Riemann-Hurwitz applied to the covering map $\Sigma \to \mbb{P}^1$
 \eq{
-a(\hat{u}) &= \lambda(\hat{u}) = d(\hat{u}) \\
-b(\hat{u}) &= 0 = c(\hat{u})
+g(\Sigma) - 1 = n[g(\mbb{P}^1)-1] + \frac{1}{2}\sum_{p \in \Sigma} (\mult_p - 1)
 }
-giving $\alpha = 0$ from before, in which case there would be no singularity. Hence we can again consider the eigenvectors to be a single valued function $\psi(z)$ on $\Sigma$. We can fix the scaling of the eigenvectors to remove redundancy, for example with the choice 
+where we used that the degree of the covering is $n$ . Recall now our spectral curve can be written as 
 \eq{
-\forall z \in \Sigma , \; v \cdot \psi(z) = 1
+\prod_{k=1}^n [\lambda - \lambda_k(u)] = 0
 }
-for some constant vector $v$. Note that the poles of $\psi$ are then exactly when $\psi$ is orthogonal to $v$, so the choice of $v$ is important.  
+This is branched at $u$ where $\lambda_i(u) = \lambda_j(u)$ for $i \neq j$ We assume that at all ramification points corresponding to branch points $\hat{u}_k$ the multiplicity is 2 (as we can do generically). This means ramification occurs when 
+\eq{
+F(u) = \prod_{i \neq j} [\lambda_i(u) - \lambda_j(u)]=0
+} 
+As $F$ is a mermomorphic function on $\mbb{P}^1$, we have that the order of its poles is the same as the order of its zeros. Hence the order of the zeros of $F$ is 
+\eq{
+\sum_{i \neq j } \sum_{u_k} n_k = n(n-1) \sum_k n_k
+}
+As at each $u_k$ the order of the pole is $n_k$. Hence 
+\eq{
+g(\Sigma) = 1-n+ \frac{1}{2}n(n-1) \sum_k n_k
+}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The spectral curve will give information on the conserved quantities of the system - equivalently the action - but does not give any dynamical information. We will need machinery to give us this. We know that each point on the spectral curve should correspond to at least one eigenvector with eigenvalue $\lambda$. We can think of this process as reconstructing that. 
+\begin{notation}
+	To fix notation let $p = (u,\lambda) \in \Sigma$ not be a ramification point and $\Psi(p) = (\psi_j(p))$ a corresponding eigenvector, normalised s.t. $\psi_1(p)=1$.
+	\end{notation}
+
+\begin{remark}
+We could choose different normalisations, for example with the choice 
+	\eq{
+		\forall p \in \Sigma , \; v \cdot \Psi(p) = 1
+	}
+	for some constant vector $v$ (this is in fact what we had taking $v=e_1$ the basis vector).  Note that the poles of $\Psi$ are then exactly when $\Psi$ is orthogonal to $v$, so the choice of $v$ is important.  
+\end{remark}
+
+With this notation we have the following result:
+
+\begin{prop}
+	The maps $\psi_j:\Sigma \to \mbb{C}$ are merormophic at $p$. 
+\end{prop}
+
+Note that, away from a ramification point, the eigenvalues are all distinct and so the corresponding eigenspaces are all 1-dimensional. This is general:
+
+\begin{prop}
+	A generic matrix with repeated eigenvalues has a 1-dimensional eigenspace
+\end{prop}
+\begin{proof}
+	See the discussion on Jordan normal form in my notes. 
+\end{proof}
+
+\begin{example}
+	Suppose at a given branch point $\hat{u}$, two eigenvectors coincide, i.e. the geometric multiplicity of the eigenspace drops to 1 even as the algebraic multiplicity remains at two. This can be seen to occur in the $2 \times 2$ case, as if the geometric multiplicity was still 2 we could diagonalise wrt to a basis of eigenvectors and so 
+	\eq{
+		a(\hat{u}) &= \lambda(\hat{u}) = d(\hat{u}) \\
+		b(\hat{u}) &= 0 = c(\hat{u})
+	}
+	giving $\alpha = 0$ from before, in which case there would be no singularity. Hence we can again consider the eigenvectors to be a single valued function $\psi(z)$ on $\Sigma$. 
+\end{example}
+
+As such we can make the following definition:
 
 \begin{definition}
-A pole of $\psi$ is $z^\times$ where a component of $\psi$ diverges as $(z-z^\times)^{-1}$. The set of poles $\pbrace{z_k^\times}$ is called the \bam{dynamical divisor}. 
+	The \bam{eigenvector bundle} is the bundle that associated the eigenspace $\pangle{\Psi(p)}$ to the point $p \in \Sigma$. This is an analytic line bundle.  
+\end{definition}
+
+
+
+\begin{definition}
+A pole of $\Psi$ is $z^\times$ where a component of $\Psi$ diverges as $(z-z^\times)^{-1}$. The set of poles $\pbrace{z_k^\times}$ is called the \bam{dynamical divisor}. 
 \end{definition}
 
 \begin{prop}
-The dynamical divisor consists of $n-g+1$ points, where $g$ is the genus of $\Sigma$. 
+The dynamical divisor consists of $n+g-1$ points, where $g$ is the genus of $\Sigma$. 
 \end{prop}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -166,8 +248,8 @@ z^\times = -e^{it}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\bibliographystyle{plain}
-\bibliography{references.bib}
+\bibliographystyle{../../bib/custom-bib-style}
+\bibliography{../../bib/library,../../bib/manual}
 
 
 \end{document}
