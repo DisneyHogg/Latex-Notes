@@ -3,25 +3,42 @@
 %Packages
 
 \usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{amssymb}
-\usepackage{graphicx}
-\usepackage{geometry}
-\usepackage{braket} %Bras, kets, sets, caps or not. 
-\usepackage{hyperref} %References and links. 
-\usepackage{bm} %Bold vectors. 
-\usepackage{faktor} %Write quotients nicely.
-\usepackage{xfrac} %Slanted fractions with \sfrac
-\usepackage{slashed} %Dirac slash notation
-\usepackage{mathtools} %Contraction notation \overbracket. 
+
 \usepackage[dvipsnames]{xcolor} % \highlight to color math input.
-\usepackage{tensor} %Raised and lowered indices with \indices.
+
+%\usepackage{aligned-overset} %put text over symbols with \overset
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{blkarray} %make big matrices
+\usepackage{bm} %Bold vectors. 
+\usepackage{braket} %Bras, kets, sets, caps or not.
 \usepackage{color}
-\usepackage{listings} %type nice code into latex
+\usepackage{csquotes}
 \usepackage[shortlabels]{enumitem} %use to make short labels in enumerate, e.g. (a), ...
-\usepackage{pgfplots} %better plotting of graphs
+\usepackage{faktor} %Write quotients nicely.
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref} %References and links. 
+
+\usepackage{listings} %type nice code into latex
+\usepackage{mathrsfs}
+\usepackage{mathtools} %Contraction notation \overbracket.
+\usepackage{mdframed} %puts the coloured frames around environs, see header-colourful
 \usepackage{multicol} %\begin{multicols}{2} ...
+\usepackage{pgfmath} %allows arrays for tikz
+\usepackage{pgfplots} %better plotting of graphs
+\usepackage{slashed} %Dirac slash notation
+\usepackage{soul} %Highlight text with \hl{}
+\usepackage{stmaryrd}
+\usepackage{tensor} %Raised and lowered indices with \indices.
+\usepackage{tikz-cd}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{verbatim} 
+
+\usepackage{xfrac} %Slanted fractions with \sfrac
+%\usepackage{xurl} %Put URLs in text that split lines \url{}
+
 
 %%
 %% Maple definitions (c) 2008 Alexander Shapiro
@@ -38,19 +55,7 @@ morestring=[b]",%
 morestring=[d]"%
 }[keywords,comments,strings]%
 
-\usepackage{soul} %Highlight text with \hl{}
-%\usepackage{xurl} %Put URLs in text that split lines \url{}
-\usepackage[colorinlistoftodos]{todonotes}
-%\usepackage{aligned-overset} %put text over symbols with \overset
-\usepackage{tikz-cd}
 \usetikzlibrary{decorations.pathmorphing,decorations.pathreplacing} %decorate, decorations=snake to make wavy line
-\usepackage{pgfmath} %allows arrays for tikz
-\usepackage{mdframed} %puts the coloured frames around environs, see header-colourful
-\usepackage{verbatim} 
-\usepackage{mathrsfs}
-\usepackage{csquotes}
-\usepackage{stmaryrd}
-\usepackage{blkarray} %make big matrices
 
 % Sets bibliography style and preferences
 % To clear the month entry in bibtex 
@@ -101,6 +106,7 @@ morestring=[d]"%
 %Text math operators.
 \DeclareMathOperator{\ad}{ad}
 \DeclareMathOperator{\Ad}{Ad}
+\DeclareMathOperator{\arcot}{arcot}
 \DeclareMathOperator{\Aut}{Aut}
 \DeclareMathOperator{\cohom}{Cohom}
 \DeclareMathOperator{\cn}{cn}
