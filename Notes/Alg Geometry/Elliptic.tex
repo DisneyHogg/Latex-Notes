@@ -26,6 +26,7 @@ Elliptic integrals are hard to solve and make little sense. Fortunately, algebra
 	\item nlab
 	\item \textit{Algebraic Curves and Riemann Surfaces} (Miranda)
 	\item \textit{Arithmetic of Elliptic Curves} (Silverman)
+	\item The Digital Library of Mathematical Functions (\href{dlmf.nist.gov}{dlmf.nist.gov})
 \end{itemize}
 These books may use different conventions, but I will keep mine uniform (\hl{unless I make an error, in which case please do let me know}). 
 
@@ -784,8 +785,16 @@ using the contour above branch points.
 	\eq{
 x \mapsto \int^x \frac{1}{(t^2-c^2)\sqrt{(1-t^2)(1-k^2t^2)}}	dt
 }
-using the contour above branch points.
+using the contour above branch points. The corresponding complete integrals is 
+\eq{
+\Pi(\alpha^2,k) = \int_0^1 \frac{1}{(1-\alpha^2 t^2)\sqrt{(1-t^2)(1-k^2t^2)}}	dt
+}
+for $\alpha \in (-1,1)$. 
 \end{definition}
+
+\begin{prop}
+	$\Pi(k^2,k) = \frac{E(k)}{1-k^2}$
+\end{prop}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Reduction of Elliptic Integrals}
@@ -887,7 +896,7 @@ I_n^\prime &= \int \frac{(x^2-c^2)^n}{y} \, dx \quad (n < 0)
 for $y^2 = (1-x^2)(1-k^2 x^2)$.
 \item Use relation 
 \eq{
-n I_{n-1} -n(1+k^2)I_n + (n+1)k^2 I_{n+1} -\frac{1}{2}(1+k^2)I_n = x^{2n}y + \text{cst}
+n I_{n-1} -\pround{n+\frac{1}{2}}(1+k^2)I_n + (n+1)k^2 I_{n+1} = x^{2n}y + \text{cst}
 }
 to reduce $I_n$ to $I_0$ and $I_1$. A similar technique can be applied to reduce $I_n^\prime$ to $I_{-1}^\prime$ and $I_0^\prime=I_0$. 
 \end{enumerate}
