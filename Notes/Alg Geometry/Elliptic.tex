@@ -776,9 +776,37 @@ using the contour above branch points.
 	We have the following results about $E(k)$:
 	\begin{enumerate}
 		\item $E^\prime(k) = K(k^\prime) - E(k^\prime)$
-		\item (Legendre 1825) $KE^\prime + EK^\prime - KK^\prime = \frac{\pi}{2}$
+		\item (Legendre 1825) $K(k)E(k^\prime) + E(k)K(k^\prime) - K(k)K(k^\prime) = K^\prime(k)E(k) - K(k) E^\prime(k) = \frac{\pi}{2}$
 	\end{enumerate}
 \end{prop}
+\begin{proof}
+	The prove the first result use the substitution $x \mapsto k^{-1}\sqrt{1-(k^\prime)^2 x^2}$. \\
+	The second result is is more involved. 
+\end{proof}
+
+We can also get identities between the complete integrals by considering the derivative wrt $k$.
+
+\begin{prop}
+	We have 
+	\begin{itemize}
+		\item $k^{-1}\frac{d}{dk} \psquare{k(1-k^2)\frac{d}{dk}K(k)}=K(k)$
+		\item $k\frac{d}{dk}E(k) = E(k)-K(k)$
+		\item $k(1-k^2)\frac{d}{dk} K(k) = E(k) -(1-k^2)K(k)$.
+	\end{itemize}
+\end{prop}
+\begin{proof}
+	We will prove just the final one. We start by noting 
+	\eq{
+k^{-1} \frac{d}{dk} K(k) = \int_0^1 \frac{x^2 \, dx}{\sqrt{(1-x^2)(1-k^2x^2)^3}}
+}
+by simple differentiation under the integral. Then 
+\eq{
+0 &= \int_0^1 \psquare{\frac{d}{dx} \frac{x\sqrt{1-x^2}}{\sqrt{1-k^2 x^2}}} \, dx \\
+	&= \int_0^1 \psquare{\frac{1-x^2}{\sqrt{(1-x^2)(1-k^2 x^2)}} - \frac{(1-k^2)x^2}{\sqrt{(1-x^2)(1-k^2 x^2)^3}}} \, dx \\
+\Rightarrow k^{-1}(1-k^2) \frac{d}{dk} K(k) &= k^{-2} \psquare{\int_0^1 \frac{1-k^2 x^2}{\sqrt{(1-x^2)(1-k^2x^2)}} dx +(k^2-1)\int_0^1\frac{1}{\sqrt{(1-x^2)(1-k^2x^2)}} dx } \\
+&= k^{-2}\psquare{E(k)-(1-k^2)K(k)}
+}
+\end{proof}
 
 \begin{definition}
 	The \bam{incomplete elliptic integral of the third kind} is the map $H \to \mbb{C}$ 
@@ -795,6 +823,15 @@ for $\alpha \in (-1,1)$.
 \begin{prop}
 	$\Pi(k^2,k) = \frac{E(k)}{1-k^2}$
 \end{prop}
+\begin{proof}
+	This result requires differential identities. Note 
+	\eq{
+0 &= \int_0^1 \psquare{\frac{d}{dx} \frac{x\sqrt{1-x^2}}{\sqrt{1-k^2 x^2}}} \, dx \\
+&= \int_0^1 \psquare{\frac{1-2x^2}{\sqrt{(1-x^2)(1-k^2 x^2)}} + \frac{k^2 x^2 \sqrt{1-x^2}}{\sqrt{(1-k^2 x^2)^3}}} \, dx \\
+\Rightarrow K(k) - \frac{2(K(k)-E(k))}{k^2} &= -k\frac{d}{dk} \psquare{\Pi(k^2,k) - k^{-1} \frac{d}{dk} K(k)}	
+}
+rearranging this to get a DE for $\Pi$ finds the result. 
+\end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Reduction of Elliptic Integrals}
