@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage{header}
+\usepackage{../../header}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Preamble
 
@@ -234,7 +234,7 @@ Let $\mf{sl}_n(k) = \pbrace{X \in M_n(k) \, \mid \, \tr(X) = 0}$. Then as $\tr(X
 \eq{
 \comm[X]{Y} = XY - YX
 }
-This gives an algebra structure to $\mf{sl}_n(k)$ which is not inherited from matrix multiplication, as $\mf{sl}_n(k)$ is not closed under this operation. To motivate looking at such a vector space, note that 
+This gives a Lie algebra structure to $\mf{sl}_n(k)$ which is not inherited from matrix multiplication, as $\mf{sl}_n(k)$ is not closed under multiplication, so is not an associative algebra. To motivate looking at such a vector space, note that 
 \eq{
 \tr(X) = 0 \Rightarrow \det\exp(X) = e^{\tr(X)} = 1
 }
@@ -1848,10 +1848,10 @@ which is forced to be finite by our condition on $i_k$ for $k \ll 0$. We then ha
 \eq{
 F_k^{(m)} = \spn \pbrace{\psi \, | \, \deg \psi = k}
 }
-Now let $\lambda = (\lamdba_0, \dots, \lambda_{n-1}) + k$ be a partition if $h$, that is 
+Now let $\lambda = (\lambda_0, \dots, \lambda_{n-1}) + k$ be a partition if $h$, that is 
 \begin{itemize}
     \item $\lambda_0 + \dots + \lambda_{n-1} + k = h$
-    \item $\lamdba_0 \geq \lambda_1 \geq \dots \geq \lambda_{n-1}$
+    \item $\lambda_0 \geq \lambda_1 \geq \dots \geq \lambda_{n-1}$
 \end{itemize}
 
 We can then get semi-infinite monomials $\psi_\lambda$ from partitions by saying $j_{-i} = \lambda_i -i+m$ for $i=0, \dots, n-1$ and then $j_{-n-i} = -n+m-i$
@@ -1901,12 +1901,12 @@ x \in \mf{g}, \, m,n \in M,N, \, x \cdot(m \otimes n) = (x \cdot m) \otimes n + 
 }
 If $G$ is a group, then we get a rep on $M \otimes_{\mbb{C}} N$ by 
 \eq{
-g \cdot(m \otimes n) = (gm) \otiems (gn)
+g \cdot(m \otimes n) = (gm) \otimes (gn)
 }
 
-\begin{remarl}
+\begin{remark}
 
-\end{remarl}
+\end{remark}
 
 
 \end{document}
