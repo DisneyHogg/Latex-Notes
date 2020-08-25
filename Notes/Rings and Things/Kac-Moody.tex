@@ -255,7 +255,7 @@ x_i x_j - x_j x_i = \sum_k c^k_{ij} x_k
 }
 i.e. 
 \eq{
-\mc{U}_\mf{g} = \faktor{k\pangle{x_1, \dots, x_n}}{\pangle{x_i x_j - x_j x_i = \sum_k c^k_{ij} x_k}}
+\mc{U}_\mf{g} = \faktor{k\pangle{x_1, \dots, x_n}}{\pangle{x_i x_j - x_j x_i - \sum_k c^k_{ij} x_k}}
 }
 We get the map 
 \eq{
@@ -264,9 +264,8 @@ x_i &\mapsto x_i
 }
 \end{definition}
 
-\begin{remark}
+
 The above definition involves a choice of basis of $\mf{g}$. In general we want to remove this to give a universal property of $\mc{U}_\mf{g}$. 
-\end{remark}
 
 \begin{prop}
 For any associative algebra $A$, and Lie algebra map $\mf{g} \overset{f}{\to} A^{\text{Lie}}$, there exists a unique map of associative algebras $\mc{U}_\mf{g} \overset{\mc{U}(f)}{\to} A$ s.t. 
@@ -450,10 +449,10 @@ If $\mf{g}$ is a finite dimensional simple Lie algebra over $\mbb{C}$ then $\mf{
 \end{theorem}
 
 \begin{prop}
-A has the following properites: 
+A has the following properties: 
 \begin{itemize}
     \item $A \in M_n(\mbb{Z})$ 
-    \item $\forall i \neq j, \, a_{ii}=0 $ and $a_{ij}\leq 0$ 
+    \item $\forall i \neq j, \, a_{ii}=2 $ and $a_{ij}\leq 0$ 
     \item $a_{ij}=0 \Leftrightarrow a_{ji}=0$ 
     \item $A$ is indecomposable
     \item $\det(A) \neq 0$ and $A$ is positive definite. 
@@ -469,7 +468,7 @@ We can try to reverse engineer the Cartan matrix, to generalise it and then assi
 \end{idea}
 
 \begin{definition}
-A \bam{realisation} of $A$ is a triple $(\mf{h},\Pi^\vee,\Pi)$ where
+A \bam{realisation} of $A$ is a triple $ (\mf{h},\Pi^\vee,\Pi)$ where
 \begin{itemize}
     \item $\mf{h}$ is a vector space 
     \item $\Pi^\vee = \pbrace{\alpha_1^\vee, \dots, \alpha^\vee_n} \subseteq \mf{h}$ 
@@ -481,6 +480,7 @@ s.t.
     \item $\Pi$ is a linearly independent set 
     \item $\alpha_i(\alpha_j^\vee) = a_{ji}$
 \end{itemize}
+We call $\Pi$ the \bam{simple roots}, and $\Pi^\vee$ the \bam{simple coroots}
 \end{definition}
 
 \begin{ex}
@@ -501,7 +501,7 @@ A morphism $(\mf{h},\Pi^\vee,\Pi) \to (\mf{h}^\prime,(\Pi^\prime)^\vee,\Pi^\prim
 \end{definition}
 
 \begin{prop}
-For any $A$, $\exists!$ realisation up to isomorphism. 
+For any $A$, $\exists!$ minimal realisation $\Sigma$ up to isomorphism. 
 \end{prop}
 
 \begin{definition}
@@ -514,31 +514,10 @@ Let $(\mf{h},\Pi^\vee,\Pi)$ be a realisation of $A$. Then $\tilde{\mf{g}}(A)$ is
 }
 \end{definition}
 
-\begin{idea}
-$\tilde{\mf{g}}(A)$ is still currently too large, for example as the $e_i$ are not yet related, and we want to try make it look like $\mf{sl}_n$, i.e maybe simple. Hence we want to consider all ideals of the form 
-\eq{
-\text{trivial ideals } = \pbrace{r \subset \tilde{\mf{g}}(A) \text{ ideals } \, | \, r \cap \mf{h} =0}
-}
-and let 
-\eq{
-r_{\text{max}} = \sum_{r \in \text{trivial}} r 
-}
-\end{idea}
 
-\begin{definition}
-We define the Lie algebra $\mf{g}(A) = \faktor{\tilde{\mf{g}}(A)}{r_{\text{max}}}$
-\end{definition}
-
-
-\begin{idea}
-We want to go 
-\eq{
-A \to (\mf{h},\Pi^\vee,\Pi) \to \tilde{\mf{g}}(A) \to \mf{g}(A)
-}
-\end{idea}
 
 \begin{example}
-If $A=[2]$, we can follow the procedure and find $\mf{g}(A) = \mf{sl}(2)$. To see we see $\dim\mf{h}=1$ for a minimal realisation, so we only need $\alpha^\vee \in \mf{h}, \alpha\in \mf{h}^\ast$ s.t. $\alpha(\alpha^\vee)=2$. With this $\mf{h} = \spn\pbrace{\alpha^\vee}$ We then need $e,f$ to satisfy 
+If $A=[2]$, we can follow the procedure and find $\tilde{\mf{g}}(A) = \mf{sl}(2)$. To see we see $\dim\mf{h}=1$ for a minimal realisation, so we only need $\alpha^\vee \in \mf{h}, \alpha\in \mf{h}^\ast$ s.t. $\alpha(\alpha^\vee)=2$. With this $\mf{h} = \spn\pbrace{\alpha^\vee}$ We then need $e,f$ to satisfy 
 \eq{
 \comm[e]{f} &= \alpha^\vee \\
 \comm[\alpha^\vee]{e} &= \alpha(\alpha^\vee) e = 2e \\
@@ -547,11 +526,21 @@ If $A=[2]$, we can follow the procedure and find $\mf{g}(A) = \mf{sl}(2)$. To se
 This is just $\mf{sl}_2$ if we relabel $h = \alpha^\vee$. 
 \end{example}
 
-\begin{ex}
-Show that if $A = \begin{psmallmatrix} 2 & -1 \\ -1 & 2 \end{psmallmatrix} $ we get $\mf{g}(A) = \mf{sl}_3$. 
-\end{ex}
+\begin{idea}
+	$\tilde{\mf{g}}(A)$ is still currently too large, for example as the $e_i$ are not yet related, and we want to try make it look like $\mf{sl}_n$, i.e maybe simple. Hence we want to consider all ideals of the form 
+	\eq{
+		\text{trivial ideals } = \pbrace{r \subset \tilde{\mf{g}}(A) \text{ ideals } \, | \, r \cap \mf{h} =0}
+	}
+	and let 
+	\eq{
+		r_{\text{max}} = \sum_{r \in \text{trivial}} r 
+	}
+	and quotient by this to go 
+	\eq{
+		A \to (\mf{h},\Pi^\vee,\Pi) \to \tilde{\mf{g}}(A) \to \mf{g}(A)=\faktor{\tilde{\mf{g}}(A)}{r_{max}}
+	}
+\end{idea}
 
-We can then make the definitions of calling $\Pi$ the \bam{simple roots}, and $\Pi^\vee$ the \bam{simple coroots}. We then define 
 
 \begin{definition}
 We define
@@ -569,18 +558,18 @@ Note that the relations required for $\tilde{g}(A)$ give us all the commutators 
 &= \alpha_1(h) \comm[e_2]{e_1} + \alpha_2(h) \comm[e_1]{e_2} \\
 &= (\alpha_1 + \alpha_2)(h) \comm[e_1]{e_2}
 }
-
+\begin{definition}
 Now for $\alpha \in Q$ we can define 
 \eq{
-\tilde{\mf{g}}_\alpha \equiv \pbrace{x \in \mf{g}(\Sigma) \, | \, \forall h \in \mf{h}, \, \comm[h]{x} = \alpha(h)x}
+\tilde{\mf{g}}_\alpha \equiv \pbrace{x \in \tilde{\mf{g}}(\Sigma) \, | \, \forall h \in \mf{h}, \, \comm[h]{x} = \alpha(h)x}
 }
-
+\end{definition}
 
 \begin{example}
 We can consider examples of this:
 \begin{itemize}
     \item $\mf{h} \supset \tilde{\mf{g}}_0 = \mf{h}$.
-    \item $\mbb{C}e_i \supset \tilde{\mf{g}}_{\alpha_i} = \mbb{C}e_i$
+    \item $\tilde{\mf{g}}_{\alpha_i} = \mbb{C}e_i$
     \item $\tilde{\mf{g}}_{-\alpha_i} = \mbb{C}f_i$
     \item $\tilde{\mf{g}}_{\alpha_1 - \alpha_2} = 0$
 \end{itemize}
@@ -611,11 +600,66 @@ Now
 \end{lemma}
 
 \begin{definition}
-The $KM$ algebra $\mf{g}(\Sigma)$ is $\mf{g}(\Sigma)\equiv \faktor{\tilde{\mf{g}}(\Sigma)}{r}$
+The \bam{Kac-Moody} Lie algebra associated to $\Sigma$ is $\mf{g}(\Sigma)\equiv \faktor{\tilde{\mf{g}}(\Sigma)}{r}$
 \end{definition}
 
+\begin{remark}
+	As the minimal realisation is unique (up to iso) we have no problem notationally using either $\mf{g}(A)$ or $\mf{g}(\Sigma)$.
+\end{remark}
+
+\begin{example}
+	$\mf{sl}(2)$ is simple and so when $A=[2]$, $\mf{g}(A) = \tilde{\mf{g}}(A) = \mf{sl}(2)$.
+\end{example}
+
+\begin{ex}
+	Show that if $A = \begin{psmallmatrix} 2 & -1 \\ -1 & 2 \end{psmallmatrix} $ we get $\mf{g}(A) = \mf{sl}_3$. 
+\end{ex}
+\begin{proof}
+	$\rank(A) = 2$, so the dimension of the minimal realisation is $2\times 2 - 2 = 2$. Hence $\mf{h} = \pangle{\alpha_1^\vee,\alpha_2^\vee}$. The corresponding $\tilde{\mf{g}}(A)$ gives us all the generators we want letting $h_i = \alpha_i^\vee$.
+\end{proof}
+
 \begin{definition}
-Define $\mf{g} = \pbrace{x \in \mf{g}(\Sigma) \, | \, \forall h \in \mf{h}, \, \comm[h]{x} = \alpha(h)x}$.
+Let $\tilde{w}:\tilde{\mf{g}}(A) \to \tilde{\mf{g}}(A)$ given by 
+\eq{
+\tilde{w}(e_i) &= f_i \\
+\tilde{w}(f_i) &= e_i \\
+\tilde{w}(h) &= -h
+}
+This descends to a map $w:\mf{g}(A) \to \mf{g}(A)$ called the \bam{Chevalley involution}.
+\end{definition}
+
+The next result is useful for making calculations in $\mf{g}(\Sigma)$:
+
+\begin{lemma}
+	We have the following two classifications
+	\begin{enumerate}
+		\item For $x \in n_+, \, x=0 \Leftrightarrow \forall i, \, \comm[f_i]{x} = 0$
+		\item For $x \in n_-, \, x=0 \Leftrightarrow \forall i, \, \comm[e_i]{x} = 0$
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	Set $\mf{g}_1 = \bigoplus_{i=1}^n \mbb{C} e_i \subset n_+$. Then define the vector space 
+	\eq{
+		J_x \equiv \sum_{k \geq 0} \ad(\mf{g}_1)^k(x) \ni x
+	}
+	Then we can note 
+	\begin{itemize}
+		\item $\comm[n_+]{J_x} \subset J_x$
+		\item $\comm[\mf{h}]{J_x} \subset J_x$
+	\end{itemize}
+	and further 
+	\begin{claim}
+		$\comm[f_i]{\ad(\mf{g}_1)^k(x)} \subset J_x$.
+	\end{claim}
+	We can show this by induction. Certainly if we have assumed $\comm[f_i]{x} = 0$, then $\comm[f_i]{x} \in J_x$. Now for $a \in \mf{g}_1, b \in \ad(\mf{g}_1)^{k-1}(x)$ we have 
+	\eq{
+		\comm[f_i]{\comm[a]{b}} &= \comm[\underbrace{\comm[f_i]{a}}_{\in \mf{h}}]{b} + \comm[a]{\underbrace{\comm[f_i]{b}}_{\in J_x}}
+	}
+	So we have that $J_x$ is an ideal and that $J_x \cap \mf{h} = 0$, so $J_x= 0$. 
+\end{proof}
+
+\begin{definition}
+Define $\mf{g}_\alpha = \pbrace{x \in \mf{g}(\Sigma) \, | \, \forall h \in \mf{h}, \, \comm[h]{x} = \alpha(h)x}$ in analogy to $\tilde{\mf{g}}_\alpha$.
 \end{definition}
 
 \begin{remark}
@@ -623,7 +667,7 @@ We have the $\forall \alpha \in Q_+ \setminus 0$,
 \begin{itemize}
     \item $\tilde{\mf{g}}_{\pm\alpha} \neq 0$
     \item $\dim \tilde{\mf{g}}_{\pm\alpha}<\infty$
-    \item If we define $ht(\alpha) = \sum_i k_i$ for $\alpha = \sum_i k_i \alpha_i$ then $\dim\tilde{\mf{g}}_{\pm\alpha} \neq n^{\abs{ht(\alpha)}}$
+    \item If we define $ht(\alpha) = \sum_i k_i$ for $\alpha = \sum_i k_i \alpha_i$ then $\dim\mf{g}_{\pm\alpha} \leq n^{\abs{ht(\alpha)}}$
 \end{itemize}
 \end{remark}
 
@@ -642,9 +686,9 @@ We call $R = \pbrace{\alpha \in Q \setminus 0 \, | \, \mf{g}_\alpha \neq 0} \sub
 \begin{ex}
 We can show 
 \eq{
-A = (2) &\Rightarrow R = \pbrace{\alpha_1} \cup \pbrace{-\alpha_1} \\
-A = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix} &\Rightarrow R_+ = \pbrace{\alpha_1, \alpha_2, \alpha_1 + \alpha_2}, \, R_- = - R_+ \\
-A = \begin{pmatrix} 2 & -2 \\ -2 & 2 \end{pmatrix} &\Rightarrow \abs{R} = \infty
+A &= (2) &  &\Rightarrow & R &= \pbrace{\alpha_1} \cup \pbrace{-\alpha_1} \\
+A &= \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix} & &\Rightarrow & R_+ &= \pbrace{\alpha_1, \alpha_2, \alpha_1 + \alpha_2}, \, R_- = - R_+ \\
+A &= \begin{pmatrix} 2 & -2 \\ -2 & 2 \end{pmatrix}  & &\Rightarrow & \abs{R} &= \infty
 }
 \end{ex}
 
@@ -658,8 +702,8 @@ Sometimes $\mf{g}(\Sigma)$ has a non-degenerate, symmetric, invariant bilinear f
 i.e. 
 \begin{itemize}
     \item $\ker(,) = \pbrace{x \in \mf{g} \, | \, \forall y \in \mf{g}, \, (x,y) =0} = 0$
-    \item $\forall x,y,z \in \mf{g}, (x,y) = (y,x)$
-    \item $(\comm[x]{y},z) = (x,\comm[y]{z})$
+    \item $\forall x,y \in \mf{g}, (x,y) = (y,x)$
+    \item $\forall x,y,z \in \mf{g}, \, (\comm[x]{y},z) = (x,\comm[y]{z})$
 \end{itemize}
 
 This will turn out to be the analogue of the Killing form. 
@@ -684,7 +728,7 @@ where we have defined $\mf{h}^\prime \equiv \pangle{\Pi^\vee} = \bigoplus_{i=1}^
 (\alpha_i^\vee,\alpha_j^\vee) &= d_i \alpha_i(\alpha_j^\vee) \\
 &= d_i a_{ji} \\
 &= d_j a_{ij} \\
-&= \dots
+&= (\alpha_j^\vee,\alpha_i^\vee)
 }
 
 \begin{theorem}
@@ -768,35 +812,37 @@ Consider $A=\begin{psmallmatrix} 2 & -1 \\ -1 & 2 \end{psmallmatrix}$, which has
 }
 \end{example}
 
+
+
+Now we have a copy of $\mf{sl}_2$, called $\mf{sl}_2^{(i)} = \pangle{e_i,f_i,\alpha_i^\vee}$ sitting in $\mf{g}(A)$. We prove a lemma about it's adjoint action:
+
 \begin{lemma}
-We have the following two classifications
-\begin{enumerate}
-    \item For $x \in n_+, \, x=0 \Leftrightarrow \forall i, \, \comm[f_i]{x} = 0$
-    \item For $x \in n_-, \, x=0 \Leftrightarrow \forall i, \, \comm[e_i]{x} = 0$
-\end{enumerate}
+	Let $V \in \Rep(\mf{sl}_2)$ and $v \in V$ s.t. $h \cdot v = \lambda v,\, e \cdot v = 0$. Defining $v_m = \frac{f^m}{m!} \cdot v$ we have 
+	\eq{
+h \cdot v_m &= (\lambda - 2m)v_m \\
+e \cdot v_m &= (\lambda -m+1)v_{m-1}
+}
 \end{lemma}
 \begin{proof}
-Set $\mf{g}_1 = \bigoplus_{i=1}^n \mbb{C} e_i \subset n_+$. Then define the vector space 
-\eq{
-J_x \equiv \sum_{k \geq 0} \ad(g_1)^k(e) \ni x
+	Note 
+	\eq{
+hf^m &= (\comm[h]{f}+fh)f^{m-1} \\
+&= -2f^m + fhf^{m-1}.	
 }
-Then we can note 
-\begin{itemize}
-    \item $\comm[n_+]{J_x} \subset J_x$
-    \item $\comm[\mf{h}]{J_x} \subset J_x$
-\end{itemize}
-and further 
-\begin{claim}
-$\comm[f_i]{\ad(g_1)^k(x)} \subset J_x$
-\end{claim}
-We can show this by induction. Certainly if we have assumed $\comm[f_i]{x} = 0$, then $\comm[f_i]{x} \in J_x$. Now for $a \in \mf{g}_1, b \in \ad(\mf{g}_1)^{k-1}(x)$ we have 
+and so so repeating this procedure we get 
 \eq{
-\comm[f_i]{\comm[a]{b}} &= \comm[\underbrace{\comm[f_i]{a}}_{\in \mf{h}}]{b} + \comm[a]{\underbrace{\comm[f_i]{b}}_{\in J_x}}
+hf^m = f^m(h-2m) \Rightarrow hf^m \cdot v= (\lambda-2m) \cdot v
 }
-Si we have that $J_x$ is an ideal and that $J_x \cap \mf{h} = 0$, so $J_x= 0$. 
+We do the same with $e$ seeing 
+\eq{
+ef^m = (h+fe)f^{m-1} &= hf^{m-1}+fhf^{m-2} + \dots + f^{m-1}h+f^me \\
+&= f^{m-1}\psquare{(h-2m+2) + (h-2m+4)+ \dots + (h)} + f^m e \\
+&= f^{m-1}\psquare{m(h-m+1)}+f^me
+}
+yielding the result
 \end{proof}
-
-Now we have a copy of $\mf{sl}_2$, called $\mf{sl}_2^{(i)} = \pangle{e_i,f_i,\alpha_i^\vee}$ sitting in $\mf{g}(A)$. If we make the definitions $v = f_j, \theta_{ij} = \ad(f_i)^{1-a_{ij}}(f_j)$, we can also give an action of $\mf{sl}_2^{(i)}$ on $v$ by 
+\begin{comment}
+ If we make the definitions $v = f_j, \theta_{ij} = \ad(f_i)^{1-a_{ij}}(f_j)$, we can also give an action of $\mf{sl}_2^{(i)}$ on $v$ by 
 \begin{itemize}
     \item $f_i \cdot v = \ad(f_i)(v)$
     \item $\alpha_i^\vee \cdot v = \comm[\alpha_i^\vee]{f_j} = -a_{ij}v$
@@ -807,17 +853,11 @@ We then have an action $\mf{sl}_2 \lact V \ni v$ s.t. $h\cdot v = \lambda v$, $e
 v_m &= \frac{f^m}{m!}v \\
 h \cdot v_m &= (\lambda - m) v_m
 }
+\end{comment}
 
-Going further, We can consider more generally an action $\mf{g}(A) \lact \mf{g}(A) = \bigoplus_{\alpha \in Q} \mf{g}_\alpha$ by $x \cdot y = \comm[x]{y}$ (the adjoint action). Then $\forall y \in \mf{g}(A)$ we have that for sufficiently large $N$ 
-\eq{
-e_i^N \cdot y &= 0 \\
-f_i^N \cdot y &= 0
-}
-We say $e_i, f_i$ are \bam{locally nilpotent}. As $\exp(x) \equiv \sum_{N \geq 0} \frac{x^N}{N!}$, if we have that $x^N \cdot y=0$ sufficiently large $N$ we may then allow $\exp(x) \lact \mf{g}(A)$. Further, if $h \in \mf{h}$ and $x \in \mf{g}_\alpha$ we will have 
-\eq{
-h \cdot x &= \alpha(h) x \\
-\Rightarrow \exp(h) \cdot x &= e^{\alpha(h)}x
-}
+\begin{definition}
+	Given $V \in \Rep(\mf{g}), \, x \in \mf{g}$ we say $x$ acts \bam{locally nilpotently} if $\forall v \in V, \exists N$ s.t. $x^N \cdot v =0$.
+\end{definition}
 
 \begin{definition}
 We say $V \in \Rep(\mf{g}(A))$ is \bam{integrable} if 
@@ -832,7 +872,12 @@ If $V_\lambda \neq 0$, we call it a \bam{weight space of weight $\lambda$}
 \end{definition}
 
 \begin{example}
-$\mf{g}(A)$ is integrable over itself as the adjoint rep. Here the weight spaces are $\mf{g}_\alpha$. 
+$\mf{g}(A)$ is integrable over itself as the adjoint rep because of the Serre relations. Here the weight spaces are $\mf{g}_\alpha$. Note if $h \in \mf{h}$ and $x \in \mf{g}_\alpha$ we will have 
+\eq{
+	h \cdot x &= \alpha(h) x \\
+	\Rightarrow \exp(h) \cdot x &= e^{\alpha(h)}x
+}
+
 \end{example}
 
 \begin{example}
@@ -986,6 +1031,10 @@ a_{ij} a_{ji} & 0 & 1 & 2 & 3 & \geq 4
 \end{center}
 \end{prop}
 
+\begin{remark}
+	A group of this form is called a \bam{Coxeter group}.
+\end{remark}
+
 \begin{example}
 We have correspondences 
 \eq{
@@ -1004,7 +1053,7 @@ Now we could consider working with realisations, and we would get the following 
 \end{itemize}
 
 \begin{definition}[Fundamental chamber]
-The \bam{fundamental chamber} is $\mc{C} \equiv \pbrace{h \in \mf{h}_\mbb{R} \, | \, \alpha_i(h) \geq 0}$. We further define the \bam{Tits cone} $X = \bigcup_{w \in W} w(\mc{C})$
+The \bam{fundamental chamber} is $\mc{C} \equiv \pbrace{h \in \mf{h}_\mbb{R} \, | \, \alpha_i(h) \geq 0}$. Correspondingly the \bam{Tits cone} is $X = \bigcup_{w \in W} w(\mc{C})$
 \end{definition}
 
 \begin{prop}
@@ -1045,7 +1094,7 @@ Now we know we will also have a bilinear form given by
 (d,d) &= 0 \\
 \text{also} \\
 (\alpha_i,\alpha_j) &= a_{ij} \\
-(\alpha_0,\Lambda) &= 0 \\
+(\alpha_0,\Lambda) &= 1 \\
 (\alpha_1,\Lambda) &= 0 \\
 (\Lambda,\Lambda) &= 0 
 }
@@ -1058,16 +1107,13 @@ c &\mapsto \delta
 }
 These now have inner product 
 \eq{
-(\delta,\alpha_0) &= 0 = (\delta,\alpha_1) \\
-(\delta,\delta) &= 0 \\
-(\delta,\Lambda) &= 1 \\
+(\delta,\alpha_0) &= 0 = (\delta,\alpha_1) \\ \Rightarrow (\delta,\delta) &= 0  \quad \text{but} \quad (\delta,\Lambda) = 1\\ 
 (c,\alpha_0^\vee) &= 0 = (c,\alpha_1^\vee) \\
-(c,c) &= 0 \\
-(c,d) &= 1
+\Rightarrow (c,c) &= 0 \quad \text{but} \quad (c,d) = 1
 }
 Now we have orthogonal decompositions 
 \eq{
-\hat{\mf{h}} &= \mbb{C} \alpha_1^\vee \oplus \mbb{C} \oplus \mbb{C}d \\
+\hat{\mf{h}} &= \mbb{C} \alpha_1^\vee \oplus \mbb{C}c \oplus \mbb{C}d \\
 \hat{\mf{h}}^\ast &= \mbb{C} \alpha_1 \oplus \mbb{C} \delta \oplus \mbb{C}\Lambda
 }
 We want to relate $\hat{\mf{g}}$ to $\mf{g} = \mf{sl}_2$. In $\hat{\mf{g}}$
@@ -1081,20 +1127,27 @@ Hence $c \in Z(\hat{\mf{g}})$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Central extension of the loop algebra}
-Now let us define $\mc{L} = \mbb{C}[t,t^{-1}] = \pbrace{\text{Laurent polynomials}}$ and for $P = \sum_{k} c_k t^k \in \mc{L}$ define $\res(P) = c_{-1}$. Now note $\res : \mc{L} \to \mbb{C}$ is actually a linear functional with \begin{itemize}
+
+\begin{definition}
+Define $\mc{L} = \mbb{C}[t,t^{-1}] = \pbrace{\text{Laurent polynomials}}$ and $\res:\mc{L} \to \mbb{C}, \, \res\pround{\sum_k c_k t^k } = c_{-1}$.  
+\end{definition}
+\begin{lemma}
+	 $\res : \mc{L} \to \mbb{C}$ is actually a linear functional with \begin{itemize}
     \item $\res(t^{-1}) = 1$ 
     \item $\res \frac{dP}{dt} = 0$
 \end{itemize}
-Hence we can construct $\varphi : \mc{L} \times \mc{L} \to \mbb{C}$ by 
+\end{lemma}
+\begin{corollary}
+We can construct $\varphi : \mc{L} \times \mc{L} \to \mbb{C}$ by 
 \eq{
 \varphi(P,Q) = \res \pround{Q \frac{dP}{dt}}
 }
-This has the properties 
+which has the properties 
 \begin{itemize}
     \item $\varphi(P,Q) = - \varphi(Q,P)$
     \item $\varphi(PQ,R) + \varphi(QR,P) + \varphi(RP,Q) = 0$
 \end{itemize}
-
+\end{corollary}
 \begin{definition}
 The \bam{loop algebra} of $\mf{g}$ is 
 \eq{
@@ -1142,7 +1195,7 @@ So in $\tilde{\mc{L}}\mf{g}$,
 This gives us a well defined subalgebra $\mbb{C}\alpha_1^\vee \oplus \mbb{C}c \subset \tilde{\mc{L}}\mf{g}$. \\
 Finally we can define 
 \eq{
-\hat{\tilde{g}} = \mc{L} \mf{g} \oplus \mbb{C}c \oplus \mbb{C}d
+\hat{g} = \mc{L} \mf{g} \oplus \mbb{C}c \oplus \mbb{C}d
 }
 s.t. 
 \begin{itemize}
@@ -1204,7 +1257,7 @@ The \bam{Witt algebra} $\Witt$ is the Lie algebra with basis $\pbrace{L_n}$ and 
 \subsection{Central extension}
 
 \begin{definition}
-Let $\mf{a}$ be a Lie algebra. A \bam{central extension} if $\mf{a}$ is a pari $(\tilde{\mf{a}},\pi)$ s.t. 
+Let $\mf{a}$ be a Lie algebra. A \bam{central extension} if $\mf{a}$ is a pair $(\tilde{\mf{a}},\pi)$ s.t. 
 \begin{itemize}
     \item $\tilde{\mf{a}}$ is a Lie algebra
     \item $\pi : \tilde{\mf{a}} \to \mf{a}$ is a surjective LA hom 

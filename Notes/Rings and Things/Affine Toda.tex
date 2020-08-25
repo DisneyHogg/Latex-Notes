@@ -20,19 +20,502 @@
 \section{Introduction}
 These will be a set of notes dedicated to a project looking at the affine toda lattice, but in situ we will cover some theory from Lie algebras and representations. See my notes on Kac-Moody algebras and Symmetries, Fields, and Particles for additional background which I will omit here as it is covered there. 
 
+
+  \section{Lie Algebra Conventions}
+Let $\mathfrak{g}$ be a simple Lie algebra of rank $r$ and $\mathfrak{h}\subset \mathfrak{g}$ 
+a fixed Cartan subalgebra with a  inner product $(\  ,  \ ):=(\  ,  \ )_{\mathfrak{h}\sp\ast}$. 
+Let $\Phi$ denote the set of roots for the pair $(\mathfrak{g},\mathfrak{h})$ and $W$ the associated Weyl group. By averaging we may always take  $(\  ,  \ )$ to be Weyl-invariant. We begin with 
+\begin{enumerate}[(i)]
+	\item the linearly independent set $\Delta:=\{\alpha_1,\ldots,\alpha_r\}\subset\Phi\subset \mathfrak{h}\sp\ast,$ the simple roots. To each $\alpha\in\Phi$ set
+	$$\epsilon_\alpha:=\frac2{(\alpha,\alpha)},\quad \alpha\sp\vee :=\epsilon_\alpha \alpha:=\frac{2\alpha}{(\alpha,\alpha)}.
+	$$
+	Here $\alpha\sp\vee\in \mathfrak{h}\sp\ast$ are the \textbf{coroots} (or \textbf{dual} roots)
+	and $\Phi\sp\vee:=\{\alpha\sp\vee \,|\,\alpha\in\Phi\}$\footnote{Caution:
+		Kac's notation has $\alpha\sp\vee\in \mathfrak{h} $}. We write $\epsilon_i:={2}/{(\alpha_i ,\alpha_i)}$
+	for $\alpha_i\in\Delta$.
+	\item The Cartan matrix is $A:=(a_{ij})$ with $ a_{ij}:=(\alpha_i\sp\vee,\alpha_j)$. Then 
+	$A=DB$ where $D=\diag(\epsilon_1,\ldots,\epsilon_n)$ and $B:=(b_{ij})$ , $b_{ij}=(\alpha_i ,\alpha_j)$ is symmetric; $A$ is symmetrizable. Then
+	$$(\alpha_i\sp\vee,\alpha_j\sp\vee)=\epsilon_i(\alpha_i ,\alpha_j)\epsilon_j=\epsilon_i \,\alpha_i(\alpha_j\sp\vee).
+	$$
+	The choice of $\epsilon_\alpha$ is so as to make the Cartan matrix have
+	two's along the diagonal, 
+	
+	
+	\item Let $\{H_a\}$ ($a=1,\ldots,r$) be a basis of ${\mathfrak{h}}$.
+	The Cartan-Weyl basis $\{H_a\}$ and $\{E_\alpha\}$, $\alpha\in\Phi$ satisfies
+	$$[H_a,H_b]=0,\quad[H_a,E_\alpha]=\alpha_a\, E_\alpha, \quad \alpha_a:=\alpha(H_a).
+	$$
+	The Jacobi identity then yields  for $\alpha,\beta\in\Phi$ that
+	$$[H_a,[E_\alpha,E_\beta]]=(\alpha+\beta)_a\,[E_\alpha,E_\beta]$$
+	and so
+	$$[E_\alpha,E_\beta]=
+	\begin{cases} c_{\alpha,\beta}E_{\alpha+\beta}&\text{if }\alpha+\beta\in\Phi,\\
+	0&\text{if }\alpha+\beta\ne0\text{ and }\alpha+\beta\not\in\Phi.
+	\end{cases}
+	$$
+	Finally, using the fact that the $\text{centraliser}_\mathfrak{g}(\mathfrak{h})=\mathfrak{h}$ we
+	see that $[E_\alpha,E_{-\alpha}]\in \mathfrak{h}$.
+	
+	\item Denote the Killing form by 
+	\begin{equation}
+	\kappa(x,y):=\tr \ad_x\circ \ad_y, \qquad x,y\in\mathfrak{g}.
+	\end{equation}
+	Then
+	$$ \kappa([x,y],z)=\kappa(x,[y,z]).
+	$$
+	The non-degeneracy of the Killing form means we get an
+	isomorphism $\nu:
+	{\mathfrak{h}}\rightarrow{\mathfrak{h}}\sp\ast$ such that
+	$\kappa(h_1 ,  h_2 )_{\mathfrak{h}}=\nu(h_1)(h_2)$. For each $\alpha\in\Phi$ define $t_\alpha\in \mathfrak{h}$ by $\nu(t_\alpha)=\alpha$.  Thus $\alpha(t_\alpha)=\kappa(t_\alpha,t_\alpha)$.
+	Then for all $h\in {\mathfrak{h}}$
+	\begin{align*}
+	\kappa(h, [E_\alpha,E_{-\alpha}])&=\kappa([h, E_\alpha],E_{-\alpha}])=\alpha(h)
+	\kappa(E_\alpha,E_{-\alpha} )=\kappa(t_\alpha,h )\kappa(E_\alpha,E_{-\alpha}  )\\
+	&=\kappa(\kappa(E_\alpha,E_{-\alpha}  )\, t_\alpha,h  ).
+	\end{align*}
+	and the non-degeneracy of the Killing form  now yields that
+	$$ [E_\alpha,E_{-\alpha}]=\kappa(E_\alpha,E_{-\alpha}  )\, t_\alpha.$$
+	
+	\item Upon noting that
+	\begin{align*}
+	\ad_{H_a}\circ\ad_{H_b}(h)&=0
+	\\
+	\ad_{H_a}\circ\ad_{H_b}(E_\alpha)&=\alpha_a \alpha_b\,E_\alpha
+	\end{align*}
+	we find
+	$$
+	\kappa(H_a,H_b)=\sum_{\alpha\in \Phi}\alpha_a \alpha_b.
+	$$
+	
+	\item The Weyl group acts irreducibly on the vector space $\mathfrak{h}\sp\ast$. If we write the $W$-invariant metric as $(\alpha,\beta)=\alpha_a g\sp{ab}\beta_b$ then
+	$$\sum_{w\in W} (w\alpha)_a (w\alpha)_b =\frac{(\alpha,\alpha)}{r}\,|\mc{O}(\alpha)|\, g_{ab}.$$
+	Now a root system $\Phi$ consists of at most root vectors of two lengths two (long $L$ and short $S$), and those vectors of the same length form a single orbit. Then
+	$$\sum_{\alpha\in \Phi}\alpha_a \alpha_b
+	=\left( (\alpha_L,\alpha_L)\,|\mc{O}(\alpha_L)|+(\alpha_S,\alpha_S)\,|\mc{O}(\alpha_S)|\right) \, g_{ab}
+	=2g\,\frac{ (\alpha_L,\alpha_L)}2\, g_{ab}
+	.
+	$$
+	Here $g$ is the \textbf{dual Coxeter} number. Therefore
+	$$
+	\kappa(H_a,H_b)=2g\,\frac{ (\alpha_L,\alpha_L)}2\, g_{ab}.
+	$$
+	
+	\item Let us set $c:=2g\, (\alpha_L,\alpha_L)/2$ so that $\kappa_{ab}:=\kappa(H_a,H_b)=c\, g_{ab}$. 
+	We wish to express
+	$t_\alpha$ in terms of the basis $\{H_a\}$. Now 
+	$$\kappa(t_\alpha,H_a)=\nu(t_\alpha)(H_a)=\alpha(H_a)=\alpha_a.$$
+	If $t_\alpha=x\sp{b}H_b$ then $x\sp{b}\kappa_{ba}=\alpha_a$ and so $x\sp{b}=\alpha_a g\sp{ab}/c=
+	\alpha\sp{b}/c$ and
+	$$t_\alpha=\frac1{c}\alpha\sp{a}H_a=\frac1{c}\alpha\cdot H.$$
+	Note that
+	$$\alpha(t_\alpha)=\kappa(t_\alpha,t_\alpha)=\frac{\alpha\sp{a}}{c}\,\kappa(H_a,H_b)\,\frac{\alpha\sp{b}}{c}
+	=\frac{\alpha\sp{a}}{c}\,c\, g_{ab}\,\frac{\alpha\sp{b}}{c}=\frac{(\alpha,\alpha)}{c}.
+	$$
+	
+	\item Set
+	$$H_\alpha:=\frac{2\,t_\alpha}{\kappa(t_\alpha,t_\alpha)}=\frac{2\,\alpha\cdot H}{(\alpha,\alpha)}
+	=\alpha\sp\vee\cdot H.
+	$$
+	Upon noting that $[t_\alpha, E_\alpha]=\alpha(t_\alpha)E_\alpha=(\alpha,\alpha)E_\alpha/{c}$
+	then for all $\alpha\in\Phi$,
+	$$[H_\alpha, E_\alpha]=2\,E_\alpha.
+	$$
+	Now
+	$$ [E_\alpha,E_{-\alpha}]=\kappa(E_\alpha,E_{-\alpha})\,t_\alpha=
+	\left(\frac12 \kappa(E_\alpha,E_{-\alpha}) \kappa(t_\alpha,t_\alpha) \right) H_\alpha.
+	$$
+	Setting
+	$$E_\alpha\sp{Ch}:=E_\alpha/\sqrt{\frac12 \kappa(E_\alpha,E_{-\alpha}) \kappa(t_\alpha,t_\alpha) }$$
+	we then have for  all $\alpha\in\Phi$ the standard $sl_2$ relations
+	$$[H_\alpha, E_\alpha\sp{Ch}]=2\,E_\alpha\sp{Ch},\quad [E_\alpha\sp{Ch},E_{-\alpha}\sp{Ch}]=H_\alpha.
+	$$
+	Further
+	$$[H_\alpha, E_\beta\sp{Ch}]=\epsilon_\alpha \alpha\sp{a} \beta(H_a) E_\beta\sp{Ch}=
+	(\alpha\sp\vee,\beta)\, E_\beta\sp{Ch}
+	$$
+	and
+	$$\kappa(H_\alpha,H_\beta)=c\,(\alpha\sp\vee,\beta\sp\vee),\quad
+	\kappa(E_\alpha\sp{Ch},E_{-\alpha}\sp{Ch})=c\,\epsilon_\alpha.
+	$$
+	
+	
+	\item The Chevalley basis consists of
+	$\{H_\alpha\}$ for $\alpha\in\Delta$ and $\{E_\beta\sp{Ch}\}_{\beta\in\Phi}$, 
+	where
+	\begin{align*} 
+	[H_\alpha, E_\beta\sp{Ch}]&=(\alpha\sp\vee,\beta)\, E_\beta\sp{Ch},\\
+	[E_\alpha\sp{Ch},E_\beta\sp{Ch}]&=
+	\begin{cases} H_\alpha
+	&\text{if }\alpha+\beta=0,\\
+	N_{\alpha,\beta}E_{\alpha+\beta}&\text{if }\alpha+\beta\in\Phi,\\
+	0&\text{if }\alpha+\beta\ne0\text{ and }\alpha+\beta\not\in\Phi.
+	\end{cases}
+	\end{align*}
+	with
+	$$\kappa(H_\alpha,H_\beta)=c\,(\alpha\sp\vee,\beta\sp\vee),\quad
+	\kappa(E_\alpha\sp{Ch},E_{-\alpha}\sp{Ch})=c\,\epsilon_\alpha, \quad
+	c=2g\, \frac{(\alpha_L,\alpha_L)}{2}.
+	$$
+	
+	
+	
+	
+\end{enumerate}
+
+
+
+
+\subsection{Affine Toda Field Theory}
+Although the monopole equations of motion have a Hamiltonian of the wrong sign, for the affine Toda Field theory we work with the conventional signs to obtain a physical field theory.
+
+
+If we have a Lagrangian density
+$$\mathcal{L}=\tr \left( \frac12 \partial_\mu\phi \partial\sp\mu\phi -e^{b\phi}E  e^{-b\phi} E\sp\dagger \right)
+$$
+the equations of motion are then
+$$\partial_\mu\partial\sp\mu\phi +b\,[e^{b\phi}E  e^{-b\phi}, E\sp\dagger]=0.$$
+With $ds^2=dt^2-dx^2=-dx\sp+dx\sp-$, $x\sp\pm=x\pm t$, $\partial_x=\partial_++\partial_-$,
+$\partial_t=\partial_+-\partial_-$ these become
+$$-\partial_{+-}\phi +\frac{b}4\,[e^{b\phi}E  e^{-b\phi}, E\sp\dagger]=0$$
+which are the consistency of
+$$0=[\partial_++A_+, \partial_-+A_-],\quad
+A_+=\frac{b}2 e^{b\phi/2}\,E \, e^{-b\phi/2}+\frac{b}2 \partial_+\phi,
+\quad 
+A_-=\frac{b}2 e^{-b\phi/2}\,E\sp\dagger \, e^{b\phi/2}-\frac{b}2 \partial_-\phi
+.
+$$
+Observe that
+\begin{align*}
+e^{\phi}E_\alpha  e^{-\phi}&=\Ad_{e^{\phi}}E_\alpha 
+=(1+\phi+\frac{1}2\phi^2+\ldots)E_\alpha (1-\phi+\frac{1}2\phi^2-\ldots)\\
+&=E_\alpha+[\phi,E_\alpha]+\frac{1}2[\phi,[\phi,E_\alpha]]+\ldots=e^{\alpha(\phi)}E_\alpha
+\end{align*}
+giving
+$$
+A_+=\frac{b}2 \sum_{\alpha\in\bar\Delta} \sqrt{n_\alpha}\,e^{b\alpha(\phi)/2}E_\alpha
++\frac{b}2 \partial_+\phi,
+\quad 
+A_-=
+\frac{b}2 \sum_{\alpha\in\bar\Delta} \sqrt{n_\alpha}\,e^{b\alpha(\phi)/2}E_{-\alpha}
+-\frac{b}2 \partial_-\phi.
+$$
+Then
+\begin{align*}
+A_1&=A_++A_-=
+\frac{b}2 \partial_0\phi+{b} \sum_{\alpha\in\bar\Delta} \sqrt{n_\alpha}\,e^{b\alpha(\phi)/2}X\sp+_\alpha\\
+A_0&=A_+-A_-=
+\frac{b}2 \partial_1\phi+{b} \sum_{\alpha\in\bar\Delta} \sqrt{n_\alpha}\,e^{b\alpha(\phi)/2}X\sp-_\alpha
+\end{align*}
+where $X\sp\pm_\alpha=(E_\alpha \pm E_{-\alpha})/2$,
+and
+\begin{align*}
+0&=[\partial_0+A_0,\partial_1+A_1]=\frac{b}2(\partial_0^2-\partial_1^2)\phi
++\frac{b^2}2  \sum_{\alpha\in\bar\Delta} \sqrt{n_\alpha}\,e^{b\alpha(\phi)/2}
+\left(\alpha\left( \partial_0\phi\right)\,X\sp+_\alpha-
+\alpha\left( \partial_1\phi\right)\,X\sp-_\alpha\right)
+\\
+&\qquad+\frac{b^2}2  \sum_{\alpha\in\bar\Delta} \sqrt{n_\alpha}\,e^{b\alpha(\phi)/2}\left(
+[ \partial_1\phi,  X\sp+_\alpha]  -[ \partial_0\phi,  X\sp-_\alpha]  \right)
++\frac{b^2}2  \sum_{\alpha\in\bar\Delta}n_\alpha \,e^{b\alpha(\phi)} [E_\alpha,E_{-\alpha}]
+\intertext{so giving}\\
+0&=\partial_\mu\partial\sp\mu\phi+b\sum_{\alpha\in\bar\Delta}n_\alpha \,e^{b\alpha(\phi)}  [E_\alpha,E_{-\alpha}]=\partial_\mu\partial\sp\mu\phi +b\,[e^{b\phi}E  e^{-b\phi}, E\sp\dagger].
+\end{align*}
+
+
+To make contact with perturbative affine Toda theory we note the expansion
+\begin{align*}
+\tr e^{b\phi}E  e^{-b\phi} E\sp\dagger&=\tr
+(1+b\phi+\frac{b^2}{2}\phi^2+\frac{b^3}{6}\phi^3+\ldots) E
+(1-b\phi+\frac{b^2}{2}\phi^2-\frac{b^3}{6}\phi^3+\ldots) 
+E\sp\dagger\\
+&=\tr \left(E E\sp\dagger+b\phi[E,E\sp\dagger]+\frac{b^2}{2}\phi[ E,[ E\sp\dagger, \phi]]+
+\frac{b^3}{6}\phi[ [\phi, E\sp\dagger,] [\phi,E]]
++ \ldots
+\right)\\
+&= \tr E E\sp\dagger+\frac{b^2}{2}\tr \phi[ E,[ E\sp\dagger, \phi]]+ \frac{b^3}{6}\tr \phi[ [\phi, E\sp\dagger,] [\phi,E]]+\ldots
+\end{align*}
+which is further simplified upon specifying the normalisations $ \tr E_\alpha E_{-\alpha}$. This form of the
+affine Toda equation has been chosen so that $\phi=0$ is a classical solution. If we work with
+$$\tr E_\alpha E_{-\alpha}=\epsilon_\alpha:=\frac2{(\alpha,\alpha)}
+$$
+then
+$$ \tr E E\sp\dagger=\sum_{\alpha\in\bar\Delta}n_\alpha\sp\vee =g,\qquad  n_\alpha\sp\vee :=
+n_\alpha/\epsilon_\alpha,$$
+where $g$ is the dual Coxeter number. If we work with the (unshifted) Lagrangian
+$$
+\mathcal{L}= \frac12 \partial_\mu\psi \partial\sp\mu\psi -
+\sum_{\alpha\in\bar\Delta}\epsilon_\alpha e\sp{(\alpha,\psi)}
+$$
+and expand $\psi=\psi\sp{i}\epsilon_i\lambda_i$ with $(\alpha_i\sp\vee,\lambda_j)=\delta_{ij}$ for the simple roots, then we obtain equations of motion
+$$\epsilon_i(\lambda_i,\lambda_j)\epsilon_j \partial_\mu\partial\sp\mu\psi\sp{j}=-
+\sum_{\alpha\in\bar\Delta}\epsilon_\alpha (\alpha, \epsilon_i\lambda_i)\, e\sp{(\alpha,\psi)}
+= -\epsilon_i\, e\sp{\psi\sp{i}}+n_i \epsilon_{-\Theta }\,e\sp{-(\Theta,\psi)}.
+$$
+Then with $K_{ij}=(\alpha_i\sp{\vee},\alpha_j)=\epsilon_i (\alpha_i,\alpha_j):=\epsilon_i b_{ij}$ and
+$(\lambda_i,\lambda_j)=G_{ij}=\epsilon_i\sp{-1}b_{ij}\sp{-1}\epsilon_j\sp{-1}=\epsilon_i\sp{-1}K_{ij}\sp{-1}$ we obtain
+$$-\partial_\mu\partial\sp\mu\psi\sp{j}=b_{ji}\epsilon_i\, e\sp{\psi\sp{i}}-b_{ji}n_i \epsilon_{-\Theta }\,e\sp{-(\Theta,\psi)}
+={\bar K}_{ji}\sp{T}\, e\sp{\psi\sp{i}}+{\bar K}_{ji}\sp{T}\, e\sp{-(\Theta,\psi)}
+={\bar K}_{ja}\sp{T}\, e\sp{\psi\sp{a}}
+$$
+and $\psi\sp0:=-(\Theta,\psi)$.
+
+
+In the zero curvature equation there so far has been no appearance of a spectral parameter. We see that
+taking
+$$X_\alpha\sp\pm = \frac12\left( \zeta\sp{r_\alpha} E_\alpha \pm \zeta\sp{-r_\alpha} E_{-\alpha}\right)$$
+will result in the same equations of motion. Two common choices in the literature are
+\begin{enumerate}
+	\item $r_\alpha=1$ for all $\alpha\in\bar\Delta$,
+	\item $r_{-\Theta}=1$ and $r_\alpha=0$ for all $\alpha\in\Delta$.
+\end{enumerate}
+
+Observe that the Lax matrix for the monopoles may be written 
+\begin{align*}
+L/\zeta&= -\dot\phi +e^{\phi/2}\,Ee^{-\phi/2}/\zeta-e^{-\phi/2}\,E\sp\dagger e^{\phi/2}\zeta
+= -\dot\phi +
+\sum_{\alpha\in\bar\Delta}\sqrt{n_\alpha}\, e^{b\alpha(\phi)/2} \left(
+\zeta\sp{-1} E_\alpha - \zeta E_{-\alpha}
+\right)\\
+&=-2 A_0\sp\dagger\\
+M&=-\frac12 \dot\phi -e^{-\phi/2}\,E\sp\dagger e^{\phi/2}\zeta
+=\frac12 \frac{L}{\zeta} -\frac12 e^{\phi/2}\,\frac{E}{\zeta}e^{-\phi/2}-\frac12 e^{-\phi/2}\,E\sp\dagger e^{\phi/2}\zeta\\
+&=\frac12 \frac{L}{\zeta} -\frac12 \sum_{\alpha\in\bar\Delta}\sqrt{n_\alpha}\, e^{b\alpha(\phi)/2} \left(
+\zeta\sp{-1} E_\alpha + \zeta E_{-\alpha}
+\right)\\
+&=-A_0\sp\dagger - A_1\sp\dagger
+\end{align*}
+and where $\partial_0\phi=0$ and $\partial_1\phi=\dot\phi$ in the previous section. Then the independence
+from the $0$-coordinate gives
+$0=[\partial_1+A_1, \partial_0+A_0]= \partial_1 A_0 +[A_1, A_0]$ and
+$0=\partial_1 A_0\sp\dagger -[A_1\sp\dagger, A_0\sp\dagger] = [\partial_1 -A_1\sp\dagger, A_0\sp\dagger] $
+and hence the Lax equation $0=[\partial_1 +M,L]$.
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Background Theory}
+We start with a recap of Chapters II and III of \cite{Humphreys1978}. 
+
+
+
+
+
+
+ We will typically use the notation $\mf{g}$ for a Lie algebra and $\mf{h} = \spn\pbrace{h_i }$ for its Cartan subalgebra. The simple roots will be notated $\alpha_i$. 
  
+\begin{definition}
+The \bam{Chevalley basis} for a Lie algebra with Cartan matrix $A = A_{ij}$ is $\pbrace{h-i, e^\pm_i}$ s.t. 
+\eq{
+\comm[h_i]{h_j} &= 0 \\
+\comm[h_i]{e_j^\pm} &= \pm A_{ji} e_j^\pm \\
+\comm[e_i^+]{e_j^-} &= \delta_{ij}h_i  
+} 	
+\end{definition}
+
+\begin{prop}
+	There exists a unique root of highest weight $\theta = \sum_i m_i \alpha_i \in \mf{h}^\ast$. 
+\end{prop}
+
+\begin{prop}
+	Let $A$ be the cartan matrix corresponding to $\mf{g}$ of finite type, rank $n$, and let $h_\theta = \sum_i n_i h_i\in \mf{h}$ be the element corresponding to $\theta$ under the natural iso $\mf{h} \cong \mf{h}^\ast$. Define $\hat{A}$ by 
+	\eq{
+	\hat{A}_{ij} &= A_{ij}, \, 1 \leq i,j \leq n \\ 
+	\hat{A}_{00} &= 2 \\
+	\hat{A}_{i0} &= -\sum_j m_j A_{ij} \\
+	\hat{A}_{0j} &= -\sum_i n_i A_{ij} 
+}
+Then $\hat{A}$ is an affine generalised Cartan matrix corresponding to an \bam{untwisted affine Dynkin diagram}.  
+\end{prop}
+
+\begin{prop}
+	The Lie algebra corresponding to $\hat{A}$ is isomorphic to the affine Kac-Moody Lie algebra $\mc{L}\mf{g} \oplus \mbb{C}c \oplus \mbb{C}d$
+\end{prop}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Affine Toda}
+ We start by introducing affine Toda from a field theory perspective, following \cite{Braden1990}:
  
+\begin{definition}
+	Let $\mf{g}$ be a rank-$r$ Lie algebra with simple roots $\alpha_i$, taking a particular realisation of these as vectors in $\mbb{R}^r$. The \bam{Toda field theory} is that with $\mbb{R}^r$-valued field $\bm{\phi} = (\phi^a)$ and Lagrangian 
+	\eq{
+\mc{L} = \frac{1}{2} \del_\mu \phi^a \del^\mu \phi^a - \frac{\lambda}{\beta^2} \sum_{i=1}^r e^{\beta \alpha_i \cdot \bm{\phi}}	
+} 
+for parameters $\lambda,\beta$.
+\end{definition}
+
+\begin{prop}
+	The corresponding classical equations of motion are 
+	\eq{
+\del^2 \phi_j = -\frac{\lambda}{\beta} \sum_{i=1}^r C_{ji} e^{\beta \phi_i}	
+}
+where $\phi_j = \alpha_j \cdot \bm{\phi}$ and 
+\eq{
+C_{ij} = \alpha_i \cdot \alpha_j
+}
+\end{prop}
+\begin{proof}
+	The e.o.m are 
+	\eq{
+\pd[\mc{L}]{\phi^a} &= \del_\mu \pd[\mc{L}]{\del_\mu \phi^a} \\
+\Rightarrow -\frac{\lambda}{\beta} \sum_{i=1}^r \pround{\alpha_i}^a e^{\beta \phi_i} &= \del^2 \phi^a 
+}
+and the result follow from contracting with $\alpha_j$.
+\end{proof}
+
+\begin{remark}
+	If we shift $\phi_i \mapsto \phi_i + \frac{1}{\beta}\log \pround{\frac{2}{\alpha_i^2}}$ the matrix $C$ is replaced with 
+	\eq{
+A_{ij} = \frac{2\alpha_i \cdot \alpha_j}{\alpha_j^2}	
+}
+which we recognise to be the Cartan matrix. 
+\end{remark}
+
+\begin{prop}
+	$1+1$-dimensional Toda field theory has a zero-curvature representation 
+\end{prop}
+\begin{proof}
+	We follow \cite{Olive1983}. Define light-cone coordinates
+	\eq{
+u &= \frac{1}{2}(x+t) \\
+v &= \frac{1}{2}(x-t)	
+}
+s.t. 
+\eq{
+\del_u \del_v = -\del_t^2 + \del_x^2 = - \del_\mu \del^\mu
+}
+and a gauge potential with 
+\eq{
+A_u &= \sum_{i=1}^r \pround{\frac{1}{2}}
+}
+\end{proof}
+
+
+
+
+\section{Monopoles and Toda}
+
+Upon setting (with ${T_i}\sp\dagger=-T_i$, $T_4\sp\dagger =-T_4$)
+\begin{equation*}
+\alpha=T_4+\Im T_3,\quad \beta = T_1+iT_2,
+\quad
+L=L(\zeta):=\beta -(\alpha+\alpha\sp\dagger)\zeta-\beta\sp\dagger \zeta^2, \quad
+M=M(\zeta):=-\alpha-\beta\sp\dagger \zeta,
+\end{equation*}
+one finds
+\begin{equation}
+\begin{split}\label{integrability}
+\dot{{T}_i} =[T_4,T_i]+\frac12\sum_{j,k=1}^3\epsilon_{ijk}[T_j(z),T_k(z)]
+&\Longleftrightarrow
+\dot L=[L,M]\\
+&\Longleftrightarrow\quad
+\left\{\begin{aligned}
+\left[\dfrac{d }{dz}-\alpha,\beta\right]&=0,\\
+\dfrac{d (\alpha+\alpha\sp\dagger)}{dz}&=[\alpha,\alpha\sp\dagger]+[\beta,\beta\sp\dagger].
+\end{aligned}\right.
+\end{split}
+\end{equation}
+
+Let 
+$$\phi=\phi\sp\dagger,\quad h=e^{\phi},\quad
+\beta=T_1+\Im T_2=e^{\phi/2} E e^{-\phi/2},\quad
+\beta\sp\dagger=-T_1+\Im T_2=e^{-\phi/2} E\sp\dagger e^{\phi/2},\quad
+\alpha+\alpha\sp\dagger=2\Im T_3 =\dot \phi.
+$$
+$$[\beta, \beta\sp\dagger]=e^{-\phi/2}[ e^{\phi}E  e^{-\phi} ,E\sp\dagger ]   \sp\dagger e^{\phi/2}
+=2\Im\dot T_3= \ddot \phi,
+$$
+and Nahm's equations are the Toda equations
+\begin{align*} 
+\ddot\phi&=[ e^{\phi}E  e^{-\phi} ,E\sp\dagger ] 
+\Longleftrightarrow
+\frac{d}{dz} \left( \dot h h\sp{-1} \right)= \left[ h E h\sp{-1}, E\sp\dagger\right]
+\end{align*}
+
+This coincides with the notation of \emph{Cyclic Monopoles, Affine Toda and Spectral Curves}
+\cite{Braden2011}
+\begin{align}
+T_1+iT_2&=\begin{pmatrix} 0&e\sp{(q_1-q_2)/2}&0&\ldots&0\\
+0&0&e\sp{(q_2-q_3)/2}&\ldots&0\\
+\vdots&&&\ddots&\vdots\\
+0&0&0&\ldots&e\sp{(q_{n-1}-q_n)/2}\\
+e\sp{(q_n-q_1)/2}&0&0&\ldots&0
+\end{pmatrix}\\
+T_1-iT_2&=-\begin{pmatrix}0&0&\ldots&0&e\sp{(q_n-q_1)/2}\\
+e\sp{(q_1-q_2)/2}&0&\ldots&0&0\\
+0&e\sp{(q_2-q_3)/2}&\ldots&0&0\\
+\vdots&&\ddots&&\vdots\\
+0&0&\ldots&e\sp{(q_{n-1}-q_n)/2}&0
+\end{pmatrix}\\
+T_3&=-\frac{i}{2}\begin{pmatrix} p_1&0&\ldots&0\\
+0&p_2&\ldots&0\\
+\vdots&&\ddots&\vdots\\
+0&0&\ldots&p_n
+\end{pmatrix}
+\end{align}
+where $p_i$, $q_i$ are real. 
+
+Upon using $0=\tr E^2=\tr \dot \phi(\beta-\beta\sp\dagger)$
+$$\frac12\tr L^2=\frac12\tr\left[\beta -(\alpha+\alpha\sp\dagger)\zeta-\beta\sp\dagger \zeta^2\right]^2
+=\zeta^2\tr\left(\frac12 {\dot\phi}^2 -e^{\phi}E  e^{-\phi} E\sp\dagger \right):=\zeta^2 H
+$$
+and this Hamiltonian is not bounded below\footnote{Here the Lagrangian is
+	$\mathfrak{L}:=\tr\left(\frac12 {\dot\phi}^2 +e^{\phi}E  e^{-\phi} E\sp\dagger \right)$ corresponding to a potential of the wrong sign (see the expansion below).}. This is necessary as the monopole boundary conditions require $T_a\sim \rho_a/s $ as $s\sim 0$ (and similarly at $s\sim1$), where $\rho_a$
+is an irreducible $n$-dimensional representation of $su(2)$, thus the momenta are unbounded for
+$s\sim 0$ and so the potential must also be unbounded below.
+
+
+Let $\mathfrak{g}$ be a semisimple Lie algebra of rank $r$ with a fixed Cartan subalgebra $\mathfrak{h}$.
+Let $\{X_\mu\}=\{H_i, E_\alpha\}$ be a Cartan-Weyl basis where $\{H_i\}$ is a basis of $\mathfrak{h}$
+and $\{E_\alpha\}$ the set of step operators (labelled by the root system $\Phi$ of $\mathfrak{g}$) and 
+$$[H_i,E_\alpha]=\alpha_i\, E_\alpha,\quad [E_\alpha,E_{-\alpha}]=\alpha\cdot H,
+\quad [E_\alpha, E_\beta]=N_{\alpha,\beta}\, E_{\alpha+\beta} \quad\text{if }\alpha+\beta\in \Phi.
+$$
+Denote by $\Delta$  the set of simple roots of $\Phi$  and let
+$\Theta=\sum_{\alpha\in\Delta} {n_\alpha}\, \alpha$ be the highest root. Set 
+$\bar\Delta=\Delta\cup\{-\Theta\}$ and $n_{-\Theta}=1$.
+
+Consider 
+$$E=\sum_{\alpha\in \bar\Delta} \sqrt{n_\alpha}\, E_\alpha,\quad
+E\sp\dagger=\sum_{\alpha\in \bar\Delta} \sqrt{n_\alpha}\, E_{-\alpha}.
+$$
+Then
+$$[E,E\sp\dagger]=\sum_{\alpha\in\Delta}  {n_\alpha}\,[E_\alpha, E_{-\alpha}]+[ E_{-\Theta},E_\Theta]
+=0$$
+
+Observe that the Lax matrix for the monopoles may be written 
+\begin{align*}
+L/\zeta&= -\dot\phi +e^{\phi/2}\,Ee^{-\phi/2}/\zeta-e^{-\phi/2}\,E\sp\dagger e^{\phi/2}\zeta
+= -\dot\phi +
+\sum_{\alpha\in\bar\Delta}\sqrt{n_\alpha}\, e^{b\alpha(\phi)/2} \left(
+\zeta\sp{-1} E_\alpha - \zeta E_{-\alpha}
+\right),\\
+M&=-\frac12 \dot\phi -e^{-\phi/2}\,E\sp\dagger e^{\phi/2}\zeta
+=\frac12 \frac{L}{\zeta} -\frac12 \sum_{\alpha\in\bar\Delta}\sqrt{n_\alpha}\, e^{b\alpha(\phi)/2} \left(
+\zeta\sp{-1} E_\alpha + \zeta E_{-\alpha}
+\right).
+\end{align*}
+Note may change the dependence of a spectral parameter by taking the arbitrary combinations
+$$ \zeta\sp{r_\alpha} E_\alpha \pm \zeta\sp{-r_\alpha} E_{-\alpha}$$
+and these will result in the same equations of motion. Two common choices in the literature are
+\begin{enumerate}
+	\item $r_\alpha=1$ for all $\alpha\in\bar\Delta$,
+	\item $r_{-\Theta}=1$ and $r_\alpha=0$ for all $\alpha\in\Delta$.
+\end{enumerate}
+
+
+
+\noindent{\textbf{Questions:}}
+\begin{enumerate}
+	\item What is the effect on the spectral curve of the different scalings $r_\alpha$? Are the curves birational?
+	\item What is the analogue of the characteristic polynomial and determinant for the matrices
+	$$a\cdot H+\sum_{\alpha\in\bar\Delta} \left(b_\alpha E_\alpha+c_{\alpha}E_{-\alpha}\right)?$$
+	(We may view these as generalizations of tridiagonal matrices.)
+\end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\bibliographystyle{../bib/custom-bib-style}
-\bibliography{../bib/library,../bib/manual}
+\bibliographystyle{../../bib/custom-bib-style}
+\bibliography{../../bib/library,../../bib/manual}
 
 \end{document}

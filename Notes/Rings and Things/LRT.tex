@@ -1,0 +1,1457 @@
+\documentclass{article}
+
+\usepackage{../../header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Lie Algebras and Representation Theory}
+\author{Linden Disney-Hogg}
+\date{September 2020}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+Here we will be reviewing the Lie theory necessary for work on affine Toda, and cementing notation. We will work from \cite{Humphreys1978}, folding in my SFP and Kac-Moody notes. Notation is uniformised where possible with Harry Braden, see my Affine Toda notes. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Useful Facts}
+The following are some small results which are useful in calculations. These may depend on definitions made later in the text, a format I usually disagree with, but this will give continuity later. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Miscellaneous}
+\begin{theorem}
+	If $X$ is a complex square matrix then 
+	\[
+	\det{e^X}=e^{\tr{X}}
+	\]
+\end{theorem}
+
+\begin{theorem}[Baker-Campbell-Hausdorff Formula]
+	Let $\mf{g}$ be a Lie algebra, and $X,Y\in\mf{g}$. Then under sufficient existence conditions $e^X e^Y=e^Z$ where
+	\[
+	Z=X+Y+\frac{1}{2}\comm[X]{Y}+\frac{1}{12}\left(\comm[X]{\comm[X]{Y}}+\comm[Y]{\comm[Y]{X}}\right)+\dots
+	\]
+\end{theorem}
+
+\begin{corollary}[Lie Product Formula]
+	For $X,Y\in\mf{g}$, a Lie algebra
+	\[
+	e^{X+Y}=\lim_{N\to\infty}\left( e^{\frac{X}{N}} e^{\frac{Y}{N}} \right)^N
+	\]
+\end{corollary}
+
+\begin{fact}
+	Rotation matrices corresponding to a rotation $\theta$ degrees about an axis $n$ have the form 
+	\eq{
+		R_{ij} = \cos\theta \delta_{ij} + (1-\cos\theta)n_i n_j - \sin\theta \eps_{ijk} n_k
+	}
+\end{fact}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Pauli Matrices}
+
+\begin{definition}[Pauli Matrices]
+	The \bam{Pauli matrices} are
+	
+	\begin{align*}
+	\sigma_1 &= \begin{pmatrix} 0 & 1 \\ 1 & 0\end{pmatrix}  \\
+	\sigma_2 &= \begin{pmatrix} 0 & -i \\ i & 0\end{pmatrix}  \\
+	\sigma_3 &= \begin{pmatrix} 1 & 0 \\ 0 & -1\end{pmatrix}  
+	\end{align*}
+	
+	Note they are all Hermitian and traceless.
+\end{definition}
+
+\begin{fact}
+	\be
+	\sigma_i \sigma_j = \delta_{ij}I +i\epsilon_{ijk}\sigma_k
+	\ee
+\end{fact}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Extra Definitions}
+These definitions are necessary from other areas of maths, but do not naturally sit in any other section:
+
+\begin{definition}
+	If $V$ is a $n$-dimensional vector space a \bam{flag} in $V$ i a chain of subspaces $0 = V_0 \leq V_1 \leq \dots \leq V_n=V$ s.t. $\dim V_i = i$. 
+\end{definition}
+
+\begin{definition}
+	$x \in \End(V)$ is \bam{semisimple} if the roots of its minimal polynomial are distinct. (i.e is diagonalisable if $k$ is algebraically closed). 
+\end{definition}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part{Basic Concepts and Definitions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Lie Groups}
+\subsection{Basics}
+\begin{definition}[Lie Group]
+	A \bam{Lie group} is a group that has a smooth manifold structure such that the group operations are smooth functions on the manifold. 
+\end{definition}
+
+\begin{idea}
+	Lie groups are introduced here to give a foundation to the idea of a continuous symmetry group, which will act in some way. It is a consequence of the Peter-Weyl theorem that every compact Lie groups is isomorphic to a subgroup of $GL(n,\mbb{C})$ for some $n$ so often one can restrict their thought process to matrix Lie groups.
+\end{idea}
+
+\begin{idea}
+	When showing that something is a structure is a Lie group, typically the hardest step is showing that it is a manifold. One approach is to find an explicit parametrisation of the manifold, often a good approach if the group has very obvious parameters upon which it depends (e.g. the Heisenberg group). Alternatively, one can use the preimage theorem, useful if the group is defined by some constraints (e.g. the orthogonal group).
+\end{idea}
+
+\begin{theorem}[Closed Subgroup Theorem]
+	If $G$ is a Lie group and $H\leq G$ is closed, then $H$ is an embedded Lie group with the subspace topology. 
+\end{theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Lie Algebras}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Algebras}
+Throughout we will take $k$ to be a field. 
+
+\begin{definition}
+	An \bam{algebra} is a triple $(A,m,i)$ of
+	\begin{itemize}
+		\item a $k$-vector space $A$
+		\item a linear map $m: A \otimes A \to A$
+		\item an element $i : k \to A$
+	\end{itemize}
+	satisfying associativity and unitality. 
+\end{definition}
+
+\begin{notation}
+	For $a,b \in A$ we will denote $m(a,b) = a \cdot b$. 
+\end{notation}
+
+\begin{remark}
+	Linearity of $m$ gives distributivity of the multiplication over $k$.
+\end{remark}
+
+\begin{prop}
+	If a unit exists for $(A,\cdot)$, it is unique
+\end{prop}
+\begin{proof}
+	Let $1,1^\prime\in A$ be the units. Then 
+	\eq{
+		1 = 1 \cdot 1^\prime = 1^\prime
+	}
+\end{proof}
+
+
+\begin{example}
+	Some examples of algebras are 
+	\begin{itemize}
+		\item The base field $k$
+		\item polynomials over $k$, $k[X]$. 
+		\item $\End(V)$ where $V$ is a vector space, with multiplication given by composition
+	\end{itemize}
+\end{example}
+
+\begin{example}
+	The \bam{free algebra} $k\pangle{x_1, \dots, x_n}$ is the vector space consisting formally of all possible combinations of the $x_i$ in order to make it a vector space, namely 
+	\eq{
+		k\pangle{x_1, \dots, x_n} = \bigoplus_{m=0}^\infty k \cdot \prod_{1 \leq j_i \leq n} x_{j_1} \cdots x_{j_m} 
+	}
+\end{example}
+
+\begin{example}
+	Given a group $G$ we have the \bam{group algebra} $A \equiv kG$ with 
+	\begin{itemize}
+		\item basis $\pbrace{x_g \, | \, g \in G}$
+		\item multiplication $x_g \cdot x_h = x_{gh}$
+		\item unit $x_{e_G}$
+	\end{itemize}
+\end{example}
+
+\begin{definition}
+	$(A,\cdot)$ is \bam{commutative} if $\forall a,b \in A, \, a \cdot b = b \cdot a$. 
+\end{definition}
+
+\begin{example}
+	$kG$ is abelian iff $G$ is abelian. 
+\end{example}
+
+\begin{definition}
+	A homomorphism of algebras $f : A \to B$ is a linear map of vector spaces compatible with $\cdot$ s.t. 
+	\begin{itemize}
+		\item $\forall a,b \in A, \, f(a\cdot b ) = f(a) \cdot f(b)$
+		\item ($f(1_A) = 1_B$)
+	\end{itemize}
+\end{definition}
+
+\begin{definition}
+	A \bam{derivation} is a map $\del:A \to A$ satisfying $\forall a,b, \in A, \, \del(ab) = a \del(b) + \del(a) b $. We denote the vector space of derivations as $\Der(A)$. 
+\end{definition}
+
+\begin{remark}
+	In general a derivation can be defined on any $k$-algebra.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Basics}
+
+\begin{definition}[Lie Algebra] 
+	A \bam{Lie algebra} is a vector space, equipped with a bracket that:
+	\begin{itemize}
+		\item is bilinear
+		\item is antisymmetric
+		\item obeys the Jacobi identity
+	\end{itemize}
+\end{definition}
+
+\begin{example}
+	Given an associative algebra $A$, we can make $A$ a Lie algebra using 
+	\eq{
+		\comm[a]{b} = ab - ba
+	}
+	for $a,b \in A$. 
+\end{example}
+
+\begin{example}
+	$\Der(A)$ is a Lie algebra under commutation. 
+\end{example}
+
+\begin{idea}
+	Given a matrix Lie group $G$, it has a natural associated Lie algebra $\mf{g}=T_{I}G$ with bracket given by the matrix commutator. This will be the prototypical Lie algebra to think of. The Lie algebra corresponding to a Lie group is useful to work with as we can take a basis, which will commute under addition, rather than work with a difficult presentation of the group.
+	Using the exponential map, we can map back into the original Lie group. This is not generally injective or surjective, but map injectively onto the connected component containing the identity. 
+\end{idea}
+
+\begin{fact}
+	The dimension of the tangent space to a manifold is equal to the dimension of the manifold. Hence, a Lie group and its associated Lie algebra have the same dimension
+\end{fact}
+
+\begin{definition}
+	The \bam{general linear algebra} corresponding to vector space $V$ is $\mf{gl}(V) = \End(V)$ with the bracket given by commutation. If $V$ is an $n$-dimensional $k$-vector space we can write this as $\mf{gl}_n(k)$
+\end{definition}
+
+\begin{definition}
+	A \bam{Lie subalgebra} is a vector subspace $\mf{h} \leq \mf{g}$ s.t. $\comm[\mf{h}]{\mf{h}} \subset \mf{h}$. 
+\end{definition}
+
+\begin{definition}[Structure Constants]
+	Given a basis $\set{T^a}$ of a Lie algebra, the \bam{structure constants} $f^{ab}_c$ are defined such that 
+	\[
+	\comm[T^a]{T^b}=f^{ab}_c T^c
+	\]
+\end{definition}
+
+\begin{definition}[Complexification and Real Form]
+	Given a  real Lie algebra $\mf{g}_\mathbb{R}\equiv\spn_{\mathbb{R}}\set{ T^a : a=1, \dots, D }$ the \bam{complexification}
+	is $\mf{g}_\mathbb{C}\equiv\spn_{\mathbb{C}}\set{ T^a : a=1, \dots, D }$. Conversely, given such a $\mf{g}_\mathbb{C}$, $\mf{g}_\mathbb{R}$ is called a \bam{real form} of \bam{realification}.  
+\end{definition}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Ideals, Homomorphisms, and Simplicity}
+
+\begin{definition}
+	A \bam{Lie algebra homomorphism} is a linear map $\phi : \mf{g} \to \mf{g}^\prime$ s.t. 
+	\eq{
+\forall X,Y \in \mf{g}, \, \comm[\phi(X)]{\phi(Y)} = \phi\pround{\comm[X]{Y}}	
+}
+The definition extends naturally to isoomrphisms.   
+\end{definition}
+
+\begin{definition}
+	A \bam{automorphism} is a Lie algebra isomorphisms $\mf{g} \to \mf{g}$. We denote the set (which forms a group) of all such as $\Aut(\mf{g})$.
+\end{definition}
+
+
+\begin{definition}[ideal]
+	An \bam{ideal} is a subalgebra $\mf{h} \leq \mf{g}$ s.t.
+	\[
+	\forall X\in\mf{g}, \; \forall Y\in\mf{h}, \,  \comm[X]{Y}\in\mf{h} \Leftrightarrow \comm[\mf{g}]{\mf{h}} \subset \mf{h}
+	\]
+\end{definition}
+
+\begin{prop}
+	Given a homomorphism $\phi : \mf{g} \to \mf{g}^\prime$, $\ker\phi$ is an ideal in $\mf{g}$, and $\image\phi$ is a subalgebra of $\mf{g}^\prime$.
+\end{prop}
+
+\begin{definition}[Centre]
+	The \bam{centre} of a Lie algebra $\mf{g}$ is 
+	\[
+	\zeta(\mf{g})=\set{X\in\mf{g} : \forall Y\in\mf{g} \; \comm[X]{Y}=0}
+	\]
+\end{definition}
+
+\begin{prop}
+	The centre is an ideal.
+\end{prop}
+
+\begin{prop}
+	If $\mf{h},\mf{h}^\prime \subset \mf{g}$ are ideals then so is $\mf{h}+\mf{h}^\prime$. 
+\end{prop}
+
+\begin{definition}[Simple Lie Algebra]
+	A Lie Algebra is \bam{simple} if it non-abelian and contains no non-trivial ideals.
+\end{definition}
+
+\begin{idea}
+	An ideal is to a Lie algebra what a normal subgroup is to a Lie group. Hence simple Lie algebras are the analogy of simple Lie groups.  
+\end{idea}
+
+\begin{definition}[Semi-Simple Lie Algebra]
+	A Lie Algebra is \bam{semi-simple} if it contains no non-trivial abelian ideals. 
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Adjoint Map}
+
+\begin{definition}[Adjoint Map]
+	The \bam{adjoint map} of an element $X\in\mf{g}$ is $ad_{X}:\mf{g}\to\mf{g}$ defined such that for $Y\in\mf{g}$
+	\[
+	ad_{X}\left(Y\right)=\comm[X]{Y}
+	\]
+\end{definition}
+
+\begin{lemma}
+	\eq{
+		\comm[ad_X]{ad_Y} = ad_{\comm[X]{Y}}
+	}
+\end{lemma}
+\begin{proof}
+	Act on an element $Z \in \mf{g}$ and apply the Jacobi identity.
+\end{proof}
+
+\begin{definition}
+	$X \in \mf{g}$ is \bam{ad-nilpotent} (or just nilpotent if context is clear) if $\exists N>0$ s.t. $\pround{\ad_X}^N=0$.
+\end{definition}
+
+\begin{prop}\label{prop:niplotent-exp-aut}
+	$X\in \mf{g}$ nilpotent $\Rightarrow \exp(\ad_X) \in \Aut(\mf{g})$
+\end{prop}
+
+\begin{prop}
+	$\forall X \in \mf{g}, \, \ad_X$ is a derivation.  
+\end{prop}
+
+\begin{definition}
+A derivation $\del:\mf{g} \to \mf{g}$ is called \bam{inner} if $\exists X \in \mf{g}$ s.t. $\del = \ad_X$. 
+\end{definition}
+
+\begin{remark}
+\ref{prop:niplotent-exp-aut} holds if $\ad_X$ is replaced by any nilpotent derivation.
+\end{remark}
+
+\begin{prop}
+	If $\mf{g}\subset \mf{gl}(V)$ is an arbitrary Lie algebra and $X\in \mf{g}$ is nilpotent then 
+	\eq{
+\forall Y \in \mf{g}, \, \pround{\exp X} Y \pround{\exp X}^{-1} = \exp\pround{\ad_X}Y	
+}
+\end{prop}
+
+\begin{definition}[ad-diagonalisable]
+	An element $X\in\mf{g}$ is \bam{ad-diagonalisable} if the linear map $ad_X$ is diagonalisable. 
+\end{definition}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Solvability and Nilpotency}
+
+\begin{definition}[Derived Algebra]
+	The \bam{derived algebra} of a Lie algebra $\mf{g}$ is 
+	\[
+	i(\mf{g})=\spn\set{\comm[X]{Y} : X,Y\in\mf{g}}
+	\]
+	Note this will sometimes be notated as $\comm[\mf{g}]{\mf{g}}$. 
+\end{definition}
+
+\begin{prop}
+	The derived algebra is an ideal
+\end{prop}
+
+\begin{definition}
+	The \bam{derived series} of $\mf{g}$ is the sequence of ideals $\mf{g}^{(i)}$ defined by 
+	\begin{itemize}
+		\item $\mf{g}^{(0)} = \mf{g}$
+		\item $\mf{g}^{(i+1)} = \comm[\mf{g}^{(i)}]{\mf{g}^{(i)}}$
+	\end{itemize} 
+\end{definition}
+
+\begin{remark}
+	$\mf{g}^{(1)} = i(\mf{g})$
+\end{remark}
+
+\begin{definition}
+	A Lie algebra $\mf{g}$ is \bam{solvable} if $\exists n$ s.t. $\mf{g}^{(n)}=0$. 
+\end{definition}
+
+\begin{prop}
+	Let $\mf{g}$ be a Lie algebra:
+	\begin{enumerate}
+		\item $\mf{g}$ solvable $\Rightarrow$ all subalgebras and homomorphic images of $\mf{g}$ solvable.
+		\item If $I \subset \mf{g}$ is a solvable ideal s.t. $\faktor{\mf{g}}{I}$ is solvable, so is $\mf{g}$. 
+		\item If $I,H \subset \mf{g}$ are solvable ideals, so is $I+J$. 
+	\end{enumerate}
+\end{prop}
+\begin{corollary}
+	$\exists ! $ maximal solvable ideal of $\mf{g}$
+\end{corollary}
+\begin{definition}
+	We denote the unique maximal solvable ideal by $\Rad(\mf{g})$. 
+\end{definition}
+
+\begin{prop}
+	$\Rad \mf{g} =0 \Leftrightarrow  \mf{g}$ semisimple 
+\end{prop}
+
+\begin{prop}
+	$\faktor{\mf{g}}{\Rad\mf{g}}$ is semisimple 
+\end{prop}
+
+Having developed this definition of solvable, we can make a similar looking, but notably differnt, one:
+
+\begin{definition}
+	The \bam{descending central series} of $\mf{g}$ is the sequence of ideals $\mf{g}^{i}$ defined by 
+\begin{itemize}
+	\item $\mf{g}^{0} = \mf{g}$
+	\item $\mf{g}^{i+1} = \comm[\mf{g}]{\mf{g}^{i}}$
+\end{itemize} 
+\end{definition}
+
+\begin{definition}
+	A Lie algebra $\mf{g}$ is \bam{nilpotent} if $\exists n$ s.t. $\mf{g}^{n}=0$. 
+\end{definition}
+
+\begin{prop}
+	Nilpotent $\Rightarrow$ solvable.
+\end{prop}
+
+We can again make a similar large prop:
+
+\begin{prop}
+		Let $\mf{g}$ be a Lie algebra:
+	\begin{enumerate}
+		\item $\mf{g}$ nilpotent $\Rightarrow$ all subalgebras and homomorphic images of $\mf{g}$ nilpotent.
+		\item If $\faktor{\mf{g}}{\zeta(\mf{g})}$ is nilpotent, so is $\mf{g}$. 
+		\item If $\mf{g}$ is nilpotent and non-zero, then $\zeta(\mf{g}) \neq 0$. 
+	\end{enumerate}
+\end{prop}
+
+\begin{theorem}[Engel]
+	If all elements of $\mf{g}$ are ad-nilpotent, then $\mf{g}$ is nilpotent.
+\end{theorem}
+\begin{proof}
+	Note the direction nilpotent $\Rightarrow$ all elements ad-nilpotent is clear, as to be nilpotent is to say $\exists n$ s.t 
+	\eq{
+\forall X_1, \dots, X_n, Y \in \mf{g}, \, \ad_{X_1} \dots \ad_{X_n} Y = 0	
+}
+so take all $X_i=X$ equal to see $X$ ad-nilpotent.  
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cartan Subalgebras}
+
+\begin{definition}
+	A non-zero subalgebra consisting of semisimple elements is called a \bam{toral subalgebra}.
+\end{definition}
+
+\begin{definition}
+	Suppose $\mf{g}$ is semisimple. Then $\mf{g}$ has a toral subalgebra. 
+\end{definition}
+\begin{lemma}
+	A toral subalgebra is abelian.
+\end{lemma}
+
+
+\begin{definition}[Cartan Subalgebra]
+	A \bam{Cartan subalgebra} $\mf{h}\leq\mf{g}$ is a maximal abelian subalgebra containing only ad-diagonalisable elements. It is typically written as $\mf{h}=\spn\pbrace{H^i}$. Write $\dim{\mf{h}}=\rank{\mf{g}}=r$
+\end{definition}
+
+
+
+\begin{fact}
+	All Cartan subalgebras of a given Lie algebra have the same dimension. Though Cartan subgalgebras are not unique, they are all conjugate. 
+\end{fact}
+
+\begin{idea}
+	It is a fact that Cartan subalgebras correspond to maximal toral subgroups of the corresponding Lie group. This gives a route to visualisation of what the subalgebra might be. A Cartan subalgebra is defined such that representations of the basis $\set{ H^i }$ are simultaneously diagonalisable. 
+\end{idea}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Representations}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Basics}
+
+\begin{definition}[Representations]
+	A \bam{representation} of a Lie group $G$ is a smooth group homomorphism 
+	\[
+	D:G\to GL\left(V\right)
+	\]
+	where $V$ is a $n$-dimensional vector space called the \bam{representation space}.
+	In analogy a representation of a Lie algebra is a Lie algebra homomorphism 
+	\[
+	d:\mf{g} \to \mf{gl}\left(V\right)
+	\]
+\end{definition}
+
+\begin{definition}[Dimension]
+	The \bam{dimension} of a representation is the dimension of the representation space.
+\end{definition}
+
+\begin{definition}[Trivial Representation] 
+	The \bam{trivial representation} is the unique one dimensional representation that sends every element to the identity. 
+\end{definition}
+
+\begin{definition}[Fundamental Representation]
+	For a matrix Lie group $G\leq GL(V)$ the \bam{fundamental representation} is the identity map $R=id_{GL(V)}$. Note $dim\left(R\right)=dim\left(V\right)$.
+\end{definition}
+
+\begin{definition}[Adjoint Representation]
+	Given a Lie algebra $\mf{g}$ the \bam{adjoint representation} is $d_{adj}:\mf{g}\to\mf{gl}(\mf{g})$, $d_{adj}\left(X\right)=ad_X $. Note $dim\left(d_{adj}\right)=dim\left(\mf{g}\right)$
+\end{definition}
+\begin{prop}
+	$\ker d_{adj} = \zeta(\mf{g})$
+\end{prop}
+
+\begin{definition}[Faithful Representation]
+	A representation is \bam{faithful} if it is injective. 
+\end{definition}
+
+\begin{definition}[Isomorphic Representations]
+	Two representations $R_1$, $R_2$ of a Lie algebra $\mf{g}$ are \bam{isomorphic}, written $R_1 \cong R_2$ if $\exists S$ an invertible matrix such that 
+	\[
+	\forall X\in\mf{g} \quad R_2\left(X\right)=S R_1\left(X\right) S^{-1}
+	\]
+\end{definition}
+
+\begin{definition}
+	Given $v \in V$ the \bam{minimal subrep} containing $v$ is 
+	\eq{
+		A \cdot V = \pbrace{w \in V \, | \, \exists a \in A, \, w = a \cdot v} 
+	}
+\end{definition}
+
+\begin{definition}
+	Let $V_1,V_2$ be reps of $A$. Then a homomorphism of reps (an \bam{intertwiner}) is linear map $\phi: V_1 \to V_2$ s.t. $\forall v \in V_1, \, a \in A$, with $\rho_i : A \to \End(V_i)$ we have 
+	\begin{tkz}
+		V_1 \arrow[r,"\phi"] \arrow[d,"\rho_1(a)"'] & V_2 \arrow[d,"\rho_2(a)"] \\ V_1 \arrow[r,"\phi"'] & V_2 
+	\end{tkz}
+	commutes, i.e. $\phi(a \cdot v) = a \cdot \phi(v)$
+\end{definition}
+
+\begin{prop}
+	Let $f: V \to W$ be an intertwiner. Then 
+	\begin{itemize}
+		\item $\ker f \subset V$ is a subrep
+		\item $\image f \subset W$ is a subrep
+	\end{itemize}
+\end{prop}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Constructing Representations}
+
+\begin{theorem}
+	A representation $D$ of a Lie group $G$ induces a representation on the the corresponding Lie algebra $\mf{g}$ as such: For $X\in\mf{g}$ let $g:(-\epsilon, \epsilon)\to G$ be a curve in $G$ defined such that $g(0)=e$ the identity of $G$ and $g'(0)=X$. This curve necessarily exists for some $\epsilon>0$. Then define $d$ by \[
+	d(X)\equiv\frac{d}{dt} D\left(g(t)\right) \vert_{t=0}
+	\]
+	Conversely, a representation of a Lie algebra $\mf{g}$ induces a representation in some neighbourhood of $e$ in $G$ given by 
+	\[
+	D(\exp{X})\equiv\exp{d(X)}
+	\]
+\end{theorem}
+
+\begin{definition}[Direct Sum Representation]
+	Given representations $R_1, R_2$ with representation spaces $V_1, V_2$ the \bam{direct sum representation} is $R_1 \oplus R_2$ with representation space $V_1 \oplus V_2$ acting by 
+	\[
+	(R_1 \oplus R_2)(X)(v_1 \oplus v_2)=(R_1(X)v_1)\oplus(R_2(X)v_2)
+	\]
+\end{definition}
+
+\begin{definition}[Tensor Product Representation]
+	Given representations $R_1$, $R_2$ with representation spaces $V_1, V_2$ the \bam{tensor product representation} is $R_1 \otimes R_2$ with representation space $V_1 \otimes V_2$ with
+	\[
+	(R_1 \otimes R_2)(X)=R_1(X)\otimes I_{V_2}+I_{V_1}\otimes R_2(X)
+	\]
+\end{definition}
+
+\begin{idea}
+	Considering a representation as a visualisation of the action of the algebra induced by a  group on a representation space, then $R_1 \oplus R_2$ can be viewed as two non-interacting systems, whereas $R_1 \otimes R_2$ can be viewed as two entangled systems.
+\end{idea}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Reducibility}
+\begin{definition}[Invariant Subspace]
+	Given a representation $R$ of Lie algebra $\mf{g}$ with representation space $V$, an \bam{invariant subspace} is $U\leq V$ such that
+	\[
+	\forall X\in\mf{g}, \; \forall u\in U \quad R\left(X\right)u\in U
+	\]
+\end{definition}
+
+\begin{definition}[Irreducible Representation]
+	A representation is \bam{irreducible} if it has no invariant subspaces. 
+\end{definition}
+
+\begin{definition}[Full Reducible]
+	A representation is \bam{fully reducible} if it can be expressed as the direct sum of irreducible representations. 
+\end{definition}
+
+\begin{fact}
+	If $R_i$ are finite dimensional irreducible representations of a simple Lie algebra for $i=1,\dots,m$ then
+	\[
+	R_1 \otimes R_2 \otimes \dots \otimes R_m
+	\]
+	is fully reducible. 
+\end{fact}
+
+\begin{lemma}[Schur]
+	Let $V_1,V_2$ be two $A$-reps and let $f:V_1 \to V_2$ be a non-zero intertwiner. Then
+	\begin{itemize}
+		\item $V_1$ irreducible $\Rightarrow \, f$ is injective
+		\item $V_2$ irreducible $\Rightarrow \, f$ is surjective 
+	\end{itemize}
+\end{lemma}
+
+\begin{definition}
+	A representation is \bam{indecomposable} is when $V = V_1 \oplus V_2$, either $V_1 = 0$ or $V_2 = 0$
+\end{definition}
+
+\begin{prop}
+	Any irreducible rep is indecomposable
+\end{prop}
+\begin{proof}
+	$V_1, V_2 $ are subreps of $V_1 \oplus V_2$. 
+\end{proof}
+
+\begin{remark}
+	The converse to the above is not true, 
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Casimir elements}
+
+\begin{definition}
+	Let $\rho:\mf{g} \to \mf{gl}(V)$ be a faithful representation, $\beta$ a symmetric non-degenerate associative bilinear form on $L$. Let $\pbrace{X_i}$ be a basis of $\mf{g}$ and $\pbrace{Y_i}$ a basis dual wrt $\beta$. Then 
+	\eq{
+c_\rho(\beta) = \sum_i \rho(X_i)\rho(Y_i)	
+}
+is called a \bam{Casimir element} of $\rho$. 
+\end{definition}
+
+\begin{prop}
+	$\comm[c_\rho]{\rho(\mf{g})}=0$. 
+\end{prop}
+
+\begin{corollary}
+	If $\rho$ is irreducible, $c_\rho$ is a scalar.
+\end{corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Weights}
+\begin{definition}[Weights]
+	Given a representation $R$ of a Lie algebra with Cartan subalgebra $\mf{h}=\spn\set{ H^i }$ the \bam{weights} of the representation are the eigenvalues $S_R=\set{ \lambda : \exists v\in V \, R(H^i)v=\lambda^i v}$
+\end{definition}
+
+\begin{fact}
+	Weights can be viewed as maps in $\mf{h}^\ast$ given by 
+	\begin{align*}
+		\lambda &:\mf{h}\to\mbb{C} \\
+		\lambda &: e_i H^i \mapsto e_i \lambda^i
+	\end{align*}
+	Thus 
+	\[
+	R(H)v=\lambda(H)v
+	\]
+\end{fact}
+
+\begin{idea}
+	This idea is made more explicit in the concept of roots, which are the weights of the adjoint representation. 
+\end{idea}
+
+\begin{fact}
+	Given weights set $S_R$
+	\[
+	V=\bigoplus_{\lambda\in S_R} V_\lambda
+	\]
+	where $V_\lambda=\set{ v\in V : R(H^i)v=\lambda^i v}$
+\end{fact}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{SU(2)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Definition and Basic Properties}
+
+\begin{definition}[U($n$)]
+	The \bam{unitary group} of dimension $n$ is 
+	\[
+	U\left(n\right)=\set{  U\in GL\left(n,\mbb{C}\right) : U^\dagger U=I  }
+	\]
+	It is a path connected, compact, Lie group.
+\end{definition}
+
+\begin{definition}[SU($n$)]
+	The \bam{special unitary group} of dimension $n$ is
+	\[
+	SU\left(n\right)=\set{  U\in U(n) : \det{U}=1  }
+	\]
+\end{definition}
+\noindent Through the $\det$ homomorphism, it can be seen $SU(n)$ is a closed subgroup of $U(n)$, hence also a Lie group.  The corresponding Lie algebra is 
+\[
+\mf{su}\left(n\right)=\set{  Z\in GL\left(n,\mbb{C}\right) : Z^\dagger+Z=0, \tr{Z}=0  }
+\]
+The real dimension is
+\[
+\underbrace{2\times\frac{1}{2}(n-1)n}_{\text{off diagonal elements}}+\underbrace{n}_{\text{diagonal elements}}-\underbrace{1}_{\text{trace constraint}}=n^2-1
+\]
+In the case $n=2$ we have 
+\[
+SU(2)=\set{    \begin{pmatrix} \alpha & -\overline{\beta} \\ \beta & \overline{\alpha} \end{pmatrix}  : \alpha,\beta\in\mathbb{C} , |\alpha|^2+|\beta|^2=1   }
+\]
+This can be expressed as, for $A\in SU(2)$
+\[
+A=a_0 I +i\bm{a}\cdot\bm{\sigma}
+\]
+where $\bm{a}=(a_1, a_2, a_3)$, $\bm{\sigma}=(\sigma_1, \sigma_2, \sigma_3)$, and $a_0^2+|\bm{a}|^2=1$. Hence $SU(2)\cong S^3$. In addition, by parametrising $SU(2)$ by the $a_i$, it can be seen that $\set{  i\sigma_i }$ forms a basis of $\mf{su}(2)$. It is typical to normalise this basis to $\set{  T^a=-\frac{1}{2} i\sigma_a  }$. 
+
+\begin{fact}
+	The structure constants in this basis $\set{  T^a  }$ are 
+	\[
+	f^{ab}_c=\epsilon_{abc}
+	\]
+\end{fact}
+
+\begin{fact}
+	The function 
+	\begin{align*}
+		& R : SU(2) \to SO(3) \\
+		& R(A)_{ij} = \frac{1}{2}\tr\left( \sigma_i A \sigma_j A^\dagger \right)
+	\end{align*}
+	Is a double cover of $SO(3)$, with $R(A)=R(-A)$, and inverse given by 
+	\[
+	A=\pm \frac{I+\sigma_i R(A)_{ij} \sigma_j}{2\sqrt{1+\tr R(A)}}
+	\]
+	Hence $SO(3)\cong\faktor{SU(2)}{\mbb{Z}_2}$
+\end{fact}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Representations}
+
+In this subsection we will discuss only representations of $\mf{su}_2$:
+
+\begin{definition}[Cartan-Weyl basis of $\mf{su}_\mbb{C}(2)$]
+	$\set{  H, E_\pm  }$, where $H=\sigma_3$ and $E_\pm=\frac{1}{2}(\sigma_1\pm i\sigma_2 )$, is the \bam{Cartan-Weyl basis} for $\mf{su}_\mbb{C}(2)$. The elements satisfy the commutation relations 
+	\begin{align*}
+		\comm[H]{E_\pm} &= \pm 2E_\pm \\
+		\comm[E_+]{E_-} &= H
+	\end{align*}
+\end{definition} 
+
+\begin{fact}
+	$H$ spans a Cartan subalgebra of $\mf{su}_\mbb{C}(2)$, ad-diagonalisable w.r.t the Cartan Weyl basis, with eigenvalues $0, \pm 2$ respectively. 
+\end{fact}
+
+\begin{lemma}
+	If $v \in V_\lambda$ for some representation, then $E_\pm \cdot v \in V_{\lambda\pm 2}$
+\end{lemma}
+\begin{corollary}
+	$\exists \lambda \in S_R$ s.t. $V_{\lambda+2}=0$. An non-zero $v\in V_\lambda$ is called a \bam{maximal vector}. 
+\end{corollary}
+
+\begin{theorem}
+	Finite dimensional irreducible representations of $\mf{su}_\mbb{C}(2)$ with $R(H)$ diagonalisable are determined by the highest weight $\Lambda\in\mbb{N}_0$. Such a representation is called $R_\Lambda$. It has weight set 
+	\[
+	S_\Lambda=\set{  \Lambda-2n : n=0,\dots,\Lambda  }
+	\]
+	The eigenvectors of $R_\Lambda(H)$ are $v_{\Lambda-2n}$ defined such that 
+	\begin{align*}
+		R_\Lambda(H) v_\lambda &= \lambda v_\lambda \\
+		R_\Lambda(E_+) v_\Lambda &= 0 \\
+		\left(R_\Lambda(E_-)\right)^n v_{\Lambda} &= v_{\Lambda-2n} \\
+		R_\Lambda(E_+) v_{\Lambda-2n} &= r_n v_{\Lambda-2n+2}
+	\end{align*}
+	with 
+	\[
+	r_n=(\Lambda+1-n)n
+	\]
+\end{theorem}
+Note that $\dim(R_\Lambda)=\Lambda+1$, so 
+\begin{itemize}
+	\item $R_0$ is the trivial representation $d_0$.
+	\item $R_1$ is the fundamental representation.
+	\item $R_2$ is the adjoint representation. 
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part{Semi-Simple Lie Algebras}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Lie's Theorem and Cartan's Theorem}
+\begin{notation}
+	Throughout we will take $k$ to be an algebraically closed field of characteristic 0. 
+\end{notation}
+
+\begin{theorem}
+	Let $\mf{g}$ be a solvable subalgebra of $\mf{gl}(V)$, where $V$ is f.d. Then if $V \neq 0$, it contains a common eigenvector for all endomorphisms in $\mf{g}$. 
+\end{theorem}
+\begin{corollary}[Lie's Theorem]
+	Let $\mf{g}\subset \mf{gl}(V)$ be a solvable subalgebra where $V$ is f.d. Then $\mf{g}$ stabilises some flag in $V$ (i.e. the matrices of $L$ are upper triangular wrt a suitable basis of $V$). 
+\end{corollary}
+
+\begin{corollary}
+	If $\mf{g}$ of dim $n$ is solvable then $\exists \,  0 = \mf{g}_0 \subset \mf{g}_1 \subset \dots \subset \mf{g}_n=\mf{g}$ a chain of ideals s.t. $\dim \mf{g}_i = i$. 
+\end{corollary}
+
+\begin{corollary}
+	$\mf{g}$ solvable $\Rightarrow i(\mf{g})$ nilpotent. 
+\end{corollary}
+
+\hl{Return to this section}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Killing Form}
+\begin{definition}[Killing Form]
+	The \bam{Killing form} is a map $\kappa:\mf{g}\times\mf{g}\to\mbb{C}$ defined such that for $X,Y\in\mf{g}$
+	\[
+	\kappa\left(X,Y\right)=\tr\left(ad_X \circ ad_Y\right)
+	\]
+	In components 
+	\begin{align*}
+	\kappa(X,Y) &= \kappa^{ab}X_a Y_b \\
+	\kappa^{ab} &= f^{ac}_d f^{bd}_c
+	\end{align*}
+	It is symmetric and bilinear 
+\end{definition}
+
+\begin{remark}
+	\hl{It would seem to me that this definition needs that the algebra be f.d. Look into this}
+\end{remark}
+
+\begin{theorem}
+	Let $\mf{g}$ be a Lie algebra and $\kappa$ the Killing form. Then
+	\[
+	\forall X,Y,Z\in\mf{g} \quad \kappa\left(\comm[Z]{X},Y\right)+\kappa\left(X,\comm[Z]{Y}\right)=0
+	\]
+\end{theorem}
+\begin{proof}
+	Expand out using $ad_{\comm[X]{Y}} = \comm[ad_X]{ad_Y}$. 
+\end{proof}
+
+\begin{lemma}
+	Let $I \subset \mf{g}$ be an ideal. Then $\kappa_I = \ev{\kappa}{I \times I}$
+\end{lemma}
+
+\begin{theorem}[Cartan]
+	Let $\mf{g}$ be a Lie algebra with Killing form $\kappa$. Then 
+	\[
+	\kappa \, \text{non-degenerate} \Leftrightarrow \mf{g} \, \text{semi-simple}
+	\]
+\end{theorem}
+\begin{proof}
+	The direction non-degenerate $\Rightarrow$ semi-simple is as follows. Assume $\mf{g}$ not semi-simple. Let $\pbrace{T^a}$ be a basis of a abelian ideal of $\mf{g}$, and extend with $\pbrace{T^i}$ to a basis of the full algebra. Then
+	\eq{
+		\comm[T^a]{T^b} = 0 &\Rightarrow f^{ab}_\alpha = 0 \\
+		\comm[T^a]{T^\alpha} \in \spn\pbrace{T^b} &\Rightarrow f^{a\alpha}_i = 0
+	}
+	so
+	\eq{
+		\kappa^{ab} &= f^{a\alpha}_\beta f^{b\beta}_\alpha \\
+		&= f^{ai}_\beta f^{b\beta}_i \\
+		&= f^{ai}_j f^{bj}_i = 0
+	}
+	so $\kappa$ degenerate. 
+\end{proof}
+
+\begin{theorem}
+	Let $\mf{g}$ be semisimple. Then $\exists \mf{g}_1, \dots, \mf{g}_t$ simple ideals s.t. $\mf{g} = \bigoplus_{i=1}^t \mf{g}_i$. Every simple ideal of $\mf{g}$ coincides with a $\mf{g}_i$
+\end{theorem}
+\begin{corollary}
+	If $\mf{g}$ is semisimple then $\mf{g} = i(\mf{g})$ and all ideals and homomorphic images of $\mf{g}$ are semisimple. 
+\end{corollary}
+
+\begin{theorem}
+	$\mf{g}$ semisimple $\Rightarrow d_{adj}(\mf{g}) = \Der(\mf{g})$. 
+\end{theorem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Cartan Classification}
+\'Elie Cartan classified finite dimensional, simple, complex Lie algebras in 1894. This sections will therefore restrict to treatment of such Lie algebras. Note that $\mf{su}_\mbb{C}(2)$ will be a prototypical such Lie algebra. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cartan-Weyl Basis}
+
+\begin{definition}[Cartan-Weyl Basis]
+	Given a Lie algebra $\mf{g}$, with Cartan subalgebra $\mf{h}=\spn\set{ H^i : i=1,\dots,r }$, let $\set{  E^\alpha : \alpha\in\Phi  }$ be the simultaneous eigenvectors of $ad_{H^i}$ s.t. 
+	\[
+	ad_{H^i}\left(E^\alpha \right)=\alpha^i E^\alpha
+	\]
+	Then 
+	\[
+	B=\set{  H^i : i=1,\dots,r } \cup \set{  E^\alpha : \alpha\in\Phi  }
+	\]
+	is the \bam{Cartan-Weyl basis} for $\mf{g}$.
+\end{definition}
+
+
+
+\begin{definition}[Roots]
+	The \bam{roots} of a Lie Algebra are $\alpha\in\Phi$.
+	These are the weights corresponding to the adjoint representation. The roots can be seen as elements of the dual space to the Cartan subalgebra $\mf{h}^\ast$ by 
+	\eq{
+		\alpha : \mf{h} \to \mbb{R} \\
+		\alpha(H^i e_i) = \alpha^i e_i
+	}
+\end{definition}
+
+\begin{fact}
+	The roots are all non-degenerate i.e. the eigenspace is 1 dimensional. 
+\end{fact}
+
+\begin{theorem}
+	Let $\kappa$ be the Killing form on $\mf{g}$. Then, 
+	\begin{itemize}
+		\item $\forall H\in\mf{h}, \forall\alpha\in\Phi, \; \kappa\left(H,E^\alpha\right)=0 $
+		\item $\forall\alpha,\beta\in\Phi, \alpha+\beta\neq0, \; \kappa\left(E^\alpha,E^\beta\right)=0$
+		\item $\forall H\in\mf{h}, \exists H^\prime\in\mf{h}, \; \kappa\left(H,H^\prime\right)\neq0$
+		\item $\alpha\in\Phi \Rightarrow -\alpha\in\Phi \text{ and } \kappa\left(E^\alpha,E^{-\alpha}\right)\neq0$
+	\end{itemize}
+	Hence $\kappa|_{\mf{h}\times\mf{h}}$ is non-degenerate, so invertible. 
+\end{theorem}
+
+\begin{fact}
+	Given $\alpha\in\Phi$, $\set{  \lambda : \lambda\alpha\in\Phi  } = \set{  \pm1  }$. Note one direction of this inclusion follows from the previous result. 
+\end{fact}
+
+\begin{definition}[$\kappa^{ij}$]
+	Given a Cartan subalgebra $\mf{h}=\spn\set{ H^i }$ and Killing form $\kappa$ the notation will be used $\kappa^{ij}$ for the matrix elements of $\kappa |_{\mf{h}\times\mf{h}}$,
+	\[
+	\kappa^{ij}=\kappa(H^i, H^j)
+	\]
+\end{definition}
+
+\begin{definition}[Compact Type]
+	A real Lie algebra $\mf{g}_\mathbb{R}$ is of \bam{compact type} if $\exists$ a basis in which $\kappa^{ij}=-K\delta^{ij}$ for some $K\in\mathbb{R}^{+}$.
+\end{definition}
+
+\begin{fact}
+	Every complex semi-simple Lie algebra of finite dimension has a real form of compact type.
+\end{fact}
+
+
+\begin{definition}[Dual Space Inner Product]
+	The Killing form gives the dual space $\mf{h}^\ast$ a natural inner product $(\cdot,\cdot):\mf{h}^\ast \times \mf{h}^\ast \to \mbb{C}$ defined by 
+	\[
+	(\alpha, \beta) = \left(\kappa^{-1}\right)_{ij} \alpha^i \beta^j = k^{ij} \alpha_i \beta_j
+	\]
+	Defining $\alpha_i=\left( \kappa^{-1} \right)_{ij} \alpha^j$. Note that it is immediate that the bracket is symmetric and bilinear. Positive definiteness follows from the fact
+	\eq{
+		(\alpha,\beta) = \sum_{\delta \in \Phi} (\alpha,\delta) (\beta,\delta)
+	}
+	(proven by noting the trace of an operator is the sum over its eigenvalues, so $k^{ij} = \sum_{\delta \in \Phi} \delta^i \delta^j$)
+	\[
+	(\alpha, \alpha)=\sum_{\delta\in\Phi} (\alpha, \delta)^2
+	\]
+\end{definition}
+
+Note that the above definition shows that we actually have an inner product on the span of the roots. The following lemma closes that hole 
+\begin{lemma}
+	\eq{
+		\mf{h}^\ast = \spn_{\mbb{C}}\Phi
+	}
+	Hence $r$ roots may be chosen to form a basis $\{ \alpha_{(i)} : i=1,\dots,r \}$
+\end{lemma}
+\begin{proof}
+	Suppose not. Then $\exists \lambda \in \mf{h}^\ast$ s.t. 
+	\eq{
+		\forall \alpha \in \Phi, \quad (\lambda,\alpha) = 0
+	}
+	now let $H_\lambda = \lambda_i H^i $, where $\lambda^i = \lambda (H^i)$. Then 
+	\eq{
+		\forall H \in \mf{h}, \quad \comm[H_\lambda]{H} &= 0 \\
+		\forall \alpha \in \Phi ,\quad \comm[H_\lambda]{E^\alpha} &= (\lambda,\alpha) E^\alpha \\ 
+		\Rightarrow \forall X \in \mf{g}, \quad \comm[H_\lambda]{X} &= 0
+	}
+	Hence $\mf{g}$ has the non-trivial ideal $\spn_{\mbb{C}} \{H_{\lambda}\}$ and so $\mf{g}$ is not simple. Contradiction. 
+\end{proof}
+
+\begin{definition}[Coroots]
+	Given a root $\alpha\in\Phi$ the \bam{coroot} is 
+	\[
+	\alpha^\vee=\frac{2}{(\alpha,\alpha)}\alpha = \eps_\alpha \alpha, \; \eps_\alpha = \frac{2}{(\alpha,\alpha)}
+	\]
+	Note $\left( \alpha^\vee \right)^\vee=\alpha$. We denote $\Phi^\vee = \pbrace{\alpha^\vee \, | \, \alpha \in \Phi}$. 
+\end{definition}
+
+\begin{lemma}
+	$\comm[\mf{h}]{\comm[E^\alpha]{E^{-\alpha}}}=0$
+\end{lemma}
+\begin{corollary}
+	$\comm[E^\alpha]{E^{-\alpha}} \in \mf{h}$
+\end{corollary}
+
+\begin{definition}[$t^\alpha$]
+	Define 
+	\[
+	t^\alpha = \frac{\comm[E^\alpha]{E^{-\alpha}}}{\kappa\left(E^\alpha,E^{-\alpha}\right)}
+	\]
+	In components
+	\[
+	t^\alpha = \left( \kappa^{-1}\right)_{ij} \alpha^j H^i
+	\]
+\end{definition}
+
+\begin{theorem}[Cartan-Weyl Basis Algebra]
+	The algebra of the Cartan-Weyl basis is 
+	\begin{align*}
+	\comm[H^i]{H^j} &= 0 \\
+	\comm[H^i]{E^\alpha} &= 0 \\
+	\comm[E^\alpha]{E^\beta} &= \left\{ \begin{array}{lc} N_{\alpha,\beta}E^{\alpha+\beta} & \alpha+\beta\in\Phi \\
+	\kappa\left(E^\alpha,E^{-\alpha}\right)t^\alpha & \alpha+\beta=0 \\
+	0 & \text{otherwise}
+	\end{array} \right. \\
+	\end{align*}
+\end{theorem}
+
+\begin{fact}
+	$\forall H\in\mf{h}$, $\alpha,\beta\in\Phi$
+	\begin{itemize}
+		\item $\kappa\left(t^\alpha,H\right)=\alpha(H)$
+		\item $\kappa\left(t^\alpha,E^\beta\right)=0$
+		\item $\comm[t^\alpha]{H}=0$
+		\item $\comm[t^\alpha]{E^\beta}=(\alpha,\beta)E^\beta$
+	\end{itemize}
+\end{fact}
+
+\begin{theorem}
+	Letting 
+	\begin{align*}
+	e^\alpha &= \sqrt{\frac{2}{(\alpha,\alpha)\kappa\left(E^\alpha,E^{-\alpha}\right)}}E^\alpha \\
+	h^\alpha &= \frac{2}{(\alpha,\alpha)}t^\alpha
+	\end{align*}
+	yields the algebra
+	\begin{align*}
+	\comm[h^\alpha]{h^\beta} &= 0 \\
+	\comm[h^\alpha]{e^\beta} &= \frac{2(\alpha,\beta)}{(\alpha,\alpha)}e^\beta \\
+	\comm[e^\alpha]{e^\beta} &= \left\{ \begin{array}{lc} n_{\alpha,\beta}e^{\alpha+\beta} & \alpha+\beta\in\Phi \\
+	h^\alpha & \alpha+\beta=0 \\
+	0 & \text{otherwise}
+	\end{array} \right.\\
+	\end{align*}
+\end{theorem}
+
+\begin{definition}[$sl(2)_\alpha$]
+	For $\alpha\in\Phi$ there is a $\mf{su}_\mbb{C}(2)$ subalgebra 
+	\[
+	sl(2)_\alpha=\spn\set{  h^\alpha, e^{\pm\alpha} }
+	\]
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Root Geometry}
+
+\begin{definition}[$\alpha$-string through $\beta$]
+	The \bam{$\alpha$-string through $\beta$} is 
+	\[
+	S_{\alpha, \beta}=\set{  \beta+\rho\alpha\in\Phi : \rho\in\mbb{Z}  }
+	\]
+	The corresponding subspace of $\mf{g}$ is 
+	\[
+	V_{\alpha, \beta}=\left\{ e^{\beta+\rho\alpha} : \beta+\rho\alpha\in S_{\alpha, \beta} \right\}
+	\]
+	The \bam{length} of the string is 
+	\[
+	l_{\alpha,\beta}=|S_{\alpha,\beta}|
+	\]
+\end{definition}
+\begin{fact}
+	$V_{\alpha, \beta}$ is a representation space of the adjoint representation $R=d_{adj}$of $sl(2)_\alpha$. The non-degeneracy of the roots ensures that the weight set 
+	\begin{align*}
+	S_R &= \left\{ \frac{2(\alpha,\beta)}{(\alpha,\alpha)}+2\rho : \beta+\rho\alpha\in S_{\alpha, \beta} \right\} \\
+	&= \set{  -\Lambda,-\Lambda+2,\dots,\Lambda }=S_\Lambda \\
+	\end{align*}
+	Hence $R_{\alpha,\beta}=\frac{2(\alpha,\beta)}{(\alpha,\alpha)} \in\mbb{Z}$
+\end{fact}
+
+\begin{fact}
+	Writing
+	\[
+	S_{\alpha, \beta}=\set{  \beta+\rho\alpha\in\Phi : n_- \leq \rho \leq n_+  }
+	\]
+	with $n_+ \geq 0$ and $n_- \leq 0$ yields
+	\begin{itemize}
+		\item $l_{\alpha,\beta}=n_+-n_-+1$
+		\item $R_{\alpha,\beta}=\frac{2(\alpha,\beta)}{(\alpha,\alpha)} = -(n_+ + n_-) \in\mbb{Z}$
+	\end{itemize}
+\end{fact}
+
+
+
+\begin{lemma}
+	\[
+	\forall \alpha, \beta\in\Phi, \; (\alpha, \beta)\in\mbb{R}
+	\]
+\end{lemma}
+\begin{proof}
+	Write 
+	\eq{
+		\frac{(\alpha,\alpha)}{2} R_{\alpha,\beta} &= \sum_{\delta \in \Phi} \psquare{\frac{(\alpha,\alpha)}{2} R_{\alpha,\delta}} \psquare{\frac{(\beta,\beta)}{2} R_{\beta,\delta}} \\ 
+		\Rightarrow  \frac{2}{(\beta,\beta)} R_{\alpha,\beta} &= \sum_{\delta \in \Phi} R_{\alpha,\delta} R_{\beta,\delta} \in \mbb{R} \\
+		\Rightarrow (\beta,\beta) & \in \mbb{R} \\ 
+		\Rightarrow (\alpha,\beta) &= \frac{(\alpha,\alpha)}{2} R_{\alpha,\beta} \in \mbb{R}
+	}
+\end{proof}
+
+\begin{definition}[$\mf{h}^\ast_\mbb{R}$]
+	Given a basis of roots $\set{  \alpha_{(i)} : i=1,\dots,r  }$, $\mf{h}^\ast_\mbb{R}$ is defined as 
+	\[
+	\mf{h}^\ast_\mbb{R} = \spn_\mbb{R} \set{  \alpha_{(i)} : i=1,\dots,r  }
+	\]
+\end{definition}
+
+\begin{fact}
+	$\Phi\subset\mf{h}^\ast_\mbb{R}$
+\end{fact}
+
+\begin{theorem}
+	$(\cdot,\cdot) : \mf{h}^\ast_\mbb{R} \times \mf{h}^\ast_\mbb{R} \to \mbb{R}$ is a Euclidean inner product. 
+\end{theorem}
+
+\begin{definition}[Length and angle between roots]
+	Given $\alpha\in\Phi$ the \bam{length} of $\alpha$ is defined as 
+	\[
+	|\alpha|=(\alpha,\alpha)^\frac{1}{2}
+	\]
+	Given also $\beta\in\Phi$, the \bam{angle} between $\alpha$ and $\beta$ is $\phi$ defined such that 
+	\[
+	(\alpha, \beta) = |\alpha||\beta|\cos{\phi}
+	\]
+\end{definition}
+
+\begin{theorem}
+	\[
+	\cos\phi=\pm\frac{\sqrt{n}}{2}
+	\]
+	for $n\in\set{  0,1,2,3,4  }$
+\end{theorem}
+\begin{lemma}
+	Let $\alpha,\beta \in \Phi$ be non-proportional. Then 
+	\eq{
+(\alpha,\beta) > 0 &\Rightarrow \alpha-\beta \in \Phi \\
+(\alpha,\beta) <0 &\Rightarrow \alpha+\beta \in \Phi	
+}
+\end{lemma}
+
+\begin{definition}[Positive roots]
+	Given a hyperplane $H\leq\mf{h}^\ast$ s.t. $H\cap\Phi=\emptyset$ and $\mf{h}^\ast$ separated into $\mf{h}^\ast_\pm$ let 
+	\[
+	\Phi_\pm=\Phi\cap\mf{h}^\ast_\pm
+	\]
+	Define the \bam{positive roots} to be $\alpha\in\Phi_+$
+\end{definition}
+
+\begin{fact} Let $\Phi_\pm$ be as defined.
+	\begin{itemize}
+		\item $\alpha\in\Phi_\pm \Rightarrow -\alpha\in\Phi_\mp$
+		\item $\alpha,\beta\in\Phi_\pm,\, \alpha+\beta\in\Phi \Rightarrow \alpha+\beta\in\Phi_\pm$
+	\end{itemize}
+\end{fact}
+
+\begin{definition}[Simple Roots]
+	A roots $\delta$ is \bam{simple} if 
+	\begin{itemize}
+		\item $\delta\in\Phi_+$
+		\item $\nexists \alpha,\beta\in\Phi_+ \, s.t. \, \delta=\alpha+\beta$
+	\end{itemize}
+	The set of simple roots, $\Delta$, is called the \bam{base}.
+\end{definition}
+
+\begin{notation}
+	We will write $\eps_i = \eps_{\alpha_{(i)}}$ for $\alpha_{(i)} \in \Delta$. 
+\end{notation}
+
+\begin{theorem}[Properties of simple roots]
+	Let $\alpha,\beta\in\Delta$, $\alpha\neq\beta$. Then
+	\begin{itemize}
+		\item $\alpha-\beta\notin\Phi$
+		\item $l_{\alpha,\beta}=1-\frac{2(\alpha,\beta)}{(\alpha,\alpha)}$
+		\item $(\alpha,\beta)\leq0$
+		\item $\Phi_+\subset\spn_{\mbb{N}_0}\Delta$
+		\item The simple roots are linearly independent.
+		\item $|\Delta|=r$
+	\end{itemize}
+	Hence $\Delta=\set{  \alpha_{(i)} : i=1,\dots,r  }$ is a basis for $\mf{h}^\ast_\mbb{R}$
+\end{theorem}
+
+\begin{definition}
+	A root system is \bam{reducible} if $\exists \Phi_1, \Phi_2,$ s.t. $\Phi = \Phi_1 \cup \Phi_2$ and $(\Phi_1, \Phi_2)=0$. If not we say it is \bam{irreducible}. 
+\end{definition}
+
+
+
+\begin{definition}[Height]
+	Write $\beta \in \Phi$ as $\beta = \sum_{\alpha \in \Delta} n_\alpha \alpha$ Then the \bam{height} of the root is 
+	\eq{
+	\text{ht}:\Phi &\to \mbb{Z} \\
+	\text{ht}(\beta) &= \sum_{\alpha \in \Delta} n_\alpha
+}
+\end{definition}
+
+We define a partial order on $\mbb{R}^r$ by defining 
+\eq{
+\beta \prec \alpha \Leftrightarrow \alpha -\beta \in \spn_{\mbb{N}_0}\Delta
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Weyl Group}
+
+\begin{definition}[Weyl Reflections and Group]
+	For $\alpha\in\Phi$, the \bam{Weyl reflection} in the hyperplane orthogonal to $\alpha$ is 
+	\begin{align*}
+	& w_\alpha : \mf{h}^\ast \to \mf{h}^\ast \\
+	& w_\alpha (x) = x - \frac{2(\alpha,x)}{(\alpha,\alpha)}\alpha
+	\end{align*}
+	Noting 
+	\begin{itemize}
+		\item $(w_\alpha)^2=id$
+		\item $w_\alpha (\alpha) = -\alpha$
+		\item $(\alpha,x)=0 \Rightarrow w_\alpha (x) = x$
+		\item $(w_\alpha(x),w_\alpha(y)) = (x,y)$
+	\end{itemize}
+	It can be seen $w_\alpha$ is indeed a reflection in the hyperplane orthogonal to $\alpha$, denoted $P_\alpha$, and hence is an isometry. The \bam{Weyl group} is 
+	\[
+	W=\set{  w_\alpha : \alpha\in\Phi  }
+	\]
+	with composition as the group operation. Using the previous results it can be seen $w_\alpha$ restricts to an isometry on $\Phi$. Hence $W$ acts via permutation on $\Phi$, and so $W\leq S_\Phi$
+\end{definition}
+
+\begin{remark}
+	It is possible to take an axiomatic approach to root systems using the concept of the Weyl group. We say $\Phi \subset \mbb{R}^r$ is a \bam{root system} if it satisfies:
+	\begin{enumerate}
+		\item $\Phi$ is finite, $\spn\Phi = \mbb{R}^r, \, 0 \notin \Phi$ 
+		\item $\alpha \in \Phi \Rightarrow \pbrace{\lambda \, | \, \lambda\alpha \in \Phi} = \pbrace{\pm 1}$ 
+		\item $\alpha \in \Phi \Rightarrow w_\alpha(\Phi) = \Phi$
+		\item $\alpha,\beta \in \Phi \Rightarrow R_{\alpha,\beta}  \in \mbb{Z}$ 
+	\end{enumerate}
+	We have seen that these axioms apply to the roots of our Lie algebras, and indeed these are sufficient to give a 1-to-1 correspondence. 
+\end{remark}
+
+\begin{lemma}
+	$(\alpha,\beta)=0 \Rightarrow w_\alpha w_\beta = w_\beta w_\alpha$.
+\end{lemma}
+
+\begin{definition}
+	The connected components of $\mbb{R}^r \setminus \bigcup_{\alpha} P_\alpha$ are called the \bam{Weyl chambers} of $\mbb{R}^r$.
+\end{definition}
+
+\begin{prop}
+	Weyl chambers are in natural 1-to-1 correspondence with choices of base $\Delta$. 
+\end{prop}
+\begin{proof}
+	Each root in $\mbb{R}^r \setminus\bigcup_\alpha P_\alpha$ specifies a hyperplane splititng $\mf{h}$, giving a base, and each such root lies in exactly one Weyl chamber. 
+\end{proof}
+
+\begin{definition}
+	The Weyl chamber specified by a choice of base, $\mf{C} = \mf{C}(\Delta)$ is called the \bam{fundamental Weyl chamber} relative to $\Delta$.
+\end{definition}
+
+\begin{prop}
+	$W$ is generated by the $r_i = w_{\alpha_{(i)}}$ with the relations 
+	\begin{itemize}
+		\item $r_i^2=1$
+		\item $(r_i r_j)^{m_{ij}}=1$ or equivalently $\underbrace{r_j r_i r_j \dots}_{m_{ij}} = \underbrace{r_i r_j r_i \dots}_{m_{ij}}$
+	\end{itemize}
+	where 
+	\begin{center}
+		$\begin{array}{c||c|c|c|c|c}
+		m_{ij} & 2 & 3 & 4 & 6 & \infty \\ \hline
+		a_{ij} a_{ji} & 0 & 1 & 2 & 3 & \geq 4
+		\end{array}$
+	\end{center}
+and $a_{ij} = R_{\alpha_{(i)},\alpha_{(j)}}$
+\end{prop}
+
+\begin{remark}
+	A group of this form is called a \bam{Coxeter group}.
+\end{remark}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cartan Matrix and Dynkin Diagrams}
+
+\begin{definition}[Cartan Matrix]
+	The \bam{Cartan matrix} $A$ is an $r \times r$ matrix with elements 
+	\[
+	A^{ij}=\frac{2(\alpha_{(i)},\alpha_{(j)})}{(\alpha_{(j)},\alpha_{(j)})}
+	\]
+\end{definition}
+
+\begin{definition}[Chevalley Basis]
+	For each $\alpha_{(i)}\in\Delta$ the basis of $sl(2)_{\alpha_{(i)}}$
+	\[
+	\left\{ h^i=h^{\alpha_{(i)}}, e^i_\pm=e^{\pm\alpha_{(i)}} \right\}
+	\]
+	is the \bam{Chevalley basis}
+\end{definition}
+
+\begin{theorem}
+	In the Chevalley basis
+	\begin{itemize}
+		\item $\comm[h^i]{h^j}=0$
+		\item $\comm[h^i]{e^j_\pm}=\pm A^{ji} e^j_\pm$
+		\item $\comm[e^i_+]{e^j_-}=\delta_{ij} h^i$
+	\end{itemize}
+\end{theorem}
+
+\begin{theorem}[Serre Relation]
+	The \bam{Serre relation} is 
+	\[
+	\left( ad_{e^i_\pm}\right)^{1-A^{ji}} e^j_\pm=0
+	\]
+\end{theorem}
+
+\begin{idea}
+	The previous two results show that the Cartan Matrix completely determines a finite dimensional, simple, complex Lie algebra. 
+\end{idea}
+
+\begin{theorem}[Properties of the Cartan Matrix]
+	The Cartan matrix satisfies
+	\begin{itemize}
+		\item $\forall i \, A^{ii}=2$
+		\item $A^{ij}=0 \Rightarrow A^{ji}=0$
+		\item for $i \neq j \; A^{ij}\in\mbb{Z}_{\leq0}$
+		\item $|A^{ij}|\leq4$
+		\item $\det{A}>0$
+		\item $A$ irreducible (for simple Lie algebras)
+	\end{itemize}
+\end{theorem}
+
+\begin{definition}[Dynkin Diagrams]
+	The \bam{Dynkin diagrams} are constructed from the Cartan matrix as follows:
+	\begin{itemize}
+		\item Draw a node for each simple root.
+		\item Connect the $i^{\text{th}}$ and $j^\text{th}$ root with $\max\set{  |A^{ij}|, |A^{ji}|  }$ lines. 
+		\item If the roots have different length, draw an arrow from the longer root to the shorter. 
+	\end{itemize}
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Lattices}
+
+\begin{definition}[Root Lattice]
+	Given a Lie algebra $\mf{g}$ with simple roots $\Delta=\set{  \alpha_{(i)} : i=1,\dots,r  }$ the \bam{root lattice} is 
+	\[
+	\mathcal{L} [\mf{g}] = \left\{ \sum_{i=1}^r m_i \alpha_{(i)} : m_i \in\mbb{Z} \right\}
+	\]
+\end{definition}
+
+\begin{definition}[Coroot Lattice]
+	The \bam{coroot lattice} is given by 
+	\[
+	\mathcal{L}^{\bigvee} [\mf{g}] =\left\{ \sum_{i=1}^r m_i \alpha^\vee_{(i)} : m_i \in\mbb{Z} \right\}
+	\]
+\end{definition}
+
+\begin{definition}[Quantisation Condition]
+	Given a representation $R$ of the $sl(2)_\alpha$ subalgbera, and $v\in V_\lambda$ for $\lambda$ a weight of the representation,
+	\[
+	R(h^\alpha)v=\frac{2(\alpha,\lambda)}{(\alpha,\alpha)}v
+	\]
+	Hence as the weights of $sl(2)_\alpha$ are integers
+	\[
+	\frac{2(\alpha,\lambda)}{(\alpha,\alpha)} \in \mbb{Z}
+	\]
+\end{definition}
+
+\begin{definition}[Weight Lattice]
+	The \bam{weight lattice}, $\mathcal{L}_W [\mf{g}]$, is the dual of the coroot lattice, defined as 
+	\[
+	\mathcal{L}_W [\mf{g}] = \left( \mathcal{L}^{\bigvee} [\mf{g}] \right)^\ast = \left\{ \lambda\in\mf{h}^\ast_\mbb{R} : \forall \mu\in\mathcal{L}^{\bigvee} [\mf{g}] \, (\lambda, \mu) \in \mbb{Z} \right\}
+	\]
+\end{definition}
+
+\begin{theorem}
+	Note 
+	\[
+	(\lambda, \alpha^\vee_{(i)})=\frac{2(\alpha_{(i)},\lambda)}{(\alpha_{(i)},\alpha_{(i)})} \in \mbb{Z}
+	\]
+	Hence all weights Lie in the weight lattice. 
+\end{theorem}
+
+\begin{definition}[Fundamental Weights]
+	The dual to the coroot basis, i.e. the weights $\omega_{(i)}$ such that 
+	\[
+	(\alpha^\vee_{(i)}, \omega_{(j)})=\delta_{ij}
+	\]
+	are the \bam{fundamental weights}
+\end{definition}
+
+\begin{fact}
+	Writing $\omega_{(i)}=\sum_{j=1}^r B^{ij} \alpha_{(j)}$ yields $\delta_{ij}=A^{ki}B_{jk}$. Hence 
+	\[
+	\alpha_{(i)}=\sum_{j=1}^r A^{ij} \omega_{(j)}
+	\]
+	where $A^{ij}$ is the Cartan matrix. 
+\end{fact}
+
+\begin{definition}[Highest Weight]
+	Given a finite dimensional representation, the \bam{highest weight} is $\Lambda$ such that 
+	\[
+	\forall v_\Lambda\in V_\Lambda, \, \forall \alpha\in\Phi_+ \quad R(E^\alpha)v_\Lambda=0
+	\]
+	Note that a highest weight must exist if the rep is f.d. If the representation is irreducible, all other weight are generated as product of $R(E^{-\alpha})$ for $\alpha\in\Phi_+$. 
+\end{definition}
+
+\begin{theorem}[Theorem of the Highest Weight]
+	Every finite dimension, irreducible, representation has a highest weight. Moreover, if two such representation have the same highest weight, they are isomorphic. Call the representation $R_\Lambda$. 
+\end{theorem}
+
+\begin{fact}
+	Given a representation R, for $v\in V_\lambda$, 
+	\[
+	\lambda+\alpha\in S_R \Rightarrow R(E^\alpha)v \in V_{\lambda+\alpha}
+	\]
+	Hence if $R=R_\Lambda$ all weights are of the form 
+	\[
+	\lambda=\Lambda-\mu
+	\]
+	for $\mu=\sum_{i=1}^r \mu_i \alpha_{(i)}$, $\mu_i\in\mbb{N}_0$. Hence writing 
+	\[
+	\lambda=\sum_{i=1}^r \lambda^i \omega_{(i)}
+	\]
+	gives that
+	\[
+	\forall m_{(i)}\in\mbb{Z}, \, 0\leq m_{(i)}\leq \lambda^i, \quad \lambda-m_{(i)}\alpha_{(i)}\in S_R
+	\]
+\end{fact}
+
+\begin{lemma}
+	If $R_\Lambda, R_{\Lambda^\prime}$ are two representations with weights $\lambda,\lambda^\prime$ respectively, then $\lambda+\lambda^\prime$ is a weight of $R_\Lambda \otimes R_{\Lambda^\prime}$
+\end{lemma}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{../../bib/custom-bib-style}
+\bibliography{../../bib/library,../../bib/manual}
+
+\end{document}
