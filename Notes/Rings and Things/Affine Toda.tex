@@ -122,7 +122,7 @@ Let $\Phi$ denote the set of roots for the pair $(\mathfrak{g},\mathfrak{h})$ an
 	$$
 	Now
 	$$ [E_\alpha,E_{-\alpha}]=\kappa(E_\alpha,E_{-\alpha})\,t_\alpha=
-	\left(\frac12 \kappa(E_\alpha,E_{-\alpha}) \kappa(t_\alpha,t_\alpha) \right) H_\alpha.
+	\left[\frac12 \kappa(E_\alpha,E_{-\alpha}) \kappa(t_\alpha,t_\alpha) \right] H_\alpha.
 	$$
 	Setting
 	$$E_\alpha\sp{Ch}:=E_\alpha/\sqrt{\frac12 \kappa(E_\alpha,E_{-\alpha}) \kappa(t_\alpha,t_\alpha) }$$
@@ -156,24 +156,197 @@ Let $\Phi$ denote the set of roots for the pair $(\mathfrak{g},\mathfrak{h})$ an
 	\kappa(E_\alpha\sp{Ch},E_{-\alpha}\sp{Ch})=c\,\epsilon_\alpha, \quad
 	c=2g\, \frac{(\alpha_L,\alpha_L)}{2}.
 	$$
-	
-	
-	
-	
+	\item There is a unique maximal root, which we denote as $\Theta=\sum_{\alpha\in\Delta} {n_\alpha}\, \alpha$ be the highest root. Set 
+	$\bar\Delta=\Delta\cup\{-\Theta\}$
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Background Theory}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Lie Algebras and Representation Theory}
+We start with a recap of Chapters II and III of \cite{Humphreys1978}. Denote the base of simple roots as $\Delta$. 
+
+\begin{prop}
+	There exists a unique root of highest weight $\theta = \sum_{\alpha \in \Delta} n_\alpha \alpha \in \mf{h}^\ast$. 
+\end{prop}
+
+\begin{prop}
+	Let $A$ be the cartan matrix corresponding to $\mf{g}$ of finite type, rank $n$, and let $h_\theta = \sum_i n_i h_i\in \mf{h}$ be the element corresponding to $\theta$ under the natural iso $\mf{h} \cong \mf{h}^\ast$. Define $\hat{A}$ by 
+	\eq{
+	\hat{A}_{ij} &= A_{ij}, \, 1 \leq i,j \leq n \\ 
+	\hat{A}_{00} &= 2 \\
+	\hat{A}_{i0} &= -\sum_j m_j A_{ij} \\
+	\hat{A}_{0j} &= -\sum_i n_i A_{ij} 
+}
+Then $\hat{A}$ is an affine generalised Cartan matrix corresponding to an \bam{untwisted affine Dynkin diagram}.  
+\end{prop}
+
+\begin{prop}
+	The Lie algebra corresponding to $\hat{A}$ is isomorphic to the affine Kac-Moody Lie algebra $\mc{L}\mf{g} \oplus \mbb{C}c \oplus \mbb{C}d$
+\end{prop}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Monopoles}
+Nahm established an equivalence between non-singular charge-$n$ $SU(2)$-monopoles and $\pbrace{T_i(s) \, | \, T_i \in M_n(\mbb{C}), \, s \in [0,2]}$ subject to 
+\begin{enumerate}
+	\item Nahm's equation:
+	\eq{
+\frac{dT_i}{ds} = \frac{1}{2} \sum_{j,k=1}^3 \eps_{ijk} \comm[T_j]{T_k}	
+}
+\item $T_i(s)$ is regular for $s \in (0,2)$ and has simple poles at $s=0,2$ with residues that form an irreducible, $n$-dimensional rep of $\mf{su}(2)$
+\item $T_i(2) = -T_i^\dagger(s), \, T_i(s) = T^T_i(2-s)$. 
 \end{enumerate}
 
+\begin{remark}
+	We could have here included another matrix $T_4 = -T_4^\dagger$ by modifying Nahm's equations to 
+	\eq{
+\dot{{T}_i} =[T_4,T_i]+\frac12\sum_{j,k=1}^3\epsilon_{ijk}[T_j(z),T_k(z)]	
+}
+but this can always be gauged away by the transform 
+\eq{
+T_i &\mapsto uT_i u^{-1} \\
+T_4 & \mapsto uT_0 u^{-1} - \frac{du}{ds} u^{-1}
+} 
+for $u:(0,2) \to U(n)$ satisfying $u(2-s) = \pround{u^T(s)}^{-1}$.
+\end{remark}
 
+\begin{prop}
+	Nahm's equation is equivalent to the Lax equation 
+	\eq{
+\comm[\frac{d}{ds} + M]{A} = 0	
+}
+where 
+\eq{
+A(\zeta) &= (T_1 + iT_2) - 2i T_3 \zeta + (T_1 -iT_2) \zeta^2 \\
+M(\zeta) &= -iT_3 + (T_1 - iT_2) \zeta  
+}
+\end{prop}
+ 
+If we make the definitions 
+\eq{
+\alpha &= iT_3 \\
+\beta &= T_1 + iT_2 
+}
+this Lax pair can be rewritten as 
+\eq{
+A(\zeta) &= \beta -(\alpha + \alpha^\dagger)\zeta -\beta^\dagger \zeta^2 \\
+M(\zeta) &= -\alpha -\beta^\dagger \zeta 
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Affine Toda}
+ We start by introducing affine Toda from a field theory perspective, following \cite{Braden1990}:
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Independent Definition}
+ 
+\begin{definition}
+	Let $\mf{g}$ be a rank-$r$ Lie algebra with simple roots $\alpha_i$, taking a particular realisation of these as vectors in $\mbb{R}^r$. The \bam{Toda field theory} is that with $\mbb{R}^r$-valued field $\bm{\Phi} = (\phi^a)$ and Lagrangian 
+	\eq{
+\mc{L} = \frac{1}{2} \del_\mu \phi^a \del^\mu \phi^a - \frac{\lambda}{\beta^2} \sum_{i=1}^r e^{\beta \alpha_i \cdot \bm{\Phi}}	
+} 
+for parameters $\lambda,\beta$.
+\end{definition}
 
+\begin{prop}
+	The corresponding classical equations of motion are 
+	\eq{
+\del^2 \phi_j = -\frac{\lambda}{\beta} \sum_{i=1}^r C_{ji} e^{\beta \phi_i}	
+}
+where $\phi_j = \alpha_j \cdot \bm{\Phi}$ and 
+\eq{
+C_{ij} = \alpha_i \cdot \alpha_j
+}
+\end{prop}
+\begin{proof}
+	The e.o.m are 
+	\eq{
+\pd[\mc{L}]{\phi^a} &= \del_\mu \pd[\mc{L}]{\del_\mu \phi^a} \\
+\Rightarrow -\frac{\lambda}{\beta} \sum_{i=1}^r \pround{\alpha_i}^a e^{\beta \phi_i} &= \del^2 \phi^a 
+}
+and the result follow from contracting with $\alpha_j$.
+\end{proof}
 
-\subsection{Affine Toda Field Theory}
-Although the monopole equations of motion have a Hamiltonian of the wrong sign, for the affine Toda Field theory we work with the conventional signs to obtain a physical field theory.
+\begin{remark}
+	If we shift $\phi_i \mapsto \phi_i + \frac{1}{\beta}\log \pround{\frac{2}{\alpha_i^2}}$ the matrix $C$ is replaced with 
+	\eq{
+A_{ij} = \frac{2\alpha_i \cdot \alpha_j}{\alpha_j^2}	
+}
+which we recognise to be the Cartan matrix. 
+\end{remark}
 
+This field theory does not have a unique minimum for us to consider as the classical vacuum, so we will want to deform it in some way. The following result motivates how do this deformation:
 
-If we have a Lagrangian density
-$$\mathcal{L}=\tr \left( \frac12 \partial_\mu\phi \partial\sp\mu\phi -e^{b\phi}E  e^{-b\phi} E\sp\dagger \right)
+\begin{prop}
+	$1+1$-dimensional Toda field theory has a zero-curvature representation 
+\end{prop}
+\begin{proof}
+	We follow \cite{Olive1983}. Define light-cone coordinates
+	\eq{
+u &= \frac{1}{2}(x+t) \\
+v &= \frac{1}{2}(x-t)	
+}
+s.t. 
+\eq{
+\del_u \del_v = -\del_t^2 + \del_x^2 = - \del_\mu \del^\mu
+}
+and a gauge potential with 
+\eq{
+A_u &= \sum_{i=1}^r \pround{\frac{1}{2}}
+}
+\hl{finish this off...}
+\end{proof}
+
+This is thus integrable, and so when we want to generalise this system, we look for integrable deformations. 
+
+\begin{definition}
+	The field theory obtained by perturbing Toda by 
+	\eq{
+\delta V(\bm{\Phi}) = \frac{\eps\lambda}{\beta^2} e^{\beta \alpha_0 \cdot \bm{\Phi}}	
+}
+s.t. $\pbrace{\alpha_0, \alpha_j}$ are roots of an affine Lie algebra is called \bam{affine Toda field theory}. 
+\end{definition}
+
+Affine Toda has a minimum $\bm{\Phi}^{(0)}$ satisfying 
+\eq{
+\sum_i \alpha_i e^{\beta \alpha_i \cdot \bm{\Phi}^{(0)}} = -\eps \alpha_0 e^{\beta \alpha_0 \cdot \bm{\Phi}^{(0)}}
+}
+If we centre around this by letting $\bm{\Phi} = \bm{\Phi}^{(0)} + \bm{\phi}$ we have 
+\eq{
+V(\bm{\phi}) &= \frac{\eps\lambda}{\beta^2} e^{\beta \alpha_0 \cdot \bm{\Phi}^{(0)}}\psquare{e^{\beta \alpha_0 \cdot \bm{\phi}}-\sum_{i,j} e^{\beta \alpha_i \cdot \bm{\phi}}\pround{C^{-1}}_{ij}\alpha_j \cdot \alpha_0} \\
+&= \frac{m^2}{\beta^2} \sum_{i=0}^r n_i e^{\beta \alpha_i \cdot \bm{\phi}}
+}
+where we have let $m^2 = \eps \lambda e^{\beta \alpha_0 \cdot \bm{\Phi}^{(0)}}$ and written $\alpha_0 = \sum_{i=1}^r n_i \alpha_i, \, n_0=1$. The simplest deformation is to take $\alpha_0 = -\Theta$, the maximal root.  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Braden Approach}
+We will now obtain the affine Toda Field theory through a different lens. \\
+Let $\mathfrak{g}$ be a semisimple Lie algebra of rank $r$ with a fixed Cartan subalgebra $\mathfrak{h}$.
+Let $\{X_\mu\}=\{H_i, E_\alpha\}$ be a Cartan-Weyl basis where $\{H_i\}$ is a basis of $\mathfrak{h}$
+and $\{E_\alpha\}$ the set of step operators (labelled by the root system $\Phi$ of $\mathfrak{g}$) and 
+$$[H_i,E_\alpha]=\alpha_i\, E_\alpha,\quad [E_\alpha,E_{-\alpha}]=\alpha\cdot H,
+\quad [E_\alpha, E_\beta]=N_{\alpha,\beta}\, E_{\alpha+\beta} \quad\text{if }\alpha+\beta\in \Phi.
 $$
-the equations of motion are then
-$$\partial_\mu\partial\sp\mu\phi +b\,[e^{b\phi}E  e^{-b\phi}, E\sp\dagger]=0.$$
+Recalling we have the maximal root $\Theta = \sum_{\alpha \in \Delta} n_\alpha \alpha$, and extend $\bar{\Delta} = \Delta \cup \pbrace{-\Theta}, \, n_{-\Theta} = 1$ consider 
+$$E=\sum_{\alpha\in \bar\Delta} \sqrt{n_\alpha}\, E_\alpha,\quad
+E\sp\dagger=\sum_{\alpha\in \bar\Delta} \sqrt{n_\alpha}\, E_{-\alpha}.
+$$
+Then
+$$[E,E\sp\dagger]=\sum_{\alpha\in\Delta}  {n_\alpha}\,[E_\alpha, E_{-\alpha}]+[ E_{-\Theta},E_\Theta]
+=0$$
+Consider a Lagrangian density
+$$\mathcal{L}=  \frac12 \kappa \left( \partial_\mu\phi, \partial\sp\mu\phi\right) -\kappa \left( e^{b\phi}E  e^{-b\phi}, E\sp\dagger \right)
+$$
+\begin{prop}
+	The corresponding field equations are 
+	$$\partial_\mu\partial\sp\mu\phi +b\,[e^{b\phi}E  e^{-b\phi}, E\sp\dagger]=0.$$
+	These are the affine Toda field equations if we make the normalisation $\kappa(E_\alpha,E_{-\alpha}) = \frac{m^2}{\lambda^2}$ . 
+\end{prop}
+\begin{prop}
+	$1+1$-dimsensional Toda field theory has a zero curvature representation. 
+\end{prop}
+\begin{proof}
 With $ds^2=dt^2-dx^2=-dx\sp+dx\sp-$, $x\sp\pm=x\pm t$, $\partial_x=\partial_++\partial_-$,
 $\partial_t=\partial_+-\partial_-$ these become
 $$-\partial_{+-}\phi +\frac{b}4\,[e^{b\phi}E  e^{-b\phi}, E\sp\dagger]=0$$
@@ -184,7 +357,7 @@ A_+=\frac{b}2 e^{b\phi/2}\,E \, e^{-b\phi/2}+\frac{b}2 \partial_+\phi,
 A_-=\frac{b}2 e^{-b\phi/2}\,E\sp\dagger \, e^{b\phi/2}-\frac{b}2 \partial_-\phi
 .
 $$
-Observe that
+To see this observe that
 \begin{align*}
 e^{\phi}E_\alpha  e^{-\phi}&=\Ad_{e^{\phi}}E_\alpha 
 =(1+\phi+\frac{1}2\phi^2+\ldots)E_\alpha (1-\phi+\frac{1}2\phi^2-\ldots)\\
@@ -220,7 +393,7 @@ and
 \intertext{so giving}\\
 0&=\partial_\mu\partial\sp\mu\phi+b\sum_{\alpha\in\bar\Delta}n_\alpha \,e^{b\alpha(\phi)}  [E_\alpha,E_{-\alpha}]=\partial_\mu\partial\sp\mu\phi +b\,[e^{b\phi}E  e^{-b\phi}, E\sp\dagger].
 \end{align*}
-
+\end{proof}
 
 To make contact with perturbative affine Toda theory we note the expansion
 \begin{align*}
@@ -290,114 +463,15 @@ $0=[\partial_1+A_1, \partial_0+A_0]= \partial_1 A_0 +[A_1, A_0]$ and
 $0=\partial_1 A_0\sp\dagger -[A_1\sp\dagger, A_0\sp\dagger] = [\partial_1 -A_1\sp\dagger, A_0\sp\dagger] $
 and hence the Lax equation $0=[\partial_1 +M,L]$.
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Background Theory}
-We start with a recap of Chapters II and III of \cite{Humphreys1978}. 
-
-
-
-
-
-
- We will typically use the notation $\mf{g}$ for a Lie algebra and $\mf{h} = \spn\pbrace{h_i }$ for its Cartan subalgebra. The simple roots will be notated $\alpha_i$. 
- 
-\begin{definition}
-The \bam{Chevalley basis} for a Lie algebra with Cartan matrix $A = A_{ij}$ is $\pbrace{h-i, e^\pm_i}$ s.t. 
-\eq{
-\comm[h_i]{h_j} &= 0 \\
-\comm[h_i]{e_j^\pm} &= \pm A_{ji} e_j^\pm \\
-\comm[e_i^+]{e_j^-} &= \delta_{ij}h_i  
-} 	
-\end{definition}
-
-\begin{prop}
-	There exists a unique root of highest weight $\theta = \sum_i m_i \alpha_i \in \mf{h}^\ast$. 
-\end{prop}
-
-\begin{prop}
-	Let $A$ be the cartan matrix corresponding to $\mf{g}$ of finite type, rank $n$, and let $h_\theta = \sum_i n_i h_i\in \mf{h}$ be the element corresponding to $\theta$ under the natural iso $\mf{h} \cong \mf{h}^\ast$. Define $\hat{A}$ by 
-	\eq{
-	\hat{A}_{ij} &= A_{ij}, \, 1 \leq i,j \leq n \\ 
-	\hat{A}_{00} &= 2 \\
-	\hat{A}_{i0} &= -\sum_j m_j A_{ij} \\
-	\hat{A}_{0j} &= -\sum_i n_i A_{ij} 
-}
-Then $\hat{A}$ is an affine generalised Cartan matrix corresponding to an \bam{untwisted affine Dynkin diagram}.  
-\end{prop}
-
-\begin{prop}
-	The Lie algebra corresponding to $\hat{A}$ is isomorphic to the affine Kac-Moody Lie algebra $\mc{L}\mf{g} \oplus \mbb{C}c \oplus \mbb{C}d$
-\end{prop}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Affine Toda}
- We start by introducing affine Toda from a field theory perspective, following \cite{Braden1990}:
- 
-\begin{definition}
-	Let $\mf{g}$ be a rank-$r$ Lie algebra with simple roots $\alpha_i$, taking a particular realisation of these as vectors in $\mbb{R}^r$. The \bam{Toda field theory} is that with $\mbb{R}^r$-valued field $\bm{\phi} = (\phi^a)$ and Lagrangian 
-	\eq{
-\mc{L} = \frac{1}{2} \del_\mu \phi^a \del^\mu \phi^a - \frac{\lambda}{\beta^2} \sum_{i=1}^r e^{\beta \alpha_i \cdot \bm{\phi}}	
-} 
-for parameters $\lambda,\beta$.
-\end{definition}
-
-\begin{prop}
-	The corresponding classical equations of motion are 
-	\eq{
-\del^2 \phi_j = -\frac{\lambda}{\beta} \sum_{i=1}^r C_{ji} e^{\beta \phi_i}	
-}
-where $\phi_j = \alpha_j \cdot \bm{\phi}$ and 
-\eq{
-C_{ij} = \alpha_i \cdot \alpha_j
-}
-\end{prop}
-\begin{proof}
-	The e.o.m are 
-	\eq{
-\pd[\mc{L}]{\phi^a} &= \del_\mu \pd[\mc{L}]{\del_\mu \phi^a} \\
-\Rightarrow -\frac{\lambda}{\beta} \sum_{i=1}^r \pround{\alpha_i}^a e^{\beta \phi_i} &= \del^2 \phi^a 
-}
-and the result follow from contracting with $\alpha_j$.
-\end{proof}
-
-\begin{remark}
-	If we shift $\phi_i \mapsto \phi_i + \frac{1}{\beta}\log \pround{\frac{2}{\alpha_i^2}}$ the matrix $C$ is replaced with 
-	\eq{
-A_{ij} = \frac{2\alpha_i \cdot \alpha_j}{\alpha_j^2}	
-}
-which we recognise to be the Cartan matrix. 
-\end{remark}
-
-\begin{prop}
-	$1+1$-dimensional Toda field theory has a zero-curvature representation 
-\end{prop}
-\begin{proof}
-	We follow \cite{Olive1983}. Define light-cone coordinates
-	\eq{
-u &= \frac{1}{2}(x+t) \\
-v &= \frac{1}{2}(x-t)	
-}
-s.t. 
-\eq{
-\del_u \del_v = -\del_t^2 + \del_x^2 = - \del_\mu \del^\mu
-}
-and a gauge potential with 
-\eq{
-A_u &= \sum_{i=1}^r \pround{\frac{1}{2}}
-}
-\end{proof}
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \section{Monopoles and Toda}
 
 Upon setting (with ${T_i}\sp\dagger=-T_i$, $T_4\sp\dagger =-T_4$)
 \begin{equation*}
-\alpha=T_4+\Im T_3,\quad \beta = T_1+iT_2,
+\alpha=T_4+ i T_3,\quad \beta = T_1+iT_2,
 \quad
 L=L(\zeta):=\beta -(\alpha+\alpha\sp\dagger)\zeta-\beta\sp\dagger \zeta^2, \quad
 M=M(\zeta):=-\alpha-\beta\sp\dagger \zeta,
@@ -465,23 +539,6 @@ is an irreducible $n$-dimensional representation of $su(2)$, thus the momenta ar
 $s\sim 0$ and so the potential must also be unbounded below.
 
 
-Let $\mathfrak{g}$ be a semisimple Lie algebra of rank $r$ with a fixed Cartan subalgebra $\mathfrak{h}$.
-Let $\{X_\mu\}=\{H_i, E_\alpha\}$ be a Cartan-Weyl basis where $\{H_i\}$ is a basis of $\mathfrak{h}$
-and $\{E_\alpha\}$ the set of step operators (labelled by the root system $\Phi$ of $\mathfrak{g}$) and 
-$$[H_i,E_\alpha]=\alpha_i\, E_\alpha,\quad [E_\alpha,E_{-\alpha}]=\alpha\cdot H,
-\quad [E_\alpha, E_\beta]=N_{\alpha,\beta}\, E_{\alpha+\beta} \quad\text{if }\alpha+\beta\in \Phi.
-$$
-Denote by $\Delta$  the set of simple roots of $\Phi$  and let
-$\Theta=\sum_{\alpha\in\Delta} {n_\alpha}\, \alpha$ be the highest root. Set 
-$\bar\Delta=\Delta\cup\{-\Theta\}$ and $n_{-\Theta}=1$.
-
-Consider 
-$$E=\sum_{\alpha\in \bar\Delta} \sqrt{n_\alpha}\, E_\alpha,\quad
-E\sp\dagger=\sum_{\alpha\in \bar\Delta} \sqrt{n_\alpha}\, E_{-\alpha}.
-$$
-Then
-$$[E,E\sp\dagger]=\sum_{\alpha\in\Delta}  {n_\alpha}\,[E_\alpha, E_{-\alpha}]+[ E_{-\Theta},E_\Theta]
-=0$$
 
 Observe that the Lax matrix for the monopoles may be written 
 \begin{align*}
