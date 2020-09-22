@@ -215,25 +215,57 @@ for $u:(0,2) \to U(n)$ satisfying $u(2-s) = \pround{u^T(s)}^{-1}$.
 \begin{prop}
 	Nahm's equation is equivalent to the Lax equation 
 	\eq{
-\comm[\frac{d}{ds} + M]{A} = 0	
+\comm[\frac{d}{ds} + M]{L} = 0	
 }
 where 
 \eq{
-A(\zeta) &= (T_1 + iT_2) - 2i T_3 \zeta + (T_1 -iT_2) \zeta^2 \\
+L(\zeta) &= (T_1 + iT_2) - 2i T_3 \zeta + (T_1 -iT_2) \zeta^2 \\
 M(\zeta) &= -iT_3 + (T_1 - iT_2) \zeta  
 }
 \end{prop}
- 
-If we make the definitions 
+\begin{proof}
+	It will be convenient to intoduce the notation 
+	\eq{
+		\alpha &= iT_3 \\
+		\beta &= T_1 + iT_2 
+	}
+	s.t. this Lax pair can be rewritten as 
+	\eq{
+		L(\zeta) &= \beta -(\alpha + \alpha^\dagger)\zeta -\beta^\dagger \zeta^2 \\
+		M(\zeta) &= -\alpha -\beta^\dagger \zeta 
+	}
+Then the Lax equation says, splitting by order in $\zeta$
 \eq{
-\alpha &= iT_3 \\
-\beta &= T_1 + iT_2 
+\frac{d\beta}{ds} -\comm[\alpha]{\beta} &= 0 &
+-\frac{d}{ds}(\alpha + \alpha^\dagger)+\comm[\alpha]{\alpha^\dagger} + \comm[\beta]{\beta^\dagger} &= 0 &
+-\frac{d\beta^\dagger}{ds} + \comm[\beta^\dagger]{\alpha^\dagger} &= 0 
 }
-this Lax pair can be rewritten as 
+and the last equation is redundant leaving just
 \eq{
-A(\zeta) &= \beta -(\alpha + \alpha^\dagger)\zeta -\beta^\dagger \zeta^2 \\
-M(\zeta) &= -\alpha -\beta^\dagger \zeta 
+	\frac{d\beta}{ds} - \comm[\alpha]{\beta} &= 0 \quad \text{(the \bam{complex equation})} \\
+	\frac{d}{ds}(\alpha + \alpha^\dagger) - \pround{\comm[\alpha]{\alpha^\dagger} + \comm[\beta]{\beta^\dagger}} &= 0 \quad \text{(the \bam{real equation})}
 }
+To show these are equivalent to Nahm's equations, it now just a matter of explicitly writing these out. 
+\end{proof}
+
+\begin{lemma}
+	The complex equation is invariant under the complex gauge group $GL_k(\mbb{C})$ acting as 
+	\eq{
+\alpha &\mapsto g\alpha g^{-1} + \frac{dg}{ds}g^{-1} \\
+\beta &\mapsto g\beta g^{-1}	
+}
+\end{lemma}
+
+\begin{prop}
+	The general local solution to the complex equation is 
+	\eq{
+	\alpha &= -g^{-1} \frac{dg}{ds} \\
+	\beta &= g^{-1} \beta^\prime g 
+}
+for some constant matrix $\beta^\prime$. 
+\end{prop}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Affine Toda}
@@ -319,10 +351,14 @@ V(\bm{\phi}) &= \frac{\eps\lambda}{\beta^2} e^{\beta \alpha_0 \cdot \bm{\Phi}^{(
 &= \frac{m^2}{\beta^2} \sum_{i=0}^r n_i e^{\beta \alpha_i \cdot \bm{\phi}}
 }
 where we have let $m^2 = \eps \lambda e^{\beta \alpha_0 \cdot \bm{\Phi}^{(0)}}$ and written $\alpha_0 = \sum_{i=1}^r n_i \alpha_i, \, n_0=1$. The simplest deformation is to take $\alpha_0 = -\Theta$, the maximal root.  
+
+\begin{example}
+	Consider the Lie algebra $A_n$. We may find a realisation of the $n$ simple where $\alpha_i = e_i - e_{i+1}$, where $e_i$ are the canonical basis vectors of $\mbb{R}^n$ and we take $e_{n+1}=e_1$. Moreover, the maximal root has all $n_i=1, \, 1\leq i \leq n$. 
+\end{example}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Braden Approach}
 We will now obtain the affine Toda Field theory through a different lens. \\
-Let $\mathfrak{g}$ be a semisimple Lie algebra of rank $r$ with a fixed Cartan subalgebra $\mathfrak{h}$.
+Let $\mathfrak{g}$ be a compact semisimple Lie algebra of rank $r$ with a fixed Cartan subalgebra $\mathfrak{h}$.
 Let $\{X_\mu\}=\{H_i, E_\alpha\}$ be a Cartan-Weyl basis where $\{H_i\}$ is a basis of $\mathfrak{h}$
 and $\{E_\alpha\}$ the set of step operators (labelled by the root system $\Phi$ of $\mathfrak{g}$) and 
 $$[H_i,E_\alpha]=\alpha_i\, E_\alpha,\quad [E_\alpha,E_{-\alpha}]=\alpha\cdot H,
@@ -332,23 +368,109 @@ Recalling we have the maximal root $\Theta = \sum_{\alpha \in \Delta} n_\alpha \
 $$E=\sum_{\alpha\in \bar\Delta} \sqrt{n_\alpha}\, E_\alpha,\quad
 E\sp\dagger=\sum_{\alpha\in \bar\Delta} \sqrt{n_\alpha}\, E_{-\alpha}.
 $$
-Then
+\begin{lemma}
+	$\comm[E]{E^\dagger}=0$.
+\end{lemma}
+\begin{proof}
 $$[E,E\sp\dagger]=\sum_{\alpha\in\Delta}  {n_\alpha}\,[E_\alpha, E_{-\alpha}]+[ E_{-\Theta},E_\Theta]
 =0$$
+\end{proof}
 Consider a Lagrangian density
 $$\mathcal{L}=  \frac12 \kappa \left( \partial_\mu\phi, \partial\sp\mu\phi\right) -\kappa \left( e^{b\phi}E  e^{-b\phi}, E\sp\dagger \right)
 $$
+for $\phi = \phi^i H_i$. 
 \begin{prop}
 	The corresponding field equations are 
 	$$\partial_\mu\partial\sp\mu\phi +b\,[e^{b\phi}E  e^{-b\phi}, E\sp\dagger]=0.$$
-	These are the affine Toda field equations if we make the normalisation $\kappa(E_\alpha,E_{-\alpha}) = \frac{m^2}{\lambda^2}$ . 
+	These are the affine Toda field equations if we can make the normalisation $\kappa(E_\alpha,E_{-\alpha}) = \frac{m^2}{\lambda^2}$ . 
 \end{prop}
+\begin{proof}
+	We first expand 
+	\eq{
+\kappa(\del_\mu \phi,\del^\mu \phi) = \del_\mu \phi^i \del^\mu \phi^j \kappa(H^i,H^j)	
+}
+As $\mf{g}$ is compact and semi-simple we can have chosen the basis of the Cartan subalgebra s.t. $\kappa(H^i,H^j) = -\kappa \delta^{ij}$, and so we get the $\del^\mu \del_\mu \phi$ from the kinetic part of the equations of motion. Then 
+\eq{
+e^{b\phi} E e^{-b\phi} &= \exp(\ad_{b\phi})E = \sum_{\alpha \in \bar{\Delta}} \sqrt{n_\alpha} e^{b\alpha(\phi)} E_\alpha
+}
+giving 
+\eq{
+\kappa \left( e^{b\phi}E  e^{-b\phi}, E\sp\dagger \right) &= \sum_{\alpha,\beta \in \bar{\Delta}} \sqrt{n_\alpha n_\beta} e^{b\alpha(\phi)} \kappa(E_\alpha,E_{-\beta}) \\
+&= \sum_{\alpha \in \bar{\Delta}} n_\alpha e^{b\alpha(\phi)} \kappa(E_\alpha,E_{-\alpha}) \quad \text{as }\alpha-\beta \notin \Phi \text{ for }\alpha,\beta \in \bar{\Delta} 
+}
+Taking the differential wrt to $\phi$ we find that the EL equations are 
+\eq{
+-\del_\mu \del^\mu \phi &= - b\sum_{\alpha \in \bar{\Delta}} n_\alpha (\alpha \cdot H)e^{b\alpha(\phi)} \kappa(E_\alpha,E_{-\alpha}) \\
+&= b \sum_{\alpha \in \bar{\Delta}} n_\alpha t_\alpha e^{b\alpha(\phi)} \kappa(E_\alpha,E_{-\alpha}) \\
+&=  b \sum_{\alpha \in \bar{\Delta}} n_\alpha  e^{b\alpha(\phi)} \comm[E_\alpha]{E_{-\alpha}} = b \comm[e^{b\phi}E e^{-b\phi}]{E^\dagger} 
+}
+\end{proof}
+
+\begin{remark}
+	We can rewrite this Lagrangian as
+	\eq{
+\mc{L} = \frac{1}{2}\tr\psquare{\ad(\del_\mu \phi) \ad(\del^\mu \phi)} -\tr\psquare{ \ad(e^{b\phi}Ee^{-b\phi})\ad(E^\dagger)}	
+}
+by definition of the Killing form, and so we often make the adjoint rep implicit in this equation to just write 
+\eq{
+\mc{L} = \tr \psquare{\frac{1}{2} \del_\mu \phi \del^\mu \phi - e^{b\phi}E e^{-b\phi}E^\dagger}
+}
+\end{remark}
+
+Given the following remark, to make this notation more sensible we show the following results:
+
+\begin{lemma}
+If $A,B$ are matrices s.t. $A^\dagger=A$ and $\comm[A]{B} \lambda B$, then $\comm[A]{B^\dagger} = - \bar{\lambda} B^\dagger$. 	
+\end{lemma}
+
+\begin{lemma}
+	Wrt to the Cartan-Weyl basis, $\ad(H)^\dagger = \ad(H), \, \ad(E_\alpha)^\dagger = \ad(E_{-\alpha})$. 
+\end{lemma}
+\begin{proof}
+	We first assume we have chosen our Lie algebra to a vector space over $\mbb{R}$. Then, we know that the elements of the Cartan subalgebra are diagonalised wrt the CW basis, and their diagonal must be real, so we instantly have that $\ad(H) = \ad(H)^T = \ad(H)^\dagger$. \\
+	Now we apply the previous lemma as 
+	\eq{
+\comm[\ad(H)]{\ad(E_\alpha)} = \ad\pround{\comm[H]{E_\alpha}} = \ad\pround{\alpha(H)E_\alpha} =\alpha(H) \ad(E_\alpha)	
+}
+to see that $\ad(E_\alpha)^\dagger$ is in the same eigenspace of $\ad(\ad(H))$ as $\ad(E_{-\alpha})$. Whether it is then possible to make them equal depends on the scaling freedom we have of the $E_\alpha$, and the freedom of the choice of basis of $\mf{h}$. We now draw 
+\eq{
+\ad(E_\alpha) &= \left( \begin{array}{ccc|c|c|ccc}
+	0 & \cdots & 0 & 0 & c\pround{\kappa^{-1}_{i1}\alpha^i} & 0 & \cdots & 0 \\ \vdots & \ddots & \vdots & \vdots & \vdots & \vdots & \ddots &\vdots \\ 0 & \cdots & 0 & 0 & c\pround{\kappa^{-1}_{ir}\alpha^i} & 0 & \cdots & 0 \\ \hline -\alpha^1 & \cdots & -\alpha^r & 0 & 0 & 0 & \cdots & 0 \\ \hline 0 & \cdots & 0 & 0 & 0 & 0 & \cdots & 0  \\ \hline 0 & \cdots  & 0 & 0 & 0 & &&\\ \vdots & \ddots & \vdots & \vdots & \vdots & & M_{\beta \gamma} &  \\ 0& \cdots & 0 & 0 & 0 & &&  
+\end{array}  \right) \\
+&= \left( \begin{array}{c|c|c|c}
+ 0_{ij} & 0_j & c\pround{\kappa^{-1}_{ij}\alpha^i} & 0_{\beta j} \\ \hline -\alpha^i & 0 & 0 & 0_\beta \\ \hline 0_i & 0 & 0  & 0_\beta \\ \hline 0_{i\gamma} & 0_\gamma & 0_\gamma & M_{\beta\gamma}
+\end{array}  \right)
+}
+where\begin{itemize}
+	\item $M$ has only non-zero entries $M_{\beta,\beta+\alpha} = N_{\alpha,\beta}$ when $\alpha+\beta$ is a root
+	\item we have ordered our CW basis as $(H_i)_{1 \leq i \leq r}, E_\alpha,E_{-\alpha}, (E_\beta)_{\beta \in \Phi \setminus \pbrace{\pm 1}}$
+	\item $c= \kappa\pround{E_\alpha,E_{-\alpha}}$.
+\end{itemize}
+We therefore see that by choosing a basis of $\mf{h}$ that diagonalises $\kappa$ and then removing any residual scaling through the effect on $c$ of scaling $E_{\pm \alpha}$, we can make the upper left hand s.t. $\ad(E_\alpha)^\dagger = \ad(E_{-\alpha})$. To complete we need to know what happens to $M$. What we need is that $N_{\alpha,\gamma} = N_{-\alpha,\gamma}$. Simple manipulation using the Jacobi rule gives us that 
+\eq{
+N_{\alpha,\gamma} N_{-\alpha,\alpha+\gamma} + N_{-\alpha,\gamma} N_{\alpha,\gamma-\alpha} = c(\gamma,\alpha)
+} 
+so we see that if we normalise the basis vectors corresponding to the simple roots first, we may inductively proceed the basis vectors corresponding to higher roots to get the desired result. 
+	\begin{comment}
+	Recall we define the Hermitian conjugate as a dual wrt the inner product we have, which in this case is the Killing form. Explicitly, we define $\ad(E_\alpha)^\dagger$ by 
+	\eq{
+\forall X,Y \in \mf{g}, \quad \kappa \pround{\ad(E_\alpha)X,Y} = \kappa\pround{X,\ad(E_\alpha)^\dagger Y}	
+}
+However the ad-invariance of the Killing form means that 
+\eq{
+\forall X,Y \in \mf{g}, \quad \kappa \pround{\ad(E_\alpha)X,Y} = - \kappa \pround{X,\ad(E_\alpha)Y}
+}
+Due to the non-degeneracy of $\kappa$ to complete the proof we need only show that $\ad(E_{-\alpha})$ is a candidate. \hl{solve this problem}
+\end{comment}
+\end{proof}
+
+
 \begin{prop}
 	$1+1$-dimsensional Toda field theory has a zero curvature representation. 
 \end{prop}
 \begin{proof}
 With $ds^2=dt^2-dx^2=-dx\sp+dx\sp-$, $x\sp\pm=x\pm t$, $\partial_x=\partial_++\partial_-$,
-$\partial_t=\partial_+-\partial_-$ these become
+$\partial_t=\partial_+-\partial_-$ the field equations become
 $$-\partial_{+-}\phi +\frac{b}4\,[e^{b\phi}E  e^{-b\phi}, E\sp\dagger]=0$$
 which are the consistency of
 $$0=[\partial_++A_+, \partial_-+A_-],\quad
@@ -357,13 +479,9 @@ A_+=\frac{b}2 e^{b\phi/2}\,E \, e^{-b\phi/2}+\frac{b}2 \partial_+\phi,
 A_-=\frac{b}2 e^{-b\phi/2}\,E\sp\dagger \, e^{b\phi/2}-\frac{b}2 \partial_-\phi
 .
 $$
-To see this observe that
-\begin{align*}
-e^{\phi}E_\alpha  e^{-\phi}&=\Ad_{e^{\phi}}E_\alpha 
-=(1+\phi+\frac{1}2\phi^2+\ldots)E_\alpha (1-\phi+\frac{1}2\phi^2-\ldots)\\
-&=E_\alpha+[\phi,E_\alpha]+\frac{1}2[\phi,[\phi,E_\alpha]]+\ldots=e^{\alpha(\phi)}E_\alpha
-\end{align*}
-giving
+To see this recall that $
+e^{\phi}E_\alpha  e^{-\phi}=e^{\ad_\phi}E_\alpha =e^{\alpha(\phi)}E_\alpha
+$, giving
 $$
 A_+=\frac{b}2 \sum_{\alpha\in\bar\Delta} \sqrt{n_\alpha}\,e^{b\alpha(\phi)/2}E_\alpha
 +\frac{b}2 \partial_+\phi,
@@ -379,22 +497,85 @@ A_1&=A_++A_-=
 A_0&=A_+-A_-=
 \frac{b}2 \partial_1\phi+{b} \sum_{\alpha\in\bar\Delta} \sqrt{n_\alpha}\,e^{b\alpha(\phi)/2}X\sp-_\alpha
 \end{align*}
-where $X\sp\pm_\alpha=(E_\alpha \pm E_{-\alpha})/2$,
-and
+where $X\sp\pm_\alpha=(E_\alpha \pm E_{-\alpha})/2$. Thus the zero curvature condition is 
 \begin{align*}
 0&=[\partial_0+A_0,\partial_1+A_1]=\frac{b}2(\partial_0^2-\partial_1^2)\phi
 +\frac{b^2}2  \sum_{\alpha\in\bar\Delta} \sqrt{n_\alpha}\,e^{b\alpha(\phi)/2}
-\left(\alpha\left( \partial_0\phi\right)\,X\sp+_\alpha-
-\alpha\left( \partial_1\phi\right)\,X\sp-_\alpha\right)
+\left[\alpha\left( \partial_0\phi\right)\,X\sp+_\alpha-
+\alpha\left( \partial_1\phi\right)\,X\sp-_\alpha\right]
 \\
 &\qquad+\frac{b^2}2  \sum_{\alpha\in\bar\Delta} \sqrt{n_\alpha}\,e^{b\alpha(\phi)/2}\left(
 [ \partial_1\phi,  X\sp+_\alpha]  -[ \partial_0\phi,  X\sp-_\alpha]  \right)
 +\frac{b^2}2  \sum_{\alpha\in\bar\Delta}n_\alpha \,e^{b\alpha(\phi)} [E_\alpha,E_{-\alpha}]
-\intertext{so giving}\\
+\intertext{so giving, using $\comm[\del_\mu \phi]{X_\alpha^\pm}=\alpha\pround{\del_\mu \phi} X_\alpha^\mp$,}\\
 0&=\partial_\mu\partial\sp\mu\phi+b\sum_{\alpha\in\bar\Delta}n_\alpha \,e^{b\alpha(\phi)}  [E_\alpha,E_{-\alpha}]=\partial_\mu\partial\sp\mu\phi +b\,[e^{b\phi}E  e^{-b\phi}, E\sp\dagger].
 \end{align*}
+Finally we note 
+\eq{
+\comm[\del_0+A_0]{\del_1+A_1} = 2\comm[\del_+ + A_+]{\del_- - A_-}
+}
 \end{proof}
 
+\begin{remark}
+Recall we have the field strength tensor defined as 
+\eq{
+F_{\mu\nu} = \del_\mu A_\nu - \del_\nu A_\mu + \comm[A_\mu]{A_\nu} = \comm[\del_\mu + A_\mu]{\del_\nu +A_\nu}
+}
+so the fact that the commutators in light cone coordinates are effectively those in standard Minkowski is not surprising. 
+\end{remark}
+
+\begin{remark}
+	In the zero curvature equation there so far has been no appearance of a spectral parameter. We see that
+	taking
+	$$X_\alpha\sp\pm = \frac12\left( \zeta\sp{r_\alpha} E_\alpha \pm \zeta\sp{-r_\alpha} E_{-\alpha}\right)$$
+	will result in the same equations of motion. Two common choices in the literature are
+	\begin{enumerate}
+		\item $r_\alpha=1$ for all $\alpha\in\bar\Delta$,
+		\item $r_{-\Theta}=1$ and $r_\alpha=0$ for all $\alpha\in\Delta$.
+	\end{enumerate}
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Spectral Curve}
+Having now found the zero curvature representation of affine Toda in $1+1$-dimensions we make the following observation:
+
+\begin{prop}
+	Assuming that $\del_0 \phi = 0$, the zero curvature equation becomes a Lax equation with $L=A_0, \, M = A_1$.
+\end{prop}
+\begin{proof}
+Then the independence
+from the $0$-coordinate gives
+$0=[\partial_1+A_1, \partial_0+A_0]= \partial_1 A_0 +[A_1, A_0]$	
+\end{proof}
+
+With this we can start to calculate the spectral curve, which for notational purposes we will fix to be 
+\eq{
+\mc{C} = \pbrace{\det\pround{L(\zeta) - \eta I}=0}
+}
+I have coded in Sage a worksheet that takes the fundamental rep corresponding to a Dynkin diagram and finds the corresponding curve as a function of $q_i = \phi^i, \, p_i = -\dot{\phi}^i$.
+
+\begin{example}
+	The simplest example we can consider is the $A_1$ Lie algebra, which has roots $\Phi = \pbrace{\pm \alpha}$, highest root $\Theta=\alpha$. A bit of explicit calculation then finds our Lax matrix to be 
+	\eq{
+\frac{2}{b}L(\zeta) = -pR(H) + \underbrace{\pround{e^{bq}\zeta^{r_1} - e^{-bq}\zeta^{-r_0}}}_{e(\zeta)}R(E) + \underbrace{\pround{e^{-bq}\zeta^{r_0} - e^{bq}\zeta^{-r_1}}}_{f(\zeta)}R(F)	
+}
+where we have now made the representation $R$ explicit and called $E = E_\alpha, F = E_{-\alpha}$. We also remark the symmetry $e(\zeta) = -f(\zeta^{-1})$. We will drop the factor of $\frac{2}{b}$ from now on as it can be absorbed wlog into $\eta$. We now recall that the reps of $A_1$ are simple when considered as highest weight reps $R=R_\Lambda$, s.t. $L$ is tridiagonal with (using Wikipedia's notation)
+\eq{
+a_n &= -p\psquare{\Lambda -2(n-1)} \\
+b_n &= es_n, \quad (s_n = (\Lambda - n+1)n \text{ a coefficient from rep theory}) \\
+c_n &= f
+}
+with $1 \leq n \leq \Lambda+1$.
+\end{example}
+
+\noindent{\textbf{Questions:}}
+\begin{enumerate}
+	\item What is the effect on the spectral curve of the different scalings $r_\alpha$? Are the curves birational?
+	\item We have an action of the Weyl group on the roots, so does this preserve the spectral curve, or what is its effect on the curve? 
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Perturbative Theory}
 To make contact with perturbative affine Toda theory we note the expansion
 \begin{align*}
 \tr e^{b\phi}E  e^{-b\phi} E\sp\dagger&=\tr
@@ -402,14 +583,14 @@ To make contact with perturbative affine Toda theory we note the expansion
 (1-b\phi+\frac{b^2}{2}\phi^2-\frac{b^3}{6}\phi^3+\ldots) 
 E\sp\dagger\\
 &=\tr \left(E E\sp\dagger+b\phi[E,E\sp\dagger]+\frac{b^2}{2}\phi[ E,[ E\sp\dagger, \phi]]+
-\frac{b^3}{6}\phi[ [\phi, E\sp\dagger,] [\phi,E]]
+\frac{b^3}{6}\phi[ [\phi, E\sp\dagger], [\phi,E]]
 + \ldots
 \right)\\
-&= \tr E E\sp\dagger+\frac{b^2}{2}\tr \phi[ E,[ E\sp\dagger, \phi]]+ \frac{b^3}{6}\tr \phi[ [\phi, E\sp\dagger,] [\phi,E]]+\ldots
+&= \tr E E\sp\dagger+\frac{b^2}{2}\tr \phi[ E,[ E\sp\dagger, \phi]]+ \frac{b^3}{6}\tr \phi[ [\phi, E\sp\dagger], [\phi,E]]+\ldots
 \end{align*}
 which is further simplified upon specifying the normalisations $ \tr E_\alpha E_{-\alpha}$. This form of the
 affine Toda equation has been chosen so that $\phi=0$ is a classical solution. If we work with
-$$\tr E_\alpha E_{-\alpha}=\epsilon_\alpha:=\frac2{(\alpha,\alpha)}
+$$\tr E_\alpha E_{-\alpha}=\epsilon_\alpha^{-1}
 $$
 then
 $$ \tr E E\sp\dagger=\sum_{\alpha\in\bar\Delta}n_\alpha\sp\vee =g,\qquad  n_\alpha\sp\vee :=
@@ -433,14 +614,79 @@ $$
 and $\psi\sp0:=-(\Theta,\psi)$.
 
 
-In the zero curvature equation there so far has been no appearance of a spectral parameter. We see that
-taking
-$$X_\alpha\sp\pm = \frac12\left( \zeta\sp{r_\alpha} E_\alpha \pm \zeta\sp{-r_\alpha} E_{-\alpha}\right)$$
-will result in the same equations of motion. Two common choices in the literature are
-\begin{enumerate}
-	\item $r_\alpha=1$ for all $\alpha\in\bar\Delta$,
-	\item $r_{-\Theta}=1$ and $r_\alpha=0$ for all $\alpha\in\Delta$.
-\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Monopoles and Toda}
+From the starting point now of an affine Toda field theory in $1+0$ dimensions (now with time coordinate $s$) as discussed above, real s.t. $\phi=\phi^\dagger$, now define $T_i$ by 
+$$
+\beta=T_1+i T_2=e^{\phi/2} E e^{-\phi/2},\quad
+\beta\sp\dagger=-T_1+i T_2=e^{-\phi/2} E\sp\dagger e^{\phi/2},\quad
+\alpha+\alpha\sp\dagger=2i T_3 =\dot \phi.
+$$
+
+\begin{prop}
+	The $T_i$ satisfy $T_i^\dagger = -T_i$ and Nahm's equations are the Toda equations, i.e.
+\begin{align*}
+\def\arraystretch{3.2}
+\ddot\phi&=[ e^{\phi}E  e^{-\phi} ,E\sp\dagger ] 
+\Longleftrightarrow  \begin{cases}
+\frac{d}{ds}\beta - \comm[\alpha]{\beta} = 0 \\
+\frac{d}{ds}(\alpha + \alpha)^\dagger - \pround{\comm[\alpha]{\alpha^\dagger} + \comm[\beta]{\beta^\dagger}} = 0
+\end{cases}
+\end{align*}
+\end{prop}
+\begin{proof}
+We first note that if we define $g = e^{-\phi/2}$ then 
+\eq{
+\alpha = -g^{-1} \dot{g}, \quad \beta = g^{-1} E g
+}
+and this is the form of the general solution to the complex equation. Next 
+	$$[\beta, \beta\sp\dagger]=e^{-\phi/2}[ e^{\phi}E  e^{-\phi} ,E\sp\dagger ]  e^{\phi/2}, \quad \comm[\alpha]{\alpha^\dagger}=0
+	$$
+so we get the equivalence of the equations. 
+\end{proof}
+
+\begin{remark}
+	In the above, we are hiding an important point: elements of the algebra are not matrices, and so we need to be actually considering a representation. $e^{\phi/2}Ee^{-\phi/2}$ is actually an algebra element in and of itself recall, as $\Ad_{e^{\phi}} = e^{\ad_\phi}$, but we still need a rep to make it into a matrix. A question I have is what reps $\rho$ ensure that $\rho(E)^\dagger = \rho(E^\dagger)$? Note moreover that we have chosen an algebra $\mf{g}$ s.t. there are $\rank \mf{g}$ fields $\phi$. This ensures that we can have all $\phi$ commuting.  
+\end{remark}
+
+
+\begin{remark}
+This coincides with the notation of \emph{Cyclic Monopoles, Affine Toda and Spectral Curves} 
+\cite{Braden2011}
+\begin{align}
+T_1+iT_2&=\begin{pmatrix} 0&e\sp{(q_1-q_2)/2}&0&\ldots&0\\
+0&0&e\sp{(q_2-q_3)/2}&\ldots&0\\
+\vdots&&&\ddots&\vdots\\
+0&0&0&\ldots&e\sp{(q_{n-1}-q_n)/2}\\
+e\sp{(q_n-q_1)/2}&0&0&\ldots&0
+\end{pmatrix}\\
+T_1-iT_2&=-\begin{pmatrix}0&0&\ldots&0&e\sp{(q_n-q_1)/2}\\
+e\sp{(q_1-q_2)/2}&0&\ldots&0&0\\
+0&e\sp{(q_2-q_3)/2}&\ldots&0&0\\
+\vdots&&\ddots&&\vdots\\
+0&0&\ldots&e\sp{(q_{n-1}-q_n)/2}&0
+\end{pmatrix}\\
+T_3&=-\frac{i}{2}\begin{pmatrix} p_1&0&\ldots&0\\
+0&p_2&\ldots&0\\
+\vdots&&\ddots&\vdots\\
+0&0&\ldots&p_n
+\end{pmatrix}
+\end{align}
+where $p_i$, $q_i$ are real in the case of the Lie algebra $A_n$. 
+\end{remark}
+Upon using $0=\tr E^2=\tr \dot \phi(\beta-\beta\sp\dagger)$
+$$\frac12\tr L^2=\frac12\tr\left[\beta -(\alpha+\alpha\sp\dagger)\zeta-\beta\sp\dagger \zeta^2\right]^2
+=\zeta^2\tr\left(\frac12 {\dot\phi}^2 -e^{\phi}E  e^{-\phi} E\sp\dagger \right):=\zeta^2 H
+$$
+and this Hamiltonian is not bounded below\footnote{Here the Lagrangian is
+	$\mathfrak{L}:=\tr\left(\frac12 {\dot\phi}^2 +e^{\phi}E  e^{-\phi} E\sp\dagger \right)$ corresponding to a potential of the wrong sign (see the expansion below).}. This is necessary as the monopole boundary conditions require $T_a\sim \rho_a/s $ as $s\sim 0$ (and similarly at $s\sim 2$), where $\rho_a$
+is an irreducible $n$-dimensional representation of $su(2)$, thus the momenta are unbounded for
+$s\sim 0$ and so the potential must also be unbounded below.
+
+
 
 Observe that the Lax matrix for the monopoles may be written 
 \begin{align*}
@@ -462,105 +708,6 @@ from the $0$-coordinate gives
 $0=[\partial_1+A_1, \partial_0+A_0]= \partial_1 A_0 +[A_1, A_0]$ and
 $0=\partial_1 A_0\sp\dagger -[A_1\sp\dagger, A_0\sp\dagger] = [\partial_1 -A_1\sp\dagger, A_0\sp\dagger] $
 and hence the Lax equation $0=[\partial_1 +M,L]$.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\section{Monopoles and Toda}
-
-Upon setting (with ${T_i}\sp\dagger=-T_i$, $T_4\sp\dagger =-T_4$)
-\begin{equation*}
-\alpha=T_4+ i T_3,\quad \beta = T_1+iT_2,
-\quad
-L=L(\zeta):=\beta -(\alpha+\alpha\sp\dagger)\zeta-\beta\sp\dagger \zeta^2, \quad
-M=M(\zeta):=-\alpha-\beta\sp\dagger \zeta,
-\end{equation*}
-one finds
-\begin{equation}
-\begin{split}\label{integrability}
-\dot{{T}_i} =[T_4,T_i]+\frac12\sum_{j,k=1}^3\epsilon_{ijk}[T_j(z),T_k(z)]
-&\Longleftrightarrow
-\dot L=[L,M]\\
-&\Longleftrightarrow\quad
-\left\{\begin{aligned}
-\left[\dfrac{d }{dz}-\alpha,\beta\right]&=0,\\
-\dfrac{d (\alpha+\alpha\sp\dagger)}{dz}&=[\alpha,\alpha\sp\dagger]+[\beta,\beta\sp\dagger].
-\end{aligned}\right.
-\end{split}
-\end{equation}
-
-Let 
-$$\phi=\phi\sp\dagger,\quad h=e^{\phi},\quad
-\beta=T_1+\Im T_2=e^{\phi/2} E e^{-\phi/2},\quad
-\beta\sp\dagger=-T_1+\Im T_2=e^{-\phi/2} E\sp\dagger e^{\phi/2},\quad
-\alpha+\alpha\sp\dagger=2\Im T_3 =\dot \phi.
-$$
-$$[\beta, \beta\sp\dagger]=e^{-\phi/2}[ e^{\phi}E  e^{-\phi} ,E\sp\dagger ]   \sp\dagger e^{\phi/2}
-=2\Im\dot T_3= \ddot \phi,
-$$
-and Nahm's equations are the Toda equations
-\begin{align*} 
-\ddot\phi&=[ e^{\phi}E  e^{-\phi} ,E\sp\dagger ] 
-\Longleftrightarrow
-\frac{d}{dz} \left( \dot h h\sp{-1} \right)= \left[ h E h\sp{-1}, E\sp\dagger\right]
-\end{align*}
-
-This coincides with the notation of \emph{Cyclic Monopoles, Affine Toda and Spectral Curves}
-\cite{Braden2011}
-\begin{align}
-T_1+iT_2&=\begin{pmatrix} 0&e\sp{(q_1-q_2)/2}&0&\ldots&0\\
-0&0&e\sp{(q_2-q_3)/2}&\ldots&0\\
-\vdots&&&\ddots&\vdots\\
-0&0&0&\ldots&e\sp{(q_{n-1}-q_n)/2}\\
-e\sp{(q_n-q_1)/2}&0&0&\ldots&0
-\end{pmatrix}\\
-T_1-iT_2&=-\begin{pmatrix}0&0&\ldots&0&e\sp{(q_n-q_1)/2}\\
-e\sp{(q_1-q_2)/2}&0&\ldots&0&0\\
-0&e\sp{(q_2-q_3)/2}&\ldots&0&0\\
-\vdots&&\ddots&&\vdots\\
-0&0&\ldots&e\sp{(q_{n-1}-q_n)/2}&0
-\end{pmatrix}\\
-T_3&=-\frac{i}{2}\begin{pmatrix} p_1&0&\ldots&0\\
-0&p_2&\ldots&0\\
-\vdots&&\ddots&\vdots\\
-0&0&\ldots&p_n
-\end{pmatrix}
-\end{align}
-where $p_i$, $q_i$ are real. 
-
-Upon using $0=\tr E^2=\tr \dot \phi(\beta-\beta\sp\dagger)$
-$$\frac12\tr L^2=\frac12\tr\left[\beta -(\alpha+\alpha\sp\dagger)\zeta-\beta\sp\dagger \zeta^2\right]^2
-=\zeta^2\tr\left(\frac12 {\dot\phi}^2 -e^{\phi}E  e^{-\phi} E\sp\dagger \right):=\zeta^2 H
-$$
-and this Hamiltonian is not bounded below\footnote{Here the Lagrangian is
-	$\mathfrak{L}:=\tr\left(\frac12 {\dot\phi}^2 +e^{\phi}E  e^{-\phi} E\sp\dagger \right)$ corresponding to a potential of the wrong sign (see the expansion below).}. This is necessary as the monopole boundary conditions require $T_a\sim \rho_a/s $ as $s\sim 0$ (and similarly at $s\sim1$), where $\rho_a$
-is an irreducible $n$-dimensional representation of $su(2)$, thus the momenta are unbounded for
-$s\sim 0$ and so the potential must also be unbounded below.
-
-
-
-Observe that the Lax matrix for the monopoles may be written 
-\begin{align*}
-L/\zeta&= -\dot\phi +e^{\phi/2}\,Ee^{-\phi/2}/\zeta-e^{-\phi/2}\,E\sp\dagger e^{\phi/2}\zeta
-= -\dot\phi +
-\sum_{\alpha\in\bar\Delta}\sqrt{n_\alpha}\, e^{b\alpha(\phi)/2} \left(
-\zeta\sp{-1} E_\alpha - \zeta E_{-\alpha}
-\right),\\
-M&=-\frac12 \dot\phi -e^{-\phi/2}\,E\sp\dagger e^{\phi/2}\zeta
-=\frac12 \frac{L}{\zeta} -\frac12 \sum_{\alpha\in\bar\Delta}\sqrt{n_\alpha}\, e^{b\alpha(\phi)/2} \left(
-\zeta\sp{-1} E_\alpha + \zeta E_{-\alpha}
-\right).
-\end{align*}
-Note may change the dependence of a spectral parameter by taking the arbitrary combinations
-$$ \zeta\sp{r_\alpha} E_\alpha \pm \zeta\sp{-r_\alpha} E_{-\alpha}$$
-and these will result in the same equations of motion. Two common choices in the literature are
-\begin{enumerate}
-	\item $r_\alpha=1$ for all $\alpha\in\bar\Delta$,
-	\item $r_{-\Theta}=1$ and $r_\alpha=0$ for all $\alpha\in\Delta$.
-\end{enumerate}
-
-
 
 \noindent{\textbf{Questions:}}
 \begin{enumerate}

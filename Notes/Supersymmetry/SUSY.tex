@@ -1002,7 +1002,7 @@ Hence  we can make the following definition:
 	\eq{
 		I_w = \dim \mc{H}_{B,0} - \dim\mc{H}_{F,0} = \tr_{\mc{H}} (-1)^F = \tr_\mc{H} \left( (-1)^F e^{-\beta H} \right)
 	}
-	where the last two expression follows because excited states come in pairs so cancel out. The final expression is thus independent of $\beta$. We include it to regularise the trace and to make the connection to the path integral. 
+	where the last two expression follows because excited states come in pairs so cancel out. The final expression is thus also independent of $\beta$, as $H=0$ on ground states. We include it to regularise the trace and to make the connection to the path integral. 
 \end{definition} 
 We can now use our fermionic path integral to write the Witten index as 
 \eq{
@@ -1303,7 +1303,7 @@ $\forall \omega \in \Harm^p$, $\omega$ must be \bam{closed} (i.e. $d\omega = 0$)
 	}
 \end{definition}
 \begin{remark}
-	Note this is a geniune object we can consider as $\Omega^p$ is a vector space, and as $d^2=0$ we know $\image d$ is a subspace of $\ker d$. 
+	Note this is a genuine object we can consider as $\Omega^p$ is a vector space, and as $d^2=0$ we know $\image d$ is a subspace of $\ker d$. 
 \end{remark}
 We now state an important theorem from Riemannian geometry:
 \begin{theorem}[Hodge's Theorem]
@@ -1320,7 +1320,7 @@ is the only freedom of choice of $\alpha$, and the only solution is 0.\footnote{
 \subsection{Witten index of a NLSM}
 A consequence of de-Rham's theorem is that the space of SUSY ground states $\cong H_{dR}^\ast (N)$, with states with $p$ fermions living in $H^p_{dR}\Rightarrow$ the Witten index 
 \eq{
-I_w &= \tr ((-1)^F e^{-\beta H} \\
+I_w &= \tr \pround{(-1)^F e^{-\beta H}} \\
 &=n_B - n_F \\
 &= \sum_{p=0}^n (-1)^p \dim H_{dR}^p(N) \\
 &= \chi(N)
@@ -1397,9 +1397,9 @@ with
 }
 then as $\beta \to 0$ all the $\psi^a(\tau) = \psi_0^a + \delta \psi^a(\tau)$ contributions from the non-zero modes are highly suppressed, e.g. 
 \eq{
-\delta x^a(\tau) = \sum_{k \neq 0} \delta_k^a(\tau) e^{\frac{2\pi i k \tau}{\beta}} 
+\delta x^a(\tau) = \sum_{k \neq 0} \delta x_k^a(\tau) e^{\frac{2\pi i k \tau}{\beta}} 
 }
-the derivatives being as $\frac{1}{\beta} \to \infty$. In fact the contributions from $\delta x, \delta \psi$ precisely cancel one another, leaving us just with an integral over the zero modes, that is the path integral localises to constant maps $x : S^1 \to N$, but there's no preffered point in $N$ so we still need to integrate over $N$. Thus 
+the derivatives being as $\frac{1}{\beta} \to \infty$. In fact the contributions from $\delta x, \delta \psi$ precisely cancel one another, leaving us just with an integral over the zero modes, that is the path integral localises to constant maps $x : S^1 \to N$, but there's no preferred point in $N$ so we still need to integrate over $N$. Thus 
 \eq{
 \chi(N) &= \int e^{-S[x_0, \psi_0]} \, d^n x_0 \, d^n \psi_0 \, d^n \bar{\psi}_0 \\
 &= \int \exp \left[ -\frac{1}{2} R_{abcd}(x_0) \bar{\psi}^a_0 \bar{\psi}^b_0 \psi_0^c \psi_0^d \right] \, d^n x_0 \, d^n \psi_0 \, d^n \bar{\psi}_0 \\ 
@@ -1477,11 +1477,11 @@ where $\del^\pm : S^\pm \to S^\mp$. Note that $\del^\pm$ annihilates $S^\mp$, so
 \end{definition}
 
 \begin{remark}
-	You may, like me, be wondering why we are not asking what the index of $\slashed{\del}$ is. It turns out that general theory says that it is always zero, so it is not too interesting, but in even dimensions this splitting of the spinor bundle into chiral parts lets us say something interestin about $\del^\pm$. 
+	You may, like me, be wondering why we are not asking what the index of $\slashed{\del}$ is. It turns out that general theory says that it is always zero, so it is not too interesting, but in even dimensions this splitting of the spinor bundle into chiral parts lets us say something interesting about $\del^\pm$. 
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Susy QM}
+\subsection{SUSY QM}
 In our quantisation of $S = \int \frac{1}{2} g_{ab} \dot{x}^a \dot{x}^b + \frac{i}{2} g_{ab} \psi^a \nabla_\tau \psi^b \, d\tau$
 the Hilbert space is thus naturally $L^2(S(N),\sqrt{g} \, d^n x)$ (square integrable section of the spin bundle on $N$), and the supercharge 
 \eq{
@@ -1500,7 +1500,7 @@ g_{ab}(x) &= \delta_{ab} - \frac{1}{3} R_{abcd}(x_0)\delta x^c \delta x^d + \mc{
 }
 To second order in the fluctuations, the actions becomes 
 \eq{
-S^{(2)}[x_0, \psi_0, \delta x, \delta \psi] = \oint - \frac{1}{2} \delta x_a \frac{d^2}{dt^2} \delta x^a + \frac{1}{2} \delta \psi_a \frac{d}{d\tau} \delta \psi^a - \frac{1}{4} R_{abcd} \psi_0^a \psi_0^b \delta x^c \delta \dot{x}^d \, d\tau
+S^{(2)}[x_0, \psi_0, \delta x, \delta \psi] = \oint - \frac{1}{2} \delta x_a \frac{d^2}{d\tau^2} \delta x^a + \frac{1}{2} \delta \psi_a \frac{d}{d\tau} \delta \psi^a - \frac{1}{4} R_{abcd} \psi_0^a \psi_0^b \delta x^c \delta \dot{x}^d \, d\tau
 }
 (raising and lowering indices with the flat metric). For any fixed values of $(x_0,\psi_0)$ this is a free action, so the path integral over fluctuations gives 
 \eq{

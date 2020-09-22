@@ -559,6 +559,13 @@ so take all $X_i=X$ equal to see $X$ ad-nilpotent.
 	\end{itemize}
 \end{prop}
 
+\begin{prop}
+	Let $\rho:\mf{g}\to GL(V)$ be a rep of semi-simple $\mf{g}$ with generators $\pbrace{T^a}$. Then $\tr\rho(T^a)=0$.
+\end{prop}
+\begin{proof}
+	As $\mf{g}$ is semisimple, $\mf{g} = \comm[\mf{g}]{\mf{g}}$ (as $\faktor{\mf{g}}{\comm[\mf{g}]{\mf{g}}}$ is semisimple and abelian), so each $T^a$ is a sum of commutators. Then $\rho(T^a)$ is also a commutator so traceless. 
+\end{proof}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Constructing Representations}
@@ -867,6 +874,13 @@ Note that $\dim(R_\Lambda)=\Lambda+1$, so
 	\item $R_2$ is the adjoint representation. 
 \end{itemize}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Young Tableaux}
+We will now want to show how Young Tableaux can be used to identify tensor products of irreducible $\mf{su}(N)$ reps as direct sums. 
+
+\begin{definition}
+	A \bam{Young diagram} is a finite collection of boxes, or cells, arranged in left-justified rows, with the row lengths in non-increasing order. A \bam{Young tableau} is obtained by filling in the boxes of the Young diagram with symbols taken from some alphabet (usually taken to be the natural numbers for brevity). 
+\end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1097,7 +1111,7 @@ Note that the above definition shows that we actually have an inner product on t
 	The algebra of the Cartan-Weyl basis is 
 	\begin{align*}
 	\comm[H^i]{H^j} &= 0 \\
-	\comm[H^i]{E^\alpha} &= 0 \\
+	\comm[H^i]{E^\alpha} &= \alpha_i E^\alpha \\
 	\comm[E^\alpha]{E^\beta} &= \left\{ \begin{array}{lc} N_{\alpha,\beta}E^{\alpha+\beta} & \alpha+\beta\in\Phi \\
 	\kappa\left(E^\alpha,E^{-\alpha}\right)t^\alpha & \alpha+\beta=0 \\
 	0 & \text{otherwise}
@@ -1378,7 +1392,22 @@ and $a_{ij} = R_{\alpha_{(i)},\alpha_{(j)}}$
 	\end{enumerate}
 \end{prop}
 
+\begin{definition}
+	The \bam{Coxeter number} and \bam{dual Coxeter number} are respectively 
+	\eq{
+h &= 1 + \sum_{\alpha \in \Delta} n_\alpha \\
+g = h^\vee &= 1 + \sum_{\alpha \in \Delta} n_\alpha^\vee 
+}
+where 
+\eq{
+\theta &= \sum_{\alpha \in \Delta} n_\alpha \alpha = \eps_\theta^{-1} \sum_{\alpha \in \Delta} n_\alpha^\vee \alpha^\vee  
+}
+Note this implies $n_\alpha^\vee = \eps_\theta \eps_\alpha^{-1} n_\alpha$
+\end{definition}
 
+\begin{remark}
+	It is sometimes common to normalise the roots by setting $\eps_\theta = 1$. 
+\end{remark}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Cartan Matrix and Dynkin Diagrams}
 
