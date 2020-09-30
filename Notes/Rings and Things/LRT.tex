@@ -395,7 +395,7 @@ A derivation $\del:\mf{g} \to \mf{g}$ is called \bam{inner} if $\exists X \in \m
 	\begin{enumerate}
 		\item $\mf{g}$ solvable $\Rightarrow$ all subalgebras and homomorphic images of $\mf{g}$ solvable.
 		\item If $I \subset \mf{g}$ is a solvable ideal s.t. $\faktor{\mf{g}}{I}$ is solvable, so is $\mf{g}$. 
-		\item If $I,H \subset \mf{g}$ are solvable ideals, so is $I+J$. 
+		\item If $I,J \subset \mf{g}$ are solvable ideals, so is $I+J$. 
 	\end{enumerate}
 \end{prop}
 \begin{corollary}
@@ -882,6 +882,27 @@ We will now want to show how Young Tableaux can be used to identify tensor produ
 	A \bam{Young diagram} is a finite collection of boxes, or cells, arranged in left-justified rows, with the row lengths in non-increasing order. A \bam{Young tableau} is obtained by filling in the boxes of the Young diagram with symbols taken from some alphabet (usually taken to be the natural numbers for brevity). 
 \end{definition}
 
+Young diagrams with $n$ boxes correspond to irreducible subspaces of the action of $S_n$ on objects with $n$ indices (equivalently functions of $n$-variables). We view this as rows corresponding to symmetrisation over the indices, and columns as antisymmetrisation. \\
+This in turn allows us to connect them to the representation theory of $\mf{su}_N$ (which has Weyl group $S_N$ we will see later) by noting a correspondence between irreducible representations and diagrams. 
+
+\begin{definition}
+	The \bam{hook} $h$ of a Young diagram is the product of the \bam{hook lengths} of each box, which are the number of boxes to the right or below the given, including itself. 
+\end{definition}
+
+\begin{definition}
+	The dimension of a $n$-box Young diagram is $d= \frac{n!}{h}$. 
+\end{definition}
+
+\begin{prop}
+	The dimension of a Young diagram is the dimension of the corresponding subspace of the $S_n$ representation.
+\end{prop}
+
+We can calculate the dimension of the corresponding rep in $\mf{su}_N$ in a similar way:
+
+\begin{prop}
+	The dimension $D$ of the rep of $\mf{su}_N$ corresponding to a Young diagram is $D = \frac{F}{h}$ where $F$ is determined as follows: assign a factor $N$ to the top left box, add 1 each time you go right, subtract 1 each time you go down, and take the product of these. 
+\end{prop} 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -891,6 +912,9 @@ We will now want to show how Young Tableaux can be used to identify tensor produ
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Lie's Theorem and Cartan's Theorem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Lie's Theorem}
+
 \begin{notation}
 	Throughout we will take $k$ to be an algebraically closed field of characteristic 0. 
 \end{notation}
@@ -910,7 +934,50 @@ We will now want to show how Young Tableaux can be used to identify tensor produ
 	$\mf{g}$ solvable $\Rightarrow i(\mf{g})$ nilpotent. 
 \end{corollary}
 
-\hl{Return to this section}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Jordan-Chevalley Decomposition}
+\begin{definition}
+$x \in \End V$ is \bam{semisimple} if the roots of its minimal polynomial are distinct. 
+\end{definition}
+
+\begin{remark}
+	If $k$ is a field of characteristic 0, then semisimplicity of an element is equivalent to diagonalisability. 
+\end{remark}
+
+\begin{prop}
+	Let $x \in \End V$ where $V$ is a f.d. v.sp. Then 
+	\begin{itemize}
+		\item $\exists ! \,  x_s,  x_n \in \End V$ s.t. $x=x_s+x_n$, $x_s$ is semisimple, $x_n$ is nilpotent, and $\comm[x_s]{x_n}=0$. 
+		\item $\exists \, p,q$ polynomials without constant term s.t. $p(x) = x_s, \, q(x) = x_n$. In particular if $\comm[y]{x}=0$, then $\comm[y]{x_s} = 0 = \comm[y]{x_n}$. 
+		\item If $A \leq B \leq V$ and $x(B)\subset A$, then $x_s(B)\subset A, \, x_n(B) \subset A$. 
+	\end{itemize}
+\end{prop}
+
+\begin{definition}
+	The decomposition of $x$ into commuting semisimple and nilpotent parts it the \bam{Jordan-Chevalley decomposition} of $x$. 
+\end{definition}
+
+\begin{remark}
+	If $x$ was written as a matrix in Jordan normal form, then $x_s$ would be the diagonal, and $x_n$ would be the off diagonal part.   
+\end{remark}
+
+\begin{lemma}
+	$\ad x = \ad x_s + \ad x_n$ is the Jordan decomposition of $\ad x \in \End(\End V)$. 
+\end{lemma}
+
+\begin{lemma}
+Let $A$ be a f.d. algebra over $k$. Then $\Der A$ contains the semisimple and nilpotent parts of all its elements. 
+\end{lemma}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cartan's Criterion}
+
+\begin{theorem}
+	Let $\mf{g} \leq \mf{gl}(V)$ be a sublgebra, $V$ f.d. Then 
+	\eq{
+\forall x \in \comm[\mf{g}]{\mf{g}}, \, y \in \mf{g}, \, \tr(xy)=0 \Rightarrow \mf{g} \text{ solvable}	
+}
+\end{theorem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -929,7 +996,7 @@ We will now want to show how Young Tableaux can be used to identify tensor produ
 \end{definition}
 
 \begin{remark}
-	\hl{It would seem to me that this definition needs that the algebra be f.d. Look into this}
+This definition requires that $\mf{g}$ be finite dimensional. There are ways to think about the extension of this, but I do not know them right now. 
 \end{remark}
 
 \begin{theorem}
@@ -977,6 +1044,14 @@ We will now want to show how Young Tableaux can be used to identify tensor produ
 \begin{theorem}
 	$\mf{g}$ semisimple $\Rightarrow d_{adj}(\mf{g}) = \Der(\mf{g})$. 
 \end{theorem}
+
+\begin{remark}
+	The above theorem gives us a Jordan decomposition of any semisimple Lie algebra, namely recalling that $\Der \mf{g}$ contains the semisimple and nilpotent parts of all its elements, for $x \in \mf{g}$ we have $(\ad x)_s, (\ad x)_n \in \Der\mf{g} = d_{adj}(\mf{g})$ and as $d_{adj}$ is a bijection we let 
+	\eq{
+x_s &= d_{adj}^{-1} \pround{(\ad x)_s} \\
+x_n &= d_{adj}^{-1} \pround{(\ad x)_n}
+}
+\end{remark}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Cartan Classification}
@@ -1408,6 +1483,12 @@ Note this implies $n_\alpha^\vee = \eps_\theta \eps_\alpha^{-1} n_\alpha$
 \begin{remark}
 	It is sometimes common to normalise the roots by setting $\eps_\theta = 1$. 
 \end{remark}
+
+There is an alternate way to define the Weyl group, which will ultimately turn out to be equivalent, and so we discuss that here briefly. 
+
+\begin{definition}
+	Given $G$ a  connected algebraic group and $S \subset G$ a torus we define the \bam{Weyl group of $G$ relative to $S$} to be $W(G,S) = \faktor{N_G(S)}{C_G(s)}$
+\end{definition}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Cartan Matrix and Dynkin Diagrams}
 
@@ -1484,6 +1565,17 @@ D_n &\leftrightarrow \mf{so}_{2n}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Representations of Classical Lie Algebras}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Prelims}
+We start by stating some useful facts for our general calculations. 
+
+\begin{theorem}[Weyl]
+	Every f.d. representation of a semisimple Lie algebra is fully reducible. 
+\end{theorem}
+
+\begin{prop}
+	Let $\rho$ be a representation of semisimple $\mf{g}$. Then the Jordan decomposition of $x = x_s + x_n \in \mf{g}$ under $\phi$ is $\phi(x_s)+\phi(x_n)$. 
+\end{prop}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Lattices}
 

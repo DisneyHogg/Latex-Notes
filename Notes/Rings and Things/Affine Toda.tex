@@ -565,8 +565,33 @@ a_n &= -p\psquare{\Lambda -2(n-1)} \\
 b_n &= es_n, \quad (s_n = (\Lambda - n+1)n \text{ a coefficient from rep theory}) \\
 c_n &= f
 }
-with $1 \leq n \leq \Lambda+1$.
+with $1 \leq n \leq \Lambda+1$. Hence it is simple to find that the curve can be written as 
+\eq{
+N \text{ odd } &\Rightarrow \mc{C} = w\prod_{k \text{ even }}^N (w^2 - k^2 y) \\
+N \text{ even } &\Rightarrow \mc{C} = \prod_{k \text{ odd }}^N (w^2 - k^2 y)
+}
+where $y = ef+p^2$ is a function of $z$.
 \end{example}
+
+This reducibility into factors is quite general as the following result shows: 
+\begin{prop}
+	$\forall \lambda$ a dominant weight, $\exists p_\lambda : \mf{g} \times \mbb{C} \to \mbb{C}$ a polynomial s.t. for $\rho:\mf{g} \to \mf{gl}(V)$ a representation with weight multiplicities $m_\lambda$ 
+	\eq{
+\det \psquare{\rho(x) - z} = \prod_\lambda \psquare{p_\lambda(x,z)}^{m_\lambda} 	
+}
+where $\lambda$ runs through dominant weights. 
+\end{prop}
+\begin{proof}
+	For $x \in \mf{g}$ write $x=x_s + x_n$, and let $\mf{h}$ be the CSA wrt the weights are defined. $x_s$ must belong to a Cartan subalgebra, and as all CSAs are conjugate $\exists g \in G$ s.t. $\Ad_g x_s \in \mf{h}$. Define 
+	\eq{
+p_\lambda(x,z) = \prod_{\gamma \in W \cdot \lambda}	\psquare{\gamma\pround{\Ad_g x_s}-z}
+}
+where $W$ is the Weyl group acting on dominant weights, and then viewing $\gamma \in \mf{h}^\ast$. The choice of $g$ does not affect $p_\lambda$ as the ambiguity is up to conjugation by an element of the Weyl group. As $x$ and $x_s$ have the same eigenvalues with the same multiplicities we have 
+	\eq{
+	\det \psquare{\rho(x) - z} = \det \psquare{\rho(x_s) - z} =  \prod_\lambda \psquare{p_\lambda(x,z)}^{m_\lambda} 	
+}
+It remains to show that $p_\lambda$ is a polynomial. 
+\end{proof}
 
 \noindent{\textbf{Questions:}}
 \begin{enumerate}
