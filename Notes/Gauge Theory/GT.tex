@@ -58,13 +58,15 @@ Written for mathematicians -
 \section{Review of Manifold Theory}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Initial definitions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{The Starting Point}
 \begin{definition}
 A \bam{topological manifold} of dimension $n$, $M$, is a topological space that is Hausdorff, second countable, paracompact, and locally homeomorphic to $\mbb{R}^n$. i.e. $\forall m \in M, \, \exists U \ni m$ such that $U$ open and homeomorphic to $\mbb{R}^n$. 
 \end{definition}
 Recall that topological manifolds can have further properties such as \bam{compact} or \bam{orientable} (Note that orientability is a well defined topological property, but for manifolds not general topological spaces). \\
 Now we want to be able to do calculus on manifolds, but the standard definition of derivative of a real valued function $f$ does not immediately parse. Namely the concept of $f(x+\eps)$ leads us to want a vector space structure, and so we are led to think locally, where we know our space looks like $\mbb{R}^n$, which is a vector space. Now we have a new problem, that our answer for the derivative may be ambiguous depending on which homeomorphism we chose 
 \begin{example}
-This manifests itself in dimension 1. Let $M = \mbb{R}$, but take the homeomorphisms $id$ or $x^3$ in a neighbourhood of $m=0$. Take the function $f(x) = x^\frac{1}{3}$. If we ask whether this function is differentiable, that depends on which homeomorphism we are using. 
+This manifests itself in dimension 1. Let $M = \mbb{R}$, but take the homeomorphisms $\id$ or $x^3$ in a neighbourhood of $m=0$. Take the function $f(x) = x^\frac{1}{3}$. If we ask whether this function is differentiable, that depends on which homeomorphism we are using. 
 \end{example}
 To solve this issue, we require extra information, and this turns a topological manifold into a smooth manifold:
 
@@ -78,7 +80,7 @@ This is called a \bam{smooth atlas}, and the $\varphi_\alpha$ are called charts.
 \end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Other viewpoints}
+\subsubsection{Other viewpoints}
 We can define $C^0(M)$, the $\mbb{R}$-algebra of real valued continuous functions on a topological manifolds naturally, but we require the smooth structure of transition functions in order to define $C^\infty(M)$, the subalgebra of smooth functions. An atlas is said to be compatible with a local homeomorphism $\varphi$ if $\pbrace{\varphi} \cup \pbrace{\varphi_\alpha}$ is still an atlas. This allows us to talk of \bam{maximal atlases}, which are those which contain all possible compatible charts. Each atlas has a unique compatible maximal atlas, and the corresponding equivalence classes of atlases are called \bam{smooth structure}
 
 \begin{example}
@@ -119,6 +121,39 @@ A \bam{vector field} is a section of $\pi$, i.e. a smooth map $X:M \to TM$ s.t. 
 \end{definition}
 
 
+Given a vector field $X \in \mf{X}(M)$, $\exists$ a 1-parameter group of diffeomorphisms $\phi_t^X:M \to M$ for $t \in \mbb{R}$ (we will sometimes denote this as $\exp(tX)$) such that 
+\begin{itemize}
+	\item $\phi_t^X \circ \phi_s^X = \phi_{t+s}^X$
+	\item $\ev{\frac{d}{dt} \phi_t^X(m)}{t=0} = X_m$
+\end{itemize}
+
+If $M$ is not compact, $\phi_t^X$ will only exists 'locally'. If they do exists $\forall t$ we say that $X$ is \bam{complete}. 
+
+\begin{example}
+	Take $M = (0,1) \times \mbb{R}$, we can have $X = \del_x$ a horizontal vector field and this is not complete. 
+\end{example}
+
+\begin{definition}
+	If $X$ is a (complete) vector field, the \bam{Lie derivative} of anything which can pullback under the diffeomorphisms $\phi_t^X$ by 
+	\eq{
+		\mc{L}_X T= \ev{\frac{d}{dt} (\phi_t^X)^\ast T }{t=0}  
+	}
+\end{definition}
+
+\begin{example}
+	Some simple cases are 
+	\begin{enumerate}
+		\item for $f \in C^\infty(M)$, $\mc{L}_X f = X(f)$
+		\item for $\alpha \in \Omega^\ast(M)$, $\mc{L}_X \alpha = i_X d\alpha + d(i_X \alpha)$
+		\item for $Y \in \mf{X}(M)$, $\mc{L}_X Y = \comm[X]{Y}$. This bracket is the \bam{Lie bracket}
+	\end{enumerate}
+\end{example}
+\begin{lemma}
+	We can calculate $\phi^{\comm[X]{Y}}_t = \phi^X_{-\sqrt{t}} \circ \phi^Y_{-\sqrt{t}} \circ \phi^X_{\sqrt{t}} \circ \phi^Y_{\sqrt{t}}$
+\end{lemma}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsubsection{One forms}
 Each tangent space is a vecotr space, and so has dual vector space $T_m^\ast M$. We can hence similarly define the \bam{cotangent bundle} 
 \eq{
@@ -146,7 +181,7 @@ where $\Gamma$ is the space of sections. These are $\mbb{R}$-vector spaces, and 
 \end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Exterior algebra}
+\subsubsection{Exterior algebra}
 We can define a \bam{wedge operator} 
 \eq{
 \wedge : \Omega^k(M) \times \Omega^l(M) &\to \Omega^{k+l}(M) \\
@@ -173,50 +208,37 @@ H_{dR}^i(M) = \faktor{\ker(d: \Omega^i(M) \to \Omega^{i+1}(M))}{\image(d: \Omega
 \end{definition}
 Often (e.g when $M$ is compact) this is finite dimensional. Note that, despite the fact that we needed smooth structure in order to define this, it is in fact a topological property. 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Back to Vector Fields}
-
-Given a vector field $X \in \mf{X}(M)$, $\exists$ a 1-parameter group of diffeomorphisms $\phi_t^X:M \to M$ for $t \in \mbb{R}$ (we will sometimes denote this as $\exp(tX)$) such that 
-\begin{itemize}
-    \item $\phi_t^X \circ \phi_s^X = \phi_{t+s}^X$
-    \item $\ev{\frac{d}{dt} \phi_t^X(m)}{t=0} = X_m$
-\end{itemize}
-
-If $M$ is not compact, $\phi_t^X$ will only exists 'locally'. If they do exists $\forall t$ we say that $X$ is \bam{complete}. 
-
-\begin{example}
-Take $M = (0,1) \times \mbb{R}$, we can have $X = \del_x$ a horizontal vector field and this is not complete. 
-\end{example}
-
-If $X$ is a (complete) vector field, we can take the \bam{Lie derivative} of anything which can pullback under the diffeomorphisms $\phi_t^X$ by 
-\eq{
-\mc{L}_X T= \ev{\frac{d}{dt} (\phi_t^X)^\ast T }{t=0}  
-}
-
-Some simple cases are 
-\begin{enumerate}
-    \item for $f \in C^\infty(M)$, $\mc{L}_X f = X(f)$
-    \item for $\alpha \in \Omega^\ast(M)$, $\mc{L}_X \alpha = i_X d\alpha + d(i_X \alpha)$
-    \item for $Y \in \mf{X}(M)$, $\mc{L}_X Y = \comm[X]{Y}$. This bracket is the \bam{Lie bracket}
-\end{enumerate}
-
-We can calculate $\phi^{\comm[X]{Y}}_t = \phi^X_{-\sqrt{t}} \circ \phi^Y_{-\sqrt{t}} \circ \phi^X_{\sqrt{t}} \circ \phi^Y_{\sqrt{t}}$
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Lie Groups}
+\subsection{Lie Theory}
+\subsubsection{Lie Group Basics}
 
 \begin{definition}
 A \bam{Lie group} $G$ is a group object in the category of manifolds, i.e. 
 \begin{itemize}
     \item $G$ is a manifold
-    \item $G \times G \to G$ multiplication is smooth 
-    \item $G \to G$ inverse is smooth
+    \item $\mu : G \times G \to G$ multiplication is smooth 
+    \item $i : G \to G$ inverse is smooth
 \end{itemize}
+s.t. multiplication is associative, inverses commute, etc. We may write the Lie group as a \bam{pointed} manifold $(G,e)$ to make the identity explicit. 
 \end{definition}
 
 \begin{example}
 We have $GL_n(\mbb{R})\subset M_n(\mbb{R}) \cong \mbb{R}^{n^2}$
+\end{example}
+
+\begin{lemma}
+	$GL_n(k)\subset M_n(k)$ is open if $k=\mbb{R},\mbb{C}$.
+\end{lemma}
+\begin{proof}
+	Defining $\det : M_n(k) \to k$ we have $GL_n(k) = \det^{-1}(k\setminus 0)$.
+\end{proof}
+
+\begin{remark}
+	We cannot do the above proof for quaternions as there is no quaternionic determinant. 
+\end{remark}
+
+\begin{example}
+	We can define $Sp(1) = \pbrace{q \in \mbb{H} \, | \, \bar{q}q = 1}$, where $\mbb{H}$ are the \bam{quaternions}. 
 \end{example}
 
 \begin{theorem}[Cartan]
@@ -231,53 +253,127 @@ H = \pbrace{(e^{it},e^{iat}) \, | \, t \in \mbb{R}, \, a \in \mbb{R}\setminus \m
 \end{example}
 
 \begin{example}
-$SL_n(\mbb{R}) = \det^{-1}(1) \subset GL_n(\mbb{R})$
+$SL_n(\mbb{R}) = \det^{-1}(1) \subset GL_n(\mbb{R})$. By differentiable manifold theory we know $\dim SL_n(\mbb{R}) = n^2-1$. 
 \end{example}
 
-\begin{example}
-$O(n) = \pbrace{A \in GL(n,\mbb{R}) \, \mid \, A^T A = I}$
-\end{example}
 
-\begin{example}
-$Sp(2n,\mbb{R}) = \pbrace{A \in GL(2n,\mbb{R}) \, \mid \, A^T J A = J}$ where $J$ is block diagonal with blocks $\begin{psmallmatrix} 0 & -1 \\ 1 & 0 \end{psmallmatrix}$
-\end{example}
-
-\begin{example}
-We have $GL(n,\mbb{C}) = \pbrace{A \in GL(2n,\mbb{R}) \, \mid \, AJ=JA}$
-\end{example}
-
-\begin{example}
-$U(n) = \pbrace{A \in GL(n,\mbb{C}) \, \mid \, A^\dagger A = I}$
-\end{example}
-
-\begin{lemma}
-\eq{
-U(n) &= GL(n,\mbb{C}) \cap Sp(2n,\mbb{R}) \cap O(2n,\mbb{R}) \\
-&= GL(n,\mbb{C}) \cap Sp(2n,\mbb{R}) \\ 
-&= GL(n,\mbb{C}) \cap O(2n,\mbb{R}) \\
-&= Sp(2n,\mbb{R}) \cap O(2n,\mbb{R})
-}
-\end{lemma}
 
 \begin{remark}
 All of these are matrix groups. Not all Lie groups are matrix groups but most are. 
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Lie Algebra}
+\subsubsection{Lie Group Homomorphisms}
+
+\begin{definition}
+	A \bam{Lie group homomorphism} $\phi:G \to H$ is a pointed smooth map obeying $\forall a,b \in G, \, \phi(ab) = \phi(a)\phi(b)$. 
+\end{definition}
+
+\begin{example}
+	$\det : GL_n(\mbb{R}) \to \mbb{R}^\times$ is a Lie group hom. 
+\end{example}
+
+\begin{definition}
+	Given $g \in G$ we have two diffeomorphisms $L_g, R_g : G \to G$ given by 
+	\eq{
+L_g(h) = gh, \quad R_g(h) = hg	
+}
+$L:G \to \Diff(G), \, g \mapsto L_g$ is a group homomorphism, and $R$ is an antihomomorphism respectively. 
+\end{definition}
+
+\begin{lemma}
+	$L_g$ and $R_h$ commute. 
+\end{lemma}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Compact Lie Groups}
+In standard applications of gauge theory to particle physics phenomenology, it turns out that we typically want compact Lie groups. We will define some compact Lie groups as subgroups of $GL_n(k)$ preserving a positive definite inner product:
+
+\begin{definition}
+	The \bam{classical Lie groups} are the subgroups of $LG_n(k)$ ($k=\mbb{R},\mbb{C},\mbb{H}$) preserving:
+	\begin{itemize}
+		\item ($\mbb{R}$) the Euclidean inner product, this is the \bam{orthogonal group}
+		\item ($\mbb{C}$) the Hermitian inner product, this is the \bam{unitary group}
+		\item ($\mbb{H}$) quaternionic Hermitian inner product, this is the \bam{quaternionic unitary group}.
+	\end{itemize} 
+\end{definition} 
+
+\begin{example}
+	$O(n) = \pbrace{A \in GL(n,\mbb{R}) \, \mid \, A^T A = I}$
+\end{example}
+
+\begin{example}
+	$Sp(2n,\mbb{R}) = \pbrace{A \in GL(2n,\mbb{R}) \, \mid \, A^T J A = J}$ where $J$ is block diagonal with blocks $\begin{psmallmatrix} 0 & -I_n \\ I_n & 0 \end{psmallmatrix}$
+\end{example}
+
+\begin{example}
+	We have $GL(n,\mbb{C}) = \pbrace{A \in GL(2n,\mbb{R}) \, \mid \, AJ=JA}$
+\end{example}
+
+\begin{example}
+	$U(n) = \pbrace{A \in GL(n,\mbb{C}) \, \mid \, A^\dagger A = I}$
+\end{example}
+\begin{remark}
+	$U(1)$ will turn out to be the gauge group for electromagnetism. 	
+\end{remark}
+
+
+\begin{lemma}
+	\eq{
+		U(n) &= GL(n,\mbb{C}) \cap Sp(2n,\mbb{R}) \cap O(2n,\mbb{R}) \\
+		&= GL(n,\mbb{C}) \cap Sp(2n,\mbb{R}) \\ 
+		&= GL(n,\mbb{C}) \cap O(2n,\mbb{R}) \\
+		&= Sp(2n,\mbb{R}) \cap O(2n,\mbb{R})
+	}
+\end{lemma}
+
+\begin{lemma}
+	$SO(2) \cong U(1) \cong S^1$. 
+\end{lemma}
+\begin{proof}
+	View $\begin{psmallmatrix} \cos \theta & -\sin\theta \\ \sin\theta & \cos\theta \end{psmallmatrix} \to e^{i\theta}$. 
+\end{proof}
+
+\begin{lemma}
+	$SO(3) \cong \mbb{RP}^3 \cong \faktor{S^3}{\sim},$ and $SU(3) \cong S^3$.
+\end{lemma}
+\begin{remark}
+	We actually have a double cover $SU(2) \twoheadrightarrow SO(3)$
+\end{remark}
+
+\begin{lemma}
+	$SO(4) \cong \faktor{(S^3 \times S^3)}{\sim}$.
+\end{lemma}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Lie Algebra}
 
 \begin{definition}
 A (real) \bam{Lie algebra} is a $\mbb{R}$-vector space $\mf{g}$ with a bilinear, antisymmetric map $\comm[\cdot]{\cdot} : \mf{g} \times \mf{g} \to \mf{g}$ that satisfies the Jacobi identity. 
 \end{definition}
 
-Given any Lie group $G$ we have an associated Lie algebra $\mf{g} = \Lie(G) = T_eG$. Hence $\dim\mf{g} = \dim G$. The Lie bracket structure in constructed as follows: Recall we have the diffeomorphism $L_g : G \to G$ of left multiplication by $g \in G$. We say $X \in \mf{X}(G)$ is \bam{left invariant} if $\forall h \in G,\, (dL_g)_h X_h = H_{gh} \Rightarrow X_h = (dL_g)_e X_e$. Hence LIVFs are determined by $X_e\in T_e G = \mf{g}$. 
+\begin{definition}
+	We say $X \in \mf{X}(G)$ is \bam{left invariant} if $\forall h \in G,\, (dL_g)_h X_h = X_{gh}$.
+\end{definition}
+ 
 \begin{lemma}
-If $X,Y$ are LI then $\comm[X]{Y}$ is LI
+	LIVFs are determined by $X_e\in T_e G = \mf{g}$.
 \end{lemma}
-Given this, we can give $\mf{g}$ a bracket by 
-\eq{
-\comm[X_e]{Y_e} = \comm[X]{Y}_e
-}
+\begin{proof}
+	Simply $X_g = (dL_g)_e X_e$ 
+\end{proof}
+ 
+\begin{lemma}
+If $X,Y$ are LI then $\comm[X]{Y}$ is LI, where $\comm[\cdot]{\cdot}$ is the usual Lie bracket of vector fields. 
+\end{lemma}
+
+\begin{remark}
+	Given any Lie group $(G,e)$ we have an associated Lie algebra $\mf{g} = \Lie(G) = T_eG$. Note $\dim\mf{g} = \dim G$. Given the above results, we can give $\mf{g}$ a bracket by 
+	\eq{
+		\comm[X_e]{Y_e} = \comm[X]{Y}_e
+	}
+\end{remark}
+
 
 Now recall we have the exponential map $\exp : \mf{g} \to G$, and for matrix groups this is given by $\exp(X) = \sum_{n=0}^\infty \frac{X^n}{n!}$. 
 
@@ -307,6 +403,30 @@ We have the \bam{adjoint representation} of a group $G$ acting on $\mf{g}$ by
 }
 \end{definition}
 
+\begin{prop}
+	An equivalent definition of $\Ad$ is that $\Ad_g = \pround{L_g \circ R_{g^{-1}}}_\ast $. 
+\end{prop}
+\begin{proof}
+	We start by verifying that this other definition could make sense. $(L_g)_\ast : T_eG \to T_g G$ and $(R_{g^{-1}})_\ast : T_g G \to T_e G$ so 
+	\eq{
+	(R_{g^{-1}})_\ast \circ (L_g)_\ast =\pround{L_g \circ R_{g^{-1}}}_\ast  : T_eG \to T_e G
+}
+\hl{finish this off}.
+\end{proof}
+
+\begin{prop}
+	$\Ad : G \to GL(T_e G)$ is a Lie group hom
+\end{prop}
+\begin{proof}
+If we use the definition of $\Ad_g = d\pround{L_g \circ R_{g^{-1}}} =\pround{L_g \circ R_{g^{-1}}}_\ast$ we have 
+\eq{
+\Ad_{gh} &= \pround{L_{gh} \circ R_{(gh)^{-1}}}_\ast \\
+	&= \pround{ L_g \circ R_{g^{-1}} \circ L_h \circ R_{h^{-1}}}_\ast \\
+	&= \pround{L_g \circ R_{g^{-1}}}_\ast \circ \pround{L_h \circ R_{h^{-1}}}_\ast \\
+	&= \Ad_g \circ \Ad_h
+}
+\end{proof}
+
 \begin{lemma}
 For a matrix group, $\Ad_A(B) = ABA^{-1}$. 
 \end{lemma}
@@ -315,6 +435,25 @@ For a matrix group, $\Ad_A(B) = ABA^{-1}$.
 We also have an adjoint rep of $\mf{g}$ acting on $\mf{g}$ by 
 \eq{
 \ad_X(Y) = \ev{\frac{d}{dt} \Ad_{\exp(tx)}(Y)}{t=0} = \comm[X]{Y}
+}
+\end{definition}
+
+\begin{ex}
+	Show that if $G$ is a matrix Lie group, the Lie bracket is indeed the commutator of the matrices. 
+\end{ex}
+
+\begin{definition}
+	A group rep $\rho$ is \bam{faithful} if $\ker \rho = e$
+\end{definition}
+
+\begin{fact}
+	$\Ad$ need not be a faithful rep. 
+\end{fact}
+
+\begin{definition}
+	Given a basis $\pbrace{t_i}$ of a Lie algebra, the \bam{structure constants} are the coefficients $c_{ij}^k$ defined by 
+	\eq{
+\comm[t_i]{t_j} = \sum_k c_{ij}^k t_k	
 }
 \end{definition}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

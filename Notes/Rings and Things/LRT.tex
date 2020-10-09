@@ -1487,8 +1487,20 @@ Note this implies $n_\alpha^\vee = \eps_\theta \eps_\alpha^{-1} n_\alpha$
 There is an alternate way to define the Weyl group, which will ultimately turn out to be equivalent, and so we discuss that here briefly. 
 
 \begin{definition}
-	Given $G$ a  connected algebraic group and $S \subset G$ a torus we define the \bam{Weyl group of $G$ relative to $S$} to be $W(G,S) = \faktor{N_G(S)}{C_G(s)}$
+	Given $G$ a  connected algebraic group and $S \subset G$ a torus we define the \bam{Weyl group of $G$ relative to $S$} to be $W(G,S) = \faktor{N_G(S)}{C_G(S)}$. 
 \end{definition}
+
+\begin{lemma}
+	If $S,S^\prime$ are two maxixmal tori, then $W(G,S)\cong W(G,S^\prime)$ 
+\end{lemma}
+
+this result motivates the stronger definition
+
+\begin{definition}
+	If $S$ is a maximal tori, we call $W(G,S)=W(G)$ the \bam{Weyl group of $G$}. 
+\end{definition}
+
+If we let $H$ be the maximal toral subgroup corresponding to a CSA $\mf{h}$ (s.t. $C_G(H)=H$) we can see that $W$ has a natural action on $\mf{h}$ as $nH \cdot h = \Ad_n h$. This turns out to be the dual action to that of $W$ on $\mf{h}^\ast$ we defined above. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Cartan Matrix and Dynkin Diagrams}
 
