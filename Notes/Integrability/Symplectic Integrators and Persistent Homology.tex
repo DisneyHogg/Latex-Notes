@@ -18,10 +18,112 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
+I am going to assume you are familiar with the Arnold-Liouville Theorem, so we will jump in to the two main topics and then hopefully link them together. We will state the results we want to know from Hamiltonian dynamics: we consider a dynamical system given by Hamilton's equations 
+\eq{
+	\dot{q} = \pd[H]{p}, \quad \dot{p} = - \pd[H]{q}
+}
+for some Hamiltonian $H=H(q,p)$. Note this can be written as 
+\eq{
+\dot{y} = J \nabla H
+}
+where $y=(q,p)^T$ and $J = \begin{psmallmatrix} 0 & I \\ -I & 0 \end{psmallmatrix}$. 
+
+\begin{lemma}
+	The Hamiltonian is conserved, i.e $\dot{H}=0$. 
+\end{lemma}
+
+\begin{lemma}
+	The symplectic form $dq \wedge dp$ is preserved under time evolution. 
+\end{lemma}
+
+
+We will also be using a simple specific example to illustrate some points, and this will be the case of the simple harmonic oscillator with 
+\eq{
+H(q,p) = \frac{1}{2}(p^2 + q^2)
+} 
+This has the known exact solution 
+\eq{
+\begin{pmatrix} q(t) \\ p(t) \end{pmatrix} = \begin{pmatrix} \cos t & \sin t \\ -\sin t & \cos t \end{pmatrix} \begin{pmatrix} q(0) \\ p(0) \end{pmatrix}  
+}
+We may easily verify the above lemmas in this case. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Symplectic Integrators}
+
+\begin{remark}
+	The content of this section is covered in \cite{Yoshida1992}
+\end{remark}
+
+For our purpose an \bam{integrator} will be a numerical method to approximate the solution to an ODE. 
+
+\begin{definition}
+	Given a 1st order ODE $\dot{y}(t) = f(t,y(t))$, the \bam{Euler method} to approximate the solution with initial condition $y(t_0)=y_0$ is 
+	\eq{
+y_{n+1} = y_n + hf(t_n,y_n), \; t_n = t_0+nh, \; y(t_n) \approx y_n	
+}
+for some $h$ taken to be small. 
+\end{definition}
+
+\begin{remark}
+	For our current applications, we will only by considering autonomous Hamiltonians, so we can wlog take $t_0=0$ 
+\end{remark}
+
+\begin{example}
+	Let us see how the Euler method applies to the SHO:
+	\eq{
+\begin{pmatrix} q_{n+1} \\ p_{n+1} \end{pmatrix} = \begin{pmatrix} 1 & h \\ -h &  1 \end{pmatrix} \begin{pmatrix} q_n \\ p_n \end{pmatrix} 	
+}
+We can see that 
+\eq{
+	H(q_{n+1},p_{n+1}) &= (1+h^2)H(q_n,p_n) \\
+	dq_{n+1} \wedge dp_{n+1} &= (1+h^2)(dq_n \wedge dp_n)
+}
+(the point is that the matrix is not symplectic) and so we do not get the nice properties we want from our Hamiltonian system. It is possible to rectify the problems in the Euler method (at least for the symplectic form) if we change the integrator to 
+	\eq{
+	\begin{pmatrix} q_{n+1} \\ p_{n+1} \end{pmatrix} = \begin{pmatrix} 1 & h \\ -h &  1-h^2 \end{pmatrix} \begin{pmatrix} q_n \\ p_n \end{pmatrix} 	
+}
+\end{example}
+
+More generally if we have a Hamiltonian $H(q,p) = T(p) + V(q)$ we can make an integrator that preserves the symplectic form by 
+\eq{
+q_{n+1} = q_n + h T^\prime(p_n), \l p_{n+1} = p_n - g V^\prime(q_{n+1})
+}
+\begin{theorem}[Yoshida, 1990]
+	The above integrator desribes the exact time evolution under the modified Hamiltonian 
+	\eq{
+\tilde{H}(h) = T + V + \frac{h}{2} \acomm[V]{T} + \frac{h^2}{12} \pround{\acomm[\acomm[T]{V}]{V} + \acomm[\acomm[V]{T}]{T}} + \dots	
+}
+\end{theorem}
+The important thing about this theorem is that, because $\tilde{H}$ is conserved, the error terms must be non-secular, which is non-generic and tells us that the error in $H$ is indeed $\mc{O}(h)$.
+
+\begin{remark}
+	If we do not have Hamiltonian which separates into $T+V$ we are not immediately ruled out, as we may use the modified 
+	\eq{
+H(q,\xi) + H(\eta,p) + \frac{1}{2}\omega\pround{\abs{q-\eta}^2 + \abs{p-\xi}^2}	
+}
+\end{remark} 
+
+\hl{For now, don't go into any more detail, but the point is higher order such integrators can be constructed}
+
+We have another useful property of symplectic integrators that relates to KAM theory:
+
+\begin{theorem}
+	
+\end{theorem}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\bibliographystyle{../bib/custom-bib-style}
-\bibliography{../bib/jabref_library.bib}
+\section{Persistent Homology}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{../../bib/custom-bib-style}
+\bibliography{../../bib/jabref_library.bib}
 
 \end{document}
