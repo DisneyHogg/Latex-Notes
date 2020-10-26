@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\usepackage{../../header}
+\usepackage{../../header-colourful}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Preamble
 
@@ -24,10 +24,13 @@ I am going to assume you are familiar with the Arnold-Liouville Theorem, so we w
 }
 for some Hamiltonian $H=H(q,p)$. Note this can be written as 
 \eq{
-\dot{y} = J \nabla H
+\dot{y} = J \nabla H = \acomm[y]{H}
 }
-where $y=(q,p)^T$ and $J = \begin{psmallmatrix} 0 & I \\ -I & 0 \end{psmallmatrix}$. 
-
+where $y=(q,p)^T$ and $J = \begin{psmallmatrix} 0 & I \\ -I & 0 \end{psmallmatrix}$. If we introduce the operator $D_H$ by $D_H f = \acomm[f]{H}$ we have that the formal solution to the ODE is 
+\eq{
+y(t_0+t) = \exp(tD_H) y(t_0)
+}
+when $H$ is autonomous. 
 \begin{lemma}
 	The Hamiltonian is conserved, i.e $\dot{H}=0$. 
 \end{lemma}
@@ -86,41 +89,479 @@ We can see that
 
 More generally if we have a Hamiltonian $H(q,p) = T(p) + V(q)$ we can make an integrator that preserves the symplectic form by 
 \eq{
-q_{n+1} = q_n + h T^\prime(p_n), \l p_{n+1} = p_n - g V^\prime(q_{n+1})
+q_{n+1} = q_n + h T^\prime(p_n), \; p_{n+1} = p_n - h V^\prime(q_{n+1})
 }
+This work because it is the composition of two symplectic maps.
+\begin{remark}
+You might wonder how you would come up with such a transform. One idea is to take a generating function for the transform $(q,p) \mapsto (Q,P)$ given by 
+\eq{
+W(q,P) = qP + h H(q,P)
+}
+(think HJE). Then the equations for the generating function are 
+\eq{
+Q &= \pd[W]{P} = q + h \ev{\pd[H]{P}}{(q,P)} \\
+p &= \pd[W]{q} = P + h \ev{\pd[H]{q}}{(q,P)}
+}
+Alternatively, note that because the Poisson bracket is linear we have $D_H = D_T + D_V$. $\exp(tD_T),\exp(tD_V)$ are both symplectic transforms, and so by extension so is $\prod_{i=1}^k \exp(c_i t D_t)\exp(d_i t D_V)$ for $c_i,d_i \in \mbb{R}$. If we can choose $c_i,d_i$ s.t 
+\eq{
+S(t) = \prod_{i=1}^k \exp(c_i t D_t)\exp(d_i t D_V) = \exp(t(D_T + D_V) + \mc{O}(t^{n+1})
+}
+then this transform approximates time evolution. Furthermore, these constituent transforms can be calculated in a closed form as 
+\eq{
+q_{i+1} = q_i + c_{i+1}t T^\prime(p_i), \; p_{i+1} = p_i - d_{i+1} t V^\prime(q_{i+1})
+}
+We see that the simplest approximation is when $k=1$ and we have $c_1=1=d_1$. Another case that we may use is that of $k=2$, $c_1 = \frac{1}{2} = c_2, \, d_1 = 1, \, d_2 = 0$. Calculating the $c,d$ coefficients is hard without using the techniques of \cite{Yoshida1990}.
+\end{remark}
+We have the related theorem:
 \begin{theorem}[Yoshida, 1990]
-	The above integrator desribes the exact time evolution under the modified Hamiltonian 
+	The above integrator describes the exact time evolution under the modified Hamiltonian 
 	\eq{
 \tilde{H}(h) = T + V + \frac{h}{2} \acomm[V]{T} + \frac{h^2}{12} \pround{\acomm[\acomm[T]{V}]{V} + \acomm[\acomm[V]{T}]{T}} + \dots	
 }
+This actually comes from Baker-Campbell-Hausdorff. 
 \end{theorem}
+\begin{proof}
+Apply BCH which says that $\exp X \exp Y = \exp Z$ for 
+\eq{
+Z = X + Y + \frac{1}{2} \comm[X]{Y} + \dots 
+}
+and then using $\comm[D_f]{D_g} = D_{\acomm[f]{g}}$
+\end{proof}
+
 The important thing about this theorem is that, because $\tilde{H}$ is conserved, the error terms must be non-secular, which is non-generic and tells us that the error in $H$ is indeed $\mc{O}(h)$.
+\begin{remark}
+	We might wonder if it is possible to construct an integrator that preserves the energy as well as the symplectic form. It is a result from \cite{Zhong1988} and \cite{Ge1991} that if $H$ has no other conserved quantities then this is not possible. 
+\end{remark}
+\begin{example}
+	With the SHO, we find 
+	\eq{
+\tilde{H}(h)= \frac{1}{2}(p^2+q^2) + \frac{h}{2}pq + \frac{h^2}{12}(p^2+q^2) + \frac{h^3}{12}pq + \dots	
+}
+In this case this actually continues and we have that 
+\eq{
+\frac{1}{2}(p^2 + q^2) + \frac{h}{2}pq
+}
+is a constant of motion. 
+\end{example}
 
 \begin{remark}
 	If we do not have Hamiltonian which separates into $T+V$ we are not immediately ruled out, as we may use the modified 
 	\eq{
 H(q,\xi) + H(\eta,p) + \frac{1}{2}\omega\pround{\abs{q-\eta}^2 + \abs{p-\xi}^2}	
 }
+introduce by Tao \cite{Tao2016}. The results introduced on how to make sure that this new system well approximates the last requires $H$ be integrable, which will be the paradigm we consider, and the closeness can be improved by making $\omega$ larger. More specifically, an $l^{th}$ order integrator has global error $\mc{O}(Th^l\omega)$ up to time $T = \mc{O}(\min(\delta^{-l}\omega^{-1},\omega^{0.5}))$\\
+This is then helped by another result:
+\begin{lemma}
+	If the system is integrable, then the global error of the symplectic grows linearly for exponentially long times. See \cite{Stoffer1998}.
+\end{lemma}
+There are alternatively implicit methods that do not require the Hamiltonian to separate, but I will not consider these. To see more on this see \cite{Yoshida1993}.
 \end{remark} 
-
-\hl{For now, don't go into any more detail, but the point is higher order such integrators can be constructed}
 
 We have another useful property of symplectic integrators that relates to KAM theory:
 
-\begin{theorem}
-	
+\begin{theorem}[KAM informally]
+	If we perturb the Hamiltonian of an integrable system in a sufficiently nice way, the invariant tori remain. 
 \end{theorem}
 
+\begin{theorem}[SIA and KAM informally]
+	Symplectic integrators for small enough time step keep invariant tori
+\end{theorem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Persistent Homology}
+We now introduce the story of what is the persistent homology and how to calculate it. We will largely follow \cite{Otter2017}
+
+The first ingredient we want will be some data $X$ which forms a metric space with distance $d$. We will take some finite sample $S \subset X$). 
+
+\begin{remark}
+	For our purposes we will be considering $X \subset \mbb{R}^N$ and take $d$ to be the Euclidean distance. 
+\end{remark}
+
+We want to try to detect some underlying structure of the data
+
+\begin{example}
+	If we took some $h\ll 1$ and data 
+	\eq{
+S = \pbrace{x_k = \begin{pmatrix} \cos kh \\ -\sin kh \end{pmatrix} \, | \, k = 1, \dots, \left\lceil\frac{2\pi}{h}\right\rceil } \subset X=S^1 \subset \mbb{R}^2
+}
+then we may want to somehow identify the circle these data points are laying on. 
+\end{example}
+
+To make this question specific, we are going to focus on \bam{homology inference}, that is can we work out the homology groups of $X$ from a sample $S$. To do this we will introduce some constructions:
+
+\begin{definition}
+	Let $\mc{U} = \pbrace{U_i}_{i \in I}$ be an open cover of $X$. Then the \bam{nerve} of $\mc{U}$ is 
+	\eq{
+N(\mc{U}) = \pbrace{J \subseteq I \, | \, \bigcap_{j \in J} U_j \neq \emptyset}	
+}
+This is a simplicial complex with vertices $I$ and simplices $\pbrace{i_0, \dots, i_k}$ when $\cap_{m=1}^k U_{i_m} \neq \emptyset$. 
+\end{definition}
+
+\begin{aside}
+	If you haven't come across simplices before, here I will give the Clark Barwick version:
+	
+	\begin{definition}
+		We define the category $\Delta$ with objects given by totally ordered finite sets
+		\eq{
+			[n] = \pbrace{0 < 1 < \dots < n}	
+		}
+		and morphisms given by non-decreasing maps. 
+	\end{definition}
+	
+	\begin{definition}
+		A \bam{simplicial set} if a functor $X:\Delta^{op} \to \bm{Set}$.
+	\end{definition}
+\end{aside}
+
+\begin{theorem}[Nerve Theorem \cite{Ghrist2014}]
+	Let $\mc{U}$ be an open cover of $X$ s.t. each $U \in \mc{U}$ is contractible and every non-empty intersection is contractible, then $N(\mc{U})$ is homotopic to $\cup_{U \in \mc{U}} U$
+\end{theorem}
 
 
+This motivates the following definition:
+
+\begin{definition}
+	The \bam{\v{C}ech complex on $S$ at scale $\eps$} is is 
+	\eq{
+\check{C}_\eps(S) = N\pround{\pbrace{B_\eps(x) \, | \, x \in S}}	
+}
+\end{definition}
+
+\begin{lemma}
+	$\eps < \eps^\prime \Rightarrow \check{C}_\eps \subset \check{C}_{\eps^\prime}$. 
+\end{lemma}
+
+This is a complex that should, intuitively, give us the right homology for $X$ if we choose a good enough sample $S$. We can make precise what we mean about "good enough" with the following definition and result:
+
+\begin{definition}
+	The \bam{injectivity radius} of a manifold $X$ at $y \in X$ is 
+	\eq{
+\text{inj}(y) = \sup\pbrace{r \, | \, \exp:B_r \to X \text{ is injective}} 	
+}
+\end{definition}
+
+The injectivity radius has a natural interpretation given by the following lemma:
+
+\begin{lemma}
+	The norm of the second fundamental form is bounded in all directions by $\frac{1}{\tau}$.
+\end{lemma}
+
+\begin{theorem}
+	Let $X\subset \mbb{R}^N$ be a smooth compact submanifold with injectivity radius $\tau$ and $S$ a sample with sufficient density s.t. 
+	\eq{
+\min_{x \in S, y \in X} d(x,y) < \frac{\eps}{2} 	
+}
+for $\eps < \sqrt{\frac{3}{5}}\tau$ then $\check{C}_{2\eps}(S)$ deformation retracts onto $X$. 
+\end{theorem}
+\begin{proof}
+	See \cite{Niyogi2008}.
+\end{proof}
+
+This is good because while the homology of a generic topological space is hard to compute, it can be computed quite easily for simplicial complexes. Let us see how this is done in the case of integral homology (cf later when we do homology over a field):
+\vspace{3mm}
+
+Let $Y$ be the simplicial complex associated to $S$, then $C_n(Y)$ be the free abelian group with the basis given by the $m_n$ singular n-simplices. We construct te \bam{standard matrix representation} of $\del_n : C_n(Y) \to C_{n-1}(Y)$, $M_n$, as the $m_{n-1} \times m_n$ matrix with entries in $\pbrace{0,\pm1}$ showing given the action of $\del_n$ on the basis elements. We use smith normal form algorithms (which we can do as $\mbb{Z}$ is a Euclidean domain) to find 
+\eq{
+\tilde{M}_n = \begin{pmatrix} d_1 & & & & & \\
+	 & \ddots & &&& \\ && d_{l_n} &&& \\ &&& 0 && \\ &&&& \ddots & \\ &&&&& 0 \end{pmatrix} 
+}
+where $d_{i} | d_{i+1} $, $l_n = \rank(M_n)$. This smith normal form reduction also gives us the corresponding basis wrt which $M_n$ is diagonal. The collection of matrices $\pbrace{\tilde{M}_n}$ gives us all the information we need to work out $H_\bullet(Y)$ as 
+\begin{itemize}
+	\item The torsion coefficients of $H_{p-1}(Y)$ are given by the $d_i$ of $\tilde{M}_p$
+	\item The rank of $H_p(Y)$ is $\beta_p = (m_p - l_p) - l_{p+1}$.
+\end{itemize} 
+
+\vspace{3mm} 
+ 
+ The problem we have now is that, without knowing properties of $X$ beforehand, we don't know what $\eps$ to choose. The idea then this - to increase $\eps$ to get a \bam{filtered simplicial complex}, compute the homology at each step, and see how it changes. 
+
+\begin{definition}
+	The \bam{$p^{th}$ persistent homology} of the filtered simplicial complex $K = K_1 \subset \dots \subset K_l$ is the pair $\pround{\pbrace{H_p(K_i) \, | \, 1 \leq i \leq l}, \pbrace{f_{ij} \, | \, 1 \leq i \leq j \leq l}}$ where $f_{ij} : K_i \hookrightarrow K_j$ is the inclusion map.  
+\end{definition}
+
+\begin{remark}
+	We assigning a filtered simplicial complex to our data, we usually include a $K_0 = S$
+\end{remark}
+
+\begin{aside}
+Here we will actually want to be considering homology with coefficients in some field $k$. This is quite technical so I will not cover it in full, but I will lay out some of the important points. 
+\begin{lemma}
+	Any abelian group $A$ can be viewed as a $\mbb{Z}$-module by 
+	\eq{
+n \cdot a = \underbrace{a + \dots + a}_{n \text{ times}}	
+}
+\end{lemma}
+Now we think of integral homology, or homology with $\mbb{Z}$ coefficients as a functor 
+\eq{
+H_p(\cdot) : \bm{Top} \overset{C(\cdot)}{\to} \bm{Ch}_{\geq 0}(\mbb{Z}) \overset{H_p}{\to} \bm{Ab}
+}
+where $\bm{Top}$ is the category of topological spaces, $\bm{Ch}_{\geq}(\mbb{Z})$ is the category of chain complexes of abelian group, where the $\mbb{Z}$ demonstates that we are thinking of the abelian groups as $\mbb{Z}$-modules, and $\bm{Ab}$ is the category of abelian groups. \\
+To extend to homology with coefficients we define $C(X;A)$ to be the chain complex with $C_k(X;A) = C_k(X) \otimes A$ and chain maps $\del \otimes \id_A$. This gives us 
+\eq{
+	H_p(\cdot;A) : \bm{Top} \overset{C(\cdot)}{\to} \bm{Ch}_{\geq 0}(\mbb{Z}) \overset{\otimes A}{\to} \bm{Ch}_{\geq 0}(\mbb{Z}) \overset{H_p}{\to} \bm{Ab}
+}
+We now have the following lemma:
+\begin{lemma}
+	Let $A$ be an abelian group, $R$ a commutative ring, and $M$ an $R$-module, then the map 
+	\eq{
+R \times A \times M &\to A \times M \\
+(r,a,m) &\mapsto (a,rm)	
+}
+induces an $R$-module structure on $A\otimes M$, defining a functor $\otimes : \bm{Ab} \times R\bm{Mod} \to R\bm{Mod}$.
+\end{lemma}
+This lets us define homology with module-valued coefficients as 
+\eq{
+	H_p(\cdot;M) : \bm{Top} \overset{C(\cdot)}{\to} \bm{Ch}_{\geq 0}(\mbb{Z}) \overset{\otimes M}{\to} \bm{Ch}_{\geq 0}(R) \overset{H_p}{\to} \bm{Ab}
+}
+An important example is the following:
+\begin{example}
+	 When $R=k$ is a field and we take the module $M=k$ to get that $H_p$ is a functor into vector spaces over $k$.
+	\end{example}
+We have an important theorem that relates integral homology to homology with coefficients:
+\begin{theorem}[Universal Coefficient Theorem]
+	Let $X$ be a topological space and $A$ an abelian group. Then there is a SES
+	\eq{
+0 \to H_p(X;\mbb{Z}) \otimes A \to H_p(X;A) \to \text{Tor}\pround{H_{p-1}(X;\mbb{Z}),A} \to 0	
+}
+\end{theorem}
+This $\text{Tor}$ functor is far too complicated, but all we need to know about it is the following:
+\begin{lemma}
+	Let $B$ be an abelian group and $p\geq0$. Then 
+	\eq{
+\text{Tor}(B,\mbb{Z}_p) \cong \ker(p) = \pbrace{b \in B \, | \, p \cdot b=0}	
+}
+where we are viewing $B$ as a $\mbb{Z}$-module. 
+\end{lemma}
+
+\begin{remark}
+	We can see that the choice of coefficients does affect the homology, and so this choice is important in calculating persistent homology. For more information see \cite{obayashi2019}
+\end{remark}
+
+\end{aside}
+
+The persisent homology is an example of a more general structure:
+
+\begin{definition}
+	A \bam{persistence module} $\mc{M}$ is a faimly of $R$-modules $M_i$ with homomorphisms $\phi_i : M_i \to M_{i+1}$. 
+\end{definition}
+
+\begin{definition}
+	A persistence module is of \bam{finite type} if each $M_i$ is finitely generated and $\exists m$ s.t $\forall i \geq m$ the $\phi_i$ are isomorphisms.  
+\end{definition}
+
+\begin{aside}
+	We now know that we are going to want to be dealing with homology which is going to be some $R$-module, so we want some structure theorems. This aside comes mainly from \cite{Zomorodian2005}.
+	
+	\begin{definition}
+		A \bam{graded ring} is a ring $R$ with decomposition $R = \bigoplus_{i \in \mbb{Z}} R_i$ s.t multiplication is a bilinear $R_n \otimes R_m \to R_{n+m}$.
+	\end{definition}
+
+\begin{example}
+	The polynomial ring $R[t]$ is naturally graded by the degree, i.e. $R_i = R\cdot t^i$
+\end{example}
+
+\begin{definition}
+	A \bam{graded module} over a graded ring $R$ is an $R$-module $M$ s.t $M = \bigoplus_{i \in \mbb{Z}} M_i$ and the action of $R$ is via $R_n \otimes M_m \to M_{n+m}$. 
+\end{definition}
+
+\begin{theorem}
+	Let $R$ be a PID. Then every finitely-generated $R$-module has a unique decomposition 
+	\eq{
+M \cong R^\beta \oplus \pround{\bigoplus_{i=1}^m \faktor{R}{(d_i)}}	
+}
+where $d_i \in R, \beta \in \mbb{Z}$ s.t. $d_i | d_{i+1}$. \\
+If $R$ is now a graded ring, and $M$ a graded module, then $M$ has a unique decomposition 
+\eq{
+M \cong \pround{\bigoplus_{i=1}^n \Sigma^{\alpha_i}R} \oplus \pround{\bigoplus_{j=1}^m \Sigma^{\gamma_j} \faktor{R}{(d_i)}}
+}
+where $\alpha_i,\gamma_j \in \mbb{Z}$ and $\Sigma^\alpha$ represents an $\alpha$-shift upwards in degree. \\
+In both the $d_i$ are called the \bam{torsion coefficients} as the quotient part is the torsion submodule. 
+\end{theorem}
+Think back to how this tells us the structure of our homology. It will now tell us about or persistence homology more generally. 
+\end{aside}
+
+\begin{theorem}
+	Given a persistence module $\mc{M}$, define the graded $R[t]$-module \eq{
+\alpha(\mc{M}) = \bigoplus_{i\geq0} M_i	
+}
+with action of $t$ as $t \cdot (m_0, m_1, m_2, \dots) = (0, \phi_0(m_0), \phi_1(m_1), \dots )$. Then the map $\alpha$ defines an equivalence of categories between persistence modules of finite type over $R$ and finitely generated, non-negatively graded $R[t]$-modules.
+\end{theorem}
+
+We now know that understanding persistence modules must correspond to understanding finitely-generated graded $R[t]$-modules. We know how to do this only when $R[t]$ is a PID, so we must restrict to the case $R=k$ a field to be able to make any more theoretical progress, by the following result:
+\begin{prop}
+	$R[t]$ a PID $\Leftrightarrow$ $R$ a field. 
+\end{prop}
+. We can now introduce the objects we need. 
+
+\begin{definition}
+	A \bam{$\mc{P}$-interval} is an ordered pair $(i,j)$ with $0 \leq i < j  \in \mbb{Z}^\infty$.
+\end{definition}
+
+To a $\mc{P}$-interval we can associate a graded $k[t]$-module with a map $Q$ by 
+\eq{
+Q(i,j) &= \Sigma^i \cdot \faktor{k[t]}{(t^{j-i})} \\
+Q(i,\infty) &= \Sigma^i k[t]
+}
+and so to a set $\mc{S} = \pbrace{(i_1,j_1), \dots, (i_k,j_k)}$ we have 
+\eq{
+Q(\mc{S}) = \bigoplus_{l=1}^k Q(i_l,j_l)
+}
+The map $Q$ is in fact a bijection, so we have the corollary:
+\begin{corollary}
+	Isomorphism classes of persistence modules biject with finite sets of $\mc{P}$-intervals. 
+\end{corollary}
+
+We now think about the implication of this bijection when our persistence module is the $p^{th}$ persistent homology of a filtered simplicial complex $K$. This bijection is s.t each $\mc{P}$ interval $(i,j)$ corresponds to a basis element of the homology that appears in $K_i$, remains until $K_{j-1}$, and then disappears in $K_{j}$. \\
+We may now aim to calculate the persistent homology through the calculation of the $\mc{P}$-intervals, and the algorithm to compute the latter is more simple: 
+\vspace{3mm}
+
+Let $\pbrace{e_j}, \pbrace{\hat{e}_i}$ represent the standard, homogeneous in the grading sense, bases of $C_n(Y), \, C_{n-1}(Y)$ now. $\deg e$ is the index of the $K_i$ in which it first appears, and we can work out that in order to have $M_n$ respect the grading it must be the case that 
+\eq{
+\deg e_j &= \deg\pround{\sum_i (M_n)_{ij} \hat{e}_i}  \\
+ \Rightarrow \forall i, \, \deg e_j &= \deg (M_n)_{ij}\hat{e}_j = \deg (M_n)_{ij} + \deg \hat{e}_i \\
+ \Rightarrow (M_n)_{ij} &= (-1)^{(\dots)}t^{\deg e_j - \deg \hat{e}_j} \quad \text{(exponent of $-1$ not specified)}
+}
+We want to reduce this matrix to identify the homology, but to make calculations of the $\mc{P}$-intervals we want to find a homogeneous basis that reduces the matrix (i.e. a homogeneous basis for $\ker \del_n$)
+\begin{remark}
+	This point is quite key, as it is the reason that we cannot do \bam{persistent} homology in $\mbb{Z}[t]$. It is the identification of the same basis of cycles that persists through the skeleton, giving us birth and death times. 
+\end{remark}
+We will find this basis by induction, assuming we have a homogeneous basis for $\ker \del_{n-1}$. Certainly as $\del_0=0$ we have our base case. \\
+If $\pbrace{\hat{e}_i}$ is the basis of $C_{n-1}(Y)$ that extends the homogeneous basis of $\ker \del_{n-1}$, order the $\hat{e}_i$ in descending-degree order, represent $\del_n$ as $M_n$ wrt the ordered basis $\hat{e}$ and the standard homogeneous basis of $C_n(Y)$, $e$. Apply Gaussian column elimination to get $\tilde{M}_n$, and the zero columns correspond to homogeneous elements of $\ker \del_{n}$. It can be seen that this new basis is homogeneous as the column operations utilised all preserve homogeneity. We may then again do row operations that preserve homogeneity to make $\tilde{M}_n$ diagonal. This totals to give us the following result:
+
+\begin{prop}
+	If in $\tilde{M}_n$, row $i$ has pivot $(\tilde{M}_n)_{ij} = t^k$, then we get the $\mc{P}$-interval $(\deg \hat{e}_i, \deg \hat{e}_i + k)$ for $H_{n-1}$. 
+\end{prop}
+
+The thing to notice here is that we didn't actually need to do the row operations, we only needed to know the pivot values. \\
+Furthermore, as we know $M_nM_{n+1}=0$, and that this is unchanged by elementary operations, we immediately know that all rows in $M_{n+1}$ that correspond to pivot (i.e. non-zero) columns in $M_n$ must be 0. \\
+These two observations combined mean that we can heavily simplify the algorithm for computing persistence homology, by now computing all homology groups concurrently, incrementally. Let's describe this algorithm below in pseudo-code. \\
+Let $T$ be an array containing each simplex present in $K$, say $m \times 1$ dimensional, ordering the simplices by dimension, and within that by degree.
+
+\begin{lstlisting}[language=Python,frame=single]
+# input is K, a list of lists, where K[i] is the list of simplices contained
+# in the ith complex in K. A simplex is a list of the vertices in the simplex
+# If we label the 0-simplices, we get an orientated on simplces through the 
+# order on the elements of the simplex.
+# We can extract the simplices and their degree from K
+simplices = K[-1] # This is due to the inclusion we have
+s = simplices
+m = len(simplices)
+l = len(K)
+degrees = m*[0]
+Kdim = max([len(s[i]) for i in range(len(s))])
+
+for i in range(l-1):
+	diff = list(Set(K[i+1]).difference(Set(K[i])))
+	for j in range(len(diff)):
+		ind = s.index(diff[j])
+		degrees[ind] = i
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python,frame=single]
+# input is K, m, and s. 
+L = (K.dim()+1)*[[]] # We will store the P-intervals for H_k in L[k]
+T = m*[[]]
+marked = m*[0]
+dims = [len(s[i]) for i in range(m)]
+
+# s[j] will be the jth simplex. 
+for j in range(m):
+	d = s[j].RemovePivotRows()
+	# The method RemovePivotRows returns 
+	if (d==[[]]):
+		Mark s[j] # marked[j]=1
+	else:
+		i = d.MaxIndex()
+		# MaxIndex refers to the maximum index of the simplices 
+		# contained in d
+		k = s[i].dim()
+		# If we think of a simplex as a tuple, s.dim()=len(s)
+		T[i] = [j,d]
+		L[k] += [(s[i].deg(),s[j].deg())]
+
+for j in range(m):
+	if (s[j].is_marked() and T[j]==[]): 
+	#s[j].is_marked() == (marked[j]==1)
+		k = s[j].dim()
+		L[k] += [(s[j].deg(),infinity)]
+	
+\end{lstlisting}
+We also describe the method \texttt{RemovePivotRows} used within:
+\begin{lstlisting}[language=Python,frame=single]
+# input is s, a given simplex
+k = s.dim()
+d = s.boundary() #i.e. [s[:i]+s[i+1:] for i in range(len(s))] over Z_2
+d = [d[i] for i in range(len(d)) if marked[s.index(d[i])]==1]
+while not (d==[[]]):
+	i = d.MaxIndex() # max([s.index(d[j]) for j in range(len(d))])
+	if (T[i]==[]):
+		break
+	unn = Set(d).union(Set(T[i][1]))
+	inn = Set(d).intersection(Set(T[i][1]))
+	elim = unn.difference(inn)
+	d = list(elim)
+\end{lstlisting}
+RemovePivotRows first removes any rows that correspond to previously zero columns (i.e. columns where the boundary could be reduced to $0$), and then with the remaining rows it does the Gaussian column elimination, using the knowledge of what the pivot element is (here is looks very simple using set differences as we are working in $\mbb{Z}_2$).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Connecting the Dots}
+All that remains is to see how to knit the two together. The idea is a follows: upon being given a Hamiltonian system, we integrate it for a large number of steps with a symplectic integrator. This data should be a sample $S$ of an invariant tori if the system is integrable (by our KAM theory) so we apple persistent homology to detect for this signature. Topological theory gives the following
+\begin{lemma}
+	For any abelian group $A$, $H_k(T^n,A) \cong A^{n \choose k}$
+\end{lemma}
+This result means that we can expect to see the homology of a torus even when doing homology with coefficients.
+\begin{remark}
+	When doing this homology over field, because we will not detect any $p$-torsion (if we are working over $\mbb{Z}_p$) we increase our false-positive ratio. There do now exists algorithms to calculate $\mbb{Z}[t]$ persistent homology, and that is an approach we can investigate in the future. See \cite{romero2014}.
+\end{remark}
+ We can then take an array of different initial conditions, to see how the persistent homology varies as a function on phase space. It is then not impossible doing a hypothesis to see if the system is integrable. There is existing literature on hypothesis testing in the realm of persistent homology, see \cite{Robinson2017,fasy2014}. \\
+ One important feature we do need to tackle is the computational efficiency of such an approach. \cite{Otter2017} considers the computational load of different complexes which can be formed in contrast to the \v{C}ech complex which are theoretical less intensive. One example which is implemented by the R package \texttt{TDAstats} is the \bam{Vietoris-Rips complex}
+ 
+\begin{definition}
+	The \bam{Vietoris-Rips Complex at scale $\eps$ on $S$} is 
+	\eq{
+\text{VR}_\eps(S) = \pbrace{\sigma \subseteq S \, | \, \forall x,y \in \sigma, \,  d(x,y) \leq 2\eps}	
+}
+\end{definition}
 
+Such a complex ends up being easier to compute than the \v{C}ech complex, and approximates the \v{C}ech complex by the following lemma
 
+\begin{lemma}
+	If $S \subset \mbb{R}^N$, then $\check{C}_\eps(S) \subseteq \text{VR}_\eps(S) \subseteq \check{C}_{\sqrt{2}\eps}(S)$.
+\end{lemma}
+
+\begin{aside}
+	It will be necessary later to understand exactly how the Vietoris-Rips complex is calculated, so we cover it here:
+	\begin{definition}
+		The \bam{$\eps$-neighbourhood graph of $S$} is the graph with vertices $V=S$ and edges 
+		\eq{
+	E = \pbrace{(x,y) \in S \times S \, | \, x \neq y, \, d(x,y) \leq 2\eps}	
+	}
+	\end{definition}
+\begin{definition}
+	The \bam{clique complex} of a graph $(V,E)$ is 
+	\eq{
+\pbrace{\text{finite }\sigma \subseteq V \, | \, \forall i,j \in \sigma, \, (i,j) \in E}	
+}
+\end{definition}
+\end{aside}
+
+We still realise a possible issue with the size of the information we need to store:
+
+\begin{lemma}
+	The Vietoris-Rips complex of a sample $S$ can contain at most $2^{\abs{S}-1}$ simplices.  
+\end{lemma}
+
+This problem is slightly mitigated in our case as we know that $S \subset X \subset \mbb{R}^N$, and lies on a codim-1 submanifold as we certainly know $\tilde{H}$ is conserved, so there cannot be any interesting homology $H_p$ if $p \geq N$, so we need not compute simplices of order $p \geq N$. Hence the maximum number of simplices in our Vietoris-Rips complex is 
+\eq{
+\sum_{k=1}^{N-1}  {\abs{S} \choose k } = \mc{O}\pround{\abs{S}^{N-1}}
+}
+ss in all our applications, $\abs{S} \gg N$. The calculation of the persistent homology is then $\mc{O}(m^3)$ if $m$ is the number of simplices, so in the end our algorithm is $\mc{O}(\abs{S}^{3(N-1)})$. If we are willing to increase our false positive rate, we can only take simplices of size up to $n$ when looking for $T^n \subset \mbb{R}^{2n}=\mbb{R}^N$.\\
+We can also make the following observation: Recall if we integrated out Hamiltonian system with time step $h$ until time $T$ we got a sample $S_h = \pbrace{x_i}_{i=1}^M$ where $M = \frac{T}{h}$ and the approximation is s.t $x(nh) \approx x_n$. If instead we took timestep $\tilde{h} = \frac{h}{F}$ for some integer $F>1$ then the sample $S_{\tilde{h}} = \pbrace{\tilde{x}_i}_{i=1}^{MF}$ also approximates $x(nh) \approx \tilde{x}_{nF}$. If the integration scheme is of $r^{th}$-order then the global error is $\mc{O}(h^{r-1})$, and so we see by taking the subset 
+\eq{
+\tilde{S} = \pbrace{\tilde{x}_{nF} \, | \, 1 \leq n \leq M}
+}
+we keep $\abs{S}= \abs{\tilde{S}}$ but reduce the global error at $x(nh)$ by $\mc{O}(F^{1-r})$. Hence we can have our sample be as accurate as desirable, while keeping the density the same. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{../../bib/custom-bib-style}

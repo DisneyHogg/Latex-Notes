@@ -51,11 +51,84 @@ Mathematically sound, though written for physicists -
 Written for mathematicians - 
 \begin{itemize}
     \item Marcathe \& Martucci, "The mathematical formulation of gauge theory"
-    \item Nakez, "Topology, geometry, and gauge fields"
+    \item Naber, "Topology, geometry, and gauge fields"
+\end{itemize}
+Other options:
+\begin{itemize}
+	\item Morgan, "Intro to gauge theory" in Gauge theory and the topology of 4-manifolds
+	\item Nicolaescu, "Lectures on the geometry of manifolds". 
 \end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Prelim Tools}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Quaternions}
+Here we will cover just some separate material that will be necessary for some comprehension, but is very separate. 
+
+\begin{definition}
+	The \bam{quaternions}, denoted $\mbb{H}$, is the real associative algebra spanned by $\pbrace{1,i,j,k}$ subject to 
+	\eq{
+i^2=-1=j^2, \; ij=k = -ji	
+}
+For $q=xi+yj+zk+w\in \mbb{H}$ we define its \bam{real part} as $\real(q) = w$ and as such its \bam{quaternionic conjugate} by 
+\eq{
+\bar{q} = -xi-yj-zk+w
+}
+\end{definition}
+
+\begin{lemma}
+	We can deduce the following relations:
+	\begin{itemize}
+		\item $k^2=-1$
+		\item $jk = i = -kj$
+		\item $ki = j = -ik$
+		\item $\bar{q_1 q_2} = \bar{q}_2 \bar{q}_1$. 
+	\end{itemize}
+\end{lemma}
+\begin{proof}
+	These will all be calculations:
+	\begin{itemize}
+		\item $k^2 = -ij^2i = i^2=-1$
+		\item $jk = -j^2i = i$ and likewise for $kj$
+		\item $ki = -ji^2 = j$ and likewise for $ik$.
+		\item If we let $q_a = x_a i + y_a j + z_a k + w_a$ then 
+		\eq{
+q_1 q_2 &= x_1x_2 i^2 + y_1y_2 j^2 +	z_1 z_2 k^2 + w_1 w_2 + ij(x_1y_2 - x_2y_1) + jk(y_1 z_2 - y_2 z_1) + ki(z_1 x_2 - z_2 x_1) \\
+&\phantom{=} + i(x_1 w_2 + x_2w_1) + j(y_1 w_2 + y_2 w_1) + k(z_1 w_2 + z_2 w_1) \\
+&= w_1w_2 - x_1 x_2 - y_1 y_2 - z_1 z_2 + i [(x_1 w_2 + x_2w_1)+(y_1 z_2 - y_2 z_1)] \\
+&\phantom{=} + j[(y_1 w_2 + y_2 w_1) + (z_1 x_2 - z_2 x_1)] + k[(z_1 w_2 + z_2 w_1) + (x_1y_2 - x_2y_1)]
+	}
+We can see that taking the negative of the $i,j,k$ coefficients is equivalent to taking the negative of the $x_a,y_a,z_a$ and swapping $1 \leftrightarrow 2$. 
+	\end{itemize}
+\end{proof}
+
+\begin{definition}
+	Define an inner product on the quaternion space by $\pangle{q_1,q_2} = \real(\bar{q}_1 q_2)$ and the norm induced of the quaternions as $\norm{q} = \sqrt{\pangle{q,q}}=\sqrt{\bar{q}q}$ 
+\end{definition}
+
+\begin{lemma}
+	$\pangle{q_1,q_2} = x_1x_2 + y_1y_2 + z_1z_2 + q_1w_2$. 
+\end{lemma}
+\begin{proof}
+	Using the above calculation of $q_1,q_2$ the answer is immediate. 
+\end{proof}
+
+\begin{lemma}
+If $q = xi + yj + zk + w$ then $\norm{q} = \sqrt{x^2 + y^2 + z^2 + w^2}$. Further, $\norm{q_1 q_2} = \norm{q_1}\norm{q_2}$. 
+\end{lemma}
+\begin{proof}
+	Using the proof of the above lemma the first result is immediate. To prove the latter note $\norm{q_1 q_2} = \sqrt{\bar{q_2} \bar{q}_1 q_1 q_2}$, and as $\bar{q}_1 q_1$ is a positive real it will pull out of the square root. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Review of Manifold Theory}
+You will definitely need this knowledge to carry on into the connection material. Some possible reading if this is not sufficient (as is possible)
+\begin{itemize}
+	\item Taubes, "Differential geometry"
+	\item Warner, "Foundations of differential manifolds and Lie groups
+	\item Lee, "Introduction to smooth manifolds"
+\end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Initial definitions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -456,6 +529,103 @@ We also have an adjoint rep of $\mf{g}$ acting on $\mf{g}$ by
 \comm[t_i]{t_j} = \sum_k c_{ij}^k t_k	
 }
 \end{definition}
+
+\begin{prop}
+	Let $\phi:G \to H$ be a Lie group hom. Then $(\phi_\ast)_e : \mf{g} \to \mf{h}$ is a Lie algebra hom
+\end{prop}
+\begin{proof}
+	See 
+	\eq{
+\phi(ab) = \phi(a)\phi(b) &\Leftrightarrow (\phi \circ L_a)(b) = (L_{\phi(a)} \circ \phi)(b) \\
+&\Leftrightarrow 	\phi \circ L_a = L_{\phi(a)} \circ \phi \\
+&\Rightarrow (\phi \circ L_a)_\ast = (L_{\phi(a)} \circ \phi)_\ast \\
+&\Rightarrow \phi_\ast \circ (L_a)_\ast = (L_{\phi(a)})_\ast \circ \phi_\ast \\
+& \Rightarrow \forall X \in \mf{g}, \, (X)_a = 
+}
+\end{proof}
+
+\begin{example}
+	We have $\Ad:G \to GL(\mf{g})$ so there is an associated $\Ad_\ast : \mf{g} \to gl(\mf{g})$. This coincides with $ad : X \mapsto \ad_X$, as should be clear. 
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Maurer Cartan Forms}
+
+\begin{definition}
+	The \bam{Maurer Cartan one form} is $\theta \in \Omega^1(G;\mf{g})$ given by 
+	\eq{
+\theta_g = (L_{g^{-1}})_\ast : T_gG \to T_e G = \mf{g}	
+}
+\end{definition}
+
+\begin{lemma}
+	$\theta$ is left invariant, i.e $L_g^\ast \theta = \theta$.
+\end{lemma}
+\begin{proof}
+	See
+	\eq{
+(L_g^\ast \theta)_h &= \theta_{gh} \circ (L_g)_\ast \\
+&= (L_{(gh)^{-1}})_\ast \circ (L_g)_\ast \\
+&= (L_{(gh)^{-1}}\circ L_g)_\ast \\
+&= (L_{h^{-1}})_\ast = \theta_h 	
+}
+\end{proof}
+
+\begin{prop}
+	$\theta$ obey the structure equation 
+	\eq{
+d\theta + \frac{1}{2} \comm[\theta]{\theta} = 0	
+}
+i.e. $\forall \xi, \eta \in \mf{X}(G), \, d\theta(\xi,\eta) + \comm[\theta(\xi)]{\theta(\eta)} = 0$.
+\end{prop}
+\begin{proof}
+	Note $\theta(\xi) = \xi_e$ as 
+	\eq{
+\theta_g (\xi_g) = (L_{g^{-1}})_\ast (L_g)_\ast \xi_e = \xi_e	
+}
+and then 
+\eq{
+d\theta(\xi,\eta) = \xi \theta(\eta) - \eta \theta(\xi) - \theta(\comm[\xi]{\eta})
+}
+
+\end{proof}
+
+\begin{ex}
+	Show that for matrix groups $\theta_g = g^{-1}dg$.
+\end{ex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Invariant inner products on \secmath{\mf{g}}}
+	
+\begin{definition}
+	For a $\mbb{R}$ LA $\mf{g}$, a bilinear form $\pangle{\cdot,\cdot}:\mf{g} \times \mf{g} \to \mbb{R}$ is said to be \bam{invariant} if 
+	\eq{
+\forall X,Y,Z \in \mf{g}, \, \pangle{\comm[X]{Y},Z} + \pangle{Y,\comm[X]{Z}} = 0	
+}
+\end{definition}
+
+\begin{definition}
+	The \bam{Killing form} is $\kappa:\mf{g} \times \mf{g} \to \mbb{R}$ given by 
+	\eq{
+\kappa(X,Y) = \tr(\ad_X \circ \ad_Y)	
+}
+\end{definition}
+
+\begin{lemma}
+	$\kappa$ is a symmetric, invariant, bilinear inner product. 
+\end{lemma}
+
+\begin{fact}[Cartan's Criterion]
+	$\kappa$ is non-degenerate $\Leftrightarrow$ $\mf{g}$ is semisimple. 
+\end{fact}
+
+\begin{fact}
+	$\kappa$ is negative definite $\Leftrightarrow$ $\mf{g}$ is the LA of a compact semisimple $G$.
+\end{fact}
+
+\begin{fact}
+	$\mf{g}$ admits a positive definite invariant inner product only when $\mf{g}$ is the LA of a compact $G$. 
+\end{fact}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Riemannian and Symplectic Geometry}
@@ -669,8 +839,18 @@ This is a $GL(r,\mbb{R})$-bundle. The action is given by
 }
 \end{definition}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Bundles from Bundles}
+\begin{definition}
+	Given $P \to M$ a ppal $G$-bundle and $f:N \to M$ smooth we defin the \bam{pullback bundle} to be 
+	$f^\ast \pi : f^\ast P \to N$ the fibered product 
+	\eq{
+f^\ast P = \pbrace{(y,p) \in N \times P \, | \, f(y) = \pi(p)}	
+}
+\end{definition}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Associated Fibre Bundle}
+\subsubsection{Associated Fibre Bundle}
 If we are given a principal bundle $G \to P \overset{\pi}{\to} M$ and a left action $G \lact F$ we can get the action $(P \times F) \ract G$ by $(p,f) \cdot g = (p\cdot g, g^{-1} \cdot f)$. This action is always smooth, free, and proper. 
 
 \begin{definition}
@@ -678,7 +858,7 @@ The \bam{associated fibre bundle} to $G \to P \overset{\pi}{\to} M$ with $G \lac
 \eq{
 P_F \equiv \faktor{(P \times F)}{G} \to M
 }
-All the fibres are diffeomorphic to $F$. 
+quotienting by orbits under the group action. All the fibres are diffeomorphic to $F$. 
 \end{definition}
 
 If $G \lact F$ preserves extra structure (e.g. if $F=V$ is a vector space and the action is linear) then all the fibres have this structure canonically. 
@@ -706,15 +886,17 @@ Let $G \lact G$ by conjugation, i.e. $C_g(h) = ghg^{-1}$. This preserves group s
 where $(p,g) \sim (ph,h^{-1}gh)$.
 \end{example}
 
-\begin{example}
-If $G \to P \to M$ and we have a Lie group homomorphism $\rho : G \to H$. Then let $G \lact H$ by $g \cdot h = \rho(g)h$. $H \ract H$ by right multiplication, making it into a $H$-torsor, and this is preserved by the action of $G$. Hence we have 
-\eq{
-P_H = \faktor{(P \times H)}{G}
-}
-a $H$-torsor bundle, or a principal $H$ bundle. This provides an \bam{extension of structure group}. 
-\end{example}
+\begin{definition}
+	Given $G \to P \to M$ and a Lie group hom $\rho : G \to H$, letting $G \lact H$ by $g \cdot h = \rho(g)h$ and noting $H \ract H$ by right multiplication, making it into a $H$-torsor, is preserved by the action of $G$ and so we have  
+	\eq{
+		P_H = \faktor{(P \times H)}{G}
+	}
+	a $H$-torsor bundle, or a principal $H$ bundle. This provides an \bam{extension of structure group}.
+\end{definition}
 
-Given a $H$-principal bunle $H \to \tilde{P} \to M$ and a Lie group hom $G \to H$ you can ask whether $\exists G \to P \to M$ s.t.  $\tilde{P} \cong P$ as $H$-principal bundle. If such a $P$ exists, we say that it is a \bam{reduction of structure group} of $\tilde{P}$. 
+\begin{definition}
+Given a $H$-principal bundle $H \to \tilde{P} \to M$ and a Lie group hom $G \to H$, if $\exists G \to P \to M$ s.t.  $\tilde{P} \cong P$ as $H$-principal bundle, we say that it is a \bam{reduction of structure group} of $\tilde{P}$.
+\end{definition}
 
 \begin{example}
 If $E \to M$ is a Euclidean vector bundle of rank $r$, we can look at $\Fr_E$ as a $GL(r)$-principal bundle, or at $\Fr_E^\perp= \pbrace{\text{bundle of orthonormal frames}}$ which is a $O(r)$-principal bundle. $\Fr_E^\perp$ is a reduction of structure group of $\Fr_E$ using $O(r) \hookrightarrow GL(r)$
@@ -860,7 +1042,10 @@ X(\pangle{s_1, s_2}) = \pangle{\nabla_X s_1, s_2} + \pangle{s_1, \nabla_X s_2}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Ehresmann connections}
-Let $G \to P \overset{\pi}{\to} M$ be a $G$-principal bundle. Denote the fibre through $p \in P$ by $F_p = p\cdot G$. 
+
+\begin{notation}
+Let $G \to P \overset{\pi}{\to} M$ be a $G$-principal bundle. Denote the fibre through $p \in P$ by $F_p = p\cdot G$.
+\end{notation}
 
 \begin{definition}
 	We call $T_p F_p = \ker d\pi_p$ the \bam{subspace of vertical tangent vectors at $p \in P$} and denote it by $V_p$. The collection of $V_p$ gives a smooth distribution. 
@@ -899,7 +1084,7 @@ Smooth connections always exists. This is as they certainly exist on local trivi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Holonomy}
-Given $G \to P \overset{\pi}{\to} M$, a smooth connection $H$, and a smooth closed curve in the base $C: I \to M$, we can lift tangent vectors to $\pi^{-1}(C(I)) \subset M$ to tangent vectors to $P$ to get a vector field on $\pi^{-1}(p)$, and there is a unique such lift that is horizontal. We can then flow along this vector field starting at $\pi^{-1}(C(0))$. This will give a curve $\tilde{C}:I \to P$. However, it will be true that $\tilde{C}(1) \in \pi^{-1}(C(0))$ so $\exists g \in G, \, \tilde{C}(1) = p \cdot g$. 
+Given $G \to P \overset{\pi}{\to} M$, a smooth connection $H$, and a smooth closed curve in the base $C: I \to M$, we can lift tangent vectors to $\pi^{-1}(C(I)) \subset M$ to tangent vectors to $P$ to get a vector field on $\pi^{-1}(p)$, and there is a unique such lift that is horizontal. We can then flow along this vector field starting at $\pi^{-1}(C(0))$. This will give a curve $\tilde{C}:I \to P$, where it is not necessary that $\tilde{C}(0) = \tilde{C}(1)$. However, it will be true that $\tilde{C}(1) \in \pi^{-1}(C(0))$ so $\exists g \in G, \, \tilde{C}(1) = p \cdot g$. 
 
 \begin{definition}
 $g =g(p)$ is the \bam{holonomy} of $C$ w.r.t $H$ starting at $p$.  
@@ -913,7 +1098,7 @@ For $X \in \mf{g}$ we have $\tilde{X}\in T_pP$ s.t.
 \end{definition}
 
 \begin{definition}
-A \bam{principal connection} is a connection form $\omega \in \Gamma(T^\ast M \otimes \mf{g})$ s.t. 
+A \bam{principal connection} is a connection form $\omega \in \Gamma(T^\ast P \otimes \mf{g})= \Gamma(\Hom(TP,\mf{g}))$ s.t. 
 \begin{itemize}
     \item $\omega(\tilde{X}) = X$
     \item $(R_g)^\ast \omega = \Ad_{g^{-1}}\omega$
