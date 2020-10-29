@@ -573,7 +573,7 @@ N \text{ even } &\Rightarrow \mc{C} = \prod_{k \text{ odd }}^N (w^2 - k^2 y)
 where $y = ef+p^2$ is a function of $z$.
 \end{example}
 
-This reducibility into factors is quite general as the following result shows: 
+This reducibility into factors is quite general as the following result (see \cite{McDaniel1992}) shows: 
 \begin{prop}
 	$\forall \lambda$ a dominant weight, $\exists p_\lambda : \mf{g} \times \mbb{C} \to \mbb{C}$ a polynomial s.t. for $\rho:\mf{g} \to \mf{gl}(V)$ a representation with weight multiplicities $m_\lambda$ 
 	\eq{
@@ -590,9 +590,24 @@ where $W$ is the Weyl group acting on dominant weights, and then viewing $\gamma
 	\eq{
 	\det \psquare{\rho(x) - z} = \det \psquare{\rho(x_s) - z} =  \prod_\lambda \psquare{p_\lambda(x,z)}^{m_\lambda} 	
 }
-It remains to show that $p_\lambda$ is a polynomial. 
+It remains to show that $p_\lambda$ is a polynomial. This can be done by induction on the height of the weight $\lambda$.  
 \end{proof}
 
+We now present some examples of the spectral curve for some small rank Lie algebras. In each case they are given in terms of some generic coefficients, and a parameter $n = \sum_{\alpha \in \bar{\Delta}} n_\alpha r_\alpha$. It can be proven that this is the form of $n$ by considerings rescaling the basis vectors to set $r_\alpha=0$ for $\alpha \in \Delta$, and seeing the effect on $E_{\Theta}$ through the chevalley relations.  
+\eq{
+B_2 :& \quad 0 = w\psquare{w^4 + c_1w^2 + c_2 + 16\pround{z^n + z^{-n}} } \\
+C_2 :& \quad 0 = w^4 + c_1 w^2 + c_2 + 4 \pround{z^n + z^{-n}} \\
+B_3 :& \quad 0 = w\psquare{w^6 + c_1w^4 + c_2w^2 + c_3 + 32\pround{z^n + z^{-n}} } \\
+C_3 :& \quad 0 = w^6 + c_1 w^4 + c_2w^2 + c_3 - 16 \pround{z^n + z^{-n}} \\
+D_3 :& \quad 0 = w^6 + c_1w^4 + \psquare{c_2 + 4\pround{z^n + z^{-n}}}w^2 + c_3 \\
+B_4 :& \quad 0 = w\psquare{w^8 + c_1w^6 + c_2w^4 + c_3w^2 + c_4 - 64\pround{z^n + z^{-n}} } \\
+C_4 :& \quad 0 = w^8 + c_1 w^6 + c_2w^4 + c_3w^2 + c_4 + 64 \pround{z^n + z^{-n}} \\
+D_4 :& \quad 0 = w^8 + c_1w^6 + c_2 w^4 +\psquare{c_3 - 8\pround{z^n + z^{-n}}}w^2 + c_4 \\
+B_5 :& \quad 0 = w\psquare{w^{10} + c_1w^8 + c_2w^6 + c_3w^4 + c_4w^2 + c_5  + 128\pround{z^n + z^{-n}} } \\
+C_5 :& \quad 0 = w^{10} + c_1 w^8 + c_2w^6 + c_3w^4 + c_4w^2 + c_5 - 256 \pround{z^n + z^{-n}} \\
+D_5 :& \quad 0 = w^{10} + c_1w^8 + c_2 w^6 + c_3 w^4 +\psquare{c_4 + 16\pround{z^n + z^{-n}}}w^2 + c_5
+}
+Note here I have written the coefficient of the $z^n$ terms, which always turns out to be just an integer, and so we can scale it away in $w$ if we wish. 
 \noindent{\textbf{Questions:}}
 \begin{enumerate}
 	\item What is the effect on the spectral curve of the different scalings $r_\alpha$? Are the curves birational?
@@ -745,6 +760,6 @@ and hence the Lax equation $0=[\partial_1 +M,L]$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{../../bib/custom-bib-style}
-\bibliography{../../bib/library,../../bib/manual}
-
+%\bibliography{../../bib/library,../../bib/manual}
+\bibliography{../../bib/jabref_library.bib}
 \end{document}

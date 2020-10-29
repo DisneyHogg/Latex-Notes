@@ -239,6 +239,7 @@ This is a complex that should, intuitively, give us the right homology for $X$ i
 	\eq{
 \text{inj}(y) = \sup\pbrace{r \, | \, \exp:B_r \to X \text{ is injective}} 	
 }
+The injectivity radius of the manifold is the inf of the injectivity radius at each point. 
 \end{definition}
 
 The injectivity radius has a natural interpretation given by the following lemma:
@@ -250,7 +251,7 @@ The injectivity radius has a natural interpretation given by the following lemma
 \begin{theorem}
 	Let $X\subset \mbb{R}^N$ be a smooth compact submanifold with injectivity radius $\tau$ and $S$ a sample with sufficient density s.t. 
 	\eq{
-\min_{x \in S, y \in X} d(x,y) < \frac{\eps}{2} 	
+\max_{x \in S, y \in X} d(x,y) < \frac{\eps}{2} 	
 }
 for $\eps < \sqrt{\frac{3}{5}}\tau$ then $\check{C}_{2\eps}(S)$ deformation retracts onto $X$. 
 \end{theorem}

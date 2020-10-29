@@ -1084,7 +1084,11 @@ Smooth connections always exists. This is as they certainly exist on local trivi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Holonomy}
-Given $G \to P \overset{\pi}{\to} M$, a smooth connection $H$, and a smooth closed curve in the base $C: I \to M$, we can lift tangent vectors to $\pi^{-1}(C(I)) \subset M$ to tangent vectors to $P$ to get a vector field on $\pi^{-1}(p)$, and there is a unique such lift that is horizontal. We can then flow along this vector field starting at $\pi^{-1}(C(0))$. This will give a curve $\tilde{C}:I \to P$, where it is not necessary that $\tilde{C}(0) = \tilde{C}(1)$. However, it will be true that $\tilde{C}(1) \in \pi^{-1}(C(0))$ so $\exists g \in G, \, \tilde{C}(1) = p \cdot g$. 
+
+\begin{lemma}
+Given $G \to P \overset{\pi}{\to} M$, a smooth connection $H$, and a smooth closed curve in the base $C: I \to M$, we can lift tangent vectors to $\pi^{-1}(C(I)) \subset M$ to tangent vectors to $P$ to get a vector field on $\pi^{-1}(p)$, and there is a unique such lift that is horizontal.
+\end{lemma}
+We can then flow along this vector field starting at $\pi^{-1}(C(0))$. This will give a curve $\tilde{C}:I \to P$, where it is not necessary that $\tilde{C}(0) = \tilde{C}(1)$. However, it will be true that $\tilde{C}(1) \in \pi^{-1}(C(0))$ so $\exists g \in G, \, \tilde{C}(1) = p \cdot g$. 
 
 \begin{definition}
 $g =g(p)$ is the \bam{holonomy} of $C$ w.r.t $H$ starting at $p$.  
@@ -1104,6 +1108,10 @@ A \bam{principal connection} is a connection form $\omega \in \Gamma(T^\ast P \o
     \item $(R_g)^\ast \omega = \Ad_{g^{-1}}\omega$
 \end{itemize}
 \end{definition}
+
+\begin{example}
+	On the Hopf bundle, $\pbrace{(z,w) \in \mbb{C}^2 \, | \, \abs{z}^2+\abs{w}^2=1} \to \mbb{CP}^1$, $(z,w) \mapsto [z:w]$, as a $U(1)$-bundle acting by multiplication, we can have $\omega = i \Im \bar{z}dx + \bar{w}dw$.
+\end{example}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Relations between viewpoints}
@@ -1178,9 +1186,37 @@ As all these maps are $G$ invariant we can quotient out by the action of $G$ to 
 If $P \to M$ is a $G$-principal bundle we can denote the \bam{space of all connections on $P$} as $\mc{C}_P$
 \end{definition} 
 
+\begin{remark}
+	Some will denote this space as $\mc{A}_P$. 
+\end{remark}
+
+\begin{prop}
+	$\mc{C}_P \neq \emptyset$, i.e. connections always exist. 
+\end{prop}
+\begin{proof}
+	First note 
+	\begin{itemize}
+		\item A convex combination of connection 1-forms is a 1-form
+		\item We can get trivial connection 1-forms on each local trivialisation. 
+	\end{itemize}
+	With these two facts, we can make a connection by using a partition of unity subordinate to the open cover giving the trivialisation. 
+\end{proof}
+
 \begin{prop}
 	$\mc{C}_P$ is an affine space modelled on the vector space $\Gamma(T^\ast M \otimes \ad(P))$. 
 \end{prop}
+\begin{proof}
+	Given $P\overset{\pi}{\to} M$ and $\ad P \to M$ we can form the pullpack bundle $\pi^\ast \ad P$ and 
+	\eq{
+\pi^\ast \ad P &\cong P \times \mf{g} \\
+(p,[p,X]) &\mapsto (p,X)	
+}
+We can check though that 
+\eq{
+\image \pround{ \pi^\ast : \Omega^1(M;\mf{g}) \to \Omega^1(P;\mf{g})} = \pbrace{ \alpha \, | \, \alpha_p(\tilde{X})=0}
+}
+i.e the image is zero on $V_p$
+\end{proof}
 
 \begin{remark}
 	$\mc{C}_P$ is not a vector space, but this is the next best thing. This means that $\Gamma(T^\ast M \otimes \ad(P))$ acts as an additive group on $\mc{C}_P$ freely and transitively, i.e. $\mc{C}_P$ is a torsor for the additive group. Alternatively this can be seen as saying that the difference between two connections gives an element of $\Gamma(T^\ast M \otimes \ad(P))$. 
@@ -1212,7 +1248,7 @@ Now suppose we have a distribution $H \subset TP$ and a section of $T^\ast M \ot
 To any connection on $P$ we can associate a curvature - a section of $\wedge^2 T^\ast M \otimes \ad(P)$. To aid in the definition we need the following lemma:
 
 \begin{lemma}
-	If $E\to M$ is a vector bundle then a rule that assigns a section og $E$ to each $r$-tuple of vector fields $X^1, \dots, X^r$ which is alternating in the $X^i$ and $C^\infty(M)$-linear corresponds to a section of $\wedge^r T^\ast M \otimes E$. 
+	If $E\to M$ is a vector bundle then a rule that assigns a section of $E$ to each $r$-tuple of vector fields $X^1, \dots, X^r$ which is alternating in the $X^i$ and $C^\infty(M)$-linear corresponds to a section of $\wedge^r T^\ast M \otimes E$. 
 \end{lemma}
 
 Now suppose we have a Kozul connection $\nabla$ on $E$
@@ -1262,7 +1298,7 @@ As the Lie algebra structure is respected by the exact sequence we must have tha
 	\tilde{F}(X,Y) = \comm[\tilde{X}]{\tilde{Y}} - \tilde{\comm[X]{Y}}
 }
 $\tilde{F}(X,Y) \in \Gamma(TP)$, and moreover $\tilde{F}(X,Y) \in \ker d\pi$, so it is vertical. Further $G$-invariance under the adjoint action means that $\tilde{F}$ to $F \in \Gamma(\wedge^2 T^\ast M \otimes \ad(P))$ a section on $M$ (it is clear that $F$ is alternating in $X,Y$ and is $C^\infty(M)$-linear). 
-	\item \bam{$\mf{g}$-valued one-form on $P$}: Let $\omega$ be the connection one-form, with corresponding distribution $H$. We then get the cruvature $\tilde{F} \in \Gamma(\wedge^2 T^\ast P \otimes \mf{g})$ by 
+	\item \bam{$\mf{g}$-valued one-form on $P$}: Let $\omega$ be the connection one-form, with corresponding distribution $H$. We then get the curvature $\tilde{F} \in \Gamma(\wedge^2 T^\ast P \otimes \mf{g})$ by 
 	\eq{
 \tilde{F} = D \omega	
 }
@@ -1316,7 +1352,7 @@ Recall that a bundle is trivial iff it has a global section $\sigma : M \to P$. 
 H = \ker(p_2 : M \times G \to G)
 }
 We refer to this induced connection as $d^\sigma$. \\
-Now any two connections differ by a section of $T^\ast M \otimes \ad(P)$, and $\ad(P)$ is alo trivialised as $\ad(P) \cong M \times \mf{g}$ if $P$ is, we can write any other connection as 
+Now any two connections differ by a section of $T^\ast M \otimes \ad(P)$, and $\ad(P)$ is also trivialised as $\ad(P) \cong M \times \mf{g}$ if $P$ is, we can write any other connection as 
 \eq{
 d^\sigma + A
 }
@@ -1365,6 +1401,61 @@ $\mc{G}(P)$ then acts locally by the compatibility condition on the space of all
 A^\alpha \mapsto \Ad_{\psi_\alpha} A^\alpha + \psi_\alpha^\ast \theta
 }
 \end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Characteristic Classes in Chern-Weil Theory}
+
+\begin{lemma}
+Suppose we have 
+\eq{
+\phi : \underbrace{\mf{g} \otimes \dots \otimes \mf{g}}_{\times k} \to \mbb{R}
+}
+multilinear, symmetric, and ad-invariant. Think of $\phi(\tilde{F}, \dots, \tilde{F}) \in \Omega^{2k}(M,\mbb{R})$, then if $\omega, \omega^\prime$ are two connections
+\eq{
+\exists \alpha \in \Omega^{2k-1}, \, \phi(\tilde{F}_\omega, \dots, \tilde{F}_\omega) - \phi(\tilde{F}_{\omega^\prime}, \dots, \tilde{F}_{\omega^\prime}) = d\alpha 
+}
+\end{lemma}
+
+\begin{corollary}
+	$[\phi(\tilde{F}, \dots, \tilde{F})]\in H^{2k}_{dR}$ is a cohomology class. 
+\end{corollary}
+
+\begin{example}
+	If $G=U(n)$, define $c_k$ by 
+	\eq{
+\sum_{k=0}^n c_k(X) t^k = \det \pround{I - \frac{t}{2\pi i}X}	
+}
+for $X \in \mf{u}(n)$ and then 
+\eq{
+c_k(P) = c_k (\tilde{F}, \dots, \tilde{F}) \in H^{2k}
+}
+for some $G$-bundle p, the \bam{Chern class}. 
+\end{example}
+
+\begin{remark}
+	Here we are using the polarisation identity to define $c_k$ on multiple elements. 
+\end{remark}
+
+\begin{example}
+	If $G= O(n), SO(n)$ then have 
+	\eq{
+\sum_k p_k(X) t^k = \det \pround{I-\frac{t}{2\pi}X} 	
+}
+for $X \in \mf{g}$, and 
+\eq{
+p_k(P) = p_k(\tilde{F}, \dots, \tilde{F}) \in H^{4k}
+}
+is the \bam{Ponytryagin class}
+\end{example}
+
+\begin{example}
+	If $G=O(2n)$, define 
+	\eq{
+\Delta(X) = \pround{\frac{-1}{2\pi}}^m \Pfaff(X)	
+}
+The \bam{Euler class} 
+\end{example}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The Yang-Mills Theory}
