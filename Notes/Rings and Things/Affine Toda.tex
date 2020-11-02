@@ -608,6 +608,9 @@ C_5 :& \quad 0 = w^{10} + c_1 w^8 + c_2w^6 + c_3w^4 + c_4w^2 + c_5 - 256 \pround
 D_5 :& \quad 0 = w^{10} + c_1w^8 + c_2 w^6 + c_3 w^4 +\psquare{c_4 + 16\pround{z^n + z^{-n}}}w^2 + c_5
 }
 Note here I have written the coefficient of the $z^n$ terms, which always turns out to be just an integer, and so we can scale it away in $w$ if we wish. 
+\begin{remark}
+	When calculating these, I used Sage to do the symbolic calculations. When using the symbolic ring for matrices of size 8 or higher, the calculation was incorrect, and a more specialised ring was required. The reason for this is not yet understood, but lies in how Sage interplays with Maxima. To see this, know that Sage uses Maxima's \texttt{charpoly} to get the determinant, as can be seen from files like \texttt{matrix\_symbolic\_dense.pyx}. To debug further, one would need to look in \texttt{interfaces/maxima.py} to see how the maxima interface handles the matrices. 
+\end{remark}
 \noindent{\textbf{Questions:}}
 \begin{enumerate}
 	\item What is the effect on the spectral curve of the different scalings $r_\alpha$? Are the curves birational?

@@ -2050,6 +2050,33 @@ Algebraically this upgrading occurs as
     \end{tabular}
 \end{center}
 
+An alternate way of motivating is to consider \bam{Schr\"odinger's equation}
+\eq{
+i \hbar \pd[\psi]{t} = \mc{H} \psi
+}
+for quantum Hamiltonian 
+\eq{
+\mc{H} = \frac{1}{2} \sum_j \pround{-i\hbar \pd{q_j}}^2 + V
+}
+Here $\psi$ is a state in some Hilbert space $\mc{S}$ and this system depends on the coordinates $q_j$ on manifold $M$. This system has the formal solution $\psi(t) =\mc{U}(t) =  \exp\pround{-\frac{it}{\hbar}\mc{H}}$. Then if $\mc{F}$ is another operator on $\mc{S}$ then $\mc{F}(t) = \mc{U}(t)^{-1} \mc{F} \mc{U}(t)$ satisfies 
+\eq{
+\dot{\mc{F}}(t) = -\frac{i}{\hbar}
+	 \comm[\mc{F}(t)]{\mc{H}}
+}
+This setup is clearly analogous to classical Hamiltonian mechanics. To now understand the analogue of Liouville integrability, we remark that if we have a discrete eigenbasis for $\mc{H}$ then we can solve explicitly. Now if we have operator $\mc{F}$ s.t. $\comm[\mc{F}]{\mc{H}}=0$ we know that $\mc{F}$ will preserve eigenspaces of $\mc{H}$. We can then state a definition:
+
+\begin{definition}
+	A \bam{quantum integrable system} is a set of $\dim M$ operators $\mc{H}_i$ acting on $\mc{S}$ that pairwise commute and are algebraically independent. 
+\end{definition}
+This definition is hard to check so we need a procedure:
+\begin{definition}
+	The \bam{reduction} of an operator $\mc{S}$ is a function on $M\times \mbb{R}^n$ gained by replacing $-i\hbar\pd{q_j}$ with $p_j$ and letting $\hbar \to 0$. 
+\end{definition}
+We can now modify the condition in the definition of quantum integrable systems to ask that the reductions of the $\mc{H}_i$ are functionally independent. 
+
+\begin{example}
+	We can have $\mc{S} = L^2(\mbb{R}^n,dq)$, and take $\mc{H}_j = -i\hbar \pd{q_j}$. The corresponding reductions are $H_j = p_j$. 
+\end{example}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Yangians and the RTT relation}
