@@ -1,0 +1,259 @@
+\documentclass{article}
+
+\usepackage{../../header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Linearising Flows and a Cohomological Interpretation of Lax Equations - Unpacking the Paper}
+\author{Linden Disney-Hogg}
+\date{November 2020}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+The purpose of this document is to facilitate the understanding of \cite{Griffiths1985} by discussing the terms and how they fit into the wider picture of algebraic geometry. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Preliminaries}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Divisors}
+\begin{definition}
+	A \bam{divisor} on $C$ is a formal finite sum of points, i.e. $D = \sum_i n_i p_i$ for $n_i \in \mbb{Z}, \, p_i \in C$. The group of divisors under addition is denoted $\Div(C)$. 
+\end{definition}
+
+\begin{definition}
+	The \bam{degree} of a divisor $D = \sum_i n_i p_i$ $\deg D = \sum_i n_i $
+\end{definition}
+
+\begin{definition}
+	Given a meromorphic function $f:C \to \mbb{C}$ we define $(f) \in \Div(C)$ by 
+	\eq{
+(f) = \sum_{p \in X} \ord_p (f) \cdot p 
+}
+For $D \in \Div(C)$, if $\exists f$ s.t. $D=(f)$ we say $D$ is a \bam{principal divisor}. 
+\end{definition}
+
+\begin{lemma}$(fg) = (f)+(g)$
+\end{lemma}
+\begin{corollary}
+	Principal divisors form a subgroup  $\Lin(C) \leq \Div(C)$. 
+\end{corollary}
+
+\begin{lemma}
+	If $X$ is a compact Riemann surface and $f:X \to \mbb{C}$ meromorphic then $\deg(f) = 0$. 
+\end{lemma}
+
+\begin{prop}
+	Let $C$ be compact. Then $\Lin(C) = \pbrace{D \in \Div(C) \, | \deg(D) = 0}$. 
+\end{prop}
+
+\begin{definition}
+	The \bam{divisor class group} of $C$ is $\Cl(C) = \faktor{\Div(C)}{\Lin(C)}$.
+\end{definition}
+
+\begin{remark}
+	$\deg: \Div(C) \to \mbb{Z}$ is a group homomorphism and as the kernel is $\Lin(C)$ we see $\Cl(C) \cong \image \deg$
+\end{remark}
+\begin{corollary}
+	$\Cl(\mbb{CP}^n) \cong \mbb{Z}$. 
+\end{corollary}
+
+\begin{definition}
+	Two divisors $D,E$ are \bam{linearly equivalent} if $D-E$ is a principal.
+\end{definition}
+
+\begin{lemma}
+	Linear equivalence of divisors is an equivalence relation. 
+\end{lemma}
+
+\begin{lemma}
+	$f:X \to Y$ induces a group morphism $f:\Div(X) \to \Div(Y)$ by 
+	\eq{
+	f \pround{\sum_i n_i p_i} = \sum_i n_i f(p_i)
+}
+\end{lemma}
+
+\begin{prop}
+	If $f:X \to Y$ is a map of Riemann surfaces and $D \in \Div(X)$, then $\deg(f(D)) = \deg f \cdot \deg D$.
+\end{prop}
+
+\begin{definition}
+	A divisor $D = \sum_i n_i p_i$ is \bam{effective} if each $n_i \geq0$.  
+\end{definition}
+
+\begin{prop}
+	We have a partial ordering on $\Div(C)$ by saying $D\geq D^\prime$ id $D-D^\prime$ is effective. 
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Abel-Jacobi}
+Suppose $C$ has genus $g$, then we know that $H_1(C,\mbb{Z}) \cong \mbb{Z}^{2g}$ where the generators are the loops $\pbrace{\gamma_i}_{i=1}^{2g}$. There is an alternative way to say this condition:
+\begin{definition}
+The \bam{canonical bundle} on a space $X$ with $\dim X = n$ is the line bundle of exterior $n$-forms on $X$.  
+\end{definition}
+\begin{remark}
+Note we know the canonical bundle is a line bundle as there is only 1 basis element of $n$-forms on an $n$-dimensional space. 
+\end{remark}
+\begin{prop}
+If $X=C$ is a Riemann surface of genus $g$ then $H^0(C,K)\cong \mbb{C}^g$. 
+\end{prop}
+\begin{proof}
+\hl{Find this}
+\end{proof}
+\begin{corollary}
+We can take a basis $\pbrace{\omega_i}_{i=1}^g$ of 1-forms on $C$. 
+\end{corollary}
+\begin{definition}
+The \bam{Jacobian} of $C$ is defined to be 
+\eq{
+	J(C) = \faktor{\mbb{C}^g}{\Lambda}	
+}
+where $\Lambda$ is the lattice generated over $\mbb{R}$ by the vectors 
+\eq{
+	\Omega_j = \pround{\int_{\gamma_j} \omega_1, \dots, \int_{\gamma_j} \omega_g }, \quad 1 \leq j \leq 2g 
+}
+\end{definition}
+
+\begin{definition}
+The \bam{Abel-Jacobi map} for $p_0 \in C$ is 
+\eq{
+	u : C &\to J(C) \\
+	p &\mapsto 	\pround{\int_{p_0}^p \omega_1, \dots, \int_{p_0}^p \omega_g } \mod \Lambda 
+}
+This is independent of the path of integration as we have quotiented by $\Lambda$. 
+\end{definition}
+
+\begin{theorem}[Abel's Theorem]
+	Let $u$ be the Abel-Jacobi map and $D,E$ effective divisors. Then $u(D) = u(E) \Leftrightarrow D \sim E$. 
+\end{theorem}
+
+\begin{theorem}[Jacobi's Theorem]
+	The map Abel-Jacobi map is surjective. 
+\end{theorem}
+
+\begin{corollary}
+	There is an isomorphism from the space of degree-0 divisors to the Jacobian. 
+\end{corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Bundles and Sheaves}
+We recall a few necessary bundle definitions and results:
+\begin{definition}
+	The tensor product of vector bundles $E,F \to M$ is $E\otimes F \to M$ s.t. $(E \otimes F)_m = E_m \otimes F_m$ for $m \in M$. 
+\end{definition}
+
+\begin{lemma}
+	If $O$ is the trivial line bundle thn $E\otimes O = E$. 
+\end{lemma}
+
+\begin{lemma}
+	Line bundles have tensor inverses, i.e given $L$, $\exists L^{-1}$ s.t. $L \otimes L^{-1} \cong O$ the trivial bundle. 
+\end{lemma}
+
+These results motivate the definition of the \bam{Picard group} which we will cover now:
+
+\begin{definition}
+	A \bam{ringed space} is a pair $(X,O_X)$ where $X$ is a topological space and $O_X$ is a sheaf of rings on $X$. 
+\end{definition}
+
+\begin{example}
+	Given a topological space $X$, if we take $O_X$ to be $\mbb{R}$-valued continuous functions on open subsets of $X$ then $(X,O_X)$ is a ringed space. 
+\end{example}
+
+\begin{definition}
+	The \bam{Picard group} of a locally ringed space $X$ is $\Pic(X)$ the group of isomorphism classes of line bundles on $X$ with the group operation being $\otimes$. 
+\end{definition}
+
+\begin{remark}
+	In place of line bundles we can actually say \bam{invertible sheaves} 
+\end{remark}
+
+\begin{theorem}
+	$\Cl(C) \cong \Pic(C)$ naturally. 
+\end{theorem}
+\begin{corollary}
+	We get a map $\deg:\Pic(C) \to \mbb{Z}$ giving the degree of the corresponding divisor in $\Cl(C)$. 
+\end{corollary}
+\begin{corollary}
+	$\Pic(\mbb{CP}^1) \cong \mbb{Z}$. 
+\end{corollary}
+
+\begin{notation}
+    We denote the isomorphism class of line bundles degree $d$ as $\Pic^d(C)$
+\end{notation}
+
+\begin{prop}
+	There is a canonical isomorphism $\Pic(X) \cong H^1(X, O_X^\ast)$. 
+\end{prop}
+
+Let us now consider a specific class of bundles: 
+
+\begin{definition}
+	The \bam{hyperplane bundle on $\mbb{CP}^n$} is the bundle $\mbb{C}^{n+1} \to \mbb{CP}^n$ given by the standard projection $(z_0, \dots, z_n) \to [z_0: \dots : z_n]$. It is often denoted $\mc{O}(1)$.  We denote $\mc{O}(n) = \mc{O}(1)^{\otimes n}$.
+\end{definition}
+
+\begin{definition}
+	The \bam{dual bundle} of a vector bundle $E \to M$ is $E^\ast \to M$ where the fibres of $E^\ast$ are the dual spaces of the fibres of $E$, with the transition functions $g_{ij}^\ast = \pround{g_{ij}^T}^{-1}$.
+\end{definition}
+
+\begin{example}
+	The dual bundle to the tangent bundle is the cotangent bundle, i.e. $\pround{TM}^\ast = T^\ast M$
+\end{example}
+
+\begin{lemma}
+	$E \otimes E^\ast \cong \End(E)$. 
+\end{lemma}
+
+\begin{definition}
+	The \bam{tautological line bundle} on projective space is $\mc{O}(-1) = \mc{O}(1)^\ast$. We denote $\mc{O}(-n) = \mc{O}(-1)^{\otimes n}$. 
+\end{definition}
+
+\begin{prop}
+	The canonical bundle on the projective space is $K = \mc{O}(-n-1)$. 
+\end{prop}
+
+\begin{lemma}
+	$\mc{O}(1)^{-1} = \mc{O}(-1)$. 
+\end{lemma}
+\begin{corollary}
+	$\Pic(\mbb{CP}^n)$ is generated by $\mc{O}(\pm1)$.  
+\end{corollary}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Lax Pairs and Spectral Curves}
+\begin{definition}
+	A Lax pair is a pair of $\mf{g}\subset\mf{gl}_n$-valued matrices $A,B$, functions of a spectral parameter $\xi$ and time $t$ satisfying $\dot{A} = \comm[A]{B}$. 
+\end{definition}
+
+\begin{definition}
+	The \bam{spectral curve} is $C$ given by the solution in $\mbb{P}^1$ of 
+	\eq{
+		\det\psquare{\eta I - A(\xi,t)}=0	
+	} 
+\end{definition}
+
+\begin{prop}
+	The flow $t \mapsto A(\xi,t)$ is isospectral.
+\end{prop}
+
+It will be the understanding of this isospectral flow that we want to gain. We formulate this flow as the family of holomorphic map gained by the eigenvectors 
+\eq{
+	f_t : C \to \mbb{CP}^{n-1}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{../../bib/custom-bib-style}
+\bibliography{../../bib/jabref_library.bib}
+
+\end{document}
