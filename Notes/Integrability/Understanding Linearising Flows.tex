@@ -26,7 +26,7 @@ The purpose of this document is to facilitate the understanding of \cite{Griffit
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Divisors}
 \begin{definition}
-	A \bam{divisor} on $C$ is a formal finite sum of points, i.e. $D = \sum_i n_i p_i$ for $n_i \in \mbb{Z}, \, p_i \in C$. The group of divisors under addition is denoted $\Div(C)$. 
+	A \bam{(Weil) divisor} on $C$ is a formal finite sum of points, i.e. $D = \sum_i n_i p_i$ for $n_i \in \mbb{Z}, \, p_i \in C$. The group of divisors under addition is denoted $\Div(C)$. 
 \end{definition}
 
 \begin{definition}
@@ -90,8 +90,12 @@ For $D \in \Div(C)$, if $\exists f$ s.t. $D=(f)$ we say $D$ is a \bam{principal 
 \end{definition}
 
 \begin{prop}
-	We have a partial ordering on $\Div(C)$ by saying $D\geq D^\prime$ id $D-D^\prime$ is effective. 
+	We have a partial ordering on $\Div(C)$ by saying $D\geq D^\prime$ if $D-D^\prime$ is effective. 
 \end{prop}
+
+\begin{definition}
+	A Weil divisor on $C$ defines a \hl{coherent} sheaf $O_C(D)$ as meromorphic functions $f$ s.t $(f)+D\geq0$. 
+\end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Abel-Jacobi}
@@ -194,6 +198,10 @@ These results motivate the definition of the \bam{Picard group} which we will co
 	Given a topological space $X$, if we take $O_X$ to be $\mbb{R}$-valued continuous functions on open subsets of $X$ then $(X,O_X)$ is a ringed space. 
 \end{example}
 
+\begin{example}
+	An example that will be relevant for later discussions is that an affine variety $X$ with sheaf $O_X$ given by $O_X(U)$ being the regular functions on $U$, regular functions being those given locally by polynomials. 
+\end{example}
+
 \begin{definition}
 	The \bam{Picard group} of a locally ringed space $X$ is $\Pic(X)$ the group of isomorphism classes of line bundles on $X$ with the group operation being $\otimes$. 
 \end{definition}
@@ -233,7 +241,7 @@ These results motivate the definition of the \bam{Picard group} which we will co
 Let us now consider a specific class of bundles: 
 
 \begin{definition}
-	The \bam{hyperplane bundle on $\mbb{CP}^n$} is the bundle $\mbb{C}^{n+1} \to \mbb{CP}^n$ given by the standard projection $(z_0, \dots, z_n) \to [z_0: \dots : z_n]$. It is often denoted $\mc{O}(1)$.  We denote $\mc{O}(n) = \mc{O}(1)^{\otimes n}$.
+	The \bam{hyperplane bundle on $\mbb{CP}^n$} is the bundle $\mbb{C}^{n+1}\setminus 0 \to \mbb{CP}^n$ given by the standard projection $(z_0, \dots, z_n) \to [z_0: \dots : z_n]$. It is often denoted $\mc{O}(1)$.  We denote $\mc{O}(n) = \mc{O}(1)^{\otimes n}$.
 \end{definition}
 
 
@@ -251,24 +259,57 @@ Let us now consider a specific class of bundles:
 
 We make a few more useful definitions. 
 
+\begin{definition}
+	Let $X$ be an algebraic surface and $\pi:L \to X$ a line bundle. Then the \bam{tautological section} of $\pi^\ast L$ as a bundle over $L$ is given by $\sigma(l) = (l,l)$. 
+\end{definition}
+
+\begin{remark}
+	Not that the tautological section is indeed valid as we have 
+	\eq{
+\pi^\ast L = \pbrace{(l,l^\prime) \in L\times L \, | \, \pi(l) = \pi(l^\prime)}	
+}
+so certainly $(l,l) \in \pi^\ast L$. 
+\end{remark}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Lax Pairs and Spectral Curves}
+\begin{notation}
+	We start by laying out some notation that will be necessary for the following section. Let:
+	\begin{itemize}
+		\item $P=\mbb{CP}^1$ with coordinates $[\xi_0:\xi_1]$. We take $\xi = \frac{\xi_1}{\xi_0}$. 
+		\item $O_P$ be the natural structure sheaf on the variety $P$
+		\item $V$ be a $m$-dimensional vector space, $\mc{V} = V \otimes O_P$, $\mc{V}(k) = V \otimes \mc{O}_P(k)$ where we view $V$ as either the constant sheaf or trivial bundle over $P$.
+		\item $A(t,\xi) = \sum_{k=0}^n A_k(t) \xi^k \in  H^0(P,\Hom(\mc{V},\mc{V}(n)))$ for some $n$, where we see $A_i(t) \in \End(V)$ as a time dependent $m\times m$ matrix and $\xi^k \in H^0(P,\mc{O}(n))$ as
+		\eq{
+	[\xi_0:\xi_1]^k = \underbrace{\xi_0 \otimes \dots \otimes \xi_0}_{\times (n-k)} \otimes \underbrace{\xi_1 \otimes \dots \otimes \xi_1}_{\times k}	
+	}
+This is homogeneous of degree $n$, so we allow $A$ to not have a scale\hl{?}
+        \item $B(\xi,t) \in  H^0(P,\Hom(\mc{V},\mc{V}(N)))$ for some $N$ likewise . 
+        \item $Q(\xi,\eta) = \det\psquare{\eta I - A(\xi,t)}$ be the characteristic polynomial of $A$.
+        \item $\sigma$ be the tautological section of $\mc{O}_P(n)$.  
+	\end{itemize}
+\end{notation}
+
+\begin{lemma}
+	$Q(\xi,\sigma) \in H^0(\mc{O}_P(n), \pi^\ast \mc{O}_P(mn))$
+\end{lemma}
+
 \begin{definition}
-	A Lax pair is a pair of $\mf{g}\subset\mf{gl}_n$-valued matrices $A,B$, functions of a spectral parameter $\xi$ and time $t$ satisfying $\dot{A} = \comm[A]{B}$. 
+	The pair $A,B$ is a Lax pair if $\dot{A} = \comm[A]{B}$. 
 \end{definition}
 
 \begin{prop}
 	The Lax equation is invariant under the substitution 
 	\eq{
-B \mapsto B + P(A,\xi)	
+B \mapsto B + p(A,\xi)	
 }
-for polynomial $P(x,\xi) \in \mbb{C}[x,\xi]$. 
+for polynomial $p(x,\xi) \in \mbb{C}[x,\xi]$. 
 \end{prop}
 
 \begin{definition}
-	The \bam{spectral curve} is $C$ given by the solution in $\mbb{P}^1$ of 
+	The \bam{spectral curve} is $C$ given by the solution in $P$ of 
 	\eq{
-		\det\psquare{\eta I - A(\xi,t)}=0	
+		Q(\xi,\eta) =0	
 	} 
 \end{definition}
 
@@ -278,7 +319,7 @@ for polynomial $P(x,\xi) \in \mbb{C}[x,\xi]$.
 
 It will be the understanding of this isospectral flow that we want to gain. We formulate this flow as the family of holomorphic map gained by the eigenvectors 
 \eq{
-	f_t : C \to \mbb{CP}^{n-1}
+	f_t : C \to \mbb{CP}^{m-1}
 }
 Suppose that $C$ has degree $d$, then we know we can define 
 \eq{
