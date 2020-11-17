@@ -1,0 +1,111 @@
+\documentclass{article}
+
+\usepackage{../../header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Monopoles}
+\author{Linden Disney-Hogg}
+\date{November 2020}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Preamble}
+I already have notes on Gauge Theory, Algebraic Geometry, Solitons, and Algebraic Topology, but I have yet to actually make any notes on Monopoles. The purpose of these notes is to be a comprehensive cover of the knowledge required to understand \cite{Braden2018}. This will include previous works by Atiyah, Donaldson, Hitchin, Nahm, and more.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Preliminaries}
+As with all my projects, the preliminaries will undoubtably end up being too long, but I will try keep this minimal this time: 
+\begin{definition}
+	The \bam{annihilator} of $U \leq V$ is 
+\eq{
+U^0 = \pbrace{f \in V^\ast \, | \, \forall u \in U, \, f(u)=0} \leq V^\ast
+} 
+If $V$ has bilinear $\pangle{\cdot, \cdot}$ we can use the isomorphism of $V^\ast\cong V$ to understand 
+	\eq{
+U^0 = \pbrace{v \in V \, | \, \forall u \in U, \, \pangle{u,v}=0} \leq V	
+}
+\end{definition}
+
+\begin{lemma}
+	THe annihilator is a subspace, $\dim U^0 = \dim V  - \dim U$. 
+\end{lemma}
+
+\begin{definition}
+	A subspace $U$ is called \bam{isotropic} if $U \subset U^0$. 
+\end{definition}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Monopole Equations}
+\begin{definition}
+Take a principal $G$-bundle $P\to M$, $\omega_{vol}$ an orientation on $M$, and $\pangle{\cdot, \cdot}$ to be an $\ad$-invariant inner product on $\mf{g}$. Then the \bam{Yang-Mills-Higgs actions} on $M$ is 
+\eq{
+S_{YMH}[A,\phi] = \int_M \psquare{\abs{F}^2 + \abs{D\phi}^2 + V(\phi)}\omega_{vol}
+}
+where $F=dA+A\wedge A$ is the curvature associated to a section $A\in \Gamma(T^\ast M \otimes \ad(P))$, $D = d+A$ is the associated covariant derivative, and $\phi \in \Gamma(\ad(P))$.
+\end{definition}
+
+\begin{remark}
+	A common choice of potential function $V$ is $V(\phi) = \lambda \pround{1-\abs{\phi}^2}^2$, the \bam{$\phi^4$-potential}. 
+\end{remark}
+
+\begin{prop}
+	The variational equations corresponding to $S_{YMH}$ are the\bam{Yang-Mills-Higgs equations}
+	\eq{
+DF &= 0 \quad \text{(Bianchi)} \\
+D \star F &= -\comm[\phi]{D\phi} \\
+D \star D\phi &= -V^\prime(\phi)	
+}
+\end{prop}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The ADHM construction}
+This section follows the work first laid out in \cite{Atiyah1978}. Suppose we have the following information:
+\begin{itemize}
+	\item $W$ a $k$-dimensional vector space
+	\item $V$ a $2k+2$-dimensional vector space with skew, non-degenerate bilinear form $(\cdot, \cdot):\wedge^2 V \to \mbb{C}$. 
+	\item $z = (z_i) \in \mbb{C}^4$
+	\item $A(z) = \sum_i A_i z_i \in \End(W,V)$ s.t. \
+	\eq{
+\forall z \neq 0, \; U_z \equiv A(z)W\subset V \text{ is isotropic and $k$-dimensional}	
+}
+\end{itemize}
+
+We now state some important properties:
+
+\begin{lemma}
+	Let $E_z = \faktor{U_z^0}{U_z}$, then 
+	\begin{itemize}
+		\item $\dim E_z = 2$
+		\item $E_z$ inherits a non-degenerate skew bilinear
+		\item $\forall \lambda \in \mbb{C}^\times, \, E_z = E_{\lambda z}$. 
+	\end{itemize}
+\end{lemma}
+\begin{proof}
+	We go point by point:
+	\begin{itemize}
+		\item $\dim E_z = \dim U_z^0 - \dim U_z = \pround{\dim V - \dim U_z} - \dim U_z = 2k+2 - 2k = 2$.
+		\item The bilinear on $W$ is only degenerate in $U_z^0$ on $U_z$, so by quotienting by this it descends directly to $E_z$. 
+		\item $A(\lambda z) = \lambda A(z)$, so $A(\lambda z) (\lambda^{-1} \bm{w}) = A(z)(\bm{w})$. Hence we can see $U_{\lambda z} = U_z$ and so result.  
+	\end{itemize}
+\end{proof}
+
+\begin{corollary}
+	We get a vector bundle $E\to \mbb{CP}^3$ with group $SL(2,\mbb{C})$.
+\end{corollary}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{../../bib/custom-bib-style}
+\bibliography{../../bib/jabref_library.bib}
+
+\end{document}

@@ -1501,6 +1501,13 @@ The reason we have made these explicit is as it's important to realise it is the
 } 
 \end{lemma}
 
+\begin{lemma}
+	If $V$ is a vector space with bilinear $\pangle{\cdot, \cdot}$ then $\bigwedge^k V$ inherits a bilinear by the Grammian determinant. 
+	\eq{
+\pangle{\alpha_1 \wedge \dots \wedge \alpha_k, \beta_1 \wedge \dots \wedge \beta_k} = \det \pround{\pangle{\alpha_i,\beta_j}_{i,j=1}^k}	
+}
+\end{lemma}
+
 \begin{definition}
 	If $M$ is a $n$-dimensional Riemannian manifold, the \bam{Hodge star} is the operator $\star : \Omega^r(M) \to \Omega^{n-r}(M)$ given by 
 	\eq{
@@ -1590,7 +1597,7 @@ We now need the following lemma
 }
 \end{lemma}
 \begin{proof}
-	By the definition that for $\phi \in \Gamma(\wedge r T^\ast P \otimes V)$ 
+	By the definition that for $\phi \in \Gamma(\wedge^r T^\ast P \otimes V)$ 
 	\eq{
 D\phi (X_0, \dots, X_r) = d\phi(X_0^H, \dots, X_r^H)	
 }
@@ -1723,7 +1730,7 @@ the \bam{second Chern number}
 	$c = \int_M \abs{F_+}^2 \omega_{vol} - \int_M \abs{F_-}^2 \omega_{vol}$
 \end{lemma}
 \begin{proof}
-Expanding $F = F_+ + F_-$ and using $\tr(F \wedge \star F) = abs{F}^2 \omega_{vol}$ gives the result. 
+Expanding $F = F_+ + F_-$ and using $\tr(F \wedge \star F) = \abs{F}^2 \omega_{vol}$ gives the result. 
 \end{proof}
 	
 Hence we get the inequality 
@@ -1732,7 +1739,7 @@ S_{YM} \geq \abs{c}
 }
 with equality iff either $F= F_+$ or $F=F_-$. Note in either case the Yang-Mills equations are trivially satisfied as 
 \eq{
-d^A (\star F) = \pm d^A  = 0 \quad \text{by the Bianchi identity}
+d^A (\star F) = \pm d^A F  = 0 \quad \text{by the Bianchi identity}
 }
 
 \begin{definition}
