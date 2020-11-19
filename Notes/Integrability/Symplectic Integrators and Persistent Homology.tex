@@ -520,7 +520,9 @@ This result means that we can expect to see the homology of a torus even when do
 \begin{remark}
 	When doing this homology over field, because we will not detect any $p$-torsion (if we are working over $\mbb{Z}_p$) we increase our false-positive ratio. There do now exists algorithms to calculate $\mbb{Z}[t]$ persistent homology, and that is an approach we can investigate in the future. See \cite{romero2014}.
 \end{remark}
- We can then take an array of different initial conditions, to see how the persistent homology varies as a function on phase space. It is then not impossible doing a hypothesis to see if the system is integrable. There is existing literature on hypothesis testing in the realm of persistent homology, see \cite{Robinson2017,fasy2014}. \\
+ We can then take an array of different initial conditions, to see how the persistent homology varies as a function on phase space. It is then not impossible doing a hypothesis to see if the system is integrable. There is existing literature on hypothesis testing in the realm of persistent homology, see \cite{Robinson2017,fasy2014}.
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \subsection{Computation}
  One important feature we do need to tackle is the computational efficiency of such an approach. \cite{Otter2017} considers the computational load of different complexes which can be formed in contrast to the \v{C}ech complex which are theoretical less intensive. One example which is implemented by the R package \texttt{TDAstats} is the \bam{Vietoris-Rips complex}
  
 \begin{definition}

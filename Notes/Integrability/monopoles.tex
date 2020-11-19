@@ -43,8 +43,69 @@ U^0 = \pbrace{v \in V \, | \, \forall u \in U, \, \pangle{u,v}=0} \leq V
 	A subspace $U$ is called \bam{isotropic} if $U \subset U^0$. 
 \end{definition}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Dirac Monopole}
+The standard maxwell equations prohibit monopoles, by which we mean point magnetic field sources, as $\bm{\nabla}\cdot \bm{B}=\bm{0}$. Dirac showed in \cite{Dirac1931} that it is possible to escape this conclusion by giving non-trivial topology to the space by allowing $\bm{B} = \frac{g}{4\pi r^2}\hat{\bm{x}}$ to have a singularity at $\bm{x}=\bm{0}$. We can calculate $\bm{\nabla} \cdot \bm{B} = g\delta(\bm{x})$. Removing this circle gives $\mbb{R}^3\setminus 0$, homotopic to $S^2$, and the corresponding magnetic two form on this sphere is
+\eq{
+f = \frac{g}{4\pi} \sin \theta d\theta \wedge d\phi
+} 
+and so the flux through a 2-sphere enclosing the origin is $\int_{S_R^2} f = g $. For $g \neq 0$, we know $f \neq da$ for a global $a \in \Omega^1(S^2)$ by Stokes' theorem, but if we take a cover of the sphere $U_{N/S}$ (north/south) and define gauge potentials
+\eq{
+a_N &= \frac{g}{4\pi}(1-\cos\theta )d\phi \in \Omega^1(U_N) \\
+a_S &= \frac{g}{4\pi}(-1-\cos\theta) d\phi \in \Omega^1(U_S)
+}
+On the intersect $U_N \cap U_S$ we have $da_N = f = da_S$ and $a_N = a_S + \frac{g}{2\pi}d\phi$. \\
+Now taking $A = ia, \, F = if$, we have that $g_{NS}(\theta,\phi) = e^{-i\frac{g\phi}{2\pi}}$. Requiring that this is a well-defined transition function gives $g \in \mbb{Z}$. This is equivalent to the integrality of the Chern number. \\
+We will not want to consider this as this solution is not solitonic (it has infinite mass), but for further discussion see \cite{Manton2004}. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Pauli Matrices}
+
+\begin{definition}[Pauli Matrices]
+	The \bam{Pauli matrices} are
+	
+	\begin{align*}
+		\sigma_1 &= \begin{pmatrix} 0 & 1 \\ 1 & 0\end{pmatrix}, & 
+		\sigma_2 &= \begin{pmatrix} 0 & -i \\ i & 0\end{pmatrix}, &  
+		\sigma_3 &= \begin{pmatrix} 1 & 0 \\ 0 & -1\end{pmatrix}.  
+	\end{align*}
+	Note they are all Hermitian and traceless.
+\end{definition}
+
+\begin{fact}$\sigma_i \sigma_j = \delta_{ij}I +i\epsilon_{ijk}\sigma_k$
+\end{fact}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\secmath{SU(2)}}
+We can write 
+\[
+SU(2)=\pbrace{    \begin{pmatrix} \alpha & -\overline{\beta} \\ \beta & \overline{\alpha} \end{pmatrix}  : \alpha,\beta\in\mathbb{C} , |\alpha|^2+|\beta|^2=1   }
+\]
+This can be expressed as, for $A\in SU(2)$
+\[
+A=a_0 I +i\bm{a}\cdot\bm{\sigma}
+\]
+where $\bm{a}=(a_1, a_2, a_3)$, $\bm{\sigma}=(\sigma_1, \sigma_2, \sigma_3)$, and $a_0^2+|\bm{a}|^2=1$. Hence $SU(2)\cong S^3$. In addition, by parametrising $SU(2)$ by the $a_i$, it can be seen that $\set{  i\sigma_i }$ forms a basis of $\mf{su}(2)$. It is typical to normalise this basis to $\set{  T^a=-\frac{1}{2} i\sigma_a  }$. 
+
+\begin{lemma}
+	The structure constants in this basis $\set{  T^a  }$ are $f^{ab}_c=\epsilon_{abc}$.
+\end{lemma}
+
+\begin{corollary}
+	The Killing form is given by $\kappa\pround{T^a,T^b} = \kappa^{ab} = -2\delta^{ab}$. Hence $\kappa(X,Y) = 4\tr(XY)$
+\end{corollary}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Degree of a Map}
+Consider a smooth map $n:S_s^2 \to S_t^2$. The number of preimages of $p \in S_t^2$ computed with sign is calculate via pullback to be 
+\eq{
+\deg(n) = \frac{1}{\int_{S_t^2} \omega} \int_{S_s^2} n^\ast \omega
+}
+for some normalisable volume form on $S_t$. Then 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The Monopole Equations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Yang-Mills-Higgs equations}
 \begin{definition}
 Take a principal $G$-bundle $P\to M$, $\omega_{vol}$ an orientation on $M$, and $\pangle{\cdot, \cdot}$ to be an $\ad$-invariant inner product on $\mf{g}$. Then the \bam{Yang-Mills-Higgs actions} on $M$ is 
 \eq{
@@ -61,11 +122,62 @@ where $F=dA+A\wedge A$ is the curvature associated to a section $A\in \Gamma(T^\
 	The variational equations corresponding to $S_{YMH}$ are the\bam{Yang-Mills-Higgs equations}
 	\eq{
 DF &= 0 \quad \text{(Bianchi)} \\
-D \star F &= -\comm[\phi]{D\phi} \\
-D \star D\phi &= -V^\prime(\phi)	
+ \star D \star F &= -\comm[\phi]{D\phi} \\
+ \star D \star D\phi &= -V^\prime(\phi)	
 }
 \end{prop}
+\begin{proof}
+	We first consider the equation that comes from the variation of $A$. Let $A_t = A + t\beta$, then $F_t = F + t\pround{d\beta + \beta \wedge A + A \wedge \beta} + \mc{O}(t^2)$ and $D_t \phi = D \phi + t\comm[\beta]{\phi}$. 
+	\eq{
+S_t = S + 2t\int_M \psquare{\pangle{F,}}	
+}
+\end{proof}
+
+\begin{definition}
+	A \bam{monopoles} will be a soliton-like solution to the Yang-Mills-Higgs equations when $G=SU(2)$ and, the principal bundle is $P = \mbb{R}^4 \times SU(2)$, and the potential is $\phi^4$. 
+\end{definition}
+
+\begin{remark}
+	The Dirac monopole is a solution in the case of $G=U(1)$.
+\end{remark}
+
+We may make these equations explicit in coordinates. We take the inner product on $\mf{g} = \mf{su}(2)$ to be $\pangle{X,Y} = -\frac{1}{2}\kappa(X,Y) = -2\tr(XY)$. As such taking coordinates $x^\mu$ on $\mbb{R}^r$ and writing $F_{\mu\nu} dx^\mu \wedge dx^\nu$ we have 
+\eq{
+\pangle{F,F} &= \pangle{F_{\mu\nu},F_{\rho\sigma}} \pangle{dx^\mu \wedge dx^\nu, dx^\rho \wedge dx^\sigma} \\
+&= \pangle{F_{\mu\nu},F_{\rho\sigma}}\pround{\eta^{\mu\nu}\eta^{\rho\sigma} - \eta^{\mu\sigma}\eta^{\nu\rho}} \\
+&= 2\pangle{F_{\mu\nu},F^{\mu\nu}} \\
+&= -4\tr(F_{\mu\nu}F^{\mu\nu}) \\
+\pangle{D\phi,D\phi} &= \pangle{D_\mu\phi,D_\nu\phi}\pangle{dx^\mu, dx^\nu} \\
+&= \pangle{D_\mu \phi, D_\nu\phi} \eta^{\mu\nu} \\
+&= -2\tr(D_\mu \phi D^\mu\phi)
+}
+Hence the corresponding Lagrangian density is 
+\eq{
+\mc{L} = -4\tr(F_{\mu\nu}F^{\mu\nu})
+}
+
+\hl{continue}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{BPS limit}
+The idea is now to set $\lambda=0$ but retain that $\abs{\phi}=1$ at infinity. More specifically we take the conditions 
+\eq{
+\abs{\phi} & = 1 - \frac{m}{2r} + \mc{O}\pround{\frac{1}{r^2}} \\
+\pd[\abs{\phi}]{\Omega} &= \mc{O}\pround{\frac{1}{r^2}} \\
+\abs{D\phi} &= \mc{O}\pround{\frac{1}{r^2}} 
+}
+With $\lambda=0$ we can rewrite the energy of the configuration as 
+\eq{
+E[A,\phi] &= \int_M \pangle{F \mp \star D\phi, F\mp \star D\phi} \pm 2\pangle{F,D\phi} \\
+&= \int_M \abs{F-\star D\phi}^2 + \int_{\del M} \pangle{F,\phi}
+}
+using that $\pangle{F,D\phi} = d\pangle{F,\phi}$. Then as 
+\eq{
+\int_{\del M} \pangle{F,\phi} = - \int_{\del M} \pangle{\phi, d\phi \wedge d\phi}
+}
+by our discussion of degree we have $E\geq \pm4\pi k$ for some $K \in \mbb{Z}$ with equality iff $F=\mp \star D \phi$ where we choose the sign to make the bound positive. This is the \bam{BPS equation}. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Constructions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The ADHM construction}
 This section follows the work first laid out in \cite{Atiyah1978}. Suppose we have the following information:
