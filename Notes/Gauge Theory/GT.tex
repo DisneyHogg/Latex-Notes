@@ -1569,7 +1569,7 @@ where $F$ is the curvature associated to the connection the functional is evalut
 \begin{lemma}
 	The Yang-Mills functional can be written as
 	\eq{
-S_{YM} = \int_M \tr(F \wedge \star F)	
+S_{YM} \propto \int_M \tr(F \wedge \star F)	
 }
 \end{lemma}
 
@@ -1609,11 +1609,15 @@ we can see that $D\phi$ is horizontal. It is also $G$-invariant if $\phi$ is, an
 \end{corollary}
 
 \begin{remark}
-	We will want to make use of the fact throughout that 
+	We will want to make use of the fact throughout that for forms 
 	\eq{
 d^A \tau = d\tau + \psquare{A \wedge \tau}	
 }
-where $\psquare{\omega \wedge \eta} = \omega \wedge \eta - (-1)^{pq} \eta \wedge \omega$ where the wedge without square brackets of forms should just take the multiplication of their algebra element coefficients. To see more on this check out \href{https://en.wikipedia.org/wiki/Lie_algebra-valued_differential_form}{Lie algebra-valued differential forms} on Wikipedia and the 2006 gauge theory notes by Jose (pg 18).  
+where $\psquare{\omega \wedge \eta} = \omega \wedge \eta - (-1)^{pq} \eta \wedge \omega$ where the wedge without square brackets of forms should just take the multiplication of their algebra element coefficients. Be aware that the covariant derivative acts differently on connections and this is why we still have 
+\eq{
+F = d^A A = dA + \frac{1}{2}\psquare{A \wedge A} = dA + A \wedge A
+}
+To see more on this check out \href{https://en.wikipedia.org/wiki/Lie_algebra-valued_differential_form}{Lie algebra-valued differential forms} on Wikipedia and the 2006 gauge theory notes by Jose (pg 18).  
 \end{remark}
 Now using that $d^A \tau  = d\tau + A \wedge \tau$ we get 
 \eq{
@@ -1624,17 +1628,21 @@ Hence the Yang-Mills equation is equivalent to
 \eq{
 \int_M \pangle{d^A \tau, F} \omega_{vol} = 0
 }
-Using the formal adjoint $(d^A)^\ast$ adn realising $\tau$ is generic we get 
+Using the formal adjoint $(d^A)^\ast$ and realising $\tau$ is generic we get 
 \eq{
 (d^A)^\ast F = 0
 }
 We make use of the following lemma:
 \begin{lemma} Up to a sign 
-	$\star \pround{(d^A)^\ast F} = d^A (\star F) $
+	Let $d^\ast$ be the formal adjoint of $d$ wrt the inner product $\pangle{\pangle{\eta,\omega}} = \int_M \pangle{\eta,\omega} \omega_{vol}$ (the \bam{codifferential}). Then when acting on a $k$ form 
+	\eq{
+d^\ast = (-1)^{n(k-1)+1}s \star d \star	
+}
+where $n=\dim M$, $s$ is the parity of the signature of $M$, 
 \end{lemma}
-\begin{proof}
-\hl{Not happy about this - look into it}
-\end{proof}
+\begin{remark}
+	The proof of the above lemma on the codifferential requires the application of Stokes' theorem on $M$. The same result can be shown for the covariant derivative if we are in a situation where the conditions for the non-abelian Stokes' theorem apply. This is the case when we are considering $(d^A)^\ast F$ (supposedly, see \cite{Schreiber2011} and nlab ).
+\end{remark}
 As such we get the \bam{Yang-Mills equation}
 \eq{
 d^A(\star F) = 0
@@ -1710,7 +1718,7 @@ Let us now use some useful results in 4d:
 	We have 
 	\eq{
 \pangle{\omega_+, \omega_-}\omega_{vol} &= \omega_+ \wedge \star \omega_- = -\omega_+ \wedge \omega_- \\
-\pangle{\omega_-,\omega_+} \omega_{vol} &= \omega_- \wedge \omega_+ = \omega_+ \wedge \omega_-
+\pangle{\omega_-,\omega_+} \omega_{vol} &= \omega_- \wedge \star \omega_+ = \omega_+ \wedge \omega_-
 }
 but $\pangle{\omega_+, \omega_-} = \pangle{\omega_-, \omega_+}$ so must be 0. 
 \end{proof}
@@ -1724,7 +1732,7 @@ Now we make the following definition
 \begin{definition}
 	We call 
 	\eq{
-c = \int_M \tr(F \wedge F)	
+c = \int_M \tr(F \wedge \highlight{\star}F)	
 }
 the \bam{second Chern number}
 \end{definition}	

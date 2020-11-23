@@ -569,7 +569,11 @@ We can also make the following observation: Recall if we integrated out Hamilton
 \eq{
 \tilde{S} = \pbrace{\tilde{x}_{nF} \, | \, 1 \leq n \leq M}
 }
-we keep $\abs{S}= \abs{\tilde{S}}$ but reduce the global error at $x(nh)$ by $\mc{O}(F^{1-r})$. Hence we can have our sample be as accurate as desirable, while keeping the density the same. 
+we keep $\abs{S}= \abs{\tilde{S}}$ but reduce the global error at $x(nh)$ by $\mc{O}(F^{1-r})$. Hence we can have our sample be as accurate as desirable, while keeping the density the same.
+\begin{remark}
+To improve the efficiency of calculation, while introducing error, one can work with the \bam{sparsified Vietoris-Rips complex} as worked with in \cite{Cavanna2015}.
+\end{remark}
+Another (currently theoretical) approach is to use quantum algorithms to calculate the PH, and then 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{../../bib/custom-bib-style}
