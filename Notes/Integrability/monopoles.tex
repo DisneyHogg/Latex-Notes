@@ -91,52 +91,9 @@ where $\bm{a}=(a_1, a_2, a_3)$, $\bm{\sigma}=(\sigma_1, \sigma_2, \sigma_3)$, an
 \end{lemma}
 
 \begin{corollary}
-	The Killing form is given by $\kappa\pround{T^a,T^b} = \kappa^{ab} = -2\delta^{ab} = -\tr(T^aT^b)$. Hence $\kappa(X,Y) = -\tr(XY)$
+	The Killing form is given by $\kappa\pround{T^a,T^b} = \kappa^{ab} = -2\delta^{ab} = 4\tr(T^aT^b)$. Hence $\kappa(X,Y) = 4\tr(XY)$
 \end{corollary}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The Hodge star operator}
-\begin{definition}
-	A \bam{volume form} of a differentiable manifold $M$ is a top-degree form (i.e. form of degree $\dim M$). 
-\end{definition}
-
-\begin{definition}
-	An \bam{oriented} manifold is one equipped with a nowhere-vanishing volume form. 
-\end{definition}
-
-\begin{lemma}
-	Every Riemannian manifold $(M,g)$ has a canonical choice of volume form given in local coordinates $x^1, \dots, x^n$ by 
-	\eq{
-		\omega_{vol} = \sqrt{\abs{g}} dx^1 \wedge \dots \wedge dx^n
-	} 
-\end{lemma}
-
-\begin{lemma}
-	If $V$ is a vector space with bilinear $\pangle{\cdot, \cdot}$ then $\bigwedge^k V$ inherits a bilinear by the Grammian determinant. 
-	\eq{
-		\pangle{\alpha_1 \wedge \dots \wedge \alpha_k, \beta_1 \wedge \dots \wedge \beta_k} = \det \pround{\pangle{\alpha_i,\beta_j}_{i,j=1}^k}	
-	}
-\end{lemma}
-
-\begin{definition}
-	If $M$ is a $n$-dimensional Riemannian manifold, the \bam{Hodge star} is the operator $\star : \Omega^r(M) \to \Omega^{n-r}(M)$ given by 
-	\eq{
-		\alpha \wedge (\star \beta) = \pangle{\alpha,\beta} \omega_{vol}
-	}
-	for $\alpha,\beta \in \Omega^r(M)$, where $\pangle{\cdot,\cdot}$ is the Euclidean structure on $\Omega^r(M)$. 
-\end{definition}
-
-\begin{lemma}
-	This property defines $\star$ completely. 
-\end{lemma}
-
-
-\begin{prop}
-	If $M$ has determinantal sign $\Delta$ of the inner product, then 
-	\eq{
-		\star \star \alpha = (-1)^{r(n-r)} \Delta \alpha	
-	}
-\end{prop}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Degree of a Map}
@@ -146,6 +103,124 @@ Consider a smooth map $n:S_s^2 \to S_t^2$. The number of preimages of $p \in S_t
 }
 for some normalisable volume form on $S_t$. Then 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Properties of Curves}
+Here we want to take an example curve and consider the kind of constructs on it we will be looking at. To this we will effectively go through Miranda \cite{Miranda1995} and apply the relevant sections. \\
+Define the degree-$6$ homogeneous polynomial $P:\mbb{C}^3 \to \mbb{C}$ by 
+\eq{
+P(x,y,z) = y^6 - x^6 + z^2 x^4
+}
+Define the corresponding projective plane curve 
+\eq{
+X = \pbrace{[x:y:z] \in \mbb{P}^2 \, | \, P(x,y,z) = 0}
+}
+Throughout we will want to compare our by-hand calculations with numerics in Sage, so we start by initialising $X$. 
+\begin{lstlisting}[language=Python,frame=single]
+sage: x,y,z = QQ['x,y,z'].gens()
+sage: X = Curve(y^6-x^6+z^2*x^4)
+\end{lstlisting}
+The corresponding affine plane curve on the intersection with the open set $U_x = \pbrace{x \neq 0}$ is $y^6 = 1-z^2$. Hence 
+\eq{
+X = \pbrace{[1:y:z] \, | \, y^6 = 1-z^2} \cup \pbrace{[0:0:1]}
+}
+\begin{prop}
+	$X$ is singular at $[0:0:1]$ only. 
+\end{prop}
+\begin{proof}
+	We have 
+	\eq{
+\pd[P]{x} &= 2x^3(2z^2 -3x^2), & \pd[P]{y} &= 6y^5, & \pd[P]{z} &= 2zx^4	
+}
+It can be seen that a common solution to these must have $y=0$ from $\del_y P=0$, and then either $z=0$  or $x=0$ from $\del_zP=0$. If $z=0$, $\del_zP=0$ enforces $x=0$ which isn't in $\mbb{P}^2$. If $x=0$, $z$ is arbitrary and we find the point $[0:0:1] \in \mbb{P}^2$. This is calculated in Sage as follows:
+\begin{lstlisting}[language=Python,frame=single]
+sage: X.singular_points()
+[(0 : 0 : 1)]
+\end{lstlisting}
+\end{proof}
+We need to get an understanding of this singularity. If we take the neighbourhood $U_z = \pbrace{z \neq 0}$ the corresponding affine plane curve on the intersection is 
+\eq{
+p(x,y) = y^6-x^6+x^4 = 0
+}
+as 
+\eq{
+X = \pbrace{[x:y:1] \, | \, y^6-x^6+x^4=0} \cup \pbrace{[x:y:0] \, | \, y^6-x^6=0}
+}
+\begin{prop}
+	The only singular point on the affine plane curve $p(x,y)=0$ is $(0,0)$ and it is $2$-monomial. 
+\end{prop}
+\begin{proof}
+	$\del_x p(x,y) = 2x^3(2-3x^2), \, \del_y p(x,y) = 6y^5$. It can be seen that the only simultaneous solution to these is  $(0,0)$. Here we write $p(x,y)=g(x,y)^4 - h(x,y)^6$ where
+	\eq{	
+g(x,y) &= x\psquare{1 - \frac{1}{4}x^2 + \dots} = x\psquare{1-x^2}^\frac{1}{4} \\
+h(x,y) &= iy
+}
+We then note $\gcd(4,6) = 2$. 
+\end{proof}
+As such by general theory we know that we can resolve this singularity to make $X$ into a compact Riemann surface. This process involves removing the singularity at $[0:0:1]$ and patching the two holes created. \\
+We now check some topology using Riemann-Hurwitz. 
+\begin{prop}
+	$g(X) = 2$.
+\end{prop}
+\begin{proof}
+	As standard we consider the map $X\to \mbb{P}^1$ taking the coordinate $y$. Then $z$ is generically double valued so the degree of the map is 2. This is ramified at the the 6 roots of $1-y^6=0$, so using $g(\mbb{P}^1)$
+	\eq{
+	g(X) = 1+2(0-1)+\frac{1}{2} \times 6 \times (2-1) = 1-2+3=2
+}
+This is calculated in Sage as follows:
+\begin{lstlisting}[language=Python,frame=single]
+sage: X.genus()
+2
+\end{lstlisting}
+\end{proof}
+\begin{remark}
+	This is to be expected, as here we are dealing with a hyperelliptic curve, of the form $z^2=h(y)$ where $h$ is a polynomial of degree $2g+2$. 
+\end{remark}
+\begin{corollary}
+	Through Hurwitz' theorem we know $\abs{\Aut(X)} \leq 84$.
+\end{corollary}
+This is a very lax bound, we know many groups of order $\leq 84$. We now try to calculate $\Aut(X)$ more systematically. Firstly we note that as a hyperelliptic curve it comes with the hyperelliptic involution $(y,z) \mapsto(y,-z)$ generating a $C_2$ symmetry. We also have a $D_6$ dihedral group of automorphisms generated by $r:(y,z) \mapsto (\zeta y, z)$ and $s:(y,z) \mapsto (1/y,iz/y^3)$ where $\zeta = e^{\frac{i\pi}{3}}$. We can check that as $\zeta^3=-1$ 
+\eq{
+srs:(y,z) \mapsto (1/y,iz/y^3) \mapsto (\zeta/y,i z/y^3) \mapsto (\zeta^{-1}y,i^2 \zeta^{-3}z) = (\zeta^{-1}y,z)
+}
+giving $srs=r^{-1}$ as required from the dihedral group. The hyperelliptic involution commutes with this dihedral action, so in total we have found a $\Aut(X) \geq C_2 \times D_6$. As $\abs{C_2 \times D_6}=24$, by Hurwitz' theorem we know that we could have at most one other automorphism of order either 2 or 3. This turns out not to be the case, and to see a general classification see for example \cite{Muller2017}. \\
+To do the calculation in Sage, not we can use a result in \cite{Lauter2001} (translated \href{https://www.arxiv-vanity.com/papers/1811.07007/}{here}):
+\begin{lemma}
+	If $X$ is a hyperelliptic curve then $\Aut(J(X),a) \cong \Aut(X)$ where $a$ is the canonical principal polarisation of the Jacobian. 
+\end{lemma}
+This allows us to calculate in Sage:
+\begin{lstlisting}[language=Python,frame=single]
+sage: A.<u,v> = QQ[]
+sage: Mod = sage.schemes.riemann_surfaces.riemann_surface
+sage: S = Mod.RiemannSurface(u^2-1+v^6)
+sage: G = S.symplectic_automorphism_group()
+sage: G.structure_description()
+'(C6 x C2) : C2'
+\end{lstlisting}
+\begin{remark}
+	Note that above Sage is acting as a GAP wrapper. The formatting translates to say $G \cong (C_6 \times C_2) \rtimes C_2$
+\end{remark}
+We now want to consider forms on $X$. General theory says that we have a basis of $\Omega^1(X)$ given by 
+\eq{
+\pbrace{\omega_j = \frac{y^j dy}{z}}_{j=0}^{g-1}
+}
+and a generating set of $H_1(X,\mbb{Z})$ given by a suitable choice of independent closed paths $c = \gamma_1 - \gamma_2$ where $\gamma_i$ are the two lifts of a path in $\mbb{P}^1$ between branch points of the map $X \to \mbb{P}^1$. In order to find the period matrices explicitly we need to calculate 
+\eq{
+\int_c \omega_j 
+}
+for these loops c. To be explicit for the paths in the base that we choose we take 
+\eq{
+a_1 &= \pbrace{e^{\frac{it\pi}{3}} \, | \, t \in [0,1]} \\
+b_1 &= \pbrace{e^{\frac{i(t+1)\pi}{3}} \, | \, t \in [0,1]} \\
+a_2 &= \pbrace{e^{\frac{i(t+3)\pi}{3}} \, | \, t \in [0,1]} \\
+b_2 &= \pbrace{e^{\frac{i(t+5)\pi}{3}} \, | \, t \in [0,1]}  
+}
+This can be calculated numerically in Sage as below (output fomratted to fit in the document):
+\begin{lstlisting}[language=Python,frame=single]
+sage: S.period_matrix()
+[ -0.6-1.1*I  0.6+1.1*I 1.2+0.0*I -1.2+0.0*I]
+[ -1.1-0.1*I -1.1-0.6*I 0.0-1.2*I  0.0-1.2*I]
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The Monopole Equations}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -153,13 +228,20 @@ for some normalisable volume form on $S_t$. Then
 \begin{definition}
 Take a principal $G$-bundle $P\to M$, $\omega_{vol}$ an orientation on $M$, and $\pangle{\cdot, \cdot}$ to be an $\ad$-invariant inner product on $\mf{g}$. Then the \bam{Yang-Mills-Higgs actions} on $M$ is 
 \eq{
-S_{YMH}[A,\phi] = \int_M \psquare{\abs{F}^2 + \abs{D\phi}^2 + V(\phi)}\omega_{vol}
+S_{YMH}[A,\phi] = \int_M \psquare{-\abs{F}^2 + \abs{D\phi}^2 - V(\phi)}\omega_{vol}
 }
 where $F=dA+A\wedge A$ is the curvature associated to a section $A\in \Gamma(T^\ast M \otimes \ad(P))$, $D = d+A$ is the associated covariant derivative, and $\phi \in \Gamma(\ad(P))$.
 \end{definition}
 
+To connect with physical theory we want our Lagrangian to be of the form kinetic-potential. This will manifest itself in our choice of signs by requiring that 
+\eq{
+\abs{D\phi}^2 &= (\del_0 \phi)^2 + \dots \\
+-\abs{F}^2 &= E_i^2 + \dots
+}
+This is the reason for the somewhat strange looking sign choice at this point. 
+
 \begin{remark}
-	A common choice of potential function $V$ is $V(\phi) = \lambda \pround{1-\abs{\phi}^2}^2$, the \bam{$\phi^4$-potential}. 
+	A common choice of potential function $V$ is $V(\phi) = \lambda \pround{1-\abs{\phi}^2}^2$, the \bam{$\phi^4$-potential}. By our choice of signs, we want $\lambda >0$. We can check $V^\prime(\phi) = -4\lambda(1-\abs{\phi}^2)\abs{\phi}$. 
 \end{remark}
 
 \begin{definition}
@@ -167,42 +249,31 @@ where $F=dA+A\wedge A$ is the curvature associated to a section $A\in \Gamma(T^\
 \end{definition}
 
 \begin{prop}
-	The variational equations corresponding to $S_{YMH}$ are the\bam{Yang-Mills-Higgs equations}
+	The variational equations corresponding to $S_{YMH}$ in Minkowski $\mbb{R}^4$ are the\bam{Yang-Mills-Higgs equations}
 	\eq{
 DF &= 0 \quad \text{(Bianchi)} \\
- \star D \star F &= -\comm[\phi]{D\phi} \\
- \star D \star D\phi &= -V^\prime(\phi)	
+ \star D \star F &= \comm[\phi]{D\phi} \\
+ \star D \star D\phi &= \frac{1}{2\abs{\phi}}V^\prime(\phi)\phi	
 }
 \end{prop}
 \begin{proof}
 	We first consider the equation that comes from the variation of $A$. Let $A_t = A + t\beta$, then $F_t = F + t\pround{d\beta + \beta \wedge A + A \wedge \beta} + \mc{O}(t^2)$ and $D_t \phi = D \phi + t\comm[\beta]{\phi}$. Hence 
 	\eq{
-S_t = S + 2t\int_M \psquare{\pangle{F,D\beta} + \pangle{D\phi,\comm[\beta]{\phi}}} \omega_{vol} + \mc{O}(t^2)
+S_t = S + 2t\int_M \psquare{-\pangle{F,D\beta} + \pangle{D\phi,\comm[\beta]{\phi}}} \omega_{vol} + \mc{O}(t^2)
 }
 Hence to be at a stationary point of the action variation we want
 \eq{
-\int_M \psquare{\pangle{F,D\beta} + \pangle{D\phi,\comm[\beta]{\phi}}} \omega_{vol} = 0
+\int_M \psquare{-\pangle{F,D\beta} + \pangle{D\phi,\comm[\beta]{\phi}}} \omega_{vol} = 0
 }
 Using the fact that inner product is $\ad$-invariant and letting $D^\ast$ be the formal adjoint of $D$ wrt to inner product $\pangle{\pangle{\eta,\omega}} = \int_M \pangle{\eta,\omega} \omega_{vol}$ we can rewrite this as 
 \eq{
-\int_M \pangle{D^\ast F - \comm[D\phi]{\phi},\beta} \omega_{vol} = 0
+\int_M \pangle{D^\ast F + \comm[D\phi]{\phi},\beta} \omega_{vol} = 0
 }
 Using results on the dual of the covariant derivative we can say that 
 \eq{
 D^\ast F = (-1)^{4(2-1)+1}(-1)\star D \star F = \star D \star F 
 }
-Hence as $\beta$ was a generic variation we must have $\star D \star F - \comm[D\phi]{\phi} =0$. \\
-An alternative way to do the last step is to use the following:
-\begin{lemma} $ d\pangle{\beta \wedge \star F} = \pangle{D\beta \wedge \star F} - \pangle{\beta \wedge D(\star F)} $
-\end{lemma}
-This means 
-\eq{
-\int_M \pangle{F,D\beta} \omega_{vol} &= \int_M \pangle{D\beta,F} \omega_{vol} \\
-&= \int_M \pangle{D \beta \wedge \star F} \\
-&= \int_M d\pangle{\beta \wedge \star F} + \pangle{\beta \wedge D \star F} \\
-&= \pangle{\beta,\star D \star F}\omega_{vol} 
-}
-where we have used the (abelian) Stokes' theorem and that on $4d$ Minkowski space $(\star)^2 = (-1)^{3\times(4-3)+1}=1$ on 3-forms (e.g $D\star F$). \\
+Hence as $\beta$ was a generic variation we must have $\star D \star F + \comm[D\phi]{\phi} =0$. \\
 We now consider a $\phi$ variation so $\phi_t = \phi + t\psi$. Note 
 \eq{
 \abs{\phi_t} = \sqrt{\pangle{\phi_t,\phi_t}} = \sqrt{\abs{\phi}^2 + 2t\pangle{\phi,\psi} + \mc{O}(t^2)} = \abs{\phi}\sqrt{1 + \frac{2t\pangle{\phi,\psi}}{\abs{\phi}^2} + \mc{O}(t^2)} = \abs{\phi} + t\frac{\pangle{\phi,\psi}}{\abs{\phi}} + \mc{O}(t^2)
@@ -213,26 +284,24 @@ V(\phi_t) = V(\phi) + t\abs{\phi}^{-1} V^\prime(\phi) \pangle{\phi,\psi} + \mc{O
 }
 Then a variational argument as before means that we need to set 
 \eq{
-2D^\ast D \phi + \abs{\phi}^{-1} V^\prime(\phi) \phi &= 0 \\
-\Rightarrow \star D \star D \phi + \frac{1}{2\abs{\phi}}V^\prime(\phi) \phi &= 0
+ && \int_M \psquare{2\pangle{D\phi, D\psi} - \abs{\phi}^{-1} V^\prime(\phi) \pangle{\phi,\psi}} \omega_{vol} &= 0 \\
+ \Rightarrow& &  2D^\ast D \phi- \abs{\phi}^{-1} V^\prime(\phi) \phi &= 0 \\
+\Rightarrow& &  (-1)^{4(1-1)+1}(-1)\star D \star D \phi - \frac{1}{2\abs{\phi}}V^\prime(\phi) \phi &= 0 \\
+\Rightarrow& &  \star D \star D \phi - \frac{1}{2\abs{\phi}}V^\prime(\phi) \phi &= 0
 }
-With the $\phi^4$-potential, $V^\prime(\phi) = -4\lambda(1-\abs{\phi}^2)\abs{\phi}$. 
 \end{proof}
+
 \begin{remark}
 	The Dirac monopole is a solution in the case of $G=U(1)$.
 \end{remark}
-We may make these equations explicit in coordinates. The first approach is to try and substitue in coordinate expressions into the YMH equations. We use that in general
-\eq{
-\star (dx^{\mu_1} \wedge \dots \wedge dx^{\mu_p}) = \frac{1}{(n-p)!}\epsilon\indices{^{\mu_1}^\dots^{\mu_p}_{\mu_{p+1}}_\dots_{\mu_n}} dx^{\mu_{p+1}} \wedge dx^{\mu_n} 
-}
-using summation notation, and so taking coordinates $x^\mu$ on $\mbb{R}^4$ and writing $F = \frac{1}{2}F_{\mu\nu} dx^\mu \wedge dx^\nu$
+We may make these equations explicit in coordinates. The first approach is to try and substitute in coordinate expressions into the YMH equations. Taking coordinates $x^\mu$ on $\mbb{R}^4$ and writing $F = \frac{1}{2}F_{\mu\nu} dx^\mu \wedge dx^\nu$
 \eq{
 \star F &= \frac{1}{4} F_{\mu\nu} \epsilon\indices{^\mu^\nu_\rho_\sigma} dx^\rho \wedge dx^\sigma \\
 \Rightarrow D\star F &= \frac{1}{4} D_\tau F_{\mu\nu} \epsilon\indices{^\mu^\nu_\rho_\sigma} dx^\tau \wedge dx^\rho \wedge dx^\sigma \\
 \Rightarrow \star D \star F &= \frac{1}{4} D_\tau F_{\mu\nu} \epsilon\indices{^\mu^\nu_\rho_\sigma} \epsilon\indices{^\tau^\rho^\sigma_\lambda} dx^\lambda \\
 &= \frac{1}{4} D_\tau F_{\mu\nu} \eps\indices{_\rho_\sigma^\mu^\nu}\eps\indices{^\rho^\sigma^\tau_\lambda} dx^\lambda \\
-&= D_\tau F\indices{^\mu_\nu} \delta^\tau_{[\mu}\delta^\nu_{\lambda]}dx^\lambda \\
-&= D_\tau F\indices{^\tau_\lambda} dx^\lambda
+&= -D_\tau F\indices{^\mu_\nu} \delta^\tau_{[\mu}\delta^\nu_{\lambda]}dx^\lambda \\
+&= -D_\tau F\indices{^\tau_\lambda} dx^\lambda
 }
 Hence the first monopole equation reads 
 \eq{
@@ -243,9 +312,9 @@ Next we have
 \star D \phi &= \frac{1}{6} (D_\mu \phi) \eps\indices{^\mu_\nu_\rho_\sigma} dx^\nu \wedge dx^\rho \wedge dx^\sigma \\
 \Rightarrow D\star D \phi &= \frac{1}{6} (D_\tau D_\mu \phi) \eps\indices{^\mu_\nu_\rho_\sigma} dx^\tau \wedge dx^\nu \wedge dx^\rho \wedge dx^\sigma \\
 \Rightarrow \star D \star D \phi &= \frac{1}{6} (D_\tau D_\mu \phi) \eps\indices{^\mu_\nu_\rho_\sigma} \epsilon^{\tau \nu \rho \sigma} \\
-&=(D_\tau D^\mu \phi) \delta_\mu^\tau = D_\mu D^\mu \phi
+&=-(D_\tau D^\mu \phi) \delta_\mu^\tau = -D_\mu D^\mu \phi
 }
-which yields 
+which yields (taking the $\phi^4$ potential)
 \eq{
 D_\mu D^\mu \phi -2\lambda (1-\abs{\phi}^2)\phi = 0
 }
@@ -255,20 +324,29 @@ Collecting this with the Bianchi identity (taking it as $\star DF=0$) we have
 D_\mu F\indices{^\mu^\nu} -\comm[D^\nu \phi]{\phi} &= 0 \\
 D_\mu D^\mu \phi -2\lambda (1-\abs{\phi}^2)\phi &= 0
 }
-An alternative approach to deriving these equations is to first write the Lagrangian in coordinate form and then derive the variational equations. We take the inner product on $\mf{g} = \mf{su}(2)$ to be $\pangle{X,Y} = -\frac{1}{2}\kappa(X,Y) = -\frac{1}{2}\tr(XY)$ for concreteness, but note that it should not matter (\hl{why?}). We have 
+An alternative approach to deriving these equations is to first write the Lagrangian in coordinate form and then derive the variational equations. We take the inner product on $\mf{g} = \mf{su}(2)$ to be $\pangle{X,Y} = -\frac{1}{2}\kappa(X,Y) = -2\tr(XY)$ for concreteness, which gives $\pangle{t^a,t^b} = \delta^{ab}$, and as such we need the mostly-minus Minkowski metric. We have 
 \eq{
 \pangle{F,F} &= \frac{1}{4}\pangle{F_{\mu\nu},F_{\rho\sigma}} \pangle{dx^\mu \wedge dx^\nu, dx^\rho \wedge dx^\sigma} \\
 &= \frac{1}{4}\pangle{F_{\mu\nu},F_{\rho\sigma}}\pround{\eta^{\mu\nu}\eta^{\rho\sigma} - \eta^{\mu\sigma}\eta^{\nu\rho}} \\
 &= \frac{1}{2}\pangle{F_{\mu\nu},F^{\mu\nu}} \\
-&= -\frac{1}{4}\tr(F_{\mu\nu}F^{\mu\nu}) \\
+&= -\tr(F_{\mu\nu}F^{\mu\nu}) \\
 \pangle{D\phi,D\phi} &= \pangle{D_\mu\phi,D_\nu\phi}\pangle{dx^\mu, dx^\nu} \\
 &= \pangle{D_\mu \phi, D_\nu\phi} \eta^{\mu\nu} \\
-&= -\frac{1}{2}\tr(D_\mu \phi D^\mu\phi)
+&= -2\tr(D_\mu \phi D^\mu\phi)
 }
 Hence the corresponding Lagrangian density is 
 \eq{
-\mc{L} = -\frac{1}{4}\tr(F_{\mu\nu}F^{\mu\nu}) - \frac{1}{2}\tr(D_\mu \phi D^\mu \phi)+ V(\phi) = \sum_a \psquare{ \frac{1}{2} F_{\mu\nu}^{(a)} F^{(a)\mu\nu} + \pround{D_\mu \phi}^{(a)} \pround{D^\mu \phi}^{(a)}} + \lambda \psquare{1-\sum_a (\phi^{(a)})^2}^2 
+\mc{L} = +\tr(F_{\mu\nu}F^{\mu\nu}) - 2\tr(D_\mu \phi D^\mu \phi)- V(\phi) = \sum_a \psquare{- \frac{1}{2}F_{\mu\nu}^{(a)} F^{(a)\mu\nu} + \pround{D_\mu \phi}^{(a)} \pround{D^\mu \phi}^{(a)}} - \lambda \psquare{1-\sum_a (\phi^{(a)})^2}^2 
 }
+To check that we have the correct signs in this Lagrangian we verify that it takes the form kinetic-potenial with 
+\eq{
+\text{kinetic} &= -2\tr(E_i E_i) -2\tr(D_0 \phi D_0 \phi) \\
+\text{potential} &= -\tr(F_{ij} F_{ij}) -2\tr(D_i \phi D_i \phi) + V(\phi)  
+}
+where $E_i = F_{0i}$.
+\begin{remark}
+	Something we can immediately recognise is that in order to get finite energy solutions when $\lambda \neq 0$, we need $\abs{\phi} \to 1$.
+\end{remark}
 We now recall the Euler-Lagrange equations for Lagrangian with field $\psi$
 \eq{
 \pd[\mc{L}]{\psi} - \del_\mu \pd[\mc{L}]{(\del_\mu \psi)}=0
@@ -280,33 +358,36 @@ The fields here are really the coefficients in $\mf{su}(2)$ of $A_\mu, \phi$, th
 }
 giving 
 \eq{
-\pd[\mc{L}]{(\del_\mu A_\nu^{(a)})} &= 2F^{(a)\mu\nu} \\
-\pd[\mc{L}]{A_\mu^{(a)}} &= 2\eps\indices{_b_a_c}A^{(c)}_\nu F^{(b)\mu\nu}+2\phi^{(c)}\eps\indices{_b_a_c}(D^\mu \phi)^{(b)} \\
+\pd[\mc{L}]{(\del_\mu A_\nu^{(a)})} &= -2F^{(a)\mu\nu} \\
+\pd[\mc{L}]{A_\mu^{(a)}} &= -2\eps\indices{_b_a_c}A^{(c)}_\nu F^{(b)\mu\nu}+2\phi^{(c)}\eps\indices{_b_a_c}(D^\mu \phi)^{(b)} \\
 \pd[\mc{L}]{(\del_\mu \phi^{(a)})} &= 2(D^\mu \phi)^{(a)} \\
-\pd[\mc{L}]{\phi^{(a)}} &= 2\eps\indices{_c_b_a}A_\mu^{(b)} (D^\mu \phi)^{(c)} -4\lambda \phi^{(a)}\psquare{1-\sum_b (\phi^{(b)})^2}
+\pd[\mc{L}]{\phi^{(a)}} &= 2\eps\indices{_c_b_a}A_\mu^{(b)} (D^\mu \phi)^{(c)} +4\lambda \phi^{(a)}\psquare{1-\sum_b (\phi^{(b)})^2}
 }
 We can now write the Euler-Lagrange equations 
 \eq{
-0 &= \del_\nu F^{(a)\nu\mu } - \psquare{\eps\indices{_b_a_c}A^{(c)}_\nu F^{(b)\mu\nu}+\phi^{(c)}\eps\indices{_b_a_c}(D^\mu \phi)^{(b)}} \\
-&= \psquare{\del_\nu F^{(a)\nu\mu} + A_\nu^{(c)}F^{(b)\nu\mu}\eps_{cba}} + (D^\mu \phi)^{(b)}\phi^{(c)}\eps_{bca} \\
-\Rightarrow 0 &= D_\nu F^{\nu \mu} + \comm[D^\mu \phi]{\phi}  \\
+0 &= -\del_\nu F^{(a)\nu\mu } - \psquare{-\eps\indices{_b_a_c}A^{(c)}_\nu F^{(b)\mu\nu}+\phi^{(c)}\eps\indices{_b_a_c}(D^\mu \phi)^{(b)}} \\
+&= -\psquare{\del_\nu F^{(a)\nu\mu} + A_\nu^{(c)}F^{(b)\nu\mu}\eps_{cba}} + (D^\mu \phi)^{(b)}\phi^{(c)}\eps_{bca} \\
+\Rightarrow 0 &= D_\nu F^{\nu \mu} - \comm[D^\mu \phi]{\phi}  \\
 }
 and 
 \eq{
-0 &= \del_\mu (D^\mu \phi)^{(a)} - \psquare{\eps\indices{_c_b_a}A_\mu^{(b)} (D^\mu \phi)^{(c)} -2\lambda \phi^{(a)}\psquare{1-\sum_b (\phi^{(b)})^2}} \\
-&= \psquare{\del_\mu (D^\mu \phi)^{(a)} + A_\mu^{(b)} (D^\mu \phi)^{(c)} \eps_{bca}} + 2\lambda \phi^{(a)}\psquare{1-\sum_b (\phi^{(b)})^2} \\
-\Rightarrow 0 &= D_\mu D^\mu \phi + 2\lambda  (1-\abs{\phi}^2)\phi
+0 &= \del_\mu (D^\mu \phi)^{(a)} - \psquare{\eps\indices{_c_b_a}A_\mu^{(b)} (D^\mu \phi)^{(c)} +2\lambda \phi^{(a)}\psquare{1-\sum_b (\phi^{(b)})^2}} \\
+&= \psquare{\del_\mu (D^\mu \phi)^{(a)} + A_\mu^{(b)} (D^\mu \phi)^{(c)} \eps_{bca}} - \lambda \phi^{(a)}\psquare{1-\sum_b (\phi^{(b)})^2} \\
+\Rightarrow 0 &= D_\mu D^\mu \phi - 2\lambda  (1-\abs{\phi}^2)\phi
 }
-\hl{These do not match up - sort this out}. 
+We happily see that these two approaches agree, and we should see that these are indeed the sort of equations we want (e.g the $\phi$ equation looks like Klein-Gordon if we linearise around $\abs{\phi}=1$. )
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{BPS limit}
-The idea is now to set $\lambda=0$ but retain that $\abs{\phi}=1$ at infinity. More specifically we take the conditions 
+The monopole equations we have found so far are second order, but we want to apply the classic strategy when working with topological solitons: write the energy functional as the integral of a square term plus a topological term, and then we locally must have a minimising solution by setting the squared term to 0. This will be possible if we set $\lambda=0$ but retain that $\abs{\phi}=1$ at infinity. More specifically we take the conditions 
 \eq{
 \abs{\phi} & = 1 - \frac{m}{2r} + \mc{O}\pround{\frac{1}{r^2}} \\
 \pd[\abs{\phi}]{\Omega} &= \mc{O}\pround{\frac{1}{r^2}} \\
 \abs{D\phi} &= \mc{O}\pround{\frac{1}{r^2}} 
 }
-With $\lambda=0$ we can rewrite the energy of the configuration as 
+With $\lambda=0$ we can rewrite the energy functional as 
+\eq{
+E[A,\phi] = \int_M \psquare{-2\tr(E_i E_i) -2\tr(D_0 \phi D_0 \phi) -\tr(F_{ij} F_{ij}) -2\tr(D_i \phi D_i \phi)} d^4 x
+} of the configuration as 
 \eq{
 E[A,\phi] &= \int_M \pangle{F \mp \star D\phi, F\mp \star D\phi} \pm 2\pangle{F,D\phi} \\
 &= \int_M \abs{F-\star D\phi}^2 + \int_{\del M} \pangle{F,\phi}

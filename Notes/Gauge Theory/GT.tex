@@ -282,6 +282,69 @@ H_{dR}^i(M) = \faktor{\ker(d: \Omega^i(M) \to \Omega^{i+1}(M))}{\image(d: \Omega
 Often (e.g when $M$ is compact) this is finite dimensional. Note that, despite the fact that we needed smooth structure in order to define this, it is in fact a topological property. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{The Hodge star operator}
+The Hodge star is an operator fraught with minus sign problems. Check \href{https://ncatlab.org/nlab/show/Hodge+star+operator}{nlab} to try be consistent. 
+
+\begin{definition}
+	A \bam{volume form} of a differentiable manifold $M$ is a top-degree form (i.e. form of degree $\dim M$). 
+\end{definition}
+
+\begin{definition}
+	An \bam{oriented} manifold is one equipped with a nowhere-vanishing volume form. 
+\end{definition}
+
+\begin{lemma}
+	Every Riemannian manifold $(M,g)$ has a canonical choice of volume form given in local coordinates $x^1, \dots, x^n$ by 
+	\eq{
+		\omega_{vol} = \sqrt{\abs{g}} dx^1 \wedge \dots \wedge dx^n
+	} 
+\end{lemma}
+
+\begin{lemma}
+	If $V$ is a vector space with bilinear $\pangle{\cdot, \cdot}$ then $\bigwedge^k V$ inherits a bilinear by the Grammian determinant. 
+	\eq{
+		\pangle{\alpha_1 \wedge \dots \wedge \alpha_k, \beta_1 \wedge \dots \wedge \beta_k} = \det \pround{\pangle{\alpha_i,\beta_j}_{i,j=1}^k}	
+	}
+\end{lemma}
+
+\begin{definition}
+	If $M$ is a $n$-dimensional Riemannian manifold, the \bam{Hodge star} is the operator $\star : \Omega^r(M) \to \Omega^{n-r}(M)$ given by 
+	\eq{
+		\alpha \wedge (\star \beta) = \pangle{\alpha,\beta} \omega_{vol}
+	}
+	for $\alpha,\beta \in \Omega^r(M)$, where $\pangle{\cdot,\cdot}$ is the Euclidean structure on $\Omega^r(M)$. 
+\end{definition}
+
+\begin{lemma}
+	This property defines $\star$ completely. 
+\end{lemma}
+\begin{proof}
+	\hl{exercise}
+\end{proof}
+
+\begin{prop}
+	If $M$ has determinantal sign $s$ of the inner product, and $\alpha \in \Omega^r(M)$ then 
+	\eq{
+		(\star)^2 \alpha = (-1)^{r(n-r)}s \alpha	
+	}
+\end{prop}
+\begin{corollary}
+	On Euclidean $\mbb{R}^4$, $(\star)^2 = 1$, so $\star$ has eigenvalues $\pm 1$. 
+\end{corollary}
+
+\begin{prop}
+	Take coordinates $\pbrace{x^\mu}$ on an $n$-dimensional manifold $M$. Let $g$ be a metric with $g_{\mu\nu} = g\pround{\pd{x^\mu}, \pd{x^\nu}}$. Then  
+	\eq{
+		\star (dx^{\mu_1} \wedge \dots \wedge dx^{\mu_p}) &= \frac{\sqrt{\abs{ g}}}{(n-p)!} g^{\mu_1 \nu_1} \dots g^{\mu_p \nu_p} \epsilon_{\nu_1 \dots \nu_n} dx^{\nu_{p+1}} \wedge \dots \wedge dx^{\nu_n} \\
+		&=  \frac{1}{(n-p)!}\epsilon\indices{^{\mu_1}^\dots^{\mu_p}_{\mu_{p+1}}_\dots_{\mu_n}} dx^{\mu_{p+1}} \wedge \dots \wedge dx^{\mu_n} 
+	}
+Here we are using the Levi-Civita tensor, which means that, for example, in Minkowski 
+\eq{
+\eps_{\mu_1 \dots \mu_p \mu_{p+1} \dots \mu_n} \eps^{\nu_1 \dots \nu_p \mu_{p+1} \dots \mu_n} = -(n-p)! \delta^{\nu_1 \dots \nu_p}_{\mu_1 \dots \mu_p}
+}
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Lie Theory}
 \subsubsection{Lie Group Basics}
 
@@ -628,10 +691,8 @@ d\theta(\xi,\eta) = \xi \theta(\eta) - \eta \theta(\xi) - \theta(\comm[\xi]{\eta
 \end{fact}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Riemannian and Symplectic Geometry}
-\hl{Combine this section with the previous and neaten up }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The main stuff}
+\subsection{Symplectic Geometry}
+\subsubsection{Symplectic Manifolds}
 
 \begin{definition}
 If $M$ is an even-dimensional manifold we say $M$ is symplectic if it is  equipped with $\omega \in \Omega^2(M)$ which is 
@@ -641,7 +702,9 @@ If $M$ is an even-dimensional manifold we say $M$ is symplectic if it is  equipp
 \end{itemize}
 \end{definition}
 
-If $(M,\omega)$ is symplectic and $f \in C^\infty(M)$, then $df \in \Omega^1(M)$ and $\exists ! \, X^f \in \mf{X}(M)$ s.t $i_{X^f}\omega = df$. $X^f$ is called the Hamiltonian function associated to $f$. 
+\begin{definition}
+If $(M,\omega)$ is symplectic and $f \in C^\infty(M)$, then $df \in \Omega^1(M)$ and $\exists ! \, X^f \in \mf{X}(M)$ s.t $i_{X^f}\omega = df$. $X^f$ is called the \bam{Hamiltonian function associated to $f$}. 
+\end{definition}
 
 \begin{lemma}
 The Hamiltonian function is constant along the flow lines of its vector field, i.e 
@@ -651,36 +714,6 @@ t \mapsto (f \circ \phi_t^{X^f}(m))
 is constant.
 \end{lemma}
 
-If $G$ is a Lie group with smooth action on $M$, we say that the action is \bam{symplectic} if
-\begin{enumerate}
-    \item $g^\ast \omega = \omega$
-\end{enumerate}
-Now let us think about 
-\begin{tkz}
-C^\infty(M) \arrow[r,"d"] & \Omega^1(M) \arrow[r] & \mf{X}(M) \\
-\mf{g} \arrow[u,dashed,"\mu^\ast"] \arrow[rru] & &
-\end{tkz}
-If such a map exists, we say the action is Hamiltonian and call the map the \bam{co-moment map}. We can then repackage this into a \bam{moment map} 
-\eq{
-\mu : M &\to \mf{g}^\ast \\
-\mu(m)(X) &=\mu^\ast(X)(m)
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Left overs}
-\subsubsection{Minus sign problems}
-There is a mismatch of minus signs in the convention of the literature, namely that constructing a map 
-\eq{
-\mf{g} &\to \mf{X}(M) \\
-X &\mapsto \tilde{X}
-}
-can be done in one of two ways 
-\begin{enumerate}
-    \item Set $\tilde{X}_m = \ev{\frac{d}{dt} \exp(tX) \cdot m}{t=0}$ as is natural, but then the map is a Lie algebra \bam{antihomomorphism}
-    \item Set $\tilde{X}_m = \ev{\frac{d}{dt} \exp(-tX) \cdot m}{t=0}$, and then the map is  Lie algebra homomorphism. 
-\end{enumerate}
-For the purpose of this course the second convention is used. 
-
-\subsubsection{Symplectic Manifolds}
 Given a smooth manifold $N$, we have the following result:
 
 \begin{theorem}
@@ -720,12 +753,84 @@ If $f \in C^\infty(M)$ we get associated Hamiltonian vector fields $X^f$. We the
 \acomm[f]{g} \equiv X^f(g) = \omega(X^f,X^g)
 }
 \end{aside}
+
+\begin{theorem}[Darboux]
+	On any symplectic manifold there exist local coordinates $(q,p)$ s.t. $\omega = dq \wedge dp$. 
+\end{theorem}
+\begin{corollary}
+	There is no local invariant in symplectic geometry. 
+\end{corollary}
+
+\begin{remark}
+	When we think of symplectic geometry vs complex geometry vs Riemannian geometry what we are really doing is thinking of the frame bundle of the tangent bundle of $M$, which when $\dim M = 2n$ is a $GL(2n,\mbb{R})$ bundle, and then asking about reduction of structure gropu to either $SP(n), \, GL(n,\mbb{C}),$ or $O(2n,\mbb{R})$.  
+\end{remark}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Symmetries and Moment Maps}
+\begin{definition}
+	A group action of $G$ on a symplectic manifold $(M,\omega)$ is \bam{symplectic} if $\forall g \in G, \, g^\ast \omega = \omega$. 
+\end{definition}
+\begin{remark}
+There is a mismatch of minus signs in the convention of the literature, namely that given a group action of $G$ on $(M,\omega)$ constructing a map 
+\eq{
+	\mf{g} &\to \mf{X}(M) \\
+	X &\mapsto \tilde{X}
+}
+can be done in one of two ways 
+\begin{enumerate}
+	\item Set $\tilde{X}_m = \ev{\frac{d}{dt} \exp(tX) \cdot m}{t=0}$ as is natural, but then the map is a Lie algebra \bam{antihomomorphism}
+	\item Set $\tilde{X}_m = \ev{\frac{d}{dt} \exp(-tX) \cdot m}{t=0}$, and then the map is  Lie algebra homomorphism. 
+\end{enumerate}
+For the purpose of this course the second convention is used.
+\end{remark}
+
+
+
+Now let us think about 
+\begin{tkz}
+	C^\infty(M) \arrow[r,"d"] & \Omega^1(M) \arrow[r] & \mf{X}(M) \\
+	\mf{g} \arrow[u,dashed,"\mu^\ast"] \arrow[rru] & &
+\end{tkz}
+\begin{definition}
+	If such a map $\mu^\ast$ exists, we say the action is \bam{Hamiltonian} and call the map the \bam{co-moment map}.
+\end{definition}
+\begin{definition}
+	Given a co-moment map $\mu^\ast$ the corresponding \bam{moment map} is 
+\eq{
+	\mu : M &\to \mf{g}^\ast \\
+	\mu(m)(X) &=\mu^\ast(X)(m)
+}
+\end{definition}
+
+\begin{example}
+	Let $U(1)$ act on $T^2$ by rotation around the central axis. If we view $T^2 \cong \faktor{\mbb{R}^2}{\mbb{Z}^2}$ then we can take the 2-from $dx\wedge dy$ on $\mbb{R}^2$ which descends to $T^2$. The vector field corresponding to this action is nowhere 0. This action then cannot be Hamiltonian, as any smooth map on a compact manifold must have critical points (see Morse theory) and so 1-form must have critical points, and hence the associated Hamiltonian vector field would be somewhere 0. 
+\end{example}
+
+\begin{example}
+	If $G$ is action on coadjoint orbits of $\mf{g}^\ast$, $\mu$ is inclusion. 
+\end{example}
+
+\begin{prop}
+	If $G$ acting on $M$ is semi-simple, moment maps always exist. 
+\end{prop}
+
+\begin{prop}
+	If $G$ acts on $(M,\omega)$ and $0$ is a regular value of $\mu$, then $\faktor{\mu^{-1}(0)}{G}$ is a new symplectic manifold with natural symplectic form $\omega_{red}$ characterised by $i^\ast \omega = \pi^\ast \omega_{red}$ as below 
+	\begin{tkz}
+		\mu^{-1}(0) \arrow[r,"i",hook] \arrow[d,"\pi"'] & (M,\omega) \\
+		(\faktor{\mu^{-1}(0)}{G},\omega_{red})
+	\end{tkz}
+This process is \bam{symplectic reduction}.
+\end{prop}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Bundles}
-\hl{Neaten up this section}
+\section{Bundles Theory}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Principle Bundles}
+\subsection{Bundles}
+\subsubsection{Principle Bundles}
 \begin{definition}
 A group action $G \lact M$ is \bam{free} if $\forall m \in M, g \in G, \, e \neq g \Rightarrow g\cdot m \neq m$
 \end{definition}
@@ -840,7 +945,7 @@ This is a $GL(r,\mbb{R})$-bundle. The action is given by
 \end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Bundles from Bundles}
+\subsubsection{Bundles from Bundles}
 \begin{definition}
 	Given $P \to M$ a ppal $G$-bundle and $f:N \to M$ smooth we defin the \bam{pullback bundle} to be 
 	$f^\ast \pi : f^\ast P \to N$ the fibered product 
@@ -849,8 +954,6 @@ f^\ast P = \pbrace{(y,p) \in N \times P \, | \, f(y) = \pi(p)}
 }
 \end{definition}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Associated Fibre Bundle}
 If we are given a principal bundle $G \to P \overset{\pi}{\to} M$ and a left action $G \lact F$ we can get the action $(P \times F) \ract G$ by $(p,f) \cdot g = (p\cdot g, g^{-1} \cdot f)$. This action is always smooth, free, and proper. 
 
 \begin{definition}
@@ -935,7 +1038,7 @@ If a spin structure is given, then you can look at irreducible representations o
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Gauge transformations}
+\subsubsection{Gauge transformations}
 
 \begin{definition}
 Given $G \to P \to M$, a \bam{gauge transformation} for $P$ is a $G$-equivariant diffeomorphism $\psi$ s.t. 
@@ -1004,12 +1107,15 @@ and we can see $s(\pi(p \cdot \tilde{g})) = s(\pi(p)) = [p,g] = [p\tilde{g},\til
 It is necessary to check that $A,B,C$ are group isomorphisms now. 
 \end{proof}
 
+\begin{prop}
+	$\Lie(\mc{G}(P)) = \Gamma(\ad(P))$. 
+\end{prop}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Connections}
+\subsection{Connections}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Kozul connections}
+\subsubsection{Kozul connections}
 Let $ E \to M$ be a vector bundle. We want to be able to take directional derivatives of sections of $E$
 
 \begin{definition}[Kozul connection]
@@ -1041,7 +1147,7 @@ X(\pangle{s_1, s_2}) = \pangle{\nabla_X s_1, s_2} + \pangle{s_1, \nabla_X s_2}
 \end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Ehresmann connections}
+\subsubsection{Ehresmann connections}
 
 \begin{notation}
 Let $G \to P \overset{\pi}{\to} M$ be a $G$-principal bundle. Denote the fibre through $p \in P$ by $F_p = p\cdot G$.
@@ -1083,7 +1189,7 @@ Smooth connections always exists. This is as they certainly exist on local trivi
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Holonomy}
+\subsubsection{Holonomy}
 
 \begin{lemma}
 Given $G \to P \overset{\pi}{\to} M$, a smooth connection $H$, and a smooth closed curve in the base $C: I \to M$, we can lift tangent vectors to $\pi^{-1}(C(I)) \subset M$ to tangent vectors to $P$ to get a vector field on $\pi^{-1}(p)$, and there is a unique such lift that is horizontal.
@@ -1114,7 +1220,7 @@ A \bam{principal connection} is a connection form $\omega \in \Gamma(T^\ast P \o
 \end{example}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Relations between viewpoints}
+\subsubsection{Relations between viewpoints}
 Let $V$ be a vector space and $S \subset V$ a subspace. 
 
 \begin{definition}
@@ -1180,7 +1286,7 @@ As all these maps are $G$ invariant we can quotient out by the action of $G$ to 
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The space of all connections}
+\subsubsection{The space of all connections}
 
 \begin{definition}
 If $P \to M$ is a $G$-principal bundle we can denote the \bam{space of all connections on $P$} as $\mc{C}_P$
@@ -1243,7 +1349,7 @@ Now suppose we have a distribution $H \subset TP$ and a section of $T^\ast M \ot
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Curvature}
+\subsubsection{Curvature}
 
 To any connection on $P$ we can associate a curvature - a section of $\wedge^2 T^\ast M \otimes \ad(P)$. To aid in the definition we need the following lemma:
 
@@ -1345,7 +1451,7 @@ as $d^2 = 0$ and $H=\ker \omega$ so $\omega(X^H)=0$.
 	\hl{exercise}
 \end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Local expressions}
+\subsubsection{Local expressions}
 
 Recall that a bundle is trivial iff it has a global section $\sigma : M \to P$. This gives a canonical choice of connection given by 
 \eq{
@@ -1404,7 +1510,7 @@ A^\alpha \mapsto \Ad_{\psi_\alpha} A^\alpha + \psi_\alpha^\ast \theta
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Characteristic Classes in Chern-Weil Theory}
+\subsection{Characteristic Classes in Chern-Weil Theory}
 
 \begin{lemma}
 Suppose we have 
@@ -1482,55 +1588,10 @@ We will first start by spelling out explicitly some results that we have been us
 
 The reason we have made these explicit is as it's important to realise it is the case with $V= \mf{g}$ that is necessary for us, as it means we can descends $\tilde{F} \in \Gamma(\wedge^2 T^\ast P \otimes \mf{g})$ (a $\mf{g}$-valued form on $P$) to $F\in \Gamma(\wedge^2 T^\ast M \otimes \ad(P))$. 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The Hodge star operator}
-\hl{Maybe move this to the Riemannian geometry section}
-
-\begin{definition}
-	A \bam{volume form} of a differentiable manifold $M$ is a top-degree form (i.e. form of degree $\dim M$). 
-\end{definition}
-
-\begin{definition}
-	An \bam{oriented} manifold is one equipped with a nowhere-vanishing volume form. 
-\end{definition}
-
-\begin{lemma}
-	Every Riemannian manifold $(M,g)$ has a canonical choice of volume form given in local coordinates $x^1, \dots, x^n$ by 
-	\eq{
-	\omega_{vol} = \sqrt{\abs{g}} dx^1 \wedge \dots \wedge dx^n
-} 
-\end{lemma}
-
-\begin{lemma}
-	If $V$ is a vector space with bilinear $\pangle{\cdot, \cdot}$ then $\bigwedge^k V$ inherits a bilinear by the Grammian determinant. 
-	\eq{
-\pangle{\alpha_1 \wedge \dots \wedge \alpha_k, \beta_1 \wedge \dots \wedge \beta_k} = \det \pround{\pangle{\alpha_i,\beta_j}_{i,j=1}^k}	
-}
-\end{lemma}
-
-\begin{definition}
-	If $M$ is a $n$-dimensional Riemannian manifold, the \bam{Hodge star} is the operator $\star : \Omega^r(M) \to \Omega^{n-r}(M)$ given by 
-	\eq{
-	\alpha \wedge (\star \beta) = \pangle{\alpha,\beta} \omega_{vol}
-}
-for $\alpha,\beta \in \Omega^r(M)$, where $\pangle{\cdot,\cdot}$ is the Euclidean structure on $\Omega^r(M)$. 
-\end{definition}
-
-\begin{lemma}
-	This property defines $\star$ completely. 
-\end{lemma}
-\begin{proof}
-	\hl{exercise}
-	\end{proof}
-
-\begin{prop}
-	If $M$ has determinantal sign $\Delta$ of the inner product, then 
-	\eq{
-\star \star \alpha = (-1)^{r(n-r)} \Delta \alpha	
-}
-\end{prop}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Yang-Mills functional}
+\subsection{Theory}
+\subsubsection{Yang-Mills functional}
 We are now going to restrict our mathematical picture. We will make the following assumptions:
 \begin{itemize}
 	\item $M$ is an oriented (pseudo-)Riemannian manifold
@@ -1578,7 +1639,7 @@ S_{YM} \propto \int_M \tr(F \wedge \star F)
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The Yang-Mills equations}
+\subsubsection{The Yang-Mills equations}
 
 We now want to derive equations that give us the stationary points for the action (as is standard for an action theory). We will work with a local trivialisation, and then for notation simplicity omit the index $\alpha$. For some generic $\tau \in \Gamma(T^\ast M \otimes \ad(P))$ we want to find $A$ s.t.  
 \eq{
@@ -1632,23 +1693,69 @@ Using the formal adjoint $(d^A)^\ast$ and realising $\tau$ is generic we get
 \eq{
 (d^A)^\ast F = 0
 }
-We make use of the following lemma:
-\begin{lemma} Up to a sign 
-	Let $d^\ast$ be the formal adjoint of $d$ wrt the inner product $\pangle{\pangle{\eta,\omega}} = \int_M \pangle{\eta,\omega} \omega_{vol}$ (the \bam{codifferential}). Then when acting on a $k$ form 
+We need some lemmas:
+\begin{lemma} $ d\pangle{\beta \wedge \star F} = \pangle{d^A\beta \wedge \star F} - \pangle{\beta \wedge d^A(\star F)} $
+\end{lemma}
+\begin{proof}
+	We will show this in coordinates, by writing $\beta = \beta_\mu dx^\mu, \, F = \frac{1}{2}F_{\mu\nu} dx^\mu \wedge dx^\nu$. Then 
+	\eq{
+		\star F = \frac{1}{4} F_{\mu\nu} \eps\indices{^\mu^\nu_\rho_\sigma} dx^\rho \wedge dx^\sigma 	
+	}
+	and we get 
+	\eq{
+		d\pangle{\beta \wedge \star F} &= \frac{1}{4} \del_\mu \pangle{\beta_\nu, F_{\rho\sigma}} \eps\indices{^\rho^\sigma_\tau_\lambda} dx^\mu \wedge dx^\nu \wedge dx^\tau \wedge dx^\lambda \\
+		\pangle{d^A\beta \wedge \star F} &= \frac{1}{4} \pangle{\del_\mu \beta_\nu + \comm[A_\mu]{\beta_\nu}, F_{\rho\sigma}} \eps\indices{^\rho^\sigma_\tau_\lambda} dx^\mu \wedge dx^\nu \wedge dx^\tau \wedge dx^\lambda \\
+		\pangle{\beta \wedge d^A(\star F)} &= \frac{1}{4} \pangle{\beta_\nu, \del_\mu F_{\rho\sigma} + \comm[A_\mu]{F_{\rho\sigma}}} \eps\indices{^\rho^\sigma_\tau_\lambda} dx^\nu \wedge dx^\mu \wedge dx^\tau \wedge dx^\lambda
+	}
+	which means 
+	\eq{
+		d\pangle{\beta \wedge \star F} - \pangle{d^A\beta \wedge \star F} + \pangle{\beta \wedge d^A(\star F)} = \frac{-1}{4} \psquare{\pangle{\beta_\nu,\comm[A_\mu]{F_{\rho\sigma}}}+\pangle{\comm[A_\mu]{\beta_\nu},F_{\rho\sigma}}}\eps\indices{^\rho^\sigma_\tau_\lambda} dx^\mu \wedge dx^\nu \wedge dx^\tau \wedge dx^\lambda 
+	}
+	and we have asked as the inner product on $\mf{g}$ is $\ad$-invariant, which precisely says that $\forall X,Y,Z \in \mf{g}$, 
+	\eq{
+		\pangle{\comm[Z]{X},Y} + \pangle{X,\comm[Z]{Y}} = 0
+	}
+\end{proof}
+\begin{remark}
+	No part of the above calculation required properties of $\beta, F$, other than that they were $\mf{g}$-valued. This means that this result holds for general forms with the modification that if $\alpha \in \Omega^p(M), \, \beta \in \Omega^q(M)$, then 
+	\eq{
+d\pangle{\alpha \wedge \beta} = \pangle{d^A \alpha \wedge \beta} + (-1)^p \pangle{\alpha \wedge d^A \beta}	
+}
+\end{remark}
+
+\begin{lemma}
+	Let $d^\ast$ be the formal adjoint of $d$ (the \bam{codifferential}) wrt the inner product on the subset of $\Omega^k(M)$ that decays sufficiently if $M$ is non-compact given by
+	\eq{
+	\pangle{\pangle{\eta,\zeta}} = \int_M \pangle{\eta,\zeta} \omega_{vol}
+}
+that is, if $\eta \in \Omega^{k-1}(M), \, \zeta \in \Omega^{k}(M)$, $\pangle{\pangle{d\eta, \zeta}} = \pangle{\pangle{\eta,d^\ast \zeta}}$. We can express $d^\ast : \Omega^k(M) \to \Omega^{k-1}(M)$ as 
 	\eq{
 d^\ast = (-1)^{n(k-1)+1}s \star d \star	
 }
 where $n=\dim M$, $s$ is the parity of the signature of $M$, 
 \end{lemma}
+\begin{proof}
+We prove this more generally for the covariant derivative. Using the previous lemma means 
+\eq{
+	\pangle{\pangle{d^A\eta, \zeta}} = \int_M \pangle{d^A\eta,\zeta} \omega_{vol} &= \int_M \pangle{d^A \eta \wedge \star \zeta} \\
+	&= \int_M d\pangle{\eta \wedge \star \zeta} - (-1)^{k-1} \pangle{\eta \wedge d^A \star \zeta} \\
+	&= \int_M (-1)^{(n-k+1)[n-(n-k+1)]+k}s\pangle{\eta,\star d^A \star \zeta}\omega_{vol} \\
+	&= \pangle{\pangle{\eta,(-1)^{(n-k+2)(k-1)+1}s \star d^A \star \zeta }} \\
+	&= \pangle{\pangle{\eta, (-1)^{n(k-1)+1}s \star d^A \star \zeta}}
+}
+where we have used the (abelian) Stokes' theorem and sufficient decay at infinity to set the boundary term to 0, and that as $d^A \star \zeta$ is a $(n-k+1)$-form. 
+\end{proof} 
+
 \begin{remark}
-	The proof of the above lemma on the codifferential requires the application of Stokes' theorem on $M$. The same result can be shown for the covariant derivative if we are in a situation where the conditions for the non-abelian Stokes' theorem apply. This is the case when we are considering $(d^A)^\ast F$ (supposedly, see \cite{Schreiber2011} and nlab ).
+	This carefulness with signs is not important in the case of pure Yang-Mills, but if you consider Yang-Mills-Higgs this becomes necessary. Note another route of proof is possible if we use the non-abelian Stokes' theorem (see \cite{Schreiber2011} and nlab).
 \end{remark}
 As such we get the \bam{Yang-Mills equation}
 \eq{
-d^A(\star F) = 0
+	d^A(\star F) = 0
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Gauge theory in 4d - Abelian gauge theory and electromagnetism}
+\subsection{Gauge theory in 4d}
+\subsubsection{Abelian gauge theory and Electromagnetism}
 
 Recall Maxwell's equations for electromagnetism 
 \eq{
@@ -1693,19 +1800,17 @@ $\mc{A}$ is the connection for which $F$ is the curvature, and so we know we are
 \mc{A} \mapsto \mc{A} - i \, d\psi
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Gauge theory in 4d - Instantons}
+\subsubsection{Instantons}
 
 We now want to consider $M=\mbb{R}^4$ with Euclidean signature (in practice this might be achieved though a Wick rotation of a Lorentzian metric if necessary). We will, as previously stated, being considering configurations which decay sufficiently quickly to infinity. This means we can add the point at infinity to $M$ to obtain $S^4$.
 
 \begin{remark}
-	Altough $\mbb{R}^4$ does not have an isometric embedding into $S^4$, it does have a conformal embedding, and this will turn out to be sufficient, because the defining conditions (namely the seul duality ones) are conformally invariant.  
+	Although $\mbb{R}^4$ does not have an isometric embedding into $S^4$, it does have a conformal embedding, and this will turn out to be sufficient, because the defining conditions (namely the self duality ones) are conformally invariant.  
 \end{remark}
 
 Let us now use some useful results in 4d: 
 
-\begin{lemma}
-	In 4d, $(\star)^2 = 1$, so $\star$ has eigenvalues $\pm 1$. 
-\end{lemma}
+
 
 \begin{definition}
 	Decompose, as eigenspaces of $\star$, $\Omega^2(M) = \Omega^2_+(M) \oplus \Omega^2_-(M)$. We call these the \bam{self-dual} and \bam{anti-self-dual} parts.
@@ -1765,8 +1870,63 @@ We want to understand instantons up to gauge transformation, and the space param
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Chern-Simons Theory}
+Let $\Sigma$ be a compact oriented surface, $G$ a compact Lie group, $P$ a principal $G$-bundle on $\Sigma$, $\pangle{\cdot,\cdot}$ a $G$-invariant inner product on $\mf{g}$.
+
+\begin{prop}
+	$\mc{C}_P$ is an $\infty$-dimensional symplectic manifold. 
+\end{prop}
+\begin{proof}
+	As $\mc{C}_P$ is an affine space modelled on $\Gamma(T^\ast \Sigma \otimes \ad(P))$, we have that all the tangent spaces to $\mc{C}_P$ are canoncially isomorphic to $\Gamma(T^\ast \Sigma \otimes \ad(P))$. Here we can take 
+	\eq{
+\omega(A,B) = \int_\Sigma \pangle{A \wedge B}	
+}
+\begin{claim}
+	$\omega$ is a well-defined symplectic form. 
+\end{claim}
+\end{proof}
+
+\begin{theorem}[Atiyah, Bott]
+	The action of $\mc{G}(P)$ on $\mc{C}_P$ is Hamiltonian with moment map given by curvature 
+	\eq{
+\nabla \mapsto F_\nabla \in \Gamma(\wedge^2 T^\ast \Sigma \otimes \ad(P)) \cong \Gamma(\ad(P))^\ast 	
+}
+\end{theorem}
+
+\begin{definition}
+	The \bam{moduli space of flat connections} is 
+	\eq{
+\mc{M}_P = \faktor{F^{-1}(0)}{\mc{G}(P)}	
+}
+\end{definition}
+
+\begin{remark}
+	$\mc{M}_P$ is not usually smooth everywhere, but smooth on an open and dense locus.
+\end{remark}
+
+\begin{prop}
+	$\mc{M}_P$ is finite dimensional. 
+\end{prop}
+
+\begin{example}
+	If $G$ is semisimple, then $\dim \mc{M}_P = (2g-2)\dim G$, where $g$ is the genus of $\Sigma$.  
+\end{example}
+
+\begin{remark}
+	$\mc{M}_P$ also arises as 
+	\begin{itemize}
+		\item the moduli space of representations of $\pi_1(\Sigma)$ into $G$, i.e 
+		\eq{
+	\mc{M}_P = \faktor{\Hom(\pi_1(\Sigma),G)}{G}	
+	}
+\item the moduli space of semi-stable holomorphic $G_\mbb{C}$-bundle on $\Sigma$, now as a Riemann surface. 
+	\end{itemize}
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{../../bib/custom-bib-style}
-\bibliography{../../bib/library}
+\bibliography{../../bib/jabref_library.bib}
 
 
 \end{document}
