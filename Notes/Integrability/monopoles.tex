@@ -689,9 +689,13 @@ Through either discussion we have $E\geq \pm 8\pi k$ for some $k \in \mbb{Z}$ wi
 	}
 	\end{prop}
 \begin{proof}
-	See the Riemann Surfaces notes by Joel Robbin, University of Wisconsin, which in turn references \cite{Griffiths2014}. 
+	See the Riemann Surfaces notes by Joel Robbin, University of Wisconsin, which in turn reference \cite{Griffiths2014}. 
 \end{proof}
-We can think of $L$ as a complex line bundle over $\mbb{P}^1$ viewed as the Riemann sphere. If we take a section $\sigma = h \hat{\psi}$ where we choose $h=\hat{\psi}_2$, this section has poles exactly where the eigenvector is $(1,0) \Rightarrow \bm{\phi} = (1,0,0)$. Hence the Chern class is counting the number of preimages of $(1,0,0)$. \hl{We require an argument to tell us that these all should be counted with sign -1}. 
+We can think of $L$ as a complex line bundle over $\mbb{P}^1$ viewed as the Riemann sphere. If we take a section $\sigma = h \hat{\psi}$ where we choose $h=\hat{\psi}_2$, this section has poles exactly where the eigenvector is $(1,0) \Rightarrow \bm{\phi} = (1,0,0)$, and has no zeros. Hence the Chern class is counting the number of preimages of $(1,0,0)$, that is 
+\eq{
+-c_1(L) = \abs{\pbrace{\text{preimages of $(1,0,0)$}}}
+}
+This gives $c_1(L)=\deg \phi$, \hl{provided we have an argument to tell us that these all should be counted with sign 1}. 
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
