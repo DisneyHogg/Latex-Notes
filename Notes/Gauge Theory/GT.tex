@@ -1878,6 +1878,9 @@ We want to understand instantons up to gauge transformation, and the space param
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Chern-Simons Theory}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Primers}
+\subsubsection{Symplectic Manifolds in Gauge Theory}
 Let $\Sigma$ be a compact oriented surface, $G$ a compact Lie group, $P$ a principal $G$-bundle on $\Sigma$, $\pangle{\cdot,\cdot}$ a $G$-invariant inner product on $\mf{g}$.
 
 \begin{prop}
@@ -1929,6 +1932,112 @@ Let $\Sigma$ be a compact oriented surface, $G$ a compact Lie group, $P$ a princ
 \item the moduli space of semi-stable holomorphic $G_\mbb{C}$-bundle on $\Sigma$, now as a Riemann surface. 
 	\end{itemize}
 \end{remark}
+
+\subsubsection{Geometric Quantisation}
+Starting with symplectic manifold $(M,\omega)$, we want to create a Hilbert space. We will need 3 ingredients:
+\begin{enumerate}
+	\item Pre-quantum line bundle: $d\omega=0$ so we know $[\omega] \in H^\cdot_{dR}(M)$. We will want this to be integral, i.e. it lies in the lattice image of $H^\cdot_{dR}(M;\mbb{Z}) \to H^\cdot_{dR}(M;\mbb{R})$. Given this condition we have the following
+	\begin{lemma}
+		If $\omega$ satisfies the integrality condition, $\exists \mc{L}\to M$ a line bundle with connection whose curvature is $\omega$. This is called the \bam{pre-quantum line bundle}. 
+	\end{lemma}
+\item Choice of polarisation: e.g a Lagrangian foliation on $M$, or K\"ahler structure. 
+\item Metaplectic correction: Given the canonical bundle $K$ we take $\sqrt{K}$. 
+\end{enumerate}
+Given the above, we will take the Hilbert space to be sections of $\mc{L} \otimes \sqrt{K}$ that respect polarisation (e.g. sections covariantly constant along leaves in the case of a Lagrangian foliation, or holomorphic sections when a K\"ahler structure specified).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Chern-Simons Forms}
+We will now assume that we have a $G$-principal bundle $\pi : P\to M$. We will assume that $G=SU(n)$ and $P$ is trivialisable. 
+
+\begin{remark}
+	If $\dim M \leq 3$, $P$ is always trivialisable. 
+\end{remark}
+Wehave a correspondence between connections and $\mf{g}$-valued one forms $A \in \Omega^1(M;\mf{g})$,and so we can make the following definition:
+\begin{definition}
+	The \bam{Chern-Simons form} is 
+	\eq{
+CS : \mc{C}_P &\to \Omega^3(M) \\
+ A &\mapsto \frac{1}{4\pi^2}\tr\pround{dA \wedge A + \frac{2}{3} A \wedge A \wedge A}
+}
+\end{definition}
+
+\begin{lemma}
+	$d(CS(A)) = \tr(F \wedge F)$. 
+\end{lemma}
+\begin{remark}
+	Up to normalisation this is the second Chern class $c_2(P)$, and so if $P$ is trivial we have $c_2(P)=0 \Rightarrow CS(A)$ closed. 
+\end{remark}
+
+Alternatively we may pullback by $\pi$ to get the bundle $\pi^\ast P \to P$, and this has a tautological section, giving a tautological trivialisation. Now we can define a Chern-Simons form on $M$ if we have a connection on $P$ as 
+\eq{
+s^\ast \pround{CS(\pi^\ast \nabla)}
+}
+for a local section $s:M \to P$. Note here $CS$ is defined on $\mc{C}_{\pi^\ast P}$. We have the following idea:
+\begin{idea}
+	All characteristic classes being zero implies that all Chern-Weil forms are exact. The Chern-Simons forms are built to be exactly the forms s.t. the solve $d(CS) = CW$.  
+\end{idea}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Topological Quantum Field Theory}
+\begin{idea}
+The idea now is the use the CS form as the Lagrangian for a quantum field theory. This will allow us to understand invariants of 3-manifolds. This is motivated by Jones' knot polynomial. \\
+The rough idea of this will be that to a closed oriented 2-manifold $\Sigma$ we give a vector space $V_\Sigma$, and thn for oriented 3-manifolds we will construct $v \in V_{\del M}$. 
+\end{idea}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Chern Simons Line Bundle}
+Return to having $\Sigma$ be a compact oriented surface, $G$ a compact Lie group, $P$ a principal $G$-bundle on $\Sigma$, $\pangle{\cdot,\cdot}$ a $G$-invariant inner product on $\mf{g}$. \\
+We want to get a line bundle on $\mc{M}_P$ s.t. the 1st chern class of $\mc{L}$ is the de-Rham cohomology class of $\omega$. \\
+To do this construction, let $M$ be an oriented 3-manfiold s.t. $\del M = \Sigma$ 
+\begin{lemma}
+	Such an $M$ exists. 
+\end{lemma}
+\begin{lemma}
+	$A \in \mc{C}_P, \, g \in \mc{G}(P)$ can extent to $\tilde{A} \in \mc{C}_M, \, \tilde{g} \in \mc{G}(M)$. 
+\end{lemma}
+We want to lif the action of $\mc{G}(P)$ on $\mc{C}_P$ to the trivial line bundle $\mc{C}_P \times \mbb{C}$ in a non-trivial way using the co-cycle
+\eq{
+\Theta(A,g) = \exp\pround{2\pi i \int_M CS(\tilde{A}^{\tilde{g}}) - CS(\tilde{A})}
+}
+\begin{prop}
+	$\Theta$ is well defined and $\Theta(A,gh) = \Theta(A,g)\Theta(A^g,h)$. 
+\end{prop}
+\begin{corollary}
+	We can define a lift of the action by $(A,z) \cdot g = (A^g,\Theta(A,g)z)$. 
+\end{corollary}
+This line bundle descends to a non-trivial line buundle $\mc{L}_{CS}$ on $\mc{M}_P$. 
+\begin{prop}
+	$\mc{L}_{CS}$ is a pre-quantum line bundle for the Atiyah-Bott symplectic structure on $\mc{M}_P$. 
+\end{prop}
+
+\subsubsection{Lagrangian Submanifolds in \secmath{\mc{M}_P}}
+Now we want to thing about restricting $\mc{M}_M$ to $\mc{M}_{\del M}$. 
+\begin{lemma}
+	The map $\mc{G}(M) \to \mc{G}(\del M)$ is surjective
+\end{lemma}
+\begin{corollary}
+	This induces a map $\mc{M}_M \to \mc{M}_{\del M}$.
+\end{corollary}
+
+\begin{theorem}
+	The image of the induced map $\mc{M}_M \to \mc{M}_{\del M}$ is a Lagrangian submanifold in $\mc{M}_{\del M}$. 
+\end{theorem}
+
+\subsubsection{Axioms for TQFTs}
+Atiyah-Segal gave an axiomatic approach to  2+1 TQFT: 
+\begin{definition}
+	The 2+1 TQFT axioms are 
+	\begin{itemize}
+		\item Assigns a vector space $Z(\Sigma)$ to every closed oriented 2-manifold $\Sigma$
+		\item If $M$ is a 3-manfiodl s.t. $\del M = \Sigma$ assign $Z(M) \in Z(\Sigma)$
+		\item If you change the orientation you take the dual, i.e $Z(\bar{\Sigma}) = Z(\Sigma)^\ast$
+		\item $Z\pround{\Sigma_1 \sqcup \Sigma_2} = Z(\Sigma_1) \otimes Z(\Sigma_2)$
+		\item $Z(\Sigma = \emptyset)=\mbb{C}$ and $Z(M=\emptyset) = 1 \in \mbb{C}$. 
+	\end{itemize}
+\end{definition}
+
+\begin{example}
+	Consider the 'cyclinder' $M = [0,1] \times \Sigma$. Then $\del M = \Sigma \sqcup \bar{\Sigma}$, $Z(\del M) = Z(\Sigma) \otimes Z(\Sigma)^\ast \cong \End(Z(\Sigma))$. We interpret this as saying that time evolution along this cylinder is a map from one boundary vector space to the other.
+\end{example}
+Geometrically quantised Chern-Simons satisfies these axioms, and so we can view it as a TQFT. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

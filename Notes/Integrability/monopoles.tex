@@ -97,11 +97,11 @@ where $\bm{a}=(a_1, a_2, a_3)$, $\bm{\sigma}=(\sigma_1, \sigma_2, \sigma_3)$, an
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Degree of a Map}
-Consider a smooth map $n:S_s^2 \to S_t^2$. The number of preimages of $p \in S_t^2$ computed with sign is calculate via pullback to be 
+Consider a smooth map $f:S^2 \to S^2$. The number of preimages of $p \in S^2$ computed with sign is calculate via pullback to be 
 \eq{
-	\deg(n) = \frac{1}{\int_{S_t^2} \omega} \int_{S_s^2} n^\ast \omega
+	\deg(f) = \frac{1}{\int_{S^2} \omega} \int_{S^2} f^\ast \omega
 }
-for some normalisable volume form on $S_t$. Then \hl{NOT COMPLETE}.
+for some normalisable volume form $\omega$ on the target $S^2$. Then \hl{NOT COMPLETE}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Properties of Curves}
 Here we want to take an example curve and consider the kind of constructs on it we will be looking at. To this we will effectively go through Miranda \cite{Miranda1995} and apply the relevant sections. \\
@@ -557,18 +557,141 @@ and, using the Bianchi identity,
 so 
 \eq{
 E[A,\phi] &= \int_{\mbb{R}^3} \psquare{\pangle{F \mp \star D\phi, F\mp \star D\phi} \pm 2\pangle{F,\star D\phi}}d^3x \\
-&= \int_{\mbb{R}^3} \abs{F-\star D\phi}^2 d^3x  \pm 2 \lim_{R \to \infty} \int_{S_R^2} \pangle{F \wedge \phi}
+&= \int_{\mbb{R}^3} \abs{F\mp \star D\phi}^2 d^3x  \pm 2 \lim_{R \to \infty} \int_{S_R^2} \pangle{F \wedge \phi}
 }
-Then as 
-\eq{
-\highlight{\int_{\del M} \pangle{F,\phi} = - \int_{\del M} \pangle{\phi, d\phi \wedge d\phi}}
-}
-by our discussion of degree we have $E\geq \pm4\pi k$ for some $k \in \mbb{Z}$ with equality iff $F=\mp \star D \phi$ where we choose the sign to make the bound positive. This is the \bam{BPS equation}.
-\begin{remark}
-	\hl{The last step, getting the topological degree, I am not fully happy with yet. Ask Harry about this.}
-\end{remark}
 \begin{remark}
 	In the above discussion, make sure to check that as this the $3d$ Hodge star, our inner products are well defined in the sense that the are the inner product of a $k$-form with a $k$-form. 
+\end{remark}
+This boundary term turns out to be a topological contribution, and we can see this in two ways. We first need to prove the following lemma
+\begin{lemma}
+	In the $\mbb{R}^3$ bulk 
+	\eq{
+		\pangle{\phi \wedge \pround{D \phi \wedge D \phi}} = \pangle{\phi \wedge \pround{d \phi \wedge d\phi}} + \abs{\phi}^2 \psquare{\pangle{F \wedge \phi} - d\pangle{A \wedge \phi}} - \frac{1}{2}\pangle{A \wedge \phi} \wedge d\abs{\phi}^2 
+	}
+\end{lemma}
+\begin{proof}
+	\hl{Exercise}. 
+\end{proof}
+\begin{corollary}
+	Given the decay conditions, on $S_\infty^2$ we have 
+	\eq{
+		\pangle{F \wedge \phi} - d\pangle{A \wedge \phi} = -\pangle{\phi \wedge \pround{d\phi \wedge d\phi}}	
+	}
+	and hence the topological term is $\mp 2\int_{S_\infty^2} \pangle{\phi \wedge (d\phi \wedge d\phi)}$.
+	\begin{comment}
+	Now the inverse stereographic projection $f : \mbb{R}^2 \to S^2 \subset \mbb{R}^{3}$ allows us to pullback the standard metric on $\mbb{R}^{3}$. This can be done in Sage:
+	\begin{lstlisting}[language=Python,frame=single]
+	sage: M = Manifold(2, 'R^2')
+	sage: U.<u,v> = M.chart()
+	sage: N = Manifold(3, 'R^3')
+	sage: X.<x,y,z> = N.chart()
+	sage: f = M.diff_map(N,(2*u/(1+u^2+v^2), 2*v/(1+u^2+v^2),
+	(-1+u^2+v^2)/(1+u^2+v^2)))
+	sage: g = N.sym_bilin_form_field(name='g')
+	sage: g[1,1], g[2,2], g[3,3] = 1, 1, 1
+	sage: fg = f.pullback(g)
+	sage: f.display()
+	4/(u^4 + v^4 + 2*(u^2 + 1)*v^2 + 2*u^2 + 1) du*du 
+	+ 4/(u^4 + v^4 + 2*(u^2 + 1)*v^2 + 2*u^2 + 1) dv*dv
+	\end{lstlisting}
+	\end{comment}
+\end{corollary}
+The two interpretations are then as follows: 
+\begin{enumerate}
+	\item Degree of a map of spheres - We will want to recall some standard vector calculus results stated in the language of forms. Firstly recall that if we have a manifold $M$ with volume form $\omega_M$ and orientable submanifold $\Sigma$ with normal $N$ we get a volume form on $\Sigma$ given by 
+\eq{
+\omega_\Sigma = i_N \omega_M 
+}
+If we parametrise $\Sigma$ on an open patch $U$, that is find $\psi:\mbb{R}^d \to U \subset \Sigma$, and do an area integral over $U \subset \Sigma$ in these coordinates, that is equivalent to pulling back $\omega_\Sigma$ by $\psi$. \\
+By noting that, on $S_\infty^2$, $\phi:S_\infty^2 \to S_1^2 \subset \mf{su}(2)$, where on this $S^2$ $\phi$ is also the normal, and that we have chosen the metric on $\mf{su}(2)$ to be Euclidean, we have that 
+\eq{
+\int_{S_\infty^2} \pangle{\phi \wedge (d\phi \wedge d\phi)} = \int_{S_\infty^2} \bm{\phi} \cdot \pround{\del_u \bm{\phi} \times \del_v \bm{\phi}} du dv = \int_{S_\infty^2} \phi^\ast \omega_{S^2} = 4\pi \deg \phi 
+}
+where we have the used the notation $\phi = \bm{\phi} \cdot \bm{t}$, and the degree here refers to of $\phi$ as a map of spheres. This degree is a topological invariant.
+\item Chern class of a line bundle - Consider the matrix $\bm{\phi} \cdot \bm{\sigma}$. We give the following lemma
+\begin{lemma}
+	Let $P = \frac{1}{2}\pround{I + \bm{\phi} \cdot \bm{\sigma}}$. Then $P$ is a projection operator, i.e. $P^2=P$. 
+\end{lemma}
+\begin{proof}
+	Do the multiplication
+\end{proof}
+\begin{corollary}
+	$\bm{\phi} \cdot\bm{\sigma}$ has eigenvalues $\pm 1$. 
+\end{corollary}
+\begin{proof}
+	Projection operators have eigenvalues $0,1$. Hence we get the result, and as we can never have $\bm{\phi} \cdot\bm{\sigma} = \pm I$, both eigenvalues must occur. 
+\end{proof}
+Now we can consider the eigenvector bundle 
+\eq{
+L = \pbrace{(\bm{x}, \psi) \in S_\infty^2 \times \mbb{C}^2 \, | \, \psquare{\bm{\phi}(\bm{x}) \cdot\bm{\sigma}} \psi = \psi}
+}
+\begin{remark}
+	This will be a complex line bundle, so the only possible Chern class we can relate to it will be $c_1$. 
+\end{remark}
+We can get a connection on the bundle by viewing it as a subbundle of $S_\infty^2 \times \mbb{C}^2$, and getting covariant derivative on vector fields by projection, that is $DX = PdX$.
+\begin{remark}
+	Note that here the variations in $\psi$ that preserve the the eigenvector condition are exactly those that scale $\psi$ by some element of $\mbb{C}^\times$. This really makes the bundle look like the tangent bundle to the sphere $S_\infty^2$ in the sense that there is a plane attached at every point of $S^2$. 
+\end{remark} 
+Now at every point $\bm{x} \in S_\infty^2$ if $\hat{\psi}(\bm{x})$ is a normalised eigenvector we have that a local section $\sigma : U \subset S_\infty^2 \to E$ is given by $\sigma = h \hat{\psi}$ where $h:U \to \mbb{C}$ is some scale. Then as we are dealing with $2\times 2$ non-trivial projection matrices we can write $P = \hat{\psi} \hat{\psi}^\dagger$ giving 
+\eq{
+D(h\hat{\psi}) &= \hat{\psi} \hat{\psi}^\dagger \psquare{(dh)\hat{\psi}+h(d\hat{\psi})} \\
+&= (dh)\hat{\psi}+h\hat{\psi} \hat{\psi}^\dagger(d\hat{\psi})
+}
+What we have done by choosing a local section $\hat{\psi}$ is given a local trivialisation of the bundle. To find the connection locally we need to see how the covariant derivaitve acts locally on $\mbb{C}$, that is how it acts on $h$. By writing 
+\eq{
+	D(h \hat{\psi}) = \hat{\psi} \psquare{dh + h \hat{\psi}^\dagger d\hat{\psi}}
+}
+We can read off that $A = \hat{\psi}^\dagger d\hat{\psi}$ locally, giving $F_L = d\hat{\psi}^\dagger \wedge d\hat{\psi}$. \\
+We now want to relate this to our map $\phi$. As we are dealing with $2\times 2$ non-trivial projection matrices we can write 
+\eq{
+P = \hat{\psi} \hat{\psi}^\dagger \Rightarrow \phi = -i\hat{\psi} \hat{\psi}^\dagger + \frac{i}{2}I \Rightarrow d\phi = -i\psquare{(d\hat{\psi})\hat{\psi}^\dagger +\hat{\psi} (d\hat{\psi}^\dagger)}
+}
+We can see that, as the inner product corresponds to the trace, $\pangle{d\phi \wedge d\phi} = \pangle{(\del_\mu \phi)(\del_\nu \phi)} dx^\mu \wedge dx^\nu = \frac{1}{2}\pangle{\comm[\del_\mu \phi]{\del_\nu \phi}} dx^\mu \wedge dx^\nu = 0$ which means 
+\eq{
+	\pangle{\phi \wedge (d\phi \wedge d\phi)} &= -i\pangle{\pround{\hat{\psi} \hat{\psi}^\dagger -\frac{1}{2}I}(d\phi \wedge d\phi)} \\ 
+	&= -i \pangle{\hat{\psi} \hat{\psi}^\dagger\psquare{(d\hat{\psi})\hat{\psi}^\dagger + \hat{\psi}(d\hat{\psi}^\dagger)}^{\wedge 2}}
+}
+We expand out the latter, using the cyclicity of the trace and Leibniz' rule with $\hat{\psi}^\dagger \hat{\psi}=1$, for example
+\eq{
+\pangle{\hat{\psi} \hat{\psi}^\dagger (d\hat{\psi})\hat{\psi}^\dagger \wedge (d\hat{\psi})\hat{\psi}^\dagger} &= \pangle{\hat{\psi}^\dagger\hat{\psi} \hat{\psi}^\dagger (d\hat{\psi})\hat{\psi}^\dagger \wedge (d\hat{\psi})} \\
+&= \pangle{\hat{\psi}^\dagger (d\hat{\psi})\hat{\psi}^\dagger \wedge (d\hat{\psi})} \\
+&= \pangle{\psquare{d(\hat{\psi}^\dagger \hat{\psi} ) - (d\hat{\psi}^\dagger)\hat{\psi} }\hat{\psi}^\dagger \wedge (d\hat{\psi})} \\
+&= - \pangle{(d\hat{\psi}^\dagger)\hat{\psi} \wedge \hat{\psi}^\dagger (d\hat{\psi})} \\
+&= - \pangle{\hat{\psi} \hat{\psi}^\dagger \hat{\psi} (d\hat{\psi}^\dagger) \wedge \hat{\psi} (d\hat{\psi}^\dagger)}
+} 
+\eq{
+ \pangle{\hat{\psi} \hat{\psi}^\dagger (d\hat{\psi}) \wedge (d\hat{\psi}^\dagger)}&= -\pangle{\hat{\psi}(d\hat{\psi}^\dagger) \hat{\psi} \wedge (d\hat{\psi}^\dagger) } \\
+ &= \pangle{\hat{\psi}(d\hat{\psi}^\dagger) \wedge (d\hat{\psi})\hat{\psi}^\dagger } \\
+ &= \pangle{d\hat{\psi}^\dagger \wedge d\hat{\psi}} \\
+ &= \pangle{\hat{\psi} \hat{\psi}^\dagger \hat{\psi} (d\hat{\psi}^\dagger) \wedge (d\hat{\psi})\hat{\psi}^\dagger}
+}
+and as a result we get 
+\eq{
+\pangle{\phi \wedge (d\phi \wedge d\phi)} = -2i \pangle{ d\hat{\psi}^\dagger \wedge d\hat{\psi}} = -4\pi \pround{\frac{i}{2\pi} \pangle{F_L}}
+}
+We can then see that 
+\eq{
+	\int_{S_\infty^2} \pangle{\phi \wedge (d\phi \wedge d\phi)} = -4 \pi c_1(L)
+}
+\end{enumerate} 
+\begin{remark}
+	A point to be made about the above is that, a priori, the connection is not related to the Higgs field on $S_\infty^2$. It is the decay condition on $D\phi$ which enforces that on $S_\infty^2$ we have $\del_\mu \phi = \comm[\phi]{A_\mu}$.
+\end{remark}
+
+
+Through either discussion we have $E\geq \pm 8\pi k$ for some $k \in \mbb{Z}$ with equality iff $F=\mp \star D \phi$ where we choose the sign to make the bound positive. This is the \bam{BPS equation}.
+\begin{remark}
+	We might wonder what is the connection between these two viewpoints, where we have that $\deg \phi = -c_1(L)$. To make this connection we recall a result stated in \cite{Babelon2003}:
+	\begin{prop}
+		If $L$ is a complex line bundle on a Riemann surface and $f$ is a meromorphic section then 
+		\eq{
+	\deg(D(f))	= c_1(L)
+	}
+	\end{prop}
+\begin{proof}
+	See the Riemann Surfaces notes by Joel Robbin, University of Wisconsin, which in turn references \cite{Griffiths2014}. 
+\end{proof}
+We can think of $L$ as a complex line bundle over $\mbb{P}^1$ viewed as the Riemann sphere. If we take a section $\sigma = h \hat{\psi}$ where we choose $h=\hat{\psi}_2$, this section has poles exactly where the eigenvector is $(1,0) \Rightarrow \bm{\phi} = (1,0,0)$. Hence the Chern class is counting the number of preimages of $(1,0,0)$. \hl{We require an argument to tell us that these all should be counted with sign -1}. 
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -576,7 +699,7 @@ by our discussion of degree we have $E\geq \pm4\pi k$ for some $k \in \mbb{Z}$ w
 Suppose now we consider pure Yang-Mills on $\mbb{R}^{n+1}$ with contant diagonal metric $g$ (i.e we are considering it to be either Minkowski or Euclidean). Take coordinates $x^\mu$ and ask that the connection $A = A_\mu dx^\mu$ is $x^0$-independent. Then writing $A = \phi dx^0 + A_i dx^i$ we have 
 \eq{
 F &= \frac{1}{2} F_{ij} dx^i \wedge dx^j + (D_i \phi) dx^i \wedge dx^0 \\
-&= \indices{^3}F + D\phi \wedge dx^0 
+&= {\indices{^3}F} + D\phi \wedge dx^0 
 }
 as $F_{i0} = \del_i \phi + \comm[A_i]{\phi} = D_i \phi$ and denoting $\indices{^3}F = \frac{1}{2}F_{ij} dx^i \wedge dx^j$. We calculate
 \eq{
