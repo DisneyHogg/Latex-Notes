@@ -97,11 +97,42 @@ where $\bm{a}=(a_1, a_2, a_3)$, $\bm{\sigma}=(\sigma_1, \sigma_2, \sigma_3)$, an
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Degree of a Map}
-Consider a smooth map $f:S^2 \to S^2$. The number of preimages of $p \in S^2$ computed with sign is calculate via pullback to be 
-\eq{
-	\deg(f) = \frac{1}{\int_{S^2} \omega} \int_{S^2} f^\ast \omega
+We will want to consider continuous maps $f:X \to Y$ between connected oriented $n$-dimensional manifold. We state the following lemma:
+\begin{lemma}
+	$X$ orientable iff $H_n(X) = \mbb{Z}$. 
+\end{lemma}
+\begin{proof}
+	See \cite{Hatcher2002}.
+\end{proof}
+Denote $[X], [Y]$ to be the generators of $H_n(X), H_n(Y)$ respectively. Recalling that we get an induced homomorphism $f_\ast : H_n(X) \to H_n(Y)$ we make the following definition:
+\begin{definition}
+	The \bam{degree} of $f$ is defined s.t. 
+	\eq{
+f_\ast([X]) = \deg(f) [Y]	
 }
-for some normalisable volume form $\omega$ on the target $S^2$. Then \hl{NOT COMPLETE}.
+\end{definition}
+Now recall we have a pairing between $k$-forms and $k$-chains on a manifold given by 
+\eq{
+\pangle{c, \omega} = \int_c \omega
+}
+and this descends to a pairing between cohomology and homology. With this we have 
+\eq{
+\pangle{f_\ast [c], \omega} = \pangle{[c], f^\ast [\omega]}
+}
+Meaning that we can also express the degree via 
+\eq{
+\deg(f) \int_Y \omega = \int_X f^\ast \omega
+}
+for some top form on $Y$. This reformulation gives a convenient way to interpret the degree:
+\begin{prop}
+	Take $y \in Y$ s.t. $f^{-1}(y) \subset X$ is a set of isolated points, say $\pbrace{x_i}_{i=1}^m$. Then 
+	\eq{
+\deg f = \sum_{i=1}^m \sign \pround{J(x_i)}	
+}
+\end{prop}
+\begin{proof}
+	See \cite{Manton2004}, the idea is to choose a volume form on $Y$ localised around $y$, which pulls back to a volume form on $X$ localised around the $x_i$, with the $\pm1$ coming from the change of orientation. 
+\end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Properties of Curves}
 Here we want to take an example curve and consider the kind of constructs on it we will be looking at. To this we will effectively go through Miranda \cite{Miranda1995} and apply the relevant sections. \\
@@ -213,12 +244,80 @@ b_1 &= \pbrace{e^{\frac{i(t+1)\pi}{3}} \, | \, t \in [0,1]} \\
 a_2 &= \pbrace{e^{\frac{i(t+3)\pi}{3}} \, | \, t \in [0,1]} \\
 b_2 &= \pbrace{e^{\frac{i(t+5)\pi}{3}} \, | \, t \in [0,1]}  
 }
+The object we want to calculate is explicitly the period matrix, defined as follows:
+\begin{definition}
+	Let $\pbrace{a_i, b_i}_{i=1}^g$ be a canonical choice of homology basis, and $\pbrace{\omega_i}_{i=1}^g$ a basis of holomorphic differentials. Then the \bam{period matrix} is $\Omega = (A,B)$ where we calculate the $g\times g$ matrices $A,B$ by 
+\eq{
+A_{ij} = \int_{a_j} \omega_i, \quad \quad B_{ij} = \int_{b_j} \omega_i
+}
+\end{definition}
+There are differences in choices that can be made for the homology and differential basis, and the effect is represented by the following theorem.
+\begin{lemma}
+	The corresponding \bam{Riemann matrix} $R = A^{-1}B$ \hl{is well defined}. 
+\end{lemma}
 This can be calculated numerically in Sage as below (output formatted to fit in the document):
 \begin{lstlisting}[language=Python,frame=single]
 sage: S.period_matrix()
 [ -0.6-1.1*I  0.6+1.1*I 1.2+0.0*I -1.2+0.0*I]
 [ -1.1-0.1*I -1.1-0.6*I 0.0-1.2*I  0.0-1.2*I]
 \end{lstlisting}
+There is an alternate way to approach the period matrix for this curve that uses the symmetry of the curve more. To do this concretely we recall the definition of monodromy: 
+\begin{definition}
+	Given a $n$-fold covering $f:X \to Y$ and a closed path $\gamma$ based at $p \in Y$, then $\gamma$ lift to a path $\hat{\gamma}$ in $X$ s.t. $f \circ \hat{\gamma}=\gamma$. Then $\gamma$ induces a bijection $\sigma_\gamma : f^{-1}(p) \to f^{-1}(p)$ called the \bam{monodromy associated to $\gamma$}. By fixing an ordering of $f^{-1}(p)$ we identify $\sigma \in S_n$.  
+\end{definition}
+\begin{remark}
+The monodromy is fixed under basepoint preserving homotopies of paths, and actually we get a functor $\Pi_1(Y) \to Set$. See \href{https://ncatlab.org/nlab/show/monodromy}{nlab} for more. 
+\end{remark}
+We now view our curve $X$ as a 6-fold covering of $\mbb{P}^1$ with branch points at $z=\pm 1$. We want to first calculate the monodromy associated to encircling these points, so let $\gamma_\pm$ be a curve in $\mbb{P}^1$ that encircles $\pm 1$ once anticlockwise (explicitly choose a circle of small radius $\eps$). On $\gamma_\pm$ take $z = \pm1 + \eps e^{i\theta}$. \\
+As we recall $y^6 = 1-z^2$, on $\gamma_+$ we see 
+\eq{
+y^6 = -\eps e^{i\theta}\pround{2+\eps e^{i\theta}}
+} 
+and on $\gamma_-$ 
+\eq{
+	y^6 = \eps e^{i\theta}\pround{2-\eps e^{i\theta}}
+}
+To both of these the associated monodromy can be written as $\zeta$ the fundamental solution to $\zeta^6=1$ as before, where we mean that multiplying by $\zeta$ acts as the cycle of sheets that corresponds to the paths $\gamma_pm$. Observe then that the curve $\gamma = \gamma_+ - \gamma_-$ (a figure of 8 if we deform so the curves intersect at $z=0$) has associated monodromy 0, but is non-contracible, and so corresponds to cycles on $X$. Moreover, by changing the sheet the lift starts on we get actually get $6$ distinct cycles, and we can choose them to have the right intersection numbers we would want of a canonical homology basis. Explicitly we take
+\eq{
+a_1 &= \phantom{-}\gamma:(1 \to 2 \to 1) \\
+b_1 &= -\gamma:(3 \to 2 \to 3) \\
+a_2 &= \phantom{-}\gamma:(4 \to 5 \to 4) \\
+b_2 &= -\gamma:(6 \to 5 \to 6)
+ }
+where hopefully the notation is self-explanatory. \\
+To determine what forms we need to integrate to get the period matrix we recall a statement in Miranda (pg 112)
+\begin{lemma}
+	Suppose that $X$ is a projective plane curve of degree $d$ $F(x,y,z)=0$ where $F(x,y,1)=f(x,y)$ then if $p(x,y)$ is a polynomial of degree at most $d-3$ then 
+	\eq{
+p(x,y)\frac{dx}{\pround{\pd[f]{y}}}	
+} 
+is a holomorphic differential. 
+\end{lemma}
+This applies to tell us that we can get a basis of holomorphic on differentials on $X$ with $\pbrace{\frac{dz}{y^5}, \frac{dz}{y^4}}$. Call these $\omega_1, \omega_2$ respectively. \\
+Now we can explicitly calculate. We fix the 1st sheet by asking that $y(z=0)=1$. Then we first note 
+\eq{
+\int_{a_1} \omega_1 = (1-\zeta)\int_{-1}^1 \frac{dz}{(1-z^2)^{5/6}} = (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} \\
+\int_{a_1} \omega_2 = (1-\zeta)\int_{-1}^1 \frac{dz}{(1-z^2)^{4/6}} = (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{3}}
+}
+\begin{remark}
+	To do the above calculation note 
+	\eq{
+\int_{-1}^1 \frac{dx}{(1-x^2)^\alpha} = 2 \int_0^1 \frac{dx}{(1-x^2)^\alpha} = \int_0^1 t^{-\frac{1}{2}} (1-t)^{-\alpha} dt 	
+}
+One might wonder \hl{is there a way to do it with the Pochhammer contour?}
+\end{remark}
+As we can get onto other sheets just by multiplying by powers of $\zeta$, we get that the period matrix is 
+\eq{
+\Omega = \begin{pmatrix} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} & \zeta^3 (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} & -\zeta^2 (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} & -\zeta^5 (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} \\ (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{3}} & \zeta^3 (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{3}} & -\zeta^2 (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{3}} & -\zeta^5 (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{3}}\end{pmatrix}
+}
+We can calculate 
+\eq{
+\frac{B\pround{\frac{1}{2}, \frac{1}{6}}}{B\pround{\frac{1}{2}, \frac{1}{3}}} &= \frac{\Gamma(1/2) \Gamma(1/6)}{\Gamma(2/3)} \frac{\Gamma(5/6)}{\Gamma(1/2)\Gamma(1/3)} = \frac{\pi/\sin(\pi/6)}{\pi/\sin(\pi/3)} =\sqrt{3}
+}
+and so 
+\eq{
+\Omega \propto \begin{pmatrix} \sqrt{3} & -\sqrt{3} &  -\sqrt{3}\zeta^2  & -\sqrt{3}\zeta^5 \\ 1 & -1 & -\zeta^2 & -\zeta^5 \end{pmatrix}
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Spinors}
@@ -237,6 +336,11 @@ We will now state a few results about $SL_2(\mbb{C})$ bundles:
 \begin{lemma}
 	A rank-2 complex vector bundle $S \to M$ has a reduction of structure group to a $SL_2(\mbb{C})$-bundle iff $\exists \varepsilon \in \Gamma(M,\wedge^2 S)$ a non-degenerate form. 
 \end{lemma}
+
+\begin{remark}
+	Such an $\eps$ will be a symplectic form on $S$.
+\end{remark}
+
 \begin{corollary}
 	The cotangent bundle on a 2-dimensional manifold $M$ reduces to a $SL_2(\mbb{C})$ bundle iff the canonical bundle is trivial.  
 \end{corollary}
@@ -246,13 +350,80 @@ We will now state a few results about $SL_2(\mbb{C})$ bundles:
 	\eq{
 TM_\mbb{C} \cong S \otimes \bar{S}	
 }
-Then we call $S$ a \bam{spinor bundle} on  $M$.  
+Then we call $S$ a \bam{spinor bundle} on  $M$. A section $s \in \Gamma(S)$ is called a \bam{spinor}.   
 \end{definition}
 
 \begin{remark}
-	This is a quite specific definition, so to see this done better check out \cite{Michelsohn1989}. 
+	This is a quite specific definition, so to see this done in more generality check out \cite{Michelsohn1989}. 
 \end{remark}
 
+\begin{notation}
+	Given a spinor bundle $S \to M$ we will use the notation 
+	\eq{
+S^A = S^- &= S & S^{A^\prime} = S^+ &= \bar{S} & S_A = S_- &= S^\ast & S_{A^\prime} = S_+ &= \bar{S}^\ast 
+}
+Each of the above comes with an associated non-degenerate two form $\eps^\pm \in \Gamma(M;\wedge^2 S^\pm)$, $ \eps_\pm \in \Gamma(M; \wedge^2 S_\pm)$, and these provide isomorphisms to the dual as follows:
+\eq{
+\eps^{A^\prime B^\prime} = \eps^+ : S_+ &\to S^+ & \eps^{AB} = \eps^- : S_- &\to S^- & \eps_{A^\prime B^\prime} = \eps_+ : S^+ &\to S_+ & 
+\eps_{AB} = \eps_- : S_- &\to S_- 
+}
+\end{notation}
+If we take an open $U \subset M$ and trivialise s.t $\ev{S}{U} \cong \mbb{C}^2$, we have the standard action of $SL_2(\mbb{C})$ given by $v \mapsto gv$ for $g \in SL_2(\mbb{C})$. We think of this as saying that a spinor in $S$ transforms in the fundamental representation of $SL_2(\mbb{C})$. We can then build the following table:
+\begin{center}
+\begin{tabular}{c|c|c}
+	Bundle & Representation & Actions \\ \hline \hline 
+		$S^-$ & Fundamental & $v \mapsto gv$ \\ \hline 
+		$S_-$ & Dual & $v \mapsto v^T g^T $ \\ \hline 
+		$S^+$ & Congujate & $v \mapsto \bar{g} v$ \\ \hline 
+		$S_+$ & Conjugate Dual & $v \mapsto v^T \bar{g}^T$
+\end{tabular}
+\end{center}
+\begin{definition}
+	A \bam{spinor frame} is a choice of frame of $S^-$ wrt which 
+\eq{
+\eps^- = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} 
+}
+\end{definition}
+\subsubsection{Spinors on Minkowski Space}
+One important example of Spinors will be those on Minkowski space, which we will now denote as $M^4$, so we shall cover it in slightly more detail. 
+\begin{remark}
+	Here, as in the twistor section, we shall follow Ward \& Wells \cite{Ward1991}. They remark that we should really consider Minkwoski space as an affine space in order to not distinguish the origin, and cite \cite{Shirokov1962} for a further discussion. The result of this is that if we choose an origin $0 \in M^4$ we have $M^4 \cong T_0 M^4$. \\
+	Note also, \cite{Ward1991} uses the mostly-minus Minkowski metric, so initially this section should be assumed to be using this convention unless stated otherwise. 
+\end{remark}
+
+We first introduce a useful coordinate system via the following map to $H_2 = \pbrace{\text{$2\times 2$ Hermitian matrices}}$:
+\eq{
+M^4  &\overset{\cong}{\to}H_2 \\
+x = (x^\mu) &\mapsto \tilde{x} = \frac{1}{\sqrt{2}} \begin{pmatrix} x^0 + x^3 & x^1 -ix^2 \\ x^1 + ix^2 & x^0 - x^3 \end{pmatrix} 
+}
+Note the correspondence can be written as $\tilde{x} = x^\mu \sigma_\mu$ where $\sigma_\mu = (I,\bm{\sigma})$ corresponds to the Pauli matrices.
+\begin{prop}
+	$\det \tilde{x} = \frac{1}{2} \abs{x}^2$. 
+\end{prop}
+\begin{proof}
+	 It is simple to calculate 
+	 \eq{
+\det \tilde{x} = \frac{1}{2} \psquare{(x^0+x^3)(x^0-x^3) - (x^1-ix^2)(x^1+ix^2)} = \frac{1}{2}\psquare{(x^0)^2 - (x^3)^2 -(x^1)^2 - (x^2)^2 }	 
+ }
+\end{proof}
+Note that under the same isomorphism, when we complexify, we get that $M_\mbb{C}^4 \cong M_2(\mbb{C})$. This is as every complex can be decomposed into a Hermitian and anti-Hermitian part. \\
+Now let $S = \mbb{C}^2$, where we consider an element $s \in S$ as a column vector. Then $S^\ast = \mbb{C}^2$ with elements $\tilde{s}$ considered as row vectors. 
+\begin{prop}
+	$S$ is a spinor bundle on $M^4$. 
+\end{prop} 
+\begin{proof}
+\eq{
+	T_0 M^4 \otimes \mbb{C} &\cong M^4 \otimes \mbb{C} \cong M_2(\mbb{C}) \cong S \otimes S^\ast 
+}
+We are then done as $\bar{S} = S^\ast$ here. 
+\end{proof}
+Under this correspondence, we get the following result
+\begin{lemma}
+	$v \in T_0M^4_\mbb{C} \otimes \mbb{C}^4$ is null iff $\exists s\in S, \tilde{s} \in S^\ast$ s.t. $v = s \tilde{s}$. Moreover $v$ corresponds to a real vector iff $\tilde{s} = rs$ for $r \in \mbb{R}$. 
+\end{lemma}
+\begin{remark}
+	By the above a vector $v \in T_0M^4_\mbb{C}$ is real iff $\exists s \in S$ s.t. $v = ss^\dagger$. In this sense we can think of spinors as the square root of real null vectors. 
+\end{remark}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Twistors}
@@ -315,7 +486,7 @@ from the projections of $(S_1,S_2)$
 \end{definition}
 The double fibration induces natural correspondences $c=\pi_2 \circ \pi_1^{-1}$ and $c^{-1} = \pi_1 \circ \pi_2^{-1}$. 
 \begin{notation}
-	We shall denote 
+	We shall call $\mbb{T}$ the \bam{twistor space}, and denote 
 	\begin{itemize}
 		\item $\mbb{PT}=F_1(\mbb{T}) \cong \mbb{CP}^3$ \bam{projective twistor space}
 		\item $M_\mbb{C} = F_2(\mbb{T}) \cong G_{2,4}(\mbb{C})$ \bam{compactified complexified Minkowski space}
@@ -346,7 +517,7 @@ We now wish to understand the correspondence in coordinates. We consider the map
 }
 for convenience, let $M^I_\mbb{C}= \phi(M_2(\mbb{C}))$, $\mbb{PT}^I = c^{-1}(M_{\mbb{C}}^I)$ and $F^I = \pi_2^{-1}(M^I)$.  
 \begin{prop}
-	$F^I \cong M^i \times \mbb{P}^1$. 
+	$F^I \cong M^I \times \mbb{P}^1$. 
 \end{prop} 
 \begin{proof}
 	The isomorphism is given as 
@@ -362,6 +533,32 @@ for convenience, let $M^I_\mbb{C}= \phi(M_2(\mbb{C}))$, $\mbb{PT}^I = c^{-1}(M_{
 [izv, v] \leftarrow &(z,[v]) \rightarrow z	
 }
 \end{corollary}
+
+\subsubsection{Actions on Twistor Space}
+We will often want to equip $\mbb{T}$ with a Hermitian form $\Phi$. We state a quick lemma:
+\begin{lemma}
+	$\Phi$ determines a volume form $\Omega \in \wedge^4 \mbb{T}^\ast$ on $\mbb{T}$ by 
+	\eq{
+\Omega = \image \Phi \wedge \image \Phi 
+}
+\end{lemma}
+\begin{definition}
+	We define $SU(\mbb{T},\Phi) \subset GL(\mbb{T})$ to be the subset preserving $\Phi$ and $\Omega$.  
+\end{definition}
+\begin{example}
+	If $\Phi$ has signature $(2,2)$ then $SU(\mbb{T},\Phi) \cong SU(2,2)$. 
+\end{example}
+Given a $(2,2)$-signature Hermitian form on $\mbb{T}$ $\exists(Z^\alpha)$ coordinates wrt which we have 
+\eq{
+\Phi = \begin{pmatrix} 0 & I_2 \\ I_2 & 0 \end{pmatrix} \Leftrightarrow \Phi(Z,Z) = Z^0 \bar{Z^2} + Z^1 \bar{Z^3} + Z^2 \bar{Z^0} + Z^3 \bar{Z^1} 
+}
+\begin{notation}
+	We denote the vector space $\mbb{T}$ with the above coordinates adapted to $\Phi$ as $\mbb{T}^\alpha$ and its dual as $\mbb{T}_\alpha$. We call the corresponding dual coordinates $W_\alpha$. 
+\end{notation}
+$SL_2(\mbb{C}) \leq SU(2,2)$ will act reducibly on $\mbb{T}^\alpha$ meaning we have $\mbb{T}^\alpha = S_1 \oplus S_2$, and so we write our coordinates as $Z^\alpha = (\omega^A, \pi_{A^\prime})$. 
+
+
+
 \subsubsection{Complexified Minkowski Space}
 It is at this point useful to discuss slightly more concretely what is meant by complexified Minkowski space. The resource to use here is \cite{Adamo2018}. 
 \begin{definition}
@@ -710,7 +907,11 @@ as $F_{i0} = \del_i \phi + \comm[A_i]{\phi} = D_i \phi$ and denoting $\indices{^
 \pangle{\indices{^3}F,D\phi \wedge dx^0} &= \frac{1}{2}\pangle{F_{ij}, D_k \phi} \underbrace{\pangle{dx^i \wedge dx^j , dx^k \wedge dx^0}}_{=0} \\
 \pangle{D\phi \wedge dx^0,D\phi \wedge dx^0} &= \pangle{D_i \phi, D_j \phi} \underbrace{\pangle{dx^i \wedge dx^0, dx^j \wedge dx^0} }_{=g^{ij}g^{00}}
 }
-and so on Euclidean $\mbb{R}^{n+1}$, $\abs{F}^2 = \abs{\indices{^3}F}^2 + \abs{D\phi}^2 $. This means we recover the action for Yang-Mills-Higss with $0$ potential from this reduction. The Yang-Mills equation for $F$ reads 
+and so on Euclidean $\mbb{R}^{n+1}$, $\abs{F}^2 = \abs{\indices{^3}F}^2 + \abs{D\phi}^2 $. This means we recover the action for Yang-Mills-Higgs with $0$ potential from this reduction. 
+\begin{remark}
+	It is not absurd to consider Euclidean $\mbb{R}^4$, as we should view this as performing a Wick rotation from Minkowski space, which is natural when quantising the theory as it means that the path integral is now well defined (see \cite{Ward1991} for more of a discussion on this). 
+\end{remark}
+The Yang-Mills equation for $F$ reads 
 \eq{
 D \star F = 0 \Rightarrow g^{\mu\nu}D_\mu F_{\nu\rho} &= 0 
 }
