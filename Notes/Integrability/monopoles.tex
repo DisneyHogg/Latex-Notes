@@ -293,7 +293,10 @@ p(x,y)\frac{dx}{\pround{\pd[f]{y}}}
 } 
 is a holomorphic differential. 
 \end{lemma}
-This applies to tell us that we can get a basis of holomorphic on differentials on $X$ with $\pbrace{\frac{dz}{y^5}, \frac{dz}{y^4}}$. Call these $\omega_1, \omega_2$ respectively. \\
+This applies to tell us that we can get a basis of holomorphic on differentials on $X$ with $\pbrace{\frac{dz}{y^5}, \frac{dz}{y^4}}$. Call these $\omega_1, \omega_2$ respectively. 
+\begin{remark}
+The polynomials $p$ we are taking here are actually $6, 6y$. We know that we only need $g=2$ of them so be sufficient. 	
+\end{remark}
 Now we can explicitly calculate. We fix the 1st sheet by asking that $y(z=0)=1$. Then we first note 
 \eq{
 \int_{a_1} \omega_1 = (1-\zeta)\int_{-1}^1 \frac{dz}{(1-z^2)^{5/6}} = (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} \\
@@ -306,9 +309,9 @@ Now we can explicitly calculate. We fix the 1st sheet by asking that $y(z=0)=1$.
 }
 One might wonder \hl{is there a way to do it with the Pochhammer contour?}
 \end{remark}
-As we can get onto other sheets just by multiplying by powers of $\zeta$, we get that the period matrix is 
+As we can get onto other sheets just by multiplying $y$ by powers of $\zeta$, we get that the period matrix is 
 \eq{
-\Omega = \begin{pmatrix} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} & \zeta^3 (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} & -\zeta^2 (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} & -\zeta^5 (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} \\ (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{3}} & \zeta^3 (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{3}} & -\zeta^2 (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{3}} & -\zeta^5 (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{3}}\end{pmatrix}
+\Omega = \begin{pmatrix} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} & \zeta^{-15} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} & -\zeta^{-10} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} & -\zeta^{-25} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} \\ (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{3}} & \zeta^{-12} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{3}} & -\zeta^{-8} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{3}} & -\zeta^{-20} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{3}}\end{pmatrix}
 }
 We can calculate 
 \eq{
@@ -316,8 +319,15 @@ We can calculate
 }
 and so 
 \eq{
-\Omega \propto \begin{pmatrix} \sqrt{3} & -\sqrt{3} &  -\sqrt{3}\zeta^2  & -\sqrt{3}\zeta^5 \\ 1 & -1 & -\zeta^2 & -\zeta^5 \end{pmatrix}
+\Omega \propto \begin{pmatrix} \sqrt{3} & -\sqrt{3} &  -\sqrt{3}\zeta^2  & -\sqrt{3}\zeta^5 \\ 1 & 1 & -\zeta^4 & -\zeta^4 \end{pmatrix}
 }
+This means we can calculate the Riemann matrix to be 
+\eq{
+R = \frac{1}{2\sqrt{3}}\begin{pmatrix} 1 & \sqrt{3} \\ -1 & \sqrt{3} \end{pmatrix} \begin{pmatrix} -\sqrt{3}\zeta^2 & - \sqrt{3} \zeta^5 \\ -\zeta^4 & -\zeta^4 \end{pmatrix} &= \frac{1}{2\sqrt{3}}\begin{pmatrix} -\sqrt{3}(\zeta^4+\zeta^2) & -\sqrt{3}(\zeta^4+\zeta^5) \\ \sqrt{3}(\zeta^2 - \zeta^4) & \sqrt{3}(\zeta^5-\zeta^4) \end{pmatrix}\\
+ &= \frac{1}{2}\begin{pmatrix} -(\zeta^4+\zeta^2) & (\zeta^2-\zeta^4) \\ (\zeta^2 - \zeta^4) & -(\zeta^4+\zeta^2) \end{pmatrix} \\
+  &= \frac{1}{2}\begin{pmatrix} 1 & \sqrt{3}i \\ \sqrt{3}i & 1 \end{pmatrix}
+}
+\hl{Eigenvalues do not have pos-def imaginary part, what's gone wrong?}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Spinors}
