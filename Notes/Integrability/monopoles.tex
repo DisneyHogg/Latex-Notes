@@ -149,6 +149,9 @@ Throughout we will want to compare our by-hand calculations with numerics in Sag
 sage: x,y,z = QQ['x,y,z'].gens()
 sage: X = Curve(y^6-x^6+z^2*x^4)
 \end{lstlisting}
+
+\subsubsection{Singularities}
+
 The corresponding affine plane curve on the intersection with the open set $U_x = \pbrace{x \neq 0}$ is $y^6 = 1-z^2$. Hence 
 \eq{
 X = \pbrace{[1:y:z] \, | \, y^6 = 1-z^2} \cup \pbrace{[0:0:1]}
@@ -186,7 +189,10 @@ h(x,y) &= iy
 }
 We then note $\gcd(4,6) = 2$. 
 \end{proof}
-As such by general theory we know that we can resolve this singularity to make $X$ into a compact Riemann surface. This process involves removing the singularity at $[0:0:1]$ and patching the two holes created. \\
+As such by general theory we know that we can resolve this singularity to make $X$ into a compact Riemann surface. This process involves removing the singularity at $[0:0:1]$ and patching the two holes created. 
+
+\subsubsection{Genus}
+
 We now check some topology using Riemann-Hurwitz. 
 \begin{prop}
 	$g(X) = 2$.
@@ -205,6 +211,8 @@ sage: X.genus()
 \begin{remark}
 	This is to be expected, as here we are dealing with a hyperelliptic curve, of the form $z^2=h(y)$ where $h$ is a polynomial of degree $2g+2$. 
 \end{remark}
+\subsubsection{Symmetries}
+From the above prop we have the following corollary.
 \begin{corollary}
 	Through Hurwitz' theorem we know $\abs{\Aut(X)} \leq 84$.
 \end{corollary}
@@ -229,39 +237,69 @@ sage: G.structure_description()
 \begin{remark}
 	Note that above Sage is acting as a GAP wrapper. The formatting translates to say $G \cong (C_6 \times C_2) \rtimes C_2$
 \end{remark}
-We now want to consider forms on $X$. General theory says that we have a basis of $\Omega^1(X)$ given by 
-\eq{
-\pbrace{\omega_j = \frac{y^j dy}{z}}_{j=0}^{g-1}
-}
-and a generating set of $H_1(X,\mbb{Z})$ given by a suitable choice of independent closed paths $c = \gamma_1 - \gamma_2$ where $\gamma_i$ are the two lifts of a path in $\mbb{P}^1$ between branch points of the map $X \to \mbb{P}^1$. In order to find the period matrices explicitly we need to calculate 
-\eq{
-\int_c \omega_j 
-}
-for these loops c. To be explicit for the paths in the base that we choose we take 
-\eq{
-a_1 &= \pbrace{e^{\frac{it\pi}{3}} \, | \, t \in [0,1]} \\
-b_1 &= \pbrace{e^{\frac{i(t+1)\pi}{3}} \, | \, t \in [0,1]} \\
-a_2 &= \pbrace{e^{\frac{i(t+3)\pi}{3}} \, | \, t \in [0,1]} \\
-b_2 &= \pbrace{e^{\frac{i(t+5)\pi}{3}} \, | \, t \in [0,1]}  
-}
+
+\subsubsection{Riemann's Bilinears and Period Matrices}
+We now want to consider the pairing of homology and cohomology on $X$. This can lead to information about the Abel-Jacobi map, but will also lead to an invariant of a Riemann surface. Relevant references include Eynard's Lectures on Compact Riemann Surfaces, Miranda, \href{https://people.reed.edu/~jerry/311/theta.pdf}{these notes}. 
+
+
+\begin{definition}
+	A homology basis $\bm{c} = (\bm{a},\bm{b})$ is \bam{canonical} if $\bm{c} \cdot \bm{c} = J$ where we are taking the intersection number and $J=\begin{psmallmatrix} 0 & I \\ -I & 0 \end{psmallmatrix}$. 
+\end{definition}
+\begin{remark}
+	Despite the term canonical, there is no unique choice of such a basis. Given any homology basis $\bm{c}$ we can make a new basis by taking $M\bm{c}$ for $M\in GL_{2g}(\mbb{Z})$. If the original basis was canonical then so is the transformed basis iff $MJM^T = J$, which is the condition for $M^T$ to be a symplectic matrix, giving $M$ symplectic. 
+\end{remark}
+
 The object we want to calculate is explicitly the period matrix, defined as follows:
 \begin{definition}
-	Let $\pbrace{a_i, b_i}_{i=1}^g$ be a canonical choice of homology basis, and $\pbrace{\omega_i}_{i=1}^g$ a basis of holomorphic differentials. Then the \bam{period matrix} is $\Omega = (A,B)$ where we calculate the $g\times g$ matrices $A,B$ by 
+	Let $\pbrace{a_i, b_i}_{i=1}^g$ be a canonical choice of homology basis, and $\pbrace{\omega_i}_{i=1}^g$ a basis of holomorphic differentials. Then the \bam{matrix of periods} is $\Omega = (A,B)$ where we calculate the $g\times g$ matrices $A,B$ by 
 \eq{
 A_{ij} = \int_{a_j} \omega_i, \quad \quad B_{ij} = \int_{b_j} \omega_i
 }
 \end{definition}
-There are differences in choices that can be made for the homology and differential basis, and the effect is represented by the following theorem.
-\begin{lemma}
-	The corresponding \bam{Riemann matrix} $R = A^{-1}B$ \hl{is well defined}. 
+
+In order to say something about the form of $\Omega$, we need the following result:
+\begin{prop}[Riemann's Bilinear Identities]
+	$\Omega J \Omega^T = 0$ and $-i\bar{\Omega}J\Omega^T > 0$
+\end{prop}
+\begin{corollary}
+ For fixed differential basis $\pbrace{\omega_i}$, $\exists \bm{c}$ a canonical basis s.t $A_{ij} = \delta_{ij}$. 
+\end{corollary}
+
+\begin{definition}
+	The \bam{Riemann matrix} corresponding to $\Omega$ is $\tau = A^{-1}B$. 
+\end{definition}
+
+\begin{definition}
+	We define the \bam{Siegel upper half space} to be 
+	\eq{
+	\mbb{H}_g = \pbrace{M \in M_g(\mbb{C}) \, | \, M^T = M, \, \image M > 0}
+}
+\end{definition}
+
+\begin{lemma} $\tau \in \mbb{H}_g$.  
 \end{lemma}
-This can be calculated numerically in Sage as below (output formatted to fit in the document):
-\begin{lstlisting}[language=Python,frame=single]
-sage: S.period_matrix()
-[ -0.6-1.1*I  0.6+1.1*I 1.2+0.0*I -1.2+0.0*I]
-[ -1.1-0.1*I -1.1-0.6*I 0.0-1.2*I  0.0-1.2*I]
-\end{lstlisting}
-There is an alternate way to approach the period matrix for this curve that uses the symmetry of the curve more. To do this concretely we recall the definition of monodromy: 
+
+\begin{example}
+	$\mbb{H}_1 = \mbb{H} \subset \mbb{C}$ is the upper half plane, explaining the name and notation convention. The case $g=1$ corresponds to elliptic curves, and we are recovering the usual $\tau$ we assign which tells us about the period lattice of the torus. This is not a coincidence, and we shall later related $\tau$ to the Jacobian of the curve. 
+\end{example}
+
+
+\begin{remark}
+	There was a choice made in arranging this matrix as $g \times 2g$. Had we chosen instead $\Omega$ to be $2g \times g$ as 
+	\eq{
+\tilde{\Omega}_{ij} = \int_{c_i} \omega_j	
+} 
+where $\bm{c} = (\bm{a},\bm{b})$ is the tuple of cycles, then we get that $\tilde{\Omega} = \Omega^T \Leftrightarrow \tilde{A}=A^T, \tilde{B} = B^T$. In order to continue this correspondence to get $\tilde{\tau} = \tau^T$ we need $\tilde{\tau} = \tilde{B} \tilde{A}^{-1}$. As $\tau$ is symmetric, we know that $\tilde{\tau} = \tau$, so our value of Riemann matrix is not dependent on convention. 
+\end{remark}
+
+\begin{lemma}
+	If we change canonical homology basis by $\bm{c}^\prime = M \bm{c}$ where $M = \begin{psmallmatrix} a & b \\ c & d \end{psmallmatrix} \in Sp(2g,\mbb{Z})$, then $\Omega$ transforms as $\tilde{\Omega}^\prime = M\tilde{\Omega}$ and hence $\tilde{\tau}^\prime = (d\tilde{\tau}+c)(b\tilde{\tau}+a)^{-1}$. \\
+	If we change cohomology basis by $\bm{\omega}^\prime = G \bm{\omega}$ for $G \in GL_g(\mbb{C})$, then $\Omega$ transforms as $\Omega^\prime = G\Omega$ and hence $\tau^\prime = \tau$.   
+\end{lemma}
+\begin{remark}
+	It is for this reason that, although taking $\Omega$ to be $g \times 2g$ is seemingly a more prevalent convention, the latter is more sensible because of the corresponding actions. Moreover, if conjugate $M$ with the outer automorphism $\begin{psmallmatrix} 0 & I \\ I & 0 \end{psmallmatrix}$ then we get $\tilde{\tau}^\prime = (a\tilde{\tau}+b)(c\tilde{\tau}+d)^{-1}$, which recovers the fractional linear transformation action of $SL_2(\mbb{Z}) \cong Sp_2(\mbb{Z})$ known in the case of elliptic curves. The reason for the conjugation is as with elliptic curves, we typically normalise the bottom element to 1 instead. 
+\end{remark}
+We now want to return from the theory realm to calculate $\tau$ explicitly for our curve. To do this concretely we recall the definition of monodromy: 
 \begin{definition}
 	Given a $n$-fold covering $f:X \to Y$ and a closed path $\gamma$ based at $p \in Y$, then $\gamma$ lift to a path $\hat{\gamma}$ in $X$ s.t. $f \circ \hat{\gamma}=\gamma$. Then $\gamma$ induces a bijection $\sigma_\gamma : f^{-1}(p) \to f^{-1}(p)$ called the \bam{monodromy associated to $\gamma$}. By fixing an ordering of $f^{-1}(p)$ we identify $\sigma \in S_n$.  
 \end{definition}
@@ -277,7 +315,7 @@ and on $\gamma_-$
 \eq{
 	y^6 = \eps e^{i\theta}\pround{2-\eps e^{i\theta}}
 }
-To both of these the associated monodromy can be written as $\zeta$ the fundamental solution to $\zeta^6=1$ as before, where we mean that multiplying by $\zeta$ acts as the cycle of sheets that corresponds to the paths $\gamma_pm$. Observe then that the curve $\gamma = \gamma_+ - \gamma_-$ (a figure of 8 if we deform so the curves intersect at $z=0$) has associated monodromy 0, but is non-contracible, and so corresponds to cycles on $X$. Moreover, by changing the sheet the lift starts on we get actually get $6$ distinct cycles, and we can choose them to have the right intersection numbers we would want of a canonical homology basis. Explicitly we take
+To both of these the associated monodromy can be written as $\zeta$ the fundamental solution to $\zeta^6=1$ as before, where we mean that multiplying by $\zeta$ acts as the cycle of sheets that corresponds to the paths $\gamma_\pm$. Observe then that the curve $\gamma = \gamma_+ - \gamma_-$ (a figure of 8 if we deform so the curves intersect at $z=0$) has associated monodromy 0, but is non-contractible, and so corresponds to cycles on $X$. Moreover, by changing the sheet the lift starts on we get actually get $6$ distinct cycles, and we can choose them to have the right intersection numbers we would want of a canonical homology basis. Explicitly we take
 \eq{
 a_1 &= \phantom{-}\gamma:(1 \to 2 \to 1) \\
 b_1 &= -\gamma:(3 \to 2 \to 3) \\
@@ -293,25 +331,37 @@ p(x,y)\frac{dx}{\pround{\pd[f]{y}}}
 } 
 is a holomorphic differential. 
 \end{lemma}
-This applies to tell us that we can get a basis of holomorphic on differentials on $X$ with $\pbrace{\frac{dz}{y^5}, \frac{dz}{y^4}}$. Call these $\omega_1, \omega_2$ respectively. 
+This applies to tell us that we can get a basis of holomorphic on differentials on $X$ with $\pbrace{\frac{dz}{y^5}, \frac{dz}{y^4}}$. 
 \begin{remark}
 The polynomials $p$ we are taking here are actually $6, 6y$. We know that we only need $g=2$ of them so be sufficient. 	
 \end{remark}
-Now we can explicitly calculate. We fix the 1st sheet by asking that $y(z=0)=1$. Then we first note 
-\eq{
-\int_{a_1} \omega_1 = (1-\zeta)\int_{-1}^1 \frac{dz}{(1-z^2)^{5/6}} = (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} \\
-\int_{a_1} \omega_2 = (1-\zeta)\int_{-1}^1 \frac{dz}{(1-z^2)^{4/6}} = (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{3}}
-}
+Now we can explicitly calculate. We fix the 1st sheet by asking that $y(z=0)=1$. We then set a normalisation our basis called $\omega_1, \omega_2$ respectively by asking that \eq{
+\int_{a_1} \omega_i = 1
+}.
 \begin{remark}
-	To do the above calculation note 
-	\eq{
-\int_{-1}^1 \frac{dx}{(1-x^2)^\alpha} = 2 \int_0^1 \frac{dx}{(1-x^2)^\alpha} = \int_0^1 t^{-\frac{1}{2}} (1-t)^{-\alpha} dt 	
+This can be done as over our cycles the forms will not integrate to zero, as can be seen for example with 
+\eq{
+\int_{a_1} \frac{dz}{y^5} = (1-\zeta^{-5})\int_{-1}^1 \frac{dz}{(1-z^2)^{5/6}} = (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}}
 }
-One might wonder \hl{is there a way to do it with the Pochhammer contour?}
+where to do the above calculation we have used 
+	\eq{
+\int_{-1}^1 \frac{dx}{(1-x^2)^\alpha} = 2 \int_0^1 \frac{dx}{(1-x^2)^\alpha} = \int_0^1 t^{-\frac{1}{2}} (1-t)^{-\alpha} dt = B\pround{\frac{1}{2}, 1-\alpha}
+}
+One might wonder \hl{is there a way to use the Pochhammer contour as part of the homology basis} to recreate this result slightly more easily? 
 \end{remark}
 As we can get onto other sheets just by multiplying $y$ by powers of $\zeta$, we get that the period matrix is 
 \eq{
-\Omega = \begin{pmatrix} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} & \zeta^{-15} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} & -\zeta^{-10} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} & -\zeta^{-25} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} \\ (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{3}} & \zeta^{-12} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{3}} & -\zeta^{-8} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{3}} & -\zeta^{-20} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{3}}\end{pmatrix}
+\Omega = \begin{pmatrix} 1 & \zeta^{-15} & -\zeta^{-5} & -\zeta^{-5-15} \\ 1 & \zeta^{-12} & -\zeta^{-4} & -\zeta^{-4-12}\end{pmatrix} = \begin{pmatrix} 1 & -1 & -\zeta & \zeta \\ 1 & 1 & -\zeta^2 & -\zeta^2 \end{pmatrix}
+}
+and so 
+\eq{
+\tau = \frac{\zeta}{2} \begin{pmatrix} 1 & 1 \\ -1 & 1 \end{pmatrix} \begin{pmatrix} -1 &  1 \\ -\zeta & -\zeta \end{pmatrix} &= \frac{\zeta}{2} \begin{pmatrix} -(1+\zeta) & 1-\zeta \\ 1-\zeta & -(1+\zeta) \end{pmatrix} = \frac{1}{2} \begin{pmatrix} -\sqrt{3}i & 1 \\ 1 & -\sqrt{3}i \end{pmatrix}
+}
+\hl{Eigenvalues do not have pos-def imaginary part, what's gone wrong?}
+
+\begin{comment}
+\eq{
+\Omega = \begin{pmatrix} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} & \zeta^{-15} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} & -\zeta^{-10} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} & -\zeta^{-25} (1-\zeta)B\pround{\frac{1}{2}, \frac{1}{6}} \\ (1-\zeta^2)B\pround{\frac{1}{2}, \frac{1}{3}} & \zeta^{-12} (1-\zeta^2)B\pround{\frac{1}{2}, \frac{1}{3}} & -\zeta^{-8} (1-\zeta^2)B\pround{\frac{1}{2}, \frac{1}{3}} & -\zeta^{-20} (1-\zeta^2)B\pround{\frac{1}{2}, \frac{1}{3}}\end{pmatrix}
 }
 We can calculate 
 \eq{
@@ -319,15 +369,59 @@ We can calculate
 }
 and so 
 \eq{
-\Omega \propto \begin{pmatrix} \sqrt{3} & -\sqrt{3} &  -\sqrt{3}\zeta^2  & -\sqrt{3}\zeta^5 \\ 1 & 1 & -\zeta^4 & -\zeta^4 \end{pmatrix}
+\Omega \propto \begin{pmatrix} \sqrt{3} & -\sqrt{3} &  -\sqrt{3}\zeta^2  & -\sqrt{3}\zeta^5 \\ 1+\zeta & 1+\zeta & -\zeta^4(1+\zeta) & -\zeta^4(1+\zeta) \end{pmatrix}
 }
+
 This means we can calculate the Riemann matrix to be 
 \eq{
-R = \frac{1}{2\sqrt{3}}\begin{pmatrix} 1 & \sqrt{3} \\ -1 & \sqrt{3} \end{pmatrix} \begin{pmatrix} -\sqrt{3}\zeta^2 & - \sqrt{3} \zeta^5 \\ -\zeta^4 & -\zeta^4 \end{pmatrix} &= \frac{1}{2\sqrt{3}}\begin{pmatrix} -\sqrt{3}(\zeta^4+\zeta^2) & -\sqrt{3}(\zeta^4+\zeta^5) \\ \sqrt{3}(\zeta^2 - \zeta^4) & \sqrt{3}(\zeta^5-\zeta^4) \end{pmatrix}\\
- &= \frac{1}{2}\begin{pmatrix} -(\zeta^4+\zeta^2) & (\zeta^2-\zeta^4) \\ (\zeta^2 - \zeta^4) & -(\zeta^4+\zeta^2) \end{pmatrix} \\
+\tau = \frac{1}{2\sqrt{3}(1+\zeta)}\begin{pmatrix} 1+\zeta & \sqrt{3} \\ -(1+\zeta) & \sqrt{3} \end{pmatrix} \begin{pmatrix} -\sqrt{3}\zeta^2 &  \sqrt{3} \zeta^2 \\ \zeta(1+\zeta) & \zeta(1+\zeta) \end{pmatrix} &= \frac{\zeta}{2}\begin{pmatrix}1-\zeta & 1+\zeta \\ 1+\zeta & 1-\zeta \end{pmatrix} \\
   &= \frac{1}{2}\begin{pmatrix} 1 & \sqrt{3}i \\ \sqrt{3}i & 1 \end{pmatrix}
 }
-\hl{Eigenvalues do not have pos-def imaginary part, what's gone wrong?}
+ \\
+\end{comment}
+This can be calculated numerically in Sage as below (output formatted to fit in the document):
+\begin{lstlisting}[language=Python,frame=single]
+sage: S.period_matrix()
+[ -0.6-1.1*I  0.6+1.1*I 1.2+0.0*I -1.2+0.0*I]
+[ -1.1-0.6*I -1.1-0.6*I 0.0-1.2*I  0.0-1.2*I]
+sage: S.riemann_matrix()
+[ 0.000+0.866*I 0.500+0.000*I]
+[ 0.500+0.000*I 0.000+0.866*I]
+\end{lstlisting}
+\begin{remark}
+\hl{These numerical results seem to suggest the analytic answer is wrong, and that I should really be finding}
+	\eq{
+		\Omega \propto \begin{pmatrix} 1 & -1 &  \zeta^2  & -\zeta^2 \\ 1 & 1 & \zeta & \zeta \end{pmatrix}
+	}	
+giving 
+\eq{
+\tau = \frac{1}{2} \begin{pmatrix} 1 & 1 \\ -1 & 1 \end{pmatrix} \begin{pmatrix} \zeta^2 &  - \zeta^2 \\ \zeta & \zeta \end{pmatrix} &= \frac{\zeta}{2} \begin{pmatrix} 1+\zeta & 1-\zeta \\ 1-\zeta & 1+\zeta \end{pmatrix} = \frac{1}{2} \begin{pmatrix} \sqrt{3}i & 1 \\ 1 & \sqrt{3}i \end{pmatrix}
+}
+\end{remark}
+
+
+\begin{remark}
+	Because of the action of the modular group on $\Omega$, it is difficult to inspect the computed answer to see if it is correct. This is not true of $\tau$, which i
+\end{remark}
+
+\begin{remark}
+	We could also try this calculation viewing $X$ as a standard hyperelliptic. General theory says that we have a basis of $\Omega^1(X)$ given by 
+	\eq{
+		\pbrace{\omega_j = \frac{y^j dy}{z}}_{j=0}^{g-1}
+	}
+	and a generating set of $H_1(X,\mbb{Z})$ given by a suitable choice of independent closed paths $c = \gamma_1 - \gamma_2$ where $\gamma_i$ are the two lifts of a path in $\mbb{P}^1$ between branch points of the map $X \to \mbb{P}^1$. In order to find the period matrices explicitly we need to calculate 
+	\eq{
+		\int_c \omega_j 
+	}
+	for these loops c. To be explicit for the paths in the base that we choose we take 
+	\eq{
+		a_1 &= \pbrace{e^{\frac{it\pi}{3}} \, | \, t \in [0,1]} \\
+		b_1 &= \pbrace{e^{\frac{i(t+1)\pi}{3}} \, | \, t \in [0,1]} \\
+		a_2 &= \pbrace{e^{\frac{i(t+3)\pi}{3}} \, | \, t \in [0,1]} \\
+		b_2 &= \pbrace{e^{\frac{i(t+5)\pi}{3}} \, | \, t \in [0,1]}  
+	}
+\end{remark}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Spinors}
@@ -991,6 +1085,75 @@ We now state some important properties:
 \end{corollary}
 
 
+\hl{A break to introduce Bernd's notes}
+
+\subsubsection{Connection from Projection}
+Given an rank-$n$ vector bundle $E \to M$ a subbundle of $\mbb{R}^{n+k} \times M$. We can decompose $E_x + E_x^\perp = \mbb{R}^{n+k}$ and define projectors $P,Q$ onto $E,E^\perp$ respectively. Then 
+\eq{
+E = \pbrace{(x,v) \in M\times \mbb{R}^{n+k} \, | \, P_x(v) = v}
+}
+and sections are maps $x \mapsto (x,f(x))$ s,t $P_xf(x) = f(x)$. We define a connection on $E$ via 
+\eq{
+Df = P df
+}
+Now we want to pick a gauge via $u_x: \mbb{R}^n \to \mbb{R}^{n+k}$, i.e $u^\dagger u = I$, and so we can write $P = uu^\dagger$. Then if we write our section as $f=ug$ for $g:U \subset M \to \mbb{R}^n$. Then
+\eq{
+Df = uu^\dagger \psquare{(du)g + u(dg)} = u\psquare{dg + u^\dagger (du)g}
+}
+and we can read off that the connection must be $A = u^\dagger du$. and so 
+\eq{
+D = du^\dagger \wedge du + u^\dagger du \wedge u^\dagger du 
+}
+Now in terms of the other projection, we have the following results:
+\begin{lemma}
+	$dQ = Q(dQ) + (dQ)Q$ and $(dQ)f = -Q(df)$. 
+\end{lemma} 
+If we now define $B = QdQ$ we get for $f: M \to \mbb{R}^{n+k}$ 
+\eq{
+D_B f = df + Bf = df + (dQ)f - (dQ)Q f
+}
+On sections of $E$ we have $Qf=0$ and so $D_B f = Df$. As we can calculate $F_b = dQ \wedge dQ$ we must get 
+\eq{
+F = P(dQ) \wedge (dQ)P
+}
+Choose a gauge fo $E^\perp$ $v:\mbb{R}^k \to \mbb{R}^{n+k}$ with $u^\dagger v= 0$. Letting $\rho = v^\dagger v$ we get 
+\eq{
+Q = v \rho^{-2} v^\dagger
+}
+giving 
+\eq{
+F = \dots = P(dv)\rho^{-2} \wedge (dv^\dagger)P 
+}
+\subsubsection{Quaternionic Bundles}
+We now take $M = S^4 = \mbb{HP}^1$ with matrix multiplication form the left but scalar $\mbb{H}$ action on the right. Our plan will be to try find good $v$ s.t. we can get $F$ (anti)-self dual, and $\bar{F} = -F$ to ensure $F$ is $\mf{su}(2)$-valued. \\
+The ADHM idea is
+\begin{enumerate}
+	 \item take $v(x,y) = Cx+Dy$ for $x,y \in \mbb{H}, \, C,D \in \mbb{H}^{(k+n)k}$.  
+	 \item Assume maximal rank for $(x,y) \neq 0$. Then image of $v$ is a $k$-dimensional subspace of $\mbb{H}^{n+k}$ depending on $xy^{-1}$. 
+	 \item Project to $\mbb{R}^4 \subset S^4$ where $y \neq 0 $ and take affine coordinate $(x,1)$
+	 \item assume $\rho^2 = (\bar{x}C^\dagger + D^\dagger)(Cx+d)$ is real for $x \in \mbb{H}$.  
+\end{enumerate}
+We now write $L$ for the tautological quaternionic line bundle over $\mbb{HP}^1$ with $c_2 = -1$. Take 
+\eq{
+E^\perp = \underbrace{L \oplus \dots \oplus L}_{\times k}
+}
+Then since $E \oplus E^\perp$ is trivial and Chern number adds we have $c_2(E) = k$. Thus taking $n=1$,
+\eq{
+F = PC(dx) \rho^{-2} \wedge (d\bar{x})C^\dagger P
+} 
+is an $SU(2)$-instanton with charge $k$.
+\begin{remark}
+	We needed $n=1$ as we actually get an $Sp(n)$ bundle
+\end{remark}
+Now we can pick a gauge where 
+\eq{
+v(x) = \begin{pmatrix} \Lambda \\ B-xI_k \end{pmatrix}
+}
+with $n\times k$ quaternionic matrix $\Lambda$ and $k\times k$ constant quaternioninc matrix $B$. We have to solve the non-linear condition 
+\eq{
+\bar{\Lambda^\dagger \Lambda + B^\dagger B} = \Lambda^\dagger \Lambda + B^\dagger B
+}
+for symmetric $B$. We then solve the linear, $x$-dependent matrix equation $v^\dagger u = 0$ for u to find an explicit formula for $A,F$. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{../../bib/custom-bib-style}

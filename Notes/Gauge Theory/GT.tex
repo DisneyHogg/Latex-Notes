@@ -331,6 +331,21 @@ The Hodge star is an operator fraught with minus sign problems. Check \href{http
 \begin{corollary}
 	On Euclidean $\mbb{R}^4$, $(\star)^2 = 1$, so $\star$ has eigenvalues $\pm 1$. 
 \end{corollary}
+\begin{definition}
+	Decompose, as eigenspaces of $\star$, $\Omega^2(M) = \Omega^2_+(M) \oplus \Omega^2_-(M)$. We call these the \bam{self-dual} and \bam{anti-self-dual} parts.
+\end{definition}
+
+\begin{lemma}
+	Elements of $\Omega^2_+(M), \, \Omega^2_-(M)$ are orthogonal. 
+\end{lemma}
+\begin{proof}
+	We have 
+	\eq{
+		\pangle{\omega_+, \omega_-}\omega_{vol} &= \omega_+ \wedge \star \omega_- = -\omega_+ \wedge \omega_- \\
+		\pangle{\omega_-,\omega_+} \omega_{vol} &= \omega_- \wedge \star \omega_+ = \omega_+ \wedge \omega_-
+	}
+	but $\pangle{\omega_+, \omega_-} = \pangle{\omega_-, \omega_+}$ so must be 0. 
+\end{proof}
 
 \begin{prop}
 	Take coordinates $\pbrace{x^\mu}$ on an $n$-dimensional manifold $M$. Let $g$ be a metric with $g_{\mu\nu} = g\pround{\pd{x^\mu}, \pd{x^\nu}}$. Then  
@@ -1809,33 +1824,12 @@ $\mc{A}$ is the connection for which $F$ is the curvature, and so we know we are
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Instantons}
 
-We now want to consider $M=\mbb{R}^4$ with Euclidean signature (in practice this might be achieved though a Wick rotation of a Lorentzian metric if necessary). We will, as previously stated, being considering configurations which decay sufficiently quickly to infinity. This means we can add the point at infinity to $M$ to obtain $S^4$.
+We now want to consider $M=\mbb{R}^4$ with Euclidean signature (in practice this might be achieved though a Wick rotation of a Lorentzian metric if necessary). We will, as previously stated, be considering configurations which decay sufficiently quickly to infinity. This means we can add the point at infinity to $M$ to obtain $S^4$.
 
 \begin{remark}
 	Although $\mbb{R}^4$ does not have an isometric embedding into $S^4$, it does have a conformal embedding, and this will turn out to be sufficient, because the defining conditions (namely the self duality ones) are conformally invariant.  
 \end{remark}
-
-Let us now use some useful results in 4d: 
-
-
-
-\begin{definition}
-	Decompose, as eigenspaces of $\star$, $\Omega^2(M) = \Omega^2_+(M) \oplus \Omega^2_-(M)$. We call these the \bam{self-dual} and \bam{anti-self-dual} parts.
-\end{definition}
-
-\begin{lemma}
-	Elements of $\Omega^2_+(M), \, \Omega^2_-(M)$ are orthogonal. 
-\end{lemma}
-\begin{proof}
-	We have 
-	\eq{
-\pangle{\omega_+, \omega_-}\omega_{vol} &= \omega_+ \wedge \star \omega_- = -\omega_+ \wedge \omega_- \\
-\pangle{\omega_-,\omega_+} \omega_{vol} &= \omega_- \wedge \star \omega_+ = \omega_+ \wedge \omega_-
-}
-but $\pangle{\omega_+, \omega_-} = \pangle{\omega_-, \omega_+}$ so must be 0. 
-\end{proof}
-
-As such we can decompose the Yang-Mills functional as 
+We can use the Hodge star to decompose the Yang-Mills functional as 
 \eq{
 S_{YM} = \int_M \abs{F}^2 \omega_{vol} = \int_M \abs{F_+}^2 \omega_{vol} + \int_M \abs{F_-}^2 \omega_{vol} 
 }
@@ -1844,7 +1838,7 @@ Now we make the following definition
 \begin{definition}
 	We call 
 	\eq{
-c = \int_M \tr(F \wedge \highlight{\star}F)	
+c = \int_M \tr(F \wedge F)	
 }
 the \bam{second Chern number}
 \end{definition}	
@@ -1870,10 +1864,53 @@ d^A (\star F) = \pm d^A F  = 0 \quad \text{by the Bianchi identity}
 }
 
 \begin{definition}
-	An instanton is a solution to the (anti-)self-dual euqations which can be extended to $S^4$. 
+	An (anti-)instanton is a solution to the (anti-)self-dual euqations which can be extended to $S^4$. 
 \end{definition}
 
-We want to understand instantons up to gauge transformation, and the space parameterising these is the \bam{moduli space of instantons}. 
+We want to understand instantons up to gauge transformation, and the space parameterising these is the \bam{moduli space of instantons}. \\
+If we now take recognise that $\mf{su}(2) \cong \mf{sp}(1) \cong \image \mbb{H}$ we can use the quaternion norm on our Lie algebra. In this normalisation we get the following results:
+\begin{lemma}
+	The \bam{1st Pontryagin Class} on the bundle $\ad P$ is 
+	\eq{
+P_1(\ad P) = \frac{c}{4\pi^2} \in \mbb{Z} 	
+}
+\end{lemma}
+
+\begin{example}[BPST Instanton]
+	Let us think of $M=\mbb{R}^3 = \mbb{H}$ by the identification $\bm{x} \in \mbb{R}^4 \leftrightarrow x = x_1 i + x_2 j + x_3 k + x_4 \in \mbb{H}$. Note $x\bar{x} = \abs{\bm{x}}^2$ and 
+	\eq{
+G = SU(2) \cong Sp(1) = \pbrace{u \in \mbb{H} \, | \, u\bar{u} = 1}	
+}
+We take a connection $A \in \Omega^1(\mbb{R}^4; \mf{g})$ given by 
+\eq{
+A(x) &= \frac{1}{\abs{x}^2+1} \image(x d\bar{x})  \\
+\Rightarrow F &= \frac{1}{(\abs{x}^2+1)^2} dx \wedge d\bar{x}
+}
+We can check that $F$ is self-dual, by finding 
+\eq{
+dx \wedge d\bar{x} = -2 \psquare{(dx_{12} + dx_{34})i + (dx_{13}-dx_{24})j + (dx_{14}+dx_{23})k}
+} 
+and so corresponds to an instanton. The corresponding Pontryagin class is 
+\eq{
+P_1 &= \frac{1}{4\pi^2} \int_{\mbb{R}^4} \abs{F}^2 d^4x \\
+&= \frac{1}{4\pi^2} \int_{\mbb{R}^4} \frac{4}{(\abs{x}^2+1)^4} \abs{(dx_{12} + dx_{34})i + \dots }^2 d^4x \\
+&= \frac{1}{4\pi^2} \int_{\mbb{R}^4} \frac{4}{(\abs{x}^2+1)^4} \psquare{\abs{dx_{12} + dx_{34}}^2 + \dots } d^4 x 
+}
+We can check terms like 
+\eq{
+\abs{dx_{12}+dx_{34}}^2 d^4 x = (dx_{12} + dx_{34}) \wedge \star (dx_{12} + dx_{34}) = 2dx_{1234}
+}
+and so 
+\eq{
+P_1 = \frac{6}{\pi^2} \int_{\mbb{R}^4} \frac{d^4x}{(\abs{x}^2+1)^4} = \frac{6}{\pi^2} \int_0^\infty \frac{r^3 dr}{(r^2+1)^4} \cdot V(S^3) = 1
+}
+We can introduce parameters through a conformal transform $x \mapsto \lambda^{-1}(x-x_0)$ for $\lambda \in \mbb{R}^\times, \, x_0 \in \mbb{R}^4$. As $\star$ is a confomally invariant transform we have that the transformed $F$ is still self-dual. The transformed $A$ is 
+\eq{
+A^\prime(x) = \frac{1}{\abs{x-x_0}^2 + \lambda^2} \image \psquare{(x-x_0)d\bar{x}}
+}
+and by homotopy invariance, when $\lambda>0$ we must have that $A^\prime$ again has instanton number 1. If we consider the limit as $\lambda \to 0$, the small instanton limit, the instanton concentrates at $x_0$. This idea allows one to study the manifold the instanton lies on through 
+\end{example}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
