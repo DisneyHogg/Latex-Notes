@@ -350,7 +350,13 @@ where to do the above calculation we have used
 }
 One might wonder \hl{is there a way to use the Pochhammer contour as part of the homology basis} to recreate this result slightly more easily? 
 \end{remark}
-As we can get onto other sheets just by multiplying $y$ by powers of $\zeta$, we get that the period matrix is 
+We can get onto other sheets just by multiplying $y$ by powers of $\zeta$, so for example we can calculate that 
+\eq{
+\int_{b_1} \omega_1 &= \zeta^{2\times -5}\psquare{(0 \mapsto 1) + \zeta^{-1\times -5}(1\mapsto -1) + (-1 \mapsto 0)} \\
+&= \zeta^{-10}(1-\zeta^5)(-1 \mapsto 1) \\
+&= -\zeta^{-5}(1-\zeta^{-5})(-1 \mapsto 1) 
+}
+and following this through we get that the period matrix is 
 \eq{
 \Omega = \begin{pmatrix} 1 & \zeta^{-15} & -\zeta^{-5} & -\zeta^{-5-15} \\ 1 & \zeta^{-12} & -\zeta^{-4} & -\zeta^{-4-12}\end{pmatrix} = \begin{pmatrix} 1 & -1 & -\zeta & \zeta \\ 1 & 1 & -\zeta^2 & -\zeta^2 \end{pmatrix}
 }
