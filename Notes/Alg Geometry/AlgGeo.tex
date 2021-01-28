@@ -244,7 +244,7 @@ Here we will cover the basic category theory required to be able to provide a sl
 	\eq{
 		\forall a,b \in A, \, ab = (-1)^{\deg(a) \deg(b)}ba	
 	}
-	The diferenial means we have a map $d:A \to A$ s.t. 
+	The differential means we have a map $d:A \to A$ s.t. 
 	\eq{
 		d(ab) = (da)b + (-1)^{\deg(a)}a(db)
 	}
@@ -347,6 +347,92 @@ Here we will cover the basic category theory required to be able to provide a sl
 	If $O=E^\prime$ is another equaliser, then we know we have maps $u,u^\prime$ giving the isomorphism. 
 \end{proof}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Manifolds}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Classification of Bundles}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Characteristic Classes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Universal Bundle and Classifying Space}
+
+\begin{prop}
+	If $G$ is an abelian group then $\text{Prin}_G(X) \cong H^1(X,G)$. 
+\end{prop}
+\begin{proof}
+	See \href{https://math.colorado.edu/~rohi1040/expository/param_spin.pdf}{here}. Effectively, a choice of bundle is equivalent to a choice of transition maps that obey cocycle transitions, that is a choice of \v{C}ech 1-cocycle, valued in $G$. The abelian-ness of $G$ is required to preserve the group operation.  
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Orientability}
+Given a connected $n$-dimensional Riemannian manifold $X$, consider an $O(n)$-bundle $E \to X$. We know examples of such bundles always exist, for example taking the tangent bundle $TX$. 
+\begin{definition}
+	A manifold is \bam{orientable} if its tangent bundle has a reduction of structure group to an $SO(n)$ bundle. 
+\end{definition}
+
+We are about to give a topological condition for orientability, and we will need the following result:
+
+\begin{comment} I think this is wrong. 
+\begin{lemma}\label{lemma: 0-Cohomology}
+	If $M$ is a manifold with $r$ connected components, $H^0(M,F_2) \cong F_2^{r-1}$
+\end{lemma}
+\begin{proof}
+	Thinking of $H^0$ as global sections, we know that there is a choice of $\pm 1$ for the value of a section on each component. The overall sign of the section doesn't matter, so we have $r-1$ choices of signs. 
+\end{proof}
+\end{comment}
+
+\begin{prop}
+	$X$ is orientable iff $w_1(X)=0$. 
+\end{prop}
+\begin{proof}
+	Let $E$ be the orthonormal frame bundle of the tangent bundle to $X$, and then from the maps $O(n) \to E \to X$ we get the exact sequence of cohomology
+	\eq{
+0 \to H^0(X,F_2) \to H^0(E,F_2) \to H^0(O(n),F_2) \overset{\delta}{\to} H^1(X,F_2)	
+}
+\hl{See Lawson p.79 for the rest of this - how does it work?}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Spin Bundles}
+To learn more about spin bundles I recommend reading Besse (\hl{ref}) and Lawson (\hl{ref}), but I will give a brief outline here. 
+
+\begin{lemma}
+	If $n>2$, $\pi_1(SO(n)) = \mbb{Z}_2$. 
+\end{lemma}
+
+\begin{definition}
+	We define $\text{Spin}_n$ be the universal cover of $SO(n)$ for $n>2$. This is a double-cover and has the SES 
+	\eq{
+0 \to \mbb{Z}_2 \to \text{Spin}_n \overset{\pi}{\to} SO(n) \to 0	
+}
+\end{definition}
+
+\begin{definition}
+	A \bam{spin structure} on $SO(n)$-bundle $P\to X$ is a double cover $Q \to P$ s.t the restriction to each fibre is the double cover $\text{Spin}_n \to SO(n)$. That is that the following diagram commutes
+	\begin{tkz}
+		Q \times \text{Spin}_n \arrow[r] \arrow[d, twoheadrightarrow] & Q \arrow[d, twoheadrightarrow]\\
+		P \times SO(n) \arrow[r] & P
+	\end{tkz}
+\end{definition}
+
+The existence of such a structure is not guaranteed, but can be given as a simple topological condition. Note that to have an $SO(n)$-bundle, $X$ must already be orientable. 
+
+\begin{prop}
+	$X$ has a spin structure iff the second Stiefel-Whitney class $w_2(X)=0$. 
+\end{prop}
+\begin{proof}
+	We have the exact sequence of cohomology
+	\eq{
+0 \to H^1(X,F_2) \to H^1(P,F_2) \to H^1(SO(n), F_2) \overset{\delta}{\to} H^2(X,F_2)	
+}
+coming from $SO(n) \to P \to X$, where we have the left 0 because $X$ is orientable. $\text{Prin}_{F_2}(SO(n)) \cong H^1(SO(n),F_2)$, so there is a \hl{non-identity} cohomology class $g \in H^1(SO(n), F_2)$ corresponding to the spin group fibration, and similarly a spin structure corresponds to an element of $H^1(P,F_2)$ which maps to $g$ in $H^1(SO(n),F_2)$. If $H^1(P,F_2)=0$, then $\ker \delta =0$ and so $\delta(g) \neq 0$. Conversely, if $\delta(g) \neq 0$, by exactness $g$ is not in the image of the map, and so there cannot be any double covers compatible with the map $Spin_n \to SO(n)$. $\delta(g)$ is precisely the Stiefel-Whitney class. 
+\end{proof}
+\begin{corollary}
+	If $w_2(X)=0$, the spin structures on $X$ correspond to cosets of $H^1(P,F_2)/H^1(X,F_2)$. 
+\end{corollary}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Complex Manifolds}
@@ -1026,7 +1112,7 @@ Suppose $C$ has genus $g$, then we know that $H_1(C,\mbb{Z}) \cong \mbb{Z}^{2g}$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Picard Group}
+\subsection{Picard Group}\label{subsec:Picard Group}
 
 \begin{definition}
 	The \bam{Picard group} of a locally ringed space $X$ is $\Pic(X)$ the group of isomorphism classes of line bundles on $X$ with the group operation being $\otimes$. 
@@ -1150,12 +1236,22 @@ We now restrict to considering compact Riemann surfaces $X$, and denote the fiel
 	This convention, agreeing with Wikipedia and Griffiths, differs from Farkas \& Kra, who would have $r(D) = l(-D)$. 
 \end{remark}
 
+\begin{lemma}
+	$l(D) = \dim \abs{D}+1$. 
+\end{lemma}
+\begin{proof}
+	See Hartshorne, prop 7.7. The idea is that a section $s$ gives a divisor $(s)$, and two sections have the same divisor iff they are a constant multiple of each other. 
+\end{proof}
+
 \begin{definition}
 	Given $D \in \Div(X)$ we define the \bam{index of speciality} of the divisor $D$ to be $i(D) = \dim \Omega(D)$ where
 	\eq{
 		\Omega(D) = \pbrace{\omega \, | \, \omega \text{ an abelian differential}, \, (\omega)\geq D}	
 	}
 \end{definition}
+
+
+
 
 We now state some simple-to-prove results
 \begin{prop}
@@ -1301,6 +1397,47 @@ In order to say something about the form of $\Omega$, we need the following resu
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Spin Structures}
+We will now want to understand two papers, by Atiyah (\hl{ref}) and Kallel, Sjerve (\hl{ref}), on spin structure on Riemann surfaces. 
+\subsection{Further results on square roots}
+Recall in subsection \ref{subsec:Picard Group} we looked at solutions in the divisor class group to the equation $2D=K$. We can say some more:
+
+\begin{theorem}
+	Let $\pbrace{X_t \, | \, t \in \mbb{C}, \abs{t}<1}$ be a holomorphic family of compact Riemann surfaces, and let $D_t$ be a divisor class in $X_t$ s.t. $2D_t = K_t$. Then $\dim \abs{D_t}$ is constant mod 2.  
+\end{theorem}
+
+\begin{theorem}
+	The function $\phi:S(X) \to F_2, \, \phi(L) = \dim \Gamma(L)$ is a quadratic function whose associated bilinear form is the cup product on $H^1(X,F_2)$. 
+\end{theorem}
+
+\begin{prop}
+	$\phi$ takes the values 0,1 at $2^{g-1}(2^g+1), \, 2^{g-1}(2^g-1)$ points of $S$ respectively. 
+\end{prop}
+\begin{proof}
+	See Mumford (\hl{ref}).
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Spin Structures on Riemann Surfaces}
+We have been introducing square-roots of the canonical bundle, and the next prop is the reason why.
+
+We need a brief lemma:
+
+\begin{lemma}
+	Line bundles correspond bijectively to circle bundles.
+\end{lemma}
+\begin{proof}
+	See \href{https://ncatlab.org/nlab/show/classifying+space}{here}, \href{https://ncatlab.org/nlab/show/circle+bundle}{here}, and \href{https://en.wikipedia.org/wiki/Complex_projective_space}{here}. It boils down to the fact that we have the map $BU(1) \cong \mbb{CP}^\infty$ so we get that every complex line bundle $L \to X$ is the pullback along a map of the universal line bundle $S^\infty \hookrightarrow \mc{L} \twoheadrightarrow \mbb{CP}^\infty$. That is, we have the square
+	\begin{tkz}
+		L \arrow[r] \arrow[d] & \mc{L} \arrow[d] \\ X \arrow[r] & \mbb{CP}^\infty  
+	\end{tkz}
+\end{proof}
+
+\begin{prop}
+	Spin structures on a compact complex manifold correspond bijectively with isomorphism classes of line bundles $L$ s.t $L^{\otimes 2}\cong K$. 
+\end{prop}
+\begin{proof}
+	On an almost complex manifold we have a reduction of structure group from $SO(2n)$ to $U(n)$, and we have the map $\det:U(n) \to U(1)$, so we can take a spin structure on $X$ to be a cohomology class $\xi \in H^1(U(X),F_2)$ (modulo the image of $H^1(X,F_2)$ under $\pi^\ast$) that restricts to the generator of $H^1(U(1),F_2)\cong F_2$ on the fibre, where $U(X)$ is the unit tangent bundle on $X$. This generator is the squaring map. \\
+	Now by the lemma we have that $\xi$ corresponds to a continuous line bundle $L \in \Pic(X)$, and the facts that $\xi$ maps to the generator $-1 \in H^1(U(1),F_2)$ means that $L$ is the pullback of $\mc{O}(-1)$ the line bundle over $\mbb{CP}^\infty$. This means that we must have an isomorphism $\alpha:L^{\otimes 2} \to K_X$ (as $\mc{O}(-1)^{\otimes 2} = \mc{O}(-2) = K_{\mbb{CP}^\infty}$). The holomorphic structure on $L$ is then inherited from $K$, and if $X$ is compact the holomorphic structure conversely fixes $\alpha$ up to a scale factor, so the isomorphism is fixed. Hence we are done.
+\end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
