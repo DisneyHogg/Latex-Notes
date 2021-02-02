@@ -934,6 +934,10 @@ We have the following corollary of Riemann-Hurwitz:
 \begin{theorem}
 	If $X$ is a compact Riemann surface with $g\geq 2$ then $\abs{\Aut(X)} \leq 84(g-1)$. 
 \end{theorem}
+
+\begin{theorem}
+	A non-identity automorphism of a Riemann surface fixes at most $2g+2$ points. 
+\end{theorem}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Field of Functions}
 
@@ -1397,24 +1401,43 @@ In order to say something about the form of $\Omega$, we need the following resu
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Spin Structures}
-We will now want to understand two papers, by Atiyah (\hl{ref}) and Kallel, Sjerve (\hl{ref}), on spin structure on Riemann surfaces. 
-\subsection{Further results on square roots}
-Recall in subsection \ref{subsec:Picard Group} we looked at solutions in the divisor class group to the equation $2D=K$. We can say some more:
+We will now want to understand two papers, by Atiyah \cite{Atiyah1971} and Kallel, Sjerve \cite{Kallel2006}, on spin structure on Riemann surfaces. 
+\subsection{A particular quadratic form}
+Recall in subsection \ref{subsec:Picard Group} we looked at solutions in the divisor class group to the equation $2D=K$. We can say some more. Recall that on a Riemann surface $X$, the space $S(X)$ is affine over $F_2$ with group of translations $H^1(X,F_2)$ (see prop \ref{prop:square roots of line bundles}). 
+\begin{definition}
+	If $A$ is an affine space over $F_2$, a function $\phi:A \to F_2$ is \bam{quadratic} if $\forall a \in A, \, x,y \in T(A)$ (the v.sp of translations) the function 
+	\eq{
+H_a : T(A) \times T(A) &\to F_2 \\
+(x,y) &\mapsto \phi(a+x+y) - \phi(a+x) - \phi(a+y) + \phi(a)	
+}
+is bilinear. 
+\end{definition} 
+
+\begin{lemma}
+	The associated bilinear form $H_a$ is independent of $a$. 
+\end{lemma}	
+If $\phi(a)=0$, and we identify $A$ with $T(A)$ by $a+x \mapsto x$, $\phi$ is a quadratic from on $T(A)$ is the standard sense of a vector space, with associated bilinear form $H$. 
+\begin{lemma}
+If $H$ is non-degenerate it is classified by the number of zeros of $\phi$, or equivalently the Arf invariant. 
+\end{lemma}
 
 \begin{theorem}
-	Let $\pbrace{X_t \, | \, t \in \mbb{C}, \abs{t}<1}$ be a holomorphic family of compact Riemann surfaces, and let $D_t$ be a divisor class in $X_t$ s.t. $2D_t = K_t$. Then $\dim \abs{D_t}$ is constant mod 2.  
+	The function $\phi:S(X) \to F_2, \, \phi(L) = \dim \Gamma(L) \, (\text{mod } 2)$ is a quadratic function whose associated bilinear form is the cup product on $H^1(X,F_2)$. 
 \end{theorem}
-
-\begin{theorem}
-	The function $\phi:S(X) \to F_2, \, \phi(L) = \dim \Gamma(L)$ is a quadratic function whose associated bilinear form is the cup product on $H^1(X,F_2)$. 
-\end{theorem}
-
+In order to identify the bilinear with the cup product we just need to work out the number of zeros of the quadratic corresponding to the cup product, and the zeros of $\phi$ which are given by the following prop
 \begin{prop}
 	$\phi$ takes the values 0,1 at $2^{g-1}(2^g+1), \, 2^{g-1}(2^g-1)$ points of $S$ respectively. 
 \end{prop}
 \begin{proof}
 	See Mumford (\hl{ref}).
 \end{proof}
+This then means they coincide. \\
+We can further say that 
+\begin{theorem}
+	Let $\pbrace{X_t \, | \, t \in \mbb{C}, \, \abs{t}<1}$ be a holomorphic family of compact Riemann surfaces, and let $D_t$ be a divisor class in $X_t$ s.t. $2D_t = K_t$. Then $\dim \abs{D_t}$ is constant mod 2.  
+\end{theorem}
+This means that the previous result does not depend on the complex structure on $X$. 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Spin Structures on Riemann Surfaces}
 We have been introducing square-roots of the canonical bundle, and the next prop is the reason why.
@@ -1438,6 +1461,105 @@ We need a brief lemma:
 	On an almost complex manifold we have a reduction of structure group from $SO(2n)$ to $U(n)$, and we have the map $\det:U(n) \to U(1)$, so we can take a spin structure on $X$ to be a cohomology class $\xi \in H^1(U(X),F_2)$ (modulo the image of $H^1(X,F_2)$ under $\pi^\ast$) that restricts to the generator of $H^1(U(1),F_2)\cong F_2$ on the fibre, where $U(X)$ is the unit tangent bundle on $X$. This generator is the squaring map. \\
 	Now by the lemma we have that $\xi$ corresponds to a continuous line bundle $L \in \Pic(X)$, and the facts that $\xi$ maps to the generator $-1 \in H^1(U(1),F_2)$ means that $L$ is the pullback of $\mc{O}(-1)$ the line bundle over $\mbb{CP}^\infty$. This means that we must have an isomorphism $\alpha:L^{\otimes 2} \to K_X$ (as $\mc{O}(-1)^{\otimes 2} = \mc{O}(-2) = K_{\mbb{CP}^\infty}$). The holomorphic structure on $L$ is then inherited from $K$, and if $X$ is compact the holomorphic structure conversely fixes $\alpha$ up to a scale factor, so the isomorphism is fixed. Hence we are done.
 \end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Invariant Spin Structures}
+
+We will want to understand the interplay between the spin structures on a Riemann surface and it's automorphisms. We start with a generic result about quadratic forms:
+
+\begin{lemma}\label{lemma: preserving quadratic gives fixed point}
+	Let $V$ be a f.d. v.sp over $F_2$ and let $\phi:V \to F_2$ be a quadratic functions whose associated bilinear $H$ is non-degenerate. Then any affine transform of $V$, $x \mapsto Ax+b$ which preserves $T$ has a fixed point.  
+\end{lemma}
+\begin{proof}
+	By assumption we have
+	\eq{
+\phi(x) = \phi(Ax+b) = \phi(Ax) + \phi(b) + H(Ax,b)	
+} 
+Setting $x=0$ gives us $\phi(b)=0$ and so $\phi(x) = \phi(Ax)+H(Ax.b)$. Expanding $H(x,y)$ then finds 
+\eq{
+H(x,y) = H(Ax,Ay) \Rightarrow A^\ast A = I
+} 
+where $A^\ast$ is the dual of $A$ wrt to the non-degenerate inner product $\pangle{x,y} = H(x,y)$. Now 
+\eq{
+A^\ast x = x \Rightarrow Ax = x \Rightarrow H(x,b) = 0 &\Rightarrow b \perp \ker(A-I)^\ast \\
+&\Rightarrow b \in \image(A-I) \\
+& \Rightarrow \exists y \in V, \, b=(A-I)y \\
+& \Rightarrow \exists y \in V, \, y = Ay+b
+}
+Hence $y$ is a fixed point of the transform. 
+\end{proof}
+
+Using now the quadratic $\phi$ defined on $S(X)$ we have the following corollary:
+
+\begin{corollary}
+	Any orientation-preserving diffeomorphism of a compact Riemann surface fixes at least 1 spin structure.
+\end{corollary}
+
+It is now to ask how many such structures an automorphism can preserve, and how many automorphisms are there that preserve a given structure.\\
+We begin with the first question:
+\begin{theorem}
+	Take $f \in \Aut(X)$, let $M \in SL_{2g}(\mbb{Z})$ be the matrix representing $f_\ast : H_1(X,\mbb{Z}) \to H_1(X, \mbb{Z})$ wrt a particular homology basis, and $\bar{M}=M \, (\text{mod }2)$. Spin structures invariant under $f$ are in bijection with solutions $x \in F_2^{2g}$ of the equation 
+	\eq{
+(\bar{M}^T-I)x=0	
+}
+Then $f$ leaves $2^h$ spin structures invariant, where $h = \dim E_1(\bar{M})$. 
+\end{theorem}
+\begin{proof}
+ To do this we can see from lemma \ref{lemma: preserving quadratic gives fixed point} that spin structures invariant under $f \in \Aut(X)$ correspond to solutions of $(A-I)y=b$ where $x \mapsto Ax+b$ is the induced transform on $H^1(X,F_2)$ from $f$. Given we know we always have one solution, which we will denote $y_0$, we can consider the difference $x=y-y_0$ for any other solution to see that invariant spin structures biject with solutions of 
+\eq{
+(A-I)x=0
+}
+Now given a homology basis specifying $M$, we have a dual basis of $H^1(M,\mbb{Z})$, and the induced transform from $f$ is represented by the matrix $M^T$. If we restrict to coefficients mod 2 the corresponding effect on the transform matrix is to take the coefficients mod 2. This means we have $A = \bar{M}^T$. 
+\end{proof}
+\begin{remark}
+	You may, like me, have been initially confused as to why the cohomology $H^1(X,F_2)$ has dimension $2g$, when we typically think of a cohomology basis as being a basis of $g$ differentials. \hl{different type of cohomology? or differentials we ask to be abelian}. 
+\end{remark} 
+
+It is then possible to extend this to find exactly which cohomology classes $\xi \in H^1(U(X),F_2)$ correspond to invariant spin structures. Let $e \in H_1(U(X),F_2)$ be the homology corresponding to the $U(1)$ generator. We can get a basis of $H_1(U(X),F_2)$ from a basis of $H_1(X,\mbb{Z})$, $\pbrace{\delta_i}_{i=1}^{2g}$, by lifting the cycles $\delta_i$ to a cycle $\tilde{\delta}_i$ and including $e$. 
+Let $\eta \in H^1(U(X),\mbb{Z})$ be its dual, so our full cohomology basis of $H^1(U(X),\mbb{Z})$ is $\pbrace{d_i,\eta}$. Denote their projection to $H^1(U(X),F_2)$ with an overline. 
+\begin{remark}
+	In this basis, with have the set of spin structures is 
+	\eq{
+\pbrace{\bar{\eta} + \sum_i y_i \bar{d}_i \, | \, y_i \in F_2}	
+}
+\end{remark}
+The corresponding map of $U(X)$ induced from $f$ only acts on the base, so the corresponding effect on $e$ is $f_\ast(e)=e$. 
+To calculate $f_\ast(\tilde{\delta}_i)$ we need a lemma from \cite{Johnson1980}:
+\begin{lemma}
+	For $a,b \in H_1(X,\mbb{Z}), \, \widetilde{(a+b)} = \tilde{a} + \tilde{b} + (a \circ b)e$. 
+\end{lemma}
+\begin{corollary}
+	$f_\ast(\tilde{\delta}_i) = M_{ij} \tilde{\delta}_j + b_i e$ where 
+	\eq{
+v_i = \sum_{1 \leq j_1 < j_2} M_{ij_1} M_{ij_2} (\delta_{j_1} \circ \delta_{j_2})
+}
+\end{corollary}
+\begin{proof}
+	We have that $\tilde{f_\ast(a)} = f_\ast(\tilde{a})$ and so using $f_\ast(\delta_i) = M_{ij} \delta_j$ we have 
+	\eq{
+f_\ast(\tilde{\delta}_i) &= M_{i1}\tilde{\delta}_1 + \widetilde{\pround{\sum_{j>1} M_{ij} \delta_j}} + \pround{M_{i1}\delta_1 \circ \sum_{j>1}M_{ij} \delta_j}e \\
+&= \dots \\
+&= M_{ij} \tilde{\delta}_j + \psquare{\sum_{1 \leq j_1 < j_2} M_{ij_1} M_{ij_2} (\delta_{j_1} \circ \delta_{j_2}) }e
+}
+\end{proof}
+Using the duality condition we can work out $f^\ast(\eta)$. With this we can formulate an equation for a spin structure to be invariant. 
+\begin{theorem}
+	A spin structure $\xi = \bar{\eta} + \sum_i y_i \bar{d}_i$ is invariant under $f$ if 
+	\eq{
+(A-I)y = b	
+}
+with $A=\bar{M}^T, \, b=-\bar{v}$.   
+\end{theorem}
+
+From our understanding of the matrix $A$, we can then get a following result:
+
+\begin{prop}
+	If $f$ is an automorphism of odd order $n$, then $f$ leaves only 1 spin structure fixed iff the associated orbit space $X/\mbb{Z}_n$ has genus 0. 
+\end{prop}
+
+\begin{theorem}
+	Non-identity $f \in \Aut(X)$ preserves every spin structure iff $X$ is hyperelliptic and $X$ is the hyperelliptic involution. 
+\end{theorem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1671,6 +1793,16 @@ sage: S.riemann_matrix()
 		b_2 &= \pbrace{e^{\frac{i(t+5)\pi}{3}} \, | \, t \in [0,1]}  
 	}
 \end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\secmath{g=2}}
+If we restrict to the case of studying Riemann surfaces with genus $2$, we can further start to say more specific things. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Classification by automorphisms}
+Costa \cite{Costa2001} and Bolza \cite{Bolza1887} have classified genus $2$ hyperelliptic curves according to their automorphism groups. We can give a list of these using standard presentations of the curve in the form $y^2=p(x)$, where $p$ is a polynomial of degree $5$ or $6$:\\
+\hl{insert table here}\\
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
