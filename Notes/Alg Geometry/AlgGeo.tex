@@ -399,16 +399,28 @@ We are about to give a topological condition for orientability, and we will need
 \subsection{Spin Bundles}
 To learn more about spin bundles I recommend reading Besse (\hl{ref}) and Lawson (\hl{ref}), but I will give a brief outline here. 
 
+\begin{definition}
+	We define $\text{Spin}_n$ be the non-trivial double cover of $SO(n)$ s.t we have the SES of multiplicative groups 
+	\eq{
+		1 \to \mbb{Z}_2 \to \text{Spin}_n \overset{\pi}{\to} SO(n) \to 1	
+	}
+\end{definition}
+
+\begin{example}
+	$\text{Spin}_2 = SO(2)$ with the covering map corresponding to squaring when we view $SO(2) \cong U(1)$.
+\end{example}
+
 \begin{lemma}
 	If $n>2$, $\pi_1(SO(n)) = \mbb{Z}_2$. 
 \end{lemma}
 
-\begin{definition}
-	We define $\text{Spin}_n$ be the universal cover of $SO(n)$ for $n>2$. This is a double-cover and has the SES 
-	\eq{
-0 \to \mbb{Z}_2 \to \text{Spin}_n \overset{\pi}{\to} SO(n) \to 0	
-}
-\end{definition}
+\begin{prop}
+	When $n>2$, $\text{Spin}_n$ is the universal cover of $SO(n)$. 
+\end{prop}
+
+\begin{remark}
+	One can ask questions about how the spin group depends on the metric provided. We will not tackle this here. 
+\end{remark}
 
 \begin{definition}
 	A \bam{spin structure} on $SO(n)$-bundle $P\to X$ is a double cover $Q \to P$ s.t the restriction to each fibre is the double cover $\text{Spin}_n \to SO(n)$. That is that the following diagram commutes
@@ -1385,6 +1397,60 @@ In order to say something about the form of $\Omega$, we need the following resu
 	It is for this reason that, although taking $\Omega$ to be $g \times 2g$ is seemingly a more prevalent convention, the latter is more sensible because of the corresponding actions. Moreover, if conjugate $M$ with the outer automorphism $\begin{psmallmatrix} 0 & I \\ I & 0 \end{psmallmatrix}$ then we get $\tilde{\tau}^\prime = (a\tilde{\tau}+b)(c\tilde{\tau}+d)^{-1}$, which recovers the fractional linear transformation action of $SL_2(\mbb{Z}) \cong Sp_2(\mbb{Z})$ known in the case of elliptic curves. The reason for the conjugation is as with elliptic curves, we typically normalise the bottom element to 1 instead. 
 \end{remark}
 
+\subsubsection{Riemann Matrices of Covered Spaces}
+Fay \cite{Fay2006} is a good reference for this section, we will illustrate in a specific example, namely that of Burnside's curve. This builds of calculations in Braden's \textit{Riemann Surfaces with Symmetry}. We let $X$ be a genus 2 hyperelliptic curve with order 2 automorphism $r$ that is not the hyperelliptic involution, and we quotient by it's action to get $X \to \hat{X}$, where $\hat{X}$ is an elliptic curve. Then given two cycles $\mf{a},\mf{b}$ on $\hat{X}$ that form a homology basis, we can construct a full homology basis on $X$ from 
+\eq{
+\mf{a}_1 &= \mf{a}+r_\ast\mf{a} \\
+\mf{a}_2 &= \mf{b} - r_\ast\mf{b} \\
+\mf{b}_1 &= \mf{b} \\
+\mf{b}_2 &= r_\ast\mf{a}
+}
+and if we choose a basis of differential $\omega_1, \omega_2$ s.t $r^\ast \omega_1 = \omega_1, r^\ast \omega_2 = -\omega_2$ we can find that the Riemann matrix is given by 
+\eq{
+\tau = \begin{pmatrix} \frac{\int_\mf{b} \omega_1}{2\int_\mf{a} \omega_1} & \frac{1}{2} \\ \frac{1}{2} &  \frac{-\int_\mf{a} \omega_2}{2\int_\mf{b} \omega_2} \end{pmatrix} 
+}
+For later references we will fix this notation so 
+\eq{
+\tau_{11} = \frac{\int_\mf{b} \omega_1}{2\int_\mf{a} \omega_1}, \quad \tau_{22} = \frac{-\int_\mf{a} \omega_2}{2\int_\mf{b} \omega_2}
+}
+\begin{remark}
+	Note we have been cavalier here with denoting $\mf{a},\mf{b}$ both as cycles on $X$ and $\hat{X}$, \hl{this may come back to bite us in the ass}. 
+\end{remark}
+To calculate the Riemann matrix on $\hat{X}$ we keep our homology basis, but now we define a differential by first defining $u,u^\prime$ s.t. 
+\eq{
+\int_\mf{a} u = 1, \quad \int_{-r_\ast \mf{a}} u = 0, \quad \int_{\mf{a}} u^\prime = 0, \quad \int_{-r_\ast \mf{a}} u^\prime = 1
+}
+and then setting our differential to be $\hat{\omega} = u-u^\prime$. We then have the Riemann matrix on $\hat{X}$ as 
+\eq{
+\hat{\tau} = \frac{\int_\mf{b} \hat{\omega}}{\int_\mf{a} \hat{\omega}}
+}
+It can be shown that with these conventions $\hat{\omega} = \frac{\omega_1}{\int_\mf{a} \omega_1}$ and so we get $\hat{\tau} = 2\tau_{11}$. \\
+The consequence of this is that, if we are given an elliptic curve with Riemann matrix $\hat{\tau}$ and told that it is the base of a double cover of a genus 2 hyperelliptic curve $X$ by an automorphism, then $X$ has Riemann matrix 
+\eq{
+\tau = \frac{1}{2}\begin{pmatrix} \hat{\tau} & 1 \\ 1 & 2\tau_{22} \end{pmatrix} 
+}
+At this point we cannot expect to know anything else about the hyperelliptic, as we know from the work of Bolza that the moduli space of hyperelliptic curves with a $C_2$ symmetry is 2 dimensional. Note an alternate form for the Riemann matrix on $X$ shown to exists by Fay was 
+\eq{
+\tau^\prime = \frac{1}{2}\begin{pmatrix} \hat{\tau}+\pi_{11} & -\hat{\tau}+\pi_{11} \\ -\hat{\tau}+\pi_{11} & \hat{\tau}+\pi_{11} \end{pmatrix} 
+}
+where $\pi_{11} = \frac{-1}{2\tau_{22}}$. \\
+Suppose now that $X$ has a second non-hyperelliptic involution $r^\prime$. From Bolza's classification we know that $r,r^\prime$ must generate a $V_4$ group, so specifically $rr^\prime = r^\prime r$. We want a way to find $\tau_{22}$ using this other involution, so we want to repeat the process as before using  a new quotient by the $r^\prime$ action, $\hat{X}^\prime$. As 
+\eq{
+r^\ast = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
+}
+wrt the basis, using our knowledge of matrix representations of the Klein 4 group we must have 
+\eq{
+	r^\ast = \begin{pmatrix} -1 & 0 \\ 0 & 1 \end{pmatrix}
+}
+so we need to swap the differentials (that is $\omega_1^\prime = \omega_2$ and $\omega_2^\prime = \omega_1$) as now $(r^\prime)^\ast \omega_2 = \omega_2, \, (r^\prime)^\ast \omega_1 = -\omega_1$. This yields 
+\eq{
+\hat{\tau}^\prime = \frac{\int_\mf{b} \omega_2}{\int_\mf{a} \omega_2} = \frac{-1}{2\tau_{22}} 
+}
+Hence we can now combine our knowledge when $\hat{\tau} = \hat{\tau}^\prime$ to say that $X$ will have a Riemann matrix
+\eq{
+	\tau = \frac{1}{2}\begin{pmatrix} \hat{\tau} & 1 \\ 1 & -1/\hat{\tau} \end{pmatrix} 
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Monodromy}
 \begin{definition}
 	Given a $n$-fold covering $f:X \to Y$ and a closed path $\gamma$ based at $p \in Y$, then $\gamma$ lift to a path $\hat{\gamma}$ in $X$ s.t. $f \circ \hat{\gamma}=\gamma$. Then $\gamma$ induces a bijection $\sigma_\gamma : f^{-1}(p) \to f^{-1}(p)$ called the \bam{monodromy associated to $\gamma$}. By fixing an ordering of $f^{-1}(p)$ we identify $\sigma \in S_n$.  
