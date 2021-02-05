@@ -136,6 +136,7 @@ for some top form on $Y$. This reformulation gives a convenient way to interpret
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Spinors}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Spinor Bundles}
 \begin{definition}
 	The \bam{complexification} of a vector space $V$ is the vector space $V_\mbb{C} = V \otimes_\mbb{R} \mbb{C}$. 
@@ -160,7 +161,7 @@ We will now state a few results about $SL_2(\mbb{C})$ bundles:
 	The cotangent bundle on a 2-dimensional manifold $M$ reduces to a $SL_2(\mbb{C})$ bundle iff the canonical bundle is trivial.  
 \end{corollary}
 
-\begin{definition}
+\begin{definition}\label{def:spinor bundle}
 	Suppose $M$ is a 4-dimensional manifold s.t $\exists S \to M$ a $SL_2(\mbb{C})$-bundle s.t. 
 	\eq{
 TM_\mbb{C} \cong S \otimes \bar{S}	
@@ -199,6 +200,7 @@ If we take an open $U \subset M$ and trivialise s.t $\ev{S}{U} \cong \mbb{C}^2$,
 \eps^- = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} 
 }
 \end{definition}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Spinors on Minkowski Space}
 One important example of Spinors will be those on Minkowski space, which we will now denote as $M^4$, so we shall cover it in slightly more detail. 
 \begin{remark}
@@ -239,6 +241,57 @@ Under this correspondence, we get the following result
 \begin{remark}
 	By the above a vector $v \in T_0M^4_\mbb{C}$ is real iff $\exists s \in S$ s.t. $v = ss^\dagger$. In this sense we can think of spinors as the square root of real null vectors. 
 \end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Spinor Fields}
+We want to extend the above work looking at spinors on Minkowski space to write explicitly the isomorphism claimed in Definition \ref{def:spinor bundle}
+\begin{definition}
+	We define the mixed spinor tensor $\sigma\indices{_a^A^{A^\prime}}$ by the conditions
+	\begin{itemize}
+		\item $\bar{\sigma}\indices{_a^A^{A^\prime}} = \sigma\indices{_a^A^{A^\prime}}$
+		\item $\sigma\indices{_a^A^{A^\prime}} \sigma\indices{^b_A_{A^\prime}} = \delta^b_a$
+		\item $\sigma\indices{_a^A^{A^\prime}} \sigma\indices{^a_B_{B^\prime}} = \eps\indices{_B^A}\eps\indices{_{B^\prime}^{A^\prime}}$.
+		\item $\sigma\indices{_[_a^A^{A^\prime}}\sigma\indices{_b_]_A^{B^\prime}} = -\frac{1}{2}i \eps_{abcd} \sigma^{cAA^\prime} \sigma\indices{^d_A^{B^\prime}}$
+	\end{itemize}
+Given a manifold $M$ with spin bundle $S$ this gives the isomorphism $TM = S \otimes \bar{S}$ as 
+\eq{
+v^{AA^\prime} = \sigma\indices{_a^A^{A^\prime}} v^a, \quad v^a = \sigma\indices{^a_A_{A^\prime}} v^{AA^\prime}
+}
+\end{definition}
+
+\begin{lemma}
+	Given a metric $\eta_{ab}$ on $M$ the spinor equivalent is 
+	\eq{
+\eta_{ab} \sigma\indices{^a_A_{A^\prime}} \sigma\indices{^b_B_{B^\prime}} = \eps_{AB} \eps_{A^\prime B^\prime}	
+}
+\end{lemma}
+
+\begin{remark}
+	We will often omit the $\sigma$ to simply write $v^a = v^{AA^\prime}$. 
+\end{remark}
+
+\begin{lemma}
+	If $\xi_{AB}$ is a skew-spinor then $\xi_{AB} = \eps_{AB} \xi\indices{_C^C}$. 
+\end{lemma}
+
+\begin{example}
+	If $F_{ab}$ is a Maxwell tensor (i.e. will eventually be a curvature tensor in a gauge theory) then 
+	\eq{
+F_{AA^\prime BB^\prime} = \phi_{AB} \eps_{A^\prime B^\prime} + \phi_{A^\prime B^\prime} \eps_{AB}
+}
+where 
+\eq{
+\phi_{AB} = \frac{1}{2} F\indices{_A_{C^\prime}_B^{C^\prime}}, \quad \phi_{A^\prime B^\prime} = \frac{1}{2} F\indices{_C_{B^\prime}^C_{A^\prime}}
+}
+are symmetric. We also have the following result:
+\begin{lemma}
+	$\phi_{A^\prime B^\prime}\eps_{AB}, \, \phi_{AB}\eps_{A^\prime B^\prime}$ are the self dual and anti self dual parts of $F$ respectively. 
+\end{lemma}
+\end{example}
+
+Now recall a vector $v \in TM$ is null if $v_a v^a=0$. We can translate this result into a comment on spinors:
+\begin{prop}
+	$v^{AA^\prime}$ is null iff $v^{AA^\prime} = \lambda^A \xi^{A^\prime}$ for spinors $\lambda, \xi$. 
+\end{prop}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Twistors}
@@ -286,6 +339,13 @@ F_{d_1 \dots d_m}(V) = \pbrace{(S_1, \dots, S_m) \, | S_i \text{ a $d_i$-dimensi
 } 
 \end{definition}
 
+\begin{lemma}
+	The dimension of a flaf manifold of type $(d_1, \dots, d_m)$ is 
+	\eq{
+d_1(n-d_1) + (d_2-d_1)(n-d_2) + \dots +(d_m = d_{m-1})(n-d_m)	
+}
+\end{lemma}
+
 \begin{definition}
 	If $V$ is a 4-dimensional vector space we define the \bam{Pl\"ucker embedding} to be the map 
 	\eq{
@@ -300,6 +360,12 @@ Q_4 = \pbrace{z^{ij} \, | \, z^{12}z^{34}-z^{13}z^{24}+z^{14}z^{23}=0} = \pbrace
 }
 where $[z^{ij}]$ are homogeneous coordinates on $\mbb{P}(\wedge^2 V)$. $Q_4$ is called the \bam{Klein quadric}. 
 \end{theorem}
+
+Generically a line $L$ in $\mbb{P}^5$ will intersect $Q_4$ in isolated points, but when this doesn't happen we can give such lines a special name:
+\begin{definition}
+	A line $L \subset \mbb{P}^5$ is \bam{null} if $L \subset Q_4$. A plane $N \subset \mbb{P}^5$ is null if every line $L\subset N$ is null. 
+\end{definition}
+
 
 \subsubsection{Twistor Space}
 Now given $\mbb{T}$ a $4$d $\mbb{C}$ vector space we can get a \bam{double fibration}
@@ -393,6 +459,18 @@ and for $s \in M_\mbb{C}$
 	Given $p \in \mbb{PT}$, $\tilde{p} \subset M_\mbb{C}$ is called an $\alpha$-\bam{plane}, and given $q \in \mbb{PT}^\ast$, $\tilde{q} \subset M_\mbb{C}$ is called an $\beta$-\bam{plane}.
 \end{definition}
 
+By the Pl\"ucker embedding, we have that $M_\mbb{C} \cong Q_4 \subset \mbb{P}^5$, and so we can describe $\alpha,\beta$-planes in terms of null planes via the following result:
+\begin{prop}
+	We have that
+	\begin{itemize}
+		\item All $\alpha,\beta$-planes in $M_\mbb{C}$ are null in $\mbb{P}^5$
+		\item Any null planes in $\mbb{P}^5$ is either an $\alpha$-plane or $\beta$-plane.
+		\item Null lines in $M_\mbb{C}$ are the 5-dimensional family of lines of the form $\tilde{r}$ for $r\in \mbb{A}$.
+		\item Any null line in $M_\mbb{C}$ is the intersection of an $\alpha$-plane and $\beta$-plane.  
+	\end{itemize}
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Actions on Twistor Space}
 We will often want to equip $\mbb{T}$ with a Hermitian form $\Phi$. We state a quick lemma:
 \begin{lemma}
@@ -808,10 +886,70 @@ which we see to mean, using $\star_3^2=1$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Self-Dual Gauge Fields}
-We now want to study self-dual gauge fields more, using Ward \& Wells section 8 as our reference. For this section we will denote the gauge potential as $\Phi$ as $A$ will be a spinor index eventually, so this should not be confused with a Higgs field. The gauge fields we will be studying we now extend to be those over $M_\mbb{C}$. 
+We now want to study self-dual gauge fields more, using Ward \& Wells section 8 as our reference. For this section we will denote the gauge potential as $\Phi$ as $A$ will be a spinor index eventually, so this should not be confused with a Higgs field. The gauge fields we will be studying we now extend to be those over $M_\mbb{C}$. As such we will be using the machinery of the twistor correspondence. 
 \begin{definition}
-	An open set $U \subset M_\mbb{C}$ is \bam{elementary} i 
+	An open set $U \subset M_\mbb{C}$ is \bam{elementary} if $\forall \tilde{Z}$ a self-dual plane (i.e. an $\alpha$-plane) s.t. $\tilde{Z} \cap U \neq \emptyset$, $\tilde{Z} \cap U$ is connected and simply connected. 
 \end{definition}
+This lets us give a novel relation to self-dual curvature:
+\begin{prop}
+	The curvature $F$ on a given elementary $U$ is anti-self-dual iff $\forall$ self dual $\tilde{Z}$ that intersects $U$, the restriction of the covariant derivative $D$ to $\tilde{Z} \cap U$ is integrable. 
+\end{prop}
+\begin{proof}
+	Because $\tilde{Z} \cap U$ is connected and simply connected, the covariant derivative being integrable is equivalent to the curvature being flat, that is 
+	\eq{
+\forall v,w \in T\tilde{Z}, \, v^a w^b F_{ab} = 0	
+}
+Suppose $\tilde{Z}$ corresponds to a projective twistor $Z = (\omega^A, \pi_{A^\prime})$. Then as $\tilde{Z}$ is null, a tangent vector to $\tilde{Z}$ will be null hence of the form $v^a = \lambda^A \pi^{A^\prime}$ for some spinor $\lambda$. This means we get the condition 
+\eq{
+(\phi_{A^\prime B^\prime}\eps_{AB} + \phi_{A B} \eps_{A^\prime B^\prime}) \lambda_1^{A} \lambda_2^B \pi^{A^\prime} \pi^{B^\prime} = 0
+}
+The term $\eps_{A^\prime B^\prime}\pi^{A^\prime} \pi^{B^\prime}$ vanishes, and then for this to vanish $\forall \lambda_1, \lambda_2, \tilde{Z}$, we have that $\phi_{A^\prime B^\prime}=0$, i.e. the self dual part of $F$ is 0. 
+\end{proof}
+This in turn leads to a useful equivalence coming from the twistor geometry. 
+\begin{theorem}
+	Let $\hat{U} \subset \mbb{PT}$ be the open subset s.t $\forall Z \in \hat{U}, \tilde{Z} \cap U \neq \emptyset$, then there is a bijection (up to equivalence) between
+	\begin{enumerate}
+		\item anti-self-dual $GL_n(\mbb{C})$-bundles on $U$ 
+		\item holomorphic rank-n vector bundles $E\to \hat{U}$ s.t. $E$ is trivial over $\hat{x}$ for each $x \in U$. 
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	Ward and Wells \cite{Ward1991} gives a very thorough proof of this, we will only sketch it. \\
+	We define the map $1 \mapsto 2$ by making the fibres of $E$ to be 
+	\eq{
+E_Z = \pbrace{\psi \, | \, D\psi=0 \text{ on }\tilde{Z}}	
+}
+As the bundle is ASD, the covariant derivative is integrable and so a value of $\psi$ is defined by its value at a point $x\in U$. Hence $E_z \cong \mbb{C}^n$. Moreover, any $Z^\prime$ s.t $\tilde{Z}^\prime$ intersects $x$ will also have its value of $\psi$ fixed by the value of $\psi$ on $x$. Hence $\ev{E}{\hat{x}}$ is trivial. \\
+To map $2 \mapsto 1$ note as the vector bundle $E$ is trivial over $\hat{x}$ we can get the rank $n$ vector bundle $\tilde{E} \to U$ by taking the copy of $\mbb{C}^n$ over $\hat{x}$ in $\ev{E}{\hat{x}}$. To define a connection we need a way to parallel transport. Given $x,y \in \tilde{Z}$ we know they have corresponding lines $\hat{x},\hat{y} \subset U$ s.t. $\hat{x} \cap \hat{y} = Z$. As $E$ is trivial over $\hat{x},\hat{y}$, we may transport along these lines under the connection induced from the base $M$ (sometimes called the \bam{spacetime connection}, denoted $\nabla$) via $Z$ to transport from $x$ to $y$. This connection will turn out to satisfy the conditions we need. 
+\end{proof}
+
+\begin{remark}
+	There are many versions of this theorem that consider either bundles over $S^4$ or bundles with different gauge groups. To see all of these check out Ward \& Wells \S 8.1
+\end{remark}
+
+The theorem offers a potential way to construct solutions to the ASD Yang Mills equations via holomorphic vector bundles. These are vector bundles on $\hat{U} \subset \mbb{PT}$ which can be covered with two charts $W, \underline{W}$ (analogous to the north/south charts on the Riemann sphere, s.t. on any line $\hat{x}$ they are are these chats so their intersection contains the line $W \cap \underline{W} \cap \hat{x}$), and so they are defined by a single holomorphic $n\times n$ matrix transition function $F(Z) = F(\omega^A,\pi_{A^\prime})$ on $W \cap \underline{W}$. This acts as
+\eq{
+\underline{\xi} = F(Z) \xi
+} 
+where $\xi,\underline{\xi}$ are coordinate vectors on $W,\underline{W}$ respectively. To do the transport along $\hat{x}$ we need to restrict to the line, that is take 
+\eq{
+G(x,\pi) = F(ix^{AA^\prime}\pi_{A^\prime},\pi_{A^\prime})
+}
+and then find $H, \underline{H}$ non-singular $n\times n$ matrices holomorphic on $W \cap \hat{x}, \, \underline{W} \cap \hat{x}$ respectively s.t. on $W \cap \underline{W} \cap \hat{x}$  
+\begin{equation}\label{eq:splitting formula}
+G = \underline{H} H^{-1} 
+\end{equation}
+This is called the \bam{spliting formula}. Such $H,\underline{H}$ must exists as the triviality of $\ev{E}{\hat{x}}$ means that we know 
+\eq{
+\xi = H \psi, \quad \underline{\xi} = \underline{H} \psi
+}
+for some constant vector $\psi$. 
+\begin{prop}
+	With the above notation we find the connection on the bundle to be given by 
+	\eq{
+\pi^{A^\prime} \Phi_{AA^\prime} = H^{-1} \pi^{A^\prime} \nabla_{AA^\prime}H	
+}
+\end{prop}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Constructions}
