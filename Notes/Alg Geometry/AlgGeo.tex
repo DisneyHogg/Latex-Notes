@@ -1886,8 +1886,69 @@ If we restrict to the case of studying Riemann surfaces with genus $2$, we can f
 \subsection{Classification by automorphisms}
 Costa \cite{Costa2001} and Bolza \cite{Bolza1887} have classified genus $2$ hyperelliptic curves according to their automorphism groups. We can give a list of these using standard presentations of the curve in the form $y^2=p(x)$, where $p$ is a polynomial of degree $5$ or $6$:\\
 \hl{insert table here}\\
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\secmath{D_6}}
+We now want to investigate the period matrix of a general $D_6$ curve. To do this we recall two forms:
+\eq{
+y^2 = x(x-1)\pround{x-\lambda}\pround{x-\frac{1}{1-\lambda}}\pround{x-\frac{\lambda-1}{\lambda}} \text{ and } y^2 = (x^3-\alpha^3)(x^3-\alpha^{-3})
+}
+where restrictions on the value of $\lambda,\alpha$ will apply. We will write $\alpha^3 + \alpha^{-3} = -b$ so we have for the second form $y^2 = x^6+bx^3+1$, and view this as a sixfold cover of $\mbb{P}^1$ with coordinate $y$. We will assume for later that $b\in\mbb{R}_{>0}$. Here we can write the generators of the symmetry as 
+\eq{
+s:(x,y) \to (\rho x,y), \quad r:(x,y) \to (1/x, y/x^3)
+}
+where $\rho = \exp(2\pi i/3)$. Because of the $y \mapsto -y$ symmetry from the hyperelliptic involution we know that the monodromy around $\pm 1$ must be the same, and so we can get a closed curve $a$ from a figure of 8 around the two branch points. We can then get a homology basis by shifting the sheet appropriately. For now we will specify this to mean 
+\eq{
+a_1 = a+ra, \, a_2 = sa-rsa, \, b_1 = sa, \, b_2 = ra
+}
+Braden shows in his notes that if we choose the differentials 
+\eq{
+\omega_1 = (1-x) \frac{dx}{y}, \, \omega_2 = (1+x) \frac{dx}{y}
+}
+we get the Riemann matrix 
+\eq{
+\tau = \begin{pmatrix} -\frac{1}{4} + \frac{1+2\rho}{2}R & \frac{1}{2} \\ \frac{1}{2} & \frac{R}{R-(1+2\rho)} \end{pmatrix}
+}
+where 
+\eq{
+R = \frac{\int_a \omega_2}{\int_a \omega_1}
+}
+We want to now calculate this $R$ explicitly. To fix the sheet of $a$ and work out the monodromy explicitly, we let $y=1+\eps e^{i\theta}$ for small $\eps >0$, then 
+\eq{
+1 + 2\eps e^{i\theta} + \mc{O}(\eps^2) = x^6+bx^3+1 &\Rightarrow x_n(\theta) = \pround{\frac{2\eps}{b}}^{\frac{1}{3}}e^{\frac{i\theta}{3}}\rho^n + \mc{O}(\eps^\frac{2}{3}) \\
+&\text{or } x_n(\theta) = b^\frac{1}{3} e^\frac{\pi i}{3}\rho^n+\mc{O}(\eps^\frac{1}{3})
+}
+We can get the same about $-1$ if we introduce an additional factor of $e^\frac{i\pi}{3}$ with every $\eps^\frac{1}{3}$. Hence we fix $a$ by asking that it starts at $y=1-\eps$ with $x\approx -\pround{\frac{2\eps}{b}}^{\frac{1}{3}}$ and immediately encircles $y=1$ anticlockwise. Now note that at $y=0$, our sheets correspond to real solutions of 
+\eq{
+x^6+bx^3+1 = 0 = (x^3)^2 + b(x^3) + 1
+}
+We can see the two orbits of sheets that are not related by monodomy around $\pm 1$, given by $x_\pm^3 = \frac{-b \pm \sqrt{b^2-4}}{2} = \alpha^{\pm3}$, and then each of these corresponds to 3 sheets from the 3 possible cube roots. For simplicity we assume $b>4$ further so we can define $\alpha$ to be the real cube root. Hence we find
+\eq{
+ \int_a \frac{dx}{y} &= \rho \int_0^\alpha \frac{dx}{\sqrt{(x^3-\alpha^3)(x^3-\alpha^{-3})}} + \rho \int_\alpha^0 \frac{dx}{-\sqrt{(x^3-\alpha^3)(x^3-\alpha^{-3})}} \\
+& \phantom{=} + \int_0^\alpha \frac{dx}{-\sqrt{(x^3-\alpha^3)(x^3-\alpha^{-3})}} + \int_\alpha^0 \frac{dx}{\sqrt{(x^3-\alpha^3)(x^3-\alpha^{-3})}} \\
+&= 2(-1+\rho)\int_0^\alpha \frac{dx}{\sqrt{(x^3-\alpha^3)(x^3-\alpha^{-3})}}
+}
+and likewise
+\eq{
+\int_{a} \frac{xdx}{y} = 2(-1+\rho^2)\int_0^\alpha \frac{xdx}{\sqrt{(x^3-\alpha^3)(x^3-\alpha^{-3})}}
+}
+If we introduce the notation 
+\eq{
+F &= \int_0^\alpha \frac{dx}{\sqrt{(x^3-\alpha^3)(x^3-\alpha^{-3})}}, & G &= \int_0^\alpha \frac{xdx}{\sqrt{(x^3-\alpha^3)(x^3-\alpha^{-3})}}
+}
+Hence we can calculate, using that $\rho^2+\rho+1=0$
+\eq{
+R = \frac{(-1+\rho)F +(2+\rho)G}{(-1+\rho)F-(2+\rho)G}
+}
+To do the integrals $F,G$ we let $u = x^3, \, \frac{1}{3}u^{-\frac{2}{3}} du = dx$ so (for example)
+\eq{
+F &= \frac{1}{3}\int_0^{\alpha^3} u^{-\frac{2}{3}}(\alpha^3-u)^\frac{-1}{2} (\alpha^{-3}-u)^\frac{-1}{2} \, du \\
+&= \frac{\alpha}{3} \int_0^1 v^{-\frac{2}{3}} (1-v)^{-\frac{1}{2}} (1-\alpha^6 v)^{-\frac{1}{2}} \, dv \\
+&= \frac{\alpha}{3} B\pround{1/3,1/2} \tensor[_2]{F}{_1}\pround{1/2,1/3;5/6;\alpha^6}
+}
+setting $v = \alpha^3 u$, and so likewise 
+\eq{
+G = \frac{\alpha^2}{3} B\pround{2/3,1/2} \tensor[_2]{F}{_1}\pround{1/2,1/3;7/6;\alpha^6}
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
