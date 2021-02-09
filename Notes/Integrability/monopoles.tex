@@ -411,7 +411,11 @@ We now wish to understand the correspondence in coordinates. We consider the map
 \eq{
 	z &\mapsto \psquare{\begin{pmatrix} iz \\ I_2 \end{pmatrix}}
 }
-for convenience, let $M^I_\mbb{C}= \phi(M_2(\mbb{C}))$, $\mbb{PT}^I = c^{-1}(M_{\mbb{C}}^I)$ and $F^I = \pi_2^{-1}(M^I)$.  
+for convenience, let $M^I_\mbb{C}= \phi(M_2(\mbb{C}))$, $\mbb{PT}^I = c^{-1}(M_{\mbb{C}}^I)$ and $F^I = \pi_2^{-1}(M^I)$.
+\begin{remark}
+I will be very slack on noting where we use this $I$ notation. \hl{Be careful}. 	
+\end{remark}
+
 \begin{prop}
 	$F^I \cong M^I \times \mbb{P}^1$. 
 \end{prop} 
@@ -505,14 +509,45 @@ This is often called the \bam{incidence relation}. From this point of view, we s
 }
 \end{remark}
 
+\begin{definition}
+	Define the antiholomorphic involution $\sigma: \mbb{PT} \to \mbb{PT}$ by 
+	\eq{
+(\sigma(Z)^0,\sigma(Z)^1, \sigma(Z)^2, \sigma(Z)^3) = (\bar{Z^1}, -\bar{Z^0}, \bar{Z^3}, -\bar{Z^2})	
+}
+\end{definition}
+
+\begin{lemma}
+	$\sigma$ preserves $\Phi(Z,Z)$. 
+\end{lemma}
+
+\begin{definition}
+	A lines $\hat{p}\subset \mbb{PT}$ is called \bam{real} if it is invariant under $\sigma$. 
+\end{definition}
+
+\begin{lemma}
+	$\forall Z \in \mbb{PT}$, the line joining $Z$ and $\sigma(Z)$ is real. 
+\end{lemma}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Complexified Minkowski Space}
 It is at this point useful to discuss slightly more concretely what is meant by complexified Minkowski space. The resource to use here is \cite{Adamo2018}. 
 \begin{definition}
 	Let $(M,g)$ be a smooth real manifold, and take a coordinate system $x^a$ s.t. $g= g_{ab} dx^a dx^b$. The \bam{complexification} is defined by allowing the $x^a$ to take complex values and extending $g_{ab}(x)$ holomorphically.  
 \end{definition}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Single Fibration Picture}
+Recall the antiholomorphic fibration $\sigma$ on $\mbb{PT}$. 
+\begin{prop}
+	All real lines on $\mbb{PT}$ are lines joining $Z \to \sigma(Z)$, and no two such lines intersect
+\end{prop}
+\begin{prop}
+	$\mbb{PT}$ is fibered by its real lines and the quotient space is $S^4$. 
+\end{prop}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The Monopole Equations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Yang-Mills-Higgs equations}
 \begin{definition}
@@ -925,15 +960,16 @@ As the bundle is ASD, the covariant derivative is integrable and so a value of $
 To map $2 \mapsto 1$ note as the vector bundle $E$ is trivial over $\hat{x}$ we can get the rank $n$ vector bundle $\tilde{E} \to U$ by taking the copy of $\mbb{C}^n$ over $\hat{x}$ in $\ev{E}{\hat{x}}$. To define a connection we need a way to parallel transport. Given $x,y \in \tilde{Z}$ we know they have corresponding lines $\hat{x},\hat{y} \subset U$ s.t. $\hat{x} \cap \hat{y} = Z$. As $E$ is trivial over $\hat{x},\hat{y}$, we may transport along these lines under the connection induced from the base $M$ (sometimes called the \bam{spacetime connection}, denoted $\nabla$) via $Z$ to transport from $x$ to $y$. This connection will turn out to satisfy the conditions we need. 
 \end{proof}
 
-\begin{remark}
-	There are many versions of this theorem that consider either bundles over $S^4$ or bundles with different gauge groups. To see all of these check out Ward \& Wells \S 8.1
-\end{remark}
 
-The theorem offers a potential way to construct solutions to the ASD Yang Mills equations via holomorphic vector bundles. These are vector bundles on $\hat{U} \subset \mbb{PT}$ which can be covered with two charts $W, \underline{W}$ (analogous to the north/south charts on the Riemann sphere, s.t. on any line $\hat{x}$ they are are these chats so their intersection contains the line $W \cap \underline{W} \cap \hat{x}$), and so they are defined by a single holomorphic $n\times n$ matrix transition function $F(Z) = F(\omega^A,\pi_{A^\prime})$ on $W \cap \underline{W}$. This acts as
+The theorem offers a potential way to construct solutions to the ASD Yang Mills equations via holomorphic vector bundles. These are vector bundles on $\hat{U} \subset \mbb{PT}$ which can be covered with two charts $W, \underline{W}$ (analogous to the north/south charts on the Riemann sphere), and so they are defined by a single holomorphic $n\times n$ matrix transition function $F(Z) = F(\omega^A,\pi_{A^\prime})$ on $W \cap \underline{W}$. This acts as
 \eq{
 \underline{\xi} = F(Z) \xi
 } 
-where $\xi,\underline{\xi}$ are coordinate vectors on $W,\underline{W}$ respectively. To do the transport along $\hat{x}$ we need to restrict to the line, that is take 
+where $\xi,\underline{\xi}$ are coordinate vectors on $W,\underline{W}$ respectively. 
+\begin{remark}
+We say that $W,\underline{W}$ are analogous to the N/S charts on the Riemann sphere in the sense that on any line $W \cap \underline{W} \cap \hat{x} \cong \mbb{P}^1$ we have that $W = \pbrace{\pi_{1^\prime} \neq 0}, \, \underline{W} = \pbrace{\pi_{0^\prime} \neq 0}$, where we are viewing $\pi$ as the projective coordinates on the line. Hence we know the intersection contains the circle $\pbrace{\abs{\pi_{0^\prime}/\pi_{1^\prime}}=1}$.
+\end{remark}
+To do the transport along $\hat{x}$ we need to restrict to the line, that is take 
 \eq{
 G(x,\pi) = F(ix^{AA^\prime}\pi_{A^\prime},\pi_{A^\prime})
 }
@@ -952,9 +988,115 @@ for some constant vector $\psi$.
 \pi^{A^\prime} \Phi_{AA^\prime} = H^{-1} \pi^{A^\prime} \nabla_{AA^\prime}H	
 }
 \end{prop}
+
+\begin{example}
+	In the case $n=1$ the splitting reduces to finding a Taylor-Laurent splitting, that is can be done by writing $F = e^f \Rightarrow G = e^g$ then $g = \underline{h} -h$. 
+\end{example}
+
+There are many versions of this theorem that consider either bundles over $S^4$ or bundles with different gauge groups. To see all of these check out Ward \& Wells \S 8.1. Here we will restate the final most useful one, after a few definitions:
+
+\begin{definition}
+	A \bam{real form} on $E \to \hat{U}$ a holomorphic vector bundle is an antilinear isomorphism $\tau:E \to E^\ast$ s.t. 
+	\begin{tkz}
+		E \arrow[r,"\tau"] \arrow[d] & E^\ast \arrow[d] \\ \hat{U} \arrow[r,"\sigma"] & \hat{U}
+	\end{tkz}
+commutes and 
+\eq{
+\forall \xi \in E_Z, \, \eta \in E_{\sigma(Z)}, \; \pangle{\xi,\tau\eta} = \overline{\pangle{\eta,\tau\xi}}
+}
+\end{definition}
+\begin{lemma}
+	If $\forall x \in U, \, \ev{E}{\hat{x}}$ is trivial then $\tau$ induces a non-degenerate Hermitian form $\tau_0$ on the space of holomorphic section of $\ev{E}{\hat{x}}$. 
+\end{lemma}
+\begin{definition}
+	We say $\tau$ is \bam{positive} if the induced form $\tau_0$ is positive definite. 
+\end{definition}
+	
+\begin{theorem}
+	Let $U \subset S^4$ be an elementary open set and $\hat{U}\subset \mbb{PT}$ the corresponding open subset in twistor space. Then there is a bijection (up to equivalence) between 
+	\begin{enumerate}
+		\item ASD $SU(n)$ gauge fields on $U$ and 
+		\item holomorphic rank-$n$ vector bundles $E \to \hat{U}$ s.t. 
+		\begin{enumerate}
+			\item $\forall x \in U, \, \ev{E}{\hat{x}}$ is trivial
+			\item $\det E$ is trivial
+			\item $E$ admits a positive real form. 
+		\end{enumerate}
+	\end{enumerate}
+\end{theorem}
+
+\begin{remark}
+	If, given a holomorphic matrix valued function $K(Z)$ we define 
+	\eq{
+K^\dagger(Z) = K(\sigma(Z))^\ast	
+}
+then the additional conditions in the above theorem may be restated as conditions on the transition function $F$ that $\det F =1$ and $F^\dagger=F$ (up to a similarity condition, that is $F = \underline{K} \tilde{F} K^{-1}$ for some unit-determinant holomorphic matrices, and $\tilde{F}$ satisfies these conditions).  
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\secmath{SU(2)} ansatze}
+
+\begin{definition}
+	A rank-2 vector bundle $E \to M$ is an \bam{extension} of a line bundle $L_1$ if $\exists L_2$ a line bundle with SES
+	\eq{
+0 \to L_1 \to E \to L_2	\to 0
+}
+\end{definition}
+
+We want to be considering rank-2 vector bundles $E \to \hat{U}$ as in the previous subsection. If $E$ is an extension then we know the transition function $F$ on $W \cap \underline{W}$ is given by 
+\eq{
+F = \begin{pmatrix} \Xi_1 & \Gamma \\ 0 & \Xi_2 \end{pmatrix} 
+}
+where $\Xi_i$ is the transition function of $L_i$ and $\Gamma$ defines and element of $H^1(\hat{U}, O(L_1 \otimes L_2^{-1}))$. We will assume we have done a reduction of structure group to get $E$ to be a $SL_2(\mbb{C})$-bundle, so $\Xi_1 = \Xi_2^{-1}$. \\
+Now line bundles are classified by their Chern class, and if we let $k = -c_1(L_1)$ and \hl{recall that the line bundle on the sphere with transition function $z \mapsto z^n$ has Chern class $-n$} we know that 
+\eq{
+\Xi_1(Z) = \zeta^k \exp(f(Z))
+}
+where $\zeta = \pi_{0^\prime}/\pi_{1^\prime}$ is the homogeneous coordinate on the $\mbb{P}^1$ at each line $\hat{x} \in \hat{U}$, and $f$ is holomorphic in $W \cap \underline{W}$. If we denote $g,\Omega$ the restrictions of $f,\Gamma$ to the line $\hat{x}$ then the splitting formula is rephrased as 
+\eq{
+\underbrace{\begin{pmatrix} \zeta^k e^g & \Omega \\ 0 & \zeta^{-k} e^{-g} \end{pmatrix}}_{G} = \underbrace{\begin{pmatrix} \underline{a} & \underline{b} \\ \underline{c} & \underline{d} \end{pmatrix}}_{\underline{H}}\underbrace{ \begin{pmatrix}
+	d & -b \\ -c & a
+\end{pmatrix}}_{H^{-1}}
+}
+s.t. 
+\eq{
+ad-bc = 1 = \underline{ad}-\underline{bc}
+}
+\begin{remark}
+	Note here $a,b,c,d$ ($\underline{a},\underline{b},\underline{c},\underline{d}$) are functions of $x,\pi$ holomorphic where ($\abs{\zeta}\leq 1$ $\abs{\zeta}\geq1$ ).
+\end{remark}
+\begin{lemma}
+	There is no solution when $k<0$. 
+\end{lemma}
+When $k>0$ we have a chance to construct a solution from a splitting solution $g=\underline{h}-h$ as found in the abelian case and then some additional information. This is made explicit in the following result:
+\begin{theorem}
+	Let $B_a$ be a potential for an ASD $GL_1(\mbb{C})$-gauge field and let (for $k\geq 1$) $\pbrace{\Delta_r}_{r=1-k}^{k-1}$ be a set of fields satisfying 
+	\eq{
+\text{if }k>1&: & (\nabla_{A0^\prime} + 2B_{A0^\prime})\Delta_r &= (\nabla_{A1^\prime} + 2B_{A1^\prime}) \Delta_{r+1} & &(1-k \leq r \leq k-2)\\
+\text{if }k=1&: & (\nabla_a+2B_a)(\nabla^a + 2B^a)\Delta_0 &= 0 
+}
+Suppose that $B_a, \Delta_r$ are holomorphic on the region $U \subset M_\mbb{C}$. Define the matrix $k\times k$ matrix $M$ by $M_{rs} = \Delta_{r+s-k-1}$ (assumed invertible) and let 
+\eq{
+E = (M^{-1})_{11}, \; F=(M^{-1})_{1k} = (M^{-1})_{k1}, \; G=(M^{-1})_{kk} 
+}
+and define a gauge potential $\Phi$ by 
+\eq{
+\Phi_{A 0^\prime} &= \frac{1}{2F} \begin{pmatrix} \hat{\del}_{A0^\prime} F & 0 \\ -2\hat{\del}_{A1^\prime} G & -\hat{\del}_{A0^\prime} F \end{pmatrix} \\
+\Phi_{A 1^\prime} &= \frac{1}{2F} \begin{pmatrix} -\hat{\del}_{A1^\prime} F & -2\hat{\del}_{A0^\prime} E \\ 0 & \hat{\del}_{A1^\prime} F \end{pmatrix}
+}
+where $\hat{\del} = \nabla-2B$. Then $\Phi$ is the potential for an $ASD$ $SL_2(\mbb{C})$-gauge field. 
+\end{theorem}
+\begin{remark}
+	When $k=0$ a splitting can also be found, but it will not lead to an $SU(2)$ gauge potential, and so we will disregard it. In the remaining cases of the previous theorem, it will be possible to construct corresponding $SU(2)$ fields. 
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Constructions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Nahm's Construction}
 Relevant reading for this section is Manton \& Sutcliffe \cite{Manton2004} and Hitchin \cite{Hitchin1983}. The original paper is \cite{Nahm1983}. 
