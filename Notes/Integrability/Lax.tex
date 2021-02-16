@@ -246,6 +246,35 @@ z^\times = -e^{it}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Lax Pair for the Kepler problem}
+
+A Lax pair for the Kepler problem was introduced in \cite{MR1196427}. Set
+$$ x R_\Lambda y:= \sum_k \frac{x_k y_k}{\lambda-\lambda_k}.$$
+Then with
+$$L=\frac12 \begin{pmatrix} q R_\Lambda \dot q&  q R_\Lambda  q\\
+- \dot q R_\Lambda \dot q&  -q R_\Lambda  \dot q\end{pmatrix},\quad
+M=\begin{pmatrix} 0&1\\ u(q)&0\end{pmatrix}
+$$
+the Lax equation $\dot L =[L,M]$ reduces to
+$$\ddot q_k = u(q) q_k$$
+and we obtain the Kepler potential with
+$$u=-\frac{\beta}{|q|\sp{3/2}}, \quad V(q)=\frac{\beta}{|q|}.$$
+The same Lax produces any central potential for appropriate $u(q)$.
+Antonowicz and Rauch-Wojciechowski tell us that we have functionally independent conserved quantities
+$$H:=\frac12 \sum_k \dot q_k^2 +V(q), \quad
+K_j:=\res_{\lambda_j} \det L.
+$$
+Actually we find
+$$K_j:= \sum_{k\ne j} \frac{( x_j y_k-x_k y_j)^2}{ \lambda_j-\lambda_k}
+= \sum_{k\ne j} \frac{L_{ij}^2}{ \lambda_j-\lambda_k} ,
+\qquad \sum_{j=1}\sp{D} K_j=0.
+$$
+This Lax pair only encodes the potential through the flow $M$ and so the spectral curve
+doesn't reflect this. Only the angular momentum is conserved via the spectral curve, and we don't have enough functionally independent conserved quantities. While Antonowicz and Rauch-Wojciechowski
+append to these the Hamiltonian, we do not get this from the spectral curve.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{../../bib/custom-bib-style}
 \bibliography{../../bib/library,../../bib/manual}
 
