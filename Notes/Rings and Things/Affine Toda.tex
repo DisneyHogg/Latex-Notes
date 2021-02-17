@@ -162,7 +162,7 @@ Let $\Phi$ denote the set of roots for the pair $(\mathfrak{g},\mathfrak{h})$ an
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Background Theory}
-
+To see monopoles reading, look at my monopole notes. This affine Toda may eventually be folded in. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Lie Algebras and Representation Theory}
 We start with a recap of Chapters II and III of \cite{Humphreys1978}. Denote the base of simple roots as $\Delta$. 
@@ -184,85 +184,6 @@ Then $\hat{A}$ is an affine generalised Cartan matrix corresponding to an \bam{u
 
 \begin{prop}
 	The Lie algebra corresponding to $\hat{A}$ is isomorphic to the affine Kac-Moody Lie algebra $\mc{L}\mf{g} \oplus \mbb{C}c \oplus \mbb{C}d$
-\end{prop}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Monopoles}
-Nahm established an equivalence between non-singular charge-$n$ $SU(2)$-monopoles and $\pbrace{T_i(s) \, | \, T_i \in M_n(\mbb{C}), \, s \in [0,2]}$ subject to 
-\begin{enumerate}
-	\item Nahm's equation:
-	\eq{
-\frac{dT_i}{ds} = \frac{1}{2} \sum_{j,k=1}^3 \eps_{ijk} \comm[T_j]{T_k}	
-}
-\item $T_i(s)$ is regular for $s \in (0,2)$ and has simple poles at $s=0,2$ with residues that form an irreducible, $n$-dimensional rep of $\mf{su}(2)$
-\item $T_i(2) = -T_i^\dagger(s), \, T_i(s) = T^T_i(2-s)$. 
-\end{enumerate}
-
-\begin{remark}
-	We could have here included another matrix $T_4 = -T_4^\dagger$ by modifying Nahm's equations to 
-	\eq{
-\dot{{T}_i} =[T_4,T_i]+\frac12\sum_{j,k=1}^3\epsilon_{ijk}[T_j(z),T_k(z)]	
-}
-but this can always be gauged away by the transform 
-\eq{
-T_i &\mapsto uT_i u^{-1} \\
-T_4 & \mapsto uT_0 u^{-1} - \frac{du}{ds} u^{-1}
-} 
-for $u:(0,2) \to U(n)$ satisfying $u(2-s) = \pround{u^T(s)}^{-1}$.
-\end{remark}
-
-\begin{prop}
-	Nahm's equation is equivalent to the Lax equation 
-	\eq{
-\comm[\frac{d}{ds} + M]{L} = 0	
-}
-where 
-\eq{
-L(\zeta) &= (T_1 + iT_2) - 2i T_3 \zeta + (T_1 -iT_2) \zeta^2 \\
-M(\zeta) &= -iT_3 + (T_1 - iT_2) \zeta  
-}
-\end{prop}
-\begin{proof}
-	It will be convenient to intoduce the notation 
-	\eq{
-		\alpha &= iT_3 \\
-		\beta &= T_1 + iT_2 
-	}
-	s.t. this Lax pair can be rewritten as 
-	\eq{
-		L(\zeta) &= \beta -(\alpha + \alpha^\dagger)\zeta -\beta^\dagger \zeta^2 \\
-		M(\zeta) &= -\alpha -\beta^\dagger \zeta 
-	}
-Then the Lax equation says, splitting by order in $\zeta$
-\eq{
-\frac{d\beta}{ds} -\comm[\alpha]{\beta} &= 0 &
--\frac{d}{ds}(\alpha + \alpha^\dagger)+\comm[\alpha]{\alpha^\dagger} + \comm[\beta]{\beta^\dagger} &= 0 &
--\frac{d\beta^\dagger}{ds} + \comm[\beta^\dagger]{\alpha^\dagger} &= 0 
-}
-and the last equation is redundant leaving just
-\eq{
-	\frac{d\beta}{ds} - \comm[\alpha]{\beta} &= 0 \quad \text{(the \bam{complex equation})} \\
-	\frac{d}{ds}(\alpha + \alpha^\dagger) - \pround{\comm[\alpha]{\alpha^\dagger} + \comm[\beta]{\beta^\dagger}} &= 0 \quad \text{(the \bam{real equation})}
-}
-To show these are equivalent to Nahm's equations, it now just a matter of explicitly writing these out. 
-\end{proof}
-
-\begin{lemma}
-	The complex equation is invariant under the complex gauge group $GL_k(\mbb{C})$ acting as 
-	\eq{
-\alpha &\mapsto g\alpha g^{-1} + \frac{dg}{ds}g^{-1} \\
-\beta &\mapsto g\beta g^{-1}	
-}
-\end{lemma}
-
-\begin{prop}
-	The general local solution to the complex equation is 
-	\eq{
-	\alpha &= -g^{-1} \frac{dg}{ds} \\
-	\beta &= g^{-1} \beta^\prime g 
-}
-for some constant matrix $\beta^\prime$. 
 \end{prop}
 
 

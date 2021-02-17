@@ -213,7 +213,12 @@ We first introduce a useful coordinate system via the following map to $H_2 = \p
 M^4  &\overset{\cong}{\to}H_2 \\
 x = (x^\mu) &\mapsto \tilde{x} = \frac{1}{\sqrt{2}} \begin{pmatrix} x^0 + x^3 & x^1 -ix^2 \\ x^1 + ix^2 & x^0 - x^3 \end{pmatrix} 
 }
-Note the correspondence can be written as $\tilde{x} = x^\mu \sigma_\mu$ where $\sigma_\mu = (I,\bm{\sigma})$ corresponds to the Pauli matrices.
+Note the correspondence can be written as $\tilde{x} = x^\mu \sigma_\mu/\sqrt{2}$ where $\sigma_\mu = (I,\bm{\sigma})$ corresponds to the Pauli matrices.
+
+\begin{remark}
+	Braden will use the definition that $x=x_0-i\bm{x}\cdot\bm{\sigma}$. This may seem somewhat strange here, but will end up being a sensible definition when we want to let the $x_i =T_i$ be matrices satisfying Nahm's equations in the charge-1 case. 
+\end{remark}
+
 \begin{prop}
 	$\det \tilde{x} = \frac{1}{2} \abs{x}^2$. 
 \end{prop}
@@ -523,6 +528,18 @@ This is often called the \bam{incidence relation}. From this point of view, we s
 \begin{definition}
 	A lines $\hat{p}\subset \mbb{PT}$ is called \bam{real} if it is invariant under $\sigma$. 
 \end{definition}
+
+\begin{lemma}
+	If $\hat{z}$ is a real line, $iz \in SU(2)$. 
+\end{lemma}
+\begin{proof}
+	Let $\omega = iz\pi$ so $\omega^0 = i(z^{00^\prime}\pi_{0^\prime}+z^{01^\prime}\pi_{1^\prime}), \, \omega^1 = i(z^{10^\prime}\pi_{0^\prime}+z^{11^\prime}\pi_{1^\prime})$. Then 
+	\eq{
+\sigma(\omega) &= (-i(\bar{z}^{10^\prime}\bar{\pi}_{0^\prime}+\bar{z}^{11^\prime}\bar{\pi}_{1^\prime}),i(\bar{z}^{00^\prime}\bar{\pi}_{0^\prime}+\bar{z}^{01^\prime}\bar{\pi}_{1^\prime}))	\\
+\sigma(\pi) &= (\bar{\pi}_{1^\prime},-\bar{\pi}_{0^\prime}) 
+}
+Hence if $\hat{z}$ is a real line we get $\bar{z}^{11^\prime} = -z^{00^\prime}, \bar{z}^{01^\prime}=z^{10^\prime}$, and $z$ has unit det. 
+\end{proof}
 
 \begin{lemma}
 	$\forall Z \in \mbb{PT}$, the line joining $Z$ and $\sigma(Z)$ is real. 
@@ -891,7 +908,7 @@ h(r) &= \coth(2r)-\frac{1}{2r}, & k(r) &= \frac{2r}{\sinh(2r)}
 }
 \hl{be careful of scaling and conventions here}
 \end{example}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Self-Dual Reduction}
 Suppose now we consider pure Yang-Mills on $\mbb{R}^{n+1}$ with contant diagonal metric $g$ (i.e we are considering it to be either Minkowski or Euclidean). Take coordinates $x^\mu$ and ask that the connection $A = A_\mu dx^\mu$ is $x^0$-independent. Then writing $A = \phi dx^0 + A_i dx^i$ we have 
@@ -936,7 +953,10 @@ which we see to mean, using $\star_3^2=1$.
 \end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Self-Dual Gauge Fields}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Gauge Fields from Holomorphic Vector Bundles}
 We now want to study self-dual gauge fields more, using Ward \& Wells section 8 as our reference. For this section we will denote the gauge potential as $\Phi$ as $A$ will be a spinor index eventually, so this should not be confused with a Higgs field. The gauge fields we will be studying we now extend to be those over $M_\mbb{C}$. As such we will be using the machinery of the twistor correspondence. 
@@ -1318,7 +1338,143 @@ From this we can (\hl{do this}) reconstruct the hedgehog solution found by Prasa
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Nahm's Construction}
-Relevant reading for this section is Manton \& Sutcliffe \cite{Manton2004} and Hitchin \cite{Hitchin1983}. The original paper is \cite{Nahm1983}. 
+Relevant reading for this section is Manton \& Sutcliffe \cite{Manton2004} and Hitchin \cite{Hitchin1983}. The original paper is \cite{Nahm1983}.
+
+Nahm established an equivalence between non-singular charge-$n$ $SU(2)$-monopoles and $\pbrace{T_i(s) \, | \, T_i \in M_n(\mbb{C}), \, s \in [0,2]}$ subject to 
+\begin{enumerate}
+	\item Nahm's equation:
+	\eq{
+		\frac{dT_i}{ds} = \frac{1}{2} \sum_{j,k=1}^3 \eps_{ijk} \comm[T_j]{T_k}	
+	}
+	\item $T_i(s)$ is regular for $s \in (0,2)$ and has simple poles at $s=0,2$ with residues that form an irreducible, $n$-dimensional rep of $\mf{su}(2)$
+	\item $T_i(s) = -T_i^\dagger(s), \, T_i(s) = T^T_i(2-s)$. 
+\end{enumerate}
+
+\begin{remark}
+	We could have here included another matrix $T_4 = -T_4^\dagger$ by modifying Nahm's equations to 
+	\eq{
+		\dot{{T}_i} =[T_4,T_i]+\frac12\sum_{j,k=1}^3\epsilon_{ijk}[T_j(z),T_k(z)]	
+	}
+	but this can always be gauged away by the transform 
+	\eq{
+		T_i &\mapsto uT_i u^{-1} \\
+		T_4 & \mapsto uT_0 u^{-1} - \frac{du}{ds} u^{-1}
+	} 
+	for $u:(0,2) \to U(n)$ satisfying $u(2-s) = \pround{u^T(s)}^{-1}$.
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Donaldson Rational Maps}
+Here we comment on \cite{Donaldson1984}. We start with a result linking to the integrability of Nahm's equations. 
+
+\begin{prop}
+	Nahm's equation is equivalent to the Lax equation 
+	\eq{
+		\comm[\frac{d}{ds} + M]{L} = 0	
+	}
+	where 
+	\eq{
+		L(\zeta) &= (T_1 + iT_2) - 2i T_3 \zeta + (T_1 -iT_2) \zeta^2 \\
+		M(\zeta) &= -iT_3 + (T_1 - iT_2) \zeta  
+	}
+\end{prop}
+\begin{proof}
+	It will be convenient to intoduce the notation 
+	\eq{
+		\alpha &= iT_3 \\
+		\beta &= T_1 + iT_2 
+	}
+	s.t. this Lax pair can be rewritten as 
+	\eq{
+		L(\zeta) &= \beta -(\alpha + \alpha^\dagger)\zeta -\beta^\dagger \zeta^2 \\
+		M(\zeta) &= -\alpha -\beta^\dagger \zeta 
+	}
+	Then the Lax equation says, splitting by order in $\zeta$
+	\eq{
+		\frac{d\beta}{ds} -\comm[\alpha]{\beta} &= 0 &
+		-\frac{d}{ds}(\alpha + \alpha^\dagger)+\comm[\alpha]{\alpha^\dagger} + \comm[\beta]{\beta^\dagger} &= 0 &
+		-\frac{d\beta^\dagger}{ds} + \comm[\beta^\dagger]{\alpha^\dagger} &= 0 
+	}
+	and the last equation is redundant leaving just
+	\eq{
+		\frac{d\beta}{ds} - \comm[\alpha]{\beta} &= 0 \quad \text{(the \bam{complex equation})} \\
+		F(\alpha,\beta) \equiv \frac{d}{ds}(\alpha + \alpha^\dagger) - \pround{\comm[\alpha]{\alpha^\dagger} + \comm[\beta]{\beta^\dagger}} &= 0 \quad \text{(the \bam{real equation})}
+	}
+	To show these are equivalent to Nahm's equations, it now just a matter of explicitly writing these out. 
+\end{proof}
+
+\begin{remark}
+	These definitions are slightly different to Donaldson where he uses $\alpha = \frac{i}{2}T_1, \, \beta = \frac{1}{2}(T_2+iT_3)$. Hence the real and complex equation are slightly different. To go from those in \cite{Donaldson1984} send $\alpha \mapsto -\frac{1}{2}\alpha, \, \beta \mapsto \frac{1}{2}\beta$.
+\end{remark}
+
+We will now want to understand the real and complex equation a little better. First start with the complex equation: we introduce the following operators on complex vector functions $f$ (i.e. $f(s) \in \mbb{C}^n$) and complex matrices $\gamma$ (i.e. $\gamma(s) \in M_n(\mbb{C})$) 
+\eq{
+	\bar{d}_\alpha f &= \frac{df}{ds}-\alpha f, & \bar{d}_\beta f &= \beta f \\
+	\bar{d}_\alpha \gamma &= \frac{d\gamma}{ds}-\comm[\alpha]{\gamma}, & \bar{d}_\beta \gamma &= \comm[\beta]{\gamma}
+}
+We will define their conjugates analogously with $d_\alpha = \frac{d}{ds}+\alpha^\dagger, \, d_\beta =-\beta^\dagger$. 
+\begin{remark}
+	Note how these sort of look like covariant derivatives associated to a connection
+\end{remark}
+\begin{lemma}
+	The complex equation can be written as $\comm[\bar{d}_\alpha]{\bar{d}_\beta} =0$, and the real equation as $F(\alpha,\beta) = -(\comm[d_\alpha]{\bar{d}_\alpha} + \comm[d_\beta]{\bar{d}_\beta})$. 
+\end{lemma}
+\begin{proof}
+	Pick an $f$ then 
+	\eq{
+		\comm[\bar{d}_\alpha]{\bar{d}_\beta}f &= \pround{\frac{d(\beta f)}{ds} - \alpha(\beta f)}-\pround{\beta \frac{df}{ds}-\beta(\alpha f)} = \pround{\frac{d\beta}{ds}-\comm[\alpha]{\beta}}f	
+	}
+giving the complex equation. To further get the real equation note 
+\eq{
+-\comm[d_\alpha]{\bar{d}_\alpha}f &= \psquare{\frac{d}{ds}\pround{\frac{df}{ds}+\alpha^\dagger f}-\alpha\pround{\frac{df}{ds}+\alpha^\dagger f}} - \psquare{\frac{d}{ds}\pround{\frac{df}{ds}-\alpha f}+\alpha^\dagger\pround{\frac{df}{ds}-\alpha f}} \\
+&= \pround{\frac{d}{ds}(\alpha+\alpha^\dagger) - \comm[\alpha]{\alpha^\dagger}}f \\
+-\comm[d_\beta]{\bar{d}_\beta}f &= \beta(-\beta^\dagger f) + \beta^\dagger(\beta f) = -\comm[\beta]{\beta^\dagger}f  
+}
+\end{proof}
+
+\begin{lemma}
+	The complex equation is invariant under the complex gauge group $GL_n(\mbb{C})$ as a fibre over $(0,2)$ acting as 
+	\eq{
+		\alpha &\mapsto \alpha^\prime = g(\alpha) = g\alpha g^{-1} + \frac{dg}{ds}g^{-1} \\
+		\beta &\mapsto \beta^\prime = g(\beta) = g\beta g^{-1}	
+	}
+\end{lemma}
+\begin{proof}
+	We have 
+	\eq{
+\frac{d\beta^\prime}{ds} &= \frac{dg}{ds}\beta g^{-1} +g \frac{d\beta}{ds}g^{-1}- g\beta g^{-1} \frac{dg}{ds} g^{-1}	\\
+\comm[\alpha^\prime]{\beta^\prime} &= \pround{g\alpha\beta g^{-1}+\frac{dg}{ds} \beta g^{-1}} - \pround{g \beta \alpha g^{-1} +g\beta g^{-1} \frac{dg}{ds} g^{-1}} \\
+\Rightarrow \frac{d\beta^\prime}{ds} - \comm[\alpha^\prime]{\beta^\prime} &= g\pround{\frac{d\beta}{ds} - \comm[\alpha]{\beta} }g^{-1}
+}
+Alternatively, and somewhat more simply, note $\bar{d}_{g(\alpha)} = g \circ \bar{d}_\alpha \circ g^{-1}, \, \bar{d}_{g(\beta)} = g \circ \bar{d}_\beta \circ g^{-1}$ and so gauge invariance is clear from the previous lemma. 
+\end{proof}
+
+\begin{notation}
+	We will often write $(\alpha^\prime, \beta^\prime) = g(\alpha,\beta)$. 
+\end{notation}
+
+\begin{prop}
+	The general local solution to the complex equation is 
+	\eq{
+		\alpha &= -g^{-1} \frac{dg}{ds} \\
+		\beta &= g^{-1} \beta^\prime g 
+	}
+	for some constant matrix $\beta^\prime$. 
+\end{prop}
+
+To go from a local soluion to a global solution we will need to handle the poles at $s=0,2$. We now want to deal with the real equation. As Nahm's equations have a $U(n)$-gauge invariance as seem previously, it will be more natural to consider a our transforms in the homogeneous space $H = GL_n(\mbb{C})/U(n)$. To extract the corresponding coset for a $g:(0,2) \to GL_n(\mbb{C})$ we take 
+\eq{
+h = h(g) = g^\dagger g : (0,2) \to H
+}
+\begin{lemma}
+	Under the gauge transformation $g$ we have 
+	\eq{
+g^{-1} \circ d_{g(\alpha)} \circ g &= d_\alpha + (h^{-1}d_\alpha h) & g^{-1} \circ d_{g(\beta)} \circ g &= d_\beta + (h^{-1}d_\beta h)	
+}
+\end{lemma}
+\begin{corollary}
+	$g^{-1}F(\alpha^\prime,\beta^\prime) g = F(\alpha,\beta) - $
+\end{corollary}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The ADHM construction}
