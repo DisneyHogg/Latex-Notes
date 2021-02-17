@@ -1472,9 +1472,95 @@ h = h(g) = g^\dagger g : (0,2) \to H
 g^{-1} \circ d_{g(\alpha)} \circ g &= d_\alpha + (h^{-1}d_\alpha h) & g^{-1} \circ d_{g(\beta)} \circ g &= d_\beta + (h^{-1}d_\beta h)	
 }
 \end{lemma}
-\begin{corollary}
-	$g^{-1}F(\alpha^\prime,\beta^\prime) g = F(\alpha,\beta) - $
+\begin{proof}
+	As before take $f$ so 
+	\eq{
+(g^{-1} \circ d_{g(\alpha)} \circ g) f &= g^{-1} \psquare{g\frac{df}{ds}+\frac{dg}{ds}f+\pround{g \alpha g^{-1} + \frac{dg}{ds}g^{-1}}^\dagger  gf} \\
+&= \frac{df}{ds} + h^{-1} \alpha^\dagger hf + g^{-1} \frac{dg}{ds}f + h^{-1} \frac{dg^\dagger}{ds}gf \\
+&= \frac{df}{ds} + h^{-1}\pround{\comm[\alpha^\dagger]{h}+ h\alpha^\dagger+\frac{dh}{ds}}f \\
+&= \psquare{d_\alpha +(h^{-1}d_\alpha h)}f \\
+\text{and }\quad (g^{-1} \circ d_{g(\beta)} \circ g)f &= -g^{-1} (g\beta g^{-1})^\dagger gf \\
+&= -h^{-1} \beta^\dagger hf \\
+&= -h^{-1}\pround{\comm[\beta^\dagger]{h}+h\beta^\dagger}f \\
+&= \psquare{d_\beta + (h^{-1}d_\beta h)}f
+}
+\end{proof}
+\begin{corollary}\label{corr: gauge transform of real equation}
+	$g^{-1}F(\alpha^\prime,\beta^\prime) g = F(\alpha,\beta) + \psquare{\bar{d}_\alpha(h^{-1}d_\alpha h) + \bar{d}_\beta(h^{-1} d_\beta h)}$.
 \end{corollary}
+\begin{proof}
+	Using how we know the operators $d_\alpha, \dots$ transform we can say 
+	\eq{
+g^{-1}F(\alpha^\prime,\beta^\prime)g &= -(\comm[g^{-1}d_{\alpha^\prime}g]{g^{-1}\bar{d}_{\alpha^\prime}g} + \comm[g^{-1}d_{\beta^\prime}g]{g^{-1}\bar{d}_{\beta^\prime}g}) \\
+&= -(\comm[d_\alpha+(h^{-1}d_\alpha h)]{\bar{d}_\alpha} + \comm[d_\beta+(h^{-1}d_\beta h)]{\bar{d}_\beta}) \\
+&= F(\alpha,\beta) - \pround{\comm[h^{-1}d_\alpha h]{\bar{d}_\alpha}+\comm[h^{-1}d_\beta h]{\bar{d}_\beta}}
+}
+Now $\bar{d}_\alpha, \, \bar{d}_\beta$ satisfy the Leibniz rule
+\end{proof}
+
+Now to study the real equation further we can to give it a variational description:
+\begin{prop}
+	Fix $\alpha,\beta$ and for each $0<\eps \ll 1$ define the functional 
+	\eq{
+L_\eps(g) = \frac{1}{2} \int_\eps^{2-\eps} \abs{g(\alpha) + g(\alpha)^\dagger}^2 + 2\abs{g(\beta)}^2 \, ds	
+}
+where the norm on $GL_n(\mbb{C})$ is coming from the trace inner product $\pangle{X,Y} = \tr(XY^\dagger)$. The Euler-Lagrange equations of these functionals are $F(\alpha^\prime, \beta^\prime)=0$. 
+\end{prop}
+\begin{proof}
+Through an appropriate choice of $\alpha,\beta$, we need only consider variations about $g=I$. Moreover note that $U(n)$ variations leave the integrand invariant, so wlog we can consider self-adjoint variations $g \mapsto g+\delta g, (\delta g)^\dagger = \delta g$. We can see 
+\eq{
+\delta \alpha = \comm[\delta g]{\alpha} + \frac{d(\delta g)}{ds}, \quad  \delta \beta = \comm[\delta g]{\beta}
+}
+and that for this inner product ad-invariance is expressed as
+\eq{
+\pangle{\comm[X]{Y},Z} -\pangle{Y,\comm[X^\dagger]{Z}}=0
+}
+so 
+\eq{
+\delta L &= \frac{1}{2} \int \psquare{ \pangle{\alpha+\alpha^\dagger,\delta(\alpha+\alpha^\dagger)} + \pangle{\delta(\alpha+\alpha^\dagger),\alpha+\alpha^\dagger} + 2\pround{\pangle{\beta,\delta\beta}+\pangle{\delta \beta,\beta}}} \, ds \\
+&= \real \int \psquare{ \pangle{\alpha+\alpha^\dagger,\delta(\alpha+\alpha^\dagger)}   + 2\pangle{\beta,\delta\beta}} \, ds \\
+&= \real \int \psquare{ \pangle{\alpha+\alpha^\dagger,\comm[\delta g]{\alpha-\alpha^\dagger} + 2\frac{d(\delta g)}{ds}}   + 2\pangle{\beta,\comm[\delta g]{\beta}}} \, ds \\
+&= \real \int  \pangle{-2\frac{d}{ds}(\alpha+\alpha^\dagger) - \comm[\alpha^\dagger-\alpha]{\alpha+\alpha^\dagger}-2\comm[\beta^\dagger]{\beta},\delta g} \, ds \\
+&= \int -2\pangle{F(\alpha,\beta),\delta g} \, ds
+}
+\end{proof}
+
+Now we recall on $(\eps,2-\eps)$ we can trivialise the complex equation to write $(\alpha^\prime, \beta^\prime) = g(0,\beta)$ for some constant $\beta$. We want to know what conditions the real equation imposes on this solution, and this is given through the following proposition:
+\begin{prop}
+	Let $(\alpha^\prime, \beta^\prime) = g(0,\beta)$, $\beta$ constant, be a solution to the real equation. Then 
+	\eq{
+ \frac{d}{ds} \pround{h^{-1} \frac{dh}{ds}}-\comm[\beta]{h^{-1}\beta^\dagger h}	= 0
+}
+\end{prop}
+\begin{proof}
+We have from \ref{corr: gauge transform of real equation} that 
+\eq{
+g^{-1} F(\alpha^\prime,\beta^\prime) g &= F(0,\beta) + \psquare{\bar{d}_0(h^{-1}d_0 h) + \bar{d}_\beta(h^{-1} d_\beta h)} \\
+&= -\comm[\beta]{\beta^\dagger} + \frac{d}{ds}\pround{h^{-1} \frac{dh}{ds}} + \comm[\beta]{h^{-1}\comm[-\beta^\dagger]{h}} \\
+&= \frac{d}{ds}\pround{h^{-1} \frac{dh}{ds}} - \comm[\beta]{h^{-1}\beta^\dagger h}
+}
+and we know the LHS is 0 as $(\alpha^\prime, \beta^\prime)$ is a solution of the real equation. \\
+An alternative way to see this result is to identify that when we set $\alpha=0$, $\beta$ constant the integrand of $L_\eps$ is 
+\eq{
+\mc{L}_\eps &= \abs{\frac{dg}{ds} g^{-1} + (g^\dagger)^{-1} \frac{dg^\dagger}{ds}}^2 + 2 \abs{g\beta g^{-1}}^2 \\
+ &= \abs{g\pround{h^{-1} \frac{dh}{ds}}g^{-1}}^2 + 2\abs{g\beta g^{-1}}^2 \\
+&= \tr\psquare{\pround{h^{-1}\frac{dh}{ds}}^2}+2\tr(\beta h^{-1} \beta^\dagger  h)
+}
+We now make a variation $h \mapsto h+\delta h$. This gives $\delta(h^{-1}) = -h^{-1} (\delta h) h^{-1}$ and so 
+\eq{
+\delta \pround{h^{-1} \frac{dh}{ds}} &= h^{-1} \frac{d(\delta h)}{ds} - h^{-1}(\delta h) h^{-1} \frac{dh}{ds} \\
+\delta (\beta h^{-1} \beta^\dagger h) &= -\beta h^{-1}(\delta h) h^{-1} \beta^\dagger h + \beta h^{-1} \beta^\dagger (\delta h)
+}
+Hence 
+\eq{
+\delta \mc{L}_\eps &= 2\pbrace{\tr\psquare{\pround{h^{-1}\frac{dh}{ds}}\pround{h^{-1} \frac{d(\delta h)}{ds} - h^{-1}(\delta h) h^{-1} \frac{dh}{ds}}}+\tr\psquare{-\beta h^{-1}(\delta h) h^{-1} \beta^\dagger h + \beta h^{-1} \beta^\dagger (\delta h)}} \\
+&= 2\tr\pbrace{\psquare{-\frac{d}{ds}\pround{h^{-1}\frac{dh}{ds}h^{-1}}-\pround{h^{-1}\frac{dh}{ds}}^2 h^{-1}-h^{-1} \beta^\dagger h\beta h^{-1} + \beta h^{-1} \beta^\dagger}(\delta h)} \\
+&= 2\tr\pbrace{\psquare{-\frac{d}{ds}\pround{h^{-1}\frac{dh}{ds}}-\pround{h^{-1}\frac{dh}{ds}}\frac{d(h^{-1})}{ds}h-\pround{h^{-1}\frac{dh}{ds}}^2 -h^{-1} \beta^\dagger h\beta  + \beta h^{-1} \beta^\dagger h}h^{-1}(\delta h)} \\
+&= 2\tr\pbrace{\psquare{-\frac{d}{ds}\pround{h^{-1}\frac{dh}{ds}} +\comm[\beta]{h^{-1}\beta^\dagger h}}h^{-1}(\delta h)}
+}
+The result follows. 
+\end{proof}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The ADHM construction}
