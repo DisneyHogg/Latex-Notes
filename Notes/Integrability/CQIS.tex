@@ -506,7 +506,6 @@ There is a 1-1 correspondence
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Symplectic actions}
 
-
 We now want to let $G$ act on a symplectic manifold $(M,\omega)$. It is a natural consideration to ask whether $\omega$ is preserved
 
 \begin{definition}
@@ -621,7 +620,7 @@ which is satisfied by the definition of a Hamiltonian action.
 \end{proof}
 
 \begin{remark}
-We will see later a theorem that 
+We will see later a theorem that \hl{\dots}
 \end{remark}
 
 We have now shown that a moment map satisfies $(d\mu)_a(\eta)(X) = -\omega_a(\xi_X,\eta)$ and is $G$-equivariant. If a map $C^\infty(M) \to \mf{g}^\ast$ has these properties, we conversely say that it is a moment map. This characterisation becomes useful for defining induced moment maps. 
@@ -648,6 +647,38 @@ but as $di = \id$, we are done for the first condition. Then second then immedia
 \begin{remark}
 This is an example of a more general property that any Lie group homomorphism $f : H \to G$ gives a moment map for $H$ by $\mu_H = f^\ast \mu_G$ (e.g. see example \ref{example:CQIS:unitaryaction}). This is a particularly important corollary because of its implication for \bam{symmetry breaking}. Suppose $G$ is the group of diffeomorphisms of $M$ that preserve a Hamiltonian $H:M \to \mbb{R}$. Then $H$ and the components of $\mu$ are $G$-equivariant functions, and moreover these will be constants of any time evolution by Noether's theorem. If we add terms to the Hamiltonian which break the symmetry group to $H \leq G$, then the restriction of the moment map gives us the remaining quantities that are still preserved after symmetry breaking.  
 \end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Reduced Phase Space}
+We now replicate a section from \cite{Moser2010}. Using the above fact about equivariance we can make the following definition:
+\begin{definition}
+	Given $\alpha \in \mf{g}^\ast$, and assuming that $\mu^{-1}(\alpha)$ is a manifold, $G_\alpha$ is compact, and acts on $\mu^{-1}(\alpha)$ with no fixed points, the \bam{reduced phase space} is 
+	\eq{
+		\tilde{M} = \faktor{\psi^{-1}(\mu)}{G_\mu}
+	}
+	where $[p] = \pbrace{\phi_g p \, | \, g \in G_\mu}$. 
+	We have the bundle structure 
+	\begin{center}
+		\begin{tikzcd}
+			G_\mu \arrow[r] & \psi^{-1}(\mu) \arrow[d,"\pi"] \\
+			& \tilde{M}
+		\end{tikzcd}
+	\end{center}
+\end{definition}
+
+$\tilde{M}$ is a symplectic manifold with form $\tilde{\omega}$ inherited from $M$ by $\pi^\ast \tilde{\omega} = i^\ast \omega$
+
+\begin{center}
+	\begin{tikzcd}
+		\psi^{-1}(\mu) \arrow[r,"i"] \arrow[d,"\pi"] & (M,\omega)\\
+		(\tilde{M},\tilde{\omega}) 
+	\end{tikzcd}
+\end{center}
+
+Moreover it can be given a Hamiltonian $\tilde{H}$ specified by the condition $\tilde{H}\circ \pi = H \circ i $
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Examples of moment maps}
 This subsection will just be dedicated to going through some problems on moment maps, and seeing some examples. 
@@ -734,7 +765,7 @@ which together mean $g(t) = xt$. As such
 \Rightarrow \psi_x(q,p) &= xp \\
 \Rightarrow \mu(q,p) &= p
 }
-We might want to ask about the reduced phase space here. As the left and right action are the same we have that the coadjoint orbits are trivial and the reduced phase space is 
+We might want to ask about the reduced phase space here. As the group is abelian we have that the coadjoint orbits are trivial and the reduced phase space is 
 \eq{
 \tilde{M} = \faktor{\mu^{-1}(p)}{G} = \pbrace{[(0,p)]} = \pbrace{\ast}
 }
@@ -1033,7 +1064,7 @@ Poisson manifolds are foliated by symplectic submanifolds, called the symplectic
 \end{fact}
 
 \begin{example}\label{example:CQIS:CoadjointOrbitSymplectic}
-Let $P = \mf{g}^\ast$ with $\Pi_{KKS}$. We claim that the symplectic leaves are coadjoint orbits. TO showw this we need a candidate symplectic form on each coadjoint orbit. Take $\alpha \in \mf{g}^\ast$ and let $B_\alpha \in \Lambda^2 \mf{g}^\ast$ by defined by 
+Let $P = \mf{g}^\ast$ with $\Pi_{KKS}$. We claim that the symplectic leaves are coadjoint orbits. To show this we need a candidate symplectic form on each coadjoint orbit. Take $\alpha \in \mf{g}^\ast$ and let $B_\alpha \in \Lambda^2 \mf{g}^\ast$ by defined by 
 \eq{
 B_\alpha(X,Y) = \alpha(\comm[X]{Y})
 }
@@ -1063,7 +1094,11 @@ We can also show that $B_\alpha$ is invariant under the linear isotropy rep of $
 &= (h \cdot \alpha)(\comm[X]{Y}) \\
 &= \alpha(\comm[X]{Y}) = B_\alpha(\bar{X},\bar{Y})
 }
-Frobenius reciprocity then says that $B_\alpha$ induces a $G$-invariant non-degenerate 2 form $\omega$ on $\mc{O}_\alpha$ s.t. $\omega_\alpha(\xi_X,\xi_Y) = B_\alpha(\bar{X},\bar{Y})$. So to show $\mc{O}_\alpha$ is a $G$-homogeneous symplectic manifold is suffices to show $d\omega=0$, and as the fundamental vector fields span it is sufficient then to show 
+Frobenius reciprocity then says that $B_\alpha$ induces a $G$-invariant non-degenerate 2 form $\omega$ on $\mc{O}_\alpha$ s.t. 
+\eq{
+\omega_\alpha(\xi_X,\xi_Y) = B_\alpha(\bar{X},\bar{Y})
+}
+Hence to show $\mc{O}_\alpha$ is a $G$-homogeneous symplectic manifold is suffices to show $d\omega=0$, and as the fundamental vector fields span it is sufficient then to show 
 \eq{
 \forall X,Y,Z \in \mf{g}, \, d\omega(\xi_X,\xi_Y,\xi_Z) = 0
 }. 
@@ -1081,6 +1116,28 @@ and
 }
 we see that including the cyclic terms we are done by Jacobi's identity. 
 \end{example}
+
+\begin{remark}
+	These orbits come as part of the 'orbit method' developed by Kirillov (c.f. \cite{Kirillov1999}) which is useful in representation theory. 
+\end{remark}
+
+\begin{example}
+	Let $G = GL_n(\mbb{R})$. We can identify $\mf{g}^\ast$ with $\mf{g}$ by writing $\mc{B}\in \mf{g}^\ast$ as 
+	\eq{
+		\mc{B}(A) = \pangle{A,B}= \tr(AB)
+	}
+	for some $B \in \mf{g}$. As such we can identify the adjoint and coadjoint representations. As such $\mc{O}_{\mc{B}} = \pbrace{\text{Matrices similar to }B}$. Thus if $\alpha$ has distinct eigenvalues then $\mc{O}_{\mc{B}} = \pbrace{\text{Matrices isospectral to }B}$. As we are in a matrix group 
+	\eq{
+		ad(X)Y = \comm[X]{Y}
+	}
+	the standard matrix commutator, and we have the differential form given by 
+	\eq{
+		\omega_{\mc{A}}(\comm[B_1]{\cdot},\comm[B_2]{\cdot}) = \tr(A\comm[B_1]{B_2})
+	}
+where we are identifying $\comm[B]{\cdot} = \xi_B$ for $B \in \mf{gl}_n(\mbb{R})$.
+\end{example}
+
+
 It turns out that $G \lact (P,\Pi)$ is a special case of  $(G,\Pi_G) \lact (P,\Pi_P)$ where $(G,\Pi_G)$ is called a \bam{Poisson Lie group}. \\
 Recall in a Lie group we have 
 \eq{
