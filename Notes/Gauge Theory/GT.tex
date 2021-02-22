@@ -101,13 +101,23 @@ q_1 q_2 &= x_1x_2 i^2 + y_1y_2 j^2 +	z_1 z_2 k^2 + w_1 w_2 + ij(x_1y_2 - x_2y_1)
 We can see that taking the negative of the $i,j,k$ coefficients is equivalent to taking the negative of the $x_a,y_a,z_a$ and swapping $1 \leftrightarrow 2$. 
 	\end{itemize}
 \end{proof}
+\begin{lemma}
+	$(xi+yj+zk)^2 = -(x^2+y^2+z^2)$.
+\end{lemma}
+\begin{corollary}
+	$\forall \zeta \in \mbb{C}^\infty$ we get a complex structure $I_\zeta$ given by $xi+yj+zk$ where 
+	\eq{
+(x,y,z) = \pround{\frac{1-\zeta\bar{\zeta}}{1+\zeta\bar{\zeta}}, \frac{\zeta+\bar{\zeta}}{1+\zeta\bar{\zeta}}, \frac{i(\zeta-\bar{\zeta})}{1+\zeta\bar{\zeta}}}	
+}
+This is as we are sending $\mbb{C}^\infty$ to the Riemann sphere. 
+\end{corollary}
 
 \begin{definition}
 	Define an inner product on the quaternion space by $\pangle{q_1,q_2} = \real(\bar{q}_1 q_2)$ and the norm induced of the quaternions as $\norm{q} = \sqrt{\pangle{q,q}}=\sqrt{\bar{q}q}$ 
 \end{definition}
 
 \begin{lemma}
-	$\pangle{q_1,q_2} = x_1x_2 + y_1y_2 + z_1z_2 + q_1w_2$. 
+	$\pangle{q_1,q_2} = x_1x_2 + y_1y_2 + z_1z_2 + w_1w_2$. 
 \end{lemma}
 \begin{proof}
 	Using the above calculation of $q_1,q_2$ the answer is immediate. 
@@ -119,6 +129,79 @@ If $q = xi + yj + zk + w$ then $\norm{q} = \sqrt{x^2 + y^2 + z^2 + w^2}$. Furthe
 \begin{proof}
 	Using the proof of the above lemma the first result is immediate. To prove the latter note $\norm{q_1 q_2} = \sqrt{\bar{q_2} \bar{q}_1 q_1 q_2}$, and as $\bar{q}_1 q_1$ is a positive real it will pull out of the square root. 
 \end{proof}
+
+\begin{remark}
+	We can extend the inner product to one on the vector space $\mbb{H}^n$. In this v.sp. we will have our quaternion action to be on the right. 
+\end{remark}
+
+\begin{definition}
+	We can give $\mbb{H}^n$ 3 skew-symmetric forms 
+	\eq{
+\omega_1(v,w) &= \pangle{iv,w}, & \omega_2(v,w) &= \pangle{jv,w}, & \omega_3(v,w) &= \pangle{kv,w}	
+}
+\end{definition}
+
+Now $\mbb{H}^n$ has a left action of quaternionic matrices:
+
+\begin{definition} 
+	We define the group $\Sp(n)$ to be the \bam{quaternionic unitary matrices} that preserve the inner product on $\mbb{H}^n$ 
+\end{definition}
+
+\begin{remark}
+	\hl{What is the relation of these matrices to the symplectic matrices?}
+\end{remark}
+
+As we have a group action preserving the inner product, it also preserves the skev-symmetric forms. Hence for any subgroup $G \leq \Sp(n)$ we get $3$ moment maps $\mu_i$ corresponding to $\omega_i$, or said otherwise a map 
+\eq{
+\mu : \mbb{H}^n \to \mf{g}^\ast \otimes \mbb{R}^3
+}
+\begin{example}[Important, see \cite{Hitchin1987}]\label{ex:quaternionic moment map equation example}
+	Take $M = \mbb{H}^{n^2}$ the space of $n\times n$ quaternionic matrices, and let $G=O(n)$ act on $M$ via conjugation. Write $A \in M$ as 
+	\eq{
+A &= A_0 + iA_1 + jA_2 + kA_3 \\
+&= (A_0+iA_1) + k(A_3 + iA_2) \\
+&= Z+kW	
+}
+For simplifying reasons we will assume the $A_i$ are self-adjoint. Now this conjugation action is an exercise you may read in my CQIS notes, and the end result is that 
+\eq{
+\mu_1(A) &= \frac{i}{2}\comm[Z]{Z^\dagger} + \frac{i}{2} \comm[W]{W^\dagger} \\
+&= \comm[A_2]{A_3}-\comm[A_0]{A_1} \\
+\intertext{and likewise} \mu_2(A) &= \comm[A_3]{A_1} - \comm[A_0]{A_2} \\
+\mu_3(A) &= \comm[A_1]{A_2} - \comm[A_0]{A_3}
+}
+We are cycling $A_{1,2,3}$ to get these. 
+\end{example}
+
+\begin{definition}
+	We will define the \bam{quaternionic moment map equation} to be $\mu =0$. 
+\end{definition}
+
+\begin{lemma}
+	$(\omega_3+i\omega_2) -2i\zeta\omega_1 + \zeta^2 (\omega_3-i\omega_2)$ is a complex symplectic form wrt to the complex structure $I_\zeta$. 
+\end{lemma}
+\begin{lemma}
+	If $G \lact \mbb{H}^n$ preserves each $\omega_i$, then the moment map corresponding to $(\omega_3+i\omega_2) -2i\zeta\omega_1 + \zeta^2 (\omega_3-i\omega_2)$ is 
+	\eq{
+(\mu_3+i\mu_2) -2i\zeta\mu_1 + \zeta^2 (\mu_3-i\mu_2)	
+}
+(\hl{check factors of $i$ here})
+\end{lemma}
+
+\begin{prop}
+	The quaternionic moment map equation $\mu=0$ is equivalent to 
+	\eq{
+\forall \zeta, \, 	(\mu_3+i\mu_2) -2\zeta\mu_1 + \zeta^2 (\mu_3-i\mu_2)=0
+}
+\end{prop}
+
+\begin{example}
+	In the same situation as example \ref{ex:quaternionic moment map equation example} we get that the moment map equation is 
+	\eq{
+\comm[(A_0+iA_1) +\zeta(A_3-iA_2)]{(A_3+iA_2) + 2i\zeta A_1 + \zeta^2(A_3-iA_2)}=0	
+}
+This gives a ``Lax pair" formulation of these equations. 
+\end{example}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

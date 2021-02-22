@@ -881,6 +881,19 @@ Through either discussion we have $E\geq \pm 8\pi k$ for some $k \in \mbb{Z}$ wi
 F=\mp \star D \phi
 }
 where we choose the sign to make the bound positive. This is the \bam{BPS equation}.
+
+\begin{remark}
+	The BPS equation $F = \star D \phi$ can be realised as an incarnation of the quaternionic moment map equation by taking 
+	\eq{
+A_0 = - \phi, \, A_i = \pd{x_i} + A_i \text{ for } 1 \leq i \leq 3	
+}
+abusing notation slightly. In this form the Lax pair becomes a statement about commuting operators 
+	\eq{
+	\comm[(-\phi+iD_1) +\zeta(D_3-iD_2)]{(D_3+iD_2) + 2i\zeta D_1 + \zeta^2(D_3-iD_2)}=0	
+}
+The kernel of $(-\phi+iD_i) +\zeta(D_3-iD_2)$ for each $\zeta$ combines to give a (rank 2) vector bundle $E \to \mbb{P}^1$, and the commutation with the complex structure $I_\zeta$ means that it is holomorphic.  
+\end{remark}
+
 \begin{remark}
 	We might wonder what is the connection between these two viewpoints, where we have that $\deg \phi = -c_1(L)$. To make this connection we recall a result stated in \cite{Babelon2003}:
 	\begin{prop}
@@ -899,7 +912,7 @@ We can think of $L$ as a complex line bundle over $\mbb{P}^1$ viewed as the Riem
 This gives $c_1(L)=\deg \phi$, \hl{provided we have an argument to tell us that these all should be counted with sign 1}. 
 \end{remark}
 
-\begin{example}
+\begin{example}[Prasad-Sommerfield solution \cite{Prasad1975}]
 	We can make an ans\"atze of spherical symmetry for a static monopole in $\mbb{R}^3$ to assume our solution has the form 	
 	\eq{
 	\phi &= ih(r) \frac{x^i \sigma_i}{r} = \frac{-2h(r)x^iT_i}{r} = \frac{H(r)x^i T_i}{r^2} & A_i &= -\frac{i}{2}\psquare{1-k(r)} \frac{\eps\indices{_j_j^k} x^j \sigma_k}{r^2} =[1-k(r)]\frac{\eps_{ijk}x^j T^k}{r^2}
@@ -953,8 +966,15 @@ and these give the solutions
 \eq{
 H(r) &=1-r\coth r, & k(r) &= \frac{r}{\sinh(r)}
 }
-\hl{be careful of scaling and conventions here}
+\hl{Be careful of scaling and conventions here, and maybe choose a better name for the function other than $k$.}
 \end{example}
+
+\begin{remark}
+	It was shown by 't Hooft that in a suitable gauge $\phi$ has an asymptotic expansion around $r=\infty$ of 
+	\eq{
+\phi \sim \begin{pmatrix} i & 0 \\ 0 & -i \end{pmatrix} - \frac{k}{2r} \begin{pmatrix} i & 0 \\ 0 & -i \end{pmatrix} + \mc{O}\pround{\frac{1}{r^2}}	
+}
+\end{remark}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Self-Dual Reduction}\label{subsec: self dual reduction}
@@ -998,6 +1018,10 @@ which we see to mean, using $\star_3^2=1$.
 \star_4 F = \pm F \Leftrightarrow {}\indices{^3}F\pm \star_3 D \phi = 0
 }
 \end{proof}
+
+\begin{remark}
+	This result is unsurprising when we realise we can also realise the self duality equation from the quaternionic moment map equation as $A_\mu = \del_\mu + A_\mu$ (again abusing notation). 
+\end{remark}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1118,7 +1142,7 @@ then the additional conditions in the above theorem may be restated as condition
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Extension Ans\"atze}
+\subsection{\secmath{\mc{A}_k} Ans\"atze}
 
 \begin{definition}
 	A rank-2 vector bundle $E \to M$ is an \bam{extension} of a line bundle $L_2$ if $\exists L_1$ a line bundle with SES
@@ -1370,7 +1394,7 @@ so
 \eq{
 \Delta_0 &= 2r^{-1} \sinh r 
 }
-\hl{off by a factor of 2}. From this we can (\hl{do this}) reconstruct the hedgehog solution found by Prasad \& Sommerfeld of 
+\hl{off by a factor of 2}. From this we can (\hl{do this}) reconstruct the hedgehog solution found by Prasad \& Sommerfield of 
 \eq{
 \Phi = ir^{-2}(r \coth r - 1)(x^1 \sigma_1 + x^2 \sigma_2 - x^3 \sigma_3 )
 }
@@ -1387,7 +1411,7 @@ so
 \subsection{Nahm's Construction}
 Relevant reading for this section is Manton \& Sutcliffe \cite{Manton2004} and Hitchin \cite{Hitchin1983}. The original paper is \cite{Nahm1983}.
 
-Nahm established an equivalence between non-singular charge-$n$ $SU(2)$-monopoles and $\pbrace{T_i(s) \, | \, T_i \in M_n(\mbb{C}), \, s \in [0,2]}$ subject to 
+Nahm established an equivalence between non-singular charge-$n$ $SU(2)$-monopoles and data $\pbrace{T_i(s) \, | \, T_i \in M_n(\mbb{C}), \, s \in [0,2]}$ subject to 
 \begin{enumerate}
 	\item Nahm's equation:
 	\eq{
@@ -1407,7 +1431,16 @@ Nahm established an equivalence between non-singular charge-$n$ $SU(2)$-monopole
 		T_i &\mapsto uT_i u^{-1} \\
 		T_4 & \mapsto uT_0 u^{-1} - \frac{du}{ds} u^{-1}
 	} 
-	for $u:(0,2) \to U(n)$ satisfying $u(2-s) = \pround{u^T(s)}^{-1}$.
+	for $u:(0,2) \to U(n)$ satisfying $u(2-s) = \pround{u^T(s)}^{-1}$. \\
+	Keeping $T_4$, we can see that Nahm's equations come from the quaternionic moment map equation with 
+	\eq{
+A_0 = \frac{d}{ds} + T_4, \, A_i = T_i \text{ for } 1 \leq i \leq 3	
+}
+With this realisation the connection to the BPS equation for monopoles is unsurprising (but not complete, as we need to deal with the boundary conditions). 
+\end{remark}
+
+\begin{remark}
+	If we take $T_k = i f_k \sigma_k$ (no sum), then Nahm's equations reduce to the Euler equations for a spinning top. 
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1452,6 +1485,10 @@ Here we comment on \cite{Donaldson1984}. We start with a result linking to the i
 
 \begin{remark}
 	These definitions are slightly different to Donaldson where he uses $\alpha = \frac{i}{2}T_1, \, \beta = \frac{1}{2}(T_2+iT_3)$. Hence the real and complex equation are slightly different. To go from those in \cite{Donaldson1984} send $\alpha \mapsto -\frac{1}{2}\alpha, \, \beta \mapsto \frac{1}{2}\beta$.
+\end{remark}
+
+\begin{remark}
+	If we wanted to come up with this Lax pair, we could look to use the Lax pair for the quaternionic moment map. 
 \end{remark}
 
 We will now want to understand the real and complex equation a little better. First start with the complex equation: we introduce the following operators on complex vector functions $f$ (i.e. $f(s) \in \mbb{C}^n$) and complex matrices $\gamma$ (i.e. $\gamma(s) \in M_n(\mbb{C})$) 
