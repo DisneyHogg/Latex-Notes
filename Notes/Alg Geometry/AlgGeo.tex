@@ -532,23 +532,37 @@ We make a few more useful definitions.
 	Note we know the canonical bundle is a line bundle as there is only 1 basis element of $n$-forms on an $n$-dimensional space. 
 \end{remark}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{\secmath{\mbb{CP}^n}}
 
 \begin{definition}
-The \bam{hyperplane bundle on $\mbb{CP}^n$} is the bundle $\mbb{C}^{n+1}\setminus 0 \to \mbb{CP}^n$ given by the standard projection $(z_0, \dots, z_n) \to [z_0: \dots : z_n]$. It is often denoted $\mc{O}(1)$.  We denote $\mc{O}(n) = \mc{O}(1)^{\otimes n}$.
+The \bam{hyperplane bundle on $\mbb{CP}^n$} is the bundle $\mbb{C}^{n+1}\setminus 0 \to \mbb{CP}^n$ given by the standard projection $(z_0, \dots, z_n) \to [z_0: \dots : z_n]$. It is often denoted $\mc{O}(1)$.  We denote $\mc{O}(k) = \mc{O}(1)^{\otimes k}$ for $k>0$.
 \end{definition}
 
 \begin{definition}
-The \bam{tautological line bundle} on projective space is $\mc{O}(-1) = \mc{O}(1)^\ast$. We denote $\mc{O}(-n) = \mc{O}(-1)^{\otimes n}$. 
+The \bam{tautological line bundle} on projective space is $\mc{O}(-1) = \mc{O}(1)^\ast$. We denote $\mc{O}(-k) = \mc{O}(-1)^{\otimes k}$. 
 \end{definition}
 
 \begin{prop}
 The canonical bundle on the projective space is $K = \mc{O}(-n-1)$. 
 \end{prop}
 
-
-
+We might want to understand the sections of $\mc{O}(k)$. Note given a linear map $\alpha :\mbb{C}^{n+1} \to \mbb{C}$ we can consider it's restriction to a fibre over $x \in \mbb{CP}^n$, which is a linear map of 1d complex vector spaces, hence corresponds to an element in $\mbb{C}$. This gives a section $s_\alpha$. $s_\alpha$ is holomorphic, and moreover we have the following result:
+\begin{prop}
+	Every holomorphic section of $\mc{O}(1)$ is of the form $s_\alpha$ for $\alpha \in (\mbb{C}^{n+1})^\ast$. 
+\end{prop}  
+This results has a natural extension 
+\begin{prop}
+	Every holomorphic section of $\mc{O}(n)$ is of the form $\bigotimes_{i=1}^j s_{\alpha_i}^{p_i}$ for $\alpha_i \in \mbb{C}^{n+1}$, $p_i \in \mbb{N}$ s.t. $\sum_i p_i = k$. 
+\end{prop}
+These results have an alternative understanding:
+\begin{prop}
+	Holomorphic sections of $\mc{O}(k)$ are exactly degree-$k$ homogeneous polynomials in the coordinates $z_0, \dots, z_n$. 
+\end{prop}
+\begin{proof}
+	See for example \href{http://math.iisc.ac.in/~vamsipingali/teaching/AIS2019Lecture1.pdf}{here} and \href{http://homepages.ulb.ac.be/~joelfine/preprints/Kahler_intro_ch2.pdf}{here}. 
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Tangent Spaces}
 

@@ -17,10 +17,17 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Preamble}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part{Introduction}
 I already have notes on Gauge Theory, Algebraic Geometry, Solitons, and Algebraic Topology, but I have yet to actually make any notes on Monopoles. The purpose of these notes is to be a comprehensive cover of the knowledge required to understand \cite{Braden2018}. This will include previous works by Atiyah, Donaldson, Hitchin, Nahm, and more.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Preliminaries}
 As with all my projects, the preliminaries will undoubtedly end up being too long, but I will try keep this minimal this time: 
@@ -43,6 +50,7 @@ U^0 = \pbrace{v \in V \, | \, \forall u \in U, \, \pangle{u,v}=0} \leq V
 	A subspace $U$ is called \bam{isotropic} if $U \subset U^0$. 
 \end{definition}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The Dirac Monopole}
 The standard maxwell equations prohibit monopoles, by which we mean point magnetic field sources, as $\bm{\nabla}\cdot \bm{B}=\bm{0}$. Dirac showed in \cite{Dirac1931} that it is possible to escape this conclusion by giving non-trivial topology to the space by allowing $\bm{B} = \frac{g}{4\pi r^2}\hat{\bm{x}}$ to have a singularity at $\bm{x}=\bm{0}$. We can calculate $\bm{\nabla} \cdot \bm{B} = g\delta(\bm{x})$. Removing this circle gives $\mbb{R}^3\setminus 0$, homotopic to $S^2$, and the corresponding magnetic two form on this sphere is
 \eq{
@@ -56,7 +64,7 @@ a_S &= \frac{g}{4\pi}(-1-\cos\theta) d\phi \in \Omega^1(U_S)
 On the intersect $U_N \cap U_S$ we have $da_N = f = da_S$ and $a_N = a_S + \frac{g}{2\pi}d\phi$. \\
 Now taking $A = ia, \, F = if$, we have that $g_{NS}(\theta,\phi) = e^{-i\frac{g\phi}{2\pi}}$. Requiring that this is a well-defined transition function gives $g \in \mbb{Z}$. This is equivalent to the integrality of the Chern number. \\
 We will not want to consider this as this solution is not solitonic (it has infinite mass), but for further discussion see \cite{Manton2004}. 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Pauli Matrices}
 
@@ -73,7 +81,7 @@ We will not want to consider this as this solution is not solitonic (it has infi
 
 \begin{fact}$\sigma_i \sigma_j = \delta_{ij}I +i\epsilon_{ijk}\sigma_k \Rightarrow \tr(\sigma_i \sigma_j) = 2\delta_{ij}$
 \end{fact}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\secmath{SU(2)}}
 We can write 
@@ -94,7 +102,7 @@ where $\bm{a}=(a_1, a_2, a_3)$, $\bm{\sigma}=(\sigma_1, \sigma_2, \sigma_3)$, an
 	The Killing form is given by $\kappa\pround{T^a,T^b} = \kappa^{ab} = -2\delta^{ab} = 4\tr(T^aT^b)$. Hence $\kappa(X,Y) = 4\tr(XY)$
 \end{corollary}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Degree of a Map}
 We will want to consider continuous maps $f:X \to Y$ between connected oriented $n$-dimensional manifold. We state the following lemma:
@@ -732,7 +740,7 @@ We happily see that these two approaches agree, and we should see that these are
 \subsection{BPS limit}
 The monopole equations we have found so far are second order, but we want to apply the classic strategy when working with topological solitons: write the energy functional of a static configuration as the integral of a square term plus a topological term, and then we locally must have a minimising solution by setting the squared term to 0. This will be possible if we set $\lambda=0$ but retain that $\abs{\phi}=1$ at infinity. More specifically we take the conditions 
 \eq{
-\abs{\phi} & = 1 - \frac{m}{2r} + \mc{O}\pround{\frac{1}{r^2}} \\
+\abs{\phi} & = 1 - \frac{k}{2r} + \mc{O}\pround{\frac{1}{r^2}} \\
 \pd[\abs{\phi}]{\Omega} &= \mc{O}\pround{\frac{1}{r^2}} \\
 \abs{D\phi} &= \mc{O}\pround{\frac{1}{r^2}} 
 }
@@ -881,18 +889,10 @@ Through either discussion we have $E\geq \pm 8\pi k$ for some $k \in \mbb{Z}$ wi
 F=\mp \star D \phi
 }
 where we choose the sign to make the bound positive. This is the \bam{BPS equation}.
+\begin{prop}
+	$c_1(L)=k=-\deg\phi$ where $k$ is the integer in the asymptotic expansion of $\abs{\phi}$. 
+\end{prop}
 
-\begin{remark}
-	The BPS equation $F = \star D \phi$ can be realised as an incarnation of the quaternionic moment map equation by taking 
-	\eq{
-A_0 = - \phi, \, A_i = \pd{x_i} + A_i \text{ for } 1 \leq i \leq 3	
-}
-abusing notation slightly. In this form the Lax pair becomes a statement about commuting operators 
-	\eq{
-	\comm[(-\phi+iD_1) +\zeta(D_3-iD_2)]{(D_3+iD_2) + 2i\zeta D_1 + \zeta^2(D_3-iD_2)}=0	
-}
-The kernel of $(-\phi+iD_i) +\zeta(D_3-iD_2)$ for each $\zeta$ combines to give a (rank 2) vector bundle $E \to \mbb{P}^1$, and the commutation with the complex structure $I_\zeta$ means that it is holomorphic.  
-\end{remark}
 
 \begin{remark}
 	We might wonder what is the connection between these two viewpoints, where we have that $\deg \phi = -c_1(L)$. To make this connection we recall a result stated in \cite{Babelon2003}:
@@ -909,13 +909,13 @@ We can think of $L$ as a complex line bundle over $\mbb{P}^1$ viewed as the Riem
 \eq{
 -c_1(L) = \abs{\pbrace{\text{preimages of $(1,0,0)$}}}
 }
-This gives $c_1(L)=\deg \phi$, \hl{provided we have an argument to tell us that these all should be counted with sign 1}. 
+This gives $c_1(L)=-\deg \phi$, \hl{provided we have an argument to tell us that these all should be counted with sign 1}. 
 \end{remark}
 
 \begin{example}[Prasad-Sommerfield solution \cite{Prasad1975}]
 	We can make an ans\"atze of spherical symmetry for a static monopole in $\mbb{R}^3$ to assume our solution has the form 	
 	\eq{
-	\phi &= ih(r) \frac{x^i \sigma_i}{r} = \frac{-2h(r)x^iT_i}{r} = \frac{H(r)x^i T_i}{r^2} & A_i &= -\frac{i}{2}\psquare{1-k(r)} \frac{\eps\indices{_j_j^k} x^j \sigma_k}{r^2} =[1-k(r)]\frac{\eps_{ijk}x^j T^k}{r^2}
+	\phi &= ih(r) \frac{x^i \sigma_i}{r} = \frac{-2h(r)x^iT_i}{r} = \frac{H(r)x^i T_i}{r^2} & A_i &= -\frac{i}{2}\psquare{1-k(r)} \frac{\eps\indices{_i_j^k} x^j \sigma_k}{r^2} =[1-k(r)]\frac{\eps_{ijk}x^j T^k}{r^2}
 }
 that is, $H = -2rh$. $h,k$ are the functions used in \cite{Manton2004}. We now want to work out the BPS equation $F = \star D \phi$ (we want to choose this sign so that $F$ comes from a reduction of an anti-self-dual field of higher dimension - see \S\ref{subsec: self dual reduction}). It will be useful to note 
 \eq{
@@ -923,7 +923,7 @@ r^2 = x^i x_i \Rightarrow \del_i(r^2) = 2x_i \Rightarrow \del_i r = \frac{x_i}{r
 }
 and also to write the BPS equation as $\star F = D\phi$. In the following calculations we will use up and down indices to check our summation, but as this is $\mbb{R}^3$ with the Euclidean metric, it will not matter. Now considering YMH over $\mbb{R}^3$ we have that 
 \eq{
-F &= \frac{1}{2} F_{jk} \star(dx^j \wedge dx^k) \\
+\star F &= \frac{1}{2} F_{jk} \star(dx^j \wedge dx^k) \\
 &= \frac{1}{2} \pround{\del_j A_k - \del_k A_j + \comm[A_j]{A_k}} \eps\indices{^j^k_i} dx^i  \\
 D \phi &= \pround{\del_i \phi + \comm[A_i]{\phi} } dx^i 
 }
@@ -966,7 +966,10 @@ and these give the solutions
 \eq{
 H(r) &=1-r\coth r, & k(r) &= \frac{r}{\sinh(r)}
 }
-\hl{Be careful of scaling and conventions here, and maybe choose a better name for the function other than $k$.}
+Note we can verify here that $\phi_\infty = -\hat{\bm{x}}\cdot \bm{T} \Rightarrow \deg \phi = -1$. 
+
+
+\hl{Be careful of scaling and conventions here, and maybe choose a better name for the function other than $k$. Certainly something is afoot at the asymptotic expansion is $\abs{\phi} = 1-\frac{1}{r}$.}
 \end{example}
 
 \begin{remark}
@@ -974,6 +977,7 @@ H(r) &=1-r\coth r, & k(r) &= \frac{r}{\sinh(r)}
 	\eq{
 \phi \sim \begin{pmatrix} i & 0 \\ 0 & -i \end{pmatrix} - \frac{k}{2r} \begin{pmatrix} i & 0 \\ 0 & -i \end{pmatrix} + \mc{O}\pround{\frac{1}{r^2}}	
 }
+\hl{Find reference}
 \end{remark}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1022,11 +1026,160 @@ which we see to mean, using $\star_3^2=1$.
 \begin{remark}
 	This result is unsurprising when we realise we can also realise the self duality equation from the quaternionic moment map equation as $A_\mu = \del_\mu + A_\mu$ (again abusing notation). 
 \end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Spectral Curve}
+The starting point for an integrable systems approach to monopoles is the following results:
+\begin{prop}
+The BPS equation $F = \star D \phi$ can be realised as an incarnation of the quaternionic moment map equation by taking 
+\eq{
+	A_0 = - \phi, \, A_i = \pd{x_i} + A_i \text{ for } 1 \leq i \leq 3	
+}
+(abusing notation slightly).
+\end{prop}
+\begin{proof}
+	The first moment map equation is 
+	\eq{
+\comm[A_2]{A_3}-\comm[A_0]{A_1} &= \comm[\del_2+A_2]{\del_3+A_3}-\comm[-\phi]{\del_1 + A_1} \\
+&= (\del_2 A_3 - \del_3 A_2 + \comm[A_2]{A_3})- (\del_1 \phi + \comm[A_1]{\phi}) \\
+&= F_{23} -D_1 \phi
+}
+By cycling we are done, noting that this the right sign. 
+\end{proof}
+\begin{remark}
+	Choosing $A_0=\phi$ gets the other sign BPS equation. Hitchin does not keep his choice consistent between \cite{Hitchin1987} and \cite{Hitchin1982,Hitchin1983}. We take the notation used in his later work, but this might cause confusion.   
+\end{remark}
+ In this form the Lax equation becomes a statement about commuting operators 
+\be\label{eq: BPS lax equation}
+	\comm[(-\phi+iD_1) +\zeta(D_3-iD_2)]{(D_3+iD_2) + 2i\zeta D_1 + \zeta^2(D_3-iD_2)}=0	
+\ee
+Taking $\zeta=0$ this equation becomes $\comm[D_1+i\phi]{D_3+iD_2}=0$. We view $D_1+i\phi$ as a differential operator in the $x^1$ variable parametrised by the variables $x^2, x^3$. Said otherwise this is an operator along each line in the $x^1$ direction. A section $s$ s.t. $\comm[D_1+i\phi]{D_3+iD_2}s=0$ is one in the kernel of $D_1+i\phi$ along each directed line, holomorphic wrt the coordinate $z=x^3+ix^2$. \\
+More generally $(-\phi+iD_1) +\zeta(D_3-iD_2)$ is now an operator along all lines in the $\zeta$ direction, going from $\zeta\in \mbb{P}^1$ to $\bm{u} = \bm{u}(\zeta) \in \mbb{R}^3$ and having the operator $D_{\bm{u}}+i\phi$. The kernel of $(-\phi+iD_1) +\zeta(D_3-iD_2)$ for each $\zeta$ combines to give a vector bundle $E \to T\mbb{P}^1$ (as the space of directed lines is $\cong T\mbb{P}^1$), and the commutation with the complex structure $I_\zeta$ means that it is holomorphic. As these are commuting operators, we know they must have a basis of simultaneous eigenfunctions. \\
+Before looking at an example let's understand the bundle $\pi:T\mbb{P}^1 \to \mbb{P}^1$ better. We take a standard atlas $\pbrace{U_0,U_1}$ for $\mbb{P}^1$ where $\zeta \in \mbb{C}$ is a coordinate on $U_0$, $\zeta^{-1}$ a coordinate on $U_1$. Then we get an atlas for $T\mbb{P}^1$ from $\tilde{U}_i = \pi^{-1}(U_i)$ and over $U_0$, $\frac{d}{d\zeta}$ is a basis for the tangent space so we can introduce coordinates for $T\mbb{P}^1$ over $\tilde{U}_0$ by a map
+\eq{
+	\mbb{C}^2 &\to \pi^{-1}(U_0) \\
+	(\eta,\zeta) &\mapsto (\zeta,\eta \frac{d}{d\zeta})	
+}
+Doing likewise over $\tilde{U}_1$ with coordinates $\tilde{\zeta}, \tilde{\eta}$, as we know we have $\tilde{\zeta} = \zeta^{-1}$ we get \hl{$\tilde{\eta}=-\eta/\zeta^2$}. We know a holomorphic section has to be of the form 
+\eq{
+s(\zeta) = (a\zeta^2 + b \zeta + c) \frac{d}{d\zeta}
+}
+Now as a tangent bundle $T\mbb{P}^1$ has a complex structure given by $J$ acting as 
+\eq{
+\frac{d}{d\zeta} \mapsto i\frac{d}{d\zeta}, \quad \frac{d}{d\bar{\zeta}} \mapsto -i \frac{d}{d\bar{\zeta}}
+}
+A \bam{real structure} on $T\mbb{P}^1$ is an anti-holomorphic involution, i.e $\tau$ s.t. $\tau^2=\id, \, \acomm[\tau]{J} = 0$.
+\begin{lemma}
+	The natural real structure on $T\mbb{P}^1$ is $\tau(\eta,\zeta)=(-\bar{\eta}/\bar{\zeta}^2,-1/\bar{\zeta})$.
+\end{lemma}
+\begin{proof}
+	Note 
+	\eq{
+\tau\pround{\eta \frac{d}{d\zeta}} = \tau(\eta) \frac{d}{d(\tau(\zeta))} = -\frac{\bar{\eta}}{\bar{\zeta}^2} \bar{\zeta}^2 \frac{d}{d\bar{\zeta}} = -\bar{\eta} \frac{d}{d\bar{\zeta}}	
+}
+so 
+\eq{
+(J \circ \tau)\pround{\eta \frac{d}{d\zeta}} = i\bar{\eta} \frac{d}{d\bar{\zeta}} = -(\tau \circ J)\pround{\eta \frac{d}{d\zeta}}
+}
+\end{proof}
+\begin{corollary}
+	A holomorphic section $s(\zeta) = (a\zeta^2 + b \zeta + c) \frac{d}{d\zeta}$ is real iff $b=\bar{b}, \, a=-\bar{c}$. 
+\end{corollary}
+\begin{proof}
+	To be real we need 
+	\eq{
+-(\bar{a}+\bar{b}\bar{\zeta}^{-1} + \bar{c}\bar{\zeta}^{-2})=-\frac{\overline{(a\zeta^2 + b \zeta + c)}}{\bar{\zeta}^2} = (a\bar{\zeta}^{-2} - b \bar{\zeta}^{-1} + c)
+}
+\end{proof}
+\begin{remark}
+	Note this real structure is induced by the antipodal map on the Riemann sphere $\alpha(\zeta)=-1/\bar{\zeta}$. This corresponds to reversing the direction of an oriented line. 
+\end{remark}
+\begin{example}\label{ex: U(1) kernel bundle}
+	Consider the case where our gauge field is not $SU(2)$ but $U(1)$. If we take a global trivial solution to the BPS equation $\phi=-i, \, A_i = 0$, i.e. $D_i = \del_i$, we want to find the corresponding kernel bundle $L \to T\mbb{P}^1$. (here a line bundle). Now our operators act on $\ad(P)$ where $P$ is the trivial principal $U(1)$-bundle our gauge fields live in, and as $U(1)$ is abelian with $\mf{u}(1) \cong \mbb{R}$ we get $\ad(P) \cong (U(1) \times \mbb{R}^3) \times \mbb{R} \cong \mbb{R}^3 \times \mbb{C}$(\hl{?}). If we let $f_0 = e^{i[ix_1 + \zeta(x_3-ix_2)]}$ we get 
+	\eq{
+	[(-\phi+iD_1) +\zeta(D_3-iD_2)]f_0 &= [(i+i(i^2))+\zeta(i\zeta-i(-i^2 \zeta))]f_0 = 0 \\
+	[(D_3+iD_2) + 2i\zeta D_1 + \zeta^2(D_3-iD_2)]f_0 &= [(i\zeta+i(-i^2\zeta)) +2i\zeta(i^2)+\zeta^2(i\zeta+i(-i^2\zeta))]f_0 = 0
+}
+Through elementary algebraic manipulations we can show \ref{eq: BPS lax equation} is equivalent to
+\eq{
+\comm[(-\phi-iD_1) -\zeta^{-1}(D_3+iD_2)]{(D_3-iD_2) + 2i\zeta^{-1} D_1 + \zeta^{-2}(D_3+iD_2)}=0
+}
+and again simple calculations show $f_1 = e^{i[-ix_1 - \zeta^{-1}(x_3+ix_2)]}$ is in the kernel of both of these new operators. As we are considering the kernel of $U(1)$-valued operators we expect them to be only 1-dimensional, so we now have trivialised our line bundle $L \to T\mbb{P}^1$. This is characterised fully by its transition functions over $\tilde{U}_0, \tilde{U}_1$
+\eq{
+\frac{f_0}{f_1} = e^{i[\zeta(x_3-ix_2)+2ix_1 + \zeta^{-1}(x_3+ix_2)]} = e^{i\eta/\zeta}
+}
+where $\eta = \zeta^2(x_3-ix_2)+2i\zeta x_1 + (x_3+ix_2)$. 
+\end{example}
+To include all the information for a monopole solution we also need to consider boundary conditions
+\begin{lemma}
+	Not every line admits non-trivial $L^2$ solutions to $(D_{\bm{u}}+i\phi)s=0$.
+\end{lemma}
+\begin{proof}
+	Take $f= \abs{s}^2$. Then differentiating along the line (with parameter $t$ )we have
+	\eq{
+f^\prime &= 2 \pangle{D_{\bm{u}} s,s} = -2\pangle{i\phi s, s} \\
+\Rightarrow f^{\prime\prime} &= -2\psquare{\pangle{i(D_{\bm{u}}\phi)s,s} - 2\abs{i\phi s}^2} \\
+&= 4\abs{s}^2\pround{1+\mc{O}(r^{-1})}	
+}
+Hence at large $r$ we have $f^{\prime\prime}\sim 4f \Rightarrow f(t) \sim e^{\pm 2t}$, so if the point of closest approach on the line is far away, $\abs{s}^2$ cannot be integrable. 
+\end{proof}
+The above result leads us to make the following definition:
+\begin{definition}
+	A \bam{spectral line} is one in which $(D_{\bm{u}}+i\phi)s=0$ admits a non-trivial $L^2$ solution.
+\end{definition}
+We now want to identify what lines are spectral. Letting $t$ be the parameter along the line, we have using the 'tHooft gauge that our equation becomes 
+\eq{
+\psquare{\frac{d}{dt} + \pround{1-\frac{k}{2t}}\begin{pmatrix}-1 & 0 \\ 0 & 1 \end{pmatrix}+\mc{O}(t^{-2})}s(t) = 0 \, ,
+}
+(\hl{why don't we see and $A$ terms?}). \\
+Asymptotically a solution to this will be of the form $s(t) \sim f(t)\bm{v}_\lambda$ where $\bm{v}_\lambda$ is an eigenvector of the matrix with eigenvector $\lambda$ and $f$ satisfies 
+\eq{
+\frac{df}{dt} + \lambda  \pround{1-\frac{k}{2t}} f = 0
+}
+This can be solved with an integrating factor and we have a unique solution in $L^2(0,\infty)$,  $s(t) \sim e^{-t} t^{k/2} \begin{psmallmatrix} 0 \\ 1 \end{psmallmatrix}$. With this we pick out a line bundle $L^+ \subset E$, a subbundle of our kernel bundle. \\
+To identify the bundle $L^+$, note that at $t=\infty$, $\phi s = -i s$ so we can recognise the example \ref{ex: U(1) kernel bundle} giving a transition function $e^{-i\eta/\zeta}$ (note the minus sign in the exponent as $t=\infty$ corresponds to $\zeta=\infty$). Likewise we get a contribution from the Chern class introducing a twist, so as the line bundle from $\phi$ has Chern class $k$ the full transition function from $\zeta\neq \infty$ to $\zeta \neq 0$ is $e^{-i\eta/\zeta} \zeta^{-k}$. We can do the same for solutions on $L^2(-\infty,0)$ to give the bundle $L^-$ with transition function $e^{i\eta/\zeta} \zeta^{-k}$. \\
+Spectral lines are now points on the base $T\mbb{P}^1$ over which $L^+=L^-$.
+\begin{definition}
+	The \bam{spectral curve} is 
+	\eq{
+S = \pbrace{z \in T\mbb{P}^1 \, | \, L^+_z = L^-_z}	
+}
+i.e. the collection of spectral lines
+\end{definition}
+We want to write our spectral curve as an algebraic curve. These are characterised by elements of \hl{...}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Self-Dual Gauge Fields}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part{Constructions}
+Now we have set out the background material we will need and introduced what the monopole equations are, we need a way to construct solutions to them. These will be in terms of the data:
+\begin{enumerate}
+	\item gauge fields satisfying the BPS equation,
+	\item a holomorphic vector bundle over twistor space (Ward's twistor construction),
+	\item a solution to a non-linear matrix ODE (Nahm's construction),
+\end{enumerate}
+These were be proven equivalent as follows:
+	\begin{center}
+	\begin{tikzpicture}[commutative diagrams/every diagram]
+	\node (P0) at (30:2.5cm) {$3$};
+	\node (P1) at (30+120:2.5cm) {$2$};
+	\node (P2) at (30+240:0.5cm) {$1$};
+	\path[commutative diagrams/.cd, every arrow, every label]
+	(P1) edge node {$\cite{Hitchin1983}$} (P0)
+	(P0) edge node {$\cite{Nahm1983}$} (P2)
+	(P2) edge node {$\cite{Hitchin1982}$} (P1);
+	\end{tikzpicture}
+\end{center} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ward's Twistor Construction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Gauge Fields from Holomorphic Vector Bundles}
@@ -1072,9 +1225,9 @@ The theorem offers a potential way to construct solutions to the ASD Yang Mills 
 \eq{
 \underline{\xi} = F(Z) \xi
 } 
-where $\xi,\underline{\xi}$ are coordinate vectors on $W,\underline{W}$ respectively. 
+where $\xi,\underline{\xi}$ are coordinate vectors on $W,\underline{W}$ respectively. Note this is the transition function $W \to \underline{W}$.
 \begin{remark}
-We say that $W,\underline{W}$ are analogous to the N/S charts on the Riemann sphere in the sense that on any line $W \cap \underline{W} \cap \hat{x} \cong \mbb{P}^1$ we have that $W = \pbrace{\pi_{1^\prime} \neq 0}, \, \underline{W} = \pbrace{\pi_{0^\prime} \neq 0}$, where we are viewing $\pi$ as the projective coordinates on the line. Hence we know the intersection contains the circle $\pbrace{\abs{\pi_{0^\prime}/\pi_{1^\prime}}=1}$.
+We say that $W,\underline{W}$ are analogous to the N/S charts on the Riemann sphere in the sense that on any line $W \cap \underline{W} \cap \hat{x} \cong \mbb{P}^1$ we have that $W = \pbrace{\pi_{1^\prime} \neq 0} = \pbrace{\xi \neq \infty}, \, \underline{W} = \pbrace{\pi_{0^\prime} \neq 0} = \pbrace{\xi \neq 0}$, where we are viewing $\pi$ as the projective coordinates on the line and $\xi = \pi_{0^\prime}/\pi_{1^\prime}$. Hence we know the intersection contains the circle $\pbrace{\abs{\pi_{0^\prime}/\pi_{1^\prime}}=1}$.
 \end{remark}
 To do the transport along $\hat{x}$ we need to restrict to the line, that is take 
 \eq{
@@ -1168,7 +1321,16 @@ where $\Xi_i$ is the transition function of $L_i$ and $\Gamma$ defines and eleme
 	}
 	\end{lemma}
 \begin{proof}
-	The LHS and RHS are the right-derived functor of the same functor $\Gamma(X,\cdot) = \Hom_R(R,\cdot)$, the global section functor (Recall the sheaf cohomology is \bam{not} the \v{C}ech cohomology, but they agree by a theorem).
+	The LHS (the sheaf cohomology) and RHS are the right-derived functor of the same functor $\Gamma(X,\cdot) = \Hom_R(R,\cdot)$, the global section functor.
+\end{proof}
+\begin{remark}
+	Note the sheaf cohomology is not equal to the \v{C}ech cohomology, but we have the following result:
+\end{remark}
+\begin{lemma}
+	The \v{C}ech cohomology is isomorphic to the sheaf cohomology for a sheaf on a paracompact Hausdorff space. 
+\end{lemma}
+\begin{proof}
+	See (supposedly) \emph{Topologie algébrique et théorie des faisceaux} by Godement, \S II.5.10. 
 \end{proof}
 Now to any vector bundle $E \to X$ we can associated a sheaf of $O_X$-modules where $O_X$ is the sheaf of holomorphic functions, and an extension of vector bundles corresponds to an extension of sheaves \cite{Atiyah1957}. The trivial bundle then corresponds to the sheaf $O_X$ and we have that extensions
 \eq{
@@ -1226,7 +1388,7 @@ Taking the ans\"tze that a holomorphic rank-2 vector bundle $E \to \hat{U}$ has 
 	where $\hat{\del} = \nabla-2B$. Then $\Phi$ is the potential for an $ASD$ $SL_2(\mbb{C})$-gauge field. 
 \end{theorem}
 \begin{proof}
-	The idea will be to assume that we have a $SL_2(\mbb{C})$-bundle coming from a holomorphic bundle $E$ that is an extension, and then we will see that the conditions of the theorem are natural from the extension condition. First let $k = -c_1(L_1)$ and \hl{recalling that the line bundle on the sphere with transition function $z \mapsto z^n$ has Chern class $-n$} we know that 
+	The idea will be to assume that we have a $SL_2(\mbb{C})$-bundle coming from a holomorphic bundle $E$ that is an extension, and then we will see that the conditions of the theorem are natural from the extension condition. First let $k = -c_1(L_1)$ and \hl{recalling that the line bundle on the sphere with transition function from $z \neq \infty$ to $z \neq 0$ of $z \mapsto z^n$ has Chern class $-n$} we know that 
 	\eq{
 		\Xi_1(Z) = \zeta^k \exp(f(Z))
 	}
@@ -1405,13 +1567,12 @@ so
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Constructions}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Nahm's Construction}
-Relevant reading for this section is Manton \& Sutcliffe \cite{Manton2004} and Hitchin \cite{Hitchin1983}. The original paper is \cite{Nahm1983}.
-
-Nahm established an equivalence between non-singular charge-$n$ $SU(2)$-monopoles and data $\pbrace{T_i(s) \, | \, T_i \in M_n(\mbb{C}), \, s \in [0,2]}$ subject to 
+\section{Nahm's Construction}
+Relevant reading for this section is Manton \& Sutcliffe \cite{Manton2004} and Hitchin \cite{Hitchin1983}. The original paper is \cite{Nahm1983}. According to Hitchin in \cite{Hitchin1983},
+\begin{quote}
+	``Nahm's method is a bold adaptation of the ADHM construction of instantons",
+\end{quote}
+so we should have the ADHM work in the back of our mind as we read this. Nahm established an equivalence between non-singular charge-$n$ $SU(2)$-monopoles and data $\pbrace{T_i(s) \, | \, T_i \in M_n(\mbb{C}), \, s \in [0,2]}$ subject to 
 \begin{enumerate}
 	\item Nahm's equation:
 	\eq{
@@ -1444,7 +1605,7 @@ With this realisation the connection to the BPS equation for monopoles is unsurp
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Donaldson Rational Maps}
+\subsection{The Real and Complex Equation}
 Here we comment on \cite{Donaldson1984}. We start with a result linking to the integrability of Nahm's equations. 
 
 \begin{prop}
@@ -1648,10 +1809,11 @@ The result follows.
 \begin{remark}
 	In \cite{Donaldson1984}, a different result is given to this lemma. One reason to believe this is incorrect is to note that when $\beta = \beta^\dagger$, the Lagrangian is invariant under $h \mapsto h^{-1}$. We should therefore want that te EL equations retain this same symmetry. 
 \end{remark}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The ADHM construction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The ADHM construction}
 This section follows the work first laid out in \cite{Atiyah1978}. Suppose we have the following information:
 \begin{itemize}
 	\item $W$ a $k$-dimensional vector space
