@@ -2056,6 +2056,7 @@ Hence we ask the question, given a Calabi-Yau manifold with choice of complex st
 			then $\sigma = \tau$.
 		\end{enumerate}
 	\end{itemize}
+We denote the category of sheaves on $X$ as $\operatorname{Sh}(X)$. 
 \end{definition}
 
 \begin{remark}
@@ -2099,6 +2100,33 @@ We may do our usual homological algebra nonsense with these sheaves.
 	An example that will be relevant for later discussions is that an affine variety $X$ with sheaf $O_X$ given by $O_X(U)$ being the regular functions on $U$, regular functions being those given locally by polynomials. \\
 	\hl{how does this correspond with the following definition:} given $Y \subset X$ a codim-1 submanifold we denote $O_X(-Y)$ the sheaf of functions 0 on $Y$, and its dual to be $O_X(Y) = O_X(-Y)^\ast$. 
 \end{example}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Ideal Sheaf}
+
+\begin{definition}
+	Let $f:X\to Y$ be a continuous map of topological spaces, then we define the \textbf{direct image functor} $f_\ast : \operatorname{Sh}(X) \to \operatorname{Sh}(Y)$ s.t. for $\mc{F} \in \operatorname{Sh}(X), \, U \subset Y$ open, 
+	\[
+	(f_\ast \mathcal{F})(U) = \mathcal{F}(f^{-1}(U)) \, .
+	\]
+\end{definition}
+
+\begin{definition}
+	Given a closed embedding $i :X\hookrightarrow Y$ we define the \textbf{ideal sheaf} $\mathcal{I}_{X/Y} = \mathcal{I}$ to be the kernel of the induced map of structure sheaves $O_Y \to i_\ast O_X$. This gives an exact sequence of $O_Y$-modules 
+	\[
+	0 \to \mc{I} \to O_Y \to i_\ast O_X \to 0\, .
+	\]
+\end{definition}
+\begin{lemma}
+	$O_Y/\mathcal{I}_{X/Y} \cong O_X$. 
+\end{lemma}
+From this result we get for any invertible sheaf on $Y$ $\mathcal{F}$ the exact sequence 
+\[
+0 \to \mathcal{I} \otimes_{O_Y} \mathcal{F} \to O_Y \otimes_{O_Y} \mathcal{F} \to i_\ast O_X \otimes_{O_Y} \mathcal{F} \to 0  
+\]
+Note here $O_Y \otimes_{O_Y} \mathcal{F} = \mathcal{F}$, and using `niceness' properties (see \href{https://mathoverflow.net/questions/49134/when-does-the-direct-image-functor-commute-with-tensor-products}{here}) $i_\ast$ commutes with tensor product so $i_\ast O_X \otimes_{O_Y} \mathcal{F} = i_\ast \mathcal{F}$. 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Cohomology}
