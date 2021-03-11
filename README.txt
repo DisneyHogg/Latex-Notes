@@ -10,7 +10,7 @@ This is my big header file that I use in almost all my Latex documents.
 It has a modification (header-colourful) which adds some (what I think are pretty) colours to the notes.  
 
 bib/
-This is a directory containing my bibliography jabref_libraru.bib (created using Jabref). This superceeds older libraries created by Mendeley (library.bib), and a manually created .bib file for when I need to work around Mendeley (manual.bib). A custom bibliography style I created using makebst (insert linke here) (obviously named as custom-bib-style.bst) is also included. 
+This is a directory containing my bibliography jabref_library.bib (created using Jabref). A custom bibliography style I created using makebst (http://tug.ctan.org/tex-archive/macros/latex/contrib/custom-bib/makebst.pdf) (obviously named as custom-bib-style.bst) is also included. 
 
 'Example sheets and assignments'/
 This is work I have typed up for any courses. I do not particularly use it often.
