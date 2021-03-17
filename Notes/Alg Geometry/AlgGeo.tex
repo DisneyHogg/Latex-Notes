@@ -236,6 +236,9 @@ where $f_i : \mbb{C}^n \to \mbb{C}$ are holomorphic functions.
 	If $f \in \mc{O}_n$ is irreducible then the variety defined by the zero locus of $f$ is irreducible at 0.
 \end{prop}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Category Theory}
@@ -364,11 +367,65 @@ Here we will cover the basic category theory required to be able to provide a sl
 \begin{proof}
 	If $O=E^\prime$ is another equaliser, then we know we have maps $u,u^\prime$ giving the isomorphism. 
 \end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Abelian Categories}
+
+\begin{definition}
+	A category is \textbf{abelian} if it is preadditive and: 
+	\begin{itemize}
+		\item it has a zero object, 
+		\item it has all binary biproducts,
+		\item it has all kernels and cokernels,
+		\item all monomorphisms and epimorphisms are normal. 
+	\end{itemize}
+\end{definition}
+
+\begin{example}
+	The category of abelian groups is an abelian category (hence the name). 
+\end{example}
+
+\begin{remark}
+	The idea behind an abelian category is that questions of exactness are naturally posed in one, and so this is the realm where we do homological algebra (see \S \ref{sec: homological algebra}).
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Homological Algebra}\label{sec: homological algebra}
+An excellent source for this is \cite{Weibel1995}. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Derived Functors}
+
+\begin{definition}
+	Let $A,B$ be abelian categories s.t $A$ has enough injectives, and $F :A \to B$ a covariant left-exact functor. The \textbf{right derived functors} of $F$ are $R^iF:A \to B$ for $i \geq 0$ defined as follows: for $X \in \operatorname{Ob}(A)$ take an injective resolution
+	\[
+	0 \to X \to I^0 \to I^1 \to I^2 \to \dots
+	\]
+	and its image under $F$ (removing the first term)
+	\[
+	0 \to F(I^0) \to F(I^1) \to F(I^2) \to \dots 
+	\]
+We then define 
+\[
+R^iF(X) = (\ker :F(I^i) \to F(I^{i+1}))/(\operatorname{Im}:F(I^{i-1}) \to F(I^i))
+\]
+\end{definition}
+
+\begin{lemma}
+	$R^0F = F$. 
+\end{lemma}
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Complex Manifolds}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Bundles}
 We recall a few necessary bundle definitions and results:
@@ -2144,16 +2201,80 @@ Note here $O_Y \otimes_{O_Y} \mathcal{F} = \mathcal{F}$, and using `niceness' pr
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Cohomology}
+We will now see two definition of cohomology which apply to sheaves. They will turn out to be equivalent under rather general conditions. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Sheaf Cohomology}
+
+\begin{lemma}
+	For any topological space $X$, $\operatorname{Sh}(X)$ has enough injectives. 
+\end{lemma}
+\begin{proof}
+	See \cite{Iversen1984}, thm II.3.1. 
+\end{proof}
 
 \begin{definition}
-	On a sheaf $\mc{F}$ on $X$ with ``good" cover $\pbrace{U_\alpha}$ we define the \bam{\v{C}ech cochain complex} to \hl{\dots}
+	The \textbf{global section functor} is $\Gamma = \Gamma(X,\cdot):\operatorname{Sh}(X) \to \text{Ab}, \, \Gamma(X,\mathcal{F}) = \mathcal{F}(X)$. 
 \end{definition}
+
+\begin{definition}
+	The \textbf{sheaf cohomology} of topological space $X$ is $H^i(X,\cdot) : \operatorname{Sh}(X) \to \text{Ab}, \, H^i(X,\mathcal{F}) = \psquare{R^i\Gamma(X,\cdot)}(\mathcal{F})$
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{\v{C}ech Cohomology}
+
+
+
 
 
 \begin{definition}
-	We define the sheaf cohomology group $H^0(X,O_X)$ to be the group of global sections of $O_X$ on $X$. 
+	For a sheaf $\mc{F}$ on $X$ with open cover $\mathcal{U} = \pbrace{U_\alpha}$ we define the \bam{\v{C}ech cochain complex} by the direct product 
+	\[
+	C^k(\mathcal{U},\mathcal{F}) = \prod_{i_0 < \dots <i_k} \mathcal{F}(U_{i_0} \cap \dots \cap U_{i_k})
+	\]
+	with differential $\delta$ given by (for example) 
+	\begin{align*}
+	(\delta_0 \sigma)_{U,V} &= \sigma_V - \sigma_U \\
+	(\delta_1 \rho)_{U,V,W} &= \rho_{V,W} - \rho_{U,W} + \rho_{U,V} 
+	\end{align*}
 \end{definition}
 
+\begin{definition}
+	The \textbf{\v{C}ech cohomology} of an open cover $\mathcal{U}$ of $X$ with values in $\mathcal{F}$ is the cohomology of the associated \v{C}ech cochain complex, denoted $\check{H}^i(\mathcal{U},\mathcal{F})$. The \v{C}ech cohomology of $X$ is 
+	\[
+	\check{H}^i(X,\mathcal{F}) = \varinjlim_{\mathcal{U}} \check{H}^i(\mathcal{U},\mathcal{F})
+	\]
+	where open covers are directed under refinement. 
+\end{definition}
+
+Note that for any $\mathcal{U}$ we have a homomorphism $\check{H}^i(\mathcal{U},\mathcal{F}) \to \check{H}^i(X,\mathcal{F})$. 
+\begin{definition}
+	A cover $\mathcal{U}$ is a \textbf{Leray cover} wrt $\mathcal{F}$ if $\check{H}^i(\mathcal{U},\mathcal{F}) \overset{\cong}{\to} \check{H}^i(X,\mathcal{F})$.
+\end{definition}
+
+\begin{definition}
+	An open cover is \textbf{good} if all sets and intersections of finitely many sets are contractible. 
+\end{definition}
+
+\begin{prop}
+	A good cover is a Leray cover
+\end{prop}
+\begin{proof}
+	The Leray spectral sequence degenerates for a good cover, and so \hl{\dots}
+\end{proof}
+
+\begin{prop}
+	Any non-trivial covering of a 1d-complex manifold is Leray.
+\end{prop}
+\begin{proof}
+	See \cite{Ward1991}, \S 3.3. 
+\end{proof}
+
+\begin{remark}
+	Note that to think about this section from a different perspective, you could look at my notes on symplectic integrators and persistent homology. 
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Equivalence}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
