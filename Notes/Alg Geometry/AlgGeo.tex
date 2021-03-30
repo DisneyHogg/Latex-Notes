@@ -132,7 +132,7 @@ s.t. $a,b,c,d \in \mbb{Z}, \, ad-bc=1$.
 \end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Field extensions}
+\subsection{Field Extensions}
 \begin{definition}
 	A \bam{field extension} if a pair of fields $K \subseteq L$ s.t. the operations of $K$ are those of the restriction of $L$. It is denoted $L / K$
 \end{definition}
@@ -182,7 +182,7 @@ The corresponding derivatives are related by
 \pd{z} = \frac{1}{2} \pround{\pd{x} -i \pd{y}}, \;  \pd{\bar{z}} = \frac{1}{2} \pround{\pd{x} + i \pd{y}}
 }
 
-\subsection{Fixing definitions}
+\subsection{Fixing Definitions}
 I will fix some notation with a definition:
 \begin{definition}
 	Denote the \bam{Upper Half Plane (UHP)} in $\mbb{C}$ as 
@@ -272,6 +272,10 @@ Here we will cover the basic category theory required to be able to provide a sl
 	and $d$ is compatible with the grading.
 \end{example}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Functors}
+
 \begin{definition}
 	A \bam{covariant functor} is a map between categories $F: \mc{C} \to \mc{D}$ in the sense that for $A \in \mc{C}, \, F(A) \in \mc{D}$, and $f \in \Hom(A,B)$ for $A,B \in \mc{C}$ gives $F(f) \in \Hom(F(A), F(B))$ obeying 
 	\begin{itemize}
@@ -328,6 +332,28 @@ Here we will cover the basic category theory required to be able to provide a sl
 		\Nat(h_A,F) \cong F(A)
 	}
 \end{lemma}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Adjoint Functors}
+
+\begin{definition}
+	Let $\mathcal{C}, \mathcal{D}$ be categories with functors 
+	\begin{center}
+	\begin{tikzcd}
+    \mathcal{D} \arrow[r,"R",shift left]  & \mathcal{C} \arrow[l,"L",shift left] 
+	\end{tikzcd}
+\end{center}
+The pair of functors $L,R$ are called \textbf{adjoint functors}, with $L/R$ the \textbf{left/right adjoint} if $\exists$ a natural isomorphism between the hom functors 
+\[
+\operatorname{Hom}_{\mathcal{D}}(L(\cdot),\cdot) \cong \operatorname{Hom}_{\mathcal{C}}(\cdot, R(\cdot))
+\]
+\end{definition}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Universal Properties(?)}
+
 
 \begin{definition}
 	Given objects $X,Y,Z$ and two morphisms $f:X\to Z, \, g:Y \to Z$, the \bam{pullback} of the morphisms is an object $P$ with morphisms $p_1:P \to X, \, p_2 :P \to Y$ s.t. the diagram
@@ -470,6 +496,14 @@ We recall a few necessary bundle definitions and results:
 \begin{remark}
 	\hl{Why is the identity section not global on any other vector bundle.}
 \end{remark}
+
+\begin{definition}
+	The \textbf{conjugate bundle} of a vector bundle $E \to M$ is $\overline{E} \to M$ where the fibres are the complex conjugate and the transition functions are $\overline{g_{ij}}$. 
+\end{definition}
+
+\begin{prop}
+	If $E$ has a positive definite Hermitian inner product, then $\overline{E} \cong E^\ast$. 
+\end{prop}
 
 We make a few more useful definitions. 
 
@@ -882,7 +916,7 @@ We will start with some basic definitions and results, with very few proofs for 
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The de-Rham complex}
+\subsection{The de-Rham Complex}
 \hl{I have seen a lot of de-Rham definitions in the past, so I will come back and fill this in when I have time.}
 
 
@@ -960,7 +994,7 @@ We will start with some basic definitions and results, with very few proofs for 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The Poincar\'e lemma}
+\subsection{The Poincar\'e Lemma}
 We will now build up a bit of theory culminating in a full understanding of de-Rham cohomology of $\mbb{R}^n$. We start by considering the maps 
 \begin{tkz}
 	\mbb{R}^n \times \mbb{R} \arrow[r,shift left, "\pi"] & \mbb{R}^n \arrow[l,shift left, "s"]	
@@ -1920,6 +1954,36 @@ We can give every real vector bundle $E \to M$ a Riemannian metric as follows: L
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Splitting Principle}
+
+\begin{theorem}[Splitting Principle]
+	Let $E \to X$ be a rank-$n$ vector bundle, $X$ paracompact. Then $\exists Y = \operatorname{Fl}(E)$ (the \textbf{flag bundle} associated to $E$) and map $p:Y \to X$ s.t. 
+	\begin{itemize}
+		\item the induced cohomology homomorphism $p^\ast : H^\cdot(X) \to H^\cdot(Y)$ is injective, and 
+		\item the pullback bundle is a direct sum on line bundle, i.e. 
+		\[
+		p^\ast E = L_1 \oplus \dots \oplus L_n \, .
+		\]
+	\end{itemize}
+\end{theorem}
+The power of this theorem is that an equation holding in $H^\cdot(Y)$ holds in $H^\cdot(X)$, for example the following prop.
+\begin{prop}
+	$c_1(E) = c_1(\det E)$. 
+\end{prop}
+\begin{proof}
+	By the splitting principle it is sufficient to show it in the case of $E$ being a direct sum of line bundles. 
+\end{proof}
+
+ There is a stronger theorem if we give constraints to our bundle. 
+\begin{theorem}[Grothendieck-Birkhoff]
+	Every holomorphic rank-$n$ vector bundle $E \to \mathbb{P}^1$ is holomorphically isomorphic to a direct sum of line bundles, i.e. 
+	\[
+	E \cong \mathcal{O}(a_1) \oplus \dots \mathcal{O}(a_n) \, .
+	\]
+	Moreover the $a_i$ are unique up to reordering. 
+\end{theorem}
+\begin{proof}
+	See \emph{Sur la classification des fibrés holomorphes sur la sphère de Riemann}, Grothendieck 1957.
+\end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Serre Duality}
@@ -2161,7 +2225,7 @@ We may do our usual homological algebra nonsense with these sheaves.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The Ideal Sheaf}
+\subsection{Direct Image and Pullback}
 
 \begin{definition}
 	Let $f:X\to Y$ be a continuous map of topological spaces, then we define the \textbf{direct image functor} $f_\ast : \operatorname{Sh}(X) \to \operatorname{Sh}(Y)$ s.t. for $\mc{F} \in \operatorname{Sh}(X), \, U \subset Y$ open, 
@@ -2179,6 +2243,52 @@ We may do our usual homological algebra nonsense with these sheaves.
 	\]
 	Viewing $S$ as a sheaf over $\pbrace{x}$, the skyscraper sheaf is it's direct image.  
 \end{example}
+
+\begin{remark}
+	Note that we required $f$ to be continuous to ensure that $\forall U$ open we had $f^{-1}(U)$ open. If we wanted to consider a sort of `inverse' to this functor, we there for need to be slightly careful. 
+\end{remark}
+
+\begin{definition}
+	Let $f:X\to Y$ be a continuous map of topological spaces, then we define the \textbf{inverse image functor} $f^{-1} : \operatorname{Sh}(Y) \to \operatorname{Sh}(X)$ s.t. for $\mathcal{G} \in \operatorname{Sh}(Y), \, U \subset X$ open, $f^{-1}\mathcal{G}$ is the sheafification of the presheaf 
+	\[
+	U \mapsto \varinjlim_{V \supseteq f(U)} \mathcal{G}(V) \, .
+	\]
+	We will often call $f^{-1}\mathcal{G}$ the \textbf{topological pullback}.
+\end{definition}
+
+\begin{prop}
+	$f^{-1}$ is the left adjoint of $f_\ast$. 
+\end{prop}
+
+When $f:X \to Y$ is a morphism of locally ringed spaces, as we will deal with in algebraic geometry, we want sheaves on $Y$ to be $O_Y$-modules. As such $f^{-1}$ is not appropriate, as $f^{-1}(\mathcal{G})$ may not be an $O_X$ module. As such we introduce an additional construction.
+
+\begin{definition}
+	We define $f^\ast \mathcal{G}$ the \textbf{analytic pullback} to be  
+	\[
+	f^\ast \mathcal{G} = f^{-1} \mathcal{G} \otimes_{f^{-1} O_Y} O_X \, .
+	\]
+\end{definition}
+
+\begin{lemma}
+	Analytical pullback is compatible with pullback of bundles, that is if $E\to Y$ is a bundle then 
+	\[
+	f^\ast O_Y(E) = O_X(f^\ast E) \, .
+	\]
+\end{lemma}
+
+
+\begin{prop}
+We have an exact sequence
+\[
+0 \to f^{-1} \mathcal{G} \to f^\ast \mathcal{G}
+\]
+\end{prop}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Ideal Sheaf}
 
 \begin{definition}
 	Given a closed embedding $i :X\hookrightarrow Y$ we define the \textbf{ideal sheaf} $\mathcal{I}_{X/Y} = \mathcal{I}$ to be the kernel of the induced map of structure sheaves $O_Y \to i_\ast O_X$. This gives an exact sequence of $O_Y$-modules 
