@@ -370,6 +370,17 @@ The pair of functors $L,R$ are called \textbf{adjoint functors}, with $L/R$ the 
 	The pullback is often denoted as $P=X \times_Z Y$
 \end{definition}
 
+\begin{definition}
+	Given $f:X \to Z, \, g:Y \to Z$ a \textbf{lift} of $f$ to $Y$ is a map $\tilde{f}: X \to Y$ s.t. $f = g \circ \tilde{f}$. 
+\end{definition}
+
+\begin{prop}
+ A section of the pullback $X \times_Z Y$ gives a lift of $f$.
+\end{prop}
+\begin{proof}
+	Given a section $s:X \to P$, we get a lift $\tilde{f}=p_2 \circ s$. 
+\end{proof}
+
 \begin{lemma}[Five Lemma]
 	Given a commutative diagram of abelian groups 
 	\begin{tkz}
@@ -529,8 +540,6 @@ We make a few more useful definitions.
 	Note that if $X$ is an $n$-dimensional complex manifold then the differential forms considered are the holomorphic differential forms so $K_X = \wedge^n T^\ast_{1,0}X$ (see \S \hl{\dots}). 
 \end{remark}
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{\secmath{\mbb{CP}^n}}
 
@@ -569,8 +578,11 @@ These results have an alternative understanding:
 	Holomorphic sections of $\mc{O}(k)$ are exactly degree-$k$ homogeneous polynomials in the coordinates $z_0, \dots, z_n$. 
 \end{prop}
 \begin{proof}
-	See for example \href{http://math.iisc.ac.in/~vamsipingali/teaching/AIS2019Lecture1.pdf}{here} and \href{http://homepages.ulb.ac.be/~joelfine/preprints/Kahler_intro_ch2.pdf}{here}. 
+	See for example \href{http://math.iisc.ac.in/~vamsipingali/teaching/AIS2019Lecture1.pdf}{here}, \href{https://math.stanford.edu/~vakil/725/class22.pdf}{here}, and \href{http://homepages.ulb.ac.be/~joelfine/preprints/Kahler_intro_ch2.pdf}{here}.
 \end{proof}
+\begin{corollary}
+	The space of global sections of $\mathcal{O}_{\mathbb{P}^1}(n)$ has dimension $n+1$ (later we will write this as $h^0(\mathbb{P}^1,\mathcal{O}(n))=n+1$.
+\end{corollary}
 
 \begin{example}
 	Consider the hyperplane bundle $\mc{O}(1)$, we want to work out its transition functions. On $U_0 = \pbrace{z_0 \neq 0}$ we take coordinate $\zeta = z_1/z_0$ and likewise on $U_1$. On $U_0 \cap U_1$ a point is represented as $[1:\zeta]=[\zeta^{-1}:1]$, and we can take $z_0$ as the coordinate on the fibre, so we have trivialisations
@@ -586,6 +598,9 @@ z_0 = s_{01}(z_0,z_1) z_1 \Rightarrow s_{01} = \zeta
 }
 In general we then see $\mc{O}(n)$ has transition function $s_{01}=\zeta^n$. 
 \end{example}
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Tangent Spaces}
@@ -1845,7 +1860,8 @@ $\text{td}(E \oplus F) = \text{td}(E) \text{td}(F)$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Bundle Theory}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Pullbacks}
 
 \begin{definition}
 	Given manifolds $M,N$, fibre bundle $E \to M$, and map $f:N \to M$, we define the \bam{pullback bundle of E by f} to be 
@@ -1922,6 +1938,9 @@ $\text{td}(E \oplus F) = \text{td}(E) \text{td}(F)$.
 	To specify a isomorphism class of rank $k$-vector bundles, we can take the cover of $S^1$ with only two open sets and then an element of $\Vect_k(S^1)$ is specified by two elements $g,h \in GL(k,\mbb{R})$ up to conjugation. We can use a reduction of structure bundle to only ask about elements of $O(k)$. 
 \end{example}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Tubular Neighbourhoods}
+
 \begin{definition}
 	Given $S \subset M$ a $k$-dimsneionsal submanifold of an oriented $n$-dimensional manifold $M$, a \bam{tubular neighbourhood} of $S$ in $M$ is $U$ an open neighbourhood of $S$ in $M$ diffeomorphic to a rank-$(n-k)$ vector bundle over $S$. 
 \end{definition}
@@ -1952,20 +1971,89 @@ We can give every real vector bundle $E \to M$ a Riemannian metric as follows: L
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Projective Bundles}
+We will now briefly discuss the way to compactify line bundles, as discussed \href{https://math.stackexchange.com/questions/1380512/compactifying-mathcalo-mathbbp1-2}{here} and \href{https://en.wikipedia.org/wiki/Projective_bundle}{here}. We start by recalling a definition. 
+\begin{definition}
+	Given a $\mathbb{F}$-vector space $V$, the space $\mathbb{P}(V)$ is the space of equivalence class of $V \setminus \pbrace{0}$ under the equivalence relation $\forall x \in V, \, \lambda \in \mathbb{F}^\times, \, x \sim \lambda x$.  
+\end{definition}
+Hence from any vector bundle we can construct an another fibre bundle.
+\begin{definition}
+	Given a vector bundle $E$, the corresponding projective bundle is $\mathbb{P}(E)$, the bundle with fibres $\mathbb{P}(E)_z = \mathbb{P}(E_z)$. 
+\end{definition}
+\begin{remark}
+	This is a special case of the Grassmannian bundle, unsurprisingly. 
+\end{remark}
+We have the following characteristic property. 
+\begin{prop}
+	Given a vector bundle $E \to X$ and a morphism $f:Y \to X$, to factorise $f$ through the projection map $p:\mathbb{P}(E) \to X$ is to specify line subbundle of $f^\ast E$.  
+\end{prop}
+\begin{proof}
+	See \cite{Hartshorne1977}, prop 7.12, as well as \href{https://ncatlab.org/nlab/show/projective+bundle}{nlab} and the general Wikipedia page on the \href{https://en.wikipedia.org/wiki/Proj_construction}{Proj} construction.  
+\end{proof}
+
+\begin{definition}
+	The \textbf{Segre embedding} is the map $\sigma:\mathbb{P}^n \times \mathbb{P}^m \to \mathbb{P}^{(n+1)(m+1)-1}$ given by
+	\begin{align*}
+		([X_0:\dots: X_n],[Y_0: \dots :Y_m]) \mapsto [X_0Y_0: \dots :X_iY_j:\dots :X_n Y_m]
+	\end{align*}
+\end{definition}
+\begin{prop}
+	This map is an isomorphism if either $n=0$ or $m=0$
+\end{prop}
+\begin{proof}
+	Checking dimensions we have 
+	\begin{align*}
+		\dim(\mathbb{P}^n \times \mathbb{P}^m) &= n+m \, , \\
+		\dim(\mathbb{P}^{(n+1)(m+1)-1}) &= nm+n+m \, .
+	\end{align*}
+\end{proof}
+\begin{corollary}
+	The projective bundle is stable under twisting by a line bundle, i.e $\mathbb{P}(E) \cong \mathbb{P}(E \otimes L)$. 
+\end{corollary}
+
+Now recall the standard way to projectivise (i.e. compactify) the vector space $\mathbb{F}^n$ is to consider
+\begin{align*}
+	\mathbb{F}^n &\hookrightarrow \mathbb{PF}^n \\
+	(z_1, \dots, z_n) &\mapsto [z_1 : \dots : z_n : 1] 
+\end{align*}
+\begin{example}
+	This is how we construct $\mathbb{CP}^n$ recall, and how we compactify $\mathbb{C}$ to $\mathbb{P}^1$. 
+\end{example}
+Now for any rank-$n$, $\mathbb{F}$-vector space $V$ we projectivise as 
+\begin{align*}
+	V &\hookrightarrow \mathbb{P}(V \oplus \mathbb{F}) \\
+	v &\mapsto [(v,1)]
+\end{align*}
+Combining this with the definition of projectivisation of a vector bundle, we now get a compactification 
+\[
+E \hookrightarrow \mathbb{P}(E \oplus O) 
+\]
+where $O$ is the trivial rank-1 vector bundle $X \times \mathbb{F}$. In this sense studying projective bundles is useful as we can enforce the compactness property on a bundle we have. \\
+Projective bundles carry a tautological bundle themselves.
+\begin{definition}
+	Take a bundle $\pi:E \to X$, then the \textbf{tautological bundle} over $\mathbb{P}(E)$ is given by $H$ whose dual is the pullback 
+	\begin{center}
+		\begin{tikzcd}
+			H^\ast = \pi^\ast \mathbb{P}(E) \arrow[r] \arrow[d] & \mathbb{P}(E) \arrow[d] \\ E \arrow[r,"\pi"] & X
+		\end{tikzcd}
+	\end{center}
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Splitting Principle}
 
 \begin{theorem}[Splitting Principle]
 	Let $E \to X$ be a rank-$n$ vector bundle, $X$ paracompact. Then $\exists Y = \operatorname{Fl}(E)$ (the \textbf{flag bundle} associated to $E$) and map $p:Y \to X$ s.t. 
 	\begin{itemize}
-		\item the induced cohomology homomorphism $p^\ast : H^\cdot(X) \to H^\cdot(Y)$ is injective, and 
+		\item the induced cohomology homomorphism $p^\ast : H^\bullet(X) \to H^\bullet(Y)$ is injective, and 
 		\item the pullback bundle is a direct sum on line bundle, i.e. 
 		\[
 		p^\ast E = L_1 \oplus \dots \oplus L_n \, .
 		\]
 	\end{itemize}
 \end{theorem}
-The power of this theorem is that an equation holding in $H^\cdot(Y)$ holds in $H^\cdot(X)$, for example the following prop.
+The power of this theorem is that an equation holding in $H^\bullet(Y)$ holds in $H^\bullet(X)$, for example the following prop.
 \begin{prop}
 	$c_1(E) = c_1(\det E)$. 
 \end{prop}
