@@ -478,57 +478,10 @@ We recall a few necessary bundle definitions and results:
 	If $O$ is the trivial line bundle then $E\otimes O = E$. 
 \end{lemma}
 
-\begin{definition}
-	The \bam{dual bundle} of a vector bundle $E \to M$ is $E^\ast \to M$ where the fibres of $E^\ast$ are the dual spaces of the fibres of $E$, with the transition functions $g_{ij}^\ast = \pround{g_{ij}^T}^{-1}$.
-\end{definition}
-
-\begin{remark}
-	We can check the cocycle condition here as 
-	\eq{
-		g_{kj}^\ast g_{ji}^ \ast = \pround{g_{kj}^T}^{-1} \pround{g_{ji}^T}^{-1}= \pround{g_{ji}^T g_{kj}^T}^{-1} = \pround{\psquare{g_{kj}g_{ji}}^T}^{-1}=\pround{g_{ki}^T}^{-1} =g_{ki}^\ast	
-	}
-\end{remark}
-
-\begin{example}
-	The dual bundle to the tangent bundle is the cotangent bundle, i.e. $\pround{TM}^\ast = T^\ast M$
-\end{example}
-
-\begin{lemma}
-	$E \otimes E^\ast \cong \End(E)$. 
-\end{lemma}
-
-\begin{lemma}
-	Line bundles have tensor inverses, i.e given $L$, $\exists L^{-1}$ s.t. $L \otimes L^{-1} \cong O$ the trivial bundle. 
-\end{lemma}
-\begin{proof}
-	We will show this by showing $L^{-1} = L^\ast$. To trivialise $\End(L)$ we note here the transition maps are $g_{ij} \otimes g_{ij}^{-1} =  1 \otimes 1$ as $g_{ij}, g_{ij}^\ast \in \mbb{F}$. Hence any section is globally defined. 
-\end{proof}
-
-\begin{remark}
-	\hl{Why is the identity section not global on any other vector bundle.}
-\end{remark}
-
-\begin{definition}
-	The \textbf{conjugate bundle} of a vector bundle $E \to M$ is $\overline{E} \to M$ where the fibres are the complex conjugate and the transition functions are $\overline{g_{ij}}$. 
-\end{definition}
-
-\begin{prop}
-	If $E$ has a positive definite Hermitian inner product, then $\overline{E} \cong E^\ast$. 
-\end{prop}
 
 We make a few more useful definitions. 
 
-\begin{definition}
-	Let $X$ be an algebraic surface and $\pi:L \to X$ a line bundle. Then the \bam{tautological section} of $\pi^\ast L$ as a bundle over $L$ is given by $\sigma(l) = (l,l)$. 
-\end{definition}
 
-\begin{remark}
-	Not that the tautological section is indeed valid as we have 
-	\eq{
-		\pi^\ast L = \pbrace{(l,l^\prime) \in L\times L \, | \, \pi(l) = \pi(l^\prime)}	
-	}
-	so certainly $(l,l) \in \pi^\ast L$. 
-\end{remark}
 
 \begin{definition}
 	The \bam{canonical bundle} on a space $X$ with $\dim X = n$ is the line bundle of exterior $n$-forms on $X$. It is often denoted $K=K_X$, not to be confused with the canonical divisor.
@@ -1861,6 +1814,59 @@ $\text{td}(E \oplus F) = \text{td}(E) \text{td}(F)$.
 \subsection{Bundle Theory}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Dual Bundles}
+
+\begin{definition}
+	The \bam{dual bundle} of a vector bundle $E \to M$ is $E^\ast \to M$ where the fibres of $E^\ast$ are the dual spaces of the fibres of $E$, with the transition functions $g_{ij}^\ast = \pround{g_{ij}^T}^{-1}$.
+\end{definition}
+
+\begin{remark}
+	We can check the cocycle condition here as 
+	\eq{
+		g_{kj}^\ast g_{ji}^ \ast = \pround{g_{kj}^T}^{-1} \pround{g_{ji}^T}^{-1}= \pround{g_{ji}^T g_{kj}^T}^{-1} = \pround{\psquare{g_{kj}g_{ji}}^T}^{-1}=\pround{g_{ki}^T}^{-1} =g_{ki}^\ast	
+	}
+\end{remark}
+
+\begin{example}
+	The dual bundle to the tangent bundle is the cotangent bundle, i.e. $\pround{TM}^\ast = T^\ast M$
+\end{example}
+
+\begin{prop}
+	If $E \to X$ is a real vector bundle, $E^\ast = \operatorname{Hom}(E, \mathbb{R} \times X)$. 
+\end{prop}
+\begin{remark}
+	A like result exists for complex vector bundles. 
+\end{remark}
+\begin{corollary}
+	The map $E \to E^\ast$ is a contravariant functor. 
+\end{corollary}
+
+\begin{lemma}
+	$E \otimes E^\ast \cong \End(E)$. 
+\end{lemma}
+
+\begin{lemma}
+	Line bundles have tensor inverses, i.e given $L$, $\exists L^{-1}$ s.t. $L \otimes L^{-1} \cong O$ the trivial bundle. 
+\end{lemma}
+\begin{proof}
+	We will show this by showing $L^{-1} = L^\ast$. To trivialise $\End(L)$ we note here the transition maps are $g_{ij} \otimes g_{ij}^{-1} =  1 \otimes 1$ as $g_{ij}, g_{ij}^\ast \in \mbb{F}$. Hence any section is globally defined. 
+\end{proof}
+
+\begin{remark}
+	\hl{Why is the identity section not global on any other vector bundle.}
+\end{remark}
+
+If $E$ is a complex vector bundle, we have an additional construction. 
+
+\begin{definition}
+	The \textbf{conjugate bundle} of a vector bundle $E \to M$ is $\overline{E} \to M$ where the fibres are the complex conjugate and the transition functions are $\overline{g_{ij}}$. 
+\end{definition}
+
+\begin{prop}
+	If $E$ has a positive definite Hermitian inner product, then $\overline{E} \cong E^\ast$. 
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Pullbacks}
 
 \begin{definition}
@@ -1937,6 +1943,18 @@ $\text{td}(E \oplus F) = \text{td}(E) \text{td}(F)$.
 	We want to work out $\Vect_k(S^1)$. Intuition might tell us that $Vect_1(S^1) = \mbb{Z}$ (number of twists of a mobius like band, where 0 is the trivial bundle) so we have a starting point. This will not turn out to be the case. \\
 	To specify a isomorphism class of rank $k$-vector bundles, we can take the cover of $S^1$ with only two open sets and then an element of $\Vect_k(S^1)$ is specified by two elements $g,h \in GL(k,\mbb{R})$ up to conjugation. We can use a reduction of structure bundle to only ask about elements of $O(k)$. 
 \end{example}
+
+\begin{definition}
+	Let $X$ be an algebraic surface and $\pi:L \to X$ a line bundle. Then the \bam{tautological section} of $\pi^\ast L$ as a bundle over $L$ is given by $\sigma(l) = (l,l)$. 
+\end{definition}
+
+\begin{remark}
+	Not that the tautological section is indeed valid as we have 
+	\eq{
+		\pi^\ast L = \pbrace{(l,l^\prime) \in L\times L \, | \, \pi(l) = \pi(l^\prime)}	
+	}
+	so certainly $(l,l) \in \pi^\ast L$. 
+\end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Tubular Neighbourhoods}
