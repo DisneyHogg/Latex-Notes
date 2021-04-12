@@ -517,7 +517,10 @@ The canonical bundle on the projective space is $K = \mc{O}(-n-1)$.
 	E \cong \mc{O}(a_1) \oplus \dots \mc{O}(a_n)
 	\]
 \end{theorem}
-
+\begin{corollary}
+	$E$ is trivial iff $\deg E=0$ and $H^0(\mathbb{P}^1,E(-1))=0$. 
+\end{corollary}
+For proof and discussion of both of these results, see \cite{Hitchin2013}. \\
 We might want to understand the sections of $\mc{O}(k)$. Note given a linear map $\alpha :\mbb{C}^{n+1} \to \mbb{C}$ we can consider it's restriction to a fibre over $x \in \mbb{CP}^n$, which is a linear map of 1d complex vector spaces, hence corresponds to an element in $\mbb{C}$. This gives a section $s_\alpha$. $s_\alpha$ is holomorphic, and moreover we have the following result:
 \begin{prop}
 	Every holomorphic section of $\mc{O}(1)$ is of the form $s_\alpha$ for $\alpha \in (\mbb{C}^{n+1})^\ast$. 
@@ -2133,7 +2136,7 @@ where $[Y]$ is the divisor corresponding to the line bundle $\mc{O}_X(Y)$ and we
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Universal Bundle and Classifying Space}
 
-\begin{prop}
+\begin{prop}\label{prop: principal bundles cong H^1}
 	If $G$ is an abelian group then $\text{Prin}_G(X) \cong H^1(X,G)$. 
 \end{prop}
 \begin{proof}
@@ -2328,6 +2331,11 @@ We may do our usual homological algebra nonsense with these sheaves.
 	\hl{how does this correspond with the following definition:} given $Y \subset X$ a codim-1 submanifold we denote $O_X(-Y)$ the sheaf of functions 0 on $Y$, and its dual to be $O_X(Y) = O_X(-Y)^\ast$. 
 \end{example}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Examples}
+\hl{Populate this section with examples setting notation}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2413,10 +2421,32 @@ From this result we get for any invertible sheaf on $Y$ $\mathcal{F}$ the exact 
 \]
 Note here $O_Y \otimes_{O_Y} \mathcal{F} = \mathcal{F}$, and using `niceness' properties (when $i^\#$ is a flat epimorphism, see \href{https://mathoverflow.net/questions/49134/when-does-the-direct-image-functor-commute-with-tensor-products}{here}) $i_\ast$ commutes with tensor product so $i_\ast O_X \otimes_{O_Y} \mathcal{F} = i_\ast \mathcal{F}$. 
 
+\begin{definition}
+	We define the \textbf{conormal sheaf} to be $\mathcal{N}^\vee_{X/Y} = \faktor{\mathcal{I}}{\mathcal{I}^2}$.
+\end{definition}
+\begin{definition}
+	We define the \textbf{normal sheaf} to be $\mathcal{N}_{X/Y} = \Hom_{O_X} (\mathcal{N}^\vee,O_X)$. 
+\end{definition}
+\begin{remark}
+	Some authors will use $\mathcal{N}^\ast$ instead of $\mathcal{N}^\vee$. This is slightly worse notation, as the point is that they are not exactly dual, see \cite{Vakil2010}.
+\end{remark}
 
+\begin{prop}[Conormal exact sequence]
+	Given $Z \hookrightarrow X \overset{i}{\hookrightarrow Y}$ we have SES
+	\[
+	0 \to \mathcal{N}_{X/Y} \to i^\ast \Omega_{Y/Z} \to \Omega_{X/Z} \to 0 \, .
+	\]
+	The corresponding dual sequence is 
+	\[
+	0 \to \mathcal{T}_X \to i^\ast \mathcal{T}_Y \to \mathcal{N}_{X/Y} \to 0 \, .
+	\]
+\end{prop}
+\begin{proof}
+	See \cite{Vakil2010} for a full discussion. 
+\end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Cohomology}
+\subsection{Cohomology}\label{subsec: cohomology of sheaves}
 We will now see two definition of cohomology which apply to sheaves. They will turn out to be equivalent under rather general conditions. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Sheaf Cohomology}
@@ -2788,9 +2818,31 @@ We have the following corollary of Riemann-Hurwitz:
 	}
 	Hence that $X \cong Y \Leftrightarrow K(X) \cong K(Y)$ is a consequence of the Yoneda lemma. 
 \end{remark}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Cohomology}
+Recall we discussed sheaf cohomology earlier in \S \ref{subsec: cohomology of sheaves}. When working over a Riemann surface the situation simplifies greatly, s.t. we have the following result:
+\begin{theorem}
+	Let $X$ be a Riemann surface. 
+	\begin{itemize}
+		\item If $\mathcal{F} = \mathcal(L)$, the sheaf of holomorphic sections of a line bundle $L \to X$, then $\forall p>1, \, H^p(X,\mathcal{F})=0$.
+		\item If $\mathcal{F} = \mathbb{C},\mathbb{Z}$, then $\forall p>2, \, H^p(X,\mathcal{F})=0$. 
+	\end{itemize} 
+\end{theorem}
+\begin{proof}
+	See \cite{Hitchin2013,Gunning1966}.
+\end{proof}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Divisors and their applications}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Divisors}
 \begin{definition}
@@ -2864,7 +2916,7 @@ We have the following corollary of Riemann-Hurwitz:
 \begin{definition}
 	A Weil divisor on $C$ defines a \hl{coherent} sheaf $O_C(D)$ as meromorphic functions $f$ s.t $(f)+D\geq0$. 
 \end{definition}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Abel-Jacobi}
 Suppose $C$ has genus $g$, then we know that $H_1(C,\mbb{Z}) \cong \mbb{Z}^{2g}$ where the generators are the loops $\pbrace{\gamma_i}_{i=1}^{2g}$. There is an alternative way to say this condition:
@@ -2922,26 +2974,103 @@ Suppose $C$ has genus $g$, then we know that $H_1(C,\mbb{Z}) \cong \mbb{Z}^{2g}$
 	In place of line bundles we can actually say \bam{invertible sheaves} 
 \end{remark}
 
+We will first describe the Picard group using sheaf theory, we will then link it to divisors. 
+
+\begin{prop}
+	There is a canonical isomorphism $\Pic(X) \cong H^1(X, O_X^\times)$. 
+\end{prop}
+\begin{proof}
+	This is a specialisation of prop \ref{prop: principal bundles cong H^1}.
+\end{proof}
+\begin{corollary}
+	$T_L(\Pic^d(X)) \cong H^1(X,O_X)$
+\end{corollary}
+\begin{proof}
+	You need to use the \hl{exponential sheaf sequence}. 
+\end{proof}
+
+Recall we have that the first Chern class gives a group hom $c_1 : \Pic(X) \to H^2(X,\mathbb{Z})$. We can interpret this concretely, by going from the exponential exact sequence 
+\[
+0 \to \mathbb{Z} \to O_X \to O_X^\times \to 1 
+\] 
+to the long exact sequence on a compact Riemann surface 
+\[
+0 \to \mathbb{Z} \to \mathbb{C} \to \mathbb{C}^\times \to H^1(X,\mathbb{Z}) \to H^1(X,O_X) \to H^1(X,O_X^\times) \overset{\delta}{\to} H^2(X,\mathbb{Z}) \to H^2(X,O_X) \to \dots 
+\]
+This reduces to (see \cite{Hitchin2013})
+\[
+0 \to \faktor{H^1(X,O_X)}{H^1(X,\mathbb{Z})} \to H^1(X,O_X^\times) \overset{\delta}{\to} H^2(X,\mathbb{Z}) \to 0
+\]
+We identify $\delta$ with $c_1$. If we further make the identification $H^2(X,\mathbb{Z}) \cong \mathbb{Z}$ we get a group homomorphism $\deg:\Pic(X) \to \mathbb{Z}$. 
+\begin{lemma}
+	$\deg(L \otimes L^\prime) = \deg L + \deg L^\prime$.
+\end{lemma}
+\begin{proof}
+	This is just the property that $\deg$ is a group hom. 
+\end{proof}
+
+\begin{prop}
+	If $s \in H^0(X,L)$ is a section with zeros $p_i$ with multiplicities $m_i$, then $\deg L = \sum_i m_i$. 
+\end{prop}
+\begin{corollary}
+	If $\deg L < 0$, $L$ has no non-trivial holomorphic sections. 
+\end{corollary}
+To illustrate these properties best, we define a particular line bundle on any Riemann surface 
+\begin{definition}
+	Let $X$ be a Riemann surface and $p \in X$. Take $U_0$ to be an open neighbourhood of $p$ with coordinate $z$ s.t. $z(p)=0$, and take $U_1 = X \setminus \pbrace{p}$. We define the line bundle $L_p \to X$ by the transition function $g_{01} = z$.  
+\end{definition}
+
+\begin{example}
+	When $p =0 \in \mathbb{P}^1$, $L_p = \mathcal{O}(1)$. 
+\end{example}
+
+\begin{lemma}
+	$L_p$ has a canonical section given by $z$ on $U_0$ and $1$ on $U_1$. 
+\end{lemma}
+
+\begin{prop}
+	$\deg L_p = 1$. 
+\end{prop}
+\begin{remark}
+	One can think of this as choosing a normalisation for the generator of $\mathbb{Z}$. 
+\end{remark}
+$L_p$ is a useful line bundle for proving multiple results. To see all these look at \cite{Hitchin2013}. \\
+We may further use Serre and Poicar\'e duality to identify 
+\[
+\faktor{H^1(X,O_X)}{H^1(X,\mathbb{Z})} \cong J(X) \, .
+\]
+This allows us to rewrite the SES as 
+\[
+0 \to J(X) \to \Pic(X) \to \mathbb{Z} \to 0 \, .
+\]
+One should note that this looks like it is telling us Abel-Jaocbi, and that is true as we will make clear now.
+
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Link to Divisors}
+
 \begin{theorem}
 	$\Cl(C) \cong \Pic(C)$ naturally (when $C$ is smooth over its field as a variety). 
 \end{theorem}
 \begin{proof}
-	See \href{https://math.stanford.edu/~vakil/725/class23.pdf}{Vakil's notes}. Alternatively this is covered in more generality in "The Rising Sea" (\S 14.2).
+	See \href{https://math.stanford.edu/~vakil/725/class23.pdf}{Vakil's notes}. Alternatively this is covered in more generality in ``The Rising Sea" \cite{Vakil2010} (\S 14.2).
 \end{proof}
 
 \begin{corollary}
 	We get a group homomorphism $\deg:\Pic(C) \to \mbb{Z}$ giving the degree of the corresponding divisor in $\Cl(C)$. 
 \end{corollary}
+
 \begin{corollary}
-	$\Pic(\mbb{CP}^1) \cong \mbb{Z}$. 
+	$\Pic(\mbb{P}^1) \cong \mbb{Z}$. 
 \end{corollary}
 \begin{prop}
-	$\Pic(\mbb{CP}^1)$ is generated by $\mc{O}(\pm1)$.  
+	$\Pic(\mbb{P}^1)$ is generated by $\mc{O}(1)$.  
 \end{prop}
 
 \begin{example}
 	$T\mbb{P}^1 \cong \mc{O}(2)$. 
 \end{example}
+
 
 \begin{notation}
 	We denote the isomorphism class of line bundles degree $d$ as $\Pic^d(C)$
@@ -2951,28 +3080,12 @@ Suppose $C$ has genus $g$, then we know that $H_1(C,\mbb{Z}) \cong \mbb{Z}^{2g}$
 	With this new notation we may rephrase the corollary of the Abel-Jacobi theorem to say $J(C) \cong \Pic^0(C)$. 
 \end{remark}
 
-\begin{prop}
-	There is a canonical isomorphism $\Pic(X) \cong H^1(X, O_X^\times)$. 
-\end{prop}
-\begin{corollary}
-	$T_L(\Pic^d(X)) \cong H^1(X,O_X)$
-\end{corollary}
-\begin{proof}
-	You need to use the \hl{exponential sheaf sequence}. 
-\end{proof}
-With this result we can make another identity of the Picard group:
-\begin{prop}
-	$c_1 : \Pic(X) \overset{\cong}{\to} H^2(X,\mbb{Z})$
-\end{prop}
-\begin{proof}
-	This is a result we know that the first Chern class classifies line bundle up to isomorphism. The iso comes from the cohomology LES associated with SES
-	\eq{
-	0 \to \mbb{Z} \to O_X \to O_X^\times \to 0
-}
-\end{proof}
+\begin{remark}
+	This degree is exactly the degree we just found above, but now the calculation is concrete. Hence we really see that the SES said that $J(C) \cong \deg^{-1}(0) =\Pic^0(X) \subset \Pic(X)$.
+\end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsub
+\subsubsection{Square Roots}
 We can also ask about division in the Picard group:
 
 \begin{definition}
@@ -3076,7 +3189,19 @@ We now state some simple-to-prove results
 \begin{theorem}[Riemann-Roch] \label{Thm: Riemann-Roch}
 	$l(D) = \deg(D) -g+1 + i(D)$
 \end{theorem}
-
+This theorem can be generalised in the following way
+\begin{theorem}
+	If $E\to X$ is a rank-$r$ vector bundle over a compact Riemann surface, then 
+	\[
+	\dim H^0(X,E) - \dim H^1(X,E) = \deg E + r(1-g)
+	\]
+\end{theorem}
+\begin{proof}
+See \cite{Hitchin2013} for a nice proof by induction. 
+\end{proof}
+\begin{remark}
+One should be able to see that the first version is just when taking $E=L$ a line bundle with associated divisor $D$. 
+\end{remark}
 \begin{corollary}
 	$\deg K = 2g-2$. 
 \end{corollary} 
@@ -3126,20 +3251,52 @@ The next result gives a link between Weierstrass points and symmetry:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Theta Divisor}
-We start by defining a particular line bundle on any Riemann surface 
-\begin{definition}
-	Let $X$ be a Riemann surface and $p \in X$. Take $U_0$ to be an open neighbourhood of $p$ with coordinate $z$ s.t. $z(p)=0$, and take $U_1 = X \setminus \pbrace{p}$. We define the line bundle $L_p \to X$ by the transition function $g_{01} = z$.  
-\end{definition}
 
-\begin{example}
-	When $p =0 \in \mathbb{P}^1$, $L_p = \mathcal{O}(1)$. 
-\end{example}
-
+We start with an important prop about the direct image of sheaves on a Riemann surface.
 \begin{prop}
- Let $L \to X$ be a line bundle, then if $\operatorname{deg} L <0$, $L$ has no non-trivial holomorphic sections.	
+	Take a map of Riemann surfaces $f:X \to X^\prime$ and a line bundle $L \to X$. We have
+	\begin{itemize}
+		\item $H^0(X^\prime,f_\ast \mathcal{O}(L)) \cong H^0(X,\mathcal{O}(L))$,
+		\item $\exists E\to X^\prime$ a rank-$r$ holomorphic vector bundle s.t. $f)\ast \mathcal{O}(L) = \mathcal{O}(E)$, where $r=\deg f$, and 
+		\item if $V\to X^\prime$ is a holomorphic vector bundle, then $f_\ast \mathcal{O}(L \otimes f^\ast V) \cong \mathcal{O}(E \otimes V)$.
+	\end{itemize}
 \end{prop}
-
-
+\begin{proof}
+	See \cite{Hitchin2013,Gunning1967}. 
+\end{proof}
+Note in the above, we take $\deg f = \deg (f^\ast L_p)$ for any $p \in X^\prime$. \\
+About such an $E$, we can say the following things.
+\begin{prop}
+	$\deg E = \deg L + (1-g^\prime) - \deg f (1-g)$.
+\end{prop}
+Moreover we can specify further if $X^\prime= \mathbb{P}^1$. 
+\begin{prop}
+	Suppose $\deg E=0$. Then $E$ is trivial iff $L(-1) := L \otimes f^\ast \mathcal{O}(-1)$ has no non-trivial holomorphic sections. 
+\end{prop}
+In the situation above, we know $\deg L = r+g-1 \Rightarrow \deg L(-1) = g-1$. We can define a map into the space of degree-$(g-1)$ line bundles as 
+\begin{align*}
+	X \times \dots \times X &\to \Pic^{g-1}(X) \\
+	(p_1, \dots p_{g-1}) &\mapsto L_{p_1} \otimes \dots \otimes L_{p_{g-1}}
+\end{align*}
+\begin{lemma}
+If $L \in \Pic(X)$ has a section $s$ with simple zeros at $p_1, \dots, p_{g-1}$ (points may be repeated) then $L \cong L_{p_1} \otimes \dots \otimes L_{p_{g-1}}$.
+\end{lemma}
+\begin{proof}
+	$s \otimes s_{p_1}^{-1} \otimes \dots \otimes s_{p_{g-1}}^{-1}$ is a trivialising section of $L \otimes L_{p_1}^{-1} \otimes \dots \otimes L_{p_{g-1}}^{-1}$. 
+\end{proof}
+\begin{prop}
+	This map has codimension-1 image
+\end{prop}
+\begin{proof}
+	$\dim (X^{g-1})=g-1$, and as $\Pic^{g-1}(X) \cong J(X)$, it has dimension $g$.We also know the map is injective. 
+\end{proof}
+\begin{remark}
+	$\Pic^{g-1}(X)$ does not naturally have a group law, unlike $J(X)$. In fact, $\Pic^{g-1}$ is a $\Pic^0$-torsor. 
+\end{remark}
+\begin{definition}
+	We call the image of the map the \textbf{theta divisor} $\Theta$. 
+\end{definition}
+By the above, we know that a generic $L(-1)\in \Pic^{g-1}(X)$ will not lie in the theta divisor, so will not have a non-trivial section, hence $E$ will be trivial. In $\Theta$, the $a_i$ is the Birkhoff decomposition of $E$ will be non-zero, so they will have discontinuities on here. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

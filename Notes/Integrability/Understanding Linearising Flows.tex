@@ -21,10 +21,10 @@
 The purpose of this document is to facilitate the understanding of \cite{Griffiths1985} by discussing the terms and how they fit into the wider picture of algebraic geometry. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{The Preliminaries}
+\section{The Paper}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Lax Pairs and Spectral Curves}
+\subsection{Laying out the Ingredients}
 \begin{notation}
 	We start by laying out some notation that will be necessary for the following section. Let:
 	\begin{itemize}
@@ -36,7 +36,7 @@ The purpose of this document is to facilitate the understanding of \cite{Griffit
 	[\xi_0:\xi_1]^k = \underbrace{\xi_0 \otimes \dots \otimes \xi_0}_{\times (n-k)} \otimes \underbrace{\xi_1 \otimes \dots \otimes \xi_1}_{\times k}	
 	}
 This is homogeneous of degree $n$, so we allow $A$ to not have a scale\hl{?}
-        \item $B(\xi,t) \in  H^0(P,\Hom(\mc{V},\mc{V}(N)))$ for some $N$ likewise . 
+        \item $B(\xi,t) \in  H^0(P,\Hom(\mc{V},\mc{V}(N)))$ for some $N$ likewise. 
         \item $Q(\xi,\eta) = \det\psquare{\eta I - A(\xi,t)}$ be the characteristic polynomial of $A$.
         \item $\sigma$ be the tautological section of $\mc{O}_P(n)$.  
 	\end{itemize}
@@ -71,22 +71,109 @@ for polynomial $p(x,\xi) \in \mbb{C}[x,\xi]$.
 
 It will be the understanding of this isospectral flow that we want to gain. We formulate this flow as the family of holomorphic map gained by the eigenvectors 
 \eq{
-	f_t : C \to \mbb{CP}^{m-1}
+	f_t : C \to \mathbb{P}V \cong \mbb{P}^{m-1}
 }
 Suppose that $C$ has degree $d$, then we know we can define 
 \eq{
-L_t  = f_t^\ast \pround{\mc{O}(1)} \in \Pic^d(C)
+L_t  = f_t^\ast \mc{O}_{\mathbb{P}V}(1) \in \Pic^d(C)
 }
-Lets choose a reference bundle $L_0 \in \Pic^d(X)$ 
+Lets choose a reference bundle $L_0 =L\in \Pic^d(X)$ 
 \begin{lemma}
-	The map 
-	\eq{
-\Pic^d(C) &\to J(C) \\
-L &\mapsto L \otimes L_0^{-1}	
-}
-is an isomorphism. 
+	The map $\Pic^d(C) \overset{\otimes L^{-1}}{\to} J(C) $ is an isomorphism. 
 \end{lemma}
-Now knowing our result about the tangent space to the Picard group we can say $\frac{dL_t}{dt} \in H^1(C,O_C)$. 
+Now knowing our result about the tangent space to the Picard group we can say $\dot{L} = \frac{dL_t}{dt} \in H^1(C,O_C)$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Eigenvector Mapping as a Deformation}
+Recall we have a 1-parameter family of maps 
+\[
+f_t : C \to \mathbb{P}V \, .
+\]
+We want to interpret this a as a deformation of the map 
+\[
+f_0 : C \to \mathbb{P}V
+\]
+and characterise it as such, so we need to develop a little theory. \\
+Given a map 
+\[
+f : X \to Y
+\]
+we think of a deformation as a 1-parameter family of maps 
+\[
+f_t : X_t \to Y
+\]
+with $X_0=X, \, f_0 = f$. This gives a point in the tangent space to the moduli space of such arrangements, which by deformation theory is $H^0(X,\mathcal{N}_{X/Y})$ where $\mathcal{N}$ is the normal bundle given by the SES 
+\[
+0 \to \mathcal{T}_X \to f^\ast \mathcal{T}_Y \to \mathcal{N} \to 0 \, .
+\]
+This short exact sequence gives rise to the segment of an LES 
+\[
+H^0(X,\mathcal{T}_X) \to H^0(X,f^\ast \mathcal{T}_Y) \to H^0(X,\mathcal{N}) \overset{\tilde{\delta}}{\to} H^1(X,\mathcal{T}_X) \, .
+\]
+Again, from deformation theory, we know that $H^1(X,\mathcal{T}_X)$ is the tangent space to the moduli space of $X$, so if we wanted to look at deformations that kept $X$ fixed, we would need the kernel of $\tilde{\delta}$. Hence the eigenvector mapping gives a cohomology class
+\[
+\dot{f} \in \faktor{H^0(C,f^\ast \mathcal{T}_{\mathbb{P}V})}{H^0(C,\mathcal{T}_C)} \subset H^0(C,\mathcal{N}) \, . 
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Combining with the Euler Sequence}
+
+Recall we also have the sequence 
+\[
+0 \to O_{\mathbb{P}V} \to \mathcal{V} \otimes \mathcal{O}_{\mathbb{P}V}(1) \to \mathcal{T}_{\mathbb{P}V} \to 0
+\]
+which pulls back under $f$ to give 
+\[
+0 \to O_C \overset{\nu}{\to} \mathcal{V} \otimes L \to f^\ast \mathcal{T}_{\mathbb{P}V} \to 0 \, ,
+\]
+where
+\begin{align*}
+    \nu : O_C &\to \mathcal{V} \otimes L \, ,\\
+    \phi &\mapsto \phi \nu \, ,
+\end{align*} 
+and $\nu$ is the vector defined s.t. for $z \in C, \, f_t(z) = \mathbb{C}\nu(z,t)$.
+\begin{definition}
+We define $\dot{\nu}$ by 
+\[
+\dot{\nu}(z) = \ev{\frac{\partial \nu(z,t)}{\partial t}}{t=0} \mod \nu 
+\]
+\end{definition}
+\begin{lemma}
+	$\dot{\nu}$ is well defined.
+\end{lemma}
+\begin{proof}
+	Suppose we had chosen a different representative $\tilde{\nu}$. Writing $\tilde{\nu} = \rho \nu$ we see 
+	\[
+	\dot{\tilde{\nu}} = \rho \dot{\nu} + \dot{\rho} \nu = \rho \dot{\nu} \mod \nu \, .
+	\]
+\end{proof}
+Combined with the normal sheaf sequence this gives the cohomology diagram
+\begin{center}
+	\begin{tikzcd}
+		& H^0(\mathcal{V} \otimes L) \arrow[d,"\tau"] & & \\
+		H^0(C,\mathcal{T}_C) \arrow[r] & H^0(C,f^\ast \mathcal{T}_{\mathbb{P}V}) \arrow[r,"j"] \arrow[d,"\delta"] & H^0(C,\mathcal{N}) \arrow[r,"\tilde{\delta}"] & H^1(C,\mathcal{T}_C) \\
+		& H^1(C,O_C) & &  
+	\end{tikzcd}
+\end{center}
+and we can interpret $\dot{\nu}$ as a cohomology class 
+\[
+\dot{\nu} \in {H^0(C,\faktor{\mathcal{V} \otimes L}{O_C})} = H^0(C,f^\ast \mathcal{T}_{\mathbb{P}V})
+\]
+\begin{prop}
+	We have 
+	\begin{itemize}
+		\item $j(\dot{\nu}) = \dot{f}$,
+		\item $\delta(\dot{\nu}) = \dot{L}$. 
+	\end{itemize}
+\end{prop}
+\begin{corollary}
+	$\dot{L}=0 \Leftrightarrow \exists w \in H^0(C,\mathcal{V} \otimes L), \, \dot{\nu} = \tau(w)$. 
+\end{corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Divisor at Infinity}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{../../bib/custom-bib-style}
