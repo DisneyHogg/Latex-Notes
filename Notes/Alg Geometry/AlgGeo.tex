@@ -2971,6 +2971,8 @@ With this result we can make another identity of the Picard group:
 }
 \end{proof}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsub
 We can also ask about division in the Picard group:
 
 \begin{definition}
@@ -3020,6 +3022,7 @@ Note that by the proof of \ref{prop:square roots of line bundles} we have $S(X) 
 \begin{remark}
 	It is the case (\hl{see nlab}) that if a theta characteristic corresponds to a polarising line bundle, then the sections of this bundle are theta functions. 
 \end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 \subsection{Riemann-Roch and Weierstrass Points}
 We now restrict to considering compact Riemann surfaces $X$, and denote the field of meromorphic functions on $X$ by $H^0(X,O_X)$.
@@ -3117,11 +3120,32 @@ The next result gives a link between Weierstrass points and symmetry:
 	Automorphisms of compact Riemann surfaces permute Weierstrass points, that is we get a group homomorphism $\Aut(X) \to S_{W}$. 
 \end{theorem}
 \begin{proof}
-	See Mondal's masters thesis. 
+	See Mondal's master's thesis. 
 \end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Theta Divisor}
+We start by defining a particular line bundle on any Riemann surface 
+\begin{definition}
+	Let $X$ be a Riemann surface and $p \in X$. Take $U_0$ to be an open neighbourhood of $p$ with coordinate $z$ s.t. $z(p)=0$, and take $U_1 = X \setminus \pbrace{p}$. We define the line bundle $L_p \to X$ by the transition function $g_{01} = z$.  
+\end{definition}
+
+\begin{example}
+	When $p =0 \in \mathbb{P}^1$, $L_p = \mathcal{O}(1)$. 
+\end{example}
+
+\begin{prop}
+ Let $L \to X$ be a line bundle, then if $\operatorname{deg} L <0$, $L$ has no non-trivial holomorphic sections.	
+\end{prop}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Classifying Riemann Surfaces}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Riemann Matrix}
 We now want to consider the pairing of homology and cohomology on $X$. This can lead to information about the Abel-Jacobi map, but will also lead to an invariant of a Riemann surface. Relevant references include Eynard's Lectures on Compact Riemann Surfaces, Miranda, \href{https://people.reed.edu/~jerry/311/theta.pdf}{these notes}. 
