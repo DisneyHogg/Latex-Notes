@@ -2164,7 +2164,7 @@ We can derive this map (called the \textbf{trace morphism} in general) for $\mat
 \[
 0 \to \Omega(U_0) \times \Omega(U_1) \overset{\check{\delta}}{\to} \Omega(U_0 \cap U_1) \to 0
 \] 
-as the \v{C}ech complex. Elements of $\Omega(U_0 \cap U_1)$ are of the form $f(z)dz$ where $f$ is a Laurent polynomial. $\Omega(U_0)$ is spanned by terms $z^n dz$ for $n \geq 0$, $\Omega(U_1)$ is spanned by terms $(z^{-1})^n d(z^{-1}) = -z^{-n-2} dz$ for $n \geq 0$, and so $H^1(\mathbb{P}^1,\Omega_{\mathbb{P}^1})$ has basis $z^{-1}dz$. The obvious $H^1(\mathbb{P}^1,K_{\mathbb{P}^1}) \to \mathbb{C}$ is then reading off the coefficient of this terms, which corresponds to taking the residue at $0$, i.e. doing the line integral around the equator.    
+as the \v{C}ech complex. Elements of $\Omega(U_0 \cap U_1)$ are of the form $f(z)dz$ where $f$ is a Laurent polynomial. $\Omega(U_0)$ is spanned by terms $z^n dz$ for $n \geq 0$, $\Omega(U_1)$ is spanned by terms $(z^{-1})^n d(z^{-1}) = -z^{-n-2} dz$ for $n \geq 0$, and so $H^1(\mathbb{P}^1,\Omega_{\mathbb{P}^1})$ has basis $z^{-1}dz$. The obvious $H^1(\mathbb{P}^1,K_{\mathbb{P}^1}) \to \mathbb{C}$ is then reading off the coefficient of this terms, which corresponds to taking the residue at $0$, i.e. doing the line integral around the equator. For more see \cite{Vakil2010} \S 30.1.    
 \end{example}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3536,14 +3536,16 @@ The important theorem about theta functions is to follow. We will define a neces
 	\]
 \end{theorem}
 
-
-
-\begin{corollary}
+\begin{corollary}[Riemann's Vanishing Theorem]
 	If, for $e \in \mathbb{C}^g$, the (multivalued) function $X \to \mathbb{C}$ given by $P \mapsto \theta(A(P)-e)$ is not identically $0$ it has $g$ zeros $\pbrace{P_i}$ and then, letting $D=\sum_i P_i$,
 	\[
 	A(D)+\bm{K} = e \, .
 	\]
 \end{corollary}
+\begin{remark}
+	The name \textit{Riemann Vanishing Theorem} is not universally used, even if the result is classical. Here the name is referenced from \cite{Ercolani1989}. 
+\end{remark}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
