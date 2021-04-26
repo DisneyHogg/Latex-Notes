@@ -508,7 +508,7 @@ The \bam{tautological line bundle} on projective space is $\mc{O}(-1) = \mc{O}(1
 The canonical bundle on the projective space is $K = \mc{O}(-n-1)$. 
 \end{prop}
 \begin{proof}
-	This requires the Euler sequence and the Chern class, see \href{https://mathoverflow.net/questions/176639/canonical-sheaf-of-projective-space}{here}.
+	This requires the Euler sequence and the Chern class, see \href{https://mathoverflow.net/questions/176639/canonical-sheaf-of-projective-space}{here}. This is much easier on $\mathbb{P}^1$, where we know we must have $\deg K = 2g-2 = -2$ as it a Riemann surface (see later).  
 \end{proof}
 
 \begin{theorem}[Birkhoff-Grothendieck]
@@ -536,7 +536,7 @@ These results have an alternative understanding:
 \begin{proof}
 	See for example \href{http://math.iisc.ac.in/~vamsipingali/teaching/AIS2019Lecture1.pdf}{here}, \href{https://math.stanford.edu/~vakil/725/class22.pdf}{here}, and \href{http://homepages.ulb.ac.be/~joelfine/preprints/Kahler_intro_ch2.pdf}{here}.
 \end{proof}
-\begin{corollary}
+\begin{corollary}\label{cor: h^0(P^1,O(n))=n+1}
 	The space of global sections of $\mathcal{O}_{\mathbb{P}^1}(n)$ has dimension $n+1$ (later we will write this as $h^0(\mathbb{P}^1,\mathcal{O}(n))=n+1$.
 \end{corollary}
 
@@ -2099,12 +2099,73 @@ The power of this theorem is that an equation holding in $H^\bullet(Y)$ holds in
 \hl{This section is not currently in a sensible position - find a beter place for it}.\\
 We will now state a sheaf cohomology analogue of Poincar\'e duality:
 \begin{theorem}[Serre Duality]
-	Let $E \to M$ be an algebraic vector bundle over $n$-dimensional (proper) smooth variety. Then 
+	Let $E \to X$ be an algebraic vector bundle over $n$-dimensional (proper) smooth variety. Then 
 	\eq{
-H^k(E) \cong H^{n-k}(E^\ast \otimes K_M)^\ast
+H^k(E) \cong H^{n-k}(E^\ast \otimes K_MX)^\ast
 }
 naturally. 
 \end{theorem}
+
+This is currently an abstract isomorphism, which we will make more concrete in the case where $X$ is a compact ($n$-dimensional) complex manifold and $E$ is holomorphic. This exposition comes from \href{https://en.wikipedia.org/wiki/Serre_duality}{here} and \cite{Huybrechts2005}. \\
+The Hodge star operator acts in this case as 
+\[
+\star : \Omega^{p,q}(X) \overset{\cong}{\to} \Omega^{n-q,n-p}(X) \, ,
+\]
+(note the change in the holomorphic and anti-holomorphic indices) and so
+\[
+\overline{\star} : \Omega^{p,q}(X) \overset{\cong}{\to} \Omega^{n-p.n-q}(X) \, ,
+\]
+where we have defined $\overline{\star}\omega = \star \overline{\omega}$. This gives us a pairing of $(p,q)$ form by 
+\[
+\pangle{\alpha,\beta} = \int_X \alpha \wedge \overline{\star}\beta \, .
+\]
+\begin{remark}
+	This pairing is familiar to use in the case of real manifolds from gauge theory. 
+\end{remark}
+Now if $(E,h)$ is a Hermitian holomorphic vector bundle, then the metric $h$ gives an antilinear isomorphism $\tau:E \to E^\ast$. We then get an antilinear isomorphism 
+\[
+\overline{\star}_E : \Omega^{p,q}(X,E) \overset{\cong}{\to} \Omega^{n-p,n-q}(X,E^\ast)
+\]
+where $\Omega^{p,q}(X,E) = \Omega^{p,q}(X) \otimes \Gamma(E)$ and $\overline{\star}_E(\omega \otimes s) = (\overline{\star}\omega) \otimes \tau(s)$.\\
+It can be shown that this descends to an isomorphism of the Dolbeault cohomology, so combining with the dualising operation we have a linear isomorphism $H^{p,q}_{\overline{\partial}}(X,E) \cong H^{n-p,n-q}_{\overline{\partial}}(X,E^\ast)^\ast$.
+\begin{remark}
+	Standard Dolbeault cohomology $H^{p,q}_{\overline{\partial}}(X)$ is the cohomology coming from the chain complex of $\Omega^{p,q}(X)$ with differential $\overline{\partial}$. The extension of this to $H^{p,q}_{\overline{\partial}}(X,E)$ uses $\Omega^{p,q}(X,E)$ with now the  \textbf{Dolbeault operator} $\overline{\partial}_E$. which just acts as $\overline{\partial}$ in each basis direction of the fibre locally (i.e. once a local frame has been chosen). For more see \href{https://en.wikipedia.org/wiki/Holomorphic_vector_bundle}{here}. 
+\end{remark}
+ We then need the following result.
+\begin{theorem}[Dolbeault's Theorem]
+	$H^{p,q}_{\overline{\partial}}(X,E) \cong H^q(X,\Omega^p \otimes E)$, where $\Omega^p$ is the sheaf of holomorphic $p$-forms on $X$, and the rhs cohomology is sheaf cohomology.
+\end{theorem}
+\begin{remark}
+	This can be viewed as a complex analogue of de Rham's theorem. Note that this makes sense, as holomorphic form will go to zero under $\overline{\partial}$, so from the perspective of cohomology they look like coefficients.  
+\end{remark}
+\begin{remark}
+	\hl{This needs reorganising so we do not discuss sheaves and sheaf cohomology before we have defined it. Moreover, we probably want a section for Dolbeault cohomology and Hodge theory on its own. }
+\end{remark}
+As a result, we can express Serre duality in this case as the chain of isomorphisms 
+\[
+H^q(X,E) \cong H^{0,q}_{\overline{\partial}}(X,E) \cong H^{n,n-q}_{\overline{\partial}}(X,E^\ast)^\ast \cong H^{n-q}(X,K_X \otimes E^\ast)^\ast \, .
+\]
+\begin{example}
+	Take a $1$d complex manifold (e.g a Riemann surface) and take $E$ to be the trivial bundle. Then we should have 
+	\[
+	H^1(X,O)^\ast \cong H^{0,1}_{\overline{\partial}}(X)^\ast \cong H^{1,0}_{\overline{\partial}}(X) \cong H^0(X,K_X) \, .
+	\]
+	An element of $H^0(X,K_X)$ is a global section of the canonical bundle, given by a holomorphic one form $\omega = w(x)dx$, where $x$ is the complex coordinate on $X$. For a genus $g$ hyperelliptic curve of the form $y^2=\dots$ we can take $w = \frac{x^k}{y}$ for $0 \leq k \leq g-1$. Now $\omega \in H^{1,0}_{\overline{\partial}}$ gives the element $\overline{\star}\omega \in H^{1,0}_{\overline{\partial}}$. We can check 
+	\begin{align*}
+	\overline{\star} dx &= \star\overline{(du+idv)} = (dv)+(-i)(-du) = id\overline{x} \, , \\
+	\Rightarrow \overline{\star} \omega &= i\overline{w(x)} d\overline{x} \, .
+	\end{align*}
+We can view the pairing in two ways. Firstly, from a Dolbeault cohomology perspective, we have the map 
+\begin{align*}
+ \int_X : H^{1,1}_{\overline{\partial}}(X) \to \mathbb{C} \, .
+\end{align*} 
+This turns into a map $\check{H}^1(X,K_X) \to \mathbb{C}$ as a integral $dz$ over all 1-simplices in $X$. \\
+We can derive this map (called the \textbf{trace morphism} in general) for $\mathbb{P}^1$ explicitly. Here taking $U_i$ to be the standard cover we have the SES
+\[
+0 \to \Omega(U_0) \times \Omega(U_1) \overset{\check{\delta}}{\to} \Omega(U_0 \cap U_1) \to 0
+\] 
+as the \v{C}ech complex. Elements of $\Omega(U_0 \cap U_1)$ are of the form $f(z)dz$ where $f$ is a Laurent polynomial. $\Omega(U_0)$ is spanned by terms $z^n dz$ for $n \geq 0$, $\Omega(U_1)$ is spanned by terms $(z^{-1})^n d(z^{-1}) = -z^{-n-2} dz$ for $n \geq 0$, and so $H^1(\mathbb{P}^1,\Omega_{\mathbb{P}^1})$ has basis $z^{-1}dz$. The obvious $H^1(\mathbb{P}^1,K_{\mathbb{P}^1}) \to \mathbb{C}$ is then reading off the coefficient of this terms, which corresponds to taking the residue at $0$, i.e. doing the line integral around the equator.    
+\end{example}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2619,9 +2680,13 @@ It can likewise be shown that a degree $5$ curve will have $101$ degrees of free
 	From the above results we can view the orbits of the modular group acting on the UHP as a list of all possible complex structures on the topological torus. We will always assume $\frac{\omega_2}{\omega_1}$ has positive imaginary part.  
 \end{remark}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Functions from Riemann Surface}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Properties of Riemann Surfaces}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Riemann Hurwitz}
 
 \begin{definition}
@@ -2751,7 +2816,7 @@ It can likewise be shown that a degree $5$ curve will have $101$ degrees of free
 	}
 	so topologically this curve is a torus.
 \end{example}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Automorphisms}
 
@@ -2764,6 +2829,7 @@ We have the following corollary of Riemann-Hurwitz:
 \begin{theorem}
 	A non-identity automorphism of a Riemann surface fixes at most $2g+2$ points. 
 \end{theorem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Field of Functions}
 
@@ -2818,6 +2884,125 @@ We have the following corollary of Riemann-Hurwitz:
 	}
 	Hence that $X \cong Y \Leftrightarrow K(X) \cong K(Y)$ is a consequence of the Yoneda lemma. 
 \end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Riemann Matrix}
+We now want to consider the pairing of homology and cohomology on $X$. This can lead to information about the Abel-Jacobi map, but will also lead to an invariant of a Riemann surface. Relevant references include Eynard's Lectures on Compact Riemann Surfaces, Miranda, \href{https://people.reed.edu/~jerry/311/theta.pdf}{these notes}. 
+
+
+\begin{definition}
+	A homology basis $\bm{c} = (\bm{a},\bm{b})$ is \bam{canonical} if $\bm{c} \cdot \bm{c} = J$ where we are taking the intersection number and $J=\begin{psmallmatrix} 0 & I \\ -I & 0 \end{psmallmatrix}$. 
+\end{definition}
+\begin{remark}
+	Despite the term canonical, there is no unique choice of such a basis. Given any homology basis $\bm{c}$ we can make a new basis by taking $M\bm{c}$ for $M\in GL_{2g}(\mbb{Z})$. If the original basis was canonical then so is the transformed basis iff $MJM^T = J$, which is the condition for $M^T$ to be a symplectic matrix, giving $M$ symplectic. 
+\end{remark}
+
+The object we want to calculate is explicitly the period matrix, defined as follows:
+\begin{definition}\label{def: period matrix}
+	Let $\pbrace{a_i, b_i}_{i=1}^g$ be a canonical choice of homology basis, and $\pbrace{\omega_i}_{i=1}^g$ a basis of holomorphic differentials. Then the \bam{matrix of periods} is $\Omega = (A,B)$ where we calculate the $g\times g$ matrices $A,B$ by 
+	\eq{
+		A_{ij} = \int_{a_j} \omega_i, \quad \quad B_{ij} = \int_{b_j} \omega_i
+	}
+\end{definition}
+
+In order to say something about the form of $\Omega$, we need the following result:
+\begin{prop}[Riemann's Bilinear Identities]
+	$\Omega J \Omega^T = 0$ and $-i\bar{\Omega}J\Omega^T > 0$
+\end{prop}
+\begin{corollary}
+	For a fixed differential basis $\pbrace{\omega_i}$, $\exists \bm{c}$ a canonical basis s.t $A_{ij} = \delta_{ij}$. 
+\end{corollary}
+
+\begin{definition}
+	The \bam{Riemann matrix} corresponding to $\Omega$ is $\tau = A^{-1}B$. 
+\end{definition}
+
+\begin{definition}\label{def: Siegel upper half space}
+	We define the \bam{Siegel upper half space} to be 
+	\eq{
+		\mbb{H}_g = \pbrace{M \in M_g(\mbb{C}) \, | \, M^T = M, \, \image M > 0}
+	}
+\end{definition}
+
+\begin{lemma} $\tau \in \mbb{H}_g$.  
+\end{lemma}
+
+\begin{example}
+	$\mbb{H}_1 = \mbb{H} \subset \mbb{C}$ is the upper half plane, explaining the name and notation convention. The case $g=1$ corresponds to elliptic curves, and we are recovering the usual $\tau$ we assign which tells us about the period lattice of the torus. This is not a coincidence, and we shall later related $\tau$ to the Jacobian of the curve. 
+\end{example}
+
+
+\begin{remark}
+	There was a choice made in arranging this matrix as $g \times 2g$. Had we chosen instead $\Omega$ to be $2g \times g$ as 
+	\eq{
+		\tilde{\Omega}_{ij} = \int_{c_i} \omega_j	
+	} 
+	where $\bm{c} = (\bm{a},\bm{b})$ is the tuple of cycles, then we get that $\tilde{\Omega} = \Omega^T \Leftrightarrow \tilde{A}=A^T, \tilde{B} = B^T$. In order to continue this correspondence to get $\tilde{\tau} = \tau^T$ we need $\tilde{\tau} = \tilde{B} \tilde{A}^{-1}$. As $\tau$ is symmetric, we know that $\tilde{\tau} = \tau$, so our value of Riemann matrix is not dependent on convention. 
+\end{remark}
+
+\begin{lemma}
+	If we change canonical homology basis by $\bm{c}^\prime = M \bm{c}$ where $M = \begin{psmallmatrix} a & b \\ c & d \end{psmallmatrix} \in Sp(2g,\mbb{Z})$, then $\Omega$ transforms as $\tilde{\Omega}^\prime = M\tilde{\Omega}$ and hence $\tilde{\tau}^\prime = (d\tilde{\tau}+c)(b\tilde{\tau}+a)^{-1}$. \\
+	If we change cohomology basis by $\bm{\omega}^\prime = G \bm{\omega}$ for $G \in GL_g(\mbb{C})$, then $\Omega$ transforms as $\Omega^\prime = G\Omega$ and hence $\tau^\prime = \tau$.   
+\end{lemma}
+\begin{remark}
+	It is for this reason that, although taking $\Omega$ to be $g \times 2g$ is seemingly a more prevalent convention, the latter is more sensible because of the corresponding actions. Moreover, if conjugate $M$ with the outer automorphism $\begin{psmallmatrix} 0 & I \\ I & 0 \end{psmallmatrix}$ then we get $\tilde{\tau}^\prime = (a\tilde{\tau}+b)(c\tilde{\tau}+d)^{-1}$, which recovers the fractional linear transformation action of $SL_2(\mbb{Z}) \cong Sp_2(\mbb{Z})$ known in the case of elliptic curves. The reason for the conjugation is as with elliptic curves, we typically normalise the bottom element to 1 instead. 
+\end{remark}
+
+\subsubsection{Riemann Matrices of Covered Spaces}
+Fay \cite{Fay2006} is a good reference for this section, we will illustrate in a specific example, namely that of Burnside's curve. This builds of calculations in Braden's \textit{Riemann Surfaces with Symmetry}. We let $X$ be a genus 2 hyperelliptic curve with order 2 automorphism $r$ that is not the hyperelliptic involution, and we quotient by it's action to get $X \to \hat{X}$, where $\hat{X}$ is an elliptic curve. Then given two cycles $\mf{a},\mf{b}$ on $\hat{X}$ that form a homology basis, we can construct a full homology basis on $X$ from 
+\eq{
+	\mf{a}_1 &= \mf{a}+r_\ast\mf{a} \\
+	\mf{a}_2 &= \mf{b} - r_\ast\mf{b} \\
+	\mf{b}_1 &= \mf{b} \\
+	\mf{b}_2 &= r_\ast\mf{a}
+}
+and if we choose a basis of differential $\omega_1, \omega_2$ s.t $r^\ast \omega_1 = \omega_1, r^\ast \omega_2 = -\omega_2$ we can find that the Riemann matrix is given by 
+\eq{
+	\tau = \begin{pmatrix} \frac{\int_\mf{b} \omega_1}{2\int_\mf{a} \omega_1} & \frac{1}{2} \\ \frac{1}{2} &  \frac{-\int_\mf{a} \omega_2}{2\int_\mf{b} \omega_2} \end{pmatrix} 
+}
+For later references we will fix this notation so 
+\eq{
+	\tau_{11} = \frac{\int_\mf{b} \omega_1}{2\int_\mf{a} \omega_1}, \quad \tau_{22} = \frac{-\int_\mf{a} \omega_2}{2\int_\mf{b} \omega_2}
+}
+\begin{remark}
+	Note we have been cavalier here with denoting $\mf{a},\mf{b}$ both as cycles on $X$ and $\hat{X}$, \hl{this may come back to bite us in the ass}. 
+\end{remark}
+To calculate the Riemann matrix on $\hat{X}$ we keep our homology basis, but now we define a differential by first defining $u,u^\prime$ s.t. 
+\eq{
+	\int_\mf{a} u = 1, \quad \int_{-r_\ast \mf{a}} u = 0, \quad \int_{\mf{a}} u^\prime = 0, \quad \int_{-r_\ast \mf{a}} u^\prime = 1
+}
+and then setting our differential to be $\hat{\omega} = u-u^\prime$. We then have the Riemann matrix on $\hat{X}$ as 
+\eq{
+	\hat{\tau} = \frac{\int_\mf{b} \hat{\omega}}{\int_\mf{a} \hat{\omega}}
+}
+It can be shown that with these conventions $\hat{\omega} = \frac{\omega_1}{\int_\mf{a} \omega_1}$ and so we get $\hat{\tau} = 2\tau_{11}$. \\
+The consequence of this is that, if we are given an elliptic curve with Riemann matrix $\hat{\tau}$ and told that it is the base of a double cover of a genus 2 hyperelliptic curve $X$ by an automorphism, then $X$ has Riemann matrix 
+\eq{
+	\tau = \frac{1}{2}\begin{pmatrix} \hat{\tau} & 1 \\ 1 & 2\tau_{22} \end{pmatrix} 
+}
+At this point we cannot expect to know anything else about the hyperelliptic, as we know from the work of Bolza that the moduli space of hyperelliptic curves with a $C_2$ symmetry is 2 dimensional. Note an alternate form for the Riemann matrix on $X$ shown to exists by Fay was 
+\eq{
+	\tau^\prime = \frac{1}{2}\begin{pmatrix} \hat{\tau}+\pi_{11} & -\hat{\tau}+\pi_{11} \\ -\hat{\tau}+\pi_{11} & \hat{\tau}+\pi_{11} \end{pmatrix} 
+}
+where $\pi_{11} = \frac{-1}{2\tau_{22}}$. \\
+Suppose now that $X$ has a second non-hyperelliptic involution $r^\prime$. From Bolza's classification we know that $r,r^\prime$ must generate a $V_4$ group, so specifically $rr^\prime = r^\prime r$. We want a way to find $\tau_{22}$ using this other involution, so we want to repeat the process as before using  a new quotient by the $r^\prime$ action, $\hat{X}^\prime$. As 
+\eq{
+	r^\ast = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
+}
+wrt the basis, using our knowledge of matrix representations of the Klein 4 group we must have 
+\eq{
+	(r^\prime)^\ast = \begin{pmatrix} -1 & 0 \\ 0 & 1 \end{pmatrix}
+}
+so we need to swap the differentials (that is $\omega_1^\prime = \omega_2$ and $\omega_2^\prime = \omega_1$)s now $(r^\prime)^\ast \omega_2 = \omega_2, \, (r^\prime) a^\ast \omega_1 = -\omega_1$. This yields 
+\eq{
+	\hat{\tau}^\prime = \frac{\int_\mf{b} \omega_2}{\int_\mf{a} \omega_2} = \frac{-1}{2\tau_{22}} 
+}
+Hence we can now combine our knowledge when $\hat{\tau} = \hat{\tau}^\prime$ to say that $X$ will have a Riemann matrix
+\eq{
+	\tau = \frac{1}{2}\begin{pmatrix} \hat{\tau} & 1 \\ 1 & -1/\hat{\tau} \end{pmatrix} 
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2841,7 +3026,7 @@ Recall we discussed sheaf cohomology earlier in \S \ref{subsec: cohomology of sh
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Divisors and their applications}
+\section{Divisors and their applications}\label{sec: Divisors and their applictions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Divisors}
@@ -2925,7 +3110,7 @@ Suppose $C$ has genus $g$, then we know that $H_1(C,\mbb{Z}) \cong \mbb{Z}^{2g}$
 	If $X=C$ is a Riemann surface of genus $g$ then $H^0(C,K)\cong \mbb{C}^g$. 
 \end{prop}
 \begin{proof}
-	See Farkas \& Kra, III.2.7.
+	See \cite{Farkas1992}, III.2.7.
 \end{proof}
 \begin{corollary}
 	We can take a basis $\pbrace{\omega_i}_{i=1}^g$ of 1-forms on $C$. 
@@ -2937,21 +3122,34 @@ Suppose $C$ has genus $g$, then we know that $H_1(C,\mbb{Z}) \cong \mbb{Z}^{2g}$
 	}
 	where $\Lambda$ is the lattice generated over $\mbb{R}$ by the vectors 
 	\eq{
-		\Omega_j = \pround{\int_{\gamma_j} \omega_1, \dots, \int_{\gamma_j} \omega_g }, \quad 1 \leq j \leq 2g 
+		\bm{\Omega}_j = \pround{\int_{\gamma_j} \omega_1, \dots, \int_{\gamma_j} \omega_g }, \quad 1 \leq j \leq 2g 
 	}
 \end{definition}
+
+\begin{remark}
+	We will see later in definition \ref{def: period matrix} that these vectors are the rows(/columns depending on your definition) of the period matrix. 
+\end{remark}
 
 \begin{definition}
 	The \bam{Abel-Jacobi map} for $p_0 \in C$ is 
 	\eq{
-		u : C &\to J(C) \\
+		A : C &\to J(C) \\
 		p &\mapsto 	\pround{\int_{p_0}^p \omega_1, \dots, \int_{p_0}^p \omega_g } \mod \Lambda 
 	}
 	This is independent of the path of integration as we have quotiented by $\Lambda$. 
 \end{definition}
 
+\begin{remark}
+	We can extend $u$ to a map of divisors by 
+	\begin{align*}
+	A : S^k C &\to J(C) \, ,\\
+	(p_1, \dots, p_k) &\mapsto A(p_1) + \dots A(p_k) \, .
+	\end{align*}
+	We will on occasion denote this extended map as $A^{(k)}$. 
+\end{remark}
+
 \begin{theorem}[Abel's Theorem]
-	Let $u$ be the Abel-Jacobi map and $D,E$ effective divisors. Then $u(D) = u(E) \Leftrightarrow D \sim E$. 
+	Let $A$ be the Abel-Jacobi map and $D,E$ effective divisors. Then $A(D) = A(E) \Leftrightarrow D \sim E$. 
 \end{theorem}
 
 \begin{theorem}[Jacobi's Theorem]
@@ -3118,7 +3316,7 @@ H^0(X,O_X^\times) \to H^1(X,\pbrace{\pm 1}) \to \Pic(X) \overset{\otimes 2}{\to}
 \end{example}
 
 \begin{remark}
-	It is a corollary of Riemann-Roch (\ref{Thm: Riemann-Roch})that the degree of the canonical divisor is even, and so we always have square roots of the canonical bundle. 
+	It is a corollary of Riemann-Roch (\ref{Thm: Riemann-Roch}) that the degree of the canonical divisor is even, and so we always have square roots of the canonical bundle. 
 \end{remark}
 \begin{notation}
 	We will denote
@@ -3166,14 +3364,12 @@ We now restrict to considering compact Riemann surfaces $X$, and denote the fiel
 \begin{definition}
 	Given $D \in \Div(X)$ we define the \bam{index of speciality} of the divisor $D$ to be $i(D) = \dim \Omega(D)$ where
 	\eq{
-		\Omega(D) = \pbrace{\omega \, | \, \omega \text{ an abelian differential}, \, (\omega)\geq D}	
+		\Omega(D) = \pbrace{\omega \, | \, \omega \text{ an abelian differential}, \, (\omega)\geq D} \, .
 	}
+We call a divisor $D$ \textbf{special} if $i(D)>0$. Otherwise $D$ is \textbf{non-special}
 \end{definition}
 
-
-
-
-We now state some simple-to-prove results
+We now state some simple-to-prove results.
 \begin{prop}
 	We have the following results about $L$:
 	\begin{itemize}
@@ -3185,6 +3381,9 @@ We now state some simple-to-prove results
 		\item $l(D)$ and $i(D)$ depend only on the divisor class group of $D$
 	\end{itemize}
 \end{prop}
+\begin{proof}
+\cite{Farkas1992}, \S III.4.
+\end{proof}
 
 \begin{theorem}[Riemann-Roch] \label{Thm: Riemann-Roch}
 	$l(D) = \deg(D) -g+1 + i(D)$
@@ -3205,6 +3404,17 @@ One should be able to see that the first version is just when taking $E=L$ a lin
 \begin{corollary}
 	$\deg K = 2g-2$. 
 \end{corollary} 
+
+\begin{corollary}
+	If $\deg D > 2g-2$, $D$ is nonspecial. 
+\end{corollary}
+
+\begin{prop}
+	A generic divisor $D$ with $\deg D \geq g$ is nonspecial. 
+\end{prop}
+\begin{proof}
+	See \cite{Dubrovin2009}.
+\end{proof}
 
 Now using the above proposition an  Riemann-Roch, note that for $p \in X$ we have that the sequence $\pbrace{l(kp)}_{k=0}^\infty$ goes 
 \eq{
@@ -3247,6 +3457,93 @@ The next result gives a link between Weierstrass points and symmetry:
 \begin{proof}
 	See Mondal's master's thesis. 
 \end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Theta Function}\label{subsec: theta functions (riemann surfaces)}
+Recall the Siegel upper half space from definition \ref{def: Siegel upper half space}. We are now going to define theta functions, using the definition in \cite{Farkas1992}. Note that this is not uniform over all sources, and so to be on your toes. 
+\begin{definition}
+	We define \textbf{Riemann's theta function} $\theta:\mathbb{C}^g \times \mathbb{H}_g \to \mathbb{C}$ as  
+	\[
+	\theta(z|\tau) = \sum_{N \in \mathbb{Z}^g} \exp \psquare{2\pi i \pround{\frac{1}{2} n^T \tau n + n^Tz}} \, .
+	\]
+\end{definition}
+
+\begin{remark}
+	If we want to talk about the theta function on a given Riemann surface, we always mean taking the parameter $\tau$ to be the Riemann matrix of the surface. 
+\end{remark}
+
+\begin{remark}
+	In the case $g=1$ this is the theta function defined and dicussed in \S \ref{subsec: theta functions (elliptic curves)}.
+\end{remark}
+
+\begin{prop}
+	$\theta$ converges absolutely and uniformly on compact subsets of $\mathbb{C}^g \times \mathbb{H}_g$.
+\end{prop}
+\begin{proof}
+	See \cite{Farkas1992}. 
+\end{proof}
+
+\begin{prop}[Periodicity]
+	Let $\mu,\mu^\prime \in \mathbb{Z}^g$. Then 
+	\[
+	\forall (z,\tau) \in \mathbb{C}^g \times \mathbb{H}_g, \, \theta(z+\mu^\prime+ \tau\mu | \tau) = \exp\psquare{2\pi i \pround{-\mu^T z - \frac{1}{2} \mu^T z \mu}}\theta(z | \tau) \, .
+	\]
+\end{prop}
+
+\begin{corollary}
+	The equation $\theta(z)=0$ is well defined when we take the equivalence class of $z$ in the Jacobian. 
+\end{corollary}
+
+\begin{prop}
+	$\forall (z,\tau) \in \mathbb{C}^g \times \mathbb{H}_g, \, \theta(z|\tau) = \theta(-z | \tau)$. 
+\end{prop}
+
+We can extend the definition of the Riemann theta function slightly. 
+
+\begin{definition}
+We define the \textbf{first order theta function with characteristic} $\begin{bsmallmatrix} \epsilon \\ \epsilon^\prime \end{bsmallmatrix}$, $\epsilon, \epsilon^\prime \in \mathbb{R}^g$ to be $\theta\begin{bsmallmatrix} \epsilon \\ \epsilon^\prime \end{bsmallmatrix}(z | \tau)$ defined s.t. 
+\[
+	\theta\begin{bmatrix} 2\epsilon \\ 2\epsilon^\prime \end{bmatrix}(z|\tau) = \sum_{N \in \mathbb{Z}^g} \exp \psquare{2\pi i \pround{\frac{1}{2} (n+\epsilon)^T \tau (n+\epsilon) + (n+\epsilon)^T(z+\epsilon^\prime)}} \, .
+\]
+\end{definition}
+
+The important theorem about theta functions is to follow. We will define a necessary (and often not explicitly named) concept first.
+
+\begin{definition}
+	The \textbf{Riemann constant vector} of a Riemann surface with homology basis $\bm{c} = (\bm{a},\bm{b})$ and Abel map $A$ with basepoint $P_0$ is  $\bm{K}=\bm{K}(\bm{c},P_0)$ a vector with components
+	\[
+	K_j = \frac{1+\tau_{jj}}{2} - \sum_{k \neq j}^g \oint_{a_k} \omega_k(Q) A_j(Q) \, .
+	\]
+\end{definition}
+
+\begin{prop}
+	$\bm{K}(P) = \bm{K}(P_0) + A(P)$, where $A$ has basepoint $P_0$. 
+\end{prop}
+
+\begin{remark}
+	For more on the vector $\bm{K}$ and its calculation, see Deconick's \textit{Computing the Riemann Constant Vector}. 
+\end{remark}
+
+\begin{theorem}
+	Let $X$ be a compact, genus-$g$ Riemann surface with canonical homology basis $\bm{c} = (\bm{a},\bm{b})$, Riemann matrix $\tau$ wrt said basis, and Abel map $A$ with basepoint $P_0$. Then $\theta\begin{bsmallmatrix} \epsilon \\ \epsilon^\prime \end{bsmallmatrix} \circ A$ is either identically $0$ of has exactly $g$ zeros.  \\
+	Given this map has exactly $g$ zeros, call them $P_i$ and the divisor $D = \sum_i P_i$, then 
+	\[
+	A(D) = -\frac{1}{2}\tau \epsilon - \frac{1}{2}\epsilon^\prime + \tau n + m - \bm{K} 
+	\]
+	for some $n,m \in \mathbb{Z}^g$. In particular, as $\tau n +m \equiv 0$ in the Jacobian, we have 
+	\[
+	A(D)+\bm{K} = -\frac{1}{2}\psquare{\tau \epsilon + \epsilon^\prime} \, .
+	\]
+\end{theorem}
+
+
+
+\begin{corollary}
+	If, for $e \in \mathbb{C}^g$, the (multivalued) function $X \to \mathbb{C}$ given by $P \mapsto \theta(A(P)-e)$ is not identically $0$ it has $g$ zeros $\pbrace{P_i}$ and then, letting $D=\sum_i P_i$,
+	\[
+	A(D)+\bm{K} = e \, .
+	\]
+\end{corollary}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3275,9 +3572,10 @@ Moreover we can specify further if $X^\prime= \mathbb{P}^1$.
 \end{prop}
 In the situation above, we know $\deg L = r+g-1 \Rightarrow \deg L(-1) = g-1$. We can define a map into the space of degree-$(g-1)$ line bundles as 
 \begin{align*}
-	X \times \dots \times X &\to \Pic^{g-1}(X) \\
-	(p_1, \dots p_{g-1}) &\mapsto L_{p_1} \otimes \dots \otimes L_{p_{g-1}}
+	S^{g-1}X &\to \Pic^{g-1}(X) \, , \\
+	(p_1, \dots, p_{g-1}) &\mapsto L_{p_1} \otimes \dots \otimes L_{p_{g-1}} \, ,
 \end{align*}
+where $S^{g-1}X$ is the $(g-1)$-fold symmetric product. 
 \begin{lemma}
 If $L \in \Pic(X)$ has a section $s$ with simple zeros at $p_1, \dots, p_{g-1}$ (points may be repeated) then $L \cong L_{p_1} \otimes \dots \otimes L_{p_{g-1}}$.
 \end{lemma}
@@ -3288,7 +3586,7 @@ If $L \in \Pic(X)$ has a section $s$ with simple zeros at $p_1, \dots, p_{g-1}$ 
 	This map has codimension-1 image
 \end{prop}
 \begin{proof}
-	$\dim (X^{g-1})=g-1$, and as $\Pic^{g-1}(X) \cong J(X)$, it has dimension $g$.We also know the map is injective. 
+	$\dim (S^{g-1}X)=g-1$, and as $\Pic^{g-1}(X) \cong J(X)$, it has dimension $g$.We also know the map is injective. 
 \end{proof}
 \begin{remark}
 	$\Pic^{g-1}(X)$ does not naturally have a group law, unlike $J(X)$. In fact, $\Pic^{g-1}$ is a $\Pic^0$-torsor. 
@@ -3297,128 +3595,97 @@ If $L \in \Pic(X)$ has a section $s$ with simple zeros at $p_1, \dots, p_{g-1}$ 
 	We call the image of the map the \textbf{theta divisor} $\Theta$. 
 \end{definition}
 By the above, we know that a generic $L(-1)\in \Pic^{g-1}(X)$ will not lie in the theta divisor, so will not have a non-trivial section, hence $E$ will be trivial. In $\Theta$, the $a_i$ is the Birkhoff decomposition of $E$ will be non-zero, so they will have discontinuities on here. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Baker-Akhiezer Functions}
+We will start with a review of the material contained in \cite{Dubrovin2009}. \\
+Our set up will be as follows, suppose we have a Riemann surface $S$ with $g(S)=g$. About $Q \in S$ introduce a coordinate $z=z(P)$ s.t. $z(Q)=0$, and denote $k=z^{-1}$.  
+\begin{definition}
+	Let $\delta = \sum_{i=1}^{g} \delta_i $ be a positive divisor on $S\setminus Q$ and $q$ a polynomial. A \textbf{Baker-Akhiezer function} corresponding to the data $(Q,k,\delta,q)$ is a function $\Psi$ s.t. 
+	\begin{itemize}
+		\item $\Psi$ is meromorphic on $S \setminus Q$, 
+		\item $(\ev{\Psi}{S\setminus Q})+\delta \geq 0$, and 
+		\item $\Psi(P)e^{-q(k(P))}$ is analytic in a neighbourhood of $Q$. 
+	\end{itemize}
+	Fixing $Q,k,q$, we denote the vector space of Baker-Akhiezer functions for a divisor $\delta$ as $\Lambda(\delta)$. 
+\end{definition}
+
+\begin{example}
+	If $S$ is an elliptic curve given by $w^2=4z^3-g_2z-g_3$ (see \hl{Elliptic Curves} for more detail) then we take the appropriate torus lattice with coordinate $u$ and parameterise as $z=\wp(u), w=\wp^\prime(u)$. Take $Q = \pbrace{u=0}$ and $q(k)=xk$ for some parameter $x \in \mathbb{C}$. As $g(S)=1$ the divisor is a single point $\delta=(\wp(u_1),\wp^\prime(u_1))$. The Baker-Akhiezer function in this case is 
+	\[
+	\Psi(P) = \Psi(u;x) = \frac{\sigma(u-u_1-x)e^{x\zeta(u)}}{\sigma(u-u_1)\sigma(u_1+x)} \, ,
+	\]
+	where $\sigma, \zeta$ are the corresponding Weierstrass functions. 
+\end{example}
+
+\begin{remark}
+	We can allow the divisor $\delta$ to contain the point $Q$ if we want, and if it is present with multiplicity $n$, then we know as $P\to Q$ 
+	\[
+	\Psi(P) \sim e^{q(k)}\psquare{ck^n + \mathcal{O}(k^{n-1})}
+	\]
+	for some $c \in \mathbb{C}$. 
+\end{remark}
+
+\begin{prop}
+	$\Psi \in \Lambda(\delta), \, (f)=\delta^\prime-\delta \, \Rightarrow f\Psi \in \Lambda(\delta^\prime)$.  
+\end{prop}
+
+\begin{lemma}\label{lemma: zeros of the Baker-Ahkiezer fn}
+	A Baker-Akhiezer function has $g$ zeros on $S$, $\pbrace{\delta_i^\prime}_{i=1}^g$. Letting $\delta^\prime = \sum \delta_i^\prime$ we have 
+	\begin{equation}\label{eqn: divisor equation for Baker-Akhiezer fn}
+	A(\delta^\prime) = A(\delta) - \bm{U}_q \, ,
+	\end{equation}
+	where $\bm{U}_q = (U_{q,1}, \dots, U_{q,g})$ is the vector given by 
+	\[
+	U_{q,j} = \oint_{b_j} \Omega_q\, ,
+	\] 
+	$\pbrace{a_j,b_j}$ a canonical homology basis, $\Omega$ the normalised abelian differential of the second kind s.t. 
+	\begin{itemize}
+		\item $\Omega_q \sim dq + \mathcal{O}(k^{-2})dk$ as $k \to \infty$ and 
+		\item $\forall 1 \leq j \leq g, \, \oint_{a_j} \Omega_q =0$. 
+	\end{itemize}
+	Conversely, if two divisors $\delta, \delta^\prime$ satisfy \ref{eqn: divisor equation for Baker-Akhiezer fn}, then they are the divisors of poles and zeros of some Baker-Akhiezer function with essential singularity of the form $\Psi(P) \sim e^{q(k)}$ as $P \to Q$.
+\end{lemma}
+
+\begin{remark}
+	For more on differentials, and the ability to normalise them, see \cite{Dubrovin2009} \S 2.7. 
+\end{remark}
+
+\begin{theorem}
+	If $\delta$ is non-special, and $q$ has `sufficiently small' coefficients, $\dim \Lambda(\delta)=1$. 
+\end{theorem}
+\begin{proof}
+	See \cite{Dubrovin2009}. Note that the `sufficiently small' condition is required s.t. $\bm{U}_q$ (as defined in the previous lemma) is small, and then this gives uniqueness by requiring that $\delta$ nonspecial $\Rightarrow \delta^\prime$ nonspecial. 
+\end{proof}
+
+\begin{theorem}
+	Given $\delta$ is nonspecial, the Baker-Akhiezer function for data $(Q,k,q,D)$ on $S$ is 
+	\[
+	\Psi(P) = c \exp \pround{\int_{P_0}^P \Omega_q} \frac{\theta(A(P) - A^{(g)}(D) + \bm{U}_q - \bm{K})}{\theta(A(P) - A^{(g)}(D) - \bm{K})} \, ,
+	\]
+	where 
+	\begin{itemize}
+		\item $c \in \mathbb{C}$,
+		\item $P_0\neq Q$ is an arbitrary point in $S$ used as the basepoint for $A$,
+		\item $\bm{U}_q, \Omega_q$ are as defined by lemma \ref{lemma: zeros of the Baker-Ahkiezer fn},
+		\item $\bm{K}$ is the vector of Riemann constants, and 
+		\item the path for $\int_{P_0}^P \Omega_q$ is the same as $A(P)$. 
+	\end{itemize}
+\end{theorem}
+
+given by the plane curve $f(x,y) = 0$, where $f$ is a polynomial of degree $k$ in $y$. We will think of this as a ramified covering $S \to \mathbb{P}^1$, where $x$ is the coordinate on $\mathbb{P}^1$, and assume that $x=\infty$ is not a ramification points. Let $\pbrace{\infty_i}_{i=1}^k$ denote the preimages of $x=\infty$. Denote . Further denote the divisor 
+\[
+D_i = \delta - \infty_1 - \dots -\infty_{i-1} - \infty_{i+1} -\dots -\infty_k \, .
+\]
+We require the condition that $\forall i, \, l(D_i)=1$. 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Classifying Riemann Surfaces}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Riemann Matrix}
-We now want to consider the pairing of homology and cohomology on $X$. This can lead to information about the Abel-Jacobi map, but will also lead to an invariant of a Riemann surface. Relevant references include Eynard's Lectures on Compact Riemann Surfaces, Miranda, \href{https://people.reed.edu/~jerry/311/theta.pdf}{these notes}. 
 
-
-\begin{definition}
-	A homology basis $\bm{c} = (\bm{a},\bm{b})$ is \bam{canonical} if $\bm{c} \cdot \bm{c} = J$ where we are taking the intersection number and $J=\begin{psmallmatrix} 0 & I \\ -I & 0 \end{psmallmatrix}$. 
-\end{definition}
-\begin{remark}
-	Despite the term canonical, there is no unique choice of such a basis. Given any homology basis $\bm{c}$ we can make a new basis by taking $M\bm{c}$ for $M\in GL_{2g}(\mbb{Z})$. If the original basis was canonical then so is the transformed basis iff $MJM^T = J$, which is the condition for $M^T$ to be a symplectic matrix, giving $M$ symplectic. 
-\end{remark}
-
-The object we want to calculate is explicitly the period matrix, defined as follows:
-\begin{definition}
-	Let $\pbrace{a_i, b_i}_{i=1}^g$ be a canonical choice of homology basis, and $\pbrace{\omega_i}_{i=1}^g$ a basis of holomorphic differentials. Then the \bam{matrix of periods} is $\Omega = (A,B)$ where we calculate the $g\times g$ matrices $A,B$ by 
-	\eq{
-		A_{ij} = \int_{a_j} \omega_i, \quad \quad B_{ij} = \int_{b_j} \omega_i
-	}
-\end{definition}
-
-In order to say something about the form of $\Omega$, we need the following result:
-\begin{prop}[Riemann's Bilinear Identities]
-	$\Omega J \Omega^T = 0$ and $-i\bar{\Omega}J\Omega^T > 0$
-\end{prop}
-\begin{corollary}
-	For fixed differential basis $\pbrace{\omega_i}$, $\exists \bm{c}$ a canonical basis s.t $A_{ij} = \delta_{ij}$. 
-\end{corollary}
-
-\begin{definition}
-	The \bam{Riemann matrix} corresponding to $\Omega$ is $\tau = A^{-1}B$. 
-\end{definition}
-
-\begin{definition}
-	We define the \bam{Siegel upper half space} to be 
-	\eq{
-		\mbb{H}_g = \pbrace{M \in M_g(\mbb{C}) \, | \, M^T = M, \, \image M > 0}
-	}
-\end{definition}
-
-\begin{lemma} $\tau \in \mbb{H}_g$.  
-\end{lemma}
-
-\begin{example}
-	$\mbb{H}_1 = \mbb{H} \subset \mbb{C}$ is the upper half plane, explaining the name and notation convention. The case $g=1$ corresponds to elliptic curves, and we are recovering the usual $\tau$ we assign which tells us about the period lattice of the torus. This is not a coincidence, and we shall later related $\tau$ to the Jacobian of the curve. 
-\end{example}
-
-
-\begin{remark}
-	There was a choice made in arranging this matrix as $g \times 2g$. Had we chosen instead $\Omega$ to be $2g \times g$ as 
-	\eq{
-		\tilde{\Omega}_{ij} = \int_{c_i} \omega_j	
-	} 
-	where $\bm{c} = (\bm{a},\bm{b})$ is the tuple of cycles, then we get that $\tilde{\Omega} = \Omega^T \Leftrightarrow \tilde{A}=A^T, \tilde{B} = B^T$. In order to continue this correspondence to get $\tilde{\tau} = \tau^T$ we need $\tilde{\tau} = \tilde{B} \tilde{A}^{-1}$. As $\tau$ is symmetric, we know that $\tilde{\tau} = \tau$, so our value of Riemann matrix is not dependent on convention. 
-\end{remark}
-
-\begin{lemma}
-	If we change canonical homology basis by $\bm{c}^\prime = M \bm{c}$ where $M = \begin{psmallmatrix} a & b \\ c & d \end{psmallmatrix} \in Sp(2g,\mbb{Z})$, then $\Omega$ transforms as $\tilde{\Omega}^\prime = M\tilde{\Omega}$ and hence $\tilde{\tau}^\prime = (d\tilde{\tau}+c)(b\tilde{\tau}+a)^{-1}$. \\
-	If we change cohomology basis by $\bm{\omega}^\prime = G \bm{\omega}$ for $G \in GL_g(\mbb{C})$, then $\Omega$ transforms as $\Omega^\prime = G\Omega$ and hence $\tau^\prime = \tau$.   
-\end{lemma}
-\begin{remark}
-	It is for this reason that, although taking $\Omega$ to be $g \times 2g$ is seemingly a more prevalent convention, the latter is more sensible because of the corresponding actions. Moreover, if conjugate $M$ with the outer automorphism $\begin{psmallmatrix} 0 & I \\ I & 0 \end{psmallmatrix}$ then we get $\tilde{\tau}^\prime = (a\tilde{\tau}+b)(c\tilde{\tau}+d)^{-1}$, which recovers the fractional linear transformation action of $SL_2(\mbb{Z}) \cong Sp_2(\mbb{Z})$ known in the case of elliptic curves. The reason for the conjugation is as with elliptic curves, we typically normalise the bottom element to 1 instead. 
-\end{remark}
-
-\subsubsection{Riemann Matrices of Covered Spaces}
-Fay \cite{Fay2006} is a good reference for this section, we will illustrate in a specific example, namely that of Burnside's curve. This builds of calculations in Braden's \textit{Riemann Surfaces with Symmetry}. We let $X$ be a genus 2 hyperelliptic curve with order 2 automorphism $r$ that is not the hyperelliptic involution, and we quotient by it's action to get $X \to \hat{X}$, where $\hat{X}$ is an elliptic curve. Then given two cycles $\mf{a},\mf{b}$ on $\hat{X}$ that form a homology basis, we can construct a full homology basis on $X$ from 
-\eq{
-\mf{a}_1 &= \mf{a}+r_\ast\mf{a} \\
-\mf{a}_2 &= \mf{b} - r_\ast\mf{b} \\
-\mf{b}_1 &= \mf{b} \\
-\mf{b}_2 &= r_\ast\mf{a}
-}
-and if we choose a basis of differential $\omega_1, \omega_2$ s.t $r^\ast \omega_1 = \omega_1, r^\ast \omega_2 = -\omega_2$ we can find that the Riemann matrix is given by 
-\eq{
-\tau = \begin{pmatrix} \frac{\int_\mf{b} \omega_1}{2\int_\mf{a} \omega_1} & \frac{1}{2} \\ \frac{1}{2} &  \frac{-\int_\mf{a} \omega_2}{2\int_\mf{b} \omega_2} \end{pmatrix} 
-}
-For later references we will fix this notation so 
-\eq{
-\tau_{11} = \frac{\int_\mf{b} \omega_1}{2\int_\mf{a} \omega_1}, \quad \tau_{22} = \frac{-\int_\mf{a} \omega_2}{2\int_\mf{b} \omega_2}
-}
-\begin{remark}
-	Note we have been cavalier here with denoting $\mf{a},\mf{b}$ both as cycles on $X$ and $\hat{X}$, \hl{this may come back to bite us in the ass}. 
-\end{remark}
-To calculate the Riemann matrix on $\hat{X}$ we keep our homology basis, but now we define a differential by first defining $u,u^\prime$ s.t. 
-\eq{
-\int_\mf{a} u = 1, \quad \int_{-r_\ast \mf{a}} u = 0, \quad \int_{\mf{a}} u^\prime = 0, \quad \int_{-r_\ast \mf{a}} u^\prime = 1
-}
-and then setting our differential to be $\hat{\omega} = u-u^\prime$. We then have the Riemann matrix on $\hat{X}$ as 
-\eq{
-\hat{\tau} = \frac{\int_\mf{b} \hat{\omega}}{\int_\mf{a} \hat{\omega}}
-}
-It can be shown that with these conventions $\hat{\omega} = \frac{\omega_1}{\int_\mf{a} \omega_1}$ and so we get $\hat{\tau} = 2\tau_{11}$. \\
-The consequence of this is that, if we are given an elliptic curve with Riemann matrix $\hat{\tau}$ and told that it is the base of a double cover of a genus 2 hyperelliptic curve $X$ by an automorphism, then $X$ has Riemann matrix 
-\eq{
-\tau = \frac{1}{2}\begin{pmatrix} \hat{\tau} & 1 \\ 1 & 2\tau_{22} \end{pmatrix} 
-}
-At this point we cannot expect to know anything else about the hyperelliptic, as we know from the work of Bolza that the moduli space of hyperelliptic curves with a $C_2$ symmetry is 2 dimensional. Note an alternate form for the Riemann matrix on $X$ shown to exists by Fay was 
-\eq{
-\tau^\prime = \frac{1}{2}\begin{pmatrix} \hat{\tau}+\pi_{11} & -\hat{\tau}+\pi_{11} \\ -\hat{\tau}+\pi_{11} & \hat{\tau}+\pi_{11} \end{pmatrix} 
-}
-where $\pi_{11} = \frac{-1}{2\tau_{22}}$. \\
-Suppose now that $X$ has a second non-hyperelliptic involution $r^\prime$. From Bolza's classification we know that $r,r^\prime$ must generate a $V_4$ group, so specifically $rr^\prime = r^\prime r$. We want a way to find $\tau_{22}$ using this other involution, so we want to repeat the process as before using  a new quotient by the $r^\prime$ action, $\hat{X}^\prime$. As 
-\eq{
-r^\ast = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
-}
-wrt the basis, using our knowledge of matrix representations of the Klein 4 group we must have 
-\eq{
-	(r^\prime)^\ast = \begin{pmatrix} -1 & 0 \\ 0 & 1 \end{pmatrix}
-}
-so we need to swap the differentials (that is $\omega_1^\prime = \omega_2$ and $\omega_2^\prime = \omega_1$)s now $(r^\prime)^\ast \omega_2 = \omega_2, \, (r^\prime) a^\ast \omega_1 = -\omega_1$. This yields 
-\eq{
-\hat{\tau}^\prime = \frac{\int_\mf{b} \omega_2}{\int_\mf{a} \omega_2} = \frac{-1}{2\tau_{22}} 
-}
-Hence we can now combine our knowledge when $\hat{\tau} = \hat{\tau}^\prime$ to say that $X$ will have a Riemann matrix
-\eq{
-	\tau = \frac{1}{2}\begin{pmatrix} \hat{\tau} & 1 \\ 1 & -1/\hat{\tau} \end{pmatrix} 
-}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Monodromy}
 \begin{definition}
@@ -4059,9 +4326,8 @@ This result has some powerful corollaries, which we will see here now:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Theta Functions}
-We start this section with a warning. There are \emph{many} different ways of writing theta functions, and so you will need to be on your toes to connect those in these notes with those in other documents. These will start with the definition in 
-
+\subsection{Theta Functions}\label{subsec: theta functions (elliptic curves)}
+We start this section with a warning. There are \emph{many} different ways of writing theta functions, and so you will need to be on your toes to connect those in these notes with those in other documents. We covered in \S \ref{subsec: theta functions (riemann surfaces)} theta functions on general Riemann surfaces already, so aside from refreshing our definition, we will only state things that a new and leave the rest of the discussion for there. 
 \begin{definition}
 	For $\tau \in \mbb{C}, \, \image(\tau)>0$, define the \bam{Riemann theta function} 
 	\eq{
@@ -4070,12 +4336,8 @@ We start this section with a warning. There are \emph{many} different ways of wr
 \end{definition}
 
 \begin{remark}
-	This is the definition given in Miranda and on Wikipedia (as of June 2020). 
+	This is the definition given in \cite{Miranda1995} and on Wikipedia (as of June 2020), which agrees with \cite{Farkas1992}. 
 \end{remark}
-
-\begin{prop}
-	The series converges absolutely and uniformly on compact subset of $\mbb{C}$. Hence $\theta$ is an analytic function on $\mbb{C}$. 
-\end{prop}
 
 \begin{prop}
 	We have 
@@ -4230,9 +4492,16 @@ We will construct the latter case.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Elliptic integrals}
+\subsection{Related Weierstrass Functions}\label{subsec: related Weierstrass functions}
+See \cite{Dubrovin2009} pp.74-75 and \href{https://en.wikipedia.org/wiki/Weierstrass_functions}{here}. 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Elliptic Integrals}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Elliptic Integral of the First Kind}
 Let us start by stating our assumptions of this section, namely:
