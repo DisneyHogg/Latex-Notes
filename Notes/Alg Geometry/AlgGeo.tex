@@ -2101,7 +2101,7 @@ We will now state a sheaf cohomology analogue of Poincar\'e duality:
 \begin{theorem}[Serre Duality]
 	Let $E \to X$ be an algebraic vector bundle over $n$-dimensional (proper) smooth variety. Then 
 	\eq{
-H^k(E) \cong H^{n-k}(E^\ast \otimes K_MX)^\ast
+H^k(E) \cong H^{n-k}(E^\ast \otimes K_X)^\ast
 }
 naturally. 
 \end{theorem}
@@ -2113,7 +2113,7 @@ The Hodge star operator acts in this case as
 \]
 (note the change in the holomorphic and anti-holomorphic indices) and so
 \[
-\overline{\star} : \Omega^{p,q}(X) \overset{\cong}{\to} \Omega^{n-p.n-q}(X) \, ,
+\overline{\star} : \Omega^{p,q}(X) \overset{\cong}{\to} \Omega^{n-p,n-q}(X) \, ,
 \]
 where we have defined $\overline{\star}\omega = \star \overline{\omega}$. This gives us a pairing of $(p,q)$ form by 
 \[
@@ -2887,6 +2887,20 @@ We have the following corollary of Riemann-Hurwitz:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Differentials}
+
+\begin{prop}[Reciprocity Law]
+	Let $\Omega$ be a global holomorphic 1-form (i.e. a differential of the first kind) and $\nu$ a global meromorphic 1-form with no residues (a differential of the second kind). Then writing $\Omega = d \pi$ (which we can do locally by defining $\pi(s) = \int^s \omega$) we have 
+	\[
+	\frac{1}{2\pi i} \sum_{i=1}^g \begin{bmatrix} \oint_{a_i} \omega & \oint_{a_i} \nu \\ \oint_{b_i} \omega & \oint_{b_i} \nu \end{bmatrix} = \sum_p \operatorname{res}_p( \pi \nu) \, .
+	\]
+\end{prop}
+\begin{proof}
+	See \cite{Griffiths1985}, p.241.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The Riemann Matrix}
 We now want to consider the pairing of homology and cohomology on $X$. This can lead to information about the Abel-Jacobi map, but will also lead to an invariant of a Riemann surface. Relevant references include Eynard's Lectures on Compact Riemann Surfaces, Miranda, \href{https://people.reed.edu/~jerry/311/theta.pdf}{these notes}. 
 
@@ -2949,6 +2963,7 @@ In order to say something about the form of $\Omega$, we need the following resu
 	It is for this reason that, although taking $\Omega$ to be $g \times 2g$ is seemingly a more prevalent convention, the latter is more sensible because of the corresponding actions. Moreover, if conjugate $M$ with the outer automorphism $\begin{psmallmatrix} 0 & I \\ I & 0 \end{psmallmatrix}$ then we get $\tilde{\tau}^\prime = (a\tilde{\tau}+b)(c\tilde{\tau}+d)^{-1}$, which recovers the fractional linear transformation action of $SL_2(\mbb{Z}) \cong Sp_2(\mbb{Z})$ known in the case of elliptic curves. The reason for the conjugation is as with elliptic curves, we typically normalise the bottom element to 1 instead. 
 \end{remark}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Riemann Matrices of Covered Spaces}
 Fay \cite{Fay2006} is a good reference for this section, we will illustrate in a specific example, namely that of Burnside's curve. This builds of calculations in Braden's \textit{Riemann Surfaces with Symmetry}. We let $X$ be a genus 2 hyperelliptic curve with order 2 automorphism $r$ that is not the hyperelliptic involution, and we quotient by it's action to get $X \to \hat{X}$, where $\hat{X}$ is an elliptic curve. Then given two cycles $\mf{a},\mf{b}$ on $\hat{X}$ that form a homology basis, we can construct a full homology basis on $X$ from 
 \eq{
@@ -3002,6 +3017,7 @@ Hence we can now combine our knowledge when $\hat{\tau} = \hat{\tau}^\prime$ to 
 \eq{
 	\tau = \frac{1}{2}\begin{pmatrix} \hat{\tau} & 1 \\ 1 & -1/\hat{\tau} \end{pmatrix} 
 }
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3601,14 +3617,14 @@ By the above, we know that a generic $L(-1)\in \Pic^{g-1}(X)$ will not lie in th
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Baker-Akhiezer Functions}
-We will start with a review of the material contained in \cite{Dubrovin2009}. \\
-Our set up will be as follows, suppose we have a Riemann surface $S$ with $g(S)=g$. About $Q \in S$ introduce a coordinate $z=z(P)$ s.t. $z(Q)=0$, and denote $k=z^{-1}$.  
+We will start with a review of the material contained in \cite{Dubrovin2009, Dubrovin1985}. \\
+Our set up will be as follows, suppose we have a Riemann surface $S$ with $g(S)=g$. 
 \begin{definition}
-	Let $\delta = \sum_{i=1}^{g} \delta_i $ be a positive divisor on $S\setminus Q$ and $q$ a polynomial. A \textbf{Baker-Akhiezer function} corresponding to the data $(Q,k,\delta,q)$ is a function $\Psi$ s.t. 
+	About $Q_i \in S$, $1 \leq i \leq n$, introduce a coordinate $z_i=z_i(P)$ s.t. $z_i(Q_i)=0$, and denote $k_i=z_i^{-1}$. Let $\delta = \sum_{i=1}^{N} \delta_i $ be a positive divisor on $S\setminus \pbrace{Q_i}$ and $\pbrace{q_i}_{i=1}^n$ a set of  polynomial. A \textbf{Baker-Akhiezer function} corresponding to the data $(Q_i,k_i,\delta,q_i)$ is a function $\Psi$ s.t. 
 	\begin{itemize}
-		\item $\Psi$ is meromorphic on $S \setminus Q$, 
-		\item $(\ev{\Psi}{S\setminus Q})+\delta \geq 0$, and 
-		\item $\Psi(P)e^{-q(k(P))}$ is analytic in a neighbourhood of $Q$. 
+		\item $\Psi$ is meromorphic on $S \setminus \pbrace{Q_i}$, 
+		\item $(\ev{\Psi}{S\setminus \pbrace{Q_i}})+\delta \geq 0$, and 
+		\item $\Psi(P)e^{-q_i(k_i(P))}$ is analytic in a neighbourhood of $Q_i$. 
 	\end{itemize}
 	Fixing $Q,k,q$, we denote the vector space of Baker-Akhiezer functions for a divisor $\delta$ as $\Lambda(\delta)$. 
 \end{definition}
@@ -3634,53 +3650,52 @@ Our set up will be as follows, suppose we have a Riemann surface $S$ with $g(S)=
 \end{prop}
 
 \begin{lemma}\label{lemma: zeros of the Baker-Ahkiezer fn}
-	A Baker-Akhiezer function has $g$ zeros on $S$, $\pbrace{\delta_i^\prime}_{i=1}^g$. Letting $\delta^\prime = \sum \delta_i^\prime$ we have 
+	A Baker-Akhiezer function has $N$ zeros on $S$, $\pbrace{\delta_i^\prime}_{i=1}^N$. Letting $\delta^\prime = \sum \delta_i^\prime$ we have 
 	\begin{equation}\label{eqn: divisor equation for Baker-Akhiezer fn}
-	A(\delta^\prime) = A(\delta) - \bm{U}_q \, ,
+	A(\delta^\prime) = A(\delta) - \sum_{j=1}^n \bm{U}_{q_j} \, ,
 	\end{equation}
 	where $\bm{U}_q = (U_{q,1}, \dots, U_{q,g})$ is the vector given by 
 	\[
-	U_{q,j} = \oint_{b_j} \Omega_q\, ,
+	U_{q,j} = \frac{1}{2\pi i} \oint_{b_j} \Omega_q\, ,
 	\] 
-	$\pbrace{a_j,b_j}$ a canonical homology basis, $\Omega$ the normalised abelian differential of the second kind s.t. 
+	$\pbrace{a_j,b_j}$ a canonical homology basis, $\Omega_q$ the normalised abelian differential of the second kind s.t. 
 	\begin{itemize}
-		\item $\Omega_q \sim dq + \mathcal{O}(k^{-2})dk$ as $k \to \infty$ and 
+		\item $\Omega_{q_j} \sim dq_j + \mathcal{O}(k_j^{-2})dk_j$ as $k_j \to \infty$ and 
 		\item $\forall 1 \leq j \leq g, \, \oint_{a_j} \Omega_q =0$. 
 	\end{itemize}
-	Conversely, if two divisors $\delta, \delta^\prime$ satisfy \ref{eqn: divisor equation for Baker-Akhiezer fn}, then they are the divisors of poles and zeros of some Baker-Akhiezer function with essential singularity of the form $\Psi(P) \sim e^{q(k)}$ as $P \to Q$.
+	Conversely, if two divisors $\delta, \delta^\prime$ satisfy \ref{eqn: divisor equation for Baker-Akhiezer fn}, then they are the divisors of poles and zeros of some Baker-Akhiezer function with essential singularity of the form $\Psi(P) \sim e^{q_j(k_j)}$ as $P \to Q_j$.
 \end{lemma}
+\begin{proof}
+	The meromorphic form $d\log \Psi$ must have as many zeros as poles counting multiplicity, and we required that $\Psi$ only had poles on $\delta$. The difference then comes from requiring that $\Psi$ is single valued, i.e that $\oint_c d\log\Psi \in 2\pi i \mathbb{Z}$ for $c \in \pbrace{a_j, b_j}$. 
+\end{proof}
 
 \begin{remark}
 	For more on differentials, and the ability to normalise them, see \cite{Dubrovin2009} \S 2.7. 
 \end{remark}
 
 \begin{theorem}
-	If $\delta$ is non-special, and $q$ has `sufficiently small' coefficients, $\dim \Lambda(\delta)=1$. 
+	If $\delta$ is non-special, and $q$ has `sufficiently small' coefficients, $\dim \Lambda(\delta)=N-g+1$. 
 \end{theorem}
 \begin{proof}
 	See \cite{Dubrovin2009}. Note that the `sufficiently small' condition is required s.t. $\bm{U}_q$ (as defined in the previous lemma) is small, and then this gives uniqueness by requiring that $\delta$ nonspecial $\Rightarrow \delta^\prime$ nonspecial. 
 \end{proof}
 
 \begin{theorem}
-	Given $\delta$ is nonspecial, the Baker-Akhiezer function for data $(Q,k,q,D)$ on $S$ is 
+	Given $\delta$ is nonspecial and $N=g$, the Baker-Akhiezer function for data $(Q,k,\delta,q)$ on $S$ is 
 	\[
-	\Psi(P) = c \exp \pround{\int_{P_0}^P \Omega_q} \frac{\theta(A(P) - A^{(g)}(D) + \bm{U}_q - \bm{K})}{\theta(A(P) - A^{(g)}(D) - \bm{K})} \, ,
+	\Psi(P) = c \exp \pround{\sum_{j=1}^n \int_{P_0}^P \Omega_q} \frac{\theta(A(P) - A^{(g)}(D)  - \bm{K} + \sum_{j} \bm{U}_{q_j})}{\theta(A(P) - A^{(g)}(D) - \bm{K})} \, ,
 	\]
 	where 
 	\begin{itemize}
 		\item $c \in \mathbb{C}$,
-		\item $P_0\neq Q$ is an arbitrary point in $S$ used as the basepoint for $A$,
+		\item $P_0\not\in \pbrace{Q_j}$ is an arbitrary point in $S$ used as the basepoint for $A$,
 		\item $\bm{U}_q, \Omega_q$ are as defined by lemma \ref{lemma: zeros of the Baker-Ahkiezer fn},
 		\item $\bm{K}$ is the vector of Riemann constants, and 
 		\item the path for $\int_{P_0}^P \Omega_q$ is the same as $A(P)$. 
 	\end{itemize}
 \end{theorem}
 
-given by the plane curve $f(x,y) = 0$, where $f$ is a polynomial of degree $k$ in $y$. We will think of this as a ramified covering $S \to \mathbb{P}^1$, where $x$ is the coordinate on $\mathbb{P}^1$, and assume that $x=\infty$ is not a ramification points. Let $\pbrace{\infty_i}_{i=1}^k$ denote the preimages of $x=\infty$. Denote . Further denote the divisor 
-\[
-D_i = \delta - \infty_1 - \dots -\infty_{i-1} - \infty_{i+1} -\dots -\infty_k \, .
-\]
-We require the condition that $\forall i, \, l(D_i)=1$. 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
