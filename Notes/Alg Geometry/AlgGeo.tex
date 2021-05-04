@@ -2186,7 +2186,7 @@ We can also given an interpretation of Serre duality directly (i.e not via Dolbe
 	$H^1(X,O_X(D)) \cong \faktor{R}{(R(D) + K(X))}$. 
 \end{prop}
 \begin{proof}
-	The following proof is from Serre's \textit{Groupes alg´ebriques et corps de classes} (\hl{ref}), reproduced by Vakil (\hl{ref}) and Bemans (\hl{ref}, \href{https://pbelmans.ncag.info/notes/grothendieck-duality.pdf}{here}). \\
+	The following proof is from Serre's \textit{Groupes alg´ebriques et corps de classes} (\hl{ref}), reproduced by Vakil (\hl{ref}) and Belmans (\hl{ref}, \href{https://pbelmans.ncag.info/notes/grothendieck-duality.pdf}{here}). \\
 	Let $\underline{K(X)}$ be the corresponding constant sheaf. There's a natural injection $O_X(D) \hookrightarrow \underline{K(X)}$. Letting $S$ be the cokernel of this map gives the SES
 	\[
 	0 \to O_X(D) \to \underline{K(X)} \to S \to 0 \, ,
@@ -2196,7 +2196,7 @@ We can also given an interpretation of Serre duality directly (i.e not via Dolbe
 	K(X) = H^0(X,\underline{K(X)}) \to H^0(X,S) \to H^1(X,O_X(D)) \to H^1(X,\underline{K(X)}) =0 \, .
 	\]
 	To complete the proof it is necessary to show $H^0(X,S) \cong \faktor{R}{R(D)}$. The stalk $S_P$ is the quotient of the stalk at $P$ of $\underline{K(X)}$ and $O_X(D)$, i.e. it is $K(X)$ mod functions whose order at $P$ is $\geq - \operatorname{ord}_P(D)$. By its definition we then see $\faktor{R}{R(D)} = \bigoplus_P S_P$ (recall direct sum requires that only finitely many terms aren't zero).  \\
-	We next want to show $S = \bigoplus_P T_P$, where $T_P$ is the skyscraper sheaf at $P$ with values in $S_P$. To show to sheaves are equal it is sufficient to show that they have the same local sections on a basis of the topology of the base, so we need to show that sections of $S$ are 0 almost everywhere except for finitely many $P$, where they take values in $S_P$. Given a section $s \in S(U)$ for $U$ an open neighbourhood of $P$, 
+	We next want to show $S = \bigoplus_P T_P$, where $T_P$ is the skyscraper sheaf at $P$ with values in $S_P$. To show to sheaves are equal it is sufficient to show that they have the same local sections on a basis of the topology of the base, so we need to show that sections of $S$ are 0 almost everywhere except for finitely many $P$, where they take values in $S_P$. Given a section $s \in S(U)$ for $U$ an open neighbourhood of $P$, it locally lifts to a section $s^\prime$ of $\underline{K(X)}$. Because $\underline{K(X)}$ is the constant sheaf, the lift $s^\prime$ takes the value of a constant function $f \in K(X)$ on $U$. We define $U^\prime \subset U$ to be a smaller open subset containing $P$ disjoint to $(\operatorname{supp}(D) \cup f^{-1}(\infty)) \setminus \pbrace{P}$ (which we may do as both $\operatorname{supp}(D)$ and $s^{-1}(\infty)$ are discrete), and $\ev{f}{U^\prime}$ is regular (except perhaps at $P$, but in that case the order is determined by the stalk) so  $\exists g \in (O_C(D))(U^\prime)$ s.t. $g = \ev{f}{U^\prime}$. Hence we know $\ev{s}{U^\prime \setminus \pbrace{P}}=0$ (by taking the quotient again) and hence $S$ agrees with $T_P$ on $U$. \\ 
 	As a result we have 
 	\begin{align*}
 		H^0(X,S) = H^0(X,\bigoplus_P T_P) &= \bigoplus_P H^0(X,T_P) \, , \\
@@ -2636,6 +2636,10 @@ We will now list a few of the useful properties to recall of sheaf cohomology.
 \begin{proof}
 	This is exercise 4.1 in chapter 3 of \cite{Hartshorne1977}. Note there are technical assumptions to make here that I have ignored. For more see \href{https://math.stackexchange.com/questions/130493/cohomology-of-quasi-coherent-sheaves-with-respect-to-pushforward-question-exerc}{here}. 
 \end{proof}
+
+\begin{prop}
+	$\bigoplus_i H^j(X,\mathcal{F}_i) = H^j(X,\bigoplus_i \mathcal{F}_i)$. \hl{flesh out}. 
+\end{prop}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3617,6 +3621,7 @@ The important theorem about theta functions is to follow. We will define a neces
 \end{remark}
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Theta Divisor}
@@ -3626,7 +3631,7 @@ We start with an important prop about the direct image of sheaves on a Riemann s
 	Take a map of Riemann surfaces $f:X \to X^\prime$ and a line bundle $L \to X$. We have
 	\begin{itemize}
 		\item $H^0(X^\prime,f_\ast \mathcal{O}(L)) \cong H^0(X,\mathcal{O}(L))$,
-		\item $\exists E\to X^\prime$ a rank-$r$ holomorphic vector bundle s.t. $f)\ast \mathcal{O}(L) = \mathcal{O}(E)$, where $r=\deg f$, and 
+		\item $\exists E\to X^\prime$ a rank-$r$ holomorphic vector bundle s.t. $f_\ast \mathcal{O}(L) = \mathcal{O}(E)$, where $r=\deg f$, and 
 		\item if $V\to X^\prime$ is a holomorphic vector bundle, then $f_\ast \mathcal{O}(L \otimes f^\ast V) \cong \mathcal{O}(E \otimes V)$.
 	\end{itemize}
 \end{prop}
@@ -3666,7 +3671,18 @@ If $L \in \Pic(X)$ has a section $s$ with simple zeros at $p_1, \dots, p_{g-1}$ 
 \begin{definition}
 	We call the image of the map the \textbf{theta divisor} $\Theta$. 
 \end{definition}
-By the above, we know that a generic $L(-1)\in \Pic^{g-1}(X)$ will not lie in the theta divisor, so will not have a non-trivial section, hence $E$ will be trivial. In $\Theta$, the $a_i$ is the Birkhoff decomposition of $E$ will be non-zero, so they will have discontinuities on here. 
+By the above, we know that a generic $L(-1)\in \Pic^{g-1}(X)$ will not lie in the theta divisor, so will not have a non-trivial section, hence $E$ will be trivial. In $\Theta$, the $a_i$ is the Birkhoff decomposition of $E$ will be non-zero, so they will have discontinuities on here. \\
+We might wonder why we have called this submanifold the theta divisor, and the reason will be made clear by the following result. 
+\begin{theorem}[Riemann (Theta) Singularity Theorem]
+Given a degree $g-1$ line bundle $L \to X$ we have $m_L \theta = h^0(X,\mathcal{O}(L))$. 
+\end{theorem}
+\begin{proof}
+	See \cite{Griffiths1985} and Eynard's lectures on compact Riemann surfaces for discussions of this and different interpretations. 
+\end{proof}
+
+\begin{remark}
+	In \cite{Braden2006}, Braden calls this the Riemann vanishing theorem. \hl{Why?}
+\end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
