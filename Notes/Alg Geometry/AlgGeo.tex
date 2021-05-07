@@ -2167,7 +2167,8 @@ We can derive this map (called the \textbf{trace morphism} in general) for $\mat
 as the \v{C}ech complex. Elements of $\Omega(U_0 \cap U_1)$ are of the form $f(z)dz$ where $f$ is a Laurent polynomial. $\Omega(U_0)$ is spanned by terms $z^n dz$ for $n \geq 0$, $\Omega(U_1)$ is spanned by terms $(z^{-1})^n d(z^{-1}) = -z^{-n-2} dz$ for $n \geq 0$, and so $H^1(\mathbb{P}^1,\Omega_{\mathbb{P}^1})$ has basis $z^{-1}dz$. The obvious $H^1(\mathbb{P}^1,K_{\mathbb{P}^1}) \to \mathbb{C}$ is then reading off the coefficient of this terms, which corresponds to taking the residue at $0$, i.e. doing the line integral around the equator. For more see \cite{Vakil2010} \S 30.1.    
 \end{example}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Serre Duality for Riemann Surfaces}
 We can also given an interpretation of Serre duality directly (i.e not via Dolbeault cohomology) when $X$ is a Riemann surface. This comes from Vakil's `Baby Algebraic Geometry Seminar' \cite{Vakil2000}. 
 
 \begin{definition}
@@ -2179,8 +2180,11 @@ We can also given an interpretation of Serre duality directly (i.e not via Dolbe
 \end{definition}
 
 \begin{prop}
-	$D \leq D^\prime \Rightarrow R(D) \subseteq R(D^\prime)$. 
+	$D \leq D^\prime \Rightarrow R(D) \hookrightarrow R(D^\prime)$. 
 \end{prop}
+\begin{proof}
+	Suppose $\operatorname{ord}_P(r_P) \geq -\operatorname{ord}_P(D)$. $\operatorname{ord}_P(D) \leq \operatorname{ord}_P(D^\prime) \Rightarrow -\operatorname{ord}_P(D) \geq -\operatorname{ord}_P(D^\prime)$ and so by transitivity done. 
+\end{proof}
 
 \begin{prop}
 	$H^1(X,O_X(D)) \cong \faktor{R}{(R(D) + K(X))}$. 
@@ -2216,6 +2220,34 @@ Once we have this result, we make a pairing
 	(\pbrace{r_P}, \omega) &\mapsto \sum_P \operatorname{res}_P(r_P \omega) \, .
 \end{align*}
 
+In \cite{Miranda1995}, Miranda will cover the same construction, but not make explicit it's link to Serre duality. To do so he makes the following definition. 
+
+\begin{definition}
+	A \textbf{Laurent tail divisor} is a finite formal sum $\sum_P r_P \cdot P$ where $P\in X$ and $r_P$ is a Laurent polynomial in local coordinate $z_P$ about $P$. We denote the group of Laurent tails under addition (which is also a $K(X)$ algebra) as $\mathcal{T}(X)$. \\
+	Further, given a divisor $D$ we define the subgroup 
+	\[
+	\mathcal{T}[D](X) = \pbrace{\forall P \text{ s.t }r_P \neq 0, \text{ top term of $r_P$ has degree }< -\operatorname{ord}_P(D)} \, .
+	\]   
+\end{definition}
+
+\begin{prop}
+	$D \leq D^\prime \Rightarrow \mathcal{T}[D](X) \twoheadrightarrow  \mathcal{T}[D^\prime](X)$. 
+\end{prop}
+\begin{proof}
+	Suppose top term of $r_P$ has degree $< -\operatorname{ord}_P(D^\prime)$. $\operatorname{ord}_P(D) \leq \operatorname{ord}_P(D^\prime) \Rightarrow -\operatorname{ord}_P(D) \geq -\operatorname{ord}_P(D^\prime)$ and so by transitivity done. 
+\end{proof}
+
+For each divisor $D$ here is a map $K(X) \to \mathcal{T}[D](X)$ given by truncating the Laurent series of a meromorphic function to the right degree at each $P$. Miranda then defines a space $H^1(D)$ to be the cokernel of this map. We want to find $H^1(D) = H^1(X,O_X(D))$, for which we need the following result.
+\begin{lemma}
+	$\mathcal{T}[D](X) \cong \faktor{R}{R(D)}$. 
+\end{lemma}
+\begin{proof}
+	We note first that this is well motivated, as $D \leq D^\prime \Rightarrow R(D) \hookrightarrow R(D^\prime) \Rightarrow \faktor{R}{R(D)} \twoheadrightarrow \faktor{R}{R(D^\prime)}$. The proof is then simple, as we note the coefficient of $P$ in $\mathcal{T}[D](X)$ must lie in $S_P$, and then finite sums correspond to $\bigoplus_P S_P$. 
+\end{proof}
+
+\begin{remark}
+	To see more of the proof of Serre duality and Riemann Roch in this language, see chapter $VI$ of \cite{Miranda1995}.  
+\end{remark}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Adjunction Formula}
