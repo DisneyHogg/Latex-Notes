@@ -3257,8 +3257,15 @@ Suppose $C$ has genus $g$, then we know that $H_1(C,\mbb{Z}) \cong \mbb{Z}^{2g}$
 	A : S^k C &\to J(C) \, ,\\
 	(p_1, \dots, p_k) &\mapsto A(p_1) + \dots A(p_k) \, .
 	\end{align*}
-	We will on occasion denote this extended map as $A^{(k)}$. 
+	We will on occasion denote this extended map as $A^{(k)}$. Moreover, we denote $\operatorname{Im}(A^{(k)}) = W_k$. 
 \end{remark}
+
+\begin{lemma}\label{lemma: rank of the Abel-Jacobi map}
+	Given a divisor $D$, the map $A:S^k C \to W_k \subset J(C)$ has rank $\deg(D)+1-l(D)$ at $D$. 
+\end{lemma}
+\begin{proof}
+	We introduce the notation $l(D)$ later in definition \ref{def: L(D) and l(D)}. This result is part of a larger prop in \cite{Farkas1992}, p.141, \S III.11.11.
+\end{proof}
 
 \begin{theorem}[Abel's Theorem]
 	Let $A$ be the Abel-Jacobi map and $D,E$ effective divisors. Then $A(D) = A(E) \Leftrightarrow D \sim E$. 
@@ -3454,7 +3461,7 @@ We now restrict to considering compact Riemann surfaces $X$, and denote the fiel
 	Note also in this section we will use the additive presentation of divisors. This goes against Farkas \& Kra who use multiplicative notation.
 \end{remark}
 
-\begin{definition}
+\begin{definition}\label{def: L(D) and l(D)}
 	Given divisor $D$ on $X$ we define the $\mbb{C}$-vector space 
 	\eq{
 		L(D) = \pbrace{f \in H^0(O_X) \, | \, (f)+D \geq 0}	= H^0(X,O_X(D))
@@ -3482,7 +3489,7 @@ We call a divisor $D$ \textbf{special} if $i(D)>0$. Otherwise $D$ is \textbf{non
 \end{definition}
 
 We now state some simple-to-prove results.
-\begin{prop}
+\begin{prop}\label{prop: properties of l(D) and i(D)}
 	We have the following results about $L$:
 	\begin{itemize}
 		\item Given $C,D \in \Div(X), \, C \leq D \Rightarrow L(C) \subseteq L(D)$
@@ -3521,20 +3528,28 @@ One should be able to see that the first version is just when taking $E=L$ a lin
 	If $\deg D > 2g-2$, $D$ is nonspecial. 
 \end{corollary}
 
-\begin{prop}
+\begin{prop}\label{prop: generic divisor deg>=g is nonspecial}
 	A generic divisor $D$ with $\deg D \geq g$ is nonspecial. 
 \end{prop}
 \begin{proof}
 	See \cite{Dubrovin2009}.
 \end{proof}
 
-Now using the above proposition an  Riemann-Roch, note that for $p \in X$ we have that the sequence $\pbrace{l(kp)}_{k=0}^\infty$ goes 
+\begin{corollary}\label{cor: A^g is a local homeo}
+The Abel map $A^{(g)}$ is a local homeomorphism at a generic divisor	
+\end{corollary}
+\begin{proof}
+	By lemma \ref{lemma: rank of the Abel-Jacobi map} and Riemann-Roch the rank of the Abel map at $D$ is $g-i(D)$. By the previous prop \ref{prop: generic divisor deg>=g is nonspecial} a generic divisor has $i(D)=0$, and the $\dim J=g$.  
+\end{proof}
+
+
+Now using the above proposition \ref{prop: properties of l(D) and i(D)} and Riemann-Roch, note that for $p \in X$ we have that the sequence $\pbrace{l(kp)}_{k=0}^\infty$ goes 
 \eq{
 	1, \underbrace{?, \dots, ?}_{1\leq k \leq 2g-2} , g, g+1, \dots 
 }
 It is known that this sequence can increase by a maximum of 1 from term to term. This observation leads to the following result:
 \begin{theorem}[Weierstrass Gap Theorem]
-	Let $X$ be a compact genus-$g$ Riemanns surface, then $\forall p \in X$ $\exists!$ integers $\pbrace{n_i}_{i=1}^g$ s.t. 
+	Let $X$ be a compact genus-$g$ Riemans surface, then $\forall p \in X$ $\exists!$ integers $\pbrace{n_i}_{i=1}^g$ s.t. 
 	\eq{
 		1=n_1 < n_2 < \dots < n_g < 2g	
 	} 
@@ -3633,7 +3648,7 @@ The important theorem about theta functions is to follow. We will define a neces
 \end{prop}
 
 \begin{remark}
-	For more on the vector $\bm{K}$ and its calculation, see Deconick's \textit{Computing the Riemann Constant Vector}. 
+	For more on the vector $\bm{K}$ and its calculation, see Deconick's \textit{`Computing the Riemann Constant Vector'}. 
 \end{remark}
 
 \begin{theorem}
@@ -3648,22 +3663,32 @@ The important theorem about theta functions is to follow. We will define a neces
 	\]
 \end{theorem}
 
-\begin{corollary}[Riemann's Vanishing Theorem]
-	If, for $e \in \mathbb{C}^g$, the (multivalued) function $X \to \mathbb{C}$ given by $P \mapsto \theta(A(P)-e)$ is not identically $0$ it has $g$ zeros $\pbrace{P_i}$ and then, letting $D=\sum_i P_i$,
+\begin{corollary}[RVT \cite{Ercolani1989}]\label{cor: RVT from ES, A(D)+K=e}
+	If, for $e \in \mathbb{C}^g$, the (multivalued) function $\psi: X \to \mathbb{C}$ given by $P \mapsto \theta(A(P)-e)$ is not identically $0$ it has $g$ zeros $\pbrace{P_i}$ and then, letting $D=\sum_i P_i$,
 	\[
 	A(D)+\bm{K} = e \, .
 	\]
 \end{corollary}
 \begin{remark}
-	The name \textit{Riemann Vanishing Theorem} is not universally used, even if the result is classical. Here the name is referenced from \cite{Ercolani1989}. 
+	The name \textbf{Riemann Vanishing Theorem (RVT)} is used in \cite{Ercolani1989} to describe the above result. This is not universally used, even if the result is classical. We will continue to use the convention we have just started, of any time there is a result called the Riemann vanishing theorem, we will label it as such with a source. 
 \end{remark}
+
+To make the above corollary even more powerful, we now give a simple lemma.
+\begin{lemma}
+	The theta function on $X$ does not vanish identically on any open subset of $S^gX$.
+\end{lemma}
+\begin{proof}
+	This is a corollary of corollary \ref{cor: A^g is a local homeo}, and that $\theta$ is not identically zero as a function of $J(X)$ on any open subsets. 
+\end{proof}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Theta Divisor}
-
+We will now approach the topic of the theta divisor, defined later, from two directions. That of \cite{Hitchin2013}, and that of \cite{Farkas1992}. I find that of Hitchin more intuitive, so I will start there, and then we will see its connection to the theta function.  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Via Line Bundles}
 We start with an important prop about the direct image of sheaves on a Riemann surface.
 \begin{prop}
 	Take a map of Riemann surfaces $f:X \to X^\prime$ and a line bundle $L \to X$. We have
@@ -3709,18 +3734,52 @@ If $L \in \Pic(X)$ has a section $s$ with simple zeros at $p_1, \dots, p_{g-1}$ 
 \begin{definition}
 	We call the image of the map the \textbf{theta divisor} $\Theta$. 
 \end{definition}
-By the above, we know that a generic $L(-1)\in \Pic^{g-1}(X)$ will not lie in the theta divisor, so will not have a non-trivial section, hence $E$ will be trivial. In $\Theta$, the $a_i$ is the Birkhoff decomposition of $E$ will be non-zero, so they will have discontinuities on here. \\
+By the above, we know that a generic $L(-1)\in \Pic^{g-1}(X)$ will not lie in the theta divisor, so will not have a non-trivial section, hence $E$ will be trivial. In $\Theta$, the $a_i$ is the Birkhoff decomposition of $E$ will be non-zero, so they will have discontinuities on here. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Via the Theta Functions}
+
+We star this subsection with a theorem
+
+\begin{theorem}
+	For $e \in \mathbb{C}^g$, $\theta(e)=0 \Leftrightarrow e \in W_{g-1}+\bm{K}$. Moreover, if $e=A(D)+\bm{K}$ for $D\in S^{g-1}X$ and $i(D) = s \geq 1$ then $\theta(W_{s-1} - W_{s-1} -e) \equiv 0$. \\
+	Conversely, if $s$ is the least integer s.t. $\theta(W_{s-1} - W_{s-1} -e) \equiv 0$ and $\theta(W_{s} - W_{s} -e) \not\equiv 0$, then $e = A(D) + \bm{K}$ for some $D \in S^{g-1}X, \, i(D) = s$. 
+\end{theorem}
+\begin{proof}
+	See \cite{Farkas1992}, pp.291-293. In essence the idea of the first part is that using corollary \ref{cor: RVT from ES, A(D)+K=e} the zeros of $\theta$ should be at
+	\[
+	A(P_i) - \psquare{A\pround{\sum_j P_k} + \bm{K}}  = -A\pround{\sum_{j \neq i} P_j} - \bm{K} \, .
+	\] 
+	As the $\theta$ function is even, this gives a zero in $W_{g-1}+\bm{K}$. The latter part drops out of the proof. Note when we say $W_s - W_s$ we mean the space $\pbrace{f - h \, | \, f, h \in W_s}$. 
+\end{proof}
+
+It should be clear that the $g-1$ dimensional space $W_{g-1}+\bm{K}$ is going to correspond to the theta divisor, \hl{we will see exactly how later}. As a results of this proof, we get necessary and sufficient conditions on the vanishing of $\theta$. 
+
+\begin{theorem}
+	Recall the function $\psi(P) = \theta(A(P)-e)$ for fixed $e \in \mathbb{C}^g$. Then 
+	\begin{itemize}
+		\item if $e \in J(X)$ and $\psi \equiv 0$ then $e = A(D)+\bm{K}$ for some $D \in S^gX$ with $i(D)=s$ the least integer s.t. 
+		\[
+		\theta(W_{s+1} - W_s - e) \not \equiv 0 \, ,
+		\]
+		and 
+		\item if $e = A(D) +\bm{K}$ for $D\in S^gX$, then $\psi \not \equiv 0 \Leftrightarrow i(D)$, and $D$ is the divisor of $\psi$. 
+		
+	\end{itemize}
+\end{theorem}
+
+
+
+
+
 We might wonder why we have called this submanifold the theta divisor, and the reason will be made clear by the following result. 
-\begin{theorem}[Riemann (Theta) Singularity Theorem]
+\begin{theorem}[RVT \cite{Braden2006}]
 Given a degree $g-1$ line bundle $L \to X$ we have $m_L \theta = h^0(X,\mathcal{O}(L))$. 
 \end{theorem}
 \begin{proof}
-	See \cite{Griffiths1985} and Eynard's lectures on compact Riemann surfaces for discussions of this and different interpretations. 
+	See \cite{Griffiths1985} (under the name Riemann singulairty theorem) and Eynard's lectures on compact Riemann surfaces for discussions of this and different interpretations. 
 \end{proof}
 
-\begin{remark}
-	In \cite{Braden2006}, Braden calls this the Riemann vanishing theorem. \hl{Why?}
-\end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
