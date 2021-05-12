@@ -2892,6 +2892,9 @@ It can likewise be shown that a degree $5$ curve will have $101$ degrees of free
 	}
 	where $g$ is the genus of the underlying topological surface. 
 \end{theorem}
+\begin{proof}
+	\cite{Miranda1995} gives an `elementary' proof. The result can also be deduced from Riemann-Roch (see later). 
+\end{proof}
 
 \begin{example}
 	An example that will be important to example later is that of a projective plane curve $X$ given by 
@@ -3155,25 +3158,25 @@ Recall we discussed sheaf cohomology earlier in \S \ref{subsec: cohomology of sh
 	\eq{
 		(f) = \sum_{p \in X} \ord_p (f) \cdot p 
 	}
-	For $D \in \Div(C)$, if $\exists f$ s.t. $D=(f)$ we say $D$ is a \bam{principal divisor}. 
+	For $D \in \Div(C)$, if $\exists f$ s.t. $D=(f)$ we say $D$ is a \bam{principal divisor}. \\
+	Likewise given a meromorphic differential $\omega$ written locally as $\omega = f(z)dz$, we define $(\omega)=(f)$ (where we may need to cover $C$ with multiple patches, and so receives multiple contributions).  
 \end{definition}
 
 \begin{lemma}$(fg) = (f)+(g)$
 \end{lemma}
 \begin{corollary}
-	Principal divisors form a subgroup  $\Lin(C) \leq \Div(C)$. 
+	Principal divisors form a subgroup. 
 \end{corollary}
-
-\begin{lemma}
-	If $X$ is a compact Riemann surface and $f:X \to \mbb{C}$ meromorphic then $\deg(f) = 0$. 
-\end{lemma}
+\begin{definition}
+	We define the \bam{subgroup of principal divisors} to be $\operatorname{Lin}(C)$. 
+\end{definition}
 
 \begin{prop}
-	Let $C$ be compact. Then $\Lin(C) \subset \pbrace{D \in \Div(C) \, | \deg(D) = 0}$. 
+	If $C$ is a compact Riemann surface and $f:C \to \mbb{C}$ meromorphic then $\deg(f) = 0$. Hence $\Lin(C) \subset \pbrace{D \in \Div(C) \, | \deg(D) = 0}$. 
 \end{prop}
 
 \begin{definition}
-	The \bam{divisor class group} of $C$ is $\Cl(C) = \faktor{\Div(C)}{\Lin(C)}$. The equivalence class corresponding to $D$ is often denoted as $\abs{D}$ and is called the \bam{complete linear system} associated with $D$. 
+	The \bam{divisor class group} of $C$ is $\Cl(C) = \faktor{\Div(C)}{\Lin(C)}$. The equivalence class corresponding to $D$ is often denoted as $\abs{D}$ and is called the \bam{complete linear system} associated with $D$. We hence say two divisors $D,E$ are \bam{linearly equivalent} if $D-E$ is a principal.
 \end{definition}
 
 \begin{remark}
@@ -3183,27 +3186,40 @@ Recall we discussed sheaf cohomology earlier in \S \ref{subsec: cohomology of sh
 	$\Cl(\mbb{CP}^n) \cong \mbb{Z}$. 
 \end{corollary}
 
-\begin{definition}
-	Two divisors $D,E$ are \bam{linearly equivalent} if $D-E$ is a principal.
-\end{definition}
-
 \begin{lemma}
 	Linear equivalence of divisors is an equivalence relation. 
 \end{lemma}
 
+\begin{prop}
+	Given any two meromorphic functions $f,g$ or any two meromorphic differentials $\omega,\eta$, we have $(f) \sim (g)$ and $(\omega) \sim (\eta)$. 
+\end{prop}
+\begin{proof}
+	Given $f,g$, $f/g$ is meromorphic and so $(f)-(g) = (f/g) \Rightarrow (f) \sim (g)$. The proof for differentials is likewise taking a local representation. 
+\end{proof}
+
+This leads to an important definition. 
+
+\begin{definition}
+	We define the \bam{canonical divisor class} to be the element of the divisor class group corresponding to meromorphic differentials. We often denote a representative as $K$, the \textbf{canonical divisor}.
+\end{definition}
+
+\begin{prop}
+	A divisor corresponding to a meromorphic section of the canonical bundle is in the canonical divisor class. 
+\end{prop}
+
 \begin{lemma}
-	$f:X \to Y$ induces a group morphism $f:\Div(X) \to \Div(Y)$ by 
+	$F:X \to Y$ induces a group morphism $F:\Div(X) \to \Div(Y)$ by 
 	\eq{
-		f \pround{\sum_i n_i p_i} = \sum_i n_i f(p_i)
+		F \pround{\sum_i n_i p_i} = \sum_i n_i F(p_i)
 	}
 \end{lemma}
 
 \begin{prop}
-	If $f:X \to Y$ is a map of Riemann surfaces and $D \in \Div(X)$, then $\deg(f(D)) = \deg f \cdot \deg D$.
+	If $F:X \to Y$ is a map of Riemann surfaces and $D \in \Div(X)$, then $\deg(F(D)) = \deg F \cdot \deg D$.
 \end{prop}
 
 \begin{definition}
-	A divisor $D = \sum_i n_i p_i$ is \bam{effective} if each $n_i \geq0$.  
+	A divisor $D = \sum_i n_i p_i$ is \bam{effective} (also called \textbf{integral} in \cite{Farkas1992}) if each $n_i \geq0$.  
 \end{definition}
 
 \begin{prop}
@@ -3254,10 +3270,10 @@ Suppose $C$ has genus $g$, then we know that $H_1(C,\mbb{Z}) \cong \mbb{Z}^{2g}$
 \begin{remark}
 	We can extend $u$ to a map of divisors by 
 	\begin{align*}
-	A : S^k C &\to J(C) \, ,\\
-	(p_1, \dots, p_k) &\mapsto A(p_1) + \dots A(p_k) \, .
+	A : \operatorname{Div}(C) &\to J(C) \, ,\\
+	\sum_i n_i p_i  &\mapsto \sum_i n_i A(p_i) \, .
 	\end{align*}
-	We will on occasion denote this extended map as $A^{(k)}$. Moreover, we denote $\operatorname{Im}(A^{(k)}) = W_k$. 
+	We will on occasion denote the restriction of this extended map to degree-$k$ divisors as $A^{(k)}$. Moreover, we denote the image of effective degree-$k$ divisors with $W_k = A(S^kC)$ (identifying effective degree-$k$ divisors with elements of $S^k C$). 
 \end{remark}
 
 \begin{lemma}\label{lemma: rank of the Abel-Jacobi map}
@@ -3271,9 +3287,12 @@ Suppose $C$ has genus $g$, then we know that $H_1(C,\mbb{Z}) \cong \mbb{Z}^{2g}$
 	Let $A$ be the Abel-Jacobi map and $D,E$ effective divisors. Then $A(D) = A(E) \Leftrightarrow D \sim E$. 
 \end{theorem}
 
-\begin{theorem}[Jacobi's Theorem]
+\begin{theorem}[Jacobi's (Inversion) Theorem]
 	The map Abel-Jacobi map is surjective. 
 \end{theorem}
+\begin{proof}
+	See for example \cite{Farkas1992} \S III.6.6 pp.91-92 and \S VI.3.4, p.294.
+\end{proof}
 
 \begin{corollary}
 	There is an isomorphism from the space of degree-0 divisors to the Jacobian. 
@@ -3316,7 +3335,7 @@ to the long exact sequence on a compact Riemann surface
 \]
 This reduces to (see \cite{Hitchin2013})
 \[
-0 \to \faktor{H^1(X,O_X)}{H^1(X,\mathbb{Z})} \to H^1(X,O_X^\times) \overset{\delta}{\to} H^2(X,\mathbb{Z}) \to 0
+0 \to \faktor{H^1(X,O_X)}{H^1(X,\mathbb{Z})} \to H^1(X,O_X^\times) \overset{\delta}{\to} H^2(X,\mathbb{Z}) \to 0 \, .
 \]
 We identify $\delta$ with $c_1$. If we further make the identification $H^2(X,\mathbb{Z}) \cong \mathbb{Z}$ we get a group homomorphism $\deg:\Pic(X) \to \mathbb{Z}$. 
 \begin{lemma}
@@ -3370,7 +3389,7 @@ One should note that this looks like it is telling us Abel-Jaocbi, and that is t
 	$\Cl(C) \cong \Pic(C)$ naturally (when $C$ is smooth over its field as a variety). 
 \end{theorem}
 \begin{proof}
-	See \href{https://math.stanford.edu/~vakil/725/class23.pdf}{Vakil's notes}. Alternatively this is covered in more generality in ``The Rising Sea" \cite{Vakil2010} (\S 14.2).
+	See \href{https://math.stanford.edu/~vakil/725/class23.pdf}{Vakil's notes}. Alternatively this is covered in more generality in ``The Rising Sea" \cite{Vakil2010} (\S 14.2). The map $\operatorname{Pic}(C) \to \operatorname{Cl}(C)$ is $L\mapsto (s)$, where $s$ is a non-zero section of $L$, and the map $\operatorname{Cl}(C) \to \operatorname{Pic}(C)$ is $D \mapsto O_X(D)$. The content of the proof is checking that the sheaf $O_X(D)$ is invertible, so a line bundle, and that the two maps commute.  
 \end{proof}
 
 \begin{corollary}
@@ -3431,7 +3450,7 @@ H^0(X,O_X^\times) \to H^1(X,\pbrace{\pm 1}) \to \Pic(X) \overset{\otimes 2}{\to}
 \end{proof}
 
 \begin{example}
-	A square root of the canonical bundle $K=\mc{O}(-2)$ on $\mbb{CP}^1$ is $\mc{O}(-1)$. This example can be understood well in terms of the corresponding divisors. The canonical divisor comes from $dz$, which has a double pole, do $K=-2P$ (where $P$ is a point in $\mbb{P}^1$). The square root then corresponds to the divisor $-P$. These solutions are visually unique, and we know that to be so from the previous prop.  
+	A square root of the canonical bundle $K=\mc{O}(-2)$ on $\mbb{CP}^1$ is $\mc{O}(-1)$. This example can be understood well in terms of the corresponding divisors. The canonical divisor comes from $dz$, which has a double pole, so $K=-2P$ (where $P$ is a point in $\mbb{P}^1$). The square root then corresponds to the divisor $-P$. These solutions are visually unique, and we know that to be so from the previous prop.  
 \end{example}
 
 \begin{remark}
@@ -3505,13 +3524,13 @@ We now state some simple-to-prove results.
 \end{proof}
 
 \begin{theorem}[Riemann-Roch] \label{Thm: Riemann-Roch}
-	$l(D) = \deg(D) -g+1 + i(D)$
+	$l(D) = \deg(D) -g+1 + i(D)$.
 \end{theorem}
 This theorem can be generalised in the following way
 \begin{theorem}
 	If $E\to X$ is a rank-$r$ vector bundle over a compact Riemann surface, then 
 	\[
-	\dim H^0(X,E) - \dim H^1(X,E) = \deg E + r(1-g)
+	\dim H^0(X,E) - \dim H^1(X,E) = \deg E + r(1-g) \, .
 	\]
 \end{theorem}
 \begin{proof}
@@ -3522,11 +3541,17 @@ One should be able to see that the first version is just when taking $E=L$ a lin
 \end{remark}
 \begin{corollary}
 	$\deg K = 2g-2$. 
-\end{corollary} 
+\end{corollary}
+\begin{proof}
+	$\deg K = l(K) +g-1-i(K) = i(0)+g-1-l(0)=2g-2$. 
+\end{proof}
 
 \begin{corollary}
 	If $\deg D > 2g-2$, $D$ is nonspecial. 
 \end{corollary}
+\begin{proof}
+	$\deg D >2g-2 \Rightarrow \deg(K-D)<0 \Rightarrow i(D) = l(K-D) = 0$. 
+\end{proof}
 
 \begin{prop}\label{prop: generic divisor deg>=g is nonspecial}
 	A generic divisor $D$ with $\deg D \geq g$ is nonspecial. 
@@ -3559,7 +3584,7 @@ It is known that this sequence can increase by a maximum of 1 from term to term.
 \begin{definition}
 	The \bam{weight} of $p \in X$ is 
 	\eq{
-		w_p = \sum_{i=1}^g (n_i - i)	
+		w_p = \sum_{i=1}^g (n_i - i) \, .	
 	}
 	$p \in X$ is a \bam{Weierstrass point} if $w_p \neq 0$ (note that $w_p \geq 0$, so at a Weierstrass point it is positive). We will sometimes denote the set of Weierstrass points as $W=W(X)$. 
 \end{definition}
@@ -3571,7 +3596,7 @@ We have results about the abundancy of Weierstrass points:
 		\item $\sum_{p \in X} w_p = g^3-g$
 		\item If $g\geq 2$ the number of Weierstrass points $\abs{W}$ satisfies 
 		\eq{
-			2g+2 \leq \abs{W} \leq g^3-g	
+			2g+2 \leq \abs{W} \leq g^3-g \, ,
 		}
 		attaining the lower bound iff $X$ is hyperelliptic, where the Weierstrass points are the branch points. Generically a Riemann surface will have $\abs{W}=g^3-g$. 
 	\end{itemize}
@@ -3644,7 +3669,7 @@ The important theorem about theta functions is to follow. We will define a neces
 \end{definition}
 
 \begin{prop}
-	$\bm{K}(P) = \bm{K}(P_0) + A(P)$, where $A$ has basepoint $P_0$. 
+	$\bm{K}(P) = \bm{K}(P_0) + (g-1) A(P)$, where $A$ has basepoint $P_0$. 
 \end{prop}
 
 \begin{remark}
@@ -3662,6 +3687,9 @@ The important theorem about theta functions is to follow. We will define a neces
 	A(D)+\bm{K} = -\frac{1}{2}\psquare{\tau \epsilon + \epsilon^\prime} \, .
 	\]
 \end{theorem}
+\begin{proof}
+	See \cite{Farkas1992}, \S VI.2.4, pp.288-290. 
+\end{proof}
 
 \begin{corollary}[RVT \cite{Ercolani1989}]\label{cor: RVT from ES, A(D)+K=e}
 	If, for $e \in \mathbb{C}^g$, the (multivalued) function $\psi: X \to \mathbb{C}$ given by $P \mapsto \theta(A(P)-e)$ is not identically $0$ it has $g$ zeros $\pbrace{P_i}$ and then, letting $D=\sum_i P_i$,
@@ -3704,13 +3732,21 @@ We start with an important prop about the direct image of sheaves on a Riemann s
 Note in the above, we take $\deg f = \deg (f^\ast L_p)$ for any $p \in X^\prime$. \\
 About such an $E$, we can say the following things.
 \begin{prop}
-	$\deg E = \deg L + (1-g^\prime) - \deg f (1-g)$.
+	$\deg E = \deg L + (1-g) - \deg f (1-g^\prime)$.
 \end{prop}
+\begin{proof}
+	This comes from Riemann-Roch. We have 
+	\begin{align*}
+	h^0(X^\prime,E) - h^1(X^\prime,E) &= \deg E + r(1-g^\prime) \, ,
+	h^0(X,L) - h^1(X,L) &= \deg L + (1-g) \, .
+\end{align*}
+From the previous prop we know $r=\deg f, \, h^0(X^\prime,E) = h^0(X,L), h^1(X^\prime,E) = h^1(X,L)$ (the last of these requiring Serre duality). The result then follows. 
+\end{proof}
 Moreover we can specify further if $X^\prime= \mathbb{P}^1$. 
 \begin{prop}
 	Suppose $\deg E=0$. Then $E$ is trivial iff $L(-1) := L \otimes f^\ast \mathcal{O}(-1)$ has no non-trivial holomorphic sections. 
 \end{prop}
-In the situation above, we know $\deg L = r+g-1 \Rightarrow \deg L(-1) = g-1$. We can define a map into the space of degree-$(g-1)$ line bundles as 
+In the situation above, we know $\deg L = r+g-1 \Rightarrow \deg L(-1) = g-1$ (as $\deg f^\ast \mathcal{O}(-1) = -\deg f$). We can define a map into the space of degree-$(g-1)$ line bundles as 
 \begin{align*}
 	S^{g-1}X &\to \Pic^{g-1}(X) \, , \\
 	(p_1, \dots, p_{g-1}) &\mapsto L_{p_1} \otimes \dots \otimes L_{p_{g-1}} \, ,
@@ -3726,13 +3762,13 @@ If $L \in \Pic(X)$ has a section $s$ with simple zeros at $p_1, \dots, p_{g-1}$ 
 	This map has codimension-1 image
 \end{prop}
 \begin{proof}
-	$\dim (S^{g-1}X)=g-1$, and as $\Pic^{g-1}(X) \cong J(X)$, it has dimension $g$.We also know the map is injective. 
+	$\dim (S^{g-1}X)=g-1$, and as $\Pic^{g-1}(X) \cong J(X)$, it has dimension $g$. We also know the map is injective. 
 \end{proof}
 \begin{remark}
 	$\Pic^{g-1}(X)$ does not naturally have a group law, unlike $J(X)$. In fact, $\Pic^{g-1}$ is a $\Pic^0$-torsor. 
 \end{remark}
-\begin{definition}
-	We call the image of the map the \textbf{theta divisor} $\Theta$. 
+\begin{definition}\label{def: theta divisor (from line bundles)}
+	We call the image of the map $S^{g-1}X \to \operatorname{Pic}(X)$ the \textbf{theta divisor} $\Theta$. 
 \end{definition}
 By the above, we know that a generic $L(-1)\in \Pic^{g-1}(X)$ will not lie in the theta divisor, so will not have a non-trivial section, hence $E$ will be trivial. In $\Theta$, the $a_i$ is the Birkhoff decomposition of $E$ will be non-zero, so they will have discontinuities on here. 
 
@@ -3753,7 +3789,7 @@ We star this subsection with a theorem
 	As the $\theta$ function is even, this gives a zero in $W_{g-1}+\bm{K}$. The latter part drops out of the proof. Note when we say $W_s - W_s$ we mean the space $\pbrace{f - h \, | \, f, h \in W_s}$. 
 \end{proof}
 
-It should be clear that the $g-1$ dimensional space $W_{g-1}+\bm{K}$ is going to correspond to the theta divisor, \hl{we will see exactly how later}. As a results of this proof, we get necessary and sufficient conditions on the vanishing of $\theta$. 
+It should be clear that the $g-1$ dimensional space $W_{g-1}+\bm{K}$ is going to correspond to the theta divisor, we will see exactly how later. As a result of this proof, we get necessary and sufficient conditions on the vanishing of $\theta$. 
 
 \begin{theorem}
 	Recall the function $\psi(P) = \theta(A(P)-e)$ for fixed $e \in \mathbb{C}^g$. Then 
@@ -3763,22 +3799,59 @@ It should be clear that the $g-1$ dimensional space $W_{g-1}+\bm{K}$ is going to
 		\theta(W_{s+1} - W_s - e) \not \equiv 0 \, ,
 		\]
 		and 
-		\item if $e = A(D) +\bm{K}$ for $D\in S^gX$, then $\psi \not \equiv 0 \Leftrightarrow i(D)$, and $D$ is the divisor of $\psi$. 
-		
+		\item if $e = A(D) +\bm{K}$ for $D\in S^gX$, then $\psi \not \equiv 0 \Leftrightarrow i(D)>0$, and $D$ is the divisor of $\psi$. 
 	\end{itemize}
 \end{theorem}
 
+We have seen that given a zero of $\theta$, $e=A(D)+\bm{K}$, we must have $\theta(W_{s-1}-W_{s-1}-e)\equiv 0$ when $s=i(D)\geq 1$. We now want this condition to provide us even more information about $\theta$. 
 
-
-
-
-We might wonder why we have called this submanifold the theta divisor, and the reason will be made clear by the following result. 
-\begin{theorem}[RVT \cite{Braden2006}]
-Given a degree $g-1$ line bundle $L \to X$ we have $m_L \theta = h^0(X,\mathcal{O}(L))$. 
+\begin{theorem}[RVT \cite{Farkas1992}]
+	Let $s$ be the least integer s.t $\theta(W_{s-1} - W_{s-1} - e) \equiv 0$ but $\theta(W_s - W_s-e) \not\equiv 0$, then all partial derivatives of order $< s$ of $\theta$ vanish at $e$, and at least one partial derivative of order $s$ doesn't vanish at $e$. \\
+	Conversely, if all partials of order $<s$, but not all of order $s$, vanish at $e$, then $s$ is the least integer s.t. $\theta(W_{s-1} - W_{s-1} - e) \equiv 0$ and $\theta(W_s - W_s-e) \not\equiv 0$
 \end{theorem}
 \begin{proof}
-	See \cite{Griffiths1985} (under the name Riemann singulairty theorem) and Eynard's lectures on compact Riemann surfaces for discussions of this and different interpretations. 
+	See \cite{Farkas1992}, \S VI.3.5, pp.294-298. For the first part in essence we induct after showing $(\partial \theta/\partial z_j)(W_{s-2}-W_{s-2}-e) \equiv 0$ ($z_j$ a coordinate about $-e$) and then use even-ness. 
 \end{proof}
+
+We can give another rephrasing of this, using the isomorphism $\operatorname{Cl}(X) \cong \operatorname{Pic}(X)$. 
+\begin{theorem}[RVT \cite{Braden2006}]
+	Given a degree $g-1$ line bundle $L \to X$, let $D$ be a divisor associated to $L$ and $e = A(D) + \bm{K}$. The multiplicity of $e$ as a zero of $\theta$ is $\operatorname{mult}_e \theta = h^0(X,\mathcal{O}(L))$.
+\end{theorem}
+\begin{proof}
+	From the statement $\deg(D)=g-1$, and so from Riemann-Roch 
+	\[
+	i(D) = l(D) = h^0(X,O_X(D)) = h^0(X,\mathcal{O}(L)) \, .
+	\] 
+	Alternatively, see \cite{Griffiths1985} (under the name Riemann singularity theorem) and Eynard's lectures on compact Riemann surfaces for discussions of this and different interpretations.
+\end{proof}
+\begin{remark}
+	The above theorem complete the relation between definition \ref{def: theta divisor (from line bundles)} and the $\theta$ function, namely that if $L \in \Theta$, then $L$ has a section $s$ with zeros $p_i, \, 1 \leq i \leq g-1$, and and then the divisor of this section $D = (s) = \sum_i p_i$ satisfies $\theta(A(D)+\bm{K})=0$. 
+\end{remark}
+
+
+We have thus related the zeros of the $\theta$ .This is done through the following theorem.
+\begin{theorem}
+	Let $D$ be a divisor with $\deg D = 2g-2$ on a Riemann surface with genus $g \geq 1$. Then $D = (\omega)$ for $\omega$ a meromorphic differential iff $A(D) = -2\bm{K}$. 
+\end{theorem}
+\begin{proof}
+	We first want to show that $-2\bm{K}$ is in the image of the canonical divisor class (motivating the notation). Take a generic divisor $E$ with $\deg E = g-1$. Then $e = A(E) + \bm{K}$ is a zero of $\theta$, so $-e$ is also a zero, and hence $-e = A(E^\prime) + \bm{K}$ for some other divisor $E^\prime$ with $\deg E^\prime = g-1$. Hence 
+	\[
+	0 = e-e = A(E)+A(E^\prime)+2\bm{K} \Rightarrow -2\bm{K} = A(E+E^\prime) \, .
+	\]
+	It remains to show $E+E^\prime$ is a divisor corresponding to a differential. By lemma III.8.15, p.119 of \cite{Farkas1992}, we have $l(E+E^\prime) \geq g$, and so by Riemann-Roch
+	\[
+	i(E+E^\prime) = l(E+E^\prime) - \deg(E+E^\prime) +g-1 \geq 1 \, .
+	\]
+	Hence $E+E^\prime = (\omega)$. \hl{Why does this mean there is a meromorphic differential?} \\
+	Conversely, if $D$ is a divisor s.t. $A(D) = -2\bm{K}$, then by Abel's theorem $A(D) = A((\omega)) \Rightarrow D \sim (\omega) \Rightarrow D-(\omega) = (f)$ for some meromorphic function $f$ on $X$. Hence $D = (f\omega)$. 
+\end{proof}
+\begin{remark}
+	The above result explains the naming behind the term theta characteristic. If $D$ is a divisor s.t $2D = K$, then $A(D) = \frac{1}{2}A(K) = -\bm{K} \Rightarrow A(D)+ \bm{K}=0$, \hl{and...}
+\end{remark}
+\begin{remark}
+	Chris Swierczewski, of abelfunctions fame, asked a question on mathoverflow (see \href{https://mathoverflow.net/questions/212505/uniqueness-of-riemann-constant-vector-solution}{here}) about finding solutions to $-2\bm{K} = A(D)$ given $\bm{K}$. It is perhaps interesting to look at?   
+\end{remark}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
