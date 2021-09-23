@@ -40,12 +40,17 @@ and are available in a rearranged form in my \textit{Elliptic.pdf} notes.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \part{The Introductory Material}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Groups, Rings, and Modules}
 
 This section will be largely stating definitions and results for concreteness. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Groups}
 
@@ -74,6 +79,7 @@ s.t. $a,b,c,d \in \mbb{Z}, \, ad-bc=1$.
 		\Gamma(N) = \pbrace{M \in \Gamma \, | \, M \equiv I \, (mod\,  N)}
 	}
 \end{definition} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Rings}
 
@@ -121,7 +127,7 @@ s.t. $a,b,c,d \in \mbb{Z}, \, ad-bc=1$.
 \begin{notation}
 	We denote the ring of holomorphic functions on a neighbourhood of $z \in \mbb{C}^n$ as $\mc{O}_{n,z}$. We let $\mc{O}_n = \mc{O}_{n,0}$.
 \end{notation}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Modules}
 \begin{definition}
@@ -131,6 +137,7 @@ s.t. $a,b,c,d \in \mbb{Z}, \, ad-bc=1$.
 	\end{tkz}
 \end{definition}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Field Extensions}
 \begin{definition}
@@ -168,6 +175,20 @@ s.t. $a,b,c,d \in \mbb{Z}, \, ad-bc=1$.
 \hl{replace these examples with more C oriented ones. }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Galois Theory}
+This section will be predominantly based off of \cite{Stewart2003}. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Solvability by Radicals}
+For algorithms see \cite{Landau1985, Distler2005}. Note the paper by Distler is the algorithm used by the GAP package Radiroot. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Complex Analysis}
 This section should roughly contain the results you would prove in an undergraduate course in complex methods or complex analysis. For the most part these will be presented without proof, unless I believe that the proof adds to the knowledge somehow. 
 
@@ -181,7 +202,8 @@ The corresponding derivatives are related by
 \eq{
 \pd{z} = \frac{1}{2} \pround{\pd{x} -i \pd{y}}, \;  \pd{\bar{z}} = \frac{1}{2} \pround{\pd{x} + i \pd{y}}
 }
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Fixing Definitions}
 I will fix some notation with a definition:
 \begin{definition}
@@ -192,7 +214,8 @@ I will fix some notation with a definition:
 \end{definition}
 
 The UHP will end up being a special case of the more general \bam{Siegel upper half space} later (\hl{ref this}). It will serve as a classifying space later in conjunction with the modular group. 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Mobius Transformations}
 Recall that for any distinct $z_1, z_2, z_3 \in \mbb{C}$ we have a Mobius transform that sends them to $0,1,\infty$ given by 
 \eq{
@@ -210,6 +233,7 @@ Recall that for any distinct $z_1, z_2, z_3 \in \mbb{C}$ we have a Mobius transf
 \end{prop}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Integral Theorems}
 
 A corollary to Cauchy's integral formula is the following:
@@ -217,6 +241,7 @@ A corollary to Cauchy's integral formula is the following:
 \begin{theorem}[Liouville]
 	A bounded entire function $f:\mbb{C} \to \mbb{C}$ is constant. 
 \end{theorem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Analytic Varieties}
 
@@ -520,7 +545,7 @@ The canonical bundle on the projective space is $K = \mc{O}(-n-1)$.
 \begin{corollary}
 	$E$ is trivial iff $\deg E=0$ and $H^0(\mathbb{P}^1,E(-1))=0$. 
 \end{corollary}
-For proof and discussion of both of these results, see \cite{Hitchin2013}. \\
+For proof and discussion of both of these results, see \cite{Hitchin1999}. \\
 We might want to understand the sections of $\mc{O}(k)$. Note given a linear map $\alpha :\mbb{C}^{n+1} \to \mbb{C}$ we can consider it's restriction to a fibre over $x \in \mbb{CP}^n$, which is a linear map of 1d complex vector spaces, hence corresponds to an element in $\mbb{C}$. This gives a section $s_\alpha$. $s_\alpha$ is holomorphic, and moreover we have the following result:
 \begin{prop}
 	Every holomorphic section of $\mc{O}(1)$ is of the form $s_\alpha$ for $\alpha \in (\mbb{C}^{n+1})^\ast$. 
@@ -540,26 +565,35 @@ These results have an alternative understanding:
 	The space of global sections of $\mathcal{O}_{\mathbb{P}^1}(n)$ has dimension $n+1$ (later we will write this as $h^0(\mathbb{P}^1,\mathcal{O}(n))=n+1$.
 \end{corollary}
 
-\begin{example}
-	Consider the hyperplane bundle $\mc{O}(1)$, we want to work out its transition functions. On $U_0 = \pbrace{z_0 \neq 0}$ we take coordinate $\zeta = z_1/z_0$ and likewise on $U_1$. On $U_0 \cap U_1$ a point is represented as $[1:\zeta]=[\zeta^{-1}:1]$, and we can take $z_0$ as the coordinate on the fibre, so we have trivialisations
+\begin{example}[\cite{Hitchin1999}, p.13, example 3]
+	Consider the hyperplane bundle $\mc{O}(1)$, we want to work out its transition functions. On $U_0 = \pbrace{z_0 \neq 0}$ we take coordinate $\zeta = z_1/z_0$ and likewise on $U_1$. On $U_0 \cap U_1$ a point is represented as $[1:\zeta]=[\zeta^{-1}:1]$, and we can take $z_1$ as the coordinate on the fibre, so we have trivialisations
 	\eq{
-\rho_0 = (\pi,\psi_0) : \pi^{-1}(U_0) &\to U_0 \times \mbb{C} \\
- (z_0, z_1) &\to ([1:\zeta],z_0) \\
-\rho_1 = (\pi,\psi_1) : \pi^{-1}(U_1) &\to U_1 \times \mbb{C} \\
-(z_0,z_1) &\to ([\zeta^{-1}:1],z_1) 	
+\rho_0 = (\pi,\psi_0) : \pi^{-1}(U_0) &\to U_0 \times \mbb{C} \, , \\
+ (z_0, z_1) &\to ([1:\zeta],z_1) \, ,\\
+\rho_1 = (\pi,\psi_1) : \pi^{-1}(U_1) &\to U_1 \times \mbb{C} \, , \\
+(z_0,z_1) &\to ([\zeta^{-1}:1],z_0) \, . 	
 }
 Hence the transition function $g_{01}=\psi_0 \circ \psi_1^{-1}$ is given by 
 \eq{
-z_0 = g_{01}(z_0,z_1) z_1 \Rightarrow g_{01} = \zeta^{-1}
+z_1 = g_{01}(z_0,z_1) z_0 \Rightarrow g_{01} = \zeta \, .
 }
-In general we then see $\mc{O}(n)$ has transition function $g_{01}=\zeta^{-n}$. 
+In general we then see $\mc{O}(n)$ has transition function $g_{01}=\zeta^{n}$. 
 \end{example}
 
 \begin{prop}
 	$T\mbb{P}^1 \cong \mc{O}(2)$ and $T^\ast \mathbb{P}^1 \cong \mathcal{O}(-2)$. 
 \end{prop}
 \begin{proof}
-	This proof is from \cite{Hitchin2013}. We only need to show one, as they are equivalent. We will show $T^\ast \mathbb{P}^1 \cong \mathcal{O}(-2)$. We know we have coordinate $\zeta$ on $U_0$, $\tilde{\zeta} = \zeta^{-1}$ on $U_1$, and that the bundle directions are generated by $d\zeta, d\tilde{\zeta}$ respectively. We have $-d\zeta = \zeta^{2}d\tilde{\zeta} \Rightarrow g_{01} = z^2$. Hence $T^\ast \mathbb{P}^1 \cong \mathcal{O}(-2)$. 
+	This proof is from \cite{Hitchin1999}. We only need to show one, as they are equivalent. We will show $T^\ast \mathbb{P}^1 \cong \mathcal{O}(-2)$. We know we have coordinate $\zeta$ on $U_0$, $\tilde{\zeta} = \zeta^{-1}$ on $U_1$, and that the bundle directions are generated by $d\zeta, -d\tilde{\zeta}$ respectively. The maps giving the trivialisations are 
+	\begin{align*}
+	(\zeta, f_0(\zeta)d\zeta) &\mapsto (\zeta, f_0(\zeta)) \, , \\
+	(\tilde{\zeta}, f_1(\tilde{\zeta})d\tilde{\zeta}) &\mapsto (\tilde{\zeta}, f_1(\tilde{\zeta})) \, . 	
+	\end{align*}
+    We have 
+    \[
+    -d\zeta = \zeta^{2}d\tilde{\zeta} \Rightarrow f_0(\zeta)d\zeta = -\zeta^{-2}f_1(\zeta^{-1}) d\zeta 
+    \]
+    and $f_0 = g_{01}f_1 \Rightarrow g_{01} = \zeta^{-2}$. Hence $T^\ast \mathbb{P}^1 \cong \mathcal{O}(-2)$. Note we chose the sign s.t. we preserved orientation. 
 \end{proof}
 
 
@@ -592,7 +626,7 @@ J(X+iY) &= J(X) + iJ(Y)
 	$T^{0,1}_p(M) = \overline{T^{1,0}_p(M)}$
 \end{lemma}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Cohomology}
+\subsection{Dolbeault Cohomology}
 
 \begin{notation}
 	We denote the vector space of $k$-forms on $M$ as $\Omega^k(M)$. 
@@ -1908,7 +1942,12 @@ If $E$ is a complex vector bundle, we have an additional construction.
 \end{example}
 
 \begin{prop}
-	If $\pbrace{g_{\alpha\beta}}$ are the transition functions for $E\to M$ wrt to the cover $\pbrace{U_\alpha}$ of $M$, then $\pbrace{f^\ast g_{\alpha\beta} = g_{\alpha\beta}\circ f}$ are the transition functions for $f^\ast E \to N$ wrt to the cover $\pbrace{f^{-1}U_\alpha}$
+	If $\pbrace{g_{\alpha\beta}}$ are the transition functions for $E\to M$ wrt to the cover $\pbrace{U_\alpha}$ of $M$, then $\pbrace{f^\ast g_{\alpha\beta} = g_{\alpha\beta}\circ f}$ are the transition functions for $f^\ast E \to N$ wrt to the cover $\pbrace{f^{-1}U_\alpha}$. 
+	Moreover, given a local section of $E$, $s:U \to E$, we get a section of $f^\ast E$ given by 
+	\begin{align*}
+		\tilde{s}: f^{-1}(U) &\to f^\ast E \\ 
+		n &\mapsto (n, s(f(n))) 
+	\end{align*}
 \end{prop}
 \begin{corollary}
 	The pullback of an oriented vector bundle is oriented. 	
@@ -1969,7 +2008,7 @@ If $E$ is a complex vector bundle, we have an additional construction.
 \subsubsection{Tubular Neighbourhoods}
 
 \begin{definition}
-	Given $S \subset M$ a $k$-dimsneionsal submanifold of an oriented $n$-dimensional manifold $M$, a \bam{tubular neighbourhood} of $S$ in $M$ is $U$ an open neighbourhood of $S$ in $M$ diffeomorphic to a rank-$(n-k)$ vector bundle over $S$. 
+	Given $S \subset M$ a $k$-dimensional submanifold of an oriented $n$-dimensional manifold $M$, a \bam{tubular neighbourhood} of $S$ in $M$ is $U$ an open neighbourhood of $S$ in $M$ diffeomorphic to a rank-$(n-k)$ vector bundle over $S$. 
 \end{definition}
 
 \begin{example}
@@ -2706,7 +2745,7 @@ Riemann surfaces are 1-dimensional complex manifolds (don't worry \hl{we'll get 
 	Every compact Riemann surface is an algebraic curve.
 \end{theorem}
 \begin{proof}
-	See Griffiths \& Harris 
+	See Griffiths \& Harris \cite{Griffiths2014}.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3147,7 +3186,7 @@ Recall we discussed sheaf cohomology earlier in \S \ref{subsec: cohomology of sh
 	\end{itemize} 
 \end{theorem}
 \begin{proof}
-	See \cite{Hitchin2013,Gunning1966}.
+	See \cite{Hitchin1999,Gunning1966}.
 \end{proof}
 
 
@@ -3348,7 +3387,7 @@ to the long exact sequence on a compact Riemann surface
 \[
 0 \to \mathbb{Z} \to \mathbb{C} \to \mathbb{C}^\times \to H^1(X,\mathbb{Z}) \to H^1(X,O_X) \to H^1(X,O_X^\times) \overset{\delta}{\to} H^2(X,\mathbb{Z}) \to H^2(X,O_X) \to \dots 
 \]
-This reduces to (see \cite{Hitchin2013})
+This reduces to (see \cite{Hitchin1999})
 \[
 0 \to \faktor{H^1(X,O_X)}{H^1(X,\mathbb{Z})} \to H^1(X,O_X^\times) \overset{\delta}{\to} H^2(X,\mathbb{Z}) \to 0 \, .
 \]
@@ -3385,7 +3424,7 @@ To illustrate these properties best, we define a particular line bundle on any R
 \begin{remark}
 	One can think of this as choosing a normalisation for the generator of $\mathbb{Z}$. 
 \end{remark}
-$L_p$ is a useful line bundle for proving multiple results. To see all these look at \cite{Hitchin2013}. \\
+$L_p$ is a useful line bundle for proving multiple results. To see all these look at \cite{Hitchin1999}. \\
 We may further use Serre and Poicar\'e duality to identify 
 \[
 \faktor{H^1(X,O_X)}{H^1(X,\mathbb{Z})} \cong J(X) \, .
@@ -3545,7 +3584,7 @@ This theorem can be generalised in the following way
 	\]
 \end{theorem}
 \begin{proof}
-See \cite{Hitchin2013} for a nice proof by induction. 
+See \cite{Hitchin1999} for a nice proof by induction. 
 \end{proof}
 \begin{remark}
 One should be able to see that the first version is just when taking $E=L$ a line bundle with associated divisor $D$. 
@@ -3584,13 +3623,16 @@ Now using the above proposition \ref{prop: properties of l(D) and i(D)} and Riem
 	1, \underbrace{?, \dots, ?}_{1\leq k \leq 2g-2} , g, g+1, \dots 
 }
 It is known that this sequence can increase by a maximum of 1 from term to term. This observation leads to the following result:
-\begin{theorem}[Weierstrass Gap Theorem]
+\begin{theorem}[Weierstrass Gap Theorem, Mondal's thesis]
 	Let $X$ be a compact genus-$g$ Riemans surface, then $\forall p \in X$ $\exists!$ integers $\pbrace{n_i}_{i=1}^g$ s.t. 
 	\eq{
 		1=n_1 < n_2 < \dots < n_g < 2g	
 	} 
 	and that $\nexists f$ s.t. $(f)=-n_ip$
 \end{theorem}
+\begin{proof}
+	As there are $2g-1$ step for $l(kp)$ to increase from $1$ to $g$, and it can only increase in step of $1$, there must be $g$ steps where $l(kp)$ remains constant. The $n_i$ are the locations of the \bam{gaps} where $L((n_i-1)p) = L(n_ip)$. If there existed $f$ s.t. $(f) = -n_i p$, then $f \in L(n_i p)$ but $f \not \in L((n_i -1)p)$ so we get the later condition. It is a result that if $\exists f$ s.t. $(f)=-p$, then $X \cong \mathbb{P}^1$, in which case $g=0$ and the result is vacous, so we automatically know $n_1=1$. 
+\end{proof}
 
 \begin{definition}
 	The \bam{weight} of $p \in X$ is 
@@ -3741,7 +3783,7 @@ To make the above corollary even more powerful, we now give a simple lemma.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Theta Divisor}
-We will now approach the topic of the theta divisor, defined later, from two directions. That of \cite{Hitchin2013}, and that of \cite{Farkas1992}. I find that of Hitchin more intuitive, so I will start there, and then we will see its connection to the theta function.  
+We will now approach the topic of the theta divisor, defined later, from two directions. That of \cite{Hitchin1999}, and that of \cite{Farkas1992}. I find that of Hitchin more intuitive, so I will start there, and then we will see its connection to the theta function.  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Via Line Bundles}
 We start with an important prop about the direct image of sheaves on a Riemann surface.
@@ -3754,7 +3796,7 @@ We start with an important prop about the direct image of sheaves on a Riemann s
 	\end{itemize}
 \end{prop}
 \begin{proof}
-	See \cite{Hitchin2013,Gunning1967}. 
+	See \cite{Hitchin1999,Gunning1967}. 
 \end{proof}
 Note in the above, we take $\deg f = \deg (f^\ast L_p)$ for any $p \in X^\prime$. \\
 About such an $E$, we can say the following things.
@@ -4026,9 +4068,7 @@ This means that the previous result does not depend on the complex structure on 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Spin Structures on Riemann Surfaces}
-We have been introducing square-roots of the canonical bundle, and the next prop is the reason why.
-
-We need a brief lemma:
+We have been introducing square-roots of the canonical bundle, and the next prop is the reason why. We need a brief lemma:
 
 \begin{lemma}
 	Line bundles correspond bijectively to circle bundles.
