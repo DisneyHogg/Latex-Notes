@@ -3042,6 +3042,21 @@ We have the following corollary of Riemann-Hurwitz:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Differentials}
 
+\begin{definition}
+	Given a basis of holomorphic differentials $\pbrace{\omega_i}$ on a Riemann surface $X$, we define the \bam{canonical embedding} to be the map $\Phi:X \to \mathbb{P}^{g-1}$ given by 
+	\[
+	p \mapsto [\omega_1(p): \dots :\omega_g(p)] \, .
+	\]
+\end{definition}
+The following result explains where the map gets its name. 
+\begin{theorem}
+	For $g>2$ the canonical embedding is either an embedding of $X$ into $\mathbb{P}^{g-1}$ or a $2:1$ map onto $\mathbb{P}^1$ embedded in $\mathbb{P}^{g-1}$, the latter of which are the hyperelliptic curves $y^2=p(x)$. 
+\end{theorem}
+\begin{proof}
+	See \href{https://people.ucsc.edu/~rmont/classes/RiemSurfaces/2013/lectures/Jacobian.pdf}{here}. 
+\end{proof}
+
+
 \begin{prop}[Reciprocity Law]
 	Let $\Omega$ be a global holomorphic 1-form (i.e. a differential of the first kind) and $\nu$ a global meromorphic 1-form with no residues (a differential of the second kind). Then writing $\Omega = d \pi$ (which we can do locally by defining $\pi(s) = \int^s \omega$) we have 
 	\[
@@ -3283,6 +3298,31 @@ This leads to an important definition.
 \begin{definition}
 	A Weil divisor on $C$ defines a \hl{coherent} sheaf $O_C(D)$ as meromorphic functions $f$ s.t $(f)+D\geq0$. 
 \end{definition}
+
+When we have a map of Riemann surfaces, we get some specific divisors. 
+\begin{definition}
+Let $F:\hat{\mathcal{C}}\rightarrow\mathcal{C}$ be a nonconstant
+holomorphic map between Riemann surfaces. Then the
+\textbf{ramification divisor} of $F$, denoted by $R_F$, is the
+divisor on $\hat{\mathcal{C}}$ defined by
+\begin{equation}
+R_F=\sum_{p\in \hat{\mathcal{C}}}\left(\mult_p F-1\right)p.
+\end{equation}
+The \textbf{branch divisor} of $F$, denoted by $B_F$, is the
+divisor on ${\mathcal{C}}$ defined by
+\begin{equation}
+B_F=\sum_{y\in {\mathcal{C}}}\left[\sum_{p\in F\sp{-1}(y)}\left(\mult_p F-1\right)\right]y.
+\end{equation}
+\end{definition}	
+
+\begin{lemma}\label{lemma: pullback of divisor of differential} 
+	With the notation above, if $\omega$ is a
+	meromorphic differential on $\mathcal{C}$, not identically zero,
+	then
+	\begin{equation}
+	\div\left(F\sp\ast\omega \right) =F\sp\ast\left(\div\omega \right)+R_F.
+	\end{equation}
+\end{lemma}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Abel-Jacobi}
