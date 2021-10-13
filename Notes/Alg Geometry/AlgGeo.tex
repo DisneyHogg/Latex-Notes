@@ -79,6 +79,10 @@ s.t. $a,b,c,d \in \mbb{Z}, \, ad-bc=1$.
 		\Gamma(N) = \pbrace{M \in \Gamma \, | \, M \equiv I \, (mod\,  N)}
 	}
 \end{definition} 
+
+\begin{definition}
+	A \bam{Fuchsian group} is a discrete subgroup of $PSL(2, \mathbb{R})$. 
+\end{definition}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Rings}
@@ -206,18 +210,37 @@ The corresponding derivatives are related by
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Fixing Definitions}
 I will fix some notation with a definition:
-\begin{definition}
+\begin{definition}\label{def: UHP}
 	Denote the \bam{Upper Half Plane (UHP)} in $\mbb{C}$ as 
 	\eq{
 		H = \pbrace{z \in \mbb{C} \, | \, \Im z > 0}	
 	}
 \end{definition}
 
+\begin{prop}
+	Given the metric $ds^2 = \frac{dx^2+dy^2}{dy^2}$, where $z=x+iy$, $H$ becomes a model of the hyperbolic plane.  
+\end{prop}
+
+\begin{prop}
+	The group $PSL(2, \mathbb{R})$, acting via M\"obius transformation, is the group of hyperbolic isometries. 
+\end{prop}
+
 The UHP will end up being a special case of the more general \bam{Siegel upper half space} later (\hl{ref this}). It will serve as a classifying space later in conjunction with the modular group. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Mobius Transformations}
-Recall that for any distinct $z_1, z_2, z_3 \in \mbb{C}$ we have a Mobius transform that sends them to $0,1,\infty$ given by 
+\subsection{M\"obius Transformations}
+\begin{definition}
+The \bam{group of M\"obius transformations} is the group of transformations of the Riemann sphere given by 
+\[
+z \mapsto \frac{az+b}{cz+d} \, ,
+\]
+where $ad-bc \neq 0$ for $a,b,c,d \in \mathbb{C}$.
+\end{definition}
+\begin{lemma}
+	The M\"obius group is $\cong PSL(2, \mathbb{C})$. 
+\end{lemma}
+
+Recall that for any distinct $z_1, z_2, z_3 \in \mbb{C}$ we have a M\"obius transform that sends them to $0,1,\infty$ given by 
 \eq{
 	f(z) = \frac{z-z_1}{z-z_3}\frac{z_2 - z_3}{z_2 - z_1}
 }
@@ -1988,7 +2011,7 @@ If $E$ is a complex vector bundle, we have an additional construction.
 \end{proof}
 
 \begin{example}
-	We want to work out $\Vect_k(S^1)$. Intuition might tell us that $Vect_1(S^1) = \mbb{Z}$ (number of twists of a mobius like band, where 0 is the trivial bundle) so we have a starting point. This will not turn out to be the case. \\
+	We want to work out $\Vect_k(S^1)$. Intuition might tell us that $Vect_1(S^1) = \mbb{Z}$ (number of twists of a M\"obius-like band, where 0 is the trivial bundle) so we have a starting point. This will not turn out to be the case. \\
 	To specify a isomorphism class of rank $k$-vector bundles, we can take the cover of $S^1$ with only two open sets and then an element of $\Vect_k(S^1)$ is specified by two elements $g,h \in GL(k,\mbb{R})$ up to conjugation. We can use a reduction of structure bundle to only ask about elements of $O(k)$. 
 \end{example}
 
@@ -2972,11 +2995,36 @@ It can likewise be shown that a degree $5$ curve will have $101$ degrees of free
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Automorphisms}
+Recall the action of the M\"obius group on the Riemann sphere. This illustrates the following fact. 
+\begin{prop}
+	$\Aut(\mathbb{P}^1) \cong PSL(2, \mathbb{C})$. 
+\end{prop}
+
+
+\begin{prop}[\cite{Conder1990}]
+	Given a Fuchsian group $\Gamma$, the quotient space of the UHP $X=\faktor{H}{\Gamma}$ is a Riemann surface, and all Riemann surfaces may be obtained in this way.
+\end{prop}
+
+\begin{prop}
+	$\Aut(X) \cong \faktor{\Gamma}{K}$ for some $K \triangleleft \Gamma$.
+\end{prop}
 
 We have the following corollary of Riemann-Hurwitz:
 
 \begin{theorem}
 	If $X$ is a compact Riemann surface with $g\geq 2$ then $\abs{\Aut(X)} \leq 84(g-1)$. 
+\end{theorem}
+
+\begin{definition}
+	The bound $\Aut(X) \leq 84(g-1)$ is called the \bam{Hurwitz bound}. Surfaces that achieve this bound are called \bam{Hurwitz surfaces}.
+\end{definition}
+
+\begin{theorem}
+	The Hurwitz bound is achieved iff $X = \faktor{\Gamma}{K}$ where $\Gamma$ has presentation 
+	\[
+	\pangle{x_1, x_2, x_3, \, | \, x_1^2 = x_2^3 = x_3^7 = x_1x_2x_3 = 1} \, , 
+	\]
+	i.e. $\Gamma$ is isomorphic to the $(2,3,7)$ triangle group. 
 \end{theorem}
 
 \begin{theorem}
@@ -3055,7 +3103,9 @@ The following result explains where the map gets its name.
 \begin{proof}
 	See \href{https://people.ucsc.edu/~rmont/classes/RiemSurfaces/2013/lectures/Jacobian.pdf}{here}. 
 \end{proof}
-
+\begin{definition}
+	A curve is called a \bam{canonical curve} if it is the image of a canonical embedding. 
+\end{definition}
 
 \begin{prop}[Reciprocity Law]
 	Let $\Omega$ be a global holomorphic 1-form (i.e. a differential of the first kind) and $\nu$ a global meromorphic 1-form with no residues (a differential of the second kind). Then writing $\Omega = d \pi$ (which we can do locally by defining $\pi(s) = \int^s \omega$) we have 
@@ -3656,15 +3706,13 @@ The Abel map $A^{(g)}$ is a local homeomorphism at a generic divisor
 \begin{proof}
 	By lemma \ref{lemma: rank of the Abel-Jacobi map} and Riemann-Roch the rank of the Abel map at $D$ is $g-i(D)$. By the previous prop \ref{prop: generic divisor deg>=g is nonspecial} a generic divisor has $i(D)=0$, and the $\dim J=g$.  
 \end{proof}
-
-
 Now using the above proposition \ref{prop: properties of l(D) and i(D)} and Riemann-Roch, note that for $p \in X$ we have that the sequence $\pbrace{l(kp)}_{k=0}^\infty$ goes 
 \eq{
 	1, \underbrace{?, \dots, ?}_{1\leq k \leq 2g-2} , g, g+1, \dots 
 }
 It is known that this sequence can increase by a maximum of 1 from term to term. This observation leads to the following result:
 \begin{theorem}[Weierstrass Gap Theorem, Mondal's thesis]
-	Let $X$ be a compact genus-$g$ Riemans surface, then $\forall p \in X$ $\exists!$ integers $\pbrace{n_i}_{i=1}^g$ s.t. 
+	Let $X$ be a compact genus-$g$ Riemann surface, then $\forall p \in X$ $\exists!$ integers $\pbrace{n_i}_{i=1}^g$ s.t. 
 	\eq{
 		1=n_1 < n_2 < \dots < n_g < 2g	
 	} 
@@ -3681,8 +3729,11 @@ It is known that this sequence can increase by a maximum of 1 from term to term.
 	}
 	$p \in X$ is a \bam{Weierstrass point} if $w_p \neq 0$ (note that $w_p \geq 0$, so at a Weierstrass point it is positive). We will sometimes denote the set of Weierstrass points as $W=W(X)$. 
 \end{definition}
+\begin{remark}
+	Given Riemann-Roch, studying Weierstrass points may seem natural, but from a historical perspective they came well before. More on the history of Weierstrass points can be found in \cite{DelCentina2008}. 
+\end{remark}
 We have results about the abundancy of Weierstrass points:
-\begin{prop}
+\begin{prop}[\cite{Farkas1992}]
 	We have 
 	\begin{itemize}
 		\item The set of Weierstrass points is discrete
@@ -3702,6 +3753,15 @@ The next result gives a link between Weierstrass points and symmetry:
 \begin{proof}
 	See Mondal's master's thesis. 
 \end{proof}
+
+A useful result for showing a point is Weierstrass is the following. 
+\begin{prop}[\cite{Lewittes1963}]
+	If an automorphism of a compact Riemann surface, genus $g \geq 2$, fixes more than 4 points then these fixed points are Weierstrass points. 
+\end{prop}
+\begin{proof}
+For more papers discussing this result, see \cite{Magaard2006, Laing2010}. 	
+\end{proof}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Theta Function}\label{subsec: theta functions (riemann surfaces)}
@@ -3756,12 +3816,12 @@ We define the \textbf{first order theta function with characteristic} $\begin{bs
 \end{example}
 The case when the characteristics are integers is especially important by the following result. 
 \begin{prop}
-	Let $\eps, \eps^\prime \in \mathbb{Z}^g$, and let $e^(k), \tau^(k)$ be the $k$th columns of $I_g, \tau$ respectively. Then 
+	Let $\eps, \eps^\prime \in \mathbb{Z}^g$, and let $e^{(k)}, \tau^{(k)}$ be the $k$th columns of $I_g, \, \tau$ respectively. Then 
 	\begin{align*}
-		\theta\begin{bmatrix} \epsilon \\ \epsilon^\prime \end{bmatrix}(z+e^{(k)}|\tau) &= \exp\psquare{2\pi i \pround{\frac{\eps_k}{2}}}\theta\begin{bmatrix} \epsilon \\ \epsilon^\prime \end{bmatrix}(z|\tau) \\
-		\theta\begin{bmatrix} \epsilon \\ \epsilon^\prime \end{bmatrix}(z+\tau^{(k)}|\tau) &= \exp\psquare{2\pi i \pround{-z_k - \frac{\tau_{kk}}{2}-\frac{\eps^\prime_k}{2}}}\theta\begin{bmatrix} \epsilon \\ \epsilon^\prime \end{bmatrix}(z|\tau) \\
-		\theta\begin{bmatrix} \epsilon \\ \epsilon^\prime \end{bmatrix}(-z|\tau) &= \exp\psquare{2\pi i \pround{\frac{\eps^T\eps^\prime }{2}}}\theta\begin{bmatrix} \epsilon \\ \epsilon^\prime \end{bmatrix}(z|\tau) \\
-		\forall \nu, \nu^\prime \in \mathbb{Z}^g , \, \theta\begin{bmatrix} \epsilon+2\nu \\ \epsilon^\prime+2\nu^\prime \end{bmatrix}(z|\tau) &= \exp\psquare{2\pi i \pround{\frac{\eps^T \nu^\prime}{2}}}\theta\begin{bmatrix} \epsilon \\ \epsilon^\prime \end{bmatrix}(z|\tau)
+		\theta\begin{bmatrix} \epsilon \\ \epsilon^\prime \end{bmatrix}(z+e^{(k)}|\tau) &= \exp\psquare{2\pi i \pround{\frac{\eps_k}{2}}}\theta\begin{bmatrix} \epsilon \\ \epsilon^\prime \end{bmatrix}(z|\tau) \, , \\
+		\theta\begin{bmatrix} \epsilon \\ \epsilon^\prime \end{bmatrix}(z+\tau^{(k)}|\tau) &= \exp\psquare{2\pi i \pround{-z_k - \frac{\tau_{kk}}{2}-\frac{\eps^\prime_k}{2}}}\theta\begin{bmatrix} \epsilon \\ \epsilon^\prime \end{bmatrix}(z|\tau) \, , \\
+		\theta\begin{bmatrix} \epsilon \\ \epsilon^\prime \end{bmatrix}(-z|\tau) &= \exp\psquare{2\pi i \pround{\frac{\eps^T\eps^\prime }{2}}}\theta\begin{bmatrix} \epsilon \\ \epsilon^\prime \end{bmatrix}(z|\tau) \, , \\
+		\forall \nu, \nu^\prime \in \mathbb{Z}^g , \, \theta\begin{bmatrix} \epsilon+2\nu \\ \epsilon^\prime+2\nu^\prime \end{bmatrix}(z|\tau) &= \exp\psquare{2\pi i \pround{\frac{\eps^T \nu^\prime}{2}}}\theta\begin{bmatrix} \epsilon \\ \epsilon^\prime \end{bmatrix}(z|\tau) \, .
 	\end{align*}
 \end{prop}
 \begin{corollary}
@@ -3785,7 +3845,7 @@ The important theorem about theta functions is to follow. We will define a neces
 	For more on the vector $\bm{K}$ and its calculation, see Deconick's \textit{`Computing the Riemann Constant Vector'}. 
 \end{remark}
 
-\begin{theorem}
+\begin{theorem}\label{thm: zeros of the theta function in terms of characteristics}
 	Let $X$ be a compact, genus-$g$ Riemann surface with canonical homology basis $\bm{c} = (\bm{a},\bm{b})$, Riemann matrix $\tau$ wrt said basis, and Abel map $A$ with basepoint $P_0$. Then $\theta\begin{bsmallmatrix} \epsilon \\ \epsilon^\prime \end{bsmallmatrix} \circ A$ is either identically $0$ of has exactly $g$ zeros.  \\
 	Given this map has exactly $g$ zeros, call them $P_i$ and the divisor $D = \sum_i P_i$, then 
 	\[
@@ -3923,7 +3983,7 @@ We have seen that given a zero of $\theta$, $e=A(D)+\bm{K}$, we must have $\thet
 \end{proof}
 
 We can give another rephrasing of this, using the isomorphism $\operatorname{Cl}(X) \cong \operatorname{Pic}(X)$. 
-\begin{theorem}[RVT \cite{Braden2006}]
+\begin{theorem}[RVT \cite{Braden2006}]\label{thm: RVT in Braden2006}
 	Given a degree $g-1$ line bundle $L \to X$, let $D$ be a divisor associated to $L$ and $e = A(D) + \bm{K}$. The multiplicity of $e$ as a zero of $\theta$ is $\operatorname{mult}_e \theta = h^0(X,\mathcal{O}(L))$.
 \end{theorem}
 \begin{proof}
@@ -3955,7 +4015,7 @@ We have thus related the zeros of the $\theta$ .This is done through the followi
 	Conversely, if $D$ is a divisor s.t. $A(D) = -2\bm{K}$, then by Abel's theorem $A(D) = A((\omega)) \Rightarrow D \sim (\omega) \Rightarrow D-(\omega) = (f)$ for some meromorphic function $f$ on $X$. Hence $D = (f\omega)$. 
 \end{proof}
 \begin{remark}
-	The above result explains the naming behind the term theta characteristic. $D$ is a divisor s.t $2D = K$ iff $A(D) = \frac{1}{2}A(K) = -\bm{K} \Leftrightarrow A(D)+ \bm{K}=0$. Hence theta characteristics correspond exactly to the zeros of the theta divisor. 
+	The above result explains the naming behind the term theta characteristic. $D$ is a divisor s.t $2D = K$ iff $A(D) = \frac{1}{2}A(K) = -\bm{K} \Leftrightarrow A(D)+ \bm{K}=0$. Hence theta characteristics correspond exactly to the zeros of the theta divisor. We know from \ref{thm: zeros of the theta function in terms of characteristics} that these correspond to half-lattice vectors in the Jacobian. Moreover, theorem \ref{thm: RVT in Braden2006} shows us that for a theta characteristic $D$, $h^0(X, \mathcal{O}(D)) = \mult_0 \theta$. The value of this mod 2 is exactly controlled by whether $\theta$ is odd or even. Hence the parity of $h^0(X, \mathcal{O}(D))$ is sometimes used as the definition. 
 \end{remark}
 \begin{remark}
 	Chris Swierczewski, of abelfunctions fame, asked a question on mathoverflow (see \href{https://mathoverflow.net/questions/212505/uniqueness-of-riemann-constant-vector-solution}{here}) about finding solutions to $-2\bm{K} = A(D)$ given $\bm{K}$. For an answer, see \cite{Braden2012}. 
