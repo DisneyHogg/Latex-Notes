@@ -1,0 +1,662 @@
+\documentclass{article}
+
+\usepackage{../../header}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{GR + Effective Field Theory}
+\author{Linden Disney-Hogg}
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+Let's note with some good sources to start with 
+\begin{itemize}
+	\item Donaghue : 1702.00319, 9512024
+	\item Manohar : 1804.0563, 9606222
+\end{itemize}
+In GR we will take signature $(-, +, +, +)$. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{GR+EFTs - Lecture 1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Effective Field Theories}
+
+\begin{definition}[EFT]
+The steps to define an \bam{effective field theory (EFT)} are 
+\begin{enumerate}
+	\item Write down the most general Lagrangian $L$ compatible with the symmetry of your problem. (Note if you are doing this in GR this will include a graviton)
+	\item Keep all the terms with a fixed number of derivatives. 
+	\item Fix dimensions of coefficients with dimensional analysis
+	\item Do QFT with this action (loops)
+	\item Identify regime of validity. 
+\end{enumerate}
+\end{definition}
+Recall that really there is a step 0 here (for example read Carroll). In GR we have a massless spin 2 field with dynamical degrees of freedom $g_{\alpha\beta}$ (a metric) with 10 degrees of freedom (using symmetry). We then lose 4 degrees of freedom due to gauge transformation, i.e. spacetime diffeomorphisms. We again lose 4 degrees of freedom which are ``non-dynamical". This gives us the 2 we would expect for a spin 2 field. These latter 4 turn out to come from 4 of Einstein's equations which are degree 1 in time, and are the equivalent of Gauss' law in electrodynamics. 
+
+\begin{remark}
+	The above was in $d=4$ dimensions. In general we would get 
+	\[
+	\frac{1}{2}d(d+1) - d - d = \frac{1}{2}d(d-3)
+	\]
+	degrees of freedom for this field. This would mean that in $d=3$, gravity is non-dynamical (correct ``depending on what aspects of the theory you are interested in"). GR is only invariant under local diffeomorphisms, not global (or large diffeos), in fact if we are in a spacetime with a boundary we can get boundary gravitons (gravitons whose wavefunction has support on the boundary).  
+\end{remark}
+
+Recall that gravitons in the quantum theory correspond to gravitational waves in the classical theory. 
+
+\begin{example}
+	1) Let's take actions 
+	\[
+	S = \frac{1}{16 \pi G_N} \int d^4x \, \sqrt{-g} \pround{-2\Lambda + R + c+1 R^2 + c_2 R_{\mu \nu} R^{\mu\nu} + c_3 R_{\mu\nu\rho\sigma}  R^{\mu\nu\rho\sigma} +\dots } \, .
+	\]
+	2) Recall $R_{\mu\nu\rho\sigma} \sim \del \del g$. $g$ is our metric, $\Lambda$ is our cosmological constant. $\Lambda$ is not fixed in the theory, and has dimensions, but one in practice uses the experimental value so we can make predictions and move on. We could have also included matter fields. \\
+	3) We can calculate the dimension of these constants to be 
+	\[
+	c_i \sim M_S^{-3} \, , \quad \frac{1}{G_N} \sim M_P^2 \, ,
+	\]
+	where $M_P$ is our planck mass and $M_S$ is \hl{\dots}. If we took $c_2 = 0 = c_3$ and $c_1 \neq 0$, then we get field equations that are approximately 
+	\begin{equation}\label{eq: theory 1}
+	\Box h + \frac{1}{M_S^2} \Box \Box h  = 8\pi G_N T \, .
+	\end{equation}
+	4) We are taking the perturbative expansion $g_{\mu\nu} =  \eta_{\mu\nu} + \frac{1}{M_P} h_{\mu\nu}$, so our action looks like 
+	\[
+	S \sim \int \underbrace{(\del h)^2 + \frac{1}{M_P} h(\del h)^2}_{R} + \underbrace{\frac{1}{M_S^2} \psquare{(\del^2 h)^2 + \frac{1}{M_P} h (\del^2 h)^2}}_{h.o.t} + \dots 
+	\]
+	This means our Feynmann rules associate a $\sqrt{G_N}$ to each vertex, so the contribution from the 4pt function is 
+	\[
+	\pround{\frac{E^2}{M_P^2}}^{4+\text{loops}} \, .
+	\]
+	5) Ultimately this makes this theory non-renormalisable as the coupling constant is not dimensionless. However if $E \ll M_P$ we are ok to do QFT, so we can work at lower-than-plank-scale energies we can make predictions. 
+\end{example}
+The propagator for \ref{eq: theory 1} looks like 
+\[
+\frac{1}{q^2 + \frac{q^4}{M_S^2}} = \frac{1}{q^2} - \frac{1}{q^2 + M_S^2}
+\]
+and because of the sign of the latter term, we call this a ghost, as it corresponds to a massive particle of imaginary mass. This means that extra degrees of freedom are necessary. From a phase space perspective, this is because the initial value problem of gravity represented by \ref{eq: theory 1} needs more initial values because it is a 4th order equation (as opposed to classical gravity, which is second order). We could also think of this semi-classically, as imagining the higher order terms in the actions as modifying the standard Newtonian potential to be 
+\[
+V(r) = -\frac{Gm_1 m_2}{r} \psquare{1-e^{-rM_S}} \, ,
+\]
+and so for distances $r \gg M_S^{-1}$, these corrections are suppressed. Ultimately this is saying GR is valid in ``low" energies, which is good. \\
+So far we have been focusing on the effective part of EFT. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Gauge Field Theories - Symmetries and Hamiltonians}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{The Classical Version}
+Recall classical mechanics, where we have 
+\[
+I = \int dt \, L
+\]
+and we compute a Hamiltonian via Legendre transform 
+\[
+H = \ev{p\dot{q} - L}{p = \frac{\del L}{\del \dot{q}}} 
+\]
+which generates $t$-translations. Here $t$ is an independent variable, and we can parameterise by it. GR is different, because $t$ is one of our dependent variables, and so to construct a Hamiltonian we need a clock. In classical mechanics $t$ is this physical clock, but if we want to write our theory in terms of some non-physical (arbitrary parameter) clock $\tau$, one thing we can do is the following: \\
+We might expect introducing our new arbitrary parameter to correspond to introducing a gauge freedom. We can use gauge symmetry to ``eat" degrees of freedom, so to reformulate our theory we know we will want to increase our degrees of freedom. Hence lets add to $q(t), p(t)$ the fields $T(\tau)$ (clock) and $\pi(\tau)$ (conjugate momentum to $T$). We now write down a new action (which we will justify in the posterior)
+\[
+\tilde{I} = \int d\tau \, \psquare{pq^\prime + \pi T^\prime -N\pround{ \pi  + H}}
+\]
+where $N$ is a Lagrange multiplier field, and $\phantom{q}^\prime = \frac{d}{d\tau}$. Not my conjugate momenta are (for example) $p = \frac{\del L}{\del q^\prime}$. The variation wrt $N$ imposes 
+\[
+\pi = -H(q,p)
+\]
+Then going on-shell wrt the field $N$ gives 
+\[
+\ev{\tilde{I}}{N=0} = \int d\tau \, \frac{dT}{d\tau} \psquare{p \dot{q} - H(p,q)}
+\]
+where $\dot{\phantom{q}} = \frac{d}{dT}$. This action $\tilde{I}$ is invariant under reparameterisation of $\tau$. The new Hamiltonian is 
+\[
+\tilde{H} = N(\pi + H) \, .
+\]
+This vanishes on-shell, which is exactly what we want. Recall we said that $\tilde{H}$ generates $\tau$-translations, but our theory is invariant under such reparameterisations (in the Hilbert space of physical states $\ket{\psi}$). \\
+The reason for seeing this is to assure us that, despite this being a toy model, when we go through the same process to make GR a Hamiltonian theory, we should be ok. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{ADM Hamilton}
+The paper by Arnowitt, Deser, Misner (ADM) is \cite{Arnowitt2008}. The idea is to formulate GR as an initial value problem, which can be related to the identification of the degrees of freedom as we mentioned earlier. We will follow their paper. \\
+Lets take manifold $(M, g_{ab})$, assumed to be globally hyperbolic, which means that we can foliate our manifold by Cauchy surfaces $\Sigma_t$, defining a time function $t$ telling you which surface a point is on. Further define a unit normal to $\Sigma_t$, $n^a$, defined globally s.t. 
+\[
+n^a n_a = g_{ab} n^a n^b = -1 \, .
+\]
+As such we can write the induced metric on $\Sigma_t$ using standard differential geometry as 
+\[
+h_{ab} = g_{ab} + n_a n_b \, . 
+\]
+We will define a vector associated to $t$, confusingly named $t^a$, s.t. 
+\[
+t^a \nabla_a t = 1 \, . 
+\]
+We think of this as giving us a flow of $t$. Given this $t^a$ we can project it into our normal and parallel directions at a given $t$ to define 
+\begin{align*}
+	-t^a n_a &= N , \quad \text{(normal component, lapse function)}\, ,  \\
+	h_{ab} t^b &= N_a, \quad \text{(tangential component, shift vector)} \, . 
+\end{align*}
+We can calculate 
+\begin{align*}
+	h\indices{^a_b} &= g^{ac}h_{cb} = \delta\indices{^a_b} + n^a n_b \\ 
+	\Rightarrow h\indices{^a_b}t^b &= t^a - Nn^a \\
+	\Rightarrow n^a &= \frac{1}{N}(t^a - N^a) \, .
+\end{align*}
+This means that we can write our full metric as 
+\[
+g^{ab} = h^{ab} - \frac{1}{N^2}(t^a - N^a)(t^b - N^b) \, ,
+\]
+which suggest that the degrees of freedom that appear in our Hamiltonian formulation of GR correspond to the freedom in the choice of foliation, because our metric is written in terms of the surface metrics and our choice of $t$. \\
+We will now want to pick a particular coordinate chart where $t^a = (\del_t)^a$. In this gauge the metric is 
+\[
+ds^2 = -N^2 dt^2 + h_{ij}(dx^i + N^i dt)(dx^j + N^j dt) \, . 
+\]
+\begin{remark}
+	Recall we spoke about a connection to the non-dynamical parts of Einstein's equations. Taking the usual Einstein tensor $G_{ab}$ we project to calculate 
+	\begin{align*}
+		G_{ab} n^a n^b = h\indices{^b_d} G_{bc} n^c = 0 \, . 
+	\end{align*}
+These equations have no second order derivatives in time, and there are four of them, so they represent non-dynamical constraints in the initial value problem we mentioned earlier. If we were to quantise this theory we would want these operators to act trivially on physical states of the Hilbert space. We may hope to replicate this trick from our classical analogue. \\
+The action we will write is 
+\[
+I = \frac{1}{16 \pi G_N} \int_{M} d^4x \, \sqrt{-g}R - \frac{1}{8 \pi G_N} \int_{\del M} d^3x \, \sqrt{-\gamma} (K-K_0) \, . 
+\]
+This latter term is the Gibbons-Hawking-York term, where $K$ is the extrinsic curvature, $\gamma$ a metric on the boundary, and $K_0$ correspond to the curvature of the boundary in the vacuum. It turns out that $\delta I=0$ gives me GR. We can compute the Hamiltonian, the details of which are in Wald's book. We first rewrite in ADM variables as 
+\[
+I = \int_M d^4x \, \psquare{\pi^{ij}h-{ij}+ N \mathcal{H} - N^i \mathcal{H}_i} + \text{boundary term} \, ,
+\]
+where the $\mathcal{H}, \mathcal{H}_i$ are just some functions of our fields, and the we can write the Hamiltonian (which is a functional of $t^a$) as 
+\[
+H[t^a] = \int_{\Sigma_t} d^3x \, \psquare{N \mathcal{H} + N^i \mathcal{H}_i} + \text{boundary term} \, .
+\]
+This integral contains only Lagrange multipliers, so we get on-shell constrains of $\mathcal{H}=0=\mathcal{H}_i$ (of which there are 4), and this means that if we didn't have any boundary terms then our on-shell Hamiltonian acts as 0 on our Hilbert space. However, generically our boundary term will not be zero, and so we get a non-zero energy value. The boundary term looks like 
+\[
+\int_{\del \Sigma_t} d^2x \, \sqrt{\sigma} n^{\mu} T_{\mu \nu} t^\nu
+\]
+so we get 
+\[
+\delta I_{\text{on shell}} = \frac{1}{2} \int_{\del M} d^3 x \, \sqrt{-\gamma} T^{ij} \delta g_{ij}  \, .
+\]
+This calculation is in Brown-York gr-qc 9209012. This boundary term reproduces Komar's integral
+\end{remark}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Asymptotic Symmetry Groups (ASGs) - Lecture 2}
+Recall we saw that the ADM Hamiltonian had boundary terms that did not vanish on shell. Indeed if one evaluates the energy on the vector $t^\mu = (1,0,0,0) = (\del_t)^\mu$ and take that $N \to 1, \, N^i \to 0$ on $\partial \Sigma$, then we explicitly get 
+\[
+E = \int_{\del \Sigma} d^2x \, \sqrt{\sigma} n^\mu T_{\mu t} \, . 
+\]
+We will now aim to put this in quite a general framework
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Local vs Large Diffeos}
+If you compute 
+\[
+\delta_\xi \pround{\sqrt{-g} L } = \mathcal{L}_\xi \pround{\sqrt{-g} L} = \nabla_\mu (L \xi^\mu)
+\] 
+for some Lagrangian density $L$, we note that if $\xi$ acts non-trivially at the boundary the by Stokes' theorem we may have a boundary contribution to our action. Hence the assertion of gauge-invariance in a boundary-dependent statement. This gives us reason to introduce the following definition, 
+\begin{definition}
+	The ASG of a theory is 
+	\[
+	\text{ASG} = \frac{\text{symmetries}}{\text{trivial symmetries}} \, , 
+	\]
+where these are symmetries at the boundary, so the trivial symmetries are equivalently the local symmetries. 
+\end{definition}
+
+\begin{example}
+	At null infinity in $d=4$ GR, we have the BMS group. 
+\end{example}
+
+\begin{example}
+	In $AdS_3$ we have $Vir \oplus Vir$. 
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Quantum Gravity (QG)}
+Treating now GR as an EFT for QG, we should have some UV completion, and this is the open problem. There are a few things we think we know.
+\begin{itemize}
+	\item QG has no local observables (gauge invariant quantities). If we were in a gauge QFT in flat space, then the local observables are 
+	\begin{itemize}
+		\item correlators $\pangle{O(x_1) \dots O(x_n)}$
+		\item $S$-matrix elements
+	\end{itemize}
+   These observables however depend on spacetime points, so if we have a quantum theory of gravity where points fluctuate, these objects are no longer gauge invariant. If one were to do a semi-classical approximation and expand around a curved background, these may appear gauge-invariant, but in the full scale these arguments break down. One can overcome this fact by using what are called ``dressed operators", where we connect the operators to the boundary, thus fixing gauge invariance, but now this operator is non-local. 
+   \item Gravitons are not a composite object. Note this is a valid question to ask, as we have particle theories where particles like mesons are the fundamental objects at low energies, but when we go to the UV completion we see that these are composite. This result is rigorous enough in the sense that we have the following theorem:
+   \begin{theorem}
+   	A theory containing a Poincar\'e covariant conserved stress tensor $T^{\mu\nu}$ forbids massless particles of spin $j>1$. 
+   \end{theorem}
+   \begin{proof}
+   We sketch the idea. Labelling massless states with 4-momenta $p$ and spin $j_3$, consider the terms 
+   \[
+   \pangle{p^\prime, \pm j  | T^{\mu\nu} | p, \pm j}
+   \]
+   in the limit $p^\prime \to p$. Up to normalisations we can write 
+   \[
+   p^\mu = \int d^3x \, T^{0\mu}
+   \]
+   and 
+   \[
+   \pangle{p^\prime, \pm j  | p^\mu | p, \pm j} = p^\mu \delta(p-p^\prime)
+   \]
+   
+but rewriting the LHS of the above using the integral gives 
+\[
+(2\pi)^3 \delta(p-p^\prime)\lim_{p^\prime \to p} \pangle{p^\prime, \pm j  | T^{\mu\nu} | p, \pm j} =  p^\mu \delta(p-p^\prime)
+\]
+and hence
+\[
+\lim_{p^\prime \to p} \pangle{p^\prime, \pm j  | T^{\mu\nu} | p, \pm j} = \frac{p^\mu p^\nu}{E (2\pi)^3} \neq 0 \, .
+\]
+Given 2 massless particles we have 
+\[
+(p+p^\prime)^2 = 2p\cdots p^\prime = 2 \abs{\bm{p}}\abs{\bm{p}^\prime} (\cos\phi-1) \leq 0
+\]
+and we will assume $aphi \neq 0$. Hence $\exists$ a frame s.t. $p = (\abs{\bm{p}}, \bm{p}), \, p^\prime = (\abs{\bm{p}}, -\bm{p})$. Consider now a rotation by angle $\theta$ about $\bm{p}$ and take $\theta^\prime = -\theta$. The bra and ket transform as 
+\begin{align*}
+	\ket{p, \pm j} &\mapsto e^{\pm i \theta j} \ket{p, \pm j} \\
+	\ket{p^\prime, \pm j} &\mapsto e^{\mp i \theta j} \ket{p^\prime, \pm j} \, ,
+\end{align*}
+so we have 
+\[
+e^{\pm 2i\theta j} \lim_{p^\prime \to p} \pangle{p^\prime, \pm j  | T^{\mu\nu} | p, \pm j} = \lim_{p^\prime \to p} \Lambda(\theta)\indices{^\mu_\rho} \Lambda(\theta)\indices{^\rho_\sigma} \pangle{p^\prime, \pm j  | T^{\rho\sigma} | p, \pm j} \, .
+\]
+The $\Lambda$ are rotation matrices, so their eigenvalues can only be $\sim e^{\pm i \theta}$. This transform on the RHS does not depend on the quantum number, so we get a bound on $j$ because either matrix elements vanish (not possible) or $2j \in \pbrace{0, 1, 2}$. 
+\end{proof}
+It is important to note about this theory:
+\begin{itemize}
+	\item it does not remove gravitons in the UV, because GR does not have a conserved stress tensor that includes gravitons, we only have $\nabla_\mu T^{\mu\nu}_{\text{matter}}=0$, but what is important is that there in no local gauge-invariant energy momentum tensor in GR, which is connected to the fact that you shouldn't be able to measure energy locally (think about choosing a coordinate frame so locally Schwarzschild looks like Minkowski, but we know Schwarzschild should have a mass)
+	\item if you thought that the graviton was composite as $\text{graviton} \sim 2\text{gluon}$, then because we have a conserved stress tensor for the gluons we could construct a stress tensor for the graviton, and this would be obstructed via the theorem. One might wonder how this intersects with the work of the double-copy community.
+\end{itemize}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Summary}
+The sum of the above is that 
+\begin{itemize}
+	\item gravitons appear in the UV together with some other particles
+	\item it is possible that the graviton is an emergent degree of freedom when the UV theory is not an ordinary 4d QFT. Here emergent is in the sense that we have a QFT of sort on another manifold with associated tensor $\hat{T}_{\alpha \beta}$ from which the graviton $g_{\alpha \beta}$ arises on our original manifold under some correspondence. 
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{BH Thermodynamics}
+Let us list some main features of black holes.
+\begin{itemize}
+	\item $\exists$ an event horizon ($r=r_+$ when spherically symmetric) (this is a global requirement, looking at the penrose diagram we need to have global knowledge of spacetime to draw this),
+	\item picking coordinates (e.g. $(t,r)$ for Schwarzschild), they flip at the horizon, so the interior geometry changes with ``real time which is $r$", 
+	\item $\exists$ gravitational redshift, $\delta \tau  = \sqrt{-g_{tt}} \delta t$, $E_r = \frac{E_t}{\sqrt{-g_{tt}}}$. 
+	\item $\exists$ BH uniqueness theorems
+	\item we can phrase BHs locally in terms of trapped surfaces
+	\item In Hawking 1971, it was proven that the area of the event hoizon $A$ always grows (i.e. $\delta A \geq 0$) under any classical process if 
+	\begin{enumerate}
+		\item the null energy condition holds (i.e. $T_{\mu\nu}k^\mu k^\nu \geq 0$ for any null $k^\mu$),
+		\item cosmic censorship holds.
+	\end{enumerate}
+\end{itemize}
+Let us take a warm-up example. 
+\begin{example}
+	Let's write 4d RN metric, Einstein coupled to Maxwell, 
+	\begin{align*}
+	 ds^2 &= -f(r)dt^2 + \frac{dr^2}{f(r)} + r^2 d\Omega_2^2 \\
+	 A &= -\frac{Q}{r}dt 
+	\end{align*}
+where $f(r) = 1-\frac{2M}{r}+\frac{Q^2}{r^2}$, $M$ the BH mass and $Q$ the BH electric charge, $A$ a Maxwell field (not to be confused with area). Note this is a vacuum solution so $T^{\mu\nu}_{\text{matter}}=0$.
+\begin{itemize}
+	\item We can find $r_{\pm} = M \pm \sqrt{M^2-Q^2}$ s.t $f(r) \frac{(r-r_-)(r-r_+)}{r^2}$, and then the event horizon corresponds to $r=r_+$. 
+	\item we can compute $A(r_+) = 4\pi r_+^2$. If we consider two solutions $(M, Q)$ and $(M+\delta M, Q+\delta Q)$ then 
+	\[
+	\delta A = 8 \pi r_+ \delta r_+ = 8 \pi r_+ \psquare{\pround{1+\frac{M}{\sqrt{M^2-Q^2}}} \delta M - \frac{Q}{\sqrt{M^2-Q^2}}\delta Q} \, .
+	\]
+	Using the result that $r_+^2 f^\prime (r_+) = r_+ - r_-$ one rewrites 
+	\[
+	\frac{f^\prime(r_+)}{16 \pi} \delta A = \delta M - \frac{Q}{r_+} \delta Q \, .
+	\]
+\end{itemize} 
+Comparing this last equation with the 1st law of thermodynamics $TdS = dM -\Phi dQ$ ($\Phi$ a gauge potential, $dM$ a matter content) and the second $\delta S \geq 0$ we would be inclined to write $S = \eta A$ and then 
+\begin{align*}
+	\Phi &= -\ev{A_t}{r=r_+} \quad (\text{Maxwell}) \, , \\ 
+	T_{BH} &= \frac{f^\prime(r_+)}{16 \pi \eta} \, .
+\end{align*}
+Hence the ``temperature" of the BH is constant over the entire horizon, which looks like the 0th law of thermodynamics. 
+\end{example}
+The rest of the analogy is completed in 
+\begin{itemize}
+	\item Israel, 1986, (3rd law)
+	\item Bardeen, Carter, Hawking, 1973, (law of classical BH vs thermodynamics)
+\end{itemize}
+What remains is to calculate the appropriate $\eta$. Hawking did it first with a very complicated calculation, so next time we will see a simpler trick. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Trick to Compute \secmath{T_{BH}} - Lecture 3}
+
+\begin{remark}
+	Note that in QFT at vanishing temperature, we use $\mathbb{R}^{1,3}$, but at finite temperature ($\beta$ is inverse temperature) use $S_\beta^1 \times \mathbb{R}^3$. We use this to motivate going to Euclidean BHs to do this calculation. 
+\end{remark}
+
+Now take $t=i\tau$ to get line element 
+\[
+ds_E^2 = f(r) dt^2 + \frac{dr^2}{f(r)} + r^2 d\Omega _2^2 \, . 
+\]
+We wonder what happens at $r_+$, as $f(r_+)=0$, but note now this is not a horizon because we have changed signature. \\
+Let $r-r_+ = \rho^2, \, \rho^2 \ll r_+$. Then as $\rho \to 0$ our line element has the limimt 
+\[
+ds_E^2 \to \frac{\beta}{4 \pi \eta} \pround{\rho^2 d\bar{\tau}^2 + d \rho^2} + r_+^2 d\Omega_2^2 
+\]
+where $\bar{\tau} = \pround{8 \pi \eta T_{BH}} \tau$ and $\beta = T_{BH}^{-1}$. This first term gives a smooth metric ``at the horizon" iff $\bar{\tau}$ is a polar coordinate, so has period $2\pi$ (otherwise we could have a conical singularity). Then 
+\[
+\bar{\tau} \sim \bar{\tau}+2 \pi \Rightarrow \tau \sim \tau + \frac{\beta}{4 \eta} \, .
+\] 
+If we take $r \to \infty$ in this limit metric, our asymptotic manifold is $S_\beta^1 \times \mathbb{R}^3$. Hence here we would want $\tau \sim \tau +\beta$, and this forces $\eta = \frac{1}{4}$. 
+\begin{remark}
+	One might wonder why we expect this transformed BH to not have a singularity, and this is valid (think about what gravitational instantons we get in Euclidean metric). We will talk about this more later.  
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Covariant Phase Space}
+We will now want to re-derive the thermodynamics of the black hole in covariant GR. As good references we have 
+\begin{itemize}
+	\item Iyer, Wald, 9403028
+	\item Wald, Zoupas, 991095
+	\item Wald, 9307038
+\end{itemize}
+
+\begin{example}
+	Starting with $L = \mathcal{L}(q, \dot{q}) dt$ and the Euler-Lagrange eqns give 
+	\[
+	\delta_1  L = \pround{\frac{\partial \mathcal{L}}{\del q^a} - \frac{d}{dt} \frac{del \mathcal{L}}{\del \dot{q}^a}} dt \delta_1 q^a + d\Theta
+	\]
+	with $\Theta = \frac{\del \mathcal{L}}{\del \dot{q}^a} \delta_1 q^a = p_a \delta_1 q^a$. This gives a symplectic form 
+	\[
+	\Omega = \delta_2 \Theta(\delta_1 q^a , q^a, \dot{q}^a) - \delta_1 \Theta(\delta_2 q^a, q^a, \dot{q}^a) = \delta_2 p_a \delta_1 q^a - \delta_1 p_a \delta_2 q^a
+	\]
+	We can define a Noether current associated with a vector field $\xi$ 
+	\[
+	J_\xi = \Theta(q^a, \dot{q}^a ,\mc{L}_\xi q^a) - \underbrace{i_\xi L}_{\xi \cdot L} \, .
+	\]
+	For example if $\xi = \del_t$, then $\mc{L}_\xi q^a = \dot{q}^a$ and $i_\xi L = \mathcal{L}$ so 
+	\[
+	J_\xi = p_a \dot{q}^a - \mathcal{L} = H 
+	\]
+\end{example}
+Think of this example as giving a blueprint for how to find the Noether current for a generic Lagrangian, as we will next attempt to do in GR. \\
+Define:
+\begin{itemize}
+	\item our manifold $M$, globally hyperbolic, 
+	\item $\phi = \phi(g_{ab}, \psi, \dots)$ our fields, $\psi$ matter fields,  
+	\item $\mathcal{F}$ the space of kinematically allowed configurations, with requirements such as smoothness and asymptotic boundary conditions. 
+	\item A bulk Lagrangian 
+	\[
+	L_{\text{bulk}}(g_{ab}, R_{abcd}, \nabla_a R_{abcd}, \dots, \psi, \nabla_a \psi, \dots)
+	\]
+	where we can can have arbitrary, but finite, number of derivatives in our terms. 
+\end{itemize}
+Our variation is defined as 
+\[
+\delta L_{\text{bulk}} = E[\phi] \delta \phi + d \Theta \, .
+\]
+\begin{remark}
+	Note our asymptotic boudnary conditions will not affect our EL equations, but will affect $\Theta$. Hence there are potential ambiguities, discussed further in (Harlow, 1906.08616) (1912.06025). 
+\end{remark}
+In pure GR, we will take 
+\[
+(L_{\text{bulk}})_{abcd} = \frac{1}{16 \pi G_N} \epsilon_{abcd} R  \Rightarrow \Theta_{abc} = \frac{1}{16 \pi G_N} \epsilon_{abcd} g^{de} g^{fh} \pround{\nabla_f \delta g_{eh} -\nabla_e \delta g_{fh} } \, .
+\]
+Following our algorithm our symplectic current is 
+\[
+\omega(\phi ,\delta_1 \phi, \delta_2 \phi) = \delta_2 \Theta (\delta_1 \phi, \phi, \dots) - \delta_1 \Theta(\delta_2 \phi, \phi, \dots) \, ,
+\]
+(an $(n-1)$-form in general). The symplectic form is 
+\[
+\Omega_\Sigma = \int_\Sigma \omega (\phi, \delta_1 \phi, \delta_2 \phi) \, ,
+\] 
+depending on some hypersurface $\Sigma$. We now want to calculate the Noether current associated to a vector field $\xi$, with action on $\phi \in \mathcal{F}$ given by $\mathcal{L}_\xi \mathcal{F}$. We will define a tangent vector in $\mc{F}$ if it maps $\mc{F} \to \mc{F}$, thus taking $\mc{L}_\xi \phi = \delta_\xi \phi$. Let us also define $\bar{\mc{F}}$ to be the submanifold of on-shell configurations, and a projection onto physical phase space $\mc{F} \to \Gamma$ (with associated $\bar{\mc{F}} \to \bar{\Gamma}$).
+
+\begin{definition}
+	Suppose we have $\mc{F}$, $\xi$, and $\Sigma$ defining $\int_\Sigma \omega(\phi, \delta \phi , \delta_\xi \phi)$ that converges $\forall \phi \in \bar{\mc{F}}, \, \forall \delta \phi$ tangent to $\mc{F}$. Then a function $H_\xi : \mc{F} \to \mathbb{R}$ is called the \bam{Hamiltonian conjugate to $\xi$ on $\Sigma$} if 
+	\[
+	\forall \phi \in \bar{\mc{F}}, \; \forall \delta \phi \text{ tangent to }\mc{F}, \; \delta H_ \xi = \Omega_\Sigma(\phi, \delta \phi, \delta_\xi \phi) = \int_\Sigma \omega(\phi, \delta \phi, \delta_\xi \phi) \, . 
+	\]
+\end{definition}
+If such a $H_\xi$ exists, it's value gives a conserved charge associated with transform by $\xi$ on $\Sigma$. \\
+We now want to wonder when $H_\xi$ exists. Let us write our Noether current, an $(n-1)$-form $J_\xi = \Theta(\phi, \delta_\xi \phi) - i_\xi L_{\text{bulk}}$. Then 
+\begin{align*}
+	dJ_\xi &= d\Theta - d(i_\xi L_{\text{bulk}}) \\
+	&= \psquare{\delta_\xi L_{\text{bulk}} - E[\phi] \delta \phi} - \psquare{(\mathcal{L}_\xi - i_\xi d) L_{\text{bulk}}} \\
+	&= - E[\phi] \delta \phi \, , 
+\end{align*}
+where we knew $dL=0$ as $L$ is a top form. This vanishes on-shell, so we can write 
+\[
+J = dQ + \xi^a c_a
+\]
+where $c_a$ vanishes on-shell, and $Q$ is an $(n-2)$-form called the \bam{Noether charge}. In pure GR we can calculate 
+\[
+J_{abc} = \frac{1}{8 \pi G_N} \epsilon_{dabc} \nabla_e \nabla^{[e} \xi^{d]}
+\]
+and so 
+\[
+Q_{ab} = -\frac{1}{16 \pi G_N} \epsilon_{abcd} \nabla^c \xi^d \, . 
+\]
+Returning to generality, we can write the variation of our current as 
+\begin{align*}
+	\delta J_\xi &= \omega(\phi, \delta \phi, \mc{L}_\xi \phi) + di_\xi \Theta - i_\xi \pround{E[\phi]\delta \phi} \\
+	\Rightarrow \delta J &= d(\delta Q) + \xi^a \delta c_a \quad (\text{as $\xi$ fixed}) \\
+	\Rightarrow \omega(\phi, \delta \phi, \mc{L}_\xi \phi) &= \xi^a \delta x_a + d(\delta Q) - di_\xi \Theta \\
+	\Rightarrow \delta H_\xi &= \int_\Sigma \xi^a \delta c_a + \int_{\del \Sigma} \psquare{\delta Q - i_\xi \Theta} \\
+	\Rightarrow \ev{\delta H_\xi}{\text{on-shell}} &= \int_{\del \Sigma} \psquare{\delta Q - i_\xi \Theta} \, .
+\end{align*}
+Wald and Zoupas derive an integrability condition for the existence of $H_\xi$ that 
+\begin{align*}
+	0 = (\delta_1 \delta_2 - \delta_2 \delta_1) H_\xi =_{\text{on-shell}} - \int_{\del \Sigma } i_|xi \omega(\phi, \delta_1 \phi, \delta_2 \phi)
+\end{align*}
+It is worth remarking that the above was derived under very general conditions. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Connection to ADM}
+Recall on shell we have 
+\[
+\delta H_\xi = \delta \int_{\del \Sigma} Q - \int_{\del \Sigma} i_\xi \Theta
+\]
+The latter term is the tricky on for the existence of $H_\xi$. Pick $\del \Sigma$ to be at spacelike infinity, and assume $\exists B$ satisfying 
+\[
+\delta \int_{\del \Sigma} i_\xi B = \int_{\del \Sigma} i_\xi \Theta
+\]
+This would give us a solution given as 
+\[
+H_\xi = \int_{\del \Sigma} (Q-i_\xi B) \, .
+\]
+This is a boundary quantity, depending on $\xi$, and in pure GR we can compute this $B$. If we took $\xi = \del_t$ or $\xi=\del_\varphi$, we would reproduce ADM with $H=$ energy or angular momentum. \\
+Let us now go to a BH situation. Here $\del \Sigma$ has two contributions, at infinity and at the horizon. Let us take the vector 
+\[
+\xi^a = t^a + \Omega_i \varphi_i^a \, ,
+\]
+a quantity vanishing at the horizon, meaning that the difficult term $\int_{\del \Sigma_{\text{Hor}}} i_\xi \Theta = 0$. Further, because $\omega(\phi, \delta \phi, \mc{L}_\xi \phi)=0$ because $\xi$ is Killing and so $\mc{L}_\xi \phi$, $\delta H_\xi =\int_\Sigma \omega = 0$. This combines to mean 
+\[
+\delta \int_{\del \Sigma_{\text{Hor}}} Q = \delta M - \Omega_i \delta J_i \, ,
+\]
+where $M, J_i$ are the ADM charges of energy and angular momentum. Assuming that the Lagrangian in the bulk is pure GR, we can use $Q_{ab} = -\frac{1}{16 \pi G_N} \epsilon_{abcd} \nabla^c \xi^d$. We will also want that 
+\begin{itemize}
+	\item the volume form on $\Sigma_{\text{Hor}}$ is 
+	\[
+	\epsilon_{ab} = \epsilon_{abcd} N^c \xi^d \, , 
+	\]
+	where $N$ is our future directed null normal to $\Sigma_{\text{Hor}}$ s.t $N^c \xi_c = -1$. 
+	\item We contract $\epsilon^{ab}$ with the integrand for $Q$ to get 
+	\[
+	\epsilon^{ab} \epsilon_{abcd} \nabla^c \xi^d = 4 N_c \xi_d \nabla^d \xi^c \, .  
+	\]
+	\item As $\xi$ is Killing, $\ev{\xi^a \xi_a}{\Sigma_{\text{Hor}}} = 0 \Rightarrow \nabla_a \xi^b \xi_b = -2 \kappa \xi^a$ on the horizon (for some $\kappa$).Using that $\xi$ is Killing gives $\nabla_{(a}\xi_{b)}=0$ and hence 
+	\[
+	\xi^b \nabla_a \xi_b = -\xi^b \nabla_b \i_a = -\kappa \xi_a 
+	\] 
+	This is called the \bam{surface gravity}. 
+\end{itemize}
+Hence 
+\[
+\epsilon^{ab} \epsilon_{abcd} \nabla^c \xi^d = -4 \kappa 
+\]
+By covariance, we must have 
+\[
+\epsilon^{ab} \epsilon_{abcd} \nabla^c \xi^d = \gamma \epsilon_{ab} \epsilon^{ab} \, ,
+\]
+which gives in total that 
+\[
+\delta \int_{\Sigma_{\text{Hor}}} Q = \delta \pround{\int_{\Sigma_{\text{Hor}}}\frac{\kappa}{8 \pi }\epsilon_{ab}} = \delta M - \Omega_i \delta J_i
+\]
+\begin{remark}
+	we may a few remarks. 
+	\begin{itemize}
+		\item The Euclidean $T_{BH} = \frac{\kappa}{2\pi}$ for RN. 
+		\item One can show the 0th law of BH mechanics: 
+		\[
+		\xi_{[d]}\nabla_{c]}\kappa = -\xi_{[d]}R_{c]}^f \xi_f
+		\]
+		using $\nabla_a \nabla_b \xi_c = -R\indices{^d_b_c_a} \xi_d$. Now for RN we can write 
+		\[
+		\delta\int_{\Sigma_{\text{Hor}}} \frac{\kappa}{8 \pi} \epsilon^{ab} = \frac{\kappa}{2\pi}\delta \pround{\frac{A}{4}} \, , 
+		\]
+		and if the dominant energy condition holds, we can write $\xi_{[d]} \nabla_{c]} \kappa = 0$ this is true more generally, so 
+		\[
+		\delta M - \Omega_i \delta J_i = T_{E, RN} \frac{\delta A}{4} \, . 
+		\]
+		\item The sum effect of this is to show that entropy is a Noether charge, and is related to the surface gravity, a quantity interesting in differential geometry in its own right.
+	\end{itemize}
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Thermal States - Lecture 4}
+Let's start with the question ``what is a thermal state?" Let's take two perspectives
+\begin{itemize}
+	\item From statistical mechanics, we have density $\rho_\beta = \frac{e^{-\beta H}}{Z(\beta)}$, $\beta=\frac{1}{T}, \, \pangle{X}_\beta = \operatorname{Tr}(\rho_\beta X)$. 
+	\item Open subsystems, thermal states appear as a reduced density matrix of a closed Hilbert space. i.e. we have a Hilbert space $H = H_1 \otimes I_2 + I_1 \otimes H_2$, with state 
+	\[
+	\ket{\psi}_{TFD} = \frac{1}{\sqrt{Z}} \sum_i e^{-\beta E_i / 2 } \ket{i}_1 \otimes \ket{i}_2 \, , 
+	\]
+	and then we calculate 
+	\[
+	\rho = \ket{\psi}\bra{\psi} \Rightarrow \rho_\beta := \rho_1 = \operatorname{Tr}_{H_2} \rho \, .
+	\]
+	This means 
+	\[
+	\pangle{\psi \, | \, X_1 \otimes I_2 \, | \, \psi} = \operatorname{Tr}_{H_1}(\rho_1 X_1) \, . 
+	\]
+	Note `TFD' stands for thermal field double. 
+\end{itemize}
+
+\begin{remark}
+	Consider 2 harmonic oscillators with Hilbert spaces $\mathcal{H}_1, \, \mathcal{H}_2$, corresponding creation an annihilation operators $a_i^\dagger, a_i$, with ground states $\ket{0}_i$ s.t. 
+	\[
+	a_i \ket{0}_i = 0 \, .
+	\] 
+	We thus have a natural vacuum state of $\mathcal{H} = \mathcal{H}_1 \otimes \mathcal{H}_2$ given by $\ket{0} = \ket{0}_1 \otimes \ket{0}_2$. The analogue of the TFD state here is 
+	\[
+	\ket{\psi} \propto \exp\psquare{e^{-w \beta/2} a^\dagger_1 a^\dagger_2} \ket{0} = \sum_n e^{-n\beta w/2 }\ket{nw}_1 \otimes \ket{nw}_2 \, .
+	\]
+	We observe that the operators 
+	\begin{align*}
+		b_1 &= \cosh(\theta) a_1 - \sinh(\theta) a_2^\dagger \, , \\
+		b_2 &= \cosh(\theta) a_2 - \sinh(\theta) a_1^\dagger \, ,
+	\end{align*}
+where $\cosh(\theta) = \frac{1}{\sqrt{1-e^{-\beta w}}}$. This is a unitary transform (an example of a bogoluibov transform), and we have that 
+\[
+b_1 \ket{\psi} = 0 = b_2 \ket{\psi} \, . 
+\]
+Hence some unitarily related observes will see $\ket{\psi}$ as a vaccuum, where their annihilation and creation operators are $b_i^\dagger, b_i$. Later we will show this to be related to the fact that, implicitly we have picked a time to do quantum mechanics here, and by changing time we will change frequencies, hence energies. The Hamiltonian corresponding to this new set of energies will be the boosted Hamiltonian. This will somehow apply to the thermodynamics of BHs later, where we expect the time to change. 
+\end{remark}
+
+\begin{remark}
+	Consider a Hilbert space $\mc{H} = \mc{H}_A \otimes \mc{H}_B$ with entangled state $\ket{\psi} \neq \ket{\chi}_A \otimes \ket{\tilde{chi}}_B$. For example we could take the qubit Bell state 
+\[
+\ket{\psi} = \frac{1}{\sqrt{2}} \pround{\ket{0}_A \otimes \ket{0}_B + \ket{1}_A \otimes \ket{1}_B} \, .
+\]
+If we let $\rho = \ket{\psi} \bra{\psi}$, but we can can only see system $A$, then we have $\rho_A = \frac{1}{2} I_A$. This has maximum ignorance, in the sense that it maximises Shannon entropy, but also that as an operator it doesn't even know the basis wrt which it is defined.  
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{How do we measure entanglement}
+We will want two properties of the entanglement we measure
+\begin{enumerate}
+	\item quantum entanglement $\Rightarrow$ quantum correlation
+	\item if the system is in a pure state of $\mc{H}_A \otimes \mc{H}_B$, then $S(\rho_A) = - \operatorname{Tr}_{\mc{H}_A} \rho_A \log \rho_A$
+\end{enumerate}
+If $\mc{H}$ has finite dimensions, then 
+\[
+\forall O_A, O_B , \quad I(A, B) \geq \frac{\pround{\pangle{O_A O_B} - \pangle{O_A} \pangle{O_B}}}{2 \abs{O_A}^2 \abs{O_B}^2}
+\]
+where $I$ is the mutual information 
+\[
+I(A,B) := S(A) -S(A | B) \, , 
+\]
+which, despite how its definition looks, is symemtric. \\
+In QFT, for a free massive scalar with vacuum $\ket{\Omega}$, we recall 
+\[
+\pangle{\Omega \, \ \, \phi(0,x) \phi(0,y) \, | \, \Omega} = \frac{1}{4 \pi^2} \frac{m}{\abs{x-y}} k_A (m\abs{x-y}) \, .
+\]
+We hence get behaviour 
+\begin{enumerate}
+	\item $\abs{x-y} \ll m^{-1} \Rightarrow $ decays as $\abs{x-y}^{-2}$, 
+	\item $\abs{x-y} \ll m^{-2} \Rightarrow $ decays as $e^{-m\abs{x-y}}$.
+\end{enumerate}
+If $m=0$, the decay is $\abs{x-y}^{-2}$ all the way. \\
+Comparing with our dicsussion of the discrete case, we can think of $\mc{H}_A$ as a region of spacetime where a local observer can measure $\phi(0,x)$ by restricting $x \in A, \, y \in B$, where $A \cap B = \emptyset$ and $A \cup B$ is our Cauchy slice we are doing QFT on. This would make it look like our entanglement entropy diverges, as we could make $\abs{x-y}$ arbitrarily small by take points close to the split of the Cauchy surface.  Hence UV behaviour introduces a UB cutoff $\xi_{UV}$. \\
+In gauge theories, there exist constraints (think of the Gauss law) which hold locally. Hence the split $\mc{H} = \mc{H}_A \otimes \mc{H}_B$ must be compatible with these. One proposal of how to deal with this is just to handle the physical phase space, and not deal with a splitting, while another is to increase the Hilbert space by adding ``edge modes", which are degrees of freedom living on the boundary (which can be measured in the lab via the Quantum Hall Effect).  
+\begin{remark}
+	In the discrete (i.e. the spin) story, where $\mc{H} = \mc{H}_A \otimes \mc{H}_B$, the Von-Neumann entropy $S_A$ is invariant under local unitary transformations in the subsytem, i.e $\rho_A^\prime = U_A^\dagger \rho_A U_A $. In a f.d. system these transforms are square matrices, but in QFT one type is time evolution with Hamiltonian, which deforms the Cauchy surface either side of the boundary. 
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Review of path integrals, states, and operators in QFT}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Transition Amplitudes and Ground State Wave Functions in QM}
+In QM, let's recall the position basis and operators $\hat{X} \ket{x} = x \ket{x}$ with 
+\[
+I = \int \ket{x} \bra{x} \, dx \, .
+\]
+The transition amplitude between $x_i$ as $t_i$, $i=1,2$ is 
+\begin{align*}
+G(x_2, t_2; x_1, t_1) &= \pangle{x_2, t_2 \, | \, x_1, t_1} = \pangle{x_2 \, | \, e^{-iH(t_2-t_1)} \, | \, x_1} \, , \\
+&= \int_{\bar{x}(t_1)=x_1}^{\bar{x}(t_2) = x_2} e^{iS[\bar{x}(t)]} \psquare{D \bar{x}(t)} \, , 
+\end{align*}
+using Feynmann's path integral formulation. \\
+To write the vacuum wave function introduce $\sum_n \ket{n} \bra{n}$, $\ket{n}$ the eigenstates of $H$, from which we can write 
+\[
+G(x,t; x_0, t_0) = \sum_n e^{-iE_n(t-t_0)} \pangle{x \, | \, n} \pangle{n \, \ \, x_0} = \sum_n e^{-iE_n(t-t_0)}  \psi_n(x) \psi_n^\ast (x_0) \, .
+\] 
+We observe that taking Euclidean time $t_E = it$ and the limit $t_E \to \infty$, this of $G$ is dominated by the contribution of the vacuum where $E=E_0$. Hence 
+\[
+\lim_{t_E \to \infty} G(x,t; 0,0) - \pround{e^{-E_0 t_E}\psi_0^\ast(0)} \psi_0(x) \, ,
+\]
+up to normalisation. This means we can compute $\psi_0(x)$, by taking the limit in Euclidean time of a quantity $G$ that we are taught to compute with path integrals. \\
+Moving now to QFT, introduce operator $\hat{\phi}(x)$ s.t. $\hat{\phi}(x) \ket{\phi} = \phi(x) \ket{\phi}$, where $\ket{\phi} = \bigotimes_{y \in \Sigma} \ket{\phi(y)}$, $\Sigma$ our Cauchy slice. We then write the vacuum 
+\[
+\ket{\Omega} = \int [D\phi] \ket{\phi} \pangle{\phi \, | \, \Omega} \, .
+\]
+Transition amplitudes in Euclidean time $\tau$ between $\phi_1 = \phi(\tau_1=0, x)$ to $\phi_2=\phi(\tau_2, x)$ are
+\begin{align*}
+	\pangle{\phi_2 \, | \, e^{-\tau_2 H} \, | \, \phi_1} = \int_{\phi(\tau_1) = \phi_1}^{\phi(\tau_1) = \phi_2} [D\phi] e^{-S_E[\phi]}
+\end{align*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{../../bib/custom-bib-style}
+\bibliography{../../bib/jabref_library.bib}
+
+\end{document}
