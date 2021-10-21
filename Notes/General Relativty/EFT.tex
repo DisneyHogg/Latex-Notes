@@ -462,7 +462,7 @@ Returning to generality, we can write the variation of our current as
 \end{align*}
 Wald and Zoupas derive an integrability condition for the existence of $H_\xi$ that 
 \begin{align*}
-	0 = (\delta_1 \delta_2 - \delta_2 \delta_1) H_\xi =_{\text{on-shell}} - \int_{\del \Sigma } i_|xi \omega(\phi, \delta_1 \phi, \delta_2 \phi)
+	0 = (\delta_1 \delta_2 - \delta_2 \delta_1) H_\xi =_{\text{on-shell}} - \int_{\del \Sigma } i_\xi \omega(\phi, \delta_1 \phi, \delta_2 \phi)
 \end{align*}
 It is worth remarking that the above was derived under very general conditions. 
 
@@ -583,7 +583,7 @@ Hence some unitarily related observes will see $\ket{\psi}$ as a vaccuum, where 
 \end{remark}
 
 \begin{remark}
-	Consider a Hilbert space $\mc{H} = \mc{H}_A \otimes \mc{H}_B$ with entangled state $\ket{\psi} \neq \ket{\chi}_A \otimes \ket{\tilde{chi}}_B$. For example we could take the qubit Bell state 
+	Consider a Hilbert space $\mc{H} = \mc{H}_A \otimes \mc{H}_B$ with entangled state $\ket{\psi} \neq \ket{\chi}_A \otimes \ket{\tilde{\chi}}_B$. For example we could take the qubit Bell state 
 \[
 \ket{\psi} = \frac{1}{\sqrt{2}} \pround{\ket{0}_A \otimes \ket{0}_B + \ket{1}_A \otimes \ket{1}_B} \, .
 \]
@@ -608,7 +608,7 @@ I(A,B) := S(A) -S(A | B) \, ,
 which, despite how its definition looks, is symemtric. \\
 In QFT, for a free massive scalar with vacuum $\ket{\Omega}$, we recall 
 \[
-\pangle{\Omega \, \ \, \phi(0,x) \phi(0,y) \, | \, \Omega} = \frac{1}{4 \pi^2} \frac{m}{\abs{x-y}} k_A (m\abs{x-y}) \, .
+\pangle{\Omega \, | \, \phi(0,x) \phi(0,y) \, | \, \Omega} = \frac{1}{4 \pi^2} \frac{m}{\abs{x-y}} k_A (m\abs{x-y}) \, .
 \]
 We hence get behaviour 
 \begin{enumerate}
@@ -652,8 +652,112 @@ Moving now to QFT, introduce operator $\hat{\phi}(x)$ s.t. $\hat{\phi}(x) \ket{\
 \]
 Transition amplitudes in Euclidean time $\tau$ between $\phi_1 = \phi(\tau_1=0, x)$ to $\phi_2=\phi(\tau_2, x)$ are
 \begin{align*}
-	\pangle{\phi_2 \, | \, e^{-\tau_2 H} \, | \, \phi_1} = \int_{\phi(\tau_1) = \phi_1}^{\phi(\tau_1) = \phi_2} [D\phi] e^{-S_E[\phi]}
+	\pangle{\phi_2 \, | \, e^{-\tau_2 H} \, | \, \phi_1} = \int_{\phi(\tau_1) = \phi_1}^{\phi(\tau_2) = \phi_2} [D\phi] e^{-S_E[\phi]}
 \end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Path Integrals - Lecture 5}
+Recall we want to be handling transition amplitudes of the form $\pangle{\phi_2 \, | \, e^{-\tau H} \, | \, \phi_1}$. If we split this conceptually as the inner product $\pangle{\phi_2 \, | \, \Psi}$ where
+\begin{itemize}
+	\item $\ket{\Psi} = \ket{\phi_1(\tau)} := e^{-\tau H} \ket{\phi_1}$,
+\item we let $\Phi(\phi_2) = \pangle{\phi_2 \, | \, \Psi}$ be the wavefunction evaluated at field configuration $\phi_2$. 
+\end{itemize}
+We can then have a formal description of the ket $\ket{\Psi}$ as 
+\[
+\int_{\phi(\tau_1) = \phi_1}^{\phi(\tau_2) = ??} [D\phi] e^{-S_E[\phi]} \, , 
+\]
+where the upper limit is free. 
+\begin{remark}
+	We might wonder why we are using the Euclidean path integral? States defined at the 2nd cut, i.e. $\phi_2(\tau_2)=??$, remain states in the Lorentzian theory, and so we are fine to Wick rotate. 
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Wavefunction of the Vacuum}
+We now want to compute the wavefunction of the vacuum using our transition amplitudes. The difficulty here is that we have an infinitely long interval of Euclidean time. 
+\begin{align*}
+	\pangle{\phi \, | \, \Omega} = \frac{1}{\pangle{\Omega \, | \, \chi}} \lim_{T_E \to \infty} \pangle{\phi \, | \, e^{-T_E H} \, | \, \chi} \propto \int_{\phi(T_E \to -\infty)=0}^{\phi(T_E = 0) = \phi} [D\phi] e^{-S_E[\phi]} \, . 
+\end{align*}
+We can look at certain correlation functions. 
+\[
+\pangle{\Omega \, | \, \Omega} = \sum_\phi \pangle{\Omega \, | \, \phi} \pangle{\phi \, | \, \Omega} 
+\]
+Inserting this $\sum_\phi \ket{\phi} \bra{\phi}$ is equivalent to gluing the path integral at at the finite limit at configuration $\phi$. Note that the complex conjugation occurring in going from $\ket{\Omega}$ to $\bra{\Omega}$ switches the sign of Euclidean time (as $T_E =it$), so the $T_E \to -\infty$ limit becomes a $T_E \to \infty$ limit. This is a useful perspective, as it means that we can now write correlation functions like $\pangle{ \Omega \, | \, \mathcal{O}(T_{E_1}, x_1) \dots \mathcal{O}(T_{E_n}, x_n)}$ by inserting these operators at points in our path integral over $T_E \in \mathbb{R}$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Density Matrices}
+Recall our density matrix is $\rho = \ket{\Psi} \bra{\Psi}$. This is an operator, so object of the form $\pangle{\phi_2 \, | \, \rho \, | \, \phi_1}$ gives us complex numbers. Hence the path integral associated to $\rho$ is a path integral of finite length in $T_E$ evolving between two cuts. Contracting with states $\ket{\phi_1}$ is the process of fixing states on those cuts.
+\begin{example}
+If we took the example of $\rho_\beta = Z^{-1} e^{-\beta H}$, then our partition function is $Z(\beta) = \operatorname{Tr}(e^{-\beta H})$. This expression is basis independent, so we can express it in our local basis as 
+\[
+Z(\beta) = \sum_{\phi_1} \pangle{\phi_1 \, | \, e^{-\beta H} \, | \, \phi_1} \, . 
+\]
+Here, this sum then becomes a sum over tori corresponding to our path integral. If we were to now compute correlation functions at finite temperature of the form 
+\[
+\pangle{\mc{O}(x_1) \dots \mc{O}(x_n)}_\beta = \tr(\rho_\beta \mc{O}(x_1) \dots \mc{O}(x_n))
+\]
+we then are seeing a sum over $M_{1,n}$, the moduli space of genus 1 curves with $n$ fixed punctures. 
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Unruh's Effect / QFT in Rindler Spactime}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Special Relativity}
+Let's go back to special relativity for a minute (working in $\mathbb{R}^{1,1}$). Recall that the relation between the acceleration of two intertial observers is 
+\[
+a_x = \frac{a_x^\prime}{\gamma^3 \pround{1 + \frac{v u_x^\prime}{c^2}}} \, , 
+\]
+where $\gamma = \psquare{1-(v/c)^2}^{-1/2}$. In the particular case of instantaneous rest frame where $u_x^\prime=0$, $a_x^\prime = \gamma^3 a_x$. \\
+	As $a_x = \frac{dv}{dt}$, we have 
+	\[
+	\gamma^3 \frac{dv}{dt} = \frac{d}{dt} \pround{\gamma v} \, .
+	\]
+	Assuming $a_x =\alpha = a_x^\prime$ a constant, this is a differential equation that we can solve for $\alpha t = \gamma(v) v$. Integrating again with $v = \frac{dx}{dt}$, gives 
+	\[
+	x(t) = \frac{c^2}{\alpha} \sqrt{1+\frac{\alpha^2 t^2}{c^4}} \, .
+	\]
+	Trajectories as above are hyperbolic, and define what is called \bam{Rindler observer}. Drawing these as trajectories in $\mathbb{R}^{1,1}$ shows why these are hyperbolic, and they have asymptotes $x \pm t=0$. Light emitted by this observer can only live in the \bam{right Rindler wedge}, the region $x\geq \abs{t}$. For time $t>t_c$, $t_c$ some critical time, light will not reach our observer. This means we have a horizon, but this horizon is observer dependent. This is called a \bam{Rindler horizon}. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{General Relativity}
+We now write down the spacetime metric percieved by a Rindler observer covering the Rindler wedge. We will use proper time $\tau$, which must be given by 
+\[
+d\tau = \frac{dt}{\gamma} \Rightarrow t = \frac{c}{\alpha} \sinh \frac{\alpha \tau}{c} \Rightarrow x(|tau) = \frac{c^2}{\alpha} \cosh \frac{\alpha \tau}{c} \, .
+\]
+We also introduce coordinates $\rho, \eta$ ($\eta=\tau$) related by 
+\begin{align*}
+	ct &= \rho \sinh \frac{\alpha \eta}{c} \, , \\ 
+	x &= \rho \cosh \frac{\alpha \eta}{c} \, ,
+\end{align*}
+which maker the metric 
+\[
+ds^2 = -dt^2 +dx^2 = -\rho^2 \psquare{d\pround{\frac{\alpha \eta}{c}}}^2 + d\rho^2 = -\rho^2 d \eta^2 + d\rho^2 \, .
+\]
+This metric looks like our BH metric very close to the Killing horizon, which can be seen geometrically by drawing the Penrose diagram. \\
+Let's again Wick rotate by setting $T_E = it$ and $\theta = i\eta$ s.t. 
+\[
+ds^2 = dT_E^2 + dx^2 = \rho^2 d\theta^2 + d\rho^2 \, .
+\]
+\begin{remark}
+	In the current normalisation, if $\theta$ has the periodicity condition $\theta \sim \theta+2\pi$, this is the metric of the Euclidean plane, which is the Wick rotation of Minkowski, and so both Euclidean continuations are equivalent. Hence Euclidean observables in QFT are identical. 
+\end{remark}
+We want to ask whether this interpretation holds when we continue back to Lorentzian QFT. We will aim to show the following:
+\begin{itemize}
+	\item In Minkowski, Euclidean correlation functions give rise to correlation functions in $\ket{\Omega} = \ket{0}_M$. 
+	\item in Rindler's right wedge, continuation computes correlation functions in $\ket{0}_M$ for observable restrict to the wedge. 
+\end{itemize}
+\begin{remark}
+	Note what we are working towards here is the idea that the fact that this spacetime is split into a left and right part, so our Cauchy surface $\Sigma$($=t=0$) is also split into a L/R part, will end up meaning that the Hilbert space $\mc{H}_M$ will factorise in to the tensor product $\mc{H}_L \otimes \mc{H}_R$. The problem we will then run up against is that $\ket{0}_M \neq \ket{0}_L \otimes \ket{0}_R$. \\
+	To spell this out, imagine we have a QFT of scalar field (as we don't want to deal with gauge questions) with arbitrary (i.e. possibly interacting) Lagrangian. Our Minkowski Hilbert space $\mc{H}_M$ will contain states of the form $\Psi[\phi(x)]$, and we will have Hamiltonian $H_M$ conjugate to time $t$. Write $\Psi_0$ for the wavefunction corresponding to the vacuum $\ket{\Omega} = \ket{0}_M$. \\
+	On the right Rindler wedge, the wavefunctions will be of the form $\Psi[\phi_R]$ where $\phi_R(x) = \phi(x>0, t=0)$. The Hamiltonian here $H_R$ will be conjugate to the clock $\eta$. Now because the information of $\ev{\phi}{\Sigma} = \phi(x,t=0)$ is contained in $(\phi_L(x), \phi_R(x)$, we get the factorisation $\mc{H}_M = \mc{H}_L \otimes \mc{H}_R$. Note that it is because our Hamiltonians have been take as conjugate to different coordinates, despite the fact that the metrics are the same, that they will be different and so the vacua will not agree on the intersect of the Cauchy surfaces. Indeed if one does the algebra, the vector field $\del_\eta$ is a boost generator in $x,t$ coordinates. 
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{../../bib/custom-bib-style}
