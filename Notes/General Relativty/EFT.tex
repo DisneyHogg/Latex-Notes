@@ -756,6 +756,599 @@ We want to ask whether this interpretation holds when we continue back to Lorent
 	To spell this out, imagine we have a QFT of scalar field (as we don't want to deal with gauge questions) with arbitrary (i.e. possibly interacting) Lagrangian. Our Minkowski Hilbert space $\mc{H}_M$ will contain states of the form $\Psi[\phi(x)]$, and we will have Hamiltonian $H_M$ conjugate to time $t$. Write $\Psi_0$ for the wavefunction corresponding to the vacuum $\ket{\Omega} = \ket{0}_M$. \\
 	On the right Rindler wedge, the wavefunctions will be of the form $\Psi[\phi_R]$ where $\phi_R(x) = \phi(x>0, t=0)$. The Hamiltonian here $H_R$ will be conjugate to the clock $\eta$. Now because the information of $\ev{\phi}{\Sigma} = \phi(x,t=0)$ is contained in $(\phi_L(x), \phi_R(x)$, we get the factorisation $\mc{H}_M = \mc{H}_L \otimes \mc{H}_R$. Note that it is because our Hamiltonians have been take as conjugate to different coordinates, despite the fact that the metrics are the same, that they will be different and so the vacua will not agree on the intersect of the Cauchy surfaces. Indeed if one does the algebra, the vector field $\del_\eta$ is a boost generator in $x,t$ coordinates. 
 \end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Vacuum States - Lecture 6}
+Define 
+\[
+\Psi_0(\phi) := \Psi_0[\phi_L, \phi_R]
+\]
+Using our polar coordinates $\rho, \theta$, we can do our path integral now, which goes from $\theta=-\pi$ to $\theta=\pi$. 
+\begin{remark}
+	We should have 
+	\[
+	\pangle{\phi(x_2, t_2) \, | \, \phi(x_1, t_1)} = \pangle{\phi_2 \, | \, e^{-i(t_2-t_1)H} \, | \, \phi_1} \, , 
+	\]
+	which should suggest to us that 
+	\[
+	\Psi_0(\phi) \propto \pangle{\phi_R \, | \, e^{-i(-i\pi)H_R} \, | \, \phi_L } = \pangle{\phi_R \, | \, e^{-\pi H_R} \, | \, \phi_L} \, . 
+	\]
+\end{remark}
+We can introduce a resolution of the identity $\pbrace{\ket{n}_R}$. so 
+\[
+\Psi_0(\phi(x)) \propto \sum_n e^{-\pi n} \chi_n (\phi_R) \chi_n^\ast (\phi_L)
+\]
+where $\chi_n(\phi_R) = \pangle{\phi_R \, | \, n}_R$, and likewise for $L$. Rewrite this as 
+\[
+\sum_n e^{-\pi n } \chi_n(\phi_R) \tilde{\chi}_n(\phi_L)
+\]
+where we interpret $\tilde{\chi}$ as a wave function in a Hilbert space where evolution flows in the opposite direction to the right wedge (as it does in the left wedge). Note our $\Psi_0(\phi(x))$ is really $\pangle{\phi_L, \phi_R \, | \, 0}_M$, so what we have is that 
+\[
+\ket{\Omega} = \ket{0}_M \propto \sum_n e^{-\pi n} \ket{n}_R \otimes \ket{n}_L
+\]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Direct Density Matrix Calculation (Second Round)}
+Recall $\rho = \ket{\Omega} \bra{\Omega}$. Taking two states in the right Hilbert space $\phi_i^R$, $i=1,2$, we can calculate the reduced density matrix on the right as 
+\begin{align*}
+	\pangle{\phi_2^R \, | \, \rho_R \, | \, \phi_1^R} = \sum_{\tilde{\phi}} \pangle{\tilde{\phi}, \phi_2^R \, | \, \rho_R \, | \, \phi_1^R , \tilde{\phi}}
+\end{align*}
+We will take the foliation $ds^2 = d\rho^2 + \rho^2 d \theta^2$, which means time translation is 
+\[
+\frac{1}{\hbar} \comm[H_R]{\mc{O}} = \del_\theta \mc{O} \, , 
+\]
+and using our transition amplitude intuition we write 
+\[
+\pangle{\phi_2^R \, | \, \rho_R \, | \, \phi_1^R} \propto \pangle{\phi_2 \, | \, e^{-2\pi H_R} \, | \, \phi_1} \Rightarrow \rho_R = \frac{e^{-2\pi H_R}}{Z} \, .
+\]
+\begin{remark}
+	\begin{itemize}
+		\item Note $\rho_R$ appears as a thermal state with $T = \frac{1}{2\pi}$ with respect to $H_R$.
+		\item Note also this is a non-perturbative derivation independent of the Lagrangian.
+		\item $H_R \sim K_x$ a boost generator after wick rotation, where 
+		\[
+		K_x \propto X \del_T - T \del_X \overset{T \to \pm i T_E}{\to} X \del_{T_E} + {T_E} \del_X = \del_\theta
+		\] 
+		\item $\ket{\Omega} = \ket{0}_M$ is annihilated by $H_R-H_L = H_R \otimes I_L - I_R \otimes H_L$. The minus sign is related to time running backward on the left Rindler wedge. That is 
+		\[
+		e^{-i\eta (H_R - H_L)} \ket{\Omega} = \ket{\Omega}
+		\]
+		\item Note that because $ds^2 = -\rho^2 d \eta^2 + d \rho^2$, we can write $d\tau_{obs} = R_{obs} d \eta = \frac{1}{a} d \eta$, so it is $R_{obs}$ that contains units, as $\tau$ is dimensionful and $\eta$ is dimensionless. These give $\eta = a \tau_{obs}$. If we were to compute temperature wrt $\tau_{obs}$, we would get dimensionful temperature 
+		\[
+		T_{\text{Unruh}} = \frac{a}{2 \pi} \frac{\hbar}{c k_b} 
+		\] 
+	\end{itemize}
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Proper Analytic Derivation (Third Round)}
+We know 
+\[
+\pangle{\phi_L, \phi_R \, | \, \Omega} = \frac{1}{Z} \pangle{\phi_R \, | \, e^{-\pi K_R} \Theta \, | \, \phi_L}
+\]
+where 
+\begin{itemize}
+	\item $K_R$ is the restriction of the analytic continuation of a boost to the right wedge, 
+	\item $\Theta$ is the generator of a CPT transformation in QFT, i.e 
+	\[
+	\Theta^\dagger \Phi(t,x, y) \Theta = \Phi^\dagger(-t, -x, y) \, ,
+	\]
+	so it is antiunitary and 
+	\[
+	\pangle{u \, | \, \Theta^\dagger \, | \, v} = \pangle{v \, | \, \Theta \, | \, u} \, .
+	\]
+	Note $\Theta$ is necessary as it maps $\mc{H}_{R/L} \to \mc{H}_{L/R}$. If our states were charged under some gauge field, $\Theta$ would have to act on those quantum numbers too. 
+\end{itemize}
+Now using our expression 
+\[
+\pangle{\phi_L, \phi_R \, | \, \Omega} = \frac{1}{Z} \sum_n e^{- \pi n} \pangle{n \, | \, \Theta \phi_L} \pangle{ \phi_R \, | \, n}_R \, , 
+\]
+and introducing $\ket{n^\ast}_L = \Theta^\dagger \ket{n}_R$ we get 
+\[
+\pangle{\phi_L, \phi_R \, | \, \Omega} = \frac{1}{Z} \sum_n e^{- \pi n} \pangle{\phi_R \, \ \, n}_R \pangle{\phi_L \, | \, n^\ast}_L \, , 
+\]
+and so we deduce
+\[
+\ket{\Omega} = \frac{1}{Z} \sum_n e^{- \pi n} \ket{n^\ast}_L \ket{n}_R \, . 
+\]
+\begin{remark}
+	Consider now a free field and take the coordinate change from $\mathbb{R}^{1,1}$ 
+	\begin{align*}
+		x &= e^{\xi_R} \cosh(\eta_R)  = -e^{-\xi_L} \cosh(\eta_L)\\ 
+		t &= e^{\xi_R} \sinh(\eta_R)  = e^{-\xi_L} \sinh(\eta_L)
+	\end{align*}
+The corresponding metrices in the two wedges are 
+\[
+e^{-2\xi_L}(-d\eta_L^2 + d\xi_L^2) = -dt^2 +dx^2 = e^{2\xi_R}(-d\eta_R^2 + d\xi_R^2) \, .
+\]
+We have boost generator $K_x = \del_{\eta_R}$ in the right wedge (as we have seen previously) but we can also check in the left wedge this is $-\del_{\eta_L}$. 
+\end{remark}
+
+\begin{remark}
+We make some philosophical remarks on the relevance of entanglement wrt the the smoothness of the horizon.
+\begin{itemize}
+	\item Note that if the state is $\ket{0}_R$, the right Rindler observer sees no particles, precisely because this is the vacuum state in $\mc{H}_R$.
+	\item While to a Rindler observer there is a horizon corresponding to the wedge, any inertial observer will not see these horizons, and eventually will cross out of the region. 
+	\item $\ket{0}_R$ is singular at the horizon. More precisely, if an inertial observer is in $\ket{0}_R$, and you compute the stress tensor, the expectation $\pangle{0 \, | \, T_{\mu \nu} \, | \, 0}_R$ diverges at the horizon. To interpret this, go back to our open subsystem perspective where $\rho = \rho_L \otimes \rho_R$. Here there are no correlations between $L$ and $R$, and the two subsystems do not know about the existence of the other. Hence a right wedge observer does not know about the existence of the left wedge.  
+\end{itemize}
+\end{remark}
+\begin{remark}
+	Note we started with classical black holes, and we showed that there was a formal analogy to classical thermodynamics, giving a `temperature'. We then went on a discussion where $G_N=0$, and saw that for non-inertial observers we could get situations where they perceive the vacuum state of the whole system as excited from a subsystem perspective - this was Unruh's effect. We ask - what can we learn about the physical reality of $T_{BH}$ from Unruh's effect?
+	\begin{itemize}
+		\item Unruh's effect is a purely QFT effect, so it cannot apply directly. 
+		\item For BHs we have two scenarios, maximal Kruskal extensions, and the formation of BHs by gravitational collapse, which are two different systems. For the first, we do recall that the Schwarzschild metric is, close to the horizon, similar to Rindler, and so our previous work will apply. For the latter, we do not have white holes, and so it is harder (and this is what Hawking discussed in his work).  
+	\end{itemize}
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{QFT in Curved Backgrounds}
+Let's lay the groundwork to answer these questions raised at the end of the last section. In order to turn of $G_N$ without removing the black hole, we let $G_N \to 0$ s.t. $r_S = GM$ is constant. We do this by letting the dimensionless quantity $\frac{M}{M_P} \to \infty$. This keeps the dynamics of quantum matter, but kills graviton interactions (while still keeping free gravitons) while preserving the geometry. \\
+Recall that when we used the Euclidean path integral to compute $\ket{0}_M$, in order to have the coordinates $(T_E, x)$ and $(\theta, \xi)$ be equivalent, we had to have $ \theta \sim \theta + 2\pi$ (Hartle-Hawking precsription). If $\theta$ was non-compact we have a degree of freedom, and this changes the vacuum. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{HH Vacuum - Lecture 6}
+\begin{remark}
+	For some references to cover what we have seen, look at 
+	\begin{itemize}
+		\item Unruh, Notes on BH evaporation, 1976
+		\item Fulling, 1973
+		\item Davoies, 1975
+		\item Unruh, Bisogano, Wichmann, 1975, 1976
+		\item Crispins, Itiguchi, Metsas, 0710.5373(?)
+	\end{itemize}
+\end{remark}
+
+\begin{remark}
+	To make concrete a remark from before, recall the Schwarzschild metric 
+	\[
+	ds^2 = -f(r)dt^2 + \frac{dr^2}{f(r)} + r^2 d \Omega^2 \, , 
+	\]
+	and as $r \to \infty, \, f(r) \to 1$, and $f(r) \sim \rho^2$ when $r-r_+ := \rho^2 \ll r_+$. Hence we really do see the canonical asymptotic clock at infinity is the same clock up to constant rescalings as the on in the right Rindler wedge. 
+\end{remark}
+If we perform canonical quantisation in the Schwarzschild BH, the corresponding vacuum $\ket{0}_R$ has $t_E$ non-compact. In (\hl{cite, Hartle Hawking 1976}), HH discovered a vacuum state $\ket{0}_{HH}$ corresponding to $t_E \sim t_E + \beta_{BH}$. Taking again $t=0$ as the Cauchy slice, we have a Euclidean preparation for $\ket{0}_{HH}$ on the lower half plane $\times S^2$. We can thus write our state as 
+\[
+\ket{0}_{HH} \propto \sum_i e^{-\beta_{BH} E_i/2} \ket{i^\ast}_L \otimes \ket{i}_R \, , 
+\]
+and so our asymptotic observer only sees the $\rho_R$, a thermal state. Hence $\beta_{BH}$ is physical. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Towards 1-sided}
+So far we have been looking at the Penrose diagram with both sides, but we will want to see if we can restrict to the 1-sided case (\hl{which corresponds to BH formed by collapse rather than always being there?})
+
+Let's have a perturbative discussion. We have a field $\phi$ satisfying 
+\[
+\nabla_\mu \nabla^\mu \phi = m^2 \phi = \frac{1}{\sqrt{-g}} \del_\mu \pround{\sqrt{-g} g^{\mu\nu} \del_\nu} \phi \, .
+\]
+Taking the ansatz
+\[
+\phi = \frac{1}{r} Y_{lm}(\Omega) f(r,t)
+\]
+with tortoise coordinate 
+\[
+r_\ast = r+2M \log\pround{\frac{r}{2M}-1} \, ,
+\]
+this gives 
+\[
+\del_t^2 f = \del_{r_\ast}^2 f + V_{eff}(r) = 0
+\]
+where 
+\[
+V_{eff}(r) = \pround{1- \frac{2M}{r}} \psquare{\frac{l(l+1)}{r^2} + \frac{2M}{r^3} + m^2 } \, .
+\]
+This is a Schr\"odinger-like equation, which has solutions 
+\[
+f(r,t) = e^{-iwt} \psi_{wl}(r) \, .
+\]
+We have the regimes 
+\begin{enumerate}
+	\item $r \to 2M, \, r_\ast \to -\infty$ where $V_{eff} \to 0$ and we get free solutions
+	\item $r \to \infty, \, r_\ast \to \infty$, in which case 
+	\[
+	V_{eff} \to \left \lbrace \begin{array}{cc}
+	\frac{l(l+1)}{r^2} & m^2=0 \\ m^2 \pround{1-\frac{2M}{r}} & m^2 \neq 0 
+	\end{array} \right .
+	\]
+\end{enumerate}
+Importantly $\exists r_{max}$ around which $V_{eff} \sim \rho^2$ where $\rho = r-r_{max}$. We picture that we are scattering off this potential $V_{eff}$. \\
+Consider first where $m^2=0$. We expect to get 
+\[
+\phi \sim \left \lbrace \begin{array}{cc}
+f_+(u) [\text{support } J^+] + g_+(v) [\text{BH horizon}] & t \to \infty \\
+f_-(u) [\text{support WH}] + g_-(v) [J^-] & t \to -\infty 
+\end{array}\right. 
+\]
+where $u,v$ are the coordinates $t \mp r_\ast$ respectively. \\
+Looking at the asymptotic past, consider a single particle Hilbert space $\mc{H}_{in} = \mc{H}_{in, \infty} \oplus \mc{H}_{in, WH}$. We need coordinates to reference states in this space, and we will use $t$ on $\mc{H}_{in, \infty}$, but we have ambiguity on $\mc{H}_{in, WH}$ (for example, use $t$ or Kruskal). \\
+We can do the same thing for asymptotic future, and write $\mc{H}_{out} = \mc{H}_{out, \infty} \oplus \mc{H}_{out, BH}$. \\ 
+Now for our 1-sided case, part of our Hilbert space decomposition will not be there, we will only have 
+\[
+L^2 \pround{\mc{H}_{out, BH}} \otimes L^2 \pround{ \mc{H}_{out, BH}} \, . 
+\]
+\begin{remark}
+	For references on this section, see 
+	\begin{itemize}
+		\item Hawking, ``Particle creation ...", 1976
+		\item Wald, ``On particle creation by BHs", 1975
+	\end{itemize}
+\end{remark}
+The problem we need to solve, is that the wave equation in Minkowski is glued with what happened earlier on, which is time dependent and could depend on details of the collapse. Our strategy will be as follows:
+\begin{enumerate}
+	\item use late times, because frequencies suffer from gravitational redshift, making excitations very massive. Hence one can use geometric optics approximation to the KG equation $\phi \sim \phi_0 e^{iS}$, and so the field is determined by null geodesics $\gamma$, 
+	\item $\gamma$ goes through the $J^-$ at $v=v_1$, close to $v=v_0$ (the last inward ray on the surface of the collapsing body, i.e. in the WH case $v=v_0$ corresponds with the WH horizon).
+	\item Use geodesic deviation to $\gamma$, s.t this deviation can be parameterise by $\epsilon n^a$ where $n^a$ is the tangent to an ingoing null geodesic at the horizon, hence $n^a l_a = -1$, where $l^a$ is the null geodesic generating the horizon. 
+	\item Let $p^a = \frac{\del u }{\del \lambda} \del u$, tangent to the ingoing null geodesic. $p^a = A^2 n^a$, $\lambda$ is an affine parameter $B^2 U = -B^2 e^{-\kappa u}$.  
+	\item solve the deviation equation, which connects the behaviour at the horizon ($\lambda=0$) with $\gamma$ ($\lambda < 0$), 
+	\[
+	\frac{dp^a}{d\lambda} = \frac{d^2 x^a}{d \lambda^2} \Rightarrow \lambda p^a = x^a(\lambda) - x^a(0) = - \epsilon n^a \Rightarrow \epsilon = -\lambda A^2 \, .
+	\]
+	\item Following $\gamma$ up to $J^-$, 
+	\[
+	v_0-v = \epsilon = -\lambda A^2 = C^2 e^{-\kappa u}
+	\]
+\end{enumerate}
+The solution to the scattering problem according to this strategy is 
+\[
+\phi \sim \left \lbrace \begin{array}{cc}
+e^{-iwu} & J^+ \\
+e^{i (w/\kappa) \log(v_0-v)/C^2} & v < v_0
+\end{array}\right .
+\]
+Doing this analysis properly using Fourier analysis, Wald shows 
+\[
+\forall f >0, \quad \tilde{\phi}(-f) = -e^{-\pi w/\kappa} \tilde{\phi}(f) \, ,
+\]
+and so for any positive frequencies in the wavefunction, the negative frequency also shows up. Hence there will be non-trivial Bogoliubov transformations. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Summary/End-result/Outcomes}
+Hawking measured $\frac{dE}{dt}$, the outward energy flux at $\infty$. We think of this as radiation, and he showed that 
+\[
+\frac{dE_{\text{rad}}}{dt} = \frac{w dw}{2 \pi} \frac{P_{\text{absorbtion}}(w, l)}{e^{\beta_{BH}w}-1} \, .
+\]
+This is independent of the details of the collapse. We can make an approximation to this by using that when $wr_s \ll 1$, $P_{abs}(w,l) \sim (wr_s)^2$ ($r_s = 2GM$) for low $l$, and as higher powers for higher $l$. Hence we can approximate 
+\[
+\frac{dE_{\text{tot}}{dt} \approx \int_{0}^{1/r_s} frac{w dw}{2\pi} \frac{(w r_s)^2}{\beta_{BH} w} \sim \frac{c}{\beta_{BH} r_s} = \frac{\tilde{c}}{r_s^2} \, .
+\]
+Taking $E=M$, $r_S \sim G_N M$, then 
+\[
+M^2 dM = - \frac{\tilde{D}}{G_N^2} dt \, ,
+\]
+and so $t_{\text{evaporation}} \sim G_N^2 M^3$ ($d=4$). This is long, but finite. \\
+In the paper by Wald, he computed the reduced density matrix to be 
+\[
+\rho \propto \bigotimes_{w,l,m} \psquare{\sum_n P_{abs}(w,l) e^{-\beta w n}\ket{n}_{w,l,m}\bra{n}} \, .
+\] 
+Hawking's conclusion was that, if $G_N \neq 0$, the time evolution of a pure state photon ends up in a mixed state. This violates unitarity in quantum mechanics. 
+\begin{remark}
+	At early times, some radiation is asymptotic, so entanglement is growing while the BH is becoming small. Hawking's process always operates, so any state is in a space $(\text{BH}) \times (\text{Asymp Rad})$. These two systems must have the same entanglement entropy at all time, but a small BH must have small entropy because it has a small number of states, unless quantum gravity does something here. \\
+	One possible way of solving the problems occuring is to believe that BHs give a `coarse-graining', and so $\exists$ subtle quantum correction that may save the day. That is, suppose your state is pure, we probe it with correlators 
+	\[
+	\pangle{\psi_i \, | \, \mc{O}_1(x_1) \dots \mc{O}_N(x_N) \, \ \, \psi_i} = \operatorname{Tr}(\rho_\beta \mc{O}_1(x_1) \dots \mc{O}_N(x_N)) + \mc{O}\pround{e^{-S_{BH} - \tilde{N}}} \, ,
+	\]
+	and if $N$ is not large enough, then one cannot distinguish $\psi_i$ from another close state, so if you have an operator complex enough to distinguish the BH microstates then it may back-react and change your Hilbert space.  
+	
+\end{remark}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Holographic Principle - Lecture 7}
+\hl{write this in}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Partition Functions in GR - Lecture 8}
+This was first considered by Gibbons and Hawking in 1977, the paper ``Action Integrals and Partition Functions in Quantum Gravity". Our partition function will be, in Euclidean signature, 
+\[
+Z = \int [Dg][D\phi] e^{-S_E[g, \phi]} \, ,
+\]
+where 
+\[
+S_E[g, \phi] = \frac{1}{16 \pi G_N} \int \sqrt{g}(R + \dots) + S_{\text{matter}} \, . 
+\]
+We will take finite temperature in order to make this object more tractable, and so have 
+\[
+t_E \sim t_E + \beta \, , \text{ and } \lim_{r \to \infty} g_{tt} = 1 \, ,
+\]
+to have asymptotic flatness. We will take what is called \textbf{semi-classical gravity}, where $\hbar =1$ but $G_N \to 0$. This means gravity is classical, but matter is quantum. \\
+Moreover, we assume that our Euclidean action has the form 
+\[
+S_E = \frac{1}{\kappa^2}\psquare{\dots} \, , 
+\]
+and so the partition function can be approximated by saddles, $\bar{g}_i, \, \bar{\phi}_i$. Hence 
+\[
+Z \approx \sum_i e^{-S_E[\bar{g}_i, \bar{\phi}_i]} \pround{1+ \text{loop}} \, .
+\]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Flat Space Thermodynamics} 
+At finite $T$, we know that there is the saddle (which for us will just mean a stationary point of the action, so a solution to the Einstein equations) given by the Euclidean BH. Hence 
+\[
+\log Z \approx -S_E[\bar{g}_{BH}] = S-\beta E
+\]
+where $S = (1-\beta \del_\beta) \log Z$ and $E = - \del_\beta \log Z$ (recall $Z=Z[\beta]$).  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Evaluation Euclidean Action} 
+Introduce cutoff $r_0$ which we let $ \to \infty$. Taking $G_N = 1$ for now we get 
+\[
+s_E = -\frac{1}{16 \pi } \int_M \sqrt{g}R - \frac{1}{8 \pi} \int_{\del M} \sqrt{h} K \, ,
+\]
+where the boundary corresponds to $r_0$, $h$ the emtric induced on $\del M$, and $K = h^{ij} K_{ij}$ and $K_{ij} = \frac{1}{2}\mc{L}_n h_{ij}$, $N$ the inward pointing unit normal to $\del_M$. \\
+We will impose the boundary condition $\ev{\delta g}{\del M}=0$, which means that we don't get a boundary term when integrating by parts the bulk term. The saddle is, as we have written, 
+\[
+ds^2 = \pround{1-\frac{2M}{r}} d\tau^2 + \frac{dr^2}{1-\frac{2M}{r}} + r^2 d \Omega^2 \, ,
+\]
+where $\tau$ is periodic $\tau \sim \tau+\beta$, where for the Schwarzschild BH $\beta = 8 \pi M$. On shell here $R=0$ as it is a vacuum solution, and we know 
+\[
+\ev{ds^2}{r_0} = \pround{1-\frac{2M}{r_0}} d\tau^2 + r_0^2 d \Omega_2^2 \, ,
+\]
+so letting $f = 1-\frac{2M}{r_0}$ our boundary has normal $n = \sqrt{f}\del_r$. This means we can calculate 
+\[
+K_tt = \sqrt{f} \frac{M}{r_0^2} \, , \quad K_{\theta_i \theta_j} = \sqrt{f} r_0 \hat{h}_{\theta_i \theta_j} \, ,
+\]
+hence $K = \frac{M}{\sqrt{f} r_0^2} + \sqrt{f} \frac{2}{r_0}$ and $\sqrt{h} = \sqrt{f} r_0^2 \sqrt{\hat{h}}$. This all combines to mean 
+\[
+\int_{\del M} \sqrt{h} K = 4 \pi \beta \psquare{8 \pi r_0 - 12 \pi M} \, .
+\] 
+This expression diverges when $r_0 \to \infty$, as one might expect. Like in QFT therefore, we add a counter term 
+\[
+S_{ct} = \frac{1}{8 \pi } \int_{\del M} \sqrt{h} K_0 \, ,
+\]
+where $K_0$ is the extrinsic curvature of an on-shell metric sharing the same boundary metric on the BH. This background metric will be 
+\[
+ds^2_{\text{background}} = \pround{1-\frac{2M}{r_0}} d\tau^2 + dr^2 + r^2 d\Omega_2^2 \, ,
+\]
+which it is not too hard to see is flat and will have the same boundary metric. One can work out that for this backgroun $K_0 = \frac{2}{r_0}$, and so 
+\[
+S_{ct} = \frac{1}{8 \pi} \psquare{8 \pi \beta \sqrt{f} r_0} \, .
+\]
+\hl{check factors here}. This is designed s.t now we get no divergence of the GHY action, but it modifies the finite piece. \\
+According to our saddle point approximation, we now have 
+\[
+\lim_{r_0 \to \infty} \log Z \approx -\frac{\beta M}{2} = - 4 \pi M^2 = -\frac{\beta^2}{16 \pi} \, .  
+\]
+This gives 
+\[
+Z[\beta] \approx e^{-\frac{\beta^2}{16 \pi}} \, . 
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Check Thermodynamic Quantities} 
+If our partition function calculation is to be good then we should have entropy 
+\[
+S = \log Z + \frac{\beta^2}{4 \pi} = 4 \pi M^2 
+\]
+which is equal to our $S_{BH}$, good. Moreover the energy $E$ should be 
+\[
+E = -\del_\beta \log Z = M \, .
+\]
+again agreeing with $E_{BH}$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Comparison with Wald} 
+Recall the 1st law said that in Lorentzian signature there is a horzion, and it is necessarily cloaking a singularity. Our Euclidean partition function said that in Euclidean signature there does not exist as horizon that's a smooth saddle. \\
+To compare, note in our calculation there is a boundary term. Wald's story, a covariant formalism, had ambiguity $L \to L+dB$. However, both Euclidean and Lorentzian spacetime are time translation invariant, and with the inclusion of the boundary term Wald also finds that 
+\[
+-S_E = S_{BH} - \beta (M - \Omega_i J_i)
+\]
+where the RHS really is the $\log Z$, or indeed the free energy $-\beta F$. The problem arises because when we go to Euclidean time we compactify the time dimension.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Final Remarks} 
+\begin{itemize}
+	\item Note we have other saddles, for example Euclidean Minkowski (often thought of as a thermal gas). When one is doing this calculation with multiple saddle, we have multiple free energies, and so there may be regimes where different saddles dominate at finite temperature.
+	\item Gross, Perry, Yalle, proved in ``instability of flat space at finite $T$" (1982) that hot flat space is unstable due to what is called Jeans' instability. Moreover, the Schwarzschild BH has a negative mode (responsible for specific heat $<0$) also giving instability.
+	\item Atick and Witten in ``Hagedorn transition and number of degrees of freedom in string theory" (1988) showed that closed strings can wind around $t_E$, giving a new quantum number (corresponding to the winding number). Tachyon instabilities arise in the spectrum below some temperature. Hence closed strings know about the difference between Euclidean and Lorentzian time. 
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{de Sitter}
+Recall de Sitter the maximally symmetric spacetime with $\Lambda>0$ given by 
+\[
+R_{\mu \nu} = \frac{d-1}{l^2} g_{\mu \nu} \, ,
+\]
+and we take $\Lambda = \frac{(d-1)(d-2)}{2 l^2}$. This can be viewed as a hyperboloid in $\mathbb{R}^{1,d}$ given by 
+\[
+-x_0^2 + \sum_i x_i^2 = l^2
+\]
+and so we take coordinates $x_0 = l \sinh(T/l)$, $x_i = l w_i\cosh(T/l)$, where $w_i$ are coordinates on a unit sphere. Then 
+\[
+ds^2 = -dT^2 + l^2 \cosh^2(T/l) d \Omega_{d-1}^2 \, .
+\]
+Alternatively if we let $\tan(\eta/2) = \tanh(T/2l)$ then on the boundary where $T \to \infty$ we get 
+\[
+ds^2 = \frac{l^2}{\cos^2 \eta} \pround{-d\eta^2 + d\Omega_{d-1}^2} \, .
+\] 
+\begin{remark}
+	Following from causality, interial observers cannot observe full de Sitter. 
+\end{remark}
+Isolating out one particular $\theta$ on the $S^{d-1}$ we can talk about its north and south pole, and then we call the causally connected patch to the south pole the \textbf{causal diamond}. This has coordinates 
+\begin{align*}
+	x_0 &= \sqrt{l^2 - r^2} \sinh(t/l) \, , \\
+	x_1 &= \sqrt{l^2 - r^2} \cosh(t/l) \, , \\
+	x_i = r z_i \, , \quad (2 \leq i \leq d)
+\end{align*} 
+and this gives metric 
+\[
+ds^2 = -\pround{1-\frac{r^2}{l^2}} dt^2 + \frac{dr^2}{1-\frac{r^2}{l^2}} + r^2 d \Omega_{d-2}^2 \, .
+\]
+$r=l$ is horizon seen just by the south pole observer. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{de Sitter thermodynamics}
+Now take $r = l(1-\rho^2)$ for $\rho^2 \ll 1$. This gives 
+\[
+ds^2 = 4l^2 (d \rho^2 + \frac{\rho^2}{l^2} dt^2)
+\]
+We identigy $t \sim t + 2\pi i l$ and so the Euclidean time has $t_E \sim t_E + 2 \pi l$ giving a temperature $T_{dS} = \frac{1}{2 \pi l}$, and a horizon area \\
+In $d=4$, taking the saddle point approximation we have 
+\[
+S_{dS} = \pi  l^2 
+\]
+Euclidean de Sitter is a sphere, so has no boundary. and so we get 
+\[
+S_E = -\frac{1}{16 \pi} \int \sqrt{g}(R - 2\Lambda) = - pi l^2 
+\]
+Recall we would want to see $-S_E = \log Z = - \beta F = S_{dS} - \beta E_{dS}$, and the lack of boundary means $E_{dS} = 0$, so this story agrees with thermodynamics. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Remarks}
+Let's collate what we know about QG so far. 
+\begin{itemize}
+	\item Recall the holographic principle slightly rephrased: the number of d.o.f of QG scale like the number of d.o.f in QFT of one dimension less. 
+	\item Weinberg-Witten theory, which prevents gravitons in a relativistic QFT with a covariantly conserved $T_{\mu\nu}$. 
+\end{itemize}
+Some possible conclusions are 
+\begin{itemize}
+	\item gravitons may live in one extra dimension, 
+	\item the QM description capturing the physics of graviton should be strongly coupled. 
+\end{itemize}
+We can ask some questions. 
+\begin{itemize}
+	\item How can we test these ideas? We might look to large $N$ limits of gauge theories, which look like string theories. It will turn out that pairing this with the holographic principle with CFTs will force you onto AdS. 
+	\item How could we show that $A=B$? We could go to a low energy limit (sometimes called the decoupling limit), where $A$ (resp $B$) becomes $A_1, \, A_2$ (resp $B_1, \, B_2$), and in this limit show $A_i = B_i$. 
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Large N 't Hooft limit - Lecture 9}
+The references for the following section will be 
+\begin{itemize}
+	\item 't Hooft, 1974, ``a planar diagram theory for strong interactions"
+	\item review 9802419
+\end{itemize}
+Consider the QCD Lagrangian 
+\[
+\mc{L}_{QCD} = -\frac{1}{g_{YM}^2} \psquare{-\frac{1}{4}\tr (F_{\mu\nu}F^{\mu\nu}) - i \bar{\psi}(\slashed{D}-m) \psi} \, .
+\]
+This is strongly coupled at low energies. The fields are $SU(3)$ valued, we hope that if we change that to $SU(N)$, we get $1/N$ perturbative parameter. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Toy Model}
+Consider first 
+\[
+\mc{L} = - \frac{1}{g^2} \psquare{ \frac{1}{2} \del_\mu \phi \del^\mu \Phi + \frac{1}{4} \Phi^4}
+\]
+where $\Phi \Phi\indices{^a_b}$ and $N\times N$ Hermitian matrix. We have global $U(N)$ symmetry given by $\Phi \mapsto U \Phi U^\dagger$. \\
+The Feynmann rules are that we have propagator from $ab$ to $cd$ 
+\[
+\pangle{\Phi\indices{^a_b}(x) \Phi\indices{^c_d}(y)} = g^2 \delta^a_d \delta^c_b G(x-0)
+\]
+and 4-point function of interactions $ab$, $cd$, $ef$, $gh$ given by 
+\[
+\frac{1}{g^2} \delta^a_h \delta^c_b \delta^e_d \delta^g_f \, .
+\]
+To simplify the combinatorics of these, 't Hooft introduced \textbf{double line} notation, where instead of 1 line for a propagator we draw 2, where the upper index of one goes to the lower of the other, and they are given arrows in the opposite directions. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Vacuum Diagrams}
+We can now try to consider vacuum diagrams with a single vertex. One can work out that we get two diagrams, giving contributions 
+\begin{enumerate}
+	\item $g^2 N^3$ (a vertex with external legs on the same side joined - this can be drawn in the plane)
+	\item $g^2 N$ (a vertex with external legs on the opposite side joined - this cannot be drawn in the plane) (note this looks like the M\"obius band)
+\end{enumerate}
+The diagrams we can draw without intersections are called \textbf{planar}. \\
+One can then consider 2-vertex diagrams, and now we get contributions 
+\begin{enumerate}
+	\item g^4 N^4 (planar)
+	\item g^4 N^2 (non planar)
+\end{enumerate} 
+One might wonder whether we can construct general rules to understand the behvaiour of these diagrams at any order. 
+\begin{remark}
+	Both non-planar diagrams can be drawm on a torus without crossing lines (the diagram has been `straightened out'). The power of $N$ is the number of faces in each diagram after being straightened out. 
+\end{remark}
+In order to generalise this, we use the following facts.
+\begin{itemize}
+	\item Any orientable 2d surface is topologically classified by an integer $h$ (the genus) 
+	\item $\forall$ non-planar diagram, $\exists h$ s.t. the diagram can be straightened out on a surface of genus $h$ ($h \in \mathbb{Z}_{\geq 0}$), but not on a surface of smaller genus. 
+	\item For any diagram, the power of $N$ is given by a number of faces $F$.  
+	\item We have Euler's formula $V-E+F = 2-2h := \chi$. One can derive this by thinking of the diagram as a triangulation of the surface. 
+\end{itemize}
+Using these we can say that for any diagram 
+\[
+\mc{A} \sim N^F (g^2)^{E-V}
+\]
+where $V$ is the number of vertices and $E$ is the number of edges. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{'t Hooft Limit}
+To make this tractable, we might have Euler's formula in mind, so we choose to take $N \to \infty, \, g \to 0$ s.t. $\lambda = g^2 N $ is fixed. This is called the \textbf{'t Hooft coupling / 't Hooft limit}. Then we get 
+\[
+\mc{A} \sim \lambda^{E-V} N^{V-E+F} \, .
+\] 
+Notes $E-V = L-1$, where $L$ is the number of loops in the diagram, i.e. the number of undetermined momenta (this is as edges correspond to momenta, vertices impose a delta conservation, and there is an overall conservation in the diagram). Hence we have 
+\[
+\mc{A} \sim \lambda^{L-1} N^{2-2h} \, . 
+\]
+What we learn is that our answer for the total vacuum amplitude is 
+\[
+N^2 \psquare{c_0 + c_1 \lambda + \dots} + \mathcal{O}(N^{2-2h}) \, ,
+\]
+and non-perturbatively, in the large $N$ limit, 
+\[
+\log Z = \sum_{h = 0}^\infty N^{2-2h} f_h(\lambda) \, .
+\]
+In our toy model approach, we had leading order term in our partition function $\log Z \sim N^2$. Recall that if we did a path integral to calculate $Z$ and took a saddle approximation, we would expect to get leading contribution to $\log Z$ of $S_E$ at the saddle. Because we had $\mc{L} = -\frac{N}{\lambda} \tr\psquare{\dots}$, we should then expect to get $\tr[\dots] \sim \mc{O}(N)$. This is a heuristic argument, but it will hold more generally that if we have $\mc{L} = -\frac{N}{\lambda}\tr[\dots]$, and we have matrix degrees of freedom, then we should expect a partition function of the form 
+\[
+\log Z \sim \sum_h N^{2-2h} f_h \, . 
+\] 
+The expansion becomes an expansion in the topology of Feynmann diagrams. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{General Observables}
+In QCD, we have gauge transform (in some convention)
+\[
+A_\mu \mapsto UAU^\dagger -i(\del_\mu U)U^\dagger \, .
+\]
+$\Phi^2$ was a good observable in our toy model, but it will not be so in QCD, and in that sense gauge theories are more restrictive than our toy model. If we have a Lagrangian $\mc{L}[A, \psi] = -\frac{N}{\lambda_{YM}} \tr[\dots]$. We will restrict to local operatrors, i.e involving trace. 
+\begin{itemize}
+	\item single trace $\mc{O}_i$ ($i \in I$ a label), 
+	\item multi-trace operators $\mc{O}_{i_1}(x_1) \cdots \mc{O}_{i_n}(x_n)$. 
+\end{itemize}
+If we want to compute observables $\pangle{\mc{O}_{i_1}(x_1) \cdots \mc{O}_{i_n}(x_n)}$, we want to know if there is an $N$ expansion, similar to how there was for our vacuum correlator, but now we may have external legs. \\
+Recall the way we calculate these objects with a generator 
+\[
+Z[J_1, \dots, J_n] = \int [DA_\mu] [D\psi] e^{i S_0 + i \int J_i(x) \mc{O}_i(x)} \, ,
+\]
+which gives the correlator as 
+\[
+\pangle{\mc{O}_{i_1}(x_1) \cdots \mc{O}_{i_n}(x_n)} = \ev{\frac{\delta^n \log Z}{i^n \delta J_1 \dots \delta J_n}}{J_i = 0} \, .
+\]
+For us $S_0 \sim \frac{N}{\lambda} \tr[\dots]$, and if we scale the $J_i$ by $N$ we get $iS_{eff} = N \tr[\dots]$, which is the right $N$ scaling. Hence 
+\[
+\pangle{\mc{O}_{i_1}(x_1) \cdots \mc{O}_{i_n}(x_n)} = \ev{\frac{\delta^n \log Z}{i^n N^n \delta J_1 \dots \delta J_n}}{J_i = 0} = \sum_{h=0}^\infty N^{2-n-2h} F_n^h(\dots) \, . 
+\]
+\begin{remark}
+	We there are no operators, the dominant scaling of the vacuum is $\pangle{I} \sim \mc{O}(N^2)$, and likewise the dominant contribution with $k$ operators is $\mc{O}(N^{2-k})$.  
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Physical Consequences}
+\begin{remark}
+	Single and multi-trace operators at large $N$ behave like $n$-particle states, in the sense that 
+	\[
+	\mc{O}_i(x)\ket{0} \sim \text{ single particle}
+	\]
+\end{remark}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

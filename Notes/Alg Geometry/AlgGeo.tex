@@ -131,6 +131,69 @@ s.t. $a,b,c,d \in \mbb{Z}, \, ad-bc=1$.
 \begin{notation}
 	We denote the ring of holomorphic functions on a neighbourhood of $z \in \mbb{C}^n$ as $\mc{O}_{n,z}$. We let $\mc{O}_n = \mc{O}_{n,0}$.
 \end{notation}
+
+
+\begin{definition}
+	An ideal $I \triangleleft R$ is \bam{prime} if $\forall a,b \in R, \, ab \in I \Rightarrow a in I$ or $b \in I$. 
+\end{definition}
+
+\begin{example}
+	$\pangle{p} \triangleleft \mbb{Z}$ is prime. 
+\end{example}
+
+\begin{prop}
+	An ideal is prime iff $\faktor{R}{I}$ is an ideal domain. 
+\end{prop}
+
+\begin{definition}
+	We define the set of all prime ideal of $R$ to be the \bam{spectrum} $\operatorname{Spec}(R)$. 
+\end{definition}
+
+\begin{remark}
+	We will define a topology on $\operatorname{Spec}(R)$ later when we talk about varieties. 
+\end{remark}
+
+\begin{definition}
+	An ideal $I \triangleleft R$ is \bam{maximal} if $I \subseteq J \triangleleft R \Rightarrow I=J$, 
+\end{definition}
+
+\begin{prop}
+	$I$ is maximal iff $\faktor{R}{I}$ is a field. 
+\end{prop}
+
+\begin{prop}
+	Maximal ideals are prime
+\end{prop}
+
+\begin{example}
+	$\pangle{X^2-2} \triangleleft \mathbb{Q}[X]$ is maximal as 
+	\[
+	\faktor{\mathbb{Q}[X]}{\pangle{X^2-2}} \cong \mathbb{Q}[\sqrt{2}] 
+	\]
+	is a field. 
+\end{example}
+
+\begin{definition}
+	Let $S$ be a multiplicatively closed subset of $R$ containing $1$. We define the \bam{localisation of $R$ as $S$} to be 
+	\[
+	S^{-1} R = \pbrace{(r,s) \in R \times S \, | \, (r_1, s_1) \sim (r_2, s_2) \Leftrightarrow \exists t \in S, \, t(s_1 r_2 - s_2 r_1)=0} \, .
+	\]
+	We think of these as the fractions $\frac{r}{s}$, and it is then made into a ring in the obvious way. 
+\end{definition}
+
+\begin{prop}
+	If $0 \in S$, $S^{-1}R$ is the trivial ring. 
+\end{prop}
+
+\begin{prop}
+	There is a ring hom 
+	\eq{
+j: R &\to S^{-1} R \\
+r &\mapsto \frac{r}{1}	
+}
+defined via the universal property that, if $f:R \to T$ is a ring hom s.t. $\forall s \in S$, $f(s)$ is a unit, then $\exists! g: S^{-1}R \to T$ s.t. $f = g \circ j$. 
+\end{prop}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Modules}
@@ -619,35 +682,6 @@ In general we then see $\mc{O}(n)$ has transition function $g_{01}=\zeta^{n}$.
     and $f_0 = g_{01}f_1 \Rightarrow g_{01} = \zeta^{-2}$. Hence $T^\ast \mathbb{P}^1 \cong \mathcal{O}(-2)$. Note we chose the sign s.t. we preserved orientation. 
 \end{proof}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Tangent Spaces}
-
-\begin{definition}
-	Given an even-dimensional smooth manifold, an \bam{almost complex structure} is a fibrewise operator $J:TM \to TM$ s.t. $J^2=-1$. 
-\end{definition}
-
-\begin{prop}
-	Every complex manifold has an almost complex structure
-\end{prop}
-\begin{proof}
-	Take the map $J\pround{\pd{x}} = \pd{y}, \, J\pround{\pd{y}} = - \pd{x}$
-\end{proof}
-
-Given a complex manifold $M$, the complex structure extends to the complexified tangent bundle as 
-\eq{
-J : TM \otimes \mbb{C} &\to TM \otimes \mbb{C} \\
-J(X+iY) &= J(X) + iJ(Y)
-}
-
-\begin{definition}
-	The $\pm i$ eigenspaces of the complexified tangent bundle $TM\otimes \mbb{C}$ are denoted $T^{1,0}M, \, T^{0,1}M$ respectively, and are called the \bam{holomorphic and antiholomorphic tangent bundles}
-\end{definition}
-
-\begin{lemma}
-	$T^{0,1}_p(M) = \overline{T^{1,0}_p(M)}$
-\end{lemma}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Dolbeault Cohomology}
 
@@ -739,6 +773,32 @@ whereas
 }
 \end{proof}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Varieties}
+
+Recall we defined the set $\operatorname{Spec}(A)$ of a ring $A$ previously. We will now expand on that idea. 
+\begin{definition}
+	Given an ideal $I \triangleleft A$, define $V(I) \subseteq \operatorname{Spec}(A)$ to be the set of all prime ideals containing $I$. 
+\end{definition}
+
+\begin{lemma}
+	We have properties:	\begin{itemize}
+		\item $V((0)) = \operatorname{Spec}(A)$
+		\item $V(A) = \emptyset$
+		\item $V(IJ) = V(I) \cup V(J)$, 
+		\item $V\pround{\sum_i I_i} = \cap V(I_i)$, 
+		\item $V(I) \subseteq V(J) \Leftrightarrow \sqrt{I} \supseteq \sqrt{J}$. 
+	\end{itemize}
+\end{lemma}
+\begin{corollary}
+	The closed cover given by $\pbrace{V(I)}$ defines a topology on $\operatorname{Spec}(A)$. 
+\end{corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2355,6 +2415,39 @@ where $[Y]$ is the divisor corresponding to the line bundle $\mc{O}_X(Y)$ and we
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Almost Complex Manifolds}
+
+\begin{definition}
+	Given an even-dimensional smooth manifold, an \bam{almost complex structure} is a fibrewise operator $J:TM \to TM$ s.t. $J^2=-1$. 
+\end{definition}
+
+\begin{theorem}
+	A manifold has an almost complex structure iff it admits a reduction of structure group $GL(2n, \mathbb{R}) \to GL(n, \mathbb{C})$. 
+\end{theorem}
+
+\begin{prop}
+	Every complex manifold has an almost complex structure
+\end{prop}
+\begin{proof}
+	Take the map $J\pround{\pd{x}} = \pd{y}, \, J\pround{\pd{y}} = - \pd{x}$
+\end{proof}
+
+Given a complex manifold $M$, the complex structure extends to the complexified tangent bundle as 
+\eq{
+	J : TM \otimes \mbb{C} &\to TM \otimes \mbb{C} \\
+	J(X+iY) &= J(X) + iJ(Y)
+}
+
+\begin{definition}
+	The $\pm i$ eigenspaces of the complexified tangent bundle $TM\otimes \mbb{C}$ are denoted $T^{1,0}M, \, T^{0,1}M$ respectively, and are called the \bam{holomorphic and antiholomorphic tangent bundles}
+\end{definition}
+
+\begin{lemma}
+	$T^{0,1}_p(M) = \overline{T^{1,0}_p(M)}$
+\end{lemma}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Orientability}\label{subsec:orientability via steifel whitney}
 Given a connected $n$-dimensional Riemannian manifold $X$, consider an $O(n)$-bundle $E \to X$. We know examples of such bundles always exist, for example taking the tangent bundle $TX$. 
 \begin{definition}
@@ -2504,17 +2597,41 @@ We denote the category of sheaves on $X$ as $\operatorname{Sh}(X)$.
 	\begin{tkz}
 		\mc{F}(U \cup V) \arrow[r] &  \mc{F}(U)\times \mc{F}(V) \arrow[r,shift left] \arrow[r,shift right] & \mc{F}(U \cap V) 
 	\end{tkz}
-	is an equaliser.
+	is an equaliser. Without this equaliser condition, this is just what we call a \bam{presehaf}. 
 \end{remark}
+
+\begin{definition}
+	Given a presheaf $\mc{F}$ on $X$, the \bam{stalk} at $P\in X$ is the direct limit of $\mc{F}(U)$ over $U$ containing $P$. It is denoted as $\mc{F}_P$. This is often written
+	\[
+	\mc{F}_P = \varinjlim_{U \ni P} \mc{F}(U) \, .
+	\]  
+\end{definition}
 
 We may do our usual homological algebra nonsense with these sheaves. 
 
 \begin{definition}
-	A morphism of sheaves is a natural transformation $\alpha : \mc{F} \to \mc{G}$. Hence we have $\alpha(U) \in \Hom(\mc{F}(U),\mc{G}(U))$.
+	A morphism of sheaves is a natural transformation $\alpha : \mc{F} \to \mc{G}$. Hence we have $\alpha(U) \in \Hom(\mc{F}(U),\mc{G}(U))$. Recall that means we have commuting diagram 
+	\begin{center}
+		\begin{tikzcd}
+			\mc{F}(U) \arrow[r, "\alpha(U)"] \arrow[d, "r_{UV}"] & \mc{G}(U) \arrow[d, "r^\prime_{UV}"] \\ \mc{F}(V) \arrow[r, "\alpha(V)"] & \mc{G}(V) \\
+		\end{tikzcd}
+	\end{center}
+\end{definition}
+
+
+\begin{prop}
+	Given a presheaf $\mc{F}$, there is a sheaf $\mc{F}^+$ and a morphism $\theta : \mc{F} \to \mc{F}^+$ with the property that for any sheaf $\mc{G}$ and morphism $\phi: \mc{F} \to \mc{G}$, $\exists \psi: \mc{F}^+ \to \mc{G}$ s.t. $\phi = \psi \circ \theta$. Moreover, the pair $(\mc{F}^+, \theta)$ is unique up to unique isomorphism.
+\end{prop}
+\begin{proof}
+	We prove via construction. Define 
+\end{proof}
+
+\begin{definition}
+	$\mc{F}^+$ is called the \bam{sheafification} of $\mc{F}$. 
 \end{definition}
 
 \begin{definition}
-	Given $\alpha: \mc{F} \to \mc{G}$ a morphism of sheaves, the \bam{presheaf kernel} is $\ker_{pre}\alpha$ given by $(\ker_{pre}\alpha)(U) = \ker (\alpha(U))$.  
+	Given $\alpha: \mc{F} \to \mc{G}$ a morphism of sheaves, the \bam{presheaf kernel} is $\ker_{pre}\alpha$ given by $(\ker_{pre}\alpha)(U) = \ker (\alpha(U))$. Likewise the \bam{presheaf image} is the presheaf $\image_{pre}\alpha$ given by $(\image_{pre}\alpha)(U) =  \image(\alpha(U))$.  
 \end{definition}
 
 \begin{prop}
@@ -2755,6 +2872,29 @@ We will now list a few of the useful properties to recall of sheaf cohomology.
 \begin{prop}
 	$\bigoplus_i H^j(X,\mathcal{F}_i) = H^j(X,\bigoplus_i \mathcal{F}_i)$. \hl{flesh out}. 
 \end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Schemes}
+
+To start our understanding of schemes, we are going to define a sheaf on $\Spec(A)$, the topological space. 
+\begin{definition}
+	For each prime ideal $\mf{p} \triangleleft A$, denote the localisation at $\mf{p}$ to be $A_{\mf{p}} := (A\ \mf{p})^{-1}A$. Define the presheaf $\mc{O}$ on $\Spec(A)$ by 
+	\[
+	\mc{O}(U) = \pbrace{s : U \to \bigsqcup_{\mf{p} \in U} A_{\mf{p}} \, | \, s(\mf{p}) \in A_{\mf{p}} ,\text{ $s$ locally a quotient of elements in $A$}} \, .
+	\]
+	By the latter condition, we explicitly mean $\forall \mf{p} \in U$, $\exists V$ an neighbourhood of $\mf{p}$ and $a,f \in A$ s.t. $\forall \mf{q} \in V, \, f \in \mf{q} and s(\mf{q}) = \frac{a}{f}$. Not this makes sense if $s(\mf{q}) = \frac{a}{f} \in A_{\mf{q}}$, $f \in A \setminus \mf{q}$.   
+\end{definition}
+\begin{lemma}
+	$\mc{O}$ is a sheaf. 
+\end{lemma}
+
+\begin{definition}
+ Given a ring $A$ we define $\operatorname{Spec}(A)$ (as a scheme) to be the topological space $\operatorname{Spec}(A)$ with the sheaf of rings $\mc{O}$ 
+\end{definition}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3370,7 +3510,7 @@ B_F=\sum_{y\in {\mathcal{C}}}\left[\sum_{p\in F\sp{-1}(y)}\left(\mult_p F-1\righ
 	meromorphic differential on $\mathcal{C}$, not identically zero,
 	then
 	\begin{equation}
-	\div\left(F\sp\ast\omega \right) =F\sp\ast\left(\div\omega \right)+R_F.
+	\left(F\sp\ast\omega \right) =F\sp\ast\left(\omega \right)+R_F.
 	\end{equation}
 \end{lemma}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3399,8 +3539,13 @@ Suppose $C$ has genus $g$, then we know that $H_1(C,\mbb{Z}) \cong \mbb{Z}^{2g}$
 \end{definition}
 
 \begin{remark}
-	We will see later in definition \ref{def: period matrix} that these vectors are the rows(/columns depending on your definition) of the period matrix. 
-\end{remark}
+	We will see later in definition \ref{def: period matrix} that these vectors are the rows(/columns depending on your definition) of the period matrix. \\
+	Using this interpretation, on can see we can view 
+	\[
+	J(C) \cong \faktor{H^0(X, K_C)^\ast}{H_1(C, \mathbb{Z})} \, ,
+	\]
+	where the embedding $H_1(C, \mathbb{Z}) \hookrightarrow H^0(X, K_C)^\ast$ is $[\gamma] \mapsto \oint_\gamma \omega$. 
+	\end{remark}
 
 \begin{definition}
 	The \bam{Abel-Jacobi map} for $p_0 \in C$ is 
@@ -3481,7 +3626,7 @@ This reduces to (see \cite{Hitchin1999})
 \[
 0 \to \faktor{H^1(X,O_X)}{H^1(X,\mathbb{Z})} \to H^1(X,O_X^\times) \overset{\delta}{\to} H^2(X,\mathbb{Z}) \to 0 \, .
 \]
-We identify $\delta$ with $c_1$. If we further make the identification $H^2(X,\mathbb{Z}) \cong \mathbb{Z}$ we get a group homomorphism $\deg:\Pic(X) \to \mathbb{Z}$. 
+We identify $\delta$ with $c_1$. If we further make the identification $H^2(X,\mathbb{Z}) \cong \mathbb{Z}$ (using Poincar\'e duality so $H^2 \cong H_0$) we get a group homomorphism $\deg:\Pic(X) \to \mathbb{Z}$. 
 \begin{lemma}
 	$\deg(L \otimes L^\prime) = \deg L + \deg L^\prime$.
 \end{lemma}
@@ -3844,6 +3989,15 @@ The important theorem about theta functions is to follow. We will define a neces
 \begin{prop}
 	$\bm{K}(P) = \bm{K}(P_0) + (g-1) A(P)$, where $A$ has basepoint $P_0$. 
 \end{prop}
+\begin{proof}
+	Suppose we have normalised our differentials s.t. $\int_{a_j} \omega_i = \delta_{ij}$. Then 
+	\begin{align*}
+	(K_{P})_j &= \frac{1+\tau_{jj}}{2} - \sum_{k \neq j} \oint_{a_k} \omega_k(Q) (A_P(Q))_j \, , \\
+	&= \frac{1+\tau_{jj}}{2} - \sum_{k \neq j} \oint_{a_k} \omega_k(Q) [(A_{P_0}(Q))_j + (A_{P}(P_0))_j] \, , \\
+	&= (K_{P_0})_j -(A_{P}(P_0))_j \sum_{k \neq j} \oint_{a_k} \omega_k \, , \\
+\Rightarrow K_P &= K_{P_0} + (g-1) A_{P_0}(P) \, . 
+	\end{align*}
+\end{proof}
 
 \begin{remark}
 	For more on the vector $\bm{K}$ and its calculation, see Deconick's \textit{`Computing the Riemann Constant Vector'}. 
@@ -4191,6 +4345,10 @@ We have been introducing square-roots of the canonical bundle, and the next prop
 	On an almost complex manifold we have a reduction of structure group from $SO(2n)$ to $U(n)$, and we have the map $\det:U(n) \to U(1)$, so we can take a spin structure on $X$ to be a cohomology class $\xi \in H^1(U(X),F_2)$ (modulo the image of $H^1(X,F_2)$ under $\pi^\ast$) that restricts to the generator of $H^1(U(1),F_2)\cong F_2$ on the fibre, where $U(X)$ is the unit tangent bundle on $X$. This generator is the squaring map. \\
 	Now by the lemma we have that $\xi$ corresponds to a continuous line bundle $L \in \Pic(X)$, and the facts that $\xi$ maps to the generator $-1 \in H^1(U(1),F_2)$ means that $L$ is the pullback of $\mc{O}(-1)$ the line bundle over $\mbb{CP}^\infty$. This means that we must have an isomorphism $\alpha:L^{\otimes 2} \to K_X$ (as $\mc{O}(-1)^{\otimes 2} = \mc{O}(-2) = K_{\mbb{CP}^\infty}$). The holomorphic structure on $L$ is then inherited from $K$, and if $X$ is compact the holomorphic structure conversely fixes $\alpha$ up to a scale factor, so the isomorphism is fixed. Hence we are done.
 \end{proof}
+\hl{Fix this incorrect proof}. 
+\begin{remark}
+	Note in the above proof we use that $H^1(U(1), F_2)$, i.e. the space of $U(1)$, is $\cong F_2$. To see this, note that as $\pi_1(S^1)= \mathbb{Z}$, the only order 2 subgroup is $\mathbb{Z}_2$, so there is only one connected double cover. If we had a disconnected cover, each connected component must be a cover, and then we can only have two connected components, each a cover of degree 1. 
+\end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Invariant Spin Structures}
@@ -4198,7 +4356,7 @@ We have been introducing square-roots of the canonical bundle, and the next prop
 We will want to understand the interplay between the spin structures on a Riemann surface and it's automorphisms. We start with a generic result about quadratic forms:
 
 \begin{lemma}\label{lemma: preserving quadratic gives fixed point}
-	Let $V$ be a f.d. v.sp over $F_2$ and let $\phi:V \to F_2$ be a quadratic functions whose associated bilinear $H$ is non-degenerate. Then any affine transform of $V$, $x \mapsto Ax+b$ which preserves $T$ has a fixed point.  
+	Let $V$ be a f.d. v.sp over $F_2$ and let $\phi:V \to F_2$ be a quadratic functions whose associated bilinear $H$ is non-degenerate. Then any affine transform of $V$, $x \mapsto Ax+b$ which preserves $\phi$ has a fixed point.  
 \end{lemma}
 \begin{proof}
 	By assumption we have
@@ -5348,6 +5506,17 @@ We start by noting to following connection, a complex torus $X = \faktor{\mbb{C}
 	[\wp^\prime]^2 = 4(\wp-e_1)(\wp-e_2)(\wp-e_3)
 }
 in it's function field. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part{Moduli and Stacks}
+We will be building this part of the notes from Jarod Alper's ``Introduction to Stacks and Moduli", following the reading course run by Johan Martens. Prerequisite knowledge will be chapters 2 and 3 of \cite{Hartshorne1977}, the material from which should be covered in previous section of these notes. 
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
