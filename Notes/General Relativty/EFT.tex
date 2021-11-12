@@ -1348,7 +1348,259 @@ For us $S_0 \sim \frac{N}{\lambda} \tr[\dots]$, and if we scale the $J_i$ by $N$
 	\]
 \end{remark}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Large N as a String Theory - Lecture 10}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Finishing Off from Last Time - Fluctions in Large N}
+Suppose we have a state $\pangle{\mc{O}} \neq 0$. The variance is $\pangle{O^2}-\pangle{O}^2 = \pangle{O^2}_C$, the connected part of the expectation. We have that 
+	\[
+	\frac{\sqrt{\pangle{\mc{O}^2}_C}}{\pangle{\mc{O}}} \sim \frac{1}{N} \to 0 \, . 
+	\] 
+This idea can be extended to higher product operators. \\
+We can reinterpret this remark as a classical theory at leading order, doing for example
+\begin{align*}
+	\underbrace{\pangle{\mc{O}_1 \mc{O}_2 \mc{O}_3}_C}_{\mc{O}(N^{-1})} = \sum_i \underbrace{\pangle{\mc{O}_1 \mc{O}_i}}_{\mc{O}(1)}\underbrace{\pangle{\mc{O}_i \mc{O}_2 \mc{0}_3}}_{\mc{O}(N^{-1})} + \sum_{i,j} \underbrace{\pangle{\mc{O}_1 : \mc{O}_i \mc{O}_j :}}_{\mc{O}(N^{-1})} \underbrace{\pangle{:\mc{O}_i \mc{O}_j: \mc{O}_2 \mc{O}_3}}_{\mc{O}(N^{-2})} + \dots \, . 
+\end{align*}
+We see that only the first term in the expansion contributes at leading order, so there are no loops at leading order, which is exactly what we consider a classical theory. We interpret this as saying that gauge theory in which $N \to \infty$ with $\hbar$ finite is equivalent to a `glueball theory' or `generalised free field theory' with coupling $\tilde{h}$. There is a $\frac{1}{N}$ expansion that is equivalent in a semiclassical expansion in $\tilde{h}$.  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{String Theory}
+Recall first the moral of how we get the quantum theory of a particle, we have $S_{\text{particle}} = m \int_\gamma dp$, and then to quantise we do a path integral $\int [Dx^m] e^{i S_{\text{particle}}}$. We might wonder whether it is possible to reproduce QFT amplitudes including interactions in this picture. It turns out that this is possible, but it must be done `by hand', and so historically this picture was abandoned. \\
+Now if we do string theory, we have action $S_{\text{string}} = T \int_{\Sigma} dA$, ($T = 1/2\pi \alpha^\prime$), and then if we quantise we do the path integral $\int [Dx^\mu (\tau, \sigma)] e^{i S_{\text{string}}}$. Again, we wonder how to include interactions. The analogy between these two pictures will be worth study. \\
+Let's work in Euclidean signature. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Vacuum Strings}
+Our vacuum energy partition function is a sum over all 2d surfaces with no external string states (i.e. $\del \Sigma = \emptyset$), so they are defined only by their genus and so 
+\[
+Z_{\text{string}} = \sum_{h = 0}^\infty \sum_{\Sigma_h} e^{-S_{\text{string}}} \, . 
+\]
+There is one (known) wy of including interactions consistently with QM and the symmetries of the string action, which is to have 
+\[
+Z_{\text{string}} = \sum_{h =0}^\infty e^{-\lambda \chi} \sum_{\Sigma_h} e^{-S_{\text{string}}} \, .
+\]
+From a perspective of statistical mechanics, $\lambda$ looks like a chemical potential for the topology of $\Sigma_h$ (it comes from the string coupling as $e^{\lambda} = g_S$).
+\begin{example}
+	The sphere gets a contributions $\sim g_S^{-2}$, and the torus gets a contributions $\sim g_S^0$. 
+\end{example} 
+Our conclusion is that summing over topologies encodes the interactions of strings. 
+\begin{remark}
+	We can view the sphere the contribution as the nucleation of a closed string from the vacuum, and decaying afterwards. \\
+	Likewise, we can view the as nucleation of a closed string, that splits, recombines later, and then decays. \\
+	If one were to play this game with higher genus surfaces, one can take different viewpoints on this (based on how one views `time' across the surface), but they will be equivalent under the symmetry of the theory. 
+\end{remark}
+Each split/recombination gives a factor $g_S$, and as such we can think of them as vertices, and then we know every hole comes with a split and a recombination. 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{External Strings}
+If we allow for the analogues of external legs to the diagram, this is equivalent to allowing boundaries (or punctures) to the surface $\Sigma$, and now the Euler formula is modified to be 
+\[
+\chi = 2-2h-n \, , 
+\] 
+where $n$ is the number of boundaries. The amplitude for the string is now, at fixed $n$,
+\[
+\mc{A}_{\text{string}} = \sum_{h = 0} g_S^{n-2+2h} G_h^(n)(\dots) \, .
+\]
+When we look back at the expectation values for the product of $n$ observables, we see we have the same expression, with the dictionary that $g_S \leftrightarrow N^{-1}$, external strings $\leftrightarrow$ single trace operators, and sum over genus-$h$ $\Sigma$ $\leftrightarrow$ sum over genus-$h$ Feynmann diagrams. The hope is  to now the show that this isn't a coincidence, but something deeper. 
+\begin{remark}
+	In our operator expectation expression, $F_n^h = \sum_M G$ was the sum over Feynmann diagrams of genus $h$ $G$, whereas $G_n^h = -\int_{\Sigma_h} [Dx^m] e^{-S_{\text{string}}}$. These might initially look different, but recall we thought of diagrams as triangulations of a surface of genus $h$, so $\sum_M G$ is the sum over all triangulations of the surface, which one might hope is a discrete version of $\int_{\Sigma_h}$. \\
+	If we believe this is a correct interpretation, and we can identify the contribution $G$ with $e^{-S_\text{string}}$, then we have exactly that a large $N$ gauge theory is a string theory, s.t. the classical theory of single trace operators can be identified with the tree level classical string theory. \\
+	This is not at all obvious, as $G$ and $e^{-S}$ look very different. 
+\end{remark}
+
+\begin{remark}
+	On the string side, we have many choices, such as the choice of spacetime, degrees of freedom (e.g. bosonic, superstring), and choice of the actions $S_{\text{string}}$. 
+\end{remark}
+
+\begin{remark}
+	In order for large genus diagrams, which are in some way the diagrams that provide the better approximation to the continuum limit, we need the strong string coupling limit (large $g_S$).  
+\end{remark}
+
+This problem is hard to make progress with, but there was 
+\begin{itemize}
+	\item Klebanov 9108019, `String theory in Two Dimensions'. 
+	\item Simpler models did realise the correspondence quantitatively for 
+	\begin{itemize}
+		\item matrix Hermitian models,
+		\item matrix quantum mechanics. 
+	\end{itemize}
+These are non-critical string theories. 
+\end{itemize}
+We might still wonder about QCD. One might hope that we get a string theory in $\mathbb{R}^{1,3}$, but these string theories only have propagators in very specific spacetimes and dimensions ($D=26$ for bosons, $D=10$ for fermions). One could then consider $\mathbb{R}^{1,3} \times \Sigma_6$, where $\Sigma_6$ is a compact manifold (this is the story of Calabi-Yaus), but this cannot work as closed string theories always contain gravitons, which QCD doesn't (recall our no-go theorem). 
+\begin{remark}
+	Historically, Polyakov wrote a paper a few months before Maldacena published AdS/CFT correspondence, proposing that QCD came from a 5d string theory. 
+\end{remark} 
+Since strings always contain gravity, we wonder is there any property in gravity theories that gives a way to search for a string theory description of QCD. The holographic principle (as we saw earlier) then motivates that we try strings in 5d non-compact space. We start by writing the most general metric that is invariant under QCD symmetries (namely Lorentz symmetry)
+\[
+ds^2 = Q(z)^2 \psquare{dz^2 + d\bm{x}^2 - dt^2} \, .
+\]
+\begin{remark}
+	If we replace QCD with a conformal gauge theory, then we also have a scaling symmetry $x^mu \mapsto \lambda x^\mu$ ($(x^\mu) = (\bm{x}, t)$) that the metric must respect. We can choose to respect this symmetry by having $z \mapsto \lambda z$, and then we get the condition on $Q$ 
+	\[
+	Q(\lambda z) = \frac{Q(z)}{\lambda} \Rightarrow Q(z) = \frac{R}{z}
+	\]
+	for some constant $R$. The metric 
+	\[
+	ds^2 = \frac{R^2}{z^2} \psquare{dz^2 + d\bm{x}^2 - dt^2}
+	\]
+	is that of $AdS_{d+1}$. \\
+	The gauge-gravity correspondence that we are looking for now suggests that a large $N$ CFT on $\mathbb{R}^{1, d-1}$ can be viewed as a string theory on $AdS_{d+1}$, and vice versa. 
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Motivating AdS/CFT - Lecture 11}
+Consider we have a system $X$, which decouples at low energy into descriptions $A$ and $B$, i.e. their partition functions are equal. We will introduce the notation $\mc{N}$ for the degrees of freedom of $N$
+Relevant sources will be 
+\begin{itemize}
+	\item Maldacena, 9711200
+	\item Witten, 9802150
+	\item Gubser et al, 9802109
+	\item Aharaony et al, 9905111
+\end{itemize} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Description A}
+We first describe $X$ as a theory in flat space. We have action
+\[
+S_{total} = S_{grav} + S_{matter} + S_{int} \, .
+\]
+At low energy $G_N E^{d-2} \to 0$, where $d$ is the dimension of the theory, so we see 
+\begin{itemize}
+	\item free gravitons propagating in flat space,
+	\item matter dynamics (eventually large $N$ gauge/CFTs)
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Description B}
+This description is GR-like. $\mc{N}$ is large enough and energy s sufficiently localised s.t. $X$ will be source BH-like solutions
+\[
+ds^2 = -f(r) dt^2 + \dots
+\]
+where $r$ is the coordinate distance to the source. Clocks and energy depend on time in the sense that 
+\[
+\text{ prop time } d\tau = \sqrt{f} dt \Rightarrow E_\tau = \frac{E_\infty}{\sqrt{f}} \, .
+\]
+Assuming a fundamental scale $\alpha^\prime$, then the low energy limit is 
+\[
+E_\infty \alpha^\prime \to 0 \Leftrightarrow f E_\tau^2 \alpha^\prime \sim \kappa \rho \alpha^\prime E_\tau^2 \to 0 \, , 
+\]
+where $\rho$ is the radial coordinate close to the horizon (i.e. $\rho=0$ corresponds to the horizon). We hence see 
+\begin{itemize}
+	\item free gravitons as before 
+	\item any excitation is in the low energy limit close to the horizon. 
+\end{itemize}
+One could explore the $\kappa \to 0$ limit here, which corresponds to an extremal BH. Here $f(r) \sim \frac{\rho^2}{R^2}$ close to the horizon, where $R$ is approximately the curvature, assumed constant. \\
+We now want to go from our system $(A, d)$ to $(B, d+1)$. We write down such a metric 
+\begin{align*}
+ds^2 &= f(r) \psquare{-dt^2 + d \bm{x}^2} + \frac{dr^2}{f(r)} + g(r) ds_Y^2 \, \\ 
+&\to \frac{\rho^2}{R^2} \psquare{-dt^2 + d\bm{x}^2} + \frac{R^2}{\rho^2} d\rho^2 + g(r_M) ds_Y^2 \, ,
+\end{align*}
+This is $AdS_{d+1}\times Y$ in the near-horizon limit. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Matchup of Parameters}
+If, in A, the matter system allots the 't Hooft limit, we have a constant $g_{YM}$ in the scaling, s.t. $g_{YM}^2 \sim g_S$. Constrastingly for B, through dimensional analysis, we get the scaling requirement $R^2 \sim \alpha^\prime N^\gamma h(g_S)$ (where $h(g_S)$ is often $\sqrt{g_S}$). Similarly in $A$, our large $N$ theory had an expansion in $N^{-1}$.  In $B$ we get expansions in $G_{d+1}^{-1} \sim \operatorname{Vol}(Y) G_N^{-1} \sim R^{9-d}g_S^{-2} (\alpha^\prime)^{-4}$, and so using algebra we have 
+\[
+\frac{G_{d+1}}{R^{d-1}} \sim \frac{g_S^2}{(\sqrt{g_S})^4} \frac{1}{\mc{N}^{-4\gamma}} \, .
+\]
+Recall also the 't Hooft limit had the dimensionless parameter $\lambda = g_{YM}^2 N$. We might want that to be scaling as the dimensionless parameter on the other side $\frac{R^2}{\alpha^\prime} \sim \mc{N}^\gamma h(g_S)$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Further General Comments}
+In some limits, certain CFTs have gravity duals. However, we know that there does not exists a non-perturbative description for QG (right now) and so we will be interested in exploring a duality when gravity is weakly coupled. We will then ask ourselves which features must hold in CFT to have a gravity dual.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Tackling These Questions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Weakly Coupled Gravity} 
+Recall 
+\[
+I_{gravity} \sim \frac{1}{G_N} \int d^dx \pround{R - 2\Lambda}
+\]
+where $G_N \sim l_P^{d-2}$. We get effective coupling constant $g_{eff} = \pround{\frac{l_P}{L}}^{d-2}$ where $L$ is the length scale. Hence the EFT description breaks down when $L \sim l_P$. 
+
+\begin{example}
+	Take metric 
+	\[
+	ds^2 = \frac{R_{AdS}^2}{z^2} \pround{-dt^2 + d\bm{x}^2 + dz^2}
+	\]
+	This is scale invariant, and has $L \sim R_{AdS}$. This is clearly $AdS$, which is with $\Lambda < 0$. \\
+	One can also take $dS$ when $\Lambda >0$ which has metric 
+	\[
+	ds^2 = \frac{l^2}{\eta^2} \pround{-d\eta^2 + d\bm{x}^2} = -dt^2 + e^{2t/l} d\bm{x}^2 \, .
+	\]
+	This is also scale invariant (under the map $(\eta, \bm{x}) \mapsto \lambda (\eta, \bm{x})$), and we have scale $L \sim l \sim H^{-1} \sim \Lambda^{-1/2}$. 
+\end{example}
+ 
+On the CFT side, we have universal operator 
+\[
+\pangle{T_{\mu\nu}(x)T_{\alpha \beta}(y)} \sim \mc{N} g(x,y) \, .
+\]
+In a $1+1$ CFT, $\mc{N}$ is exactly the central charge. Since $T_{\mu\nu}^{CFT}$ measures the response of the theory to a change in the background metric, but in the description $B$ this operator is 
+\[
+\frac{\delta}{\delta g_{\alpha \beta}} \frac{\delta}{\delta g_{\mu\nu}} e^{-I_{gravity}} \, ,
+\]
+we suspect that the scaling parameter $\mc{N}$ matches to 
+\[
+\frac{R_{AdS}^{d-2}}{G_N} \sim \frac{1}{g_{eff}^2} \, .
+\]
+This means that the weak coupling limit for gravity would be $\mc{N} \gg 1$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{CFTs with Gravity Duals} 
+A CFT is characterised by its spectrum of conformal dimensions, and the corresponding algebra (e.g. $\pbrace{\Delta_i, C_{ijk}}$). This spectrum already appears when we consider OPE operators in higher $n$-point functions. This data appears in the operator equations 
+\[
+\mc{O}_i^{\Delta_i} \mc{O}_j^{\Delta_j} \sim \sum_k C_{ijk} \mc{O}_k^{\Delta_k} \, .
+\]
+We wonder what data can come from a gravity theory. General OPEs generate excitations that a priori have arbitrary spin, so certainly contain gravitons ($s=2$), as well as other particles. In gravity, the number of particles/excitations that can occur in loops is much smaller than could be generated by arbitrary non-zero $C_{ijk}$ (though one can consider `higher spin theories' of gravity which include more excitations). One possible out of this is that, to reproduce Einstein-like theories, we need strong interactions as strongly coupled CFTs generically get large anomalous dimension contributions to the $\Delta_i$, so they do not appear in the spectrum (as the $\Delta_i$ behave like mass, so if they are large they are not observed in low energy limits). 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{A Particular Example} 
+A particular example will be with $X$ a $D3$-brane, $\mc{N}=N$. \\
+	The description $A$ is $N=4$ sYM, with $U(N)$ corresponding to open strings. \\
+	As the branes carry energy, they back-react, and this gives a gravity metric that is description $B$. The metric is explicitly given by 
+	\[
+	ds^2 = H^{-1/2}(r) \underbrace{\psquare{-dt^2 + d\bm{x}^2}}_{\mathbb{R}^4} + H^{1/2}(r) \underbrace{\psquare{dr^2 + r^2 d\Omega_5^2}}_{\mathbb{R}^6} \, , 
+	\]
+	where $H(r) = 1+ \frac{R^4}{r^4}$. The constant $R$ is fixed by the condition 
+	\[
+	R^4 = \frac{4}{\pi^2} G_N T_{D3} N = 4 \pi g_S N (\alpha^\prime)^2 \, .
+	\] 
+	Looking at our previous discussion, we indeed see $h(g_S) = \sqrt{g_S}$, and $\gamma = \frac{1}{2}$. 
+\begin{remark}
+	We have a few comments on the previous example. 
+\begin{itemize}
+	\item Looking back at the Schwarzschild solution, we can see that the quantity $G_N T_{D3} N$ plays the role of mass per volume of the source.
+	\item For $r \gg R$, $H \sim 1 + \mc{O}((R/r)^r)$, and so the $D3$-brane is a point-like object from the perspective of $\mathbb{R}^6$. 
+	\item When $r \sim R$, the geometry is not flat, though the metric is asymptotically so, and hence the length scale is $L \sim R$. 
+	\item When $r \ll R$, $H \sim (R/r)^4$, and the metric has limit 
+	\[
+	ds^2 \to \frac{r^2}{R^2} \psquare{-dt^2 + d\tau^2} + \frac{R^2}{r^2} dr^2 + R^2 d \Omega_5^2 \, ,
+	\]
+	which is $AdS$. 
+	\item This metric is a solution to Einstein's equations everywhere except for $r=0$, where we get a delta contribution. 
+\end{itemize} 
+\end{remark}
+To analyse the singularity at $r=0$, introduce $l$ by 
+\[
+\frac{dr^2}{r^2} = dl^2 \Rightarrow l = \log r + l_0 \, .
+\]
+As $r \to 0, \, l \to -\infty$, and this may support why decoupling works. Explicitly description $A$ describes $N$-many $D3$ branes in $\mathbb{R}^{1,9}$, while description $B$ describes the spacetime as seen by closed strings. We can view a tree-level closed string diagram as a 1-loop open string diagram. At low energy we have $E^2 \alpha^\prime \to 0$. For description $A$ (open strings) the two excitations that survive are
+\begin{enumerate}
+	\item massless excitation of free gravitons (closed strings), and 
+	\item $N=4$ sYM with group $U(N)$. 
+\end{enumerate}
+In description $B$, the energy $E_\infty$ associated with $r \to \infty$ is related by redshift to $E_\tau = H^{1/4} E_\infty$, and hence with $r \gg R$ we get free gravitons, whereas with $r \ll R$ the low energy condition is 
+\[
+\frac{r^2 E_\tau^2}{\sqrt{4 \pi g_S^N}} \to 0
+\] 
+which doesn't give constraints by letting $r$ be as small as desired. If we expect these two descriptions to match up, as the free graviton sectors would match up, we claim that the $N=4$ sYM with group $U(N)$ is equal to (type IIB) string theory on $AdS_5 \times S^5$. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -87,6 +87,9 @@ s.t. $a,b,c,d \in \mbb{Z}, \, ad-bc=1$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Rings}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Basic Definitions}
+
 \begin{definition}
 	Elements of a ring $R$ with a multiplicative inverse are called \bam{units}. Denote the group of units as $R^\times$. 
 \end{definition}
@@ -173,6 +176,9 @@ s.t. $a,b,c,d \in \mbb{Z}, \, ad-bc=1$.
 	is a field. 
 \end{example}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Localisation}
+
 \begin{definition}
 	Let $S$ be a multiplicatively closed subset of $R$ containing $1$. We define the \bam{localisation of $R$ as $S$} to be 
 	\[
@@ -194,6 +200,17 @@ r &\mapsto \frac{r}{1}
 defined via the universal property that, if $f:R \to T$ is a ring hom s.t. $\forall s \in S$, $f(s)$ is a unit, then $\exists! g: S^{-1}R \to T$ s.t. $f = g \circ j$. 
 \end{prop}
 
+\begin{definition}
+	A \textbf{local} ring is a ring with a unique maximal ideal. 
+\end{definition}
+
+\begin{prop}
+	The localisation at a prime ideal is a local ring. 
+\end{prop}
+
+\begin{definition}
+	A morphisms of local rings $A, B$, i.e. a \bam{local homomorphism}, is a ring hom $\phi : A \to B$ s.t. $\phi^{-1}(\mf{m}_B) = \mf{m}_A$, where the $\mf{m}$ are the unique maximal ideals.  
+\end{definition}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Modules}
@@ -2879,22 +2896,89 @@ We will now list a few of the useful properties to recall of sheaf cohomology.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Schemes}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Spec}
+
 To start our understanding of schemes, we are going to define a sheaf on $\Spec(A)$, the topological space. 
 \begin{definition}
 	For each prime ideal $\mf{p} \triangleleft A$, denote the localisation at $\mf{p}$ to be $A_{\mf{p}} := (A\ \mf{p})^{-1}A$. Define the presheaf $\mc{O}$ on $\Spec(A)$ by 
 	\[
 	\mc{O}(U) = \pbrace{s : U \to \bigsqcup_{\mf{p} \in U} A_{\mf{p}} \, | \, s(\mf{p}) \in A_{\mf{p}} ,\text{ $s$ locally a quotient of elements in $A$}} \, .
 	\]
-	By the latter condition, we explicitly mean $\forall \mf{p} \in U$, $\exists V$ an neighbourhood of $\mf{p}$ and $a,f \in A$ s.t. $\forall \mf{q} \in V, \, f \in \mf{q} and s(\mf{q}) = \frac{a}{f}$. Not this makes sense if $s(\mf{q}) = \frac{a}{f} \in A_{\mf{q}}$, $f \in A \setminus \mf{q}$.   
+	By the latter condition, we explicitly mean $\forall \mf{p} \in U$, $\exists V$ an neighbourhood of $\mf{p}$ and $a,f \in A$ s.t. $\forall \mf{q} \in V, \, f \in \mf{q} \text{ and } s(\mf{q}) = \frac{a}{f}$. Note this makes sense if $s(\mf{q}) = \frac{a}{f} \in A_{\mf{q}}$, $f \in A \setminus \mf{q}$.   
 \end{definition}
 \begin{lemma}
 	$\mc{O}$ is a sheaf. 
 \end{lemma}
 
+\begin{remark}
+	The sheaf $\mc{O}$ should feel like the sheaf of rational functions in a polynomial ring. 
+\end{remark}
+
 \begin{definition}
  Given a ring $A$ we define $\operatorname{Spec}(A)$ (as a scheme) to be the topological space $\operatorname{Spec}(A)$ with the sheaf of rings $\mc{O}$ 
 \end{definition}
 
+\begin{definition}
+	Given $f \in A$, define $D(f) = \Spec A \setminus V((f))$. 
+\end{definition}
+
+\begin{lemma}
+	The $D(f)$ form an open base of the topology. 
+\end{lemma}
+
+\begin{prop}
+	We have the properties:
+	\begin{itemize}
+		\item $\forall \mf{p} \in \Spec A, \, \mc{O}_\mf{p} \cong A_{\mf{p}}$, \
+		\item $\forall f \in A, \, \mc{O}(D(f)) \cong A_f$, where $A_f = S^{-1}A$ and $S = \pbrace{f^n \, | \, n \in \mathbb{Z}_{\geq 0}}$,
+		\item in particular $\Gamma(\Spec A, \mc{O}) \cong \mc{A}$.   
+	\end{itemize}
+\end{prop}
+
+\begin{definition}
+	A \textbf{ringed space} is a pair $(X, \mc{O}_X)$ s.t. $X$ is a topological space and $O_X$ is a sheaf of rings on $X$. A morphism $(X, \mc{O}_X) \to (Y, \mc{O}_Y)$ is a pair $(f, f^\#)$ s.t. $f:X \to Y$ is a cts map and $f^\# : \mc{O}_Y \to f_|ast \mc{O}_X$ is a morphism of sheaves over $Y$. A ringed space is a \textbf{locally ringed space} if $\forall P \in X$, the stalk $\mc{O}_{X, P}$ is a local ring. Morphisms of locally ringed spaces are morphisms of ringed spaces s.t. the induced map $f_P^\# : \mc{O}_{Y, f(P)} \to \mc{O}_{X, P}$ is a local homomorphism of local rings. 
+\end{definition}
+
+\begin{prop}
+	We have 
+	\begin{itemize}
+		\item $\forall A$ a ring, $(\Spec A, \mc{O})$ is a locally ringed space.
+		\item $\phi:A \to B$ a ring hom induces a natural morphism of ringed spaces $\Spec B \to \Spec A$. 
+		\item $\forall A,B$, a morphism of locally ringed spaces $\Spec B \to \Spec A$ is induced by a ring hom $\phi: A \to B$. 
+	\end{itemize}
+\end{prop}
+
+\begin{definition}
+	An \bam{affine scheme} is a locally ringed space $(X, \mc{O}_X)$ which is isomorphic to the spectrum of some ring. We call $X$ the \bam{underlying topological space} and $\mc{O}_X$ the \bam{structure sheaf}. A \bam{scheme} is a locally ringed space s.t $\forall P \in X, \, \exists I \ni P$ open s.t. $(U, \ev{\mc{O}_X}{U})$ is an affine scheme. 
+\end{definition}
+
+\begin{example}
+	If $k$ is a field we define the affine line over $k$ to be $\mathbb{A}_k^1 := \Spec k[x]$ ($k$ not necessarily algebraically closed). It has two classes of points.
+	\begin{enumerate}
+		\item The point $\xi=(0)$. This is called the \bam{generic point} as 
+		\[
+		\xi \in V(\mf{a}) \Leftrightarrow \mf{a} \subseteq (0) \Leftrightarrow \mf{a}=(0) \Leftrightarrow V(\mf{a}) = \mathbb{A}_k^1 \, .
+		\]
+		Hence the closure of the point is all of $\mathbb{A}_k^1$, and we think of this point as permeating the entire space.
+		\item Points $(f)$ where $f$ is an irreducible polynomial. We can choose the representative to be monic, and $f$ must be non-constant otherwise $(f)=(1)=k[x]$ (not prime). These points are all closed, as 
+		\[
+		(f) \subseteq (g) \Rightarrow g \, | \, f 
+		\] 
+		which isn't possible as $f$ is irreducible, unless $g=f$ or a constant. Hence $V((f)) = \pbrace{(f)}$. 
+	\end{enumerate}
+Note that if $k$ is algebraically closed, non-constant monic irreducible polynomials are of the form $x-a$ for $a \in k$, hence there is a closed point for each element of $k$. 
+\end{example}
+
+\begin{example}
+	We define the \bam{affine plane over $k$} to be $\mathbb{A}_k^2 := \Spec k[x,y]$ for $k$ algebraically closed. It has three classes of points. 
+	\begin{enumerate}
+		\item The generic point $\xi=(0)$ as before. 
+		\item A closed point for each $(a,b) \in k^2$ corresponding to the maximal ideal $(x-a, y-b)$. 
+		\item A generic point $(f)$ spread out along the curve in $k^2$ given by $f(x,y)=0$, where $f$ is an irreducible polynomial (not maximal as it is contained in the ideal $(x,y)$) whose closure contains all points $(x-a, y-b)$ s.t. $f(a,b)=0$. 
+	\end{enumerate}
+\end{example}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -4064,10 +4148,10 @@ About such an $E$, we can say the following things.
 \begin{proof}
 	This comes from Riemann-Roch. We have 
 	\begin{align*}
-	h^0(X^\prime,E) - h^1(X^\prime,E) &= \deg E + r(1-g^\prime) \, ,
+	h^0(X^\prime,E) - h^1(X^\prime,E) &= \deg E + r(1-g^\prime) \, , \\
 	h^0(X,L) - h^1(X,L) &= \deg L + (1-g) \, .
 \end{align*}
-From the previous prop we know $r=\deg f, \, h^0(X^\prime,E) = h^0(X,L), h^1(X^\prime,E) = h^1(X,L)$ (the last of these requiring Serre duality). The result then follows. 
+From the previous prop we know $r=\deg f, \, h^0(X^\prime,E) = h^0(X,L), \,  h^1(X^\prime,E) = h^1(X,L)$ (the last of these requiring Serre duality). The result then follows. 
 \end{proof}
 Moreover we can specify further if $X^\prime= \mathbb{P}^1$. 
 \begin{prop}
@@ -4111,7 +4195,7 @@ We star this subsection with a theorem
 \begin{proof}
 	See \cite{Farkas1992}, pp.291-293. In essence the idea of the first part is that using corollary \ref{cor: RVT from ES, A(D)+K=e} the zeros of $\theta$ should be at
 	\[
-	A(P_i) - \psquare{A\pround{\sum_j P_k} + \bm{K}}  = -A\pround{\sum_{j \neq i} P_j} - \bm{K} \, .
+	A(P_i) - \psquare{A\pround{\sum_j P_j} + \bm{K}}  = -A\pround{\sum_{j \neq i} P_j} - \bm{K} \, .
 	\] 
 	As the $\theta$ function is even, this gives a zero in $W_{g-1}+\bm{K}$. The latter part drops out of the proof. Note when we say $W_s - W_s$ we mean the space $\pbrace{f - h \, | \, f, h \in W_s}$. 
 \end{proof}
@@ -4400,7 +4484,7 @@ Then $f$ leaves $2^h$ spin structures invariant, where $h = \dim E_1(\bar{M})$.
 Now given a homology basis specifying $M$, we have a dual basis of $H^1(M,\mbb{Z})$, and the induced transform from $f$ is represented by the matrix $M^T$. If we restrict to coefficients mod 2 the corresponding effect on the transform matrix is to take the coefficients mod 2. This means we have $A = \bar{M}^T$. 
 \end{proof}
 \begin{remark}
-	You may, like me, have been initially confused as to why the cohomology $H^1(X,F_2)$ has dimension $2g$, when we typically think of a cohomology basis as being a basis of $g$ differentials. \hl{different type of cohomology? or differentials we ask to be abelian}. 
+	You may, like me, have been initially confused as to why the cohomology $H^1(X,F_2)$ has dimension $2g$, when we typically think of a cohomology basis as being a basis of $g$ differentials. Note that is because the sheaf here is really the constant sheaf $F_2$. One can then use Poincare duality and the universal coefficient theorem.
 \end{remark} 
 
 It is then possible to extend this to find exactly which cohomology classes $\xi \in H^1(U(X),F_2)$ correspond to invariant spin structures. Let $e \in H_1(U(X),F_2)$ be the homology corresponding to the $U(1)$ generator. We can get a basis of $H_1(U(X),F_2)$ from a basis of $H_1(X,\mbb{Z})$, $\pbrace{\delta_i}_{i=1}^{2g}$, by lifting the cycles $\delta_i$ to a cycle $\tilde{\delta}_i$ and including $e$. 
