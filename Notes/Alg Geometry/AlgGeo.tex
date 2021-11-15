@@ -264,6 +264,10 @@ defined via the universal property that, if $f:R \to T$ is a ring hom s.t. $\for
 \section{Galois Theory}
 This section will be predominantly based off of \cite{Stewart2003}. 
 
+\begin{example}
+	The value $q = \sqrt{(2+\sqrt{2})(3+\sqrt{3})}$ has minimal polynomial $x^8 - 24x^6 + 144x^4 - 288x^2 + 144$ over $\mathbb{Q}$, and the Galois group of the field extension $\mathbb{Q}[q]$ is $\cong Q_8$, the quaternions. 
+\end{example}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solvability by Radicals}
@@ -2980,6 +2984,10 @@ Note that if $k$ is algebraically closed, non-constant monic irreducible polynom
 	\end{enumerate}
 \end{example}
 
+\begin{remark}
+	For a nice example visualising $\Spec \mathbb{Z}[x]$, see \href{http://www.neverendingbooks.org/mumfords-treasure-map}{here}.
+\end{remark}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3311,8 +3319,35 @@ By considering the covering map $X \to \faktor{X}{\Aut(X)}$, we have the followi
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Homology}
+\begin{lemma}
+	$\dim H_1(X, \mathbb{Z}) = 2g(X)$ . 
+\end{lemma}
+
+\begin{definition}
+	We call elements of $H_1(X, \mathbb{Z})$ 1-cycles. 
+\end{definition}
+
+\begin{definition}
+	A homology basis $\bm{c} = (\bm{a},\bm{b})$ is \bam{canonical} (or \bam{symplectic}) if $\bm{c} \cdot \bm{c} = J$ where we are taking the intersection number and $J=\begin{psmallmatrix} 0 & I \\ -I & 0 \end{psmallmatrix}$. \\
+	A choice of canonical basis is sometimes called a \bam{(Torelli) marking}. 
+\end{definition}
+\begin{remark}
+	Despite the term canonical, there is no unique choice of such a basis. Given any homology basis $\bm{c}$ we can make a new basis by taking $M\bm{c}$ for $M\in GL_{2g}(\mbb{Z})$. If the original basis was canonical then so is the transformed basis iff $MJM^T = J$, which is the condition for $M^T$ to be a symplectic matrix, giving $M$ symplectic. 
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Differentials}
+\begin{definition}
+	A holomorphic (resp. meromorphic) \bam{1-form} on $V \subset \mathbb{C}$ is is an expression of the form $\omega = f(z)dz$, where $f$ is a holomorphic (meromorphic) function on $V$. \\
+	Given two 1-forms $\omega_1 = f(z) dz$, $\omega_2 = g(w) dw$, with $z=T(w)$, we say $\omega_1$ transforms to $\omega_2$ if $g(w) = f(T(w)) T^\prime(w)$. \\
+	A 1-form on a Riemann surface is a collection of 1-forms on each chart that transform to each other under the transition functions.  
+\end{definition}
+
+\begin{definition}
+	We likewise define \bam{$k$-forms} on Riemann surfaces if we have the transformation $g(w) = f(T(w)) \psquare{T^\prime(w)}^k$. We can have $k$ an integer, or a half integer, in which case only $\pm f$ is defined and we say $f$ is a \bam{spinor form} (see Eynard). 
+\end{definition}
 
 \begin{definition}
 	Given a basis of holomorphic differentials $\pbrace{\omega_i}$ on a Riemann surface $X$, we define the \bam{canonical embedding} to be the map $\Phi:X \to \mathbb{P}^{g-1}$ given by 
@@ -3345,14 +3380,6 @@ The following result explains where the map gets its name.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The Riemann Matrix}
 We now want to consider the pairing of homology and cohomology on $X$. This can lead to information about the Abel-Jacobi map, but will also lead to an invariant of a Riemann surface. Relevant references include Eynard's Lectures on Compact Riemann Surfaces, Miranda, \href{https://people.reed.edu/~jerry/311/theta.pdf}{these notes}. 
-
-
-\begin{definition}
-	A homology basis $\bm{c} = (\bm{a},\bm{b})$ is \bam{canonical} if $\bm{c} \cdot \bm{c} = J$ where we are taking the intersection number and $J=\begin{psmallmatrix} 0 & I \\ -I & 0 \end{psmallmatrix}$. 
-\end{definition}
-\begin{remark}
-	Despite the term canonical, there is no unique choice of such a basis. Given any homology basis $\bm{c}$ we can make a new basis by taking $M\bm{c}$ for $M\in GL_{2g}(\mbb{Z})$. If the original basis was canonical then so is the transformed basis iff $MJM^T = J$, which is the condition for $M^T$ to be a symplectic matrix, giving $M$ symplectic. 
-\end{remark}
 
 The object we want to calculate is explicitly the period matrix, defined as follows:
 \begin{definition}\label{def: period matrix}
@@ -3484,7 +3511,7 @@ Recall we discussed sheaf cohomology earlier in \S \ref{subsec: cohomology of sh
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Divisors and their applications}\label{sec: Divisors and their applictions}
+\section{Divisors and their Applications}\label{sec: Divisors and their applictions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Divisors}
@@ -3670,6 +3697,11 @@ Suppose $C$ has genus $g$, then we know that $H_1(C,\mbb{Z}) \cong \mbb{Z}^{2g}$
 \begin{corollary}
 	There is an isomorphism from the space of degree-0 divisors to the Jacobian. 
 \end{corollary}
+
+\begin{remark}
+	In \cite{Fay1973}, p. 3, Fay will discuss the \bam{characteristic homomorphism}
+	$\chi : \pi_1(C) \to (\mathbb{C}^\ast)^{2g}$  that defines a flat line bundle, and will reference the Lectures on Riemann Surfaces by Gunning. \hl{What is this part of the story}. 
+\end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -4111,6 +4143,12 @@ The important theorem about theta functions is to follow. We will define a neces
 \begin{remark}
 	The name \textbf{Riemann Vanishing Theorem (RVT)} is used in \cite{Ercolani1989} to describe the above result. This is not universally used, even if the result is classical. We will continue to use the convention we have just started, of any time there is a result called the Riemann vanishing theorem, we will label it as such with a source. 
 \end{remark}
+\begin{remark}
+	Evaluating theta functions at the AJ map of a point is a common occurrence, so in their Lectures on Compact Riemann Surfaces, Eynad introduces the notation $g_{\zeta, Q}$ for the the map $X \to \mathbb{C}$, depending on parameters $\zeta \in \mathbb{C}^g, \, Q \in X$, given by 
+	\[
+	P \mapsto \theta(A(P)-A(Q)+\zeta) \, .
+	\]
+\end{remark}
 
 To make the above corollary even more powerful, we now give a simple lemma.
 \begin{lemma}
@@ -4236,9 +4274,14 @@ We can give another rephrasing of this, using the isomorphism $\operatorname{Cl}
 	Alternatively, see \cite{Griffiths1985} (under the name Riemann singularity theorem) and Eynard's lectures on compact Riemann surfaces for discussions of this and different interpretations.
 \end{proof}
 \begin{remark}
-	The above theorem complete the relation between definition \ref{def: theta divisor (from line bundles)} and the $\theta$ function, namely that if $L \in \Theta$, then $L$ has a section $s$ with zeros $p_i, \, 1 \leq i \leq g-1$, and and then the divisor of this section $D = (s) = \sum_i p_i$ satisfies $\theta(A(D)+\bm{K})=0$. 
+	The above theorem complete the relation between definition \ref{def: theta divisor (from line bundles)} and the $\theta$ function, namely that if $L \in \Theta$, then $L$ has a section $s$ with zeros $p_i, \, 1 \leq i \leq g-1$, and and then the divisor of this section $D = (s) = \sum_i p_i$ satisfies $\theta(A(D)+\bm{K})=0$. This means the divisor of the theta functionon $\mathbb{C}^g$ is $\bm{K}+A(W_{g-1})$. 
 \end{remark}
-
+\begin{prop}
+If $f \neq 0$ is a meromorphic function with divisor $\sum_i n_i P_i$ and $\zeta$ is an non-singular element of the theta divisor, then $\exists C \in \mathbb{C}^\ast$ s.t. 
+\[
+f(P)= C \prod g_{\zeta, P_i}(P)^{n_i} \, . 
+\]
+\end{prop}
 
 We have thus related the zeros of the $\theta$ .This is done through the following theorem.
 \begin{theorem}
@@ -4263,6 +4306,18 @@ We have thus related the zeros of the $\theta$ .This is done through the followi
 	Chris Swierczewski, of abelfunctions fame, asked a question on mathoverflow (see \href{https://mathoverflow.net/questions/212505/uniqueness-of-riemann-constant-vector-solution}{here}) about finding solutions to $-2\bm{K} = A(D)$ given $\bm{K}$. For an answer, see \cite{Braden2012}. 
 \end{remark}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Jacobi Inversion}
+An important idea in classical integrable systems is that of action-angle variables. In order to find these variables, one will end up needing to solve abelian integrals. This will turn out to be theoretically possible because of the following bit of classical theory. 
+
+\begin{theorem}[Jacobi Inversion Theorem]
+	There is a bijection
+	\begin{align*}
+		W_g &\to J \, , \\
+		D &\mapsto A(D)+\bm{K} \, . 
+	\end{align*}
+\end{theorem}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -4346,6 +4401,9 @@ Our set up will be as follows, suppose we have a Riemann surface $S$ with $g(S)=
 	\end{itemize}
 \end{theorem}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Prime Form}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
