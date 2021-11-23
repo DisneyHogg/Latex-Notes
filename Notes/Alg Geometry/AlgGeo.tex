@@ -83,6 +83,21 @@ s.t. $a,b,c,d \in \mbb{Z}, \, ad-bc=1$.
 \begin{definition}
 	A \bam{Fuchsian group} is a discrete subgroup of $PSL(2, \mathbb{R})$. 
 \end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Group Presentations}
+
+\begin{theorem}
+	Every group has a presentation.
+\end{theorem}
+\begin{corollary}
+	Every finite group is finitely presented. 
+\end{corollary}
+
+\begin{remark}
+	There is, in general, no algorithm for telling if a finitely presented group is finite. GAP has methods to attempt this (see \href{https://www.gap-system.org/Manuals/doc/ref/chap47.html#X86C43E3B81ED25DC}{here}) but these cannot be guaranteed to work. The approach taken uses the Todd-Coxeter coset-enumeration algorithm. 
+\end{remark}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Rings}
@@ -205,7 +220,7 @@ defined via the universal property that, if $f:R \to T$ is a ring hom s.t. $\for
 \end{definition}
 
 \begin{prop}
-	The localisation at a prime ideal is a local ring. 
+	Given a prime ideal $\mf{p} \triangleleft R$, the localisation at $S=R\setminus \mf{p}$ is a local ring. 
 \end{prop}
 
 \begin{definition}
@@ -2988,6 +3003,18 @@ Note that if $k$ is algebraically closed, non-constant monic irreducible polynom
 	For a nice example visualising $\Spec \mathbb{Z}[x]$, see \href{http://www.neverendingbooks.org/mumfords-treasure-map}{here}.
 \end{remark}
 
+\begin{remark}
+	There is likewise a construction called $\operatorname{Proj}S$ for $S$ a graded ring, which is a scheme. It will be important as a generalisation because if $k$ is an algebraically closed field, $\operatorname{Proj} k[x_0, \dots, x_n]$ has the subspace of closed points which is homeomorphic to the variety $\mathbb{P}_k^n$. As a space $\operatorname{Proj}$ consists of homogeneous prime ideals that don't contain $S_+ := \oplus_d S_d$, and so for example in the case of $\operatorname{Proj}k[x,y]$ the closed points look like $\pangle{ax+by}$.  
+\end{remark}
+
+\begin{definition}
+Given a fixed scheme $S$, a \textbf{scheme over $S$} is a scheme $X$ with morphism $S$. A morphism of schemes over $S$ is a scheme morphism compatible with those to $S$. We denote the category of schemes over $S$ by $\mf{Sch}(S)$, and by abuse of notation the category of schemes over $\Spec A$ by $\mf{Sch}(A)$.	
+\end{definition}
+
+\begin{prop}
+	Let $k$ be an algebraically closed field, then there if a natural fully faithful (i.e. bijective on hom-sets) functor $t: \mf{Var}(k) \to \mf{Sch}(k)$ s.t., for any variety $V$, it's topological space is homeomorphic to set of closed points of $t(V)$, and it's sheaf of regular functions is the restriction of the structure sheaf of $t(V)$ via this homemorphism. 
+\end{prop}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3572,6 +3599,13 @@ This leads to an important definition.
 \begin{definition}
 	We define the \bam{canonical divisor class} to be the element of the divisor class group corresponding to meromorphic differentials. We often denote a representative as $K$, the \textbf{canonical divisor}.
 \end{definition}
+
+\begin{prop}
+	The canonical divisor class is invariant under automorphisms.
+\end{prop}
+\begin{proof}
+	If $K = (\omega)$, and $\sigma$ is an automorphisms, then $\sigma^{-1}(K) = (\sigma^\ast \omega)$, but the pullback of a holomorphic form is still a holomorphic form, so we are done by the uniqueness of the canonical divisor. 
+\end{proof}
 
 \begin{prop}
 	A divisor corresponding to a meromorphic section of the canonical bundle is in the canonical divisor class. 
@@ -4274,7 +4308,7 @@ We can give another rephrasing of this, using the isomorphism $\operatorname{Cl}
 	Alternatively, see \cite{Griffiths1985} (under the name Riemann singularity theorem) and Eynard's lectures on compact Riemann surfaces for discussions of this and different interpretations.
 \end{proof}
 \begin{remark}
-	The above theorem complete the relation between definition \ref{def: theta divisor (from line bundles)} and the $\theta$ function, namely that if $L \in \Theta$, then $L$ has a section $s$ with zeros $p_i, \, 1 \leq i \leq g-1$, and and then the divisor of this section $D = (s) = \sum_i p_i$ satisfies $\theta(A(D)+\bm{K})=0$. This means the divisor of the theta functionon $\mathbb{C}^g$ is $\bm{K}+A(W_{g-1})$. 
+	The above theorem complete the relation between definition \ref{def: theta divisor (from line bundles)} and the $\theta$ function, namely that if $L \in \Theta$, then $L$ has a section $s$ with zeros $p_i, \, 1 \leq i \leq g-1$, and and then the divisor of this section $D = (s) = \sum_i p_i$ satisfies $\theta(A(D)+\bm{K})=0$. This means the divisor of the theta function on $\mathbb{C}^g$ is $\bm{K}+W_{g-1}$. 
 \end{remark}
 \begin{prop}
 If $f \neq 0$ is a meromorphic function with divisor $\sum_i n_i P_i$ and $\zeta$ is an non-singular element of the theta divisor, then $\exists C \in \mathbb{C}^\ast$ s.t. 
@@ -4305,6 +4339,34 @@ We have thus related the zeros of the $\theta$ .This is done through the followi
 \begin{remark}
 	Chris Swierczewski, of abelfunctions fame, asked a question on mathoverflow (see \href{https://mathoverflow.net/questions/212505/uniqueness-of-riemann-constant-vector-solution}{here}) about finding solutions to $-2\bm{K} = A(D)$ given $\bm{K}$. For an answer, see \cite{Braden2012}. 
 \end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Calculating the Riemann Constant Vector}
+One may attempt to calculate the RCV both analytically and numerically. The latter was done using abelfunctions in \cite{Deconinck2015}. It worked by using two facts: 
+\begin{enumerate}
+	\item $\bm{K} = A(K_X)+ \bm{h}$ where $\bm{h} = \frac{1}{2}\Omega \bm{n}$ is a half-period vector, so given a way to numerically calculate the AJ map, we can find $\bm{K}$ up to a half-period, and 
+	\item $D \in S^{g-1}X \Rightarrow \theta(A(D)+\bm{K})=0$, and so we can us the theta function to eliminate possible half-periods.  
+\end{enumerate}
+To calculate $\bm{K}$ analytically, one needs to use symmetry properties, for example the following lemma. 
+\begin{lemma}[\cite{Braden2012}]
+	Let $\sigma \in \operatorname{Aut}(X)$ be an order-$N$ symmetry, acting on periods via the matrix $L$ s.t $(L-I)$ is invertible, and let $Q$ be a fixed point of $\sigma$, then $\bm{K}_Q$ is a $2N$-torsion point in the Jacobian. 
+\end{lemma}
+\begin{proof}
+	Letting $\Delta$ be the divisor of the Sz\"ego kernel, we have $\bm{K}_Q = A_Q(\Delta)$, and so 
+	\[
+	2\bm{K}_Q = \int_Q^{2\Delta} \bm{\omega} \, .
+	\]
+	Hence acting via $\sigma$ 
+	\begin{align*}
+	2L\bm{K}_Q  &= \int_Q^{2\Delta} \sigma^\ast \bm{\omega} = \int_{\sigma(Q)}^{\sigma(2\Delta)} \bm{\omega} \, , \\
+	\Rightarrow 2 (L-I)\bm{K}_Q &= \int_{2\Delta}^{\sigma(2\Delta)} \bm{\omega} \, .
+	\end{align*}
+Using the fact that $2\Delta \sim K_X$, we know it's divisor class in invariant under $\sigma$, and so the latter integral is 0 mod the lattice, so is $\Omega \bm{n}$ in $\mbb{C}^g$. Letting $M$ be the action on homology corresponding to $\sigma$ we have $L\Omega = \Omega M$, and so 
+\[
+2\bm{K}_Q = (L-I)^{-1} \Omega \bm{n} = \Omega(M-I)^{-1} \bm{n} = \Omega\psquare{\frac{1}{N} \sum_{k=1}^{N-1} k M^k} \bm{n} \, .
+\]
+This RHS expression is again $\Omega$ times by an integer vector up to a factor of $1/N$. 
+\end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -4505,7 +4567,7 @@ We will want to understand the interplay between the spin structures on a Rieman
 	\eq{
 \phi(x) = \phi(Ax+b) = \phi(Ax) + \phi(b) + H(Ax,b)	
 } 
-Setting $x=0$ gives us $\phi(b)=0$ and so $\phi(x) = \phi(Ax)+H(Ax.b)$. Expanding $H(x,y)$ then finds 
+Setting $x=0$ gives us $\phi(b)=0$ and so $\phi(x) = \phi(Ax)+H(Ax,b)$. Expanding $H(x,y)$ then finds 
 \eq{
 H(x,y) = H(Ax,Ay) \Rightarrow A^\ast A = I
 } 

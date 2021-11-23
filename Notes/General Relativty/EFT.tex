@@ -1601,6 +1601,185 @@ In description $B$, the energy $E_\infty$ associated with $r \to \infty$ is rela
 \frac{r^2 E_\tau^2}{\sqrt{4 \pi g_S^N}} \to 0
 \] 
 which doesn't give constraints by letting $r$ be as small as desired. If we expect these two descriptions to match up, as the free graviton sectors would match up, we claim that the $N=4$ sYM with group $U(N)$ is equal to (type IIB) string theory on $AdS_5 \times S^5$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Formulating AdS/CFT - Lecture 12}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Geometry and Isometries of AdS}
+In the decoupling limit we have metric 
+\[
+ds^2 = \frac{r^2}{R^2}\psquare{-dt^2+ d\bm{x}^2} + \frac{R^2}{r^{2}} dr^2
+\]
+This has horizon at $r=0$. We call the portion this metric describes the \textbf{Poincar\'e patch}. Surfaces of constant $r$ are isomorphic to $\mathbb{R}^{1,d}$ in $AdS_{d+1}$. We note some points
+\begin{itemize}
+	\item Time is warped
+	\item curvature $\mc{R} = -\frac{d(d+1)}{R^2}$
+	\item solves Einstein's equations with cosmological constant $\Lambda = - \frac{d(d-1)}{2R^2}$. 
+	\item It has timelike boundary at $r \to \infty$. 
+\end{itemize}
+If we introduce the coordinate $z = \frac{R^2}{r^2}$, then 
+\[
+ds^2 = \frac{R^2}{z^2} \psquare{-dt^2 + d\bm{x}^2 + dz^2}
+\]
+\begin{definition}
+	$AdS_{d+1}$ is the maximally symmetric spacetime given by the hyperboloid 
+	\[
+	X_{-1}^2 + X_0^2 + \sum_i X_i^2 = R^2
+	\]
+	in $\mathbb{R}^{2,d}$. It has isometry group $SO(2, d)$. We get the original coordinates back by $r=X_{-1}+X_d >0$ and $x^\mu = (t, \bm{x}) = \frac{R}{r}X^\mu$. 
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Global AdS}
+We can describe the entire hyperboloid with coordinates $\rho, \tau$ given by 
+\[
+X_{-1} = R \sqrt{1+\rho^2} cos \tau, \quad X_0 = R \sqrt{1+\rho^2}\sin tau, \quad \sum_i X_i^2 = \rho^2 R^2 \, , 
+\]
+wrt which the metric is 
+\[
+ds^2 = R^2 \psquare{-(1+\rho^2) d\tau^2 + \frac{d\rho^2}{1+\rho^2} + \rho^2 d \Omega_{d-1}^2}
+\]
+\begin{remark}
+	In this metric $\tau$ is periodic. $AdS$ is defined as the universal cover where $\tau \in \mathbb{R}$. 
+\end{remark}
+Performing $\rho = \tan s$ for $s\in [0, \pi/2]$ we get metric 
+\[
+ds^2 = \frac{R^2}{\cot^2 s} \psquare{-d\tau^2 + ds^2  + \sin^2 s d\Omega_{d-1}^2} \, .
+\]
+Fixed $s$ hypersurfaces are isomorphic to $\mathbb{R} \times S^{d-1}$ (think a cylinder), whereas $AdS$ is the ``filled cylinder". 
+\begin{remark}
+	There is a conformal boundary at $ s \to \pi/2$ which is timelike. 
+\end{remark}
+
+\begin{remark}
+	There are null radial geodesics $z=0=s$. It takes finite proper time $\tau=\pi/2$ to reach the boundary from the centre. Hence from a kinematics perspective we need reflective boundary conditions at the boundary to prevent leakage of energy. \\
+	Contrastingly, one can check that massive particles never reach the boundary as a warp factor generates a potential preventing escape. Hence they get periodic motion around $\rho=0$. It is for this reason that $AdS$ is sometimes called a defining box. 
+\end{remark}
+One can draw the cyclinder, and see that the Poincar\'e patch is indeed a patch in this cylinder. \\
+We can now try to realise the $SO(2,d)$ symmetry we know we have. This will turn out to have generators on the Poincar\'e patch
+\begin{itemize}
+	\item translations $P^\mu : x^\mu \mapsto x^\mu +\alpha^\mu$ ($d$-many)
+	\item Lorentz transforms $M^{\mu\nu} : x^\mu \mapsto \Lambda^\mu_\nu x^\nu$ ($d(d-1)/2$-many)
+	\item scaling transform $D:x^\mu \mapsto \lambda x^\mu, \, z \mapsto \lambda z$ (one)
+	\item special conformal transforms $K_\mu$, which are 
+	\begin{align*}
+		z &\mapsto \frac{z}{1+2b \cdot x + Ab^2} \, , \\
+		x^\mu &\mapsto \frac{x^\mu + Ab^\mu}{1+2b \cdot x + Ab^2} \, , 
+	\end{align*}
+where $A = z^2+x^2$, and contractions are done with $\eta_{\mu\nu}$. There are $d$-many. 
+\end{itemize}
+Counting we find a total of $\frac{1}{2}(d+1)(d+2)$ transforms. Note we could also consider the group $O(2, d)$ and then have generators of inversion $z \mapsto z/A, \, x^\mu \mapsto x^\mu / A$, translation, and then the extra inversion. \\
+Now recall we want to talk about a ``string theory on $AdS_{d+1} \times Y$". There is no non-perturbative definition of this theory, but perturbatively we can begin to tackle it. It will have 2 dimensionless parameters $g_S$ and $ \frac{\alpha^\prime}{R^2}$. There are two regimes to handle this 
+\begin{enumerate}
+	\item classical string theory where we let $g_S \to 0$, have $\frac{\alpha^\prime}{R^2}$ fixed, which keeps string excitations,
+	\item classical `gravity' theory where $g_S, \frac{\alpha^\prime}{R^2} \to 0$.
+\end{enumerate}
+We restrict to the case of compact $Y^{9-d}$ (where recall we assume we have a total of 10 dimensions). Introducing coordinates $\pbrace{y_j}$ on $Y$, general theory will tell us that have an orthonormal basis of harmonics on $Y$ which we will denote as $\pbrace{Y_l}$. This will allow us to write fields $\Phi = \Phi(x^\mu, z, y_j)$ as $\sum_l \phi_l(x^\mu,z) Y_l(y_j)$. We can also then integrate out the $Y$ part of our actions to get 
+\[
+\frac{1}{16 \pi G_N} \int d^{d+1}x \, d^{9-d}y \, \sqrt{-g} \psquare{\mc{R}_{10}+\dots} = \frac{\operatorname{Vol}(Y)}{16 \pi G_N} \int d^{d+1}x \, \sqrt{-g_{d+1}} \psquare{\mc{R}_{d+1} + \dots } \, .
+\]
+This gives us the relation $G_{d+1} \sim \frac{G_N}{R^{9-d}}$. 
+\begin{example}
+	In the particular case of $D3$-branes, one finds 
+	\begin{itemize}
+		\item $16 \pi G_N = (2 \pi)^7 g_S^2 (\alpha^\prime)^4$,
+		\item $R^4 = 4 \pi g_S N (\alpha^\prime)^2$,
+		\item $G_5 = \frac{G_N}{\pi^3 R^5} \Rightarrow \frac{G_5}{R^3} = \frac{\pi}{2 N^2}$. 
+	\end{itemize}
+This will be somewhat generic, that $G_{d+1} \sim \frac{1}{N^2}$. 
+\end{example}
+
+\begin{remark}
+	An important diversion to note is that, if our 10d theory came from an 11d reduction, our $g_S$ might correspond to an expectation of a dilatation of the extra dimension, and so when computing perturbtaively one needs to be careful to check that in our expansions we are not pushed into a regime where $g_S \sim 1$.  
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Comments on Matching of Parameters}
+We describe our dictionary of parameters as 
+\[
+\begin{array}{c|c}
+	N=4 \, sYM & AdS_5 \times S^5 \\ \hline \hline 
+	g_{YM}^2 & 4 \pi g_S \\
+	\operatorname{rk}U(N) & N \\
+	\lambda = g_{YM}^2 N & \frac{R^Y}{(\alpha^\prime)^2}= 4 \pi g_S N \\
+	\frac{1}{N^2} \exp & \frac{G_5}{R^8} = \frac{\pi}{2 N^2} \exp 
+\end{array}
+\]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{CFT - Lecture 13}
+Let's start with come remarks about CFTs. We have 
+\begin{itemize}
+	\item Local operators with definite scaling dimension 
+	\[
+	\hat{\mc{O}}(x) \mapsto \lambda^{-\Delta} \hat{\mc{O}}(x) \, .
+	\]
+	\item Observables are correlation functions 
+	\begin{align*}
+	\pangle{\mc{O}(x_1) \mc{O}(x_2)} &= \delta_{\Delta_1 \Delta_2} \frac{c}{\abs{x_1-x_2}^{2\Delta_1}} \, , \\
+	\pangle{\mc{O}(x_1) \mc{O}(x_2) \mc{O}(x_3)} &= \frac{c_{123}}{\abs{x_1 - x_2}^{\Delta_1 + \Delta_2 - \Delta_3} \abs{x_2-x_3}^{\Delta_2 + \Delta_3 - \Delta_1}\abs{x_3-x_1}^{\Delta_3 + \Delta_1 - \Delta_2}} \, .
+	\end{align*}
+\item There is an operator state correspondence (isomorphism). 
+\item In a 2d CFT with have the complex coordinate $w = \sigma + i\tau$, and we let $z = e^{-i w} = e^{-i\sigma}e^{\tau}$, i.e. the infinite past is mapped to the origin.
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Symmetries}
+In $N=4$ sYM, $d=4$, we have $SO(2,4)$ symmetries as well as an $SO(6)$ R-symmetry. Under our correspondence these are mapped to the isometries of $AdS_5$ and $S^5$ respectively. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Corrections}
+ Since we work in units with $\hbar=1$, we take semiclassical gravity with $G_N \to 0, \, \frac{\alpha^\prime}{\sqrt{R}} \to 0$. Since $\frac{G_5}{R^8} \sim \frac{1}{N^2}$, the limit $G_N \to 0 $ corresponds to $N \to \infty$, and $\frac{\alpha^\prime}{\sqrt{R}} \to 0$ corresponds to $g_{YM}^2 N := \lambda \to \infty$. Hence the slogan is that the strongly coupled limit of a large $N$ gauge theory is approximately semiclassical gravity in the bulk. \\
+There are two types of correction to this this, either letting $G_N \to \frac{1}{N^2}$ or having expansion in $\frac{1}{\sqrt{\lambda}}$ (the massive string correction). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{UV/IR connection}
+We will look at the work of Susskind, Witten, 9805119. \\
+We ask a question, what is the meaning of the extra dimension in the bulk relative to the boundary? Recall the low energy limit meant $r \to 0$, so we were approaching the source of the D3-brane. As such we can think of $r$ as giving us the length scale of an open string, equivalently the energy scale in the CFT. Now the coordinates $x^\mu = (t, x^i)$ in YM  on $\del AdS$ give metric $f(r)(-dt^2+d\bm{x}^2)+g(r)dr$ ($f(r) = \frac{R^2}{z^2}$). Local proper time is given by $d\tau = \frac{R}{z}dt$, and length is given by $dl = \frac{R}{z}dx$, so we get warp factors $E_{YM} = \frac{R}{z} E_{\text{local}}$ and analogously $\text{distance}_{YM}:= D_{YM} = \frac{z}{R} dl$. \\
+If we consider the same bulk process at different $z$, it corresponds to different YM scales, with $E \sim \frac{1}{z}, \, D \sim z$. Hence as $z \to 0$, $E_{YM} \to \infty, \, D_{YM} \to \infty$, which corresponds to the UV regime of YM. Conversely, the IR regime of YM corresponds to $z \to \infty$. \\
+Taking the AdS perspective on the above, $z \to 0$ corresponds to the boundary of AdS, i.e. spacelike infinity, so the length scale $ \to \infty$, and we associate this with the IR regime. Again, conversely the $z \to \infty$ limit corresponds to stretched open strings that carry lots of energy, hence the UV limit. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Matching Boundary/Bulk Cutoffs}
+Consider a CFT observable 
+\[
+\pangle{\mc{O}(X_1) mc{O}(X_2)} \sim \frac{\mu^{-P}}{\abs{X_1 - X_2}^P} \, . 
+\]
+where $\mu$ is the CFT cutoff. Let's assume the points $X_i$ (nearly) on the boundary are connected by an open string, then as $z \to 0$ the length of this string tends to infinity. At infinite distance in the bulk, we can replace this cutoff with $\delta$ the AdS cutoff, and then if we assume we have massive fields corresponding to this correlator in the bulk we can use the WKB approximation to take a geodesic approximation for the length of this string (see next week). Hence
+\[
+l_{\text{geodesic}} = \frac{\log \abs{X_1-X_2}}{\delta} \Rightarrow \pangle{\Phi_1 \Phi_2} \sim e^{-m_\Phi l} \sim \frac{\delta^{m_\Phi}}{\abs{X_1-X_2}^{m_\Phi}} \, .
+\]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Lattice cutoff in YM}
+Each independent quantum field in $N=4$ sYM gives a degree of freedom for a lattice, where each d.o.f carries a bit of information. Energy density of fields then goes as $\sim \frac{1}{\delta^4}$, hence the maximal temperature goes as $\sim \delta^{-4}$. \\
+Suppose we take sYM on $\mathbb{R}\times S^3$. The number of cells on $S^3$ goes as $\sim \delta^{-3}$, and we have $N^2$ matrix elements as this is a $U(N)$ theory, so $N_{dof} \sim \frac{N^2}{\delta^3}$. We can calculate the area of the cutoff surface to be $A_\delta \sim \frac{R^3}{\delta^3}$, and moreover recall on AdS we have $G_N \sim g_S^2 (\alpha^\prime)^4$, so one can alternatively think of $N_{dof} \sim \frac{A_\delta}{G_5}$. \\
+At finite $T_{YM}$, taking dimensionless $T$ defined by $T_{YM} = TR$,  we have 
+\[
+S_{YM} \sim N^2 T_{YM}^3 \Rightarrow (TR)^3 \sim \frac{S_{YM}}{N^2} \sim S_{YM} \frac{g_S^2 (\alpha^\prime)^4}{R^8} \sim \frac{A}{R^3} \, .
+\]
+Using the holographic principle we get that $S_{bulk} \sim \frac{A}{G}$, and so $A_{max} \sim \frac{R^3}{\delta^3}$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Operators vs Bulk Field Correspondence}
+Given the duality, we expect the spectrum to be equal on both side. In CFT, we have a representation of $SO(2,d)$, so there are local primary operators, and we wonder what do they correspond to in the bulk. The intuition is that they should correspond to bulk fields which transform under $SO(2,d)$ in the same way. \\
+To approach this, let's deform the CFT by adding $\int dx \, \phi_0(x) \hat{\mc{O}}(x)$ to $S_{CFT} = \int ds \mc{L}_{CFT}$. Note if $\phi_0$ was constant, then this would modify/generate the coupling of $\hat{O}$ in the Lagrangian. What does this deformation mean in the bulk? To gain some intuition on this question, recall we have $g_{YM}^2 \leftrightarrow g_S \sim e^{\pangle{\phi}}$, and that $g_{YM}$ appears explicitly as the Lagrangian density is $\sim \frac{1}{g_{YM}^2} \tr\psquare{\dots}$. $\pangle{\phi}$ is the expectation of the dilaton, and typically the constant piece of $\pangle{\phi}$ is the value fo the dilaton at the boundary. Hence let's write $\pangle{\phi} = \ev{\phi}{\del AdS}$. If we expect this value to correspond to $\phi_0$, we see that the dilaton would correspond to the Lagrangian density as a field. 
+\begin{remark}
+	The takeaway from this argument is that turning on a boundary deformation $\int dx \, \phi_0(x) \hat{\mc{O}}(x)$ is equivalent to associating a bulk field $\phi(x)$ to the boundary operator $\hat{O}$ s.t the boundary value $\ev{\phi}{\del AdS}$ corresponds to $\phi_0$. 
+\end{remark}
+\begin{example}
+	Take a $U(1)$ current CFT, $J^\mu(x) \to \int dx \, a_\mu (x) J^\mu(x)$, and  $a_\mu(x) := \ev{A_\mu(x,z)}{z=0}$, the deformation is $a_\mu \mapsto a_\mu + \del_\mu \Lambda$. 
+\end{example}
+
+\begin{example}
+	A deformation $\int dx \, h_{\mu\nu}(x) T^{\mu\nu}(x)$ for a CFT defined on Minkowski has corresponding deformation $\eta_{\mu\nu} \mapsto \eta_{\mu\nu} + h_{\mu\nu}$. If our metric was then $g_{\mu\nu} = \frac{R^2}{z^2}$, then this would deform to $\frac{R^2}{z^2}(\eta_{\mu\nu}+h_{\mu\nu})$.  
+\end{example}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
