@@ -54,6 +54,42 @@ This section will be largely stating definitions and results for concreteness.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Groups}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Polygon Groups}
+For this section, the important references are \cite{Singerman1997} and \cite{Coxeter1957}.
+
+\begin{definition}
+	We denote the tessellation of $\mathcal{U}$ by $n$-gons, $m$ of which meet at a vertex (if it exists), by $\pbrace{m,n} := \hat{\mathcal{M}}(m,n)$, where 
+	\begin{align*}
+	\mathcal{U} = \left \lbrace \begin{array}{cc}
+		\mathbb{P}^1 & (n-2)(m-2)<4 \\
+		\mathbb{C} & (n-2)(m-2) = 4 \\
+		H & (n-2)(m-2) > 4
+	\end{array}	\right . \, . 
+	\end{align*}
+\end{definition}
+
+\begin{definition}
+	A \textbf{Petrie polygon} of $\pbrace{n,m}$ is a polygon given by a `zigzag' of vertices in $\pbrace{n,m}$ in which every two consecutive sides, but no three, belong to a face. 
+\end{definition}
+
+\begin{definition}
+	A \textbf{map} $\mathcal{M}$ is an embedding of a graph s.t. the components of the complement of $\mathcal{M}$, the faces, are homeomorphic to open discs.  
+\end{definition}
+
+\begin{example}
+	Every tesselation $\pbrace{n,m}$ gives a map. 
+\end{example}
+
+\hl{put in definition of regular maps}
+
+\begin{definition}
+	We define a map $\pbrace{n,m}_r$ to be a map constructed by identifying vertices of a Petrie polygon of $\pbrace{n,m}$ that are separated by $r$ steps. 
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{The Modular Group}
+
 \begin{definition}
 	The \bam{modular group} is 
 	\eq{
@@ -2449,6 +2485,10 @@ where $[Y]$ is the divisor corresponding to the line bundle $\mc{O}_X(Y)$ and we
 	See \href{https://math.colorado.edu/~rohi1040/expository/param_spin.pdf}{here}. Effectively, a choice of bundle is equivalent to a choice of transition maps that obey cocycle transitions, that is a choice of \v{C}ech 1-cocycle, valued in $G$. The abelian-ness of $G$ is required to preserve the group operation.  
 \end{proof}
 
+
+\begin{example}
+	See \href{https://math.stackexchange.com/questions/81981/is-there-a-way-to-establish-a-correspondence-between-the-vector-bundles-over-a-t}{here} for an example of classifying real vector bundle over the torus. 
+\end{example}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Almost Complex Manifolds}
@@ -3251,6 +3291,11 @@ It can likewise be shown that a degree $5$ curve will have $101$ degrees of free
 	}
 	so topologically this curve is a torus.
 \end{example}
+
+\begin{remark}
+	In the above calculation we have considered as subset of projective space. One can also consider curves that are subsets of weighted projective space, and here the calculation of genus becomes more complicated, e.g. see \href{https://mathoverflow.net/questions/160495/genus-in-weighted-projective-space/160519}{here}. 
+\end{remark}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Automorphisms}
@@ -3722,7 +3767,7 @@ Suppose $C$ has genus $g$, then we know that $H_1(C,\mbb{Z}) \cong \mbb{Z}^{2g}$
 \end{theorem}
 
 \begin{theorem}[Jacobi's (Inversion) Theorem]
-	The map Abel-Jacobi map is surjective. 
+	The map Abel-Jacobi map is surjective from $S^gX$. 
 \end{theorem}
 \begin{proof}
 	See for example \cite{Farkas1992} \S III.6.6 pp.91-92 and \S VI.3.4, p.294.
@@ -3731,6 +3776,10 @@ Suppose $C$ has genus $g$, then we know that $H_1(C,\mbb{Z}) \cong \mbb{Z}^{2g}$
 \begin{corollary}
 	There is an isomorphism from the space of degree-0 divisors to the Jacobian. 
 \end{corollary}
+
+\begin{remark}
+	Note that when $g=1$, we have an isomorphism $X \cong J(X)$. Surjectivity is not true of the map just from $X$ when $g>1$, and indeed we have the Manin-Mumford theorem (proved in \cite{Raynaud1983}) that $W_1 \cap J(X)$ contains only finitely-many torsion points. 
+\end{remark}
 
 \begin{remark}
 	In \cite{Fay1973}, p. 3, Fay will discuss the \bam{characteristic homomorphism}
@@ -4014,7 +4063,7 @@ It is known that this sequence can increase by a maximum of 1 from term to term.
 	and that $\nexists f$ s.t. $(f)=-n_ip$
 \end{theorem}
 \begin{proof}
-	As there are $2g-1$ step for $l(kp)$ to increase from $1$ to $g$, and it can only increase in step of $1$, there must be $g$ steps where $l(kp)$ remains constant. The $n_i$ are the locations of the \bam{gaps} where $L((n_i-1)p) = L(n_ip)$. If there existed $f$ s.t. $(f) = -n_i p$, then $f \in L(n_i p)$ but $f \not \in L((n_i -1)p)$ so we get the later condition. It is a result that if $\exists f$ s.t. $(f)=-p$, then $X \cong \mathbb{P}^1$, in which case $g=0$ and the result is vacous, so we automatically know $n_1=1$. 
+	As there are $2g-1$ step for $l(kp)$ to increase from $1$ to $g$, and it can only increase in step of $1$, there must be $g$ steps where $l(kp)$ remains constant. The $n_i$ are the locations of the \bam{gaps} where $L((n_i-1)p) = L(n_ip)$. If there existed $f$ s.t. $(f) = -n_i p$, then $f \in L(n_i p)$ but $f \not \in L((n_i -1)p)$ so we get the later condition. It is a result that if $\exists f$ s.t. $(f)=-p$, then $X \cong \mathbb{P}^1$, in which case $g=0$ and the result is vacuous, so we automatically know $n_1=1$. 
 \end{proof}
 
 \begin{definition}
@@ -4027,7 +4076,7 @@ It is known that this sequence can increase by a maximum of 1 from term to term.
 \begin{remark}
 	Given Riemann-Roch, studying Weierstrass points may seem natural, but from a historical perspective they came well before. More on the history of Weierstrass points can be found in \cite{DelCentina2008}. 
 \end{remark}
-We have results about the abundancy of Weierstrass points:
+We have results about the abundance of Weierstrass points:
 \begin{prop}[\cite{Farkas1992}]
 	We have 
 	\begin{itemize}
@@ -4192,7 +4241,9 @@ To make the above corollary even more powerful, we now give a simple lemma.
 	This is a corollary of corollary \ref{cor: A^g is a local homeo}, and that $\theta$ is not identically zero as a function of $J(X)$ on any open subsets. 
 \end{proof}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Generalised Theta Functions}
+Note that one can think of theta functions on a generic complex torus by thinking about the factors of automorphy - the scale facts introduced to the function when adding a lattice vector to the argument. For more on these see \cite{Birkenhake2004} and \cite{Beauville2011}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -4311,7 +4362,7 @@ We can give another rephrasing of this, using the isomorphism $\operatorname{Cl}
 	The above theorem complete the relation between definition \ref{def: theta divisor (from line bundles)} and the $\theta$ function, namely that if $L \in \Theta$, then $L$ has a section $s$ with zeros $p_i, \, 1 \leq i \leq g-1$, and and then the divisor of this section $D = (s) = \sum_i p_i$ satisfies $\theta(A(D)+\bm{K})=0$. This means the divisor of the theta function on $\mathbb{C}^g$ is $\bm{K}+W_{g-1}$. 
 \end{remark}
 \begin{prop}
-If $f \neq 0$ is a meromorphic function with divisor $\sum_i n_i P_i$ and $\zeta$ is an non-singular element of the theta divisor, then $\exists C \in \mathbb{C}^\ast$ s.t. 
+If $f \neq 0$ is a meromorphic function with divisor $\sum_i n_i P_i$ and $\zeta$ is an non-singular element of the theta divisor, then $\exists \, C \in \mathbb{C}^\ast$ s.t. 
 \[
 f(P)= C \prod g_{\zeta, P_i}(P)^{n_i} \, . 
 \]
@@ -4367,6 +4418,17 @@ Using the fact that $2\Delta \sim K_X$, we know it's divisor class in invariant 
 \]
 This RHS expression is again $\Omega$ times by an integer vector up to a factor of $1/N$. 
 \end{proof}
+
+\begin{remark}
+	In the above proof, note that as $M^N=I$, we have $\sum_{k=0}^{N-1} M^k = 0$, and so 
+	\begin{align*}
+		(M-I) \sum_{k=1}^{N-1} k M^k &= \sum_{k=1}^{N-1} k \pround{M^{k+1}-M^k} \, , \\
+		&= \pround{\sum_{l=2}^{N} (l-1) M^l} - \pround{\sum_{k=1}^{N-1} k M^k } \, , \\
+		&= (N-1)M^N - \sum_{k=1}^{N-1} M^k \, , \\
+		&= (N-1)I - (-I) = NI\, , \\
+		\Rightarrow \frac{1}{N}\sum_{k=1}^{N-1} k M^k &= (M-I)^{-1} \, . 
+	\end{align*} 
+\end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
