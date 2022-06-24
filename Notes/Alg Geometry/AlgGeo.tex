@@ -62,7 +62,7 @@ For this section, the important references are \cite{Singerman1997} and \cite{Co
 	We denote the tessellation of $\mathcal{U}$ by $n$-gons, $m$ of which meet at a vertex (if it exists), by $\pbrace{m,n} := \hat{\mathcal{M}}(m,n)$, where 
 	\begin{align*}
 	\mathcal{U} = \left \lbrace \begin{array}{cc}
-		\mathbb{P}^1 & (n-2)(m-2)<4 \\
+		\mathbb{P}^1 & (n -2)(m-2)<4 \\
 		\mathbb{C} & (n-2)(m-2) = 4 \\
 		H & (n-2)(m-2) > 4
 	\end{array}	\right . \, . 
@@ -307,7 +307,7 @@ defined via the universal property that, if $f:R \to T$ is a ring hom s.t. $\for
 	$\mbb{Q}(\sqrt{2},e)/\mbb{Q}$ has transcendence degree 1.
 \end{example}
 
-\hl{replace these examples with more C oriented ones. }
+\hl{replace these examples with more $\mathbb{C}$ oriented ones. }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -316,9 +316,23 @@ defined via the universal property that, if $f:R \to T$ is a ring hom s.t. $\for
 This section will be predominantly based off of \cite{Stewart2003}. 
 
 \begin{example}
-	The value $q = \sqrt{(2+\sqrt{2})(3+\sqrt{3})}$ has minimal polynomial $x^8 - 24x^6 + 144x^4 - 288x^2 + 144$ over $\mathbb{Q}$, and the Galois group of the field extension $\mathbb{Q}[q]$ is $\cong Q_8$, the quaternions. 
+	The value $q = \sqrt{(2+\sqrt{2})(3+\sqrt{3})}$ has minimal polynomial $x^8 - 24x^6 + 144x^4 - 288x^2 + 144$ over $\mathbb{Q}$, and the Galois group of the field extension $\mathbb{Q}[q]$ is $\cong Q_8$, the quaternions (Milne, ``Field Theory", p. 46).
 \end{example}
 
+In fact, we have the following important theorem, the reference for which comes from \href{https://alexjbest.github.io/blog/maths/2017/05/02/every-group-is-a-galois-group.html}{here}. 
+\begin{theorem}[Artin]
+	Let $K$ be a field and $G$ a finite group of field automorphisms of $K$, then $K$ is a Galois extension of the fixed field $K^G$ with Galois group $G$, and moreover $[K : K^G] = \abs{G}$. 
+\end{theorem}
+\begin{corollary}
+	Every finite group is the Galois group of some field extension. 
+\end{corollary}
+\begin{proof}
+	Given any field $k$, take the extension $kG$ that has all the elements of $G$ as indeterminates, and then let $G$ act on $kG$ via its group action on the indeterminates, extended $k$-linearly. This then satisfies the requirements of the above theorem.  
+\end{proof}
+
+\begin{remark}
+	It is not known whether every finite group is the Galois group of an extension of $\mathbb{Q}$ - this is called the inverse Galois problem. \hl{Why does the above proof not work just taking $k=\mathbb{Q}$?}
+\end{remark}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Solvability by Radicals}
