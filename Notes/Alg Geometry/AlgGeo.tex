@@ -4548,6 +4548,9 @@ Our set up will be as follows, suppose we have a Riemann surface $S$ with $g(S)=
 \subsection{Prime Form}
 
 
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -5804,6 +5807,71 @@ So far we have only considered elliptic curves over the base field $\mathbb{C}$.
 \begin{theorem}[Shafarevich, \cite{Silverman2009}]
 	An elliptic curve $E$ over number field $K$ has finite $K$-isogeny class. 
 \end{theorem}
+
+In fact, one can get very strict results about how large the isogeny class can be. For example, \cite{Kenku1982} shows that the isogeny class can have size at most 8, and discusses when this occurs. 
+
+
+The value of the $j$-invariant can also tell us about the transcendentality of a period. 
+
+\begin{theorem}[``Arithmetische Untersuchungen elliptischer Integrale", Schneider, 1937]
+	If $\tau$ is a quadratic irrational number in the upper half plane then $j(\tau)$ is an algebraic integer. Moreover, if $\tau$ is an algebraic number but not imaginary quadratic then $j(\tau)$ is transcendental.
+\end{theorem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part{Abelian Varieties}
+
+There are many excellent sources, but the main one for us will be \cite{Birkenhake2004}. \cite{Beauville2011} is also very good. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Polarisations}
+\begin{lemma}
+	On a complex torus $X = \faktor{V}{\Lambda}$, there is a canonical isomorphism $\Pic(X) = H^1(\mc{O}_X^\ast) \cong H^1(\Lambda , H^0(\mathcal{O}_V^\ast))$. 
+\end{lemma}
+An element of $H^1(\Lambda , H^0(\mathcal{O}_V^\ast))$ is called a \bam{factor of automorphy} or \bam{system of multipliers}, and we may write it as a function $f = e^{2 \pi i g}$, where $g:\Lambda \times V \to \mathbb{C}$ is holomorphic in the second variable, and satifies a cocycle condition 
+\[
+g(\gamma + \delta, z) = g(\gamma, z+\delta) + g(\delta, z) \, . 
+\] 
+
+
+\begin{definition}
+	A \bam{polarisation} on a complex torus $X = \faktor{V}{\Lambda}$ is $H=  c_1(L)$ the chern class of a positive line bundle $L \to X$. 
+\end{definition}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Jacobian Varieties}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Automorphism Groups}
+The number of automorphisms of the Jacobian depends on the choice of principal polarisation, see \cite{Lee2018}. 
+
+One can numerically calculate the automorphism group in Sage using \cite{Bruin2019}. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Poicar\'e Reducibility Theorem}
+Read about idempotents in the endomorphism algebra, \cite{Kani1989}. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Prym Varieties}
+
+Let's start of with some sources.
+\begin{itemize}
+	\item \cite{Reyes2019} - discusses decomposition of Jacobians and relates them to Prym varieties coming from quotient maps. 
+\end{itemize}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
