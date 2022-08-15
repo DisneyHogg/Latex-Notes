@@ -3337,12 +3337,20 @@ By considering the covering map $X \to \faktor{X}{\Aut(X)}$, we have the followi
 	The bound $\Aut(X) \leq 84(g-1)$ is called the \bam{Hurwitz bound}. Surfaces that achieve this bound are called \bam{Hurwitz surfaces}.
 \end{definition}
 
+\begin{example}
+	There is a unique Hurwitz curve of genus 3, Klein's curve. There is a unique example in genus 7, the Fricke-Macbeath curve. 
+\end{example}
+
 \begin{theorem}
 	The Hurwitz bound is achieved iff $X = \faktor{\Gamma}{K}$ where $\Gamma$ has presentation 
 	\[
 	\pangle{x_1, x_2, x_3, \, | \, x_1^2 = x_2^3 = x_3^7 = x_1x_2x_3 = 1} \, , 
 	\]
 	i.e. $\Gamma$ is isomorphic to the $(2,3,7)$ triangle group. 
+\end{theorem}
+
+\begin{theorem}[Wiman, 1895]
+	There is no Hurwitz curve of genus $g=2, 4, 5, 6$. 
 \end{theorem}
 
 \begin{theorem}
@@ -5861,6 +5869,22 @@ One can numerically calculate the automorphism group in Sage using \cite{Bruin20
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Poicar\'e Reducibility Theorem}
 Read about idempotents in the endomorphism algebra, \cite{Kani1989}. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Split Jacobians}
+\begin{definition}
+	We call a Jacobian \bam{split} if it is isogenous to a product of elliptic curves. 
+\end{definition}
+\begin{example}
+	Burnside's curve, Klein's curve, Bring's curve, and the Fricke-Macbeath curve all have split Jacobians, being the product of a single isogeny class. 
+\end{example}
+
+\begin{remark}
+	Seeing the above, one might conjecture that all curves with maximal isomorphism group for a given genus have split Jacobians that are the product of a single elliptic curve isogeny class. 
+\end{remark}
+
+\cite{Ekedahl1993} investigated the curves with split jacobians, focusing on curves related to modular forms. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
