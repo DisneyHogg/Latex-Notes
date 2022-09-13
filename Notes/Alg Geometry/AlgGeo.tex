@@ -4749,6 +4749,9 @@ From our understanding of the matrix $A$, we can then get a following result:
 	Non-identity $f \in \Aut(X)$ preserves every spin structure iff $X$ is hyperelliptic and $X$ is the hyperelliptic involution. 
 \end{theorem}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Extended example}
@@ -5071,6 +5074,14 @@ This was proven by Adri Daalhuis, by showing that both the left and right terms 
 and then showing that their first 3 taylor coefficients are the same (with a different sign). This was done in Maple. 
 \end{remark}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Burnside's Curve}
+Burnside's curve is given by the plane model 
+\[
+y^2 = x(x^-1) .
+\]
+It has automorphism group $S_4$ (plus hyperelliptic involution). 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -5874,18 +5885,34 @@ Read about idempotents in the endomorphism algebra, \cite{Kani1989}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Split Jacobians}
 \begin{definition}
-	We call a Jacobian \bam{split} if it is isogenous to a product of elliptic curves. 
+	We call a Jacobian \bam{split} if it is isogenous to a product of abelian varieties of lower dimension. We say it is \bam{totally split} if each of these factors is an elliptic curve. 
 \end{definition}
 \begin{example}
-	Burnside's curve, Klein's curve, Bring's curve, and the Fricke-Macbeath curve all have split Jacobians, being the product of a single isogeny class. 
+	Burnside's curve ($g=2$), Klein's curve ($g=3$), Bring's curve ($g=7$), and the Fricke-Macbeath curve ($g=7$ )all have totally split Jacobians, being the product of a single elliptic curve isogeny class. The Jacobian of the Fermat curve $x^5+y^5=1$ ($g=6$) splits into a product of 3 simple two-folds with complex multiplication. These are each the curves with the maximal automorphism group for their respective genera.  
 \end{example}
 
-\begin{remark}
-	Seeing the above, one might conjecture that all curves with maximal isomorphism group for a given genus have split Jacobians that are the product of a single elliptic curve isogeny class. 
-\end{remark}
+Curves with split Jacobians are interesting for a few reasons, including that curves with split Jacobians often have the maximal number of points over finite fields (Weil bounds this number in ``Courbes algebriques et varietes abeliennes", 1971, see also Ibukiyama ``On Rational Points of Curves of Genus 3 over Finite Fields", 1993), and they have been used to ``exhibit non-isomorphic curves with the same Jacobian" (``Curves of Genus 2 with Split Jacobian", Kuhn, 1988). 
 
-\cite{Ekedahl1993} investigated the curves with split jacobians, focusing on curves related to modular forms. 
 
+\cite{Ekedahl1993} investigated the curves with totally split jacobians, focusing on curves related to modular forms. Here we collect some results about split Jacobians. 
+
+\begin{theorem}[Katsura, ``On the structure of singular abelian varieties", 1975]
+	If an $n$-dimensional complex torus $T$ is isogenous to $E^n$, where $E$ is an elliptic curve with complex multiplication, then $\exists E_1, \dots, E_n$ elliptic curves s.t $T$ is isomorphic to $E_1 \times \dots \times E_n$. 
+\end{theorem}
+
+\begin{theorem}[Nakajima, ``On splitting of certain Jacobian varieties", 2007]
+	The hyperelliptic curve with plane model $y^2 = (x^3 - a^3)(x^3 - a^{-3})$ has (totally) split Jacobian. 
+\end{theorem}
+
+\begin{theorem}[Nakajima, ``On splitting of certain Jacobian varieties", 2007]
+	The family of genus-4 curves given by 
+	\[
+	x_0 x_1 + x_2 x_3 = 0 = x_0^3 - x_3^3 + tx_2^3 - x_1^3
+	\]
+	has split Jacobian, being isogenous to two 2-dimensional varieties when $t \neq 1$, and to the 4-fold product of an elliptic curve when $t=1$. 
+\end{theorem}
+
+The Nakajima paper gives further families of genus-4 curves with split and (totally) split Jacobians, as well as a family of hyperelliptic curves with split Jacobians for each even genus. ``On Curves with Split Jacobians" (Yamauchi, 2008) gives examples in genus 5 and 17. Some of the earliest examples come from ``Some Jacobian varieties which split" (Earle, 1978). 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
