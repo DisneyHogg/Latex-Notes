@@ -4617,7 +4617,7 @@ In order to identify the bilinear with the cup product we just need to work out 
 \begin{proof}
 	See Mumford (\hl{ref}).
 \end{proof}
-This then means they coincide. \\
+This then means they are in the same class. \\
 We can further say that 
 \begin{theorem}
 	Let $\pbrace{X_t \, | \, t \in \mbb{C}, \, \abs{t}<1}$ be a holomorphic family of compact Riemann surfaces, and let $D_t$ be a divisor class in $X_t$ s.t. $2D_t = K_t$. Then $\dim \abs{D_t}$ is constant mod 2.  
@@ -4703,27 +4703,34 @@ Now given a homology basis specifying $M$, we have a dual basis of $H^1(M,\mbb{Z
 	You may, like me, have been initially confused as to why the cohomology $H^1(X,F_2)$ has dimension $2g$, when we typically think of a cohomology basis as being a basis of $g$ differentials. Note that is because the sheaf here is really the constant sheaf $F_2$. One can then use Poincare duality and the universal coefficient theorem.
 \end{remark} 
 
-It is then possible to extend this to find exactly which cohomology classes $\xi \in H^1(U(X),F_2)$ correspond to invariant spin structures. Let $e \in H_1(U(X),F_2)$ be the homology corresponding to the $U(1)$ generator. We can get a basis of $H_1(U(X),F_2)$ from a basis of $H_1(X,\mbb{Z})$, $\pbrace{\delta_i}_{i=1}^{2g}$, by lifting the cycles $\delta_i$ to a cycle $\tilde{\delta}_i$ and including $e$. 
-Let $\eta \in H^1(U(X),\mbb{Z})$ be its dual, so our full cohomology basis of $H^1(U(X),\mbb{Z})$ is $\pbrace{d_i,\eta}$. Denote their projection to $H^1(U(X),F_2)$ with an overline. 
+It is then possible to extend this to find exactly which cohomology classes $\xi \in H^1(U(X),F_2)$ correspond to invariant spin structures. Let $e \in H_1(U(X),F_2)$ be the homology corresponding to the $U(1)$ generator. We are told to think of elements of $H_1(U(X))$ as \bam{framed curves}, that is a curve in $X$ with a smooth vector field along the curve. In this language, the element we called $e \in H_1(U(X), F_2)$ corresponds to the \bam{tangential framing} (that is, we can think of a small circle, whose framing is given by the tangent vector at each point). The zero element would correspond to assigning a constant vector to a curve.   
+
+Now, for a Smooth Closed Curve (SCC) $\delta$ in $X$ we define $\overrightarrow{\delta}$ to be the lift to $H_1(U(X), F_2)$ which assigns the tangential framing to the curve. Then to an element $a \in H_1(U(X), F_2)$ given by SCCs $\pbrace{\delta_i}_{i=1}^m$, we define $\tilde{a} = \sum_{i=1}^m \overrightarrow{\delta_i} + me$. \cite{Johnson1980} provides a proof that this method of assigning a lift respect homologies, i.e. is well defined. 
+
+Given a basis $\pbrace{\delta_i}_{i=1}^{2g}$ of $H_1(X, F_2)$, $\pbrace{\tilde{\delta_i}, e}$ gives a basis of $H_1(U(X), F_2)$. Letting $\eta \in H^1(U(X),\mbb{Z})$ be the dual of e, and $d_i$ the dual of $\delta_i$, a full cohomology basis of $H^1(U(X),\mbb{Z})$ is $\pbrace{d_i,\eta}$. Denote their projection to $H^1(U(X),F_2)$ with an overline. 
 \begin{remark}
 	In this basis, with have the set of spin structures is 
 	\eq{
-\pbrace{\bar{\eta} + \sum_i y_i \bar{d}_i \, | \, y_i \in F_2}	
+\Phi = \pbrace{\bar{\eta} + \sum_i y_i \bar{d}_i \, | \, y_i \in F_2^{2g}}	
 }
 \end{remark}
 The corresponding map of $U(X)$ induced from $f$ only acts on the base, so the corresponding effect on $e$ is $f_\ast(e)=e$. 
 To calculate $f_\ast(\tilde{\delta}_i)$ we need a lemma from \cite{Johnson1980}:
-\begin{lemma}
+\begin{lemma}\label{lemma: spin structure homology lift is not a homomorphism}
 	For $a,b \in H_1(X,\mbb{Z}), \, \widetilde{(a+b)} = \tilde{a} + \tilde{b} + (a \circ b)e$. 
 \end{lemma}
+Note that this lemma gives a measure of which the lift fails to be a group homomorphism. 
+
+
+
 \begin{corollary}
-	$f_\ast(\tilde{\delta}_i) = M_{ij} \tilde{\delta}_j + b_i e$ where 
+	$f_\ast(\widetilde{\delta}_i) = M_{ij} \tilde{\delta}_j + b_i e$ where 
 	\eq{
 v_i = \sum_{1 \leq j_1 < j_2} M_{ij_1} M_{ij_2} (\delta_{j_1} \circ \delta_{j_2})
 }
 \end{corollary}
 \begin{proof}
-	We have that $\tilde{f_\ast(a)} = f_\ast(\tilde{a})$ and so using $f_\ast(\delta_i) = M_{ij} \delta_j$ we have 
+	We have that $\widetilde{f_\ast(a)} = f_\ast(\tilde{a})$ and so using $f_\ast(\delta_i) = M_{ij} \delta_j$ we have 
 	\eq{
 f_\ast(\tilde{\delta}_i) &= M_{i1}\tilde{\delta}_1 + \widetilde{\pround{\sum_{j>1} M_{ij} \delta_j}} + \pround{M_{i1}\delta_1 \circ \sum_{j>1}M_{ij} \delta_j}e \\
 &= \dots \\
@@ -4749,7 +4756,36 @@ From our understanding of the matrix $A$, we can then get a following result:
 	Non-identity $f \in \Aut(X)$ preserves every spin structure iff $X$ is hyperelliptic and $X$ is the hyperelliptic involution. 
 \end{theorem}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Calculating Parity}
+We have now seen how, via \cite{Kallel2006}, to identify spin structures on a Riemann surface with vectors in $\mathbb{F}^{2g}$. It is not clear from this paper how to calculate the parity of a spin structure associated to a given vector, but this is fortunately answered in \cite{Johnson1980}, as we will now see. 
 
+We first want to consider quadratic forms on $H_1(X)$ whose associated bilinear form is the intersection pairing on this space. We can define such a particular quadratic form associated to a given spin structure $\xi \in H^1(U(X), F_2)$, namely $\phi_\xi$ given by $\phi_\xi(a) = \pangle{\xi, \tilde{a}}$, where here $\pangle{\cdot, \cdot}$ is the pairing between $H^1(U(X), F_2)$ and $H_1(U(X), F_2)$. It is a simple application of Lemma \ref{lemma: spin structure homology lift is not a homomorphism} and the fact that for any spin structure $\pangle{\xi, e}=1$ to see that this is indeed a quadratic form. The map $Q$ from spin structures to their associated quadratic form ($Q(\xi) = \phi_\xi$) is an affine equivalence (that is it behaves as one would like under the action of the group of translations, namely the homology group), and so a bijection. Importantly, $Q$ also commutes with the action of $Sp(2g)$ on spin structures.
+
+\begin{remark}
+	A consequence of this last statement is another characterisation of the action of the symplectic group on spin structures, namely as the action on quadratic forms. Hence the group of transforms that leaves a given spin structure $\xi$ invariant is the orthogonal group with respect to $\phi_\xi$. 
+\end{remark} 
+
+We now want to define a quadratic form on $\Phi$, the set of spin structures. To do so, first for $a \in H_1(X)$ we denote by $\hat{a}$ the map on $\Phi$ given by $\xi \mapsto \pangle{\xi, \tilde{a}}$. Then given a symplectic basis of $H_1(X)$ we define the map $\alpha$ by 
+\begin{align*}
+\alpha(\xi) &= \sum_i \hat{a_i}(\xi) \hat{b_i}(\xi) , \\
+&= \sum_i \pangle{\xi, \tilde{a_i}} \pangle{\xi, \tilde{b_i}} , \\
+&= \sum_i \phi_\xi(a_i) \phi_\xi (b_i) , \\
+\end{align*}
+and by \href{https://math.stackexchange.com/questions/323607/arf-invariant-for-quadratic-forms}{this post}, this is equal to the Arf invaraint of the form $\phi_\xi$ (note the important step here was that the bilinear form corresponding to the $\phi_\xi$ is the same one wrt which the basis is symplectic). Through this connection, and the theory of the Arf invariant, we know $\alpha$ is constant on orbits of theta characteristics, and we can check that is takes the value $0$ $2^{g-1}(2^g+1)$-times, and value $1$ $2^{g-1}(2^g-1)$-times. However, \cite{Atiyah1971} showed that this is also true of the function that gives parity of a spin structure, and so we know the two are equal. 
+
+This characterisation of parity gives us how to calculate the parity of a spin structure a-la-\cite{Kallel2006}, as given spin structure $\xi = \overline{\eta} + \sum_{i=1}^g x_i \overline{c}_i + y_i \overline{d_i}$, where $c_i, d_i$ are the dual basis to $a_i, b_i$ 
+\begin{align*}
+	\hat{a}_i(\overline{\eta}) &= 0, \\
+	\hat{a}_i(\overline{c_j}) &= \delta_{ij} , \\
+	\hat{a}_i(\overline{d_j}) &= 0,
+\end{align*}
+and likewise for $b_i$. Hence 
+\[
+\alpha(\xi) = \sum_i x_i y_i ,
+\]
+which is easily implementable. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -5878,7 +5914,7 @@ One can numerically calculate the automorphism group in Sage using \cite{Bruin20
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Poicar\'e Reducibility Theorem}
+\subsection{Poincar\'e Reducibility Theorem}
 Read about idempotents in the endomorphism algebra, \cite{Kani1989}. 
 
 
@@ -5913,6 +5949,11 @@ Curves with split Jacobians are interesting for a few reasons, including that cu
 \end{theorem}
 
 The Nakajima paper gives further families of genus-4 curves with split and (totally) split Jacobians, as well as a family of hyperelliptic curves with split Jacobians for each even genus. ``On Curves with Split Jacobians" (Yamauchi, 2008) gives examples in genus 5 and 17. Some of the earliest examples come from ``Some Jacobian varieties which split" (Earle, 1978). 
+
+
+Algorithms also exist to compute some isogeny decompositions, for example the work of Bruin and Lombardo shows how to construct idempotents in the group algebra of the Jacobian, which via Kani-Rosen gives us a way to get some factors. 
+
+\href{https://arxiv.org/abs/2209.02926}{``Some Explicit Arithmetics on Curves of Genus 3 and their Applications" (Moriya, Kudo 2022)} gives explicit algorithms for computing splitting and the inverse problem for genus-3 curves. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
