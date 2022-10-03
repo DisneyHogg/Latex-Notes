@@ -3943,7 +3943,7 @@ We can also ask about division in the Picard group:
 	\end{itemize}
 \end{prop}
 \begin{proof}
-	\hl{Find reference for the first point}. If we think about the SES of sheaves 
+    If we think about the SES of sheaves 
 	\eq{
 0 \to \pbrace{\pm 1} \to O_X^\times \overset{\text{square}}{\to} O_X^\times \to 0	
 }
@@ -3951,7 +3951,11 @@ We can also ask about division in the Picard group:
 	\eq{
 H^0(X,O_X^\times) \to H^1(X,\pbrace{\pm 1}) \to \Pic(X) \overset{\otimes 2}{\to} \Pic(X) \to H^2(X,\pbrace{\pm 1})
 }
-	Hence the obstruction to taking square roots comes from the cohomology $H^2(X,\pbrace{\pm 1})$. This corresponds to whether the degree is odd or even. \\
+	Hence the obstruction to taking square roots comes from the cohomology $H^2(X,\pbrace{\pm 1})$. This corresponds to whether the degree is odd or even. Alternatively one can use the snake lemma applied to the diagram 
+	\begin{tkz}
+		0 \arrow[r] & \operatorname{Pic}^0(X) \arrow[r] \arrow[d, "\otimes n"]& \operatorname{Pic}(X) \arrow[r] \arrow[d, "\otimes n"] & \mathbb{Z} \arrow[d, "\times n"] \arrow[r]& 0 \\ 0 \arrow[r] & \operatorname{Pic}^0(X) \arrow[r] & \operatorname{Pic}(X) \arrow[r] & \mathbb{Z} \arrow[r] & 0 
+	\end{tkz}
+    taking $n=2$. \\
 	For the second point, note that if we had two square roots $\tilde{L}_1, \tilde{L}_2$, then $M=\tilde{L}_1 \otimes \tilde{L}_2^{-1}$ satisfies $M^{\otimes 2}=O$. These are the torsion elements of the Picard group. We know $\deg M=0$ so $M \in \Pic^0(X) \cong J(X)$. The torsion elements thus correspond to the half-period elements of the Jacobian lattice. 
 \end{proof}
 
@@ -4456,6 +4460,10 @@ This RHS expression is again $\Omega$ times by an integer vector up to a factor 
 	\end{align*} 
 \end{remark}
 
+\begin{remark}
+	This bound is not always tight, for example on any hyperelliptic we know the RCV based at a ramification point is 2-torsion \cite{Farkas1992}. This comes from the fact that $\Delta$ is not only preserves as a divisor class by the hyperelliptic involution, but pointwise, giving $\bm{n} = \bm{0}$. 
+\end{remark}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Jacobi Inversion}
@@ -4626,28 +4634,33 @@ This means that the previous result does not depend on the complex structure on 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Spin Structures on Riemann Surfaces}
-We have been introducing square-roots of the canonical bundle, and the next prop is the reason why. We need a brief lemma:
+We have been introducing square-roots of the canonical bundle, and the next prop is the reason why. 
 
-\begin{lemma}
-	Line bundles correspond bijectively to circle bundles.
-\end{lemma}
-\begin{proof}
-	See \href{https://ncatlab.org/nlab/show/classifying+space}{here}, \href{https://ncatlab.org/nlab/show/circle+bundle}{here}, and \href{https://en.wikipedia.org/wiki/Complex_projective_space}{here}. It boils down to the fact that we have the map $BU(1) \cong \mbb{CP}^\infty$ so we get that every complex line bundle $L \to X$ is the pullback along a map of the universal line bundle $S^\infty \hookrightarrow \mc{L} \twoheadrightarrow \mbb{CP}^\infty$. That is, we have the square
-	\begin{tkz}
-		L \arrow[r] \arrow[d] & \mc{L} \arrow[d] \\ X \arrow[r] & \mbb{CP}^\infty  
-	\end{tkz}
-\end{proof}
+%We need a brief lemma:
+
+%\begin{lemma}
+%	Line bundles correspond bijectively to circle bundles.
+%\end{lemma}
+%\begin{proof}
+%	See \href{https://ncatlab.org/nlab/show/classifying+space}{here}, \href{https://ncatlab.org/nlab/show/circle+bundle}{here}, and \href{https://en.wikipedia.org/wiki/Complex_projective_space}{here}. It boils down to the fact that we have the map $BU(1) \cong \mbb{CP}^\infty$ so we get that every complex line bundle $L \to X$ is the pullback along a map of the universal line bundle $S^\infty \hookrightarrow \mc{L} \twoheadrightarrow \mbb{CP}^\infty$. That is, we have the square
+%	\begin{tkz}
+%		L \arrow[r] \arrow[d] & \mc{L} \arrow[d] \\ X \arrow[r] & \mbb{CP}^\infty  
+%	\end{tkz}
+%\end{proof}
 
 \begin{prop}
 	Spin structures on a compact complex manifold correspond bijectively with isomorphism classes of line bundles $L$ s.t $L^{\otimes 2}\cong K$. 
 \end{prop}
 \begin{proof}
 	On an almost complex manifold we have a reduction of structure group from $SO(2n)$ to $U(n)$, and we have the map $\det:U(n) \to U(1)$, so we can take a spin structure on $X$ to be a cohomology class $\xi \in H^1(U(X),F_2)$ (modulo the image of $H^1(X,F_2)$ under $\pi^\ast$) that restricts to the generator of $H^1(U(1),F_2)\cong F_2$ on the fibre, where $U(X)$ is the unit tangent bundle on $X$. This generator is the squaring map. \\
-	Now by the lemma we have that $\xi$ corresponds to a continuous line bundle $L \in \Pic(X)$, and the facts that $\xi$ maps to the generator $-1 \in H^1(U(1),F_2)$ means that $L$ is the pullback of $\mc{O}(-1)$ the line bundle over $\mbb{CP}^\infty$. This means that we must have an isomorphism $\alpha:L^{\otimes 2} \to K_X$ (as $\mc{O}(-1)^{\otimes 2} = \mc{O}(-2) = K_{\mbb{CP}^\infty}$). The holomorphic structure on $L$ is then inherited from $K$, and if $X$ is compact the holomorphic structure conversely fixes $\alpha$ up to a scale factor, so the isomorphism is fixed. Hence we are done.
+	Now on a complex manifold, the canonical bundle $K$ is the determinant bundle of the (co)tangent bundle, hence a spin structure corresponds to a line bundle $L$ with an isomorphism from $L^2$ to $K$. One can then check this bijection is natural with respect to the action on $H^1(X, F_2)$. 
+	
+	
+	%Now by the lemma we have that $\xi$ corresponds to a continuous line bundle $L \in \Pic(X)$, and the facts that $\xi$ maps to the generator $-1 \in H^1(U(1),F_2)$ means that $L$ is the pullback of $\mc{O}(-1)$ the line bundle over $\mbb{CP}^\infty$. This means that we must have an isomorphism $\alpha:L^{\otimes 2} \to K_X$ (as $\mc{O}(-1)^{\otimes 2} = \mc{O}(-2) = K_{\mbb{CP}^\infty}$). The holomorphic structure on $L$ is then inherited from $K$, and if $X$ is compact the holomorphic structure conversely fixes $\alpha$ up to a scale factor, so the isomorphism is fixed. Hence we are done.
 \end{proof}
-\hl{Fix this incorrect proof}. 
+
 \begin{remark}
-	Note in the above proof we use that $H^1(U(1), F_2)$, i.e. the space of $U(1)$, is $\cong F_2$. To see this, note that as $\pi_1(S^1)= \mathbb{Z}$, the only order 2 subgroup is $\mathbb{Z}_2$, so there is only one connected double cover. If we had a disconnected cover, each connected component must be a cover, and then we can only have two connected components, each a cover of degree 1. 
+	Note in the above proof we use that $H^1(U(1), F_2)\cong F_2$. To see this, note that as $\pi_1(S^1)= \mathbb{Z}$, the only order 2 subgroup is $\mathbb{Z}_2$, so there is only one connected double cover. If we had a disconnected cover, each connected component must be a cover, and then we can only have two connected components, each a cover of degree 1. 
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
