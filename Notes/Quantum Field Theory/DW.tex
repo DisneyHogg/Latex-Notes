@@ -1,0 +1,215 @@
+\documentclass{article}
+
+\usepackage{../../header}
+\usepackage{graphicx}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preamble
+
+\title{Dijkgraaf-Witten Theory}
+\author{Linden Disney-Hogg}
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+These are notes briefly written up for a GRIFT meeting at the University of Edinburgh. My main reference will be the original paper by Dijkgraaf and Witten, ``Topological Gauge Theories and Group Cohomology", Commun. Math. Phys. 129, 393-429 (1990), and all figures will be taken from here.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The setting}
+To recall, remember we were considering topological Chern-Simons theory, where we have a closed\footnote{We take $M$ to be closed because a boundary will make things hard, and though DW will consider these, I won't. We will also assume $M$ connected and triangulated.} 3-manifold $M$, a finite gauge group $G$, a principal $G$-bundle $E\to M$ determined by a map into the classifying space $\gamma : M \to BG$ up to homotopy, and a class $\alpha \in H^3(BG, U(1))$. 
+
+\begin{remark}
+	Recall the classifying space $BG$ here is the Eilenberg-Maclane space $K(G,1)$ defined to be the simplicial complex s.t. 
+	\[
+	\pi_1(BG) = G, \quad \pi_i(BG)=0, \; i>1.
+	\]
+\end{remark}
+
+\begin{remark}
+	Note the reason we have $U(1)$ here is that we have sneakily taken $\exp(2\pi i \cdot)$ of $\mathbb{R}/\mathbb{Z}$. 
+	
+	Now let's take a minute to be careful about which cohomology we are talking about here. We all recall the definition of our favourite, singular homology, whose chains are literally given by simplices. For a topological space $T$ we denote this with $H_k(T, \mathbb{Z})$. One can dualise this, by taking cochains to be $C^k(T, \mathbb{Z}) := \Hom(C_k(T, \mathbb{Z}), \mathbb{Z})$ to get a cohomology theory. Moreover at the homology level we can go from $\mathbb{Z}$ to $A$ any abelian group ($\mathbb{Z}$-module), and if $A$ is a divisible group ($\forall n \in \mathbb{N}, nA=A$) this carries over to cohomology.
+	
+	
+	$U(1)$ is a divisible abelian group, and so we have this cohomology, and moreover the trivial class in the homology comes from the trivial map in $\Hom(C_k(T, U(1)), U(1))$, which is just the constant map 1. 
+\end{remark}
+
+Recall one can similarly define $E$ by the information of $\phi = \pi_1(\gamma) \in \Hom(\pi_1(M), G)$\footnote{Here we are thinking of $\pi_1$ as the functor.} up to conjugation. The data of $\gamma^\ast \alpha \in H^3(M, U(1))$ mimics the information contained in a connection on $E$ if we had $G$ a Lie group. $\alpha$ is not uniquely defined but contains some sort of topological information (it is called a differential character for those who know what that means, I don't).
+
+We then define a function (the action)
+\[
+W(\gamma; M) = \pangle{\gamma^\ast \alpha, [M]},
+\]
+where $[M] \in H^3(M, \mathbb{Z})$ is the fundamental class, and then a partition function 
+\[
+Z(M) = \frac{1}{\abs{G}} \sum_{\phi \in \Hom(\pi_1(M), G)} W(\gamma; M),
+\]
+again motivated from when we had $G$ a Lie group. When being lazy we will write $W(\gamma ; M) = W(\gamma)$. Note $Z(M)$ is an honest-to-god number. 
+\begin{remark}
+	If $M$ is not orientable, the fundamental class is not well defined. If it is orientable, $H^3(M, \mathbb{Z}) \cong \mathbb{Z}$, and the fundamental class is a choice of generator, which comes with a choice of orientation.  
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The TQFT}
+
+Now suppose we wanted to write down a TQFT following the Atiyah-Segal axioms that captured the theory with partition function we just wrote down. Recall that the information we need is a functor $\Phi$ from the category of closed oriented $d$-manifolds with cobordisms ($d+1$-dimensional manifolds with the objects as boundaries) as arrows to the category of ($\mathbb{C}$-)Hilbert spaces\footnote{See \url{https://arxiv.org/pdf/2109.07418.pdf} to remind yourself of this. From a comment of David Jordan, we should really just be thinking of the underlying vector space, and not expect to be assigning the extra data to get a Hilbert space.}, satisfying\footnote{See Atiyah's paper ``Topological Quantum Field Theory", 1988, to remind yourself of this.} 
+
+\begin{itemize}
+	\item $\Phi(\Sigma^\ast) = \Phi(\Sigma)^\ast$ (involutory), where $\Sigma^\ast$ is $\Sigma$ with the opposite orientation (also denoted $-\Sigma$) (maybe this can be other things if we are allowing our manifolds extra structure, like a spin structure and it's dual),
+	\item $\Phi(\Sigma_1 \cup \Sigma_2) = \Phi(\Sigma_1) \otimes \Phi(\Sigma_2)$ (multiplicative  a),
+	\item  given $M_1$ with $\partial M_1 = \Sigma_1 \cup \Sigma$ and $M_2$ with $\partial M_2 = \Sigma_2 \cup \Sigma^\ast$, letting $M = M_1 \cup_{\Sigma} M_2$, then $\Phi_M = \pangle{\Phi_{M_1}, \Phi_{M_2}}$, where the pairing is the natural one 
+	\[
+	\Phi(\Sigma_1) \otimes \Phi(\Sigma) \otimes \Phi(\Sigma)^\ast \otimes \Phi(\Sigma_2) \to \Phi(\Sigma_1) \otimes \Phi(\Sigma_2) \quad \text{(multiplicative b)},
+	\]
+\end{itemize} 
+
+and we have denoted the linear map corresponding to a cobordism $M : \Sigma_1 \to \Sigma_2$ by $\Phi_M : \Phi(\Sigma_1) \to \Phi(\Sigma_2)$. In modern discussions these properties are sometimes folded into the definition of the functor by prepending adjectives to it (e.g. symmetric, monoidal). Note that as a consequence of these axioms we get a few properties. 
+
+\begin{itemize}
+	\item $\Phi(\emptyset) = \mathbb{C}$,
+	\item $\Phi_{\Sigma \times I} = 1 : \Phi(\Sigma) \to \Phi(\Sigma)$ ($\Sigma \times I$ is the identity cobordism from $\Sigma$ to $\Sigma$) (this isn't actually a deduction, it just needs to be an idempotent, but then one can choose wlog it to be the identity by restricting to the image). 
+\end{itemize}
+Moreover, thinking of a closed $d+1$-dimensional manifold as a cobordism $M : \emptyset \to \emptyset$, there is a corresponding linear map $\Phi_M : \mathbb{C} \to \mathbb{C}$. This is specified just by $\Phi_M(1) := Z(M)$, which we call the partition function (for reasons that are probably clear). 
+
+Given the closed $d+1$-dimensional manifold $\Sigma \times S^1$ we can get $Z(\Sigma \times S^1)$ both via definition, but also by thinking of gluing $\Sigma \times I$ along the boundary $\Sigma$, to get $\Phi_M(1) = \sum_{\text{basis of $\Phi(\Sigma)$}} 1 = \dim \Phi(\Sigma)$. 
+
+
+In our case we want $d=2$, and we will sometimes denote $\Phi(\Sigma) = \mathcal{H}_\Sigma$. We now want a way to cook up a TQFT which recreates the partition we have defined. To do so we will need to know some values of our partition function to be able to cook up candidate Hilbert spaces, so the first step is computing the partition function.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Computing the partition function}
+We now want to have a formula for actually computing the function $W(\gamma)$. DW will give a way to do this from a lattice gauge theory perspective. 
+
+
+\begin{definition}[DW LGT]
+	The information of a lattice gauge theory is a set of vertices $\pbrace{V_i}$, links $\pbrace{L_{ij}}$ oriented from $V_j$ to $V_i$, and a `gauge field' $\pbrace{g_{ij}\in G}$ associated to each link.
+	
+	The gauge transformations in this theory are given by $\pbrace{h_i \in G}$ acting as 
+	\[
+	g_{ij} \mapsto h_i g_{ij} h_j^{-1},
+	\]
+	and the curvature corresponding to a 2-simplex $ijk$ is 
+	\[
+	f_{ijk} = g_{ij} g_{jk} g_{ki},
+	\]
+	well defined up to conjugation. 
+\end{definition}
+
+Now because $BG$ is connected, let's pick a basepoint $\ast \in BG$, and we can deform $\gamma : M \to BG$ s.t. every 0-simplex in $M$ is mapped to $\ast$. Then taking $\sigma$ a 1-simplex in $M$, as it's endpoints are mapped to $\ast$, $\gamma(\sigma)$ is a loop in $BG$ and hence determines an element  $g_\sigma \in  \pi_1(BG, \ast) \cong G$. Picking $\sigma_i$, $i=1,2,3$, bounding a 2-simplex in $M$, $\gamma(\cup_i \sigma_i)$ bounds a 2-simplex in $BG$, and so the product $\prod_i g_{\sigma_i} = 1$. Suppose we took a different $\gamma^\prime$ homotopic to $\gamma$. Then the condition that it is homotopic on 1-simplices is precisely the condition that $g_\sigma^\prime = g_\sigma$, and the obstruction to being homotopic on higher skeletons comes from $\pi_k(BG)$ for higher $k$, which vanishes. Hence we have really constructed from the homotopy class of $\gamma$ a lattice gauge theory with flat connection. 
+
+As such we see our map $\gamma$ is defining a lattice gauge theory with flat connection. One can provide an inverse process for going from the data of the $g_\sigma$ to $\gamma$, and so in the partition function a sum over all $\gamma$ is equivalent to a sum over all choices of $g_\sigma$.  
+ 
+\begin{remark}
+	DW then make a comment that the fact that $\alpha$ is a 3-cocyle is exactly the condition that on $M$, $W(\gamma) = W(\gamma^\prime)$. 
+\end{remark}
+
+Now because our $M$ is 3-dimensional, the triangulation is a realisation of $M$ as $\cup_i T_i$, where the $T_i$ are tetrahedra. We can make these into 3-simplices by choosing an order of the 0-simplices in $M$, and the ordering the faces of a tetrahedron in the order of the opposite 0-simplicies. This gives each $T_i$ an orientation, and we let $\eps_i$ be $\pm1$ depending on whether this orientation agrees with that induced from $M$. We then get 
+\[
+[M] = \sum_i \eps_i T_i \Rightarrow W(\gamma; M) = \prod_i W(\gamma; T_i)^{\eps_i}. 
+\]
+As $\alpha \in H^3(BG, U(1))$, it contains the image of a map from 3-simplices to $U(1)$, zero on boundaries. 
+
+\includegraphics[width=\textwidth]{/home/s1504632/Pictures/DW_simplex.png}
+
+Labelling a 3-simplex with group elements as in the above figure, $\alpha$ becomes exactly an element of $H^3(G, U(1))$, and the cocycle condition is simple to write down as 
+\[
+\alpha(g,h,k) \alpha(g,hk,l) \alpha(h,k,l) = \alpha(gh,k,l) \alpha(g,h,kl).  
+\]
+\begin{remark}
+	Here we are talking about group cohomology, so we should be specific about what that means. There is a definition analogous to how one can define sheaf cohomology, in terms of the right derived functors of the functor from $G$-modules to abelian groups taking their group of invariants ($M \mapsto M^G$), but it will be simpler to think of is as the cohomology with $n$-cochains being given by elements of 
+	\[
+	C^n(G, M) = \Hom_{GMod}(G^n, M)
+	\] 
+	with the coboundary map on $\alpha \in C^n(G, M)$ given by 
+	\[
+	(d\alpha)(g_1, \dots, g_{n+1}) = g_1 \cdot \alpha(g_2, \dots, g_{n+1}) + \sum_{i=1}^n (-1)^i \alpha(\dots, g_i g_{i+1}, \dots ) + (-1)^{n+1} \alpha(g_1, \dots, g_n)
+	\]
+	For a 3-cochain, turning the notation multiplicative this is 
+	\[
+	1 = \frac{g\cdot \alpha(h,k,l) \alpha(g,hk,l) \alpha(g,h,k)}{\alpha(gh,k,l) \alpha(g,h,kl)} . 
+	\]
+	Hence we see we need to be taking the abelian group $U(1)$ in our case as a trivial $G$-module (and this is something generically done for group cohomology into abelian groups).
+	
+	
+	It might be hard for one (as it is for me) to see clearly that it is the case that the condition DW write down on $\alpha$ is the correct cocycle condition in singular cohomology. Let's consider the simpler case of a single 2-simplex in $BG$ given by $(0,1,2)$, and revert back to additive notation temporarily. We assign group elements to it's edges, namely $g_{(1,2)} = h, \, g_{(0,2)}, \, g_{(0,1)} = g$. The condition that these edges bound the 2-simplex is $\partial (0,1,2) = (1,2) - (0,2) + (0,1)$, and so we have
+	\[
+	g_{(1,2)} g_{(0,2)}^{-1} g_{(0,1)} = 1 \Rightarrow g_{(0,2)} = gh.
+	\]
+	Consider now an $\alpha \in C^1(BG, \mathbb{Z})$. The condition that it is closed is then  
+	\begin{align*}
+		0 = \pangle{\delta \alpha, (0,1,2)} &= \pangle{\alpha, \partial(0,1,2)} , \\
+		&= \pangle{\alpha, (1,2) - (0,2) + (0,1)} , \\
+		&= \alpha((1,2)) - \alpha((0,2)) + \alpha((0,1)) .  
+	\end{align*}
+Thinking of the argument of $\alpha$ as the group elements assigned to a 1-simplex, rather than the 1-simplices themselves, this gives us 
+\[
+0 = \alpha(h) - \alpha(gh) + \alpha(g). 
+\]
+This is the condition that $d\alpha = 0$ as a 1-cocycle in group cohomology. Going to higher simplices the story carries on the same. 
+\end{remark}
+
+
+The action now has all the properties you desire, namely, 
+\begin{itemize}
+	\item the choice of representative for $\alpha$ doesn't matter,
+	\item the action is gauge-invariant.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Example - \secmath{Z(T^3)}}
+Let's triangulate the 3-torus $T^3 = S^1 \times S^1 \times S^1$ as given by the following diagram. 
+
+\includegraphics[width=\textwidth]{/home/s1504632/Pictures/DW_T3.png}
+
+(Note DW have been sneaky to number their 0-simplices as different, despite then identifying them to get the 3-torus)
+
+The partition function now becomes the simple expression 
+\begin{align*}
+	Z(T^3) = \frac{1}{\abs{G}} \sum_{\substack{g, h, k \in G \\ [g,h] = [h,k] = [k,g] = 1}} W(g,h,k), \quad W(g,h,k) = \frac{\alpha(g,h,k) \alpha(h,k,g) \alpha(k,g,h)}{\alpha(g,k,h) \alpha(h,g,k) \alpha(k,h,g)}.
+\end{align*}
+
+
+If we have an explicit expression for the cocycle $\alpha$, then we can simply compute this. Theorem 6.2.2 of Weibel (``An Introduction to Homological Algebra") applied for us says that, taking $G = C_n = \pangle{g}$ cyclic,
+\[
+H^3(C_n, U(1)) \cong C_n,
+\]
+and representative for the cocycles are given in ``The braided monoidal structures on a class of linear Gr-categories" (Huang, Liu, Ye, 1206.5402v3, Prop 2.3) as 
+\[
+\alpha_m (g^{i}, g^j, g^{k}) = \zeta_n^{im \lfloor{\frac{j+k}{n}}\rfloor}, \quad 0 \leq m < n . 
+\]
+\begin{remark}
+	Note HLY give the formula for more general cocycles, and they were motivated to do so as the 3-cocycle formula was written down in ``Braided Tensor Categories" (Joyal, Street, p. 49), though in a slightly more obtuse manner. 
+\end{remark}
+ This is then simple to implement in your favourite CAS, and gives that $Z(T^3) = n^2$, independent of the choice of $\alpha$. This is to be expected, as we wanted $Z(T^3)$ to be an integer to be a dimension of a Hilbert space, and so it's in the fixed field of the Galois group of $\mathbb{Q}[\zeta_n]$, but changing $m$ just acts as the Galois group. Certainly one can see that $Z(T^3)=n^2$ when $\alpha=1$, as then 
+\[
+Z(T^3) = \frac{1}{\abs{C_n}} \sum_{\substack{g, h, k \in C_n \\ [g,h] = [h,k] = [k,g] = 1}} 1 = \frac{n^3}{n} = n^2.
+\]
+
+Can we explain the $n^2$ in another way? Yes, DW give us that we can also (through some group theory shenanigans) write 
+\[
+Z(T^3) = \sum_{g \in C} r(N_g; c_g),
+\]
+where $C$ is a set of representatives for the conjugacy classes of $G$, $N_g, c_g$ are the stabiliser and 2-cocyle associated to an element $g \in G$ by CS theory, and $r(G, c)$ is the number of $c$-regular conjugacy classes of $G$ (an idea in ``Projective representations of finite groups" by Karpilovsky, \S3.6). As our group is abelian $N_g = G = C_n$, and also from Weibel we know $H^2(C_n, U(1))=0$, and so the 2-cocycle is trivial, and all conjugacy classes are $c$-regular. Moreover as the group is abelian each conjugacy class has size 1. Hence 
+\[
+Z(T^3) = \sum_{i=0}^{n-1} r(C_n) = \sum_{i=0}^{n-1} n = n^2. 
+\]
+
+
+Going back to what Benni said, we could also get $Z(T^3)$ as $\dim \mathcal{H}_{T^2} = \abs{\Hom(\pi_1(T^2), G)/G}$, which is also clearly $n^2$. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{../bib/custom-bib-style}
+\bibliography{../bib/jabref_library.bib}
+
+\end{document}
